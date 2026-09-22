@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "jayrr",
+  "homepage": "https://jayrr.dev",
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Jayrr button.",
+      "dependencies": ["class-variance-authority", "radix-ui", "cn"],
+      "files": [
+        {
+          "path": "components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}
