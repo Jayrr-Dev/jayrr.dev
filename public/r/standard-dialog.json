@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-dialog",
+  "title": "Dialog",
+  "description": "Dialog from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "components/standard/dialog.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction Dialog({\r\n  className,\r\n  title,\r\n  description,\r\n  trigger = \"Open\",\r\n  children,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"dialog\">, \"title\"> & {\r\n  title: string\r\n  description?: string\r\n  trigger?: React.ReactNode\r\n}) {\r\n  const ref = React.useRef<HTMLDialogElement>(null)\r\n\r\n  function openDialog() {\r\n    ref.current?.showModal()\r\n  }\r\n\r\n  function closeDialog() {\r\n    ref.current?.close()\r\n  }\r\n\r\n  return (\r\n    <div data-slot=\"dialog-root\" className=\"inline-flex\">\r\n      <Button tone=\"outline\" onClick={openDialog}>\r\n        {trigger}\r\n      </Button>\r\n      <dialog\r\n        data-slot=\"dialog\"\r\n        className={cn(\r\n          \"m-auto w-[min(100%,24rem)] rounded-xl border border-border bg-background p-4 text-foreground shadow-lg backdrop:bg-black/50\",\r\n          className\r\n        )}\r\n        {...props}\r\n        ref={ref}\r\n      >\r\n        <div className=\"flex flex-col gap-3\">\r\n          <h2 className=\"text-base font-semibold\">{title}</h2>\r\n          {description ? (\r\n            <p className=\"text-sm text-muted-foreground\">{description}</p>\r\n          ) : null}\r\n          {children}\r\n          <Button tone=\"outline\" onClick={closeDialog}>\r\n            Close\r\n          </Button>\r\n        </div>\r\n      </dialog>\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { Dialog }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

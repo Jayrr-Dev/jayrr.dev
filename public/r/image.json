@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image",
+  "title": "Image",
+  "description": "Image from the Standard library.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/image.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst imageVariants = cva(\r\n  \"overflow-hidden rounded-lg bg-muted text-xs text-muted-foreground\",\r\n  {\r\n    variants: {\r\n      ratio: {\r\n        wide: \"aspect-video\",\r\n        square: \"aspect-square\",\r\n        still: \"aspect-[4/3]\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      ratio: \"wide\",\r\n    },\r\n  }\r\n)\r\n\r\nfunction Image({\r\n  className,\r\n  ratio = \"wide\",\r\n  children,\r\n  ...props\r\n}: React.ComponentProps<\"div\"> & VariantProps<typeof imageVariants>) {\r\n  return (\r\n    <div\r\n      data-slot=\"image\"\r\n      data-ratio={ratio}\r\n      className={cn(\r\n        imageVariants({ ratio }),\r\n        \"flex w-full items-center justify-center\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { Image, imageVariants }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "symbol",
+  "title": "Symbol",
+  "description": "Symbol from the Standard library.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/symbol.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst symbolVariants = cva(\"inline-flex items-center justify-center\", {\r\n  variants: {\r\n    size: {\r\n      default: \"size-6 [&_svg]:size-6\",\r\n      sm: \"size-4 [&_svg]:size-4\",\r\n      lg: \"size-8 [&_svg]:size-8\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: \"default\",\r\n  },\r\n})\r\n\r\nfunction Symbol({\r\n  className,\r\n  size = \"default\",\r\n  ...props\r\n}: React.ComponentProps<\"span\"> & VariantProps<typeof symbolVariants>) {\r\n  return (\r\n    <span\r\n      data-slot=\"symbol\"\r\n      data-size={size}\r\n      className={cn(symbolVariants({ size }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Symbol, symbolVariants }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

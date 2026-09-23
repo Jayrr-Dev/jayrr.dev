@@ -2,11 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
   "title": "Button",
-  "description": "Jayrr button.",
+  "description": "Button from the Classic library.",
   "dependencies": [
     "class-variance-authority",
-    "radix-ui",
-    "cn"
+    "cn",
+    "radix-ui"
   ],
   "files": [
     {

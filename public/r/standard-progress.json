@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-progress",
+  "title": "Progress",
+  "description": "Progress from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/progress.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Progress({\r\n  className,\r\n  value = 0,\r\n  max = 100,\r\n  ...props\r\n}: React.ComponentProps<\"progress\">) {\r\n  return (\r\n    <progress\r\n      data-slot=\"progress\"\r\n      value={value}\r\n      max={max}\r\n      className={cn(\r\n        \"h-2 w-full overflow-hidden rounded-full bg-muted [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-muted [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Progress }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

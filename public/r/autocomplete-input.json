@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "autocomplete-input",
+  "title": "Autocomplete Input",
+  "description": "Autocomplete Input from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "text-field"
+  ],
+  "files": [
+    {
+      "path": "components/standard/autocomplete-input.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { TextField } from \"@/components/standard/text-field\"\r\n\r\nfunction AutocompleteInput({\r\n  className,\r\n  options,\r\n  ...props\r\n}: Omit<React.ComponentProps<typeof TextField>, \"list\"> & {\r\n  options: string[]\r\n}) {\r\n  const listId = React.useId()\r\n\r\n  return (\r\n    <div data-slot=\"autocomplete-input\" className={cn(\"w-full\", className)}>\r\n      <TextField list={listId} {...props} />\r\n      <datalist id={listId}>\r\n        {options.map((option) => (\r\n          <option key={option} value={option} />\r\n        ))}\r\n      </datalist>\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { AutocompleteInput }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

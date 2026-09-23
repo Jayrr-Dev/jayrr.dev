@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-toggle",
+  "title": "Toggle",
+  "description": "Toggle from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/toggle.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Toggle({\r\n  className,\r\n  pressed,\r\n  defaultPressed = false,\r\n  onPressedChange,\r\n  type = \"button\",\r\n  ...props\r\n}: React.ComponentProps<\"button\"> & {\r\n  pressed?: boolean\r\n  defaultPressed?: boolean\r\n  onPressedChange?: (pressed: boolean) => void\r\n}) {\r\n  const [uncontrolled, setUncontrolled] = React.useState(defaultPressed)\r\n  const isOn = pressed ?? uncontrolled\r\n\r\n  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {\r\n    props.onClick?.(event)\r\n    if (event.defaultPrevented) {\r\n      return\r\n    }\r\n\r\n    const next = !isOn\r\n    if (pressed === undefined) {\r\n      setUncontrolled(next)\r\n    }\r\n    onPressedChange?.(next)\r\n  }\r\n\r\n  return (\r\n    <button\r\n      data-slot=\"toggle\"\r\n      data-pressed={isOn}\r\n      type={type}\r\n      aria-pressed={isOn}\r\n      className={cn(\r\n        \"inline-flex h-8 items-center justify-center rounded-lg border border-input px-3 text-sm outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[pressed=true]:bg-muted data-[pressed=true]:text-foreground\",\r\n        className\r\n      )}\r\n      {...props}\r\n      onClick={handleClick}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Toggle }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

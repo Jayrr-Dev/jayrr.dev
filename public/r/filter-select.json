@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-select",
+  "title": "Filter Select",
+  "description": "Filter Select from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/filter-select.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction FilterSelect({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"select\">) {\r\n  return (\r\n    <select\r\n      data-slot=\"filter-select\"\r\n      className={cn(\r\n        \"h-8 rounded-lg border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nfunction MultiSelect({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"select\">) {\r\n  return (\r\n    <FilterSelect\r\n      data-slot=\"multi-select\"\r\n      multiple\r\n      className={cn(\"h-auto min-h-20 py-1\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nfunction DatePicker({\r\n  className,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"type\">) {\r\n  return (\r\n    <input\r\n      data-slot=\"date-picker\"\r\n      type=\"date\"\r\n      className={cn(\r\n        \"h-8 rounded-lg border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { DatePicker, FilterSelect, MultiSelect }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

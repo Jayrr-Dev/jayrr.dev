@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-horizontal-button",
+  "title": "Scroll Horizontal Button",
+  "description": "Scroll Horizontal Button from the Standard library.",
+  "dependencies": [
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "components/standard/scroll-horizontal-button.tsx",
+      "content": "import { ChevronLeftIcon, ChevronRightIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction ScrollHorizontalButton({\r\n  className,\r\n  direction = \"right\",\r\n  ...props\r\n}: React.ComponentProps<typeof Button> & {\r\n  direction?: \"left\" | \"right\"\r\n}) {\r\n  const label = direction === \"left\" ? \"Scroll left\" : \"Scroll right\"\r\n\r\n  return (\r\n    <Button\r\n      data-slot=\"scroll-horizontal-button\"\r\n      tone=\"outline\"\r\n      size=\"sm\"\r\n      aria-label={label}\r\n      className={cn(\"size-8 px-0\", className)}\r\n      {...props}\r\n    >\r\n      {direction === \"left\" ? (\r\n        <ChevronLeftIcon className=\"size-4\" />\r\n      ) : (\r\n        <ChevronRightIcon className=\"size-4\" />\r\n      )}\r\n    </Button>\r\n  )\r\n}\r\n\r\nexport { ScrollHorizontalButton }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,670 @@
+"use client"
+
+import type { ReactNode } from "react"
+import { ChevronRightIcon, FileTextIcon } from "lucide-react"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  Attachment,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentMedia,
+  AttachmentTitle,
+} from "@/components/ui/attachment"
+import { Badge } from "@/components/ui/badge"
+import { Bubble, BubbleContent } from "@/components/ui/bubble"
+import { Button } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
+import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty"
+import { Field, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group"
+import { Item, ItemContent, ItemTitle } from "@/components/ui/item"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
+import { Label } from "@/components/ui/label"
+import { Marker, MarkerContent } from "@/components/ui/marker"
+import { Message, MessageContent } from "@/components/ui/message"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Progress } from "@/components/ui/progress"
+import {
+  Questionnaire,
+  QuestionnaireChoice,
+  QuestionnaireChoices,
+  QuestionnaireItem,
+  QuestionnaireNext,
+  QuestionnaireTitle,
+} from "@/components/ui/questionnaire"
+import { Separator } from "@/components/ui/separator"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Textarea } from "@/components/ui/textarea"
+import { Toggle } from "@/components/ui/toggle"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+import { RendersDemoCard } from "./rendersDemoCard"
+
+function TypeCard({
+  label,
+  children,
+  wide,
+}: {
+  label: string
+  children: ReactNode
+  wide?: boolean
+}) {
+  let className: string | undefined
+
+  if (wide) {
+    className = "w-full max-w-xl"
+  }
+
+  return (
+    <RendersDemoCard className={className} label={label}>
+      {children}
+    </RendersDemoCard>
+  )
+}
+
+const bubbleVariants = [
+  "secondary",
+  "muted",
+  "tinted",
+  "outline",
+  "ghost",
+  "destructive",
+] as const
+
+const buttonVariants = ["secondary", "ghost", "link"] as const
+const buttonSizes = ["xs", "sm", "lg"] as const
+const attachmentStates = ["idle", "uploading", "processing", "error"] as const
+const markerVariants = ["separator", "border"] as const
+const itemVariants = ["outline", "muted"] as const
+const sheetSides = ["top", "left", "bottom"] as const
+const drawerDirections = ["top", "left", "right"] as const
+const popoverSides = ["top", "left", "right"] as const
+
+export function RendersTypePropCards({
+  pieceName,
+}: {
+  pieceName: string
+}) {
+  if (pieceName === "Button") {
+    return (
+      <>
+        {buttonVariants.map((variant) => (
+          <TypeCard key={variant} label={`variant ${variant}`}>
+            <Button variant={variant}>Save</Button>
+          </TypeCard>
+        ))}
+        {buttonSizes.map((size) => (
+          <TypeCard key={size} label={`size ${size}`}>
+            <Button size={size}>Save</Button>
+          </TypeCard>
+        ))}
+        <TypeCard label="size icon">
+          <Button size="icon" aria-label="Next">
+            <ChevronRightIcon />
+          </Button>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Badge") {
+    return (
+      <>
+        <TypeCard label="variant ghost">
+          <Badge variant="ghost">Ghost</Badge>
+        </TypeCard>
+        <TypeCard label="variant link">
+          <Badge variant="link">Link</Badge>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Avatar") {
+    return (
+      <>
+        <TypeCard label="size sm">
+          <Avatar size="sm">
+            <AvatarFallback>JR</AvatarFallback>
+          </Avatar>
+        </TypeCard>
+        <TypeCard label="size lg">
+          <Avatar size="lg">
+            <AvatarFallback>JR</AvatarFallback>
+          </Avatar>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Toggle") {
+    return (
+      <>
+        <TypeCard label="variant outline">
+          <Toggle variant="outline" defaultPressed>
+            Bold
+          </Toggle>
+        </TypeCard>
+        <TypeCard label="size sm">
+          <Toggle size="sm">Small</Toggle>
+        </TypeCard>
+        <TypeCard label="size lg">
+          <Toggle size="lg">Large</Toggle>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Checkbox") {
+    return (
+      <>
+        <TypeCard label="unchecked">
+          <div className="flex items-center gap-2">
+            <Checkbox id="open" />
+            <Label htmlFor="open">Open</Label>
+          </div>
+        </TypeCard>
+        <TypeCard label="disabled">
+          <div className="flex items-center gap-2">
+            <Checkbox id="locked" disabled defaultChecked />
+            <Label htmlFor="locked">Locked</Label>
+          </div>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Switch") {
+    return (
+      <>
+        <TypeCard label="size sm">
+          <Switch size="sm" defaultChecked aria-label="Small switch" />
+        </TypeCard>
+        <TypeCard label="unchecked">
+          <Switch aria-label="Off switch" />
+        </TypeCard>
+        <TypeCard label="disabled">
+          <Switch disabled defaultChecked aria-label="Disabled switch" />
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Progress") {
+    return (
+      <>
+        <TypeCard label="value 0">
+          <Progress value={0} className="w-full" />
+        </TypeCard>
+        <TypeCard label="value 100">
+          <Progress value={100} className="w-full" />
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Kbd") {
+    return (
+      <TypeCard label="group">
+        <KbdGroup>
+          <Kbd>Ctrl</Kbd>
+          <Kbd>K</Kbd>
+        </KbdGroup>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Marker") {
+    return (
+      <>
+        {markerVariants.map((variant) => (
+          <TypeCard key={variant} label={`variant ${variant}`}>
+            <Marker variant={variant} className="w-full">
+              <MarkerContent>{variant}</MarkerContent>
+            </Marker>
+          </TypeCard>
+        ))}
+      </>
+    )
+  }
+
+  if (pieceName === "Aspect Ratio") {
+    return (
+      <>
+        <TypeCard label="ratio 1">
+          <div className="w-full">
+            <AspectRatio ratio={1} className="rounded-lg bg-muted" />
+          </div>
+        </TypeCard>
+        <TypeCard label="ratio 4 / 3">
+          <div className="w-full">
+            <AspectRatio ratio={4 / 3} className="rounded-lg bg-muted" />
+          </div>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Carousel") {
+    return (
+      <TypeCard label="orientation vertical" wide>
+        <Carousel orientation="vertical" className="w-full">
+          <CarouselContent className="h-24">
+            <CarouselItem>One</CarouselItem>
+            <CarouselItem>Two</CarouselItem>
+          </CarouselContent>
+        </Carousel>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Button Group") {
+    return (
+      <TypeCard label="orientation vertical">
+        <ButtonGroup orientation="vertical">
+          <Button variant="outline">Top</Button>
+          <Button variant="outline">Bottom</Button>
+        </ButtonGroup>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Input") {
+    return (
+      <>
+        <TypeCard label="disabled">
+          <Input disabled placeholder="Locked" className="w-full" />
+        </TypeCard>
+        <TypeCard label="type email">
+          <Input type="email" placeholder="you@jayrr.dev" className="w-full" />
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Textarea") {
+    return (
+      <TypeCard label="disabled">
+        <Textarea disabled placeholder="Locked" className="w-full" />
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Input Group") {
+    return (
+      <TypeCard label="align inline-end" wide>
+        <InputGroup>
+          <InputGroupInput placeholder="Search" />
+          <InputGroupAddon align="inline-end">Go</InputGroupAddon>
+        </InputGroup>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Field") {
+    return (
+      <TypeCard label="orientation horizontal" wide>
+        <Field orientation="horizontal">
+          <FieldLabel htmlFor="name-row">Name</FieldLabel>
+          <Input id="name-row" placeholder="Jayrr" />
+        </Field>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Slider") {
+    return (
+      <>
+        <TypeCard label="default 40">
+          <Slider defaultValue={[40]} className="w-full" />
+        </TypeCard>
+        <TypeCard label="orientation vertical">
+          <Slider
+            orientation="vertical"
+            defaultValue={[60]}
+            className="h-24"
+          />
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Toggle Group") {
+    return (
+      <>
+        <TypeCard label="type multiple">
+          <ToggleGroup type="multiple" defaultValue={["left"]}>
+            <ToggleGroupItem value="left">Left</ToggleGroupItem>
+            <ToggleGroupItem value="right">Right</ToggleGroupItem>
+          </ToggleGroup>
+        </TypeCard>
+        <TypeCard label="variant outline">
+          <ToggleGroup type="single" variant="outline" defaultValue="one">
+            <ToggleGroupItem value="one">One</ToggleGroupItem>
+            <ToggleGroupItem value="two">Two</ToggleGroupItem>
+          </ToggleGroup>
+        </TypeCard>
+        <TypeCard label="orientation vertical">
+          <ToggleGroup type="single" orientation="vertical" defaultValue="one">
+            <ToggleGroupItem value="one">One</ToggleGroupItem>
+            <ToggleGroupItem value="two">Two</ToggleGroupItem>
+          </ToggleGroup>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Item") {
+    return (
+      <>
+        {itemVariants.map((variant) => (
+          <TypeCard key={variant} label={`variant ${variant}`}>
+            <Item variant={variant} className="w-full">
+              <ItemContent>
+                <ItemTitle>{variant}</ItemTitle>
+              </ItemContent>
+            </Item>
+          </TypeCard>
+        ))}
+        <TypeCard label="size xs">
+          <Item size="xs" variant="outline" className="w-full">
+            <ItemContent>
+              <ItemTitle>Compact</ItemTitle>
+            </ItemContent>
+          </Item>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Empty") {
+    return (
+      <TypeCard label="media icon" wide>
+        <Empty>
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <FileTextIcon />
+            </EmptyMedia>
+            <EmptyTitle>No files</EmptyTitle>
+            <EmptyDescription>Drop one here.</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Alert") {
+    return (
+      <TypeCard label="variant destructive" wide>
+        <Alert variant="destructive">
+          <AlertTitle>Upload failed</AlertTitle>
+          <AlertDescription>The file was too large.</AlertDescription>
+        </Alert>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Sheet") {
+    return (
+      <>
+        {sheetSides.map((side) => (
+          <TypeCard key={side} label={`side ${side}`}>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline">{side}</Button>
+              </SheetTrigger>
+              <SheetContent side={side}>
+                <SheetHeader>
+                  <SheetTitle>{side}</SheetTitle>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
+          </TypeCard>
+        ))}
+      </>
+    )
+  }
+
+  if (pieceName === "Drawer") {
+    return (
+      <>
+        {drawerDirections.map((direction) => (
+          <TypeCard key={direction} label={`direction ${direction}`}>
+            <Drawer direction={direction}>
+              <DrawerTrigger asChild>
+                <Button variant="outline">{direction}</Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>{direction}</DrawerTitle>
+                </DrawerHeader>
+              </DrawerContent>
+            </Drawer>
+          </TypeCard>
+        ))}
+      </>
+    )
+  }
+
+  if (pieceName === "Popover") {
+    return (
+      <>
+        {popoverSides.map((side) => (
+          <TypeCard key={side} label={`side ${side}`}>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline">{side}</Button>
+              </PopoverTrigger>
+              <PopoverContent side={side}>Opens on the {side}.</PopoverContent>
+            </Popover>
+          </TypeCard>
+        ))}
+      </>
+    )
+  }
+
+  if (pieceName === "Tooltip") {
+    return (
+      <>
+        <TypeCard label="side top">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline">Top</Button>
+            </TooltipTrigger>
+            <TooltipContent side="top">Above</TooltipContent>
+          </Tooltip>
+        </TypeCard>
+        <TypeCard label="side left">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline">Left</Button>
+            </TooltipTrigger>
+            <TooltipContent side="left">Beside</TooltipContent>
+          </Tooltip>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Tabs") {
+    return (
+      <>
+        <TypeCard label="variant line">
+          <Tabs defaultValue="one">
+            <TabsList variant="line">
+              <TabsTrigger value="one">One</TabsTrigger>
+              <TabsTrigger value="two">Two</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </TypeCard>
+        <TypeCard label="orientation vertical">
+          <Tabs defaultValue="one" orientation="vertical">
+            <TabsList>
+              <TabsTrigger value="one">One</TabsTrigger>
+              <TabsTrigger value="two">Two</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Bubble") {
+    return (
+      <>
+        {bubbleVariants.map((variant) => (
+          <TypeCard key={variant} label={`variant ${variant}`}>
+            <Bubble variant={variant}>
+              <BubbleContent>Hello</BubbleContent>
+            </Bubble>
+          </TypeCard>
+        ))}
+        <TypeCard label="align end">
+          <Bubble align="end">
+            <BubbleContent>Hello</BubbleContent>
+          </Bubble>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Message") {
+    return (
+      <>
+        <TypeCard label="align start" wide>
+          <Message align="start">
+            <MessageContent>Incoming note.</MessageContent>
+          </Message>
+        </TypeCard>
+        <TypeCard label="align end" wide>
+          <Message align="end">
+            <MessageContent>Outgoing note.</MessageContent>
+          </Message>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Attachment") {
+    return (
+      <>
+        {attachmentStates.map((state) => (
+          <TypeCard key={state} label={`state ${state}`} wide>
+            <Attachment state={state} className="w-full">
+              <AttachmentMedia>
+                <FileTextIcon />
+              </AttachmentMedia>
+              <AttachmentContent>
+                <AttachmentTitle>notes.txt</AttachmentTitle>
+                <AttachmentDescription>{state}</AttachmentDescription>
+              </AttachmentContent>
+            </Attachment>
+          </TypeCard>
+        ))}
+        <TypeCard label="size sm" wide>
+          <Attachment size="sm" className="w-full">
+            <AttachmentMedia>
+              <FileTextIcon />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>notes.txt</AttachmentTitle>
+            </AttachmentContent>
+          </Attachment>
+        </TypeCard>
+        <TypeCard label="orientation vertical">
+          <Attachment orientation="vertical">
+            <AttachmentMedia>
+              <FileTextIcon />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>notes.txt</AttachmentTitle>
+            </AttachmentContent>
+          </Attachment>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Questionnaire") {
+    return (
+      <TypeCard label="multiple" wide>
+        <Questionnaire
+          items={[
+            {
+              name: "tools",
+              choices: [{ value: "button" }, { value: "badge" }],
+            },
+          ]}
+        >
+          <QuestionnaireItem name="tools" multiple>
+            <QuestionnaireTitle>Pick any</QuestionnaireTitle>
+            <QuestionnaireChoices>
+              <QuestionnaireChoice value="button">Button</QuestionnaireChoice>
+              <QuestionnaireChoice value="badge">Badge</QuestionnaireChoice>
+            </QuestionnaireChoices>
+          </QuestionnaireItem>
+          <QuestionnaireNext />
+        </Questionnaire>
+      </TypeCard>
+    )
+  }
+
+  if (pieceName === "Separator") {
+    return (
+      <TypeCard label="orientation vertical">
+        <div className="flex h-16 items-center gap-3">
+          <span className="text-sm">Left</span>
+          <Separator orientation="vertical" />
+          <span className="text-sm">Right</span>
+        </div>
+      </TypeCard>
+    )
+  }
+
+  return null
+}

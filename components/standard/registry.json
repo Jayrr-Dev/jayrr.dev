@@ -1,0 +1,955 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "standard-accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Accordion from the Standard library.",
+      "files": [
+        {
+          "path": "accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "autocomplete-input",
+      "type": "registry:ui",
+      "title": "Autocomplete Input",
+      "description": "Autocomplete Input from the Standard library.",
+      "files": [
+        {
+          "path": "autocomplete-input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "text-field"
+      ]
+    },
+    {
+      "name": "standard-avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar from the Standard library.",
+      "files": [
+        {
+          "path": "avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "badge-pill",
+      "type": "registry:ui",
+      "title": "Badge Pill",
+      "description": "Badge Pill from the Standard library.",
+      "files": [
+        {
+          "path": "badge-pill.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "badge"
+      ]
+    },
+    {
+      "name": "standard-badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Badge from the Standard library.",
+      "files": [
+        {
+          "path": "badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "bar-stack",
+      "type": "registry:ui",
+      "title": "Bar Stack",
+      "description": "Bar Stack from the Standard library.",
+      "files": [
+        {
+          "path": "bar-stack.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "button-array",
+      "type": "registry:ui",
+      "title": "Button Array",
+      "description": "Button Array from the Standard library.",
+      "files": [
+        {
+          "path": "button-array.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "button-icon",
+      "type": "registry:ui",
+      "title": "Button Icon",
+      "description": "Button Icon from the Standard library.",
+      "files": [
+        {
+          "path": "button-icon.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "button-link",
+      "type": "registry:ui",
+      "title": "Button Link",
+      "description": "Button Link from the Standard library.",
+      "files": [
+        {
+          "path": "button-link.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "link"
+      ]
+    },
+    {
+      "name": "standard-button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Button from the Standard library.",
+      "files": [
+        {
+          "path": "button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "calendar-slider",
+      "type": "registry:ui",
+      "title": "Calendar Slider",
+      "description": "Calendar Slider from the Standard library.",
+      "files": [
+        {
+          "path": "calendar-slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover"
+      ]
+    },
+    {
+      "name": "caption-button",
+      "type": "registry:ui",
+      "title": "Caption Button",
+      "description": "Caption Button from the Standard library.",
+      "files": [
+        {
+          "path": "caption-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "caption",
+      "type": "registry:ui",
+      "title": "Caption",
+      "description": "Caption from the Standard library.",
+      "files": [
+        {
+          "path": "caption.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "card-bar",
+      "type": "registry:ui",
+      "title": "Card Bar",
+      "description": "Card Bar from the Standard library.",
+      "files": [
+        {
+          "path": "card-bar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Card from the Standard library.",
+      "files": [
+        {
+          "path": "card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Carousel from the Standard library.",
+      "files": [
+        {
+          "path": "carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "embla-carousel-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "standard-chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Chart from the Standard library.",
+      "files": [
+        {
+          "path": "chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "recharts"
+      ]
+    },
+    {
+      "name": "standard-checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox from the Standard library.",
+      "files": [
+        {
+          "path": "checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "code",
+      "type": "registry:ui",
+      "title": "Code",
+      "description": "Code from the Standard library.",
+      "files": [
+        {
+          "path": "code.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "confirm-dialog",
+      "type": "registry:ui",
+      "title": "Confirm Dialog",
+      "description": "Confirm Dialog from the Standard library.",
+      "files": [
+        {
+          "path": "confirm-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog"
+      ]
+    },
+    {
+      "name": "standard-dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Dialog from the Standard library.",
+      "files": [
+        {
+          "path": "dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "divider",
+      "type": "registry:ui",
+      "title": "Divider",
+      "description": "Divider from the Standard library.",
+      "files": [
+        {
+          "path": "divider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "field-label",
+      "type": "registry:ui",
+      "title": "Field Label",
+      "description": "Field Label from the Standard library.",
+      "files": [
+        {
+          "path": "field-label.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "filter-select",
+      "type": "registry:ui",
+      "title": "Filter Select",
+      "description": "Filter Select from the Standard library.",
+      "files": [
+        {
+          "path": "filter-select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover"
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:ui",
+      "title": "Heading",
+      "description": "Heading from the Standard library.",
+      "files": [
+        {
+          "path": "heading.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "image-upload",
+      "type": "registry:ui",
+      "title": "Image Upload",
+      "description": "Image Upload from the Standard library.",
+      "files": [
+        {
+          "path": "image-upload.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "type": "registry:ui",
+      "title": "Image",
+      "description": "Image from the Standard library.",
+      "files": [
+        {
+          "path": "image.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "info-icon",
+      "type": "registry:ui",
+      "title": "Info Icon",
+      "description": "Info Icon from the Standard library.",
+      "files": [
+        {
+          "path": "info-icon.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "popover",
+        "tooltip"
+      ]
+    },
+    {
+      "name": "standard-input-otp",
+      "type": "registry:ui",
+      "title": "Input Otp",
+      "description": "Input Otp from the Standard library.",
+      "files": [
+        {
+          "path": "input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "input-otp"
+      ]
+    },
+    {
+      "name": "link",
+      "type": "registry:ui",
+      "title": "Link",
+      "description": "Link from the Standard library.",
+      "files": [
+        {
+          "path": "link.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "Menu from the Standard library.",
+      "files": [
+        {
+          "path": "menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cmdk",
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "Page Header",
+      "description": "Page Header from the Standard library.",
+      "files": [
+        {
+          "path": "page-header.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button-link",
+        "info-icon"
+      ]
+    },
+    {
+      "name": "paragraph",
+      "type": "registry:ui",
+      "title": "Paragraph",
+      "description": "Paragraph from the Standard library.",
+      "files": [
+        {
+          "path": "paragraph.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Popover from the Standard library.",
+      "files": [
+        {
+          "path": "popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ]
+    },
+    {
+      "name": "standard-progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Progress from the Standard library.",
+      "files": [
+        {
+          "path": "progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:ui",
+      "title": "Radio",
+      "description": "Radio from the Standard library.",
+      "files": [
+        {
+          "path": "radio.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "refresh-button",
+      "type": "registry:ui",
+      "title": "Refresh Button",
+      "description": "Refresh Button from the Standard library.",
+      "files": [
+        {
+          "path": "refresh-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "standard-resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Resizable from the Standard library.",
+      "files": [
+        {
+          "path": "resizable.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "react-resizable-panels"
+      ]
+    },
+    {
+      "name": "row",
+      "type": "registry:ui",
+      "title": "Row",
+      "description": "Row from the Standard library.",
+      "files": [
+        {
+          "path": "row.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Scroll Area from the Standard library.",
+      "files": [
+        {
+          "path": "scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "scroll-horizontal-button",
+      "type": "registry:ui",
+      "title": "Scroll Horizontal Button",
+      "description": "Scroll Horizontal Button from the Standard library.",
+      "files": [
+        {
+          "path": "scroll-horizontal-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "tooltip"
+      ]
+    },
+    {
+      "name": "search",
+      "type": "registry:ui",
+      "title": "Search",
+      "description": "Search from the Standard library.",
+      "files": [
+        {
+          "path": "search.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "standard-sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Sheet from the Standard library.",
+      "files": [
+        {
+          "path": "sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "standard-skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Skeleton from the Standard library.",
+      "files": [
+        {
+          "path": "skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:ui",
+      "title": "Stack",
+      "description": "Stack from the Standard library.",
+      "files": [
+        {
+          "path": "stack.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-grid",
+      "type": "registry:ui",
+      "title": "Standard Grid",
+      "description": "Standard Grid from the Standard library.",
+      "files": [
+        {
+          "path": "standard-grid.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "standard-list-chrome"
+      ]
+    },
+    {
+      "name": "standard-list-chrome",
+      "type": "registry:ui",
+      "title": "Standard List Chrome",
+      "description": "Standard List Chrome from the Standard library.",
+      "files": [
+        {
+          "path": "standard-list-chrome.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "badge-pill",
+        "button",
+        "filter-select",
+        "refresh-button",
+        "search"
+      ]
+    },
+    {
+      "name": "standard-table",
+      "type": "registry:ui",
+      "title": "Standard Table",
+      "description": "Standard Table from the Standard library.",
+      "files": [
+        {
+          "path": "standard-table.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "standard-list-chrome"
+      ]
+    },
+    {
+      "name": "status",
+      "type": "registry:ui",
+      "title": "Status",
+      "description": "Status from the Standard library.",
+      "files": [
+        {
+          "path": "status.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Switch from the Standard library.",
+      "files": [
+        {
+          "path": "switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "field-label",
+        "row"
+      ]
+    },
+    {
+      "name": "symbol",
+      "type": "registry:ui",
+      "title": "Symbol",
+      "description": "Symbol from the Standard library.",
+      "files": [
+        {
+          "path": "symbol.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "text-field",
+      "type": "registry:ui",
+      "title": "Text Field",
+      "description": "Text Field from the Standard library.",
+      "files": [
+        {
+          "path": "text-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "standard-textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Textarea from the Standard library.",
+      "files": [
+        {
+          "path": "textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Toast from the Standard library.",
+      "files": [
+        {
+          "path": "toast.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "standard-toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Toggle from the Standard library.",
+      "files": [
+        {
+          "path": "toggle.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "toggleable-badges",
+      "type": "registry:ui",
+      "title": "Toggleable Badges",
+      "description": "Toggleable Badges from the Standard library.",
+      "files": [
+        {
+          "path": "toggleable-badges.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "badge"
+      ]
+    },
+    {
+      "name": "standard-tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Tooltip from the Standard library.",
+      "files": [
+        {
+          "path": "tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ]
+    }
+  ]
+}

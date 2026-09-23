@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stack",
+  "title": "Stack",
+  "description": "Stack from the Standard library.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/stack.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst stackVariants = cva(\"flex flex-col\", {\r\n  variants: {\r\n    gap: {\r\n      sm: \"gap-1\",\r\n      default: \"gap-2\",\r\n      lg: \"gap-4\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    gap: \"default\",\r\n  },\r\n})\r\n\r\nfunction Stack({\r\n  className,\r\n  gap = \"default\",\r\n  ...props\r\n}: React.ComponentProps<\"div\"> & VariantProps<typeof stackVariants>) {\r\n  return (\r\n    <div\r\n      data-slot=\"stack\"\r\n      data-gap={gap}\r\n      className={cn(stackVariants({ gap }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Stack, stackVariants }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

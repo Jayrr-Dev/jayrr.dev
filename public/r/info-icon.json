@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "info-icon",
+  "title": "Info Icon",
+  "description": "Info Icon from the Standard library.",
+  "dependencies": [
+    "cn",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "components/standard/info-icon.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { CircleAlertIcon, CircleHelpIcon, InfoIcon as LucideInfo } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction InfoIcon({\r\n  className,\r\n  label,\r\n  body,\r\n  tone = \"info\",\r\n}: {\r\n  className?: string\r\n  label: string\r\n  body: string\r\n  tone?: \"info\" | \"help\" | \"alert\"\r\n}) {\r\n  const [open, setOpen] = React.useState(false)\r\n\r\n  function Glyph() {\r\n    if (tone === \"help\") {\r\n      return <CircleHelpIcon className=\"size-4\" />\r\n    }\r\n    if (tone === \"alert\") {\r\n      return <CircleAlertIcon className=\"size-4\" />\r\n    }\r\n    return <LucideInfo className=\"size-4\" />\r\n  }\r\n\r\n  return (\r\n    <span data-slot=\"info-icon\" className={cn(\"relative inline-flex\", className)}>\r\n      <button\r\n        type=\"button\"\r\n        aria-label={label}\r\n        aria-expanded={open}\r\n        className=\"rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground\"\r\n        onClick={() => setOpen(!open)}\r\n      >\r\n        <Glyph />\r\n      </button>\r\n      {open ? (\r\n        <span className=\"absolute top-7 left-0 z-20 w-56 rounded-lg border border-border bg-background p-2 text-xs text-muted-foreground shadow-md\">\r\n          {body}\r\n        </span>\r\n      ) : null}\r\n    </span>\r\n  )\r\n}\r\n\r\nfunction QuestionIcon({\r\n  className,\r\n  label,\r\n  body,\r\n}: {\r\n  className?: string\r\n  label: string\r\n  body: string\r\n}) {\r\n  return (\r\n    <InfoIcon\r\n      className={className}\r\n      label={label}\r\n      body={body}\r\n      tone=\"help\"\r\n    />\r\n  )\r\n}\r\n\r\nexport { InfoIcon, QuestionIcon }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

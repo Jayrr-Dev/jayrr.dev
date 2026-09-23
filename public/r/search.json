@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search",
+  "title": "Search",
+  "description": "Search from the Standard library.",
+  "dependencies": [
+    "cn",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "components/standard/search.tsx",
+      "content": "import * as React from \"react\"\r\nimport { SearchIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Search({\r\n  className,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"type\">) {\r\n  return (\r\n    <label\r\n      data-slot=\"search\"\r\n      className={cn(\r\n        \"flex h-8 w-full items-center gap-2 rounded-lg border border-input px-2.5 dark:bg-input/30\",\r\n        className\r\n      )}\r\n    >\r\n      <SearchIcon className=\"size-4 shrink-0 text-muted-foreground\" />\r\n      <input\r\n        type=\"search\"\r\n        className=\"h-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground\"\r\n        {...props}\r\n      />\r\n    </label>\r\n  )\r\n}\r\n\r\nexport { Search }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

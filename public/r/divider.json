@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "divider",
+  "title": "Divider",
+  "description": "Divider from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/divider.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Divider({\r\n  className,\r\n  orientation = \"horizontal\",\r\n  ...props\r\n}: React.ComponentProps<\"div\"> & {\r\n  orientation?: \"horizontal\" | \"vertical\"\r\n}) {\r\n  return (\r\n    <div\r\n      data-slot=\"divider\"\r\n      data-orientation={orientation}\r\n      role=\"separator\"\r\n      className={cn(\r\n        \"shrink-0 bg-border\",\r\n        orientation === \"vertical\" ? \"h-full w-px self-stretch\" : \"h-px w-full\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Divider }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

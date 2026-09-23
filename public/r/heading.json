@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heading",
+  "title": "Heading",
+  "description": "Heading from the Standard library.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/heading.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst headingVariants = cva(\"scroll-m-20 text-balance tracking-tight\", {\r\n  variants: {\r\n    level: {\r\n      1: \"text-4xl font-extrabold\",\r\n      2: \"border-b pb-2 text-3xl font-semibold\",\r\n      3: \"text-2xl font-semibold\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    level: 1,\r\n  },\r\n})\r\n\r\nfunction Heading({\r\n  className,\r\n  level = 1,\r\n  ...props\r\n}: React.ComponentProps<\"h1\"> & VariantProps<typeof headingVariants>) {\r\n  if (level === 2) {\r\n    return (\r\n      <h2\r\n        data-slot=\"heading\"\r\n        data-level={level}\r\n        className={cn(headingVariants({ level }), className)}\r\n        {...props}\r\n      />\r\n    )\r\n  }\r\n\r\n  if (level === 3) {\r\n    return (\r\n      <h3\r\n        data-slot=\"heading\"\r\n        data-level={level}\r\n        className={cn(headingVariants({ level }), className)}\r\n        {...props}\r\n      />\r\n    )\r\n  }\r\n\r\n  return (\r\n    <h1\r\n      data-slot=\"heading\"\r\n      data-level={1}\r\n      className={cn(headingVariants({ level: 1 }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Heading, headingVariants }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

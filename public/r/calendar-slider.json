@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-slider",
+  "title": "Calendar Slider",
+  "description": "Calendar Slider from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "components/standard/calendar-slider.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction CalendarSlider({\r\n  className,\r\n  days,\r\n  value,\r\n  defaultValue,\r\n  onValueChange,\r\n}: {\r\n  className?: string\r\n  days: { id: string; label: string; count?: number }[]\r\n  value?: string\r\n  defaultValue?: string\r\n  onValueChange?: (id: string) => void\r\n}) {\r\n  const [uncontrolled, setUncontrolled] = React.useState(\r\n    defaultValue ?? days[0]?.id\r\n  )\r\n  const selected = value ?? uncontrolled\r\n\r\n  function select(id: string) {\r\n    if (value === undefined) {\r\n      setUncontrolled(id)\r\n    }\r\n    onValueChange?.(id)\r\n  }\r\n\r\n  return (\r\n    <div\r\n      data-slot=\"calendar-slider\"\r\n      className={cn(\"flex gap-1 overflow-x-auto\", className)}\r\n    >\r\n      {days.map((day) => {\r\n        const isOn = day.id === selected\r\n        const tone = isOn ? \"default\" : \"outline\"\r\n\r\n        return (\r\n          <Button\r\n            key={day.id}\r\n            tone={tone}\r\n            size=\"sm\"\r\n            className=\"min-w-12 flex-col gap-0 px-2\"\r\n            onClick={() => select(day.id)}\r\n          >\r\n            <span>{day.label}</span>\r\n            {day.count !== undefined ? (\r\n              <span className=\"text-[10px] opacity-80\">{day.count}</span>\r\n            ) : null}\r\n          </Button>\r\n        )\r\n      })}\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { CalendarSlider }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

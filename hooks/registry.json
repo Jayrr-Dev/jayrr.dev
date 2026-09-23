@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "Use Mobile",
+      "description": "Use Mobile from the Classic library.",
+      "files": [
+        {
+          "path": "use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    }
+  ]
+}

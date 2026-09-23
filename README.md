@@ -4,12 +4,21 @@ Next.js site for the Jayrr shadcn registry. Components are static JSON under `pu
 
 ## Registry
 
-Build the JSON files after you change `registry.json` or a component:
+The catalog is split the way shadcn expects. The root `registry.json` only points at the folders. Each folder owns its own list:
+
+- `components/ui/registry.json` for the Classic (shadcn) UI library
+- `components/standard/registry.json` for the Standard library
+- `hooks/registry.json` for hooks such as `use-mobile`
+
+After you add or change a component, rebuild the index and the public JSON:
 
 ```bash
+node scripts/writesRegistryIndex.mjs
 npx shadcn@latest registry validate
 npx shadcn@latest build
 ```
+
+`build` writes `public/r/registry.json` and one file per item, such as `public/r/button.json`. A Classic UI file is recorded as `components/ui/button.tsx`. A Standard file is recorded as `components/standard/heading.tsx`. Names that already exist in Classic are published as `standard-button`, `standard-card`, and so on, so they do not overwrite the shadcn files. A hook lands in `hooks`.
 
 Public URLs:
 

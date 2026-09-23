@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card-bar",
+  "title": "Card Bar",
+  "description": "Card Bar from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/card-bar.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction CardBar({\r\n  className,\r\n  title,\r\n  description,\r\n  ...props\r\n}: React.ComponentProps<\"button\"> & {\r\n  title: string\r\n  description?: string\r\n}) {\r\n  return (\r\n    <button\r\n      data-slot=\"card-bar\"\r\n      type=\"button\"\r\n      className={cn(\r\n        \"flex w-full flex-col items-start gap-0.5 rounded-xl border border-border bg-card px-3 py-2 text-left hover:bg-muted\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <span className=\"text-sm font-medium\">{title}</span>\r\n      {description ? (\r\n        <span className=\"text-xs text-muted-foreground\">{description}</span>\r\n      ) : null}\r\n    </button>\r\n  )\r\n}\r\n\r\nfunction BentoGrid({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"div\">) {\r\n  return (\r\n    <div\r\n      data-slot=\"bento-grid\"\r\n      className={cn(\"grid grid-cols-2 gap-2\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nfunction StandardCard({\r\n  className,\r\n  title,\r\n  meta,\r\n  children,\r\n  ...props\r\n}: React.ComponentProps<\"article\"> & {\r\n  title: string\r\n  meta?: string\r\n}) {\r\n  return (\r\n    <article\r\n      data-slot=\"standard-card\"\r\n      className={cn(\r\n        \"flex w-full flex-col rounded-xl border border-border bg-card\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <header className=\"border-b border-border px-3 py-2 text-center text-sm font-semibold\">\r\n        {title}\r\n      </header>\r\n      {meta ? (\r\n        <p className=\"px-3 pt-2 text-xs text-muted-foreground\">{meta}</p>\r\n      ) : null}\r\n      <div className=\"px-3 py-2 text-sm\">{children}</div>\r\n    </article>\r\n  )\r\n}\r\n\r\nexport { BentoGrid, CardBar, StandardCard }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

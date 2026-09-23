@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-switch",
+  "title": "Switch",
+  "description": "Switch from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "field-label",
+    "row"
+  ],
+  "files": [
+    {
+      "path": "components/standard/switch.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { FieldLabel } from \"@/components/standard/field-label\"\r\nimport { Row } from \"@/components/standard/row\"\r\n\r\nfunction Switch({\r\n  className,\r\n  checked,\r\n  defaultChecked,\r\n  onCheckedChange,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"button\">, \"onChange\"> & {\r\n  checked?: boolean\r\n  defaultChecked?: boolean\r\n  onCheckedChange?: (checked: boolean) => void\r\n}) {\r\n  const [uncontrolled, setUncontrolled] = React.useState(defaultChecked ?? false)\r\n  const isOn = checked ?? uncontrolled\r\n\r\n  function toggle() {\r\n    const next = !isOn\r\n    if (checked === undefined) {\r\n      setUncontrolled(next)\r\n    }\r\n    onCheckedChange?.(next)\r\n  }\r\n\r\n  return (\r\n    <button\r\n      data-slot=\"switch\"\r\n      data-checked={isOn}\r\n      type=\"button\"\r\n      role=\"switch\"\r\n      aria-checked={isOn}\r\n      className={cn(\r\n        \"relative h-5 w-8 rounded-full bg-muted transition-colors data-[checked=true]:bg-primary\",\r\n        className\r\n      )}\r\n      onClick={toggle}\r\n      {...props}\r\n    >\r\n      <span\r\n        className={cn(\r\n          \"absolute top-0.5 left-0.5 size-4 rounded-full bg-background transition-transform\",\r\n          isOn ? \"translate-x-3\" : \"translate-x-0\"\r\n        )}\r\n      />\r\n    </button>\r\n  )\r\n}\r\n\r\nfunction LabelledSwitch({\r\n  className,\r\n  label,\r\n  ...props\r\n}: React.ComponentProps<typeof Switch> & { label: string }) {\r\n  return (\r\n    <Row data-slot=\"labelled-switch\" className={className}>\r\n      <Switch {...props} />\r\n      <FieldLabel>{label}</FieldLabel>\r\n    </Row>\r\n  )\r\n}\r\n\r\nexport { LabelledSwitch, Switch }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

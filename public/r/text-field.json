@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-field",
+  "title": "Text Field",
+  "description": "Text Field from the Standard library.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/text-field.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst textFieldVariants = cva(\r\n  \"w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30\",\r\n  {\r\n    variants: {\r\n      size: {\r\n        default: \"h-8\",\r\n        sm: \"h-7 text-xs\",\r\n        lg: \"h-9\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      size: \"default\",\r\n    },\r\n  }\r\n)\r\n\r\nfunction TextField({\r\n  className,\r\n  size = \"default\",\r\n  type = \"text\",\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"size\"> &\r\n  VariantProps<typeof textFieldVariants>) {\r\n  return (\r\n    <input\r\n      data-slot=\"text-field\"\r\n      data-size={size}\r\n      type={type}\r\n      className={cn(textFieldVariants({ size }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { TextField, textFieldVariants }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
