@@ -25,6 +25,41 @@ const SECTION_ITEMS = [
   { id: "crew", label: "Crew" },
 ]
 
+const REFRESH_SPIN_MS = 1000
+
+function RendersRefreshButtonSpinDemo({
+  iconOnly = false,
+  disabled = false,
+  label,
+}: {
+  iconOnly?: boolean
+  disabled?: boolean
+  label?: string
+}) {
+  const [refreshing, setRefreshing] = useState(false)
+
+  function handleClick() {
+    if (refreshing || disabled) {
+      return
+    }
+    setRefreshing(true)
+    window.setTimeout(() => {
+      setRefreshing(false)
+    }, REFRESH_SPIN_MS)
+  }
+
+  return (
+    <RendersDemoCard label={label}>
+      <RefreshButton
+        iconOnly={iconOnly}
+        disabled={disabled}
+        refreshing={refreshing}
+        onClick={handleClick}
+      />
+    </RendersDemoCard>
+  )
+}
+
 function RendersLiveButtonArray() {
   const [value, setValue] = useState("events")
 
@@ -147,12 +182,9 @@ export function RendersStandardButtonDemo({
   if (pieceName === "Refresh Button") {
     return (
       <>
-        <RendersDemoCard>
-          <RefreshButton />
-        </RendersDemoCard>
-        <RendersDemoCard label="disabled">
-          <RefreshButton disabled />
-        </RendersDemoCard>
+        <RendersRefreshButtonSpinDemo />
+        <RendersRefreshButtonSpinDemo iconOnly label="icon only" />
+        <RendersRefreshButtonSpinDemo disabled label="disabled" />
       </>
     )
   }
@@ -164,13 +196,15 @@ export function RendersStandardButtonDemo({
           <Button>
             <StarIcon className="size-3.5" />
             Inbox
-            <CircleBadge>3</CircleBadge>
+            <CircleBadge className="bg-primary-foreground text-primary">
+              3
+            </CircleBadge>
           </Button>
         </RendersDemoCard>
         <RendersDemoCard label="tone outline">
           <Button tone="outline">
             Reports
-            <CircleBadge className="bg-destructive">2</CircleBadge>
+            <CircleBadge className="bg-destructive text-white">2</CircleBadge>
           </Button>
         </RendersDemoCard>
       </>

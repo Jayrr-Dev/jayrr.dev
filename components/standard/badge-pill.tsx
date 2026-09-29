@@ -24,7 +24,7 @@ function CircleBadge({
     <span
       data-slot="circle-badge"
       className={cn(
-        "inline-flex size-6 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-primary-foreground",
+        "inline-grid h-[1.5em] min-w-[1.5em] shrink-0 place-items-center rounded-full bg-primary px-[0.25em] text-[0.75em] font-semibold leading-none text-primary-foreground tabular-nums",
         className
       )}
       {...props}

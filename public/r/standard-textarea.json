@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-textarea",
+  "title": "Textarea",
+  "description": "Textarea from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/textarea.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Textarea({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"textarea\">) {\r\n  return (\r\n    <textarea\r\n      data-slot=\"textarea\"\r\n      className={cn(\r\n        \"h-20 w-full rounded-lg border border-input bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Textarea }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

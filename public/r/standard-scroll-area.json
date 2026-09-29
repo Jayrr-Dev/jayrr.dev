@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-scroll-area",
+  "title": "Scroll Area",
+  "description": "Scroll Area from the Standard library.",
+  "dependencies": [
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "components/standard/scroll-area.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { ChevronDownIcon, ChevronUpIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction ScrollArea({\r\n  className,\r\n  children,\r\n  showArrows = false,\r\n}: {\r\n  className?: string\r\n  children: React.ReactNode\r\n  showArrows?: boolean\r\n}) {\r\n  const ref = React.useRef<HTMLDivElement>(null)\r\n\r\n  function scrollBy(amount: number) {\r\n    ref.current?.scrollBy({ top: amount, behavior: \"smooth\" })\r\n  }\r\n\r\n  return (\r\n    <div data-slot=\"scroll-area\" className=\"flex w-full items-start gap-1\">\r\n      {showArrows ? (\r\n        <Button\r\n          tone=\"outline\"\r\n          size=\"sm\"\r\n          className=\"size-8 px-0\"\r\n          aria-label=\"Scroll up\"\r\n          onClick={() => scrollBy(-48)}\r\n        >\r\n          <ChevronUpIcon className=\"size-4\" />\r\n        </Button>\r\n      ) : null}\r\n      <div\r\n        ref={ref}\r\n        className={cn(\r\n          \"h-24 w-full overflow-auto rounded-lg border border-border p-2 text-sm\",\r\n          className\r\n        )}\r\n      >\r\n        {children}\r\n      </div>\r\n      {showArrows ? (\r\n        <Button\r\n          tone=\"outline\"\r\n          size=\"sm\"\r\n          className=\"size-8 px-0\"\r\n          aria-label=\"Scroll down\"\r\n          onClick={() => scrollBy(48)}\r\n        >\r\n          <ChevronDownIcon className=\"size-4\" />\r\n        </Button>\r\n      ) : null}\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { ScrollArea }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

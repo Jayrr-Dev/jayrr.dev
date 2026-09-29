@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image-upload",
+  "title": "Image Upload",
+  "description": "Image Upload from the Standard library.",
+  "files": [
+    {
+      "path": "components/standard/image-upload.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\n\r\nfunction ImageUpload({ disabled = false }: { disabled?: boolean }) {\r\n  const [name, setName] = React.useState(\"\")\r\n\r\n  return (\r\n    <label data-slot=\"image-upload\" className=\"flex w-full flex-col gap-1 text-xs\">\r\n      <span className=\"font-medium\">Image</span>\r\n      <input\r\n        type=\"file\"\r\n        accept=\"image/*\"\r\n        disabled={disabled}\r\n        className=\"text-xs\"\r\n        onChange={(event) => {\r\n          const file = event.target.files?.[0]\r\n          setName(file ? file.name : \"\")\r\n        }}\r\n      />\r\n      {name ? <span className=\"text-muted-foreground\">{name}</span> : null}\r\n    </label>\r\n  )\r\n}\r\n\r\nexport { ImageUpload }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

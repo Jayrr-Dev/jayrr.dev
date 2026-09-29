@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scrollbar",
+  "title": "Scrollbar",
+  "description": "Scrollbar from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/scrollbar.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\n/** Opt-in thin native scrollbar. Needs `scrollbar-thin` utilities in globals.css. */\r\nconst thinScrollbarClassName = \"scrollbar-thin\"\r\n\r\nfunction ThinScrollbar({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"div\">) {\r\n  return (\r\n    <div\r\n      data-slot=\"thin-scrollbar\"\r\n      className={cn(\r\n        thinScrollbarClassName,\r\n        \"overflow-auto rounded-lg border border-border p-2\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { ThinScrollbar, thinScrollbarClassName }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

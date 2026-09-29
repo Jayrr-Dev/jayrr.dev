@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-tooltip",
+  "title": "Tooltip",
+  "description": "Tooltip from the Standard library.",
+  "dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "files": [
+    {
+      "path": "components/standard/tooltip.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\nimport { Tooltip as TooltipPrimitive } from \"radix-ui\"\r\n\r\nfunction Tooltip({\r\n  label,\r\n  body,\r\n  tone = \"default\",\r\n  children,\r\n}: {\r\n  label: string\r\n  body: string\r\n  tone?: \"default\" | \"danger\"\r\n  children?: React.ReactNode\r\n}) {\r\n  return (\r\n    <TooltipPrimitive.Provider delayDuration={200}>\r\n      <TooltipPrimitive.Root>\r\n        <TooltipPrimitive.Trigger asChild>\r\n          {children ?? (\r\n            <button\r\n              type=\"button\"\r\n              className=\"rounded-md border border-border px-2 py-1 text-xs\"\r\n            >\r\n              {label}\r\n            </button>\r\n          )}\r\n        </TooltipPrimitive.Trigger>\r\n        <TooltipPrimitive.Portal>\r\n          <TooltipPrimitive.Content\r\n            sideOffset={6}\r\n            className={cn(\r\n              \"z-50 max-w-xs rounded-md px-2 py-1 text-xs shadow-md\",\r\n              tone === \"danger\"\r\n                ? \"bg-destructive text-white\"\r\n                : \"bg-foreground text-background\"\r\n            )}\r\n          >\r\n            {body}\r\n          </TooltipPrimitive.Content>\r\n        </TooltipPrimitive.Portal>\r\n      </TooltipPrimitive.Root>\r\n    </TooltipPrimitive.Provider>\r\n  )\r\n}\r\n\r\nexport { Tooltip }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

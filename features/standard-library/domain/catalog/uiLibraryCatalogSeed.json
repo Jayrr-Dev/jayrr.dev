@@ -1391,6 +1391,19 @@
     "description": null
   },
   {
+    "component_key": "thin-scrollbar",
+    "component_name": "Thin Scrollbar",
+    "section_key": "controls",
+    "category_key": "scroll",
+    "family_key": "scroll",
+    "file_path": "components/standard/scrollbar.tsx",
+    "import_path": "@/components/standard/scrollbar",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Excalidraw-style thin native scrollbar (4px). Use ThinScrollbar or class scrollbar-thin."
+  },
+  {
     "component_key": "searchable-project-select",
     "component_name": "Searchable Project Select",
     "section_key": "controls",

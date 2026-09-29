@@ -25,7 +25,7 @@ export function OpensPieceCollectionsDialog({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[min(80vh,40rem)] overflow-y-auto sm:max-w-3xl">
+      <DialogContent className="h-auto w-fit max-h-[90vh] max-w-[calc(100%-2rem)] overflow-y-auto sm:max-w-5xl">
         <DialogHeader>
           <DialogTitle>
             {pieceName ? `${pieceName} Collections` : "Collections"}

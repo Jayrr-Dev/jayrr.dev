@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-input-otp",
+  "title": "Input Otp",
+  "description": "Input Otp from the Standard library.",
+  "dependencies": [
+    "cn",
+    "input-otp"
+  ],
+  "files": [
+    {
+      "path": "components/standard/input-otp.tsx",
+      "content": "\"use client\"\r\n\r\nimport { OTPInput, type SlotProps } from \"input-otp\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction OtpSlot({ char, isActive }: SlotProps) {\r\n  return (\r\n    <div\r\n      className={cn(\r\n        \"flex h-9 w-8 items-center justify-center rounded-md border text-sm\",\r\n        isActive ? \"border-foreground\" : \"border-border\"\r\n      )}\r\n    >\r\n      {char}\r\n    </div>\r\n  )\r\n}\r\n\r\nfunction InputOtp({ length = 6 }: { length?: number }) {\r\n  return (\r\n    <OTPInput\r\n      maxLength={length}\r\n      containerClassName=\"flex gap-1\"\r\n      render={({ slots }) => (\r\n        <div className=\"flex gap-1\">\r\n          {slots.map((slot, index) => (\r\n            <OtpSlot key={index} {...slot} />\r\n          ))}\r\n        </div>\r\n      )}\r\n    />\r\n  )\r\n}\r\n\r\nexport { InputOtp }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

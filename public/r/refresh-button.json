@@ -4,6 +4,7 @@
   "title": "Refresh Button",
   "description": "Refresh Button from the Standard library.",
   "dependencies": [
+    "cn",
     "lucide-react"
   ],
   "registryDependencies": [
@@ -12,7 +13,7 @@
   "files": [
     {
       "path": "components/standard/refresh-button.tsx",
-      "content": "import { RefreshCwIcon } from \"lucide-react\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction RefreshButton({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<typeof Button>) {\r\n  return (\r\n    <Button\r\n      data-slot=\"refresh-button\"\r\n      tone=\"outline\"\r\n      size=\"sm\"\r\n      aria-label=\"Refresh\"\r\n      className={className}\r\n      {...props}\r\n    >\r\n      <RefreshCwIcon className=\"size-3.5\" />\r\n      Refresh\r\n    </Button>\r\n  )\r\n}\r\n\r\nexport { RefreshButton }\r\n",
+      "content": "import { RefreshCwIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction RefreshButton({\r\n  className,\r\n  iconOnly = false,\r\n  refreshing = false,\r\n  ...props\r\n}: React.ComponentProps<typeof Button> & {\r\n  iconOnly?: boolean\r\n  refreshing?: boolean\r\n}) {\r\n  return (\r\n    <Button\r\n      data-slot=\"refresh-button\"\r\n      data-icon-only={iconOnly || undefined}\r\n      data-refreshing={refreshing || undefined}\r\n      tone=\"outline\"\r\n      size=\"sm\"\r\n      aria-label=\"Refresh\"\r\n      aria-busy={refreshing || undefined}\r\n      className={cn(iconOnly && \"size-8 rounded-full px-0\", className)}\r\n      {...props}\r\n    >\r\n      <RefreshCwIcon\r\n        className={cn(\"size-3.5\", refreshing && \"animate-spin\")}\r\n      />\r\n      {iconOnly ? null : \"Refresh\"}\r\n    </Button>\r\n  )\r\n}\r\n\r\nexport { RefreshButton }\r\n",
       "type": "registry:ui"
     }
   ],

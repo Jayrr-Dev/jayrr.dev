@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 export function RendersDemoCard({
@@ -13,23 +12,26 @@ export function RendersDemoCard({
   label?: string
 }) {
   return (
-    <li className="w-72 only:w-full only:[&>*]:max-w-none">
-      <Card className={cn("w-full justify-center", className)}>
+    <li className="w-72 max-w-full only:w-[min(100%,36rem)] only:[&>*]:max-w-none">
+      <div
+        className={cn(
+          "flex min-h-28 w-full flex-col justify-center rounded-xl border border-border bg-muted/20 p-3",
+          className
+        )}
+      >
         {label ? (
-          <CardContent className="flex min-h-28 w-full flex-col items-stretch justify-center gap-3">
+          <div className="flex w-full flex-col items-stretch gap-3">
             <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
               {label}
             </span>
             <div className="flex min-w-0 w-full flex-col items-stretch">
               {children}
             </div>
-          </CardContent>
+          </div>
         ) : (
-          <CardContent className="flex min-h-28 w-full items-center">
-            {children}
-          </CardContent>
+          <div className="flex w-full items-center">{children}</div>
         )}
-      </Card>
+      </div>
     </li>
   )
 }

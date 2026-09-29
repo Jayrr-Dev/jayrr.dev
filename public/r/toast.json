@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast",
+  "title": "Toast",
+  "description": "Toast from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "components/standard/toast.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { createPortal } from \"react-dom\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction ToastButton({\r\n  message,\r\n  tone = \"default\",\r\n  children,\r\n}: {\r\n  message: string\r\n  tone?: \"default\" | \"danger\"\r\n  children: React.ReactNode\r\n}) {\r\n  const [open, setOpen] = React.useState(false)\r\n\r\n  function show() {\r\n    setOpen(true)\r\n    window.setTimeout(() => setOpen(false), 2400)\r\n  }\r\n\r\n  return (\r\n    <>\r\n      <Button tone=\"outline\" size=\"sm\" onClick={show}>\r\n        {children}\r\n      </Button>\r\n      {open\r\n        ? createPortal(\r\n            <div\r\n              data-slot=\"toast\"\r\n              role=\"status\"\r\n              className={cn(\r\n                \"fixed right-4 bottom-4 z-50 rounded-lg px-3 py-2 text-sm shadow-lg\",\r\n                tone === \"danger\"\r\n                  ? \"bg-destructive text-white\"\r\n                  : \"border border-border bg-background\"\r\n              )}\r\n            >\r\n              {message}\r\n            </div>,\r\n            document.body\r\n          )\r\n        : null}\r\n    </>\r\n  )\r\n}\r\n\r\nexport { ToastButton }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

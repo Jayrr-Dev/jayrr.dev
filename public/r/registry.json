@@ -1238,7 +1238,8 @@
         "cn"
       ],
       "registryDependencies": [
-        "button"
+        "button",
+        "popover"
       ],
       "files": [
         {
@@ -1311,6 +1312,39 @@
       "type": "registry:ui"
     },
     {
+      "name": "standard-carousel",
+      "title": "Carousel",
+      "description": "Carousel from the Standard library.",
+      "dependencies": [
+        "embla-carousel-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "standard-chart",
+      "title": "Chart",
+      "description": "Chart from the Standard library.",
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "components/standard/chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-checkbox",
       "title": "Checkbox",
       "description": "Checkbox from the Standard library.",
@@ -1344,9 +1378,6 @@
       "name": "confirm-dialog",
       "title": "Confirm Dialog",
       "description": "Confirm Dialog from the Standard library.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
         "button",
         "dialog"
@@ -1364,7 +1395,8 @@
       "title": "Dialog",
       "description": "Dialog from the Standard library.",
       "dependencies": [
-        "cn"
+        "cn",
+        "radix-ui"
       ],
       "registryDependencies": [
         "button"
@@ -1414,6 +1446,10 @@
       "dependencies": [
         "cn"
       ],
+      "registryDependencies": [
+        "button",
+        "popover"
+      ],
       "files": [
         {
           "path": "components/standard/filter-select.tsx",
@@ -1433,6 +1469,18 @@
       "files": [
         {
           "path": "components/standard/heading.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "image-upload",
+      "title": "Image Upload",
+      "description": "Image Upload from the Standard library.",
+      "files": [
+        {
+          "path": "components/standard/image-upload.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1462,9 +1510,29 @@
         "cn",
         "lucide-react"
       ],
+      "registryDependencies": [
+        "popover",
+        "tooltip"
+      ],
       "files": [
         {
           "path": "components/standard/info-icon.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "standard-input-otp",
+      "title": "Input Otp",
+      "description": "Input Otp from the Standard library.",
+      "dependencies": [
+        "cn",
+        "input-otp"
+      ],
+      "files": [
+        {
+          "path": "components/standard/input-otp.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1486,11 +1554,35 @@
       "type": "registry:ui"
     },
     {
+      "name": "menu",
+      "title": "Menu",
+      "description": "Menu from the Standard library.",
+      "dependencies": [
+        "cmdk",
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "page-header",
       "title": "Page Header",
       "description": "Page Header from the Standard library.",
       "dependencies": [
         "cn"
+      ],
+      "registryDependencies": [
+        "button-link",
+        "info-icon"
       ],
       "files": [
         {
@@ -1511,6 +1603,22 @@
       "files": [
         {
           "path": "components/standard/paragraph.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "standard-popover",
+      "title": "Popover",
+      "description": "Popover from the Standard library.",
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": "components/standard/popover.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1551,6 +1659,7 @@
       "title": "Refresh Button",
       "description": "Refresh Button from the Standard library.",
       "dependencies": [
+        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
@@ -1559,6 +1668,21 @@
       "files": [
         {
           "path": "components/standard/refresh-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "standard-resizable",
+      "title": "Resizable",
+      "description": "Resizable from the Standard library.",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
+      "files": [
+        {
+          "path": "components/standard/resizable.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1581,6 +1705,25 @@
       "type": "registry:ui"
     },
     {
+      "name": "standard-scroll-area",
+      "title": "Scroll Area",
+      "description": "Scroll Area from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "scroll-horizontal-button",
       "title": "Scroll Horizontal Button",
       "description": "Scroll Horizontal Button from the Standard library.",
@@ -1589,7 +1732,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button"
+        "tooltip"
       ],
       "files": [
         {
@@ -1600,10 +1743,26 @@
       "type": "registry:ui"
     },
     {
+      "name": "scrollbar",
+      "title": "Scrollbar",
+      "description": "Scrollbar from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/scrollbar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "search",
       "title": "Search",
       "description": "Search from the Standard library.",
       "dependencies": [
+        "class-variance-authority",
         "cn",
         "lucide-react"
       ],
@@ -1620,7 +1779,8 @@
       "title": "Sheet",
       "description": "Sheet from the Standard library.",
       "dependencies": [
-        "cn"
+        "cn",
+        "radix-ui"
       ],
       "registryDependencies": [
         "button"
@@ -1687,6 +1847,7 @@
       "title": "Standard List Chrome",
       "description": "Standard List Chrome from the Standard library.",
       "registryDependencies": [
+        "badge-pill",
         "button",
         "filter-select",
         "refresh-button",
@@ -1787,6 +1948,39 @@
       "type": "registry:ui"
     },
     {
+      "name": "standard-textarea",
+      "title": "Textarea",
+      "description": "Textarea from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "description": "Toast from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/toast.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-toggle",
       "title": "Toggle",
       "description": "Toggle from the Standard library.",
@@ -1814,6 +2008,22 @@
       "files": [
         {
           "path": "components/standard/toggleable-badges.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "standard-tooltip",
+      "title": "Tooltip",
+      "description": "Tooltip from the Standard library.",
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": "components/standard/tooltip.tsx",
           "type": "registry:ui"
         }
       ],

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-resizable",
+  "title": "Resizable",
+  "description": "Resizable from the Standard library.",
+  "dependencies": [
+    "react-resizable-panels"
+  ],
+  "files": [
+    {
+      "path": "components/standard/resizable.tsx",
+      "content": "\"use client\"\r\n\r\nimport { Group, Panel, Separator } from \"react-resizable-panels\"\r\n\r\nfunction Resizable({\r\n  left = \"Hours\",\r\n  right = \"Cost\",\r\n}: {\r\n  left?: string\r\n  right?: string\r\n}) {\r\n  return (\r\n    <Group\r\n      orientation=\"horizontal\"\r\n      className=\"h-24 w-full overflow-hidden rounded-lg border border-border\"\r\n    >\r\n      <Panel defaultSize={50} minSize={20} className=\"p-2 text-xs\">\r\n        {left}\r\n      </Panel>\r\n      <Separator className=\"w-1 bg-border\" />\r\n      <Panel defaultSize={50} minSize={20} className=\"p-2 text-xs\">\r\n        {right}\r\n      </Panel>\r\n    </Group>\r\n  )\r\n}\r\n\r\nexport { Resizable }\r\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

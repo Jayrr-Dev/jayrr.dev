@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react"
 
 import { GalleryIcon } from "@/components/gallery-icon"
+import { Search } from "@/components/standard/search"
 import { OpensPieceCollectionsDialog } from "@/features/ui-library/components/opensPieceCollectionsDialog"
 import { galleryStyles } from "@/lib/design-system"
 import { cn } from "@/lib/utils"
@@ -16,6 +17,7 @@ export function StyleGallery() {
   const [selectedStyle, setSelectedStyle] = useState(
     galleryStyles[0]?.name ?? "Classic"
   )
+  const [query, setQuery] = useState("")
 
   const [openPiece, setOpenPiece] = useState<OpenPiece | null>(null)
   const [pieceDialogOpen, setPieceDialogOpen] = useState(false)
@@ -27,6 +29,48 @@ export function StyleGallery() {
     [selectedStyle]
   )
 
+  const filteredSections = useMemo(() => {
+    if (!style) {
+      return []
+    }
+
+    const needle = query.trim().toLowerCase()
+    if (!needle) {
+      return style.sections
+    }
+
+    return style.sections
+      .map((section) => {
+        const sectionMatch = section.name.toLowerCase().includes(needle)
+        const categories = section.categories
+          .map((category) => {
+            const categoryMatch = category.name.toLowerCase().includes(needle)
+            const cards = categoryMatch
+              ? category.cards
+              : category.cards.filter((card) =>
+                  card.name.toLowerCase().includes(needle)
+                )
+
+            if (!sectionMatch && !categoryMatch && cards.length === 0) {
+              return null
+            }
+
+            return {
+              ...category,
+              cards: sectionMatch || categoryMatch ? category.cards : cards,
+            }
+          })
+          .filter((category) => category !== null)
+
+        if (categories.length === 0) {
+          return null
+        }
+
+        return { ...section, categories }
+      })
+      .filter((section) => section !== null)
+  }, [query, style])
+
   if (!style) {
     return null
   }
@@ -34,7 +78,17 @@ export function StyleGallery() {
   return (
     <section className="flex flex-col gap-8">
       <div className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium">Style</h2>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <h2 className="text-sm font-medium">Style</h2>
+          <Search
+            className="w-full max-w-xs"
+            size="sm"
+            placeholder="Search pieces"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            aria-label="Search pieces"
+          />
+        </div>
         <div className="flex flex-wrap gap-2">
           {galleryStyles.map((entry) => {
             const isSelected = entry.name === style.name
@@ -60,7 +114,12 @@ export function StyleGallery() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {style.sections.map((section) => (
+        {filteredSections.length === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            No pieces match “{query.trim()}”.
+          </p>
+        ) : null}
+        {filteredSections.map((section) => (
           <div
             key={section.name}
             className="flex flex-col gap-5 rounded-xl border border-border bg-card/30 p-5"

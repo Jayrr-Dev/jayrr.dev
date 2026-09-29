@@ -1075,6 +1075,13 @@ const icons = {
       <path d="m44 28 6 4-6 4" />
     </>
   ),
+  "Thin Scrollbar": (
+    <>
+      <rect x="12" y="12" width="36" height="40" rx="3" />
+      <path d="M18 22h22M18 30h22M18 38h16" opacity=".45" />
+      <rect x="50" y="16" width="3" height="20" rx="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
   "Loading Check": (
     <>
       <circle cx="32" cy="32" r="18" opacity=".35" />

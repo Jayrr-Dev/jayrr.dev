@@ -605,6 +605,7 @@
         }
       ],
       "dependencies": [
+        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
@@ -681,6 +682,21 @@
       ]
     },
     {
+      "name": "scrollbar",
+      "type": "registry:ui",
+      "title": "Scrollbar",
+      "description": "Scrollbar from the Standard library.",
+      "files": [
+        {
+          "path": "scrollbar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "search",
       "type": "registry:ui",
       "title": "Search",
@@ -692,6 +708,7 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn",
         "lucide-react"
       ]

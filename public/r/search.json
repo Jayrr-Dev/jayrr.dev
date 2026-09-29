@@ -4,13 +4,14 @@
   "title": "Search",
   "description": "Search from the Standard library.",
   "dependencies": [
+    "class-variance-authority",
     "cn",
     "lucide-react"
   ],
   "files": [
     {
       "path": "components/standard/search.tsx",
-      "content": "import * as React from \"react\"\r\nimport { SearchIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Search({\r\n  className,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"type\">) {\r\n  return (\r\n    <label\r\n      data-slot=\"search\"\r\n      className={cn(\r\n        \"flex h-8 w-full items-center gap-2 rounded-lg border border-input px-2.5 dark:bg-input/30\",\r\n        className\r\n      )}\r\n    >\r\n      <SearchIcon className=\"size-4 shrink-0 text-muted-foreground\" />\r\n      <input\r\n        type=\"search\"\r\n        className=\"h-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground\"\r\n        {...props}\r\n      />\r\n    </label>\r\n  )\r\n}\r\n\r\nexport { Search }\r\n",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { SearchIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nconst searchVariants = cva(\r\n  \"flex w-full items-center gap-2 rounded-lg border border-input px-2.5 dark:bg-input/30\",\r\n  {\r\n    variants: {\r\n      size: {\r\n        default: \"h-8\",\r\n        sm: \"h-7\",\r\n        lg: \"h-9\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      size: \"default\",\r\n    },\r\n  }\r\n)\r\n\r\nfunction Search({\r\n  className,\r\n  size = \"default\",\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"type\" | \"size\"> &\r\n  VariantProps<typeof searchVariants>) {\r\n  return (\r\n    <label\r\n      data-slot=\"search\"\r\n      data-size={size}\r\n      className={cn(searchVariants({ size }), className)}\r\n    >\r\n      <SearchIcon\r\n        className={cn(\r\n          \"shrink-0 text-muted-foreground\",\r\n          size === \"sm\" ? \"size-3.5\" : \"size-4\"\r\n        )}\r\n      />\r\n      <input\r\n        type=\"search\"\r\n        className={cn(\r\n          \"h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted-foreground\",\r\n          size === \"sm\" ? \"text-xs\" : \"text-sm\"\r\n        )}\r\n        {...props}\r\n      />\r\n    </label>\r\n  )\r\n}\r\n\r\nexport { Search, searchVariants }\r\n",
       "type": "registry:ui"
     }
   ],
