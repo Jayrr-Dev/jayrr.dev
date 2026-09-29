@@ -598,6 +598,21 @@
       "type": "registry:ui"
     },
     {
+      "name": "masonry",
+      "title": "Masonry",
+      "description": "Masonry from the Classic library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/masonry.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "menubar",
       "title": "Menubar",
       "description": "Menubar from the Classic library.",
@@ -729,6 +744,22 @@
       "files": [
         {
           "path": "components/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "progress-ring",
+      "title": "Progress Ring",
+      "description": "Progress Ring from the Classic library.",
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": "components/ui/progress-ring.tsx",
           "type": "registry:ui"
         }
       ],
@@ -867,6 +898,7 @@
       ],
       "registryDependencies": [
         "button",
+        "collapsible",
         "input",
         "separator",
         "sheet",
@@ -947,6 +979,23 @@
       "type": "registry:ui"
     },
     {
+      "name": "status",
+      "title": "Status",
+      "description": "Status from the Classic library.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ui/status.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "switch",
       "title": "Switch",
       "description": "Switch from the Classic library.",
@@ -992,6 +1041,80 @@
           "type": "registry:ui"
         }
       ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "text-effect",
+      "title": "Text Effect",
+      "description": "Text Effect from the Classic library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/text-effect.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-text-caret": "text-caret 1s steps(1) infinite",
+          "animate-text-bang": "text-bang 1.5s ease-in-out infinite",
+          "animate-text-ask": "text-ask 1.8s ease-in-out infinite",
+          "animate-text-dots": "text-dots 1.2s steps(4, jump-none) infinite",
+          "animate-text-pop": "text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both"
+        }
+      },
+      "css": {
+        "@keyframes text-caret": {
+          "0%, 49%": {
+            "opacity": "1"
+          },
+          "50%, 100%": {
+            "opacity": "0"
+          }
+        },
+        "@keyframes text-bang": {
+          "0%, 100%": {
+            "transform": "translateY(0) rotate(0deg) scale(1)"
+          },
+          "35%": {
+            "transform": "translateY(-3px) rotate(-14deg) scale(1.18)"
+          },
+          "55%": {
+            "transform": "translateY(0) rotate(8deg) scale(1.05)"
+          }
+        },
+        "@keyframes text-ask": {
+          "0%, 100%": {
+            "transform": "rotate(0deg) translateY(0)"
+          },
+          "40%": {
+            "transform": "rotate(16deg) translateY(-1px)"
+          },
+          "70%": {
+            "transform": "rotate(-10deg) translateY(0)"
+          }
+        },
+        "@keyframes text-dots": {
+          "from": {
+            "clip-path": "inset(0 100% 0 0)"
+          },
+          "to": {
+            "clip-path": "inset(0 0 0 0)"
+          }
+        },
+        "@keyframes text-pop": {
+          "from": {
+            "transform": "translateY(6px) scale(0.92)",
+            "opacity": "0"
+          },
+          "to": {
+            "transform": "translateY(0) scale(1)",
+            "opacity": "1"
+          }
+        }
+      },
       "type": "registry:ui"
     },
     {
@@ -1201,7 +1324,8 @@
       "title": "Button Link",
       "description": "Button Link from the Standard library.",
       "dependencies": [
-        "cn"
+        "cn",
+        "lucide-react"
       ],
       "registryDependencies": [
         "link"
@@ -1220,7 +1344,8 @@
       "description": "Button from the Standard library.",
       "dependencies": [
         "class-variance-authority",
-        "cn"
+        "cn",
+        "lucide-react"
       ],
       "files": [
         {
@@ -1235,11 +1360,12 @@
       "title": "Calendar Slider",
       "description": "Calendar Slider from the Standard library.",
       "dependencies": [
-        "cn"
+        "cn",
+        "date-fns"
       ],
       "registryDependencies": [
-        "button",
-        "popover"
+        "popover",
+        "standard-slider"
       ],
       "files": [
         {
@@ -1444,7 +1570,8 @@
       "title": "Filter Select",
       "description": "Filter Select from the Standard library.",
       "dependencies": [
-        "cn"
+        "cn",
+        "lucide-react"
       ],
       "registryDependencies": [
         "button",
@@ -1453,6 +1580,25 @@
       "files": [
         {
           "path": "components/standard/filter-select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "form-field",
+      "title": "Form Field",
+      "description": "Form Field from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "field-label"
+      ],
+      "files": [
+        {
+          "path": "components/standard/form-field.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1478,6 +1624,10 @@
       "name": "image-upload",
       "title": "Image Upload",
       "description": "Image Upload from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
       "files": [
         {
           "path": "components/standard/image-upload.tsx",
@@ -1533,6 +1683,32 @@
       "files": [
         {
           "path": "components/standard/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "lexical-editor",
+      "title": "Lexical Editor",
+      "description": "Lexical Editor from the Standard library.",
+      "dependencies": [
+        "@lexical/list",
+        "@lexical/markdown",
+        "@lexical/react",
+        "@lexical/rich-text",
+        "@lexical/selection",
+        "@lexical/utils",
+        "cn",
+        "lexical",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "toolbar"
+      ],
+      "files": [
+        {
+          "path": "components/standard/lexical-editor.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1743,6 +1919,24 @@
       "type": "registry:ui"
     },
     {
+      "name": "standard-slider",
+      "title": "Slider",
+      "description": "Horizontal slider with scroll buttons, drag, keyboard and edge fades.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "scroll-horizontal-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "scrollbar",
       "title": "Scrollbar",
       "description": "Scrollbar from the Standard library.",
@@ -1881,7 +2075,7 @@
       "type": "registry:ui"
     },
     {
-      "name": "status",
+      "name": "standard-status",
       "title": "Status",
       "description": "Status from the Standard library.",
       "dependencies": [
@@ -1937,7 +2131,8 @@
       "description": "Text Field from the Standard library.",
       "dependencies": [
         "class-variance-authority",
-        "cn"
+        "cn",
+        "lucide-react"
       ],
       "files": [
         {
@@ -2008,6 +2203,50 @@
       "files": [
         {
           "path": "components/standard/toggleable-badges.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "toolbar-count",
+      "title": "Toolbar Count",
+      "description": "Toolbar Count from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge-pill",
+        "button-icon"
+      ],
+      "files": [
+        {
+          "path": "components/standard/toolbar-count.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "toolbar",
+      "title": "Toolbar",
+      "description": "Toolbar from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "button-icon",
+        "divider",
+        "popover",
+        "toggle",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "components/standard/toolbar.tsx",
           "type": "registry:ui"
         }
       ],

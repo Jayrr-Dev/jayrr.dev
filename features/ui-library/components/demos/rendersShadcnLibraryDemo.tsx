@@ -1,8 +1,17 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRightIcon, FileTextIcon, XIcon } from "lucide-react"
-import { Bar, BarChart } from "recharts"
+import {
+  BookOpenIcon,
+  ChevronRightIcon,
+  FileTextIcon,
+  FolderIcon,
+  HomeIcon,
+  InboxIcon,
+  LayersIcon,
+  SettingsIcon,
+  XIcon,
+} from "lucide-react"
 import { toast } from "sonner"
 
 import {
@@ -50,8 +59,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel"
-import { ChartContainer } from "@/components/ui/chart"
 import {
   Collapsible,
   CollapsibleContent,
@@ -95,6 +105,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {
   Empty,
+  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyTitle,
@@ -111,16 +122,27 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
 import { Item, ItemContent, ItemTitle } from "@/components/ui/item"
 import { Kbd } from "@/components/ui/kbd"
+import { TextTypewriter } from "@/components/ui/text-effect"
 import { Label } from "@/components/ui/label"
 import { Marker, MarkerContent } from "@/components/ui/marker"
 import {
   Menubar,
   MenubarContent,
+  MenubarCheckboxItem,
   MenubarItem,
   MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar"
 import {
@@ -139,21 +161,24 @@ import {
   MessageScrollerProvider,
   MessageScrollerViewport,
 } from "@/components/ui/message-scroller"
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select"
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
 } from "@/components/ui/pagination"
 import {
   Popover,
@@ -201,15 +226,24 @@ import {
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
+  SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarInset,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Slider } from "@/components/ui/slider"
-import { Toaster } from "@/components/ui/sonner"
 import { Spinner } from "@/components/ui/spinner"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -230,12 +264,6 @@ import {
 } from "@/components/ui/tooltip"
 
 import { RendersDemoCard } from "./rendersDemoCard"
-
-const chartData = [
-  { name: "Mon", visits: 4 },
-  { name: "Tue", visits: 7 },
-  { name: "Wed", visits: 5 },
-]
 
 const threadNotes = [
   "Opened the gallery.",
@@ -312,13 +340,85 @@ function MessageThreadDemo() {
   )
 }
 
+const sidebarAccordionSections = [
+  {
+    id: "projects",
+    label: "Projects",
+    icon: FolderIcon,
+    items: ["Gallery", "Registry"],
+  },
+  { id: "docs", label: "Docs", icon: BookOpenIcon, items: ["Guides", "API"] },
+]
+
+// Only one section stays open at a time, like an accordion.
+function SidebarAccordion() {
+  const [openId, setOpenId] = useState<string | null>("projects")
+
+  return (
+    <>
+      {sidebarAccordionSections.map(({ id, label, icon: Icon, items }) => (
+        <Collapsible
+          key={id}
+          asChild
+          open={openId === id}
+          onOpenChange={(open) => setOpenId(open ? id : null)}
+          className="group/collapsible"
+        >
+          <SidebarMenuItem>
+            <CollapsibleTrigger asChild>
+              <SidebarMenuButton tooltip={label}>
+                <Icon />
+                <span>{label}</span>
+                <ChevronRightIcon className="ms-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+              </SidebarMenuButton>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarMenuSub>
+                {items.map((item, index) => (
+                  <SidebarMenuSubItem key={item}>
+                    <SidebarMenuSubButton
+                      isActive={id === "projects" && index === 0}
+                    >
+                      <span>{item}</span>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                ))}
+              </SidebarMenuSub>
+            </CollapsibleContent>
+          </SidebarMenuItem>
+        </Collapsible>
+      ))}
+    </>
+  )
+}
+
 function libraryDemo(pieceName: string) {
   if (pieceName === "Kbd") {
     return <Kbd>K</Kbd>
   }
 
+  if (pieceName === "Text Effect") {
+    return (
+      <p className="text-lg font-medium">
+        <TextTypewriter
+          wiggle
+          text={["Hello!", "What's rattling in the bank?", "Need a hand?"]}
+        />
+      </p>
+    )
+  }
+
   if (pieceName === "Spinner") {
-    return <Spinner />
+    return (
+      <div className="grid w-full grid-cols-4 gap-3">
+        {(["ring", "orbit", "dots", "bars", "pulse", "burst", "grid", "triangle"] as const).map((variant) => (
+          <div key={variant} className="flex flex-col items-center gap-2">
+            <Spinner variant={variant} className="size-6" />
+            <span className="text-xs text-muted-foreground capitalize">{variant}</span>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   if (pieceName === "Marker") {
@@ -339,25 +439,32 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Carousel") {
     return (
-      <Carousel className="w-full">
-        <CarouselContent>
-          <CarouselItem>One</CarouselItem>
-          <CarouselItem>Two</CarouselItem>
-        </CarouselContent>
-      </Carousel>
-    )
-  }
-
-  if (pieceName === "Chart") {
-    return (
-      <ChartContainer
-        config={{ visits: { label: "Visits", color: "var(--chart-1)" } }}
-        className="h-32 w-full"
-      >
-        <BarChart data={chartData}>
-          <Bar dataKey="visits" fill="var(--color-visits)" radius={4} />
-        </BarChart>
-      </ChartContainer>
+      <div className="w-full px-10">
+        <Carousel className="w-full">
+          <CarouselContent>
+            <CarouselItem>
+              <div className="flex h-24 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40">
+                <span className="text-2xl font-semibold tabular-nums">1</span>
+                <span className="text-xs text-muted-foreground">Plan</span>
+              </div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className="flex h-24 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40">
+                <span className="text-2xl font-semibold tabular-nums">2</span>
+                <span className="text-xs text-muted-foreground">Build</span>
+              </div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className="flex h-24 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40">
+                <span className="text-2xl font-semibold tabular-nums">3</span>
+                <span className="text-xs text-muted-foreground">Ship</span>
+              </div>
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
     )
   }
 
@@ -389,9 +496,52 @@ function libraryDemo(pieceName: string) {
   if (pieceName === "Navigation Menu") {
     return (
       <NavigationMenu>
-        <NavigationMenuList>
+        <NavigationMenuList className="gap-1">
           <NavigationMenuItem>
-            <NavigationMenuLink href="/gallery">Gallery</NavigationMenuLink>
+            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-64 gap-1">
+                <li>
+                  <NavigationMenuLink href="/gallery">
+                    <LayersIcon />
+                    <div className="flex flex-col">
+                      <span className="font-medium">Gallery</span>
+                      <span className="text-xs text-muted-foreground">
+                        Browse every piece.
+                      </span>
+                    </div>
+                  </NavigationMenuLink>
+                </li>
+                <li>
+                  <NavigationMenuLink href="/gallery">
+                    <BookOpenIcon />
+                    <div className="flex flex-col">
+                      <span className="font-medium">Docs</span>
+                      <span className="text-xs text-muted-foreground">
+                        Props and usage notes.
+                      </span>
+                    </div>
+                  </NavigationMenuLink>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              href="/gallery"
+              className={navigationMenuTriggerStyle()}
+              data-active
+            >
+              Registry
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              href="/gallery"
+              className={navigationMenuTriggerStyle()}
+            >
+              About
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
@@ -403,9 +553,24 @@ function libraryDemo(pieceName: string) {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationLink href="/gallery" isActive>
-              1
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              2
             </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">3</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
@@ -418,7 +583,41 @@ function libraryDemo(pieceName: string) {
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>New</MenubarItem>
+            <MenubarItem>
+              New file <MenubarShortcut>Ctrl N</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              Open <MenubarShortcut>Ctrl O</MenubarShortcut>
+            </MenubarItem>
+            <MenubarSub>
+              <MenubarSubTrigger>Export</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarItem>PDF</MenubarItem>
+                <MenubarItem>Markdown</MenubarItem>
+              </MenubarSubContent>
+            </MenubarSub>
+            <MenubarSeparator />
+            <MenubarItem>
+              Print <MenubarShortcut>Ctrl P</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>Edit</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>
+              Undo <MenubarShortcut>Ctrl Z</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              Redo <MenubarShortcut>Ctrl Y</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>View</MenubarTrigger>
+          <MenubarContent>
+            <MenubarCheckboxItem checked>Show toolbar</MenubarCheckboxItem>
+            <MenubarCheckboxItem>Show line numbers</MenubarCheckboxItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
@@ -427,20 +626,120 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Sidebar") {
     return (
-      <SidebarProvider className="min-h-40 w-full">
-        <Sidebar>
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupLabel>Library</SidebarGroupLabel>
+      <div className="relative h-[30rem] w-full overflow-hidden rounded-xl border bg-sidebar">
+        <SidebarProvider
+          className="h-full min-h-0"
+          style={{ "--sidebar-width-icon": "2.5rem" } as React.CSSProperties}
+        >
+          <Sidebar
+            collapsible="icon"
+            variant="inset"
+            collapseThumb
+            className="absolute h-full"
+          >
+            <SidebarHeader
+              separator
+              search
+              className="group-data-[collapsible=icon]:px-1"
+            >
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>Home</SidebarMenuButton>
+                  <SidebarMenuButton tooltip="jayrr.dev">
+                    <LayersIcon />
+                    <span className="font-semibold">jayrr.dev</span>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>
+            </SidebarHeader>
+            <SidebarContent>
+              <SidebarGroup
+                collapsible
+                className="group-data-[collapsible=icon]:px-1"
+              >
+                <SidebarGroupLabel>Library</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu className="group-data-[collapsible=icon]:gap-2">
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Home">
+                        <HomeIcon />
+                        <span>Home</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Inbox">
+                        <InboxIcon />
+                        <span>Inbox</span>
+                      </SidebarMenuButton>
+                      <SidebarMenuBadge>12</SidebarMenuBadge>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+              <SidebarGroup
+                collapsible
+                separator
+                className="group-data-[collapsible=icon]:px-1"
+              >
+                <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu className="group-data-[collapsible=icon]:gap-2">
+                    <SidebarAccordion />
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+            <SidebarFooter
+              separator
+              className="group-data-[collapsible=icon]:px-1"
+            >
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Settings">
+                    <SettingsIcon />
+                    <span>Settings</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarFooter>
+            <SidebarRail />
+          </Sidebar>
+          <SidebarInset className="min-w-0 overflow-hidden md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0">
+            <header className="flex h-12 shrink-0 items-center gap-2 border-b px-3">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>Projects</BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Gallery</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </header>
+            <div className="flex flex-col gap-3 p-4">
+              <div className="grid grid-cols-3 gap-2">
+                {["Pieces", "Styles", "Icons"].map((label, index) => (
+                  <div key={label} className="rounded-lg border p-2.5">
+                    <div className="text-xs text-muted-foreground">{label}</div>
+                    <div className="text-lg font-semibold">
+                      {[64, 3, 120][index]}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="h-2.5 w-2/3 rounded bg-muted" />
+                <div className="h-2.5 w-full rounded bg-muted" />
+                <div className="h-2.5 w-5/6 rounded bg-muted" />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Use the toggle, the edge button, or Ctrl+B to collapse it.
+              </p>
+            </div>
+          </SidebarInset>
+        </SidebarProvider>
+      </div>
     )
   }
 
@@ -583,17 +882,63 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Sonner") {
     return (
-      <>
+      <div className="flex flex-wrap gap-2">
         <Button
           variant="outline"
-          onClick={() => {
-            toast("Saved")
-          }}
+          onClick={() => toast("Saved", { position: "top-left" })}
         >
-          Show toast
+          Top left
         </Button>
-        <Toaster />
-      </>
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.success("Changes published", {
+              description: "Your site is live.",
+              position: "top-center",
+            })
+          }
+        >
+          Top center · success
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.info("New version available", { position: "top-right" })
+          }
+        >
+          Top right · info
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.warning("Storage almost full", { position: "bottom-left" })
+          }
+        >
+          Bottom left · warning
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.error("Upload failed", {
+              description: "Try again in a moment.",
+              position: "bottom-center",
+            })
+          }
+        >
+          Bottom center · error
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast("File deleted", {
+              position: "bottom-right",
+              action: { label: "Undo", onClick: () => toast.success("Restored") },
+            })
+          }
+        >
+          Bottom right · action
+        </Button>
+      </div>
     )
   }
 
@@ -604,6 +949,11 @@ function libraryDemo(pieceName: string) {
           <EmptyTitle>No pieces</EmptyTitle>
           <EmptyDescription>This shelf is empty.</EmptyDescription>
         </EmptyHeader>
+        <EmptyContent>
+          <Button variant="outline" size="sm">
+            Add piece
+          </Button>
+        </EmptyContent>
       </Empty>
     )
   }
@@ -626,9 +976,7 @@ function libraryDemo(pieceName: string) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Leave this piece?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Nothing is deleted.
-            </AlertDialogDescription>
+            <AlertDialogDescription>Nothing is deleted.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Stay</AlertDialogCancel>
@@ -807,7 +1155,9 @@ function libraryDemo(pieceName: string) {
           <MessageContent>
             <MessageHeader>Jayrr</MessageHeader>
             <Bubble variant="muted">
-              <BubbleContent>The gallery is ready. Want the notes too?</BubbleContent>
+              <BubbleContent>
+                The gallery is ready. Want the notes too?
+              </BubbleContent>
             </Bubble>
             <MessageFooter>2:14 PM</MessageFooter>
           </MessageContent>
@@ -905,7 +1255,9 @@ function libraryDemo(pieceName: string) {
         </QuestionnaireItem>
         <QuestionnaireItem name="name">
           <QuestionnaireTitle>What should we call it?</QuestionnaireTitle>
-          <QuestionnaireDescription>A short name is enough.</QuestionnaireDescription>
+          <QuestionnaireDescription>
+            A short name is enough.
+          </QuestionnaireDescription>
           <QuestionnaireInput placeholder="Jayrr" />
         </QuestionnaireItem>
         <QuestionnaireActions>
@@ -923,10 +1275,45 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Resizable") {
     return (
-      <ResizablePanelGroup className="h-24 w-full rounded-lg border">
-        <ResizablePanel defaultSize={50}>Left</ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel defaultSize={50}>Right</ResizablePanel>
+      <ResizablePanelGroup className="h-48 w-full rounded-lg border">
+        <ResizablePanel defaultSize="30%" minSize="20%">
+          <div className="flex h-full flex-col gap-1.5 p-2 text-xs">
+            <span className="px-1.5 pb-1 font-medium tracking-wide text-muted-foreground uppercase">
+              Collections
+            </span>
+            {["Components", "Hooks", "Templates", "Icons"].map((name, i) => (
+              <div
+                key={name}
+                className={
+                  i === 0
+                    ? "rounded-md bg-accent px-2 py-1.5 font-medium text-accent-foreground"
+                    : "rounded-md px-2 py-1.5 text-muted-foreground"
+                }
+              >
+                {name}
+              </div>
+            ))}
+          </div>
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel defaultSize="70%" minSize="30%">
+          <ResizablePanelGroup orientation="vertical">
+            <ResizablePanel defaultSize="60%" minSize="25%">
+              <div className="flex h-full flex-col justify-center gap-1 p-3">
+                <span className="text-sm font-medium">Components</span>
+                <span className="text-xs text-muted-foreground">
+                  Drag the handles to resize panes.
+                </span>
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize="40%" minSize="20%">
+              <div className="flex h-full items-center p-3 font-mono text-xs text-muted-foreground">
+                {"> preview ready"}
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </ResizablePanel>
       </ResizablePanelGroup>
     )
   }
@@ -959,11 +1346,10 @@ function libraryDemo(pieceName: string) {
   return null
 }
 
-export function RendersShadcnLibraryDemo({
-  pieceName,
-}: {
-  pieceName: string
-}) {
+// Layout demos that should use all the room a single-card dialog gives them.
+const FILL_PIECES = new Set(["Sidebar", "Resizable", "Table"])
+
+export function RendersShadcnLibraryDemo({ pieceName }: { pieceName: string }) {
   const demo = libraryDemo(pieceName)
 
   if (!demo) {
@@ -982,5 +1368,9 @@ export function RendersShadcnLibraryDemo({
     cardClassName = "w-full max-w-xl"
   }
 
-  return <RendersDemoCard className={cardClassName}>{demo}</RendersDemoCard>
+  return (
+    <RendersDemoCard className={cardClassName} fill={FILL_PIECES.has(pieceName)}>
+      {demo}
+    </RendersDemoCard>
+  )
 }

@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import {
+  LayoutGridIcon,
+  ListIcon,
   RefreshCwIcon,
   SearchIcon,
   StarIcon,
@@ -12,11 +14,22 @@ import { Button } from "@/components/standard/button"
 import { ButtonArray } from "@/components/standard/button-array"
 import { ButtonIcon } from "@/components/standard/button-icon"
 import { ButtonBack, ButtonLink } from "@/components/standard/button-link"
-import { CaptionButton, CaptionsArray } from "@/components/standard/caption-button"
+import {
+  CaptionButton,
+  CaptionsArray,
+} from "@/components/standard/caption-button"
 import { CircleBadge } from "@/components/standard/badge-pill"
 import { RefreshButton } from "@/components/standard/refresh-button"
 import { StandardText } from "@/components/standard/accordion"
 import { Symbol } from "@/components/standard/symbol"
+import {
+  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
+  ToolbarSelect,
+  ToolbarSeparator,
+  ToolbarToggle,
+} from "@/components/standard/toolbar"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const SECTION_ITEMS = [
@@ -26,6 +39,53 @@ const SECTION_ITEMS = [
 ]
 
 const REFRESH_SPIN_MS = 1000
+
+const VIEW_OPTIONS = [
+  { value: "board", label: "Board", icon: <LayoutGridIcon /> },
+  { value: "list", label: "List", icon: <ListIcon /> },
+]
+
+function RendersToolbarDemo() {
+  const [view, setView] = useState("board")
+  const [starred, setStarred] = useState(false)
+
+  return (
+    <RendersDemoCard label="Groups, toggles, select">
+      <Toolbar
+        aria-label="Board actions"
+        className="w-full rounded-lg border border-border"
+      >
+        <ToolbarSelect
+          label="View"
+          options={VIEW_OPTIONS}
+          value={view}
+          onValueChange={setView}
+        />
+        <ToolbarSeparator />
+        <ToolbarGroup>
+          <ToolbarToggle
+            label="Star"
+            hint="Star board"
+            pressed={starred}
+            onPressedChange={setStarred}
+          >
+            <StarIcon />
+          </ToolbarToggle>
+          <ToolbarButton label="Search" hint="Search">
+            <SearchIcon />
+          </ToolbarButton>
+          <ToolbarButton label="Refresh" hint="Refresh">
+            <RefreshCwIcon />
+          </ToolbarButton>
+        </ToolbarGroup>
+        <ToolbarSeparator />
+        <ToolbarButton label="Delete" disabled>
+          <Trash2Icon />
+        </ToolbarButton>
+      </Toolbar>
+    </RendersDemoCard>
+  )
+}
 
 function RendersRefreshButtonSpinDemo({
   iconOnly = false,
@@ -63,8 +123,10 @@ function RendersRefreshButtonSpinDemo({
 function RendersLiveButtonArray() {
   const [value, setValue] = useState("events")
 
+  // One stateful component, so the gallery sees a single card: lay the
+  // cards out here and fill the dialog width.
   return (
-    <>
+    <div data-fill className="grid w-full gap-3 sm:grid-cols-2">
       <RendersDemoCard>
         <ButtonArray
           items={SECTION_ITEMS}
@@ -89,7 +151,7 @@ function RendersLiveButtonArray() {
           defaultValue="reports"
         />
       </RendersDemoCard>
-    </>
+    </div>
   )
 }
 
@@ -127,6 +189,9 @@ export function RendersStandardButtonDemo({
         <RendersDemoCard label="disabled">
           <Button disabled>Locked</Button>
         </RendersDemoCard>
+        <RendersDemoCard label="loading">
+          <Button loading>Saving</Button>
+        </RendersDemoCard>
       </>
     )
   }
@@ -144,6 +209,11 @@ export function RendersStandardButtonDemo({
             <SearchIcon className="size-4" />
           </ButtonIcon>
         </RendersDemoCard>
+        <RendersDemoCard label="tone ghost">
+          <ButtonIcon label="Search" tone="ghost">
+            <SearchIcon className="size-4" />
+          </ButtonIcon>
+        </RendersDemoCard>
         <RendersDemoCard label="tone danger">
           <ButtonIcon label="Delete" tone="danger">
             <Trash2Icon className="size-4" />
@@ -151,6 +221,10 @@ export function RendersStandardButtonDemo({
         </RendersDemoCard>
       </>
     )
+  }
+
+  if (pieceName === "Toolbar") {
+    return <RendersToolbarDemo />
   }
 
   if (pieceName === "Button Link") {
@@ -169,11 +243,26 @@ export function RendersStandardButtonDemo({
   if (pieceName === "Button Back") {
     return (
       <>
-        <RendersDemoCard>
+        <RendersDemoCard label="text">
           <ButtonBack />
         </RendersDemoCard>
+        <RendersDemoCard label="icon">
+          <ButtonBack variant="icon" />
+        </RendersDemoCard>
+        <RendersDemoCard label="icon + text">
+          <ButtonBack variant="icon-text" />
+        </RendersDemoCard>
+        <RendersDemoCard label="inline">
+          <div className="flex flex-wrap items-center gap-2">
+            <ButtonBack />
+            <ButtonBack variant="icon" />
+            <ButtonBack variant="icon-text" />
+          </div>
+        </RendersDemoCard>
         <RendersDemoCard label="custom href">
-          <ButtonBack href="#gallery">Gallery</ButtonBack>
+          <ButtonBack href="#gallery" variant="icon-text">
+            Gallery
+          </ButtonBack>
         </RendersDemoCard>
       </>
     )
@@ -270,16 +359,6 @@ export function RendersStandardButtonDemo({
           </CaptionsArray>
         </RendersDemoCard>
       </>
-    )
-  }
-
-  if (pieceName === "Admin Shield Cog Config Button") {
-    return (
-      <RendersDemoCard label="Button icon">
-        <ButtonIcon label="Config" tone="outline">
-          <StarIcon className="size-4" />
-        </ButtonIcon>
-      </RendersDemoCard>
     )
   }
 

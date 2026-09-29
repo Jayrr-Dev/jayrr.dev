@@ -7,6 +7,11 @@ import { Slot } from "radix-ui"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -22,7 +27,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { PanelLeftIcon } from "lucide-react"
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PanelLeftIcon,
+  SearchIcon,
+} from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -39,6 +49,8 @@ type SidebarContextProps = {
   setOpenMobile: (open: boolean) => void
   isMobile: boolean
   toggleSidebar: () => void
+  searchQuery: string
+  setSearchQuery: (query: string) => void
 }
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null)
@@ -67,6 +79,7 @@ function SidebarProvider({
 }) {
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
+  const [searchQuery, setSearchQuery] = React.useState("")
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
@@ -121,8 +134,19 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       toggleSidebar,
+      searchQuery,
+      setSearchQuery,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+      searchQuery,
+    ]
   )
 
   return (
@@ -148,10 +172,20 @@ function SidebarProvider({
   )
 }
 
+const collapseThumbSizes = {
+  sm: "size-5 [&_svg]:size-3",
+  default: "size-6 [&_svg]:size-3.5",
+  lg: "size-8 [&_svg]:size-4",
+} as const
+
 function Sidebar({
   side = "left",
   variant = "sidebar",
   collapsible = "offcanvas",
+  expandOnHover = false,
+  collapseThumb = false,
+  collapseThumbSize = "default",
+  collapseThumbClassName,
   className,
   children,
   dir,
@@ -160,8 +194,20 @@ function Sidebar({
   side?: "left" | "right"
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
+  /** Icon-collapsed sidebars expand over the content while hovered. */
+  expandOnHover?: boolean
+  /** Round toggle button with an arrow, centered on the sidebar edge. */
+  collapseThumb?: boolean
+  /** Diameter of the collapse thumb: sm 20px, default 24px, lg 32px. */
+  collapseThumbSize?: "sm" | "default" | "lg"
+  /** Extra classes for the collapse thumb, e.g. to restyle it. */
+  collapseThumbClassName?: string
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, state, openMobile, setOpenMobile, toggleSidebar } =
+    useSidebar()
+  const [hovered, setHovered] = React.useState(false)
+  const hoverExpanded =
+    expandOnHover && collapsible === "icon" && state === "collapsed" && hovered
 
   if (collapsible === "none") {
     return (
@@ -208,8 +254,13 @@ function Sidebar({
     <div
       className="group peer hidden text-sidebar-foreground md:block"
       data-state={state}
-      data-collapsible={state === "collapsed" ? collapsible : ""}
+      data-collapsible={
+        state === "collapsed" && !hoverExpanded ? collapsible : ""
+      }
+      data-hover-expanded={hoverExpanded}
       data-variant={variant}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       data-side={side}
       data-slot="sidebar"
     >
@@ -221,8 +272,8 @@ function Sidebar({
           "group-data-[collapsible=offcanvas]:w-0",
           "group-data-[side=right]:rotate-180",
           variant === "floating" || variant === "inset"
-            ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
-            : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
+            ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))] group-data-[hover-expanded=true]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]!"
+            : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[hover-expanded=true]:w-(--sidebar-width-icon)!"
         )}
       />
       <div
@@ -234,6 +285,7 @@ function Sidebar({
           variant === "floating" || variant === "inset"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+          "group-data-[hover-expanded=true]:shadow-lg",
           className
         )}
         {...props}
@@ -245,6 +297,28 @@ function Sidebar({
         >
           {children}
         </div>
+        {collapseThumb && (
+          <button
+            type="button"
+            data-slot="sidebar-thumb"
+            aria-label="Toggle Sidebar"
+            onClick={toggleSidebar}
+            className={cn(
+              "absolute top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border bg-background text-muted-foreground shadow-sm transition-colors outline-none group-data-[side=left]:right-0 group-data-[side=left]:translate-x-1/2 group-data-[side=right]:left-0 group-data-[side=right]:-translate-x-1/2 hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-sidebar-ring",
+              collapseThumbSizes[collapseThumbSize],
+              // The icon-collapsed container is 2px wider than its gap in these variants.
+              (variant === "floating" || variant === "inset") &&
+                "group-data-[collapsible=icon]:group-data-[side=left]:right-0.5 group-data-[collapsible=icon]:group-data-[side=right]:left-0.5",
+              collapseThumbClassName
+            )}
+          >
+            {(side === "left") === (state === "expanded") ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </button>
+        )}
       </div>
     </div>
   )
@@ -328,23 +402,115 @@ function SidebarInput({
   )
 }
 
-function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
+// Built-in hairline drawn inside the section's horizontal padding.
+const separatorLine = {
+  top: "relative before:absolute before:inset-x-2 before:top-0 before:h-px before:bg-sidebar-border",
+  bottom:
+    "relative after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-sidebar-border",
+}
+
+type SidebarSeparatorProp = { separator?: boolean }
+
+function SidebarSearch({
+  placeholder = "Search...",
+}: {
+  placeholder?: string
+}) {
+  const { searchQuery, setSearchQuery, state, setOpen, isMobile } = useSidebar()
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const focusOnExpand = React.useRef(false)
+  const iconCollapsed = state === "collapsed" && !isMobile
+
+  React.useEffect(() => {
+    if (!iconCollapsed && focusOnExpand.current) {
+      focusOnExpand.current = false
+      inputRef.current?.focus()
+    }
+  }, [iconCollapsed])
+
+  // In the icon rail the field becomes a button that opens the sidebar.
+  if (iconCollapsed) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            tooltip="Search"
+            onClick={() => {
+              focusOnExpand.current = true
+              setOpen(true)
+            }}
+          >
+            <SearchIcon />
+            <span>Search</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    )
+  }
+
+  return (
+    <div data-slot="sidebar-search" className="relative">
+      <SearchIcon className="pointer-events-none absolute start-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      <SidebarInput
+        ref={inputRef}
+        type="search"
+        aria-label={placeholder}
+        placeholder={placeholder}
+        value={searchQuery}
+        onChange={(event) => setSearchQuery(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") setSearchQuery("")
+        }}
+        className="ps-8"
+      />
+    </div>
+  )
+}
+
+function SidebarHeader({
+  className,
+  separator = false,
+  search = false,
+  searchPlaceholder,
+  children,
+  ...props
+}: React.ComponentProps<"div"> &
+  SidebarSeparatorProp & {
+    /** Adds a search field that filters menu items by their text. */
+    search?: boolean
+    searchPlaceholder?: string
+  }) {
   return (
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn(
+        "flex flex-col gap-2 p-2",
+        separator && separatorLine.bottom,
+        className
+      )}
       {...props}
-    />
+    >
+      {children}
+      {search && <SidebarSearch placeholder={searchPlaceholder} />}
+    </div>
   )
 }
 
-function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
+function SidebarFooter({
+  className,
+  separator = false,
+  ...props
+}: React.ComponentProps<"div"> & SidebarSeparatorProp) {
   return (
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn(
+        "flex flex-col gap-2 p-2",
+        separator && separatorLine.top,
+        className
+      )}
       {...props}
     />
   )
@@ -378,36 +544,114 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
+const SidebarGroupContext = React.createContext<{
+  collapsible: boolean
+} | null>(null)
+
+function SidebarGroup({
+  className,
+  separator = false,
+  collapsible = false,
+  defaultOpen = true,
+  ...props
+}: React.ComponentProps<"div"> &
+  SidebarSeparatorProp & {
+    /** Turns the label into a toggle that folds the group's content. */
+    collapsible?: boolean
+    /** Initial open state when `collapsible` is set. */
+    defaultOpen?: boolean
+  }) {
+  const { state, isMobile, searchQuery } = useSidebar()
+  const [open, setOpen] = React.useState(defaultOpen)
+  const groupRef = React.useRef<HTMLDivElement>(null)
+
+  // Children's effects run first, so their hidden state is already settled.
+  React.useLayoutEffect(() => {
+    const element = groupRef.current
+    if (!element) return
+    const items = element.querySelectorAll("[data-sidebar=menu-item]")
+    element.hidden =
+      searchQuery.trim() !== "" &&
+      items.length > 0 &&
+      !element.querySelector("[data-sidebar=menu-item]:not([hidden])")
+  })
+  const groupClassName = cn(
+    "relative flex w-full min-w-0 flex-col p-2",
+    separator && separatorLine.top,
+    className
+  )
+
+  if (!collapsible) {
+    return (
+      <div
+        ref={groupRef}
+        data-slot="sidebar-group"
+        data-sidebar="group"
+        className={groupClassName}
+        {...props}
+      />
+    )
+  }
+
+  // Icon-collapsed rails always show every item.
+  const iconCollapsed = state === "collapsed" && !isMobile
+
   return (
-    <div
-      data-slot="sidebar-group"
-      data-sidebar="group"
-      className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
-      {...props}
-    />
+    <SidebarGroupContext.Provider value={{ collapsible: true }}>
+      <Collapsible asChild open={iconCollapsed || open} onOpenChange={setOpen}>
+        <div
+          ref={groupRef}
+          data-slot="sidebar-group"
+          data-sidebar="group"
+          className={cn("group/sidebar-group", groupClassName)}
+          {...props}
+        />
+      </Collapsible>
+    </SidebarGroupContext.Provider>
   )
 }
 
 function SidebarGroupLabel({
   className,
   asChild = false,
+  children,
   ...props
 }: React.ComponentProps<"div"> & { asChild?: boolean }) {
+  const group = React.useContext(SidebarGroupContext)
   const Comp = asChild ? Slot.Root : "div"
+
+  if (group?.collapsible && !asChild) {
+    return (
+      <CollapsibleTrigger
+        data-slot="sidebar-group-label"
+        data-sidebar="group-label"
+        className={cn(
+          sidebarGroupLabelClassName,
+          "w-full cursor-pointer text-start group-data-[collapsible=icon]:pointer-events-none hover:text-sidebar-foreground",
+          className
+        )}
+        {...(props as React.ComponentProps<"button">)}
+      >
+        {children}
+        <ChevronRightIcon className="ms-auto transition-transform group-data-[state=open]/sidebar-group:rotate-90" />
+      </CollapsibleTrigger>
+    )
+  }
 
   return (
     <Comp
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
-      className={cn(
-        "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 ring-sidebar-ring outline-hidden transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
-        className
-      )}
+      className={cn(sidebarGroupLabelClassName, className)}
       {...props}
-    />
+    >
+      {children}
+    </Comp>
   )
 }
+
+const sidebarGroupLabelClassName =
+  "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium whitespace-nowrap text-sidebar-foreground/70 ring-sidebar-ring outline-hidden transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:overflow-hidden group-data-[collapsible=icon]:text-transparent group-data-[collapsible=icon]:[&>*]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0"
 
 function SidebarGroupAction({
   className,
@@ -433,13 +677,20 @@ function SidebarGroupContent({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  return (
+  const group = React.useContext(SidebarGroupContext)
+  const content = (
     <div
       data-slot="sidebar-group-content"
       data-sidebar="group-content"
       className={cn("w-full text-sm", className)}
       {...props}
     />
+  )
+
+  return group?.collapsible ? (
+    <CollapsibleContent>{content}</CollapsibleContent>
+  ) : (
+    content
   )
 }
 
@@ -448,15 +699,35 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
     <ul
       data-slot="sidebar-menu"
       data-sidebar="menu"
-      className={cn("flex w-full min-w-0 flex-col gap-0", className)}
+      className={cn("flex w-full min-w-0 flex-col gap-1", className)}
       {...props}
     />
   )
 }
 
-function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
+function SidebarMenuItem({
+  className,
+  ref: forwardedRef,
+  ...props
+}: React.ComponentProps<"li">) {
+  const { searchQuery } = useSidebar()
+  const ref = React.useRef<HTMLLIElement | null>(null)
+
+  React.useLayoutEffect(() => {
+    const query = searchQuery.trim().toLowerCase()
+    const element = ref.current
+    if (!element) return
+    element.hidden =
+      query !== "" && !element.textContent?.toLowerCase().includes(query)
+  })
+
   return (
     <li
+      ref={(node) => {
+        ref.current = node
+        if (typeof forwardedRef === "function") forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      }}
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
       className={cn("group/menu-item relative", className)}

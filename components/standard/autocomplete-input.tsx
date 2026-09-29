@@ -6,19 +6,33 @@ import { cn } from "cn"
 
 import { TextField } from "@/components/standard/text-field"
 
+type AutocompleteInputProps = Omit<
+  React.ComponentProps<typeof TextField>,
+  "value" | "defaultValue" | "onChange" | "role"
+> & {
+  options: string[]
+  value?: string
+  defaultValue?: string
+  onValueChange?: (value: string) => void
+}
+
 function AutocompleteInput({
   className,
   options,
-  placeholder,
+  value,
+  defaultValue = "",
+  onValueChange,
   disabled,
-}: {
-  className?: string
-  options: string[]
-  placeholder?: string
-  disabled?: boolean
-}) {
+  id,
+  ...props
+}: AutocompleteInputProps) {
   const rootRef = React.useRef<HTMLDivElement>(null)
-  const [query, setQuery] = React.useState("")
+  const listRef = React.useRef<HTMLUListElement>(null)
+  const autoId = React.useId()
+  const inputId = id ?? `${autoId}-input`
+  const listId = `${autoId}-list`
+  const [uncontrolled, setUncontrolled] = React.useState(defaultValue)
+  const query = value ?? uncontrolled
   const [open, setOpen] = React.useState(false)
   const [active, setActive] = React.useState(0)
   const [mounted, setMounted] = React.useState(false)
@@ -30,13 +44,14 @@ function AutocompleteInput({
   const matches = options.filter((option) =>
     option.toLowerCase().includes(query.trim().toLowerCase())
   )
-  let showList = false
-  if (open) {
-    if (!disabled) {
-      if (matches.length > 0) {
-        showList = true
-      }
+  const showList = open && !disabled && matches.length > 0
+  const activeId = showList ? `${listId}-${active}` : undefined
+
+  function setQuery(next: string) {
+    if (value === undefined) {
+      setUncontrolled(next)
     }
+    onValueChange?.(next)
   }
 
   function choose(option: string) {
@@ -60,30 +75,45 @@ function AutocompleteInput({
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "ArrowDown") {
       event.preventDefault()
-      setOpen(true)
+      if (!open) {
+        setOpen(true)
+        return
+      }
       setActive((current) =>
         Math.min(current + 1, Math.max(matches.length - 1, 0))
       )
     }
     if (event.key === "ArrowUp") {
       event.preventDefault()
+      setOpen(true)
       setActive((current) => Math.max(current - 1, 0))
     }
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && showList) {
       const pick = matches[active]
       if (pick) {
         event.preventDefault()
         choose(pick)
       }
     }
-    if (event.key === "Escape") {
+    if (event.key === "Escape" && open) {
+      event.preventDefault()
       setOpen(false)
     }
+    props.onKeyDown?.(event)
   }
 
   React.useEffect(() => {
     setMounted(true)
   }, [])
+
+  React.useEffect(() => {
+    if (!showList) {
+      return
+    }
+    listRef.current
+      ?.querySelector(`[data-index="${active}"]`)
+      ?.scrollIntoView({ block: "nearest" })
+  }, [active, showList])
 
   React.useLayoutEffect(() => {
     if (!showList) {
@@ -108,20 +138,39 @@ function AutocompleteInput({
       className={cn("relative w-full", className)}
     >
       <TextField
+        autoComplete="off"
+        {...props}
+        id={inputId}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={showList}
+        aria-controls={listId}
+        aria-activedescendant={activeId}
         disabled={disabled}
-        placeholder={placeholder}
         value={query}
         onChange={(event) => {
           setQuery(event.target.value)
           setOpen(true)
           setActive(0)
         }}
-        onFocus={() => setOpen(true)}
+        onFocus={(event) => {
+          setOpen(true)
+          props.onFocus?.(event)
+        }}
+        onBlur={(event) => {
+          setOpen(false)
+          props.onBlur?.(event)
+        }}
         onKeyDown={onKeyDown}
       />
       {mounted && showList && coords
         ? createPortal(
             <ul
+              ref={listRef}
+              id={listId}
+              role="listbox"
+              aria-labelledby={props["aria-labelledby"]}
+              aria-label={props["aria-labelledby"] ? undefined : props["aria-label"] ?? props.placeholder}
               data-slot="autocomplete-input-list"
               style={{
                 top: coords.top,
@@ -131,18 +180,21 @@ function AutocompleteInput({
               className="fixed z-100 max-h-40 overflow-auto rounded-lg border border-border bg-popover p-1 text-sm shadow-md"
             >
               {matches.map((option, index) => (
-                <li key={option}>
-                  <button
-                    type="button"
-                    className={cn(
-                      "w-full rounded-md px-2 py-1 text-left",
-                      index === active ? "bg-muted" : undefined
-                    )}
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={() => choose(option)}
-                  >
-                    {option}
-                  </button>
+                <li
+                  key={option}
+                  id={`${listId}-${index}`}
+                  data-index={index}
+                  role="option"
+                  aria-selected={index === active}
+                  className={cn(
+                    "cursor-pointer rounded-md px-2 py-1",
+                    index === active ? "bg-muted" : undefined
+                  )}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onMouseMove={() => setActive(index)}
+                  onClick={() => choose(option)}
+                >
+                  {option}
                 </li>
               ))}
             </ul>,
@@ -154,3 +206,4 @@ function AutocompleteInput({
 }
 
 export { AutocompleteInput }
+export type { AutocompleteInputProps }

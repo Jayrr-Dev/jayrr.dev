@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "components/standard/field-label.tsx",
-      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction FieldLabel({ className, ...props }: React.ComponentProps<\"label\">) {\r\n  return (\r\n    <label\r\n      data-slot=\"field-label\"\r\n      className={cn(\"text-sm font-medium leading-none\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { FieldLabel }\r\n",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction FieldLabel({\n  className,\n  required = false,\n  children,\n  ...props\n}: React.ComponentProps<\"label\"> & {\n  /** Adds a required marker after the label text. */\n  required?: boolean\n}) {\n  return (\n    <label\n      data-slot=\"field-label\"\n      className={cn(\"text-sm font-medium leading-none\", className)}\n      {...props}\n    >\n      {children}\n      {required ? (\n        <>\n          <span aria-hidden className=\"ml-0.5 text-destructive\">\n            *\n          </span>\n          <span className=\"sr-only\"> (required)</span>\n        </>\n      ) : null}\n    </label>\n  )\n}\n\nexport { FieldLabel }\n",
       "type": "registry:ui"
     }
   ],

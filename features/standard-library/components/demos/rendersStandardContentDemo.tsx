@@ -4,7 +4,16 @@ import { Accordion, StandardText, Table } from "@/components/standard/accordion"
 import { Avatar } from "@/components/standard/avatar"
 import { BarStack } from "@/components/standard/bar-stack"
 import { Button } from "@/components/standard/button"
-import { Card, CardBody, CardFooter, CardTitle } from "@/components/standard/card"
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardLeft,
+  CardMain,
+  CardRight,
+  CardTitle,
+} from "@/components/standard/card"
 import { BentoGrid, CardBar, StandardCard } from "@/components/standard/card-bar"
 import { Carousel } from "@/components/standard/carousel"
 import { Chart } from "@/components/standard/chart"
@@ -30,11 +39,26 @@ export function RendersStandardContentDemo({
       <>
         <RendersDemoCard>
           <Card>
-            <CardTitle>Registry item</CardTitle>
+            <CardHeader>
+              <CardTitle>Registry item</CardTitle>
+            </CardHeader>
             <CardBody>A heading you can install.</CardBody>
             <CardFooter>
               <Button size="sm">Add</Button>
             </CardFooter>
+          </Card>
+        </RendersDemoCard>
+        <RendersDemoCard label="left and right panels">
+          <Card>
+            <CardLeft>Left</CardLeft>
+            <CardMain>
+              <CardHeader>
+                <CardTitle>Crew</CardTitle>
+              </CardHeader>
+              <CardBody>Panels run the full height, like columns.</CardBody>
+              <CardFooter>Footer</CardFooter>
+            </CardMain>
+            <CardRight>Right</CardRight>
           </Card>
         </RendersDemoCard>
         <RendersDemoCard label="body only">

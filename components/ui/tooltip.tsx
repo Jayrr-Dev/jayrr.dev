@@ -4,14 +4,22 @@ import * as React from "react"
 import { cn } from "cn"
 import { Tooltip as TooltipPrimitive } from "radix-ui"
 
+// Wait before the first tooltip opens, then open neighbors instantly (no
+// delay, no animation) while the page is "warm" after one closes.
+// https://blog.master.dev/tooltips-need-a-delay-and-then-they-need-to-skip-it/
+const TOOLTIP_DELAY_DURATION = 200
+const TOOLTIP_SKIP_DELAY_DURATION = 300
+
 function TooltipProvider({
-  delayDuration = 0,
+  delayDuration = TOOLTIP_DELAY_DURATION,
+  skipDelayDuration = TOOLTIP_SKIP_DELAY_DURATION,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
       delayDuration={delayDuration}
+      skipDelayDuration={skipDelayDuration}
       {...props}
     />
   )

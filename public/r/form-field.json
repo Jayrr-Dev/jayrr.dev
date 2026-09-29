@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form-field",
+  "title": "Form Field",
+  "description": "Form Field from the Standard library.",
+  "dependencies": [
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "field-label"
+  ],
+  "files": [
+    {
+      "path": "components/standard/form-field.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CircleCheckIcon } from \"lucide-react\"\nimport { cn } from \"cn\"\n\nimport { FieldLabel } from \"@/components/standard/field-label\"\n\ntype ControlProps = {\n  id?: string\n  \"aria-describedby\"?: string\n  \"aria-invalid\"?: React.AriaAttributes[\"aria-invalid\"]\n  \"aria-required\"?: React.AriaAttributes[\"aria-required\"]\n}\n\n/**\n * Wraps one control with a label, helper text and an error or success\n * message, and wires id, aria-describedby, aria-invalid and aria-required\n * onto the control for you.\n */\nfunction FormField({\n  className,\n  label,\n  required = false,\n  helper,\n  error,\n  success,\n  children,\n}: {\n  className?: string\n  label?: React.ReactNode\n  required?: boolean\n  /** Guidance shown under the control. Hidden while an error shows. */\n  helper?: React.ReactNode\n  /** Error message. Also switches the control to its invalid style. */\n  error?: React.ReactNode\n  /** Confirmation shown when the value is valid. Ignored while an error shows. */\n  success?: React.ReactNode\n  children: React.ReactElement<ControlProps>\n}) {\n  const autoId = React.useId()\n  const controlId = children.props.id ?? `${autoId}-control`\n  const helperId = `${autoId}-helper`\n  const messageId = `${autoId}-message`\n  const hasError = Boolean(error)\n  const showSuccess = !hasError && Boolean(success)\n  const showHelper = !hasError && Boolean(helper)\n\n  const describedBy =\n    [\n      children.props[\"aria-describedby\"],\n      showHelper ? helperId : null,\n      hasError || showSuccess ? messageId : null,\n    ]\n      .filter(Boolean)\n      .join(\" \") || undefined\n\n  const control = React.cloneElement(children, {\n    id: controlId,\n    \"aria-describedby\": describedBy,\n    \"aria-invalid\": hasError || children.props[\"aria-invalid\"] || undefined,\n    \"aria-required\": required || children.props[\"aria-required\"] || undefined,\n  })\n\n  return (\n    <div\n      data-slot=\"form-field\"\n      data-invalid={hasError || undefined}\n      className={cn(\"flex w-full flex-col gap-1.5\", className)}\n    >\n      {label ? (\n        <FieldLabel htmlFor={controlId} required={required}>\n          {label}\n        </FieldLabel>\n      ) : null}\n      {control}\n      {showHelper ? (\n        <p id={helperId} className=\"text-xs text-muted-foreground\">\n          {helper}\n        </p>\n      ) : null}\n      {hasError ? (\n        <p id={messageId} role=\"alert\" className=\"text-xs text-destructive\">\n          {error}\n        </p>\n      ) : null}\n      {showSuccess ? (\n        <p\n          id={messageId}\n          className=\"flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400\"\n        >\n          <CircleCheckIcon aria-hidden className=\"size-3.5 shrink-0\" />\n          {success}\n        </p>\n      ) : null}\n    </div>\n  )\n}\n\nexport { FormField }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

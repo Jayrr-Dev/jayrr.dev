@@ -46,6 +46,11 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+    --animate-text-caret: text-caret 1s steps(1) infinite;
+    --animate-text-bang: text-bang 1.5s ease-in-out infinite;
+    --animate-text-ask: text-ask 1.8s ease-in-out infinite;
+    --animate-text-dots: text-dots 1.2s steps(4, jump-none) infinite;
+    --animate-text-pop: text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 :root {
@@ -237,5 +242,59 @@
 @utility scrollbar-track-transparent {
   &::-webkit-scrollbar-track {
     background: transparent;
+  }
+}
+
+/* Text Effect keyframes (components/ui/text-effect.tsx) */
+@keyframes text-caret {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes text-bang {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  35% {
+    transform: translateY(-3px) rotate(-14deg) scale(1.18);
+  }
+  55% {
+    transform: translateY(0) rotate(8deg) scale(1.05);
+  }
+}
+
+@keyframes text-ask {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  40% {
+    transform: rotate(16deg) translateY(-1px);
+  }
+  70% {
+    transform: rotate(-10deg) translateY(0);
+  }
+}
+
+@keyframes text-dots {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes text-pop {
+  from {
+    transform: translateY(6px) scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 }

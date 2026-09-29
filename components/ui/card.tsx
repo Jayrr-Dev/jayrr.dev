@@ -11,7 +11,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 has-[>[data-slot=card-left],>[data-slot=card-right]]:flex-row has-[>[data-slot=card-left],>[data-slot=card-right]]:gap-0 has-[>[data-slot=card-left],>[data-slot=card-right]]:py-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
         className
       )}
       {...props}
@@ -91,8 +91,50 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+function CardMain({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-main"
+      className={cn(
+        "flex min-w-0 flex-1 flex-col gap-(--card-spacing) py-(--card-spacing) has-data-[slot=card-footer]:pb-0 *:data-[slot=card-footer]:rounded-none *:data-[slot=card-header]:rounded-none",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function CardLeft({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-left"
+      className={cn(
+        "flex shrink-0 flex-col gap-2 border-r bg-muted/50 p-(--card-spacing)",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function CardRight({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-right"
+      className={cn(
+        "flex shrink-0 flex-col gap-2 border-l bg-muted/50 p-(--card-spacing)",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 export {
   Card,
+  CardMain,
+  CardLeft,
+  CardRight,
   CardHeader,
   CardFooter,
   CardTitle,

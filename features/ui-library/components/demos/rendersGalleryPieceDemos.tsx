@@ -1,13 +1,18 @@
 "use client"
 
-import { RendersStandardLibraryDemo } from "@/features/standard-library"
+import { Children, Fragment, isValidElement, type ReactNode } from "react"
+
+import { Masonry } from "@/components/ui/masonry"
+import { resolvesStandardDemo } from "@/features/standard-library"
 
 import { RendersActionDemo } from "./rendersActionDemo"
+import { RendersChartDemo } from "./rendersChartDemo"
 import { RendersContentDemo } from "./rendersContentDemo"
 import { RendersFieldDemo } from "./rendersFieldDemo"
 import { RendersIconDemo } from "./rendersIconDemo"
 import { RendersIndicatorDemo } from "./rendersIndicatorDemo"
 import { RendersLabelDemo } from "./rendersLabelDemo"
+import { RendersMasonryDemo } from "./rendersMasonryDemo"
 import { RendersMediaDemo } from "./rendersMediaDemo"
 import { RendersSelectionDemo } from "./rendersSelectionDemo"
 import { RendersStructureDemo } from "./rendersStructureDemo"
@@ -22,28 +27,54 @@ export function RendersGalleryPieceDemos({
   pieceName: string
   styleName?: string
 }) {
-  if (styleName === "Standard") {
+  const demos =
+    styleName === "Standard" ? [resolvesStandardDemo(pieceName)] : classicDemos
+
+  // Called as plain functions (they hold no hooks) so Masonry receives the
+  // individual demo cards from each fragment instead of one opaque element.
+  const cards = demos.map((renders, index) => (
+    <Fragment key={index}>{renders({ pieceName })}</Fragment>
+  ))
+
+  if (countsCards(cards) <= 1) {
+    // min-w-0: the dialog body is a grid, and wide scrollers would otherwise
+    // stretch its column to their full content width.
     return (
-      <ul className="flex flex-wrap gap-3">
-        <RendersStandardLibraryDemo pieceName={pieceName} />
-      </ul>
+      <div className="w-full max-w-xl min-w-0 has-data-fill:max-w-none">
+        {cards}
+      </div>
     )
   }
 
   return (
-    <ul className="flex flex-wrap gap-3">
-      <RendersContentDemo pieceName={pieceName} />
-      <RendersIconDemo pieceName={pieceName} />
-      <RendersMediaDemo pieceName={pieceName} />
-      <RendersActionDemo pieceName={pieceName} />
-      <RendersFieldDemo pieceName={pieceName} />
-      <RendersSelectionDemo pieceName={pieceName} />
-      <RendersLabelDemo pieceName={pieceName} />
-      <RendersIndicatorDemo pieceName={pieceName} />
-      <RendersSurfaceDemo pieceName={pieceName} />
-      <RendersStructureDemo pieceName={pieceName} />
-      <RendersShadcnLibraryDemo pieceName={pieceName} />
-      <RendersTypePropCards pieceName={pieceName} />
-    </ul>
+    <Masonry minColumnWidth={256} className="min-w-0 gap-3">
+      {cards}
+    </Masonry>
   )
+}
+
+const classicDemos: ((props: { pieceName: string }) => ReactNode)[] = [
+  RendersChartDemo,
+  RendersContentDemo,
+  RendersIconDemo,
+  RendersMediaDemo,
+  RendersActionDemo,
+  RendersFieldDemo,
+  RendersSelectionDemo,
+  RendersLabelDemo,
+  RendersIndicatorDemo,
+  RendersSurfaceDemo,
+  RendersStructureDemo,
+  RendersMasonryDemo,
+  RendersShadcnLibraryDemo,
+  RendersTypePropCards,
+]
+
+function countsCards(node: ReactNode): number {
+  return Children.toArray(node).reduce<number>((total, child) => {
+    if (isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+      return total + countsCards(child.props.children)
+    }
+    return total + 1
+  }, 0)
 }

@@ -1,21 +1,52 @@
 "use client"
 
 import { useRef, useState } from "react"
+import { addDays, format } from "date-fns"
 
 import { StandardText } from "@/components/standard/accordion"
-import { CalendarSlider } from "@/components/standard/calendar-slider"
+import {
+  CalendarSlider,
+  type CalendarSliderEvent,
+} from "@/components/standard/calendar-slider"
 import { DatePicker, FilterSelect, MultiSelect } from "@/components/standard/filter-select"
 import { ScrollArea } from "@/components/standard/scroll-area"
 import { ScrollHorizontalButton } from "@/components/standard/scroll-horizontal-button"
 import { ThinScrollbar } from "@/components/standard/scrollbar"
+import { Slider } from "@/components/standard/slider"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
-const DAYS = [
-  { id: "mon", label: "Mon", count: 2, note: "Two jobs" },
-  { id: "tue", label: "Tue", count: 4, note: "Crew on site" },
-  { id: "wed", label: "Wed", count: 1, note: "One hold" },
-  { id: "thu", label: "Thu", count: 0, note: "Clear" },
-  { id: "fri", label: "Fri", count: 6, note: "Full day" },
+/** Events placed relative to today so the strip always has something nearby. */
+const CALENDAR_EVENT_OFFSETS: [number, CalendarSliderEvent][] = [
+  [-9, { count: 2, note: "Two jobs closed out" }],
+  [-6, { count: 1, note: "Site walk" }],
+  [-2, { count: 3, note: "Crew on site", tone: "accent" }],
+  [0, { count: 4, note: "Crew on site", tone: "accent" }],
+  [1, { count: 1, note: "One hold", tone: "warning" }],
+  [3, { count: 6, note: "Full day", tone: "accent" }],
+  [8, { count: 2, note: "Inspections" }],
+  [12, { count: 1, note: "Permit renewal", tone: "warning" }],
+  [19, { count: 5, note: "Pour day", tone: "accent" }],
+  [27, { count: 2, note: "Walkthrough" }],
+]
+
+const CALENDAR_EVENTS: Record<string, CalendarSliderEvent> = Object.fromEntries(
+  CALENDAR_EVENT_OFFSETS.map(([offset, event]) => [
+    format(addDays(new Date(), offset), "yyyy-MM-dd"),
+    event,
+  ])
+)
+
+const SLIDER_CHIPS = Array.from({ length: 30 }, (_, index) => `Job ${1040 + index}`)
+
+const SLIDER_CARDS = [
+  { title: "North yard", meta: "4 crews" },
+  { title: "Harbor line", meta: "2 crews" },
+  { title: "East depot", meta: "Idle" },
+  { title: "Ridge road", meta: "6 crews" },
+  { title: "Mill street", meta: "1 crew" },
+  { title: "Canal works", meta: "3 crews" },
+  { title: "Airport spur", meta: "Idle" },
+  { title: "South bank", meta: "5 crews" },
 ]
 
 const WEEK_OPTIONS = [
@@ -113,32 +144,32 @@ export function RendersStandardPickerDemo({
 }) {
   if (pieceName === "Calendar Slider") {
     return (
-      <RendersDemoCard className="w-full max-w-xl" label="Calendar slider">
-        <CalendarSlider days={DAYS} defaultValue="tue" />
+      <RendersDemoCard fill label="Calendar slider · arrows hop between events">
+        <CalendarSlider events={CALENDAR_EVENTS} />
       </RendersDemoCard>
     )
   }
 
   if (pieceName === "Calendar Slider Day Popover") {
     return (
-      <RendersDemoCard className="w-full max-w-xl" label="Calendar slider · day popover">
-        <CalendarSlider days={DAYS} defaultValue="tue" showDayPopover />
+      <RendersDemoCard fill label="Calendar slider · day popover">
+        <CalendarSlider events={CALENDAR_EVENTS} showDayPopover />
       </RendersDemoCard>
     )
   }
 
   if (pieceName === "Calendar Slider Footer List") {
     return (
-      <RendersDemoCard className="w-full max-w-xl" label="Calendar slider · footer">
-        <CalendarSlider days={DAYS} defaultValue="tue" showFooter />
+      <RendersDemoCard fill label="Calendar slider · footer">
+        <CalendarSlider events={CALENDAR_EVENTS} showFooter />
       </RendersDemoCard>
     )
   }
 
   if (pieceName === "Privacy Calendar") {
     return (
-      <RendersDemoCard className="w-full max-w-xl" label="Calendar slider · counts hidden">
-        <CalendarSlider days={DAYS} defaultValue="tue" hideCounts />
+      <RendersDemoCard fill label="Calendar slider · counts hidden">
+        <CalendarSlider events={CALENDAR_EVENTS} hideCounts showDayPopover />
       </RendersDemoCard>
     )
   }
@@ -146,30 +177,97 @@ export function RendersStandardPickerDemo({
   if (pieceName === "Render Calendar Grid") {
     return (
       <RendersDemoCard className="w-full max-w-xl" label="Calendar slider · grid">
-        <CalendarSlider days={DAYS} defaultValue="tue" layout="grid" />
+        <CalendarSlider events={CALENDAR_EVENTS} layout="grid" length={28} />
       </RendersDemoCard>
     )
   }
 
   if (pieceName === "Date Picker" || pieceName === "Calendar") {
     return (
-      <RendersDemoCard label="Date picker">
-        <DatePicker defaultValue="2026-09-22" />
-      </RendersDemoCard>
+      <>
+        <RendersDemoCard label="Date picker">
+          <DatePicker aria-label="Date" defaultValue="2026-09-22" className="w-full" />
+        </RendersDemoCard>
+        <RendersDemoCard label="invalid">
+          <DatePicker aria-label="Date" className="w-full" invalid />
+        </RendersDemoCard>
+      </>
     )
   }
 
   if (pieceName === "Multi Select") {
     return (
-      <RendersDemoCard label="Multi select">
-        <MultiSelect
-          options={[
-            { value: "alpha", label: "Alpha" },
-            { value: "bravo", label: "Bravo" },
-            { value: "charlie", label: "Charlie" },
-          ]}
-        />
-      </RendersDemoCard>
+      <>
+        <RendersDemoCard label="Multi select">
+          <MultiSelect
+            options={[
+              { value: "alpha", label: "Alpha" },
+              { value: "bravo", label: "Bravo" },
+              { value: "charlie", label: "Charlie" },
+            ]}
+            defaultValues={["bravo"]}
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="indicator checkbox">
+          <MultiSelect
+            indicator="checkbox"
+            options={[
+              { value: "alpha", label: "Alpha" },
+              { value: "bravo", label: "Bravo" },
+              { value: "charlie", label: "Charlie" },
+            ]}
+            defaultValues={["alpha", "charlie"]}
+          />
+        </RendersDemoCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Slider") {
+    // Sliders need the width, so these stack instead of going to Masonry.
+    return (
+      <div data-fill className="flex w-full flex-col gap-3">
+        <RendersDemoCard label="click steps · hold glides · double-click jumps · drag">
+          <Slider aria-label="Jobs">
+            {SLIDER_CHIPS.map((label) => (
+              <span
+                key={label}
+                className="shrink-0 rounded-full border border-border bg-muted/30 px-3 py-1.5 text-xs font-medium"
+              >
+                {label}
+              </span>
+            ))}
+          </Slider>
+        </RendersDemoCard>
+        <RendersDemoCard label="snap · square cards">
+          <Slider aria-label="Sites" snap viewportClassName="gap-3">
+            {SLIDER_CARDS.map((card) => (
+              <div
+                key={card.title}
+                className="flex size-36 shrink-0 snap-start flex-col justify-end rounded-xl border border-border bg-muted/30 p-3"
+              >
+                <span className="text-sm font-semibold">{card.title}</span>
+                <span className="text-xs text-muted-foreground">{card.meta}</span>
+              </div>
+            ))}
+          </Slider>
+        </RendersDemoCard>
+        <RendersDemoCard label="drag only · no arrows">
+          <Slider aria-label="Jobs, drag to scroll" arrows={false}>
+            {SLIDER_CHIPS.map((label) => (
+              <span
+                key={label}
+                className="shrink-0 rounded-md border border-border/60 px-3 py-2 text-xs"
+              >
+                {label}
+              </span>
+            ))}
+          </Slider>
+        </RendersDemoCard>
+        <RendersDemoCard label="calendar slider">
+          <CalendarSlider events={CALENDAR_EVENTS} />
+        </RendersDemoCard>
+      </div>
     )
   }
 
@@ -194,7 +292,7 @@ export function RendersStandardPickerDemo({
     return (
       <>
         <RendersDemoCard className="w-full max-w-xl" label="thin">
-          <ThinScrollbar className="h-28">
+          <ThinScrollbar className="h-28 w-full">
             <p>Week 1 hours</p>
             <p>Week 2 hours</p>
             <p>Week 3 hours</p>
@@ -206,7 +304,7 @@ export function RendersStandardPickerDemo({
           </ThinScrollbar>
         </RendersDemoCard>
         <RendersDemoCard label="class only">
-          <div className="scrollbar-thin h-28 overflow-auto rounded-lg border border-border p-2 text-sm">
+          <div className="scrollbar-thin h-28 w-full overflow-auto rounded-lg border border-border p-2 text-sm">
             <p>Chip row</p>
             <p>Chip row</p>
             <p>Chip row</p>
@@ -245,8 +343,8 @@ export function RendersStandardPickerDemo({
     pieceName === "Renders Defines Calendar Legend Popover Content"
   ) {
     return (
-      <RendersDemoCard className="w-full max-w-xl" label="Calendar slider · footer">
-        <CalendarSlider days={DAYS} showFooter showDayPopover />
+      <RendersDemoCard fill label="Calendar slider · footer">
+        <CalendarSlider events={CALENDAR_EVENTS} showFooter showDayPopover />
       </RendersDemoCard>
     )
   }

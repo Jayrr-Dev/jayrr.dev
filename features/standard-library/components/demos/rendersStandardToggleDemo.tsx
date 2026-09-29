@@ -35,6 +35,16 @@ export function RendersStandardToggleDemo({
             <FieldLabel htmlFor="locked">Locked</FieldLabel>
           </Row>
         </RendersDemoCard>
+        <RendersDemoCard label="label prop">
+          <Checkbox
+            label="Email me updates"
+            description="About once a week."
+            defaultChecked
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="invalid">
+          <Checkbox label="I accept the terms" invalid />
+        </RendersDemoCard>
       </>
     )
   }
@@ -62,6 +72,12 @@ export function RendersStandardToggleDemo({
             </Row>
           </RadioGroup>
         </RendersDemoCard>
+        <RendersDemoCard label="legend · label prop">
+          <RadioGroup legend="Delivery">
+            <Radio name="delivery" label="Pickup" defaultChecked />
+            <Radio name="delivery" label="Ship" description="2–3 business days" />
+          </RadioGroup>
+        </RendersDemoCard>
       </>
     )
   }
@@ -70,13 +86,13 @@ export function RendersStandardToggleDemo({
     return (
       <>
         <RendersDemoCard>
-          <Switch defaultChecked />
+          <Switch aria-label="Notifications" defaultChecked />
         </RendersDemoCard>
         <RendersDemoCard label="off">
-          <Switch />
+          <Switch aria-label="Notifications" />
         </RendersDemoCard>
         <RendersDemoCard label="disabled">
-          <Switch disabled defaultChecked />
+          <Switch aria-label="Notifications" disabled defaultChecked />
         </RendersDemoCard>
       </>
     )
@@ -105,12 +121,12 @@ export function RendersStandardToggleDemo({
       <>
         <RendersDemoCard>
           <ToggleRow label="Alerts">
-            <Switch defaultChecked />
+            <Switch aria-label="Alerts" defaultChecked />
           </ToggleRow>
         </RendersDemoCard>
         <RendersDemoCard label="off">
           <ToggleRow label="Wrap text">
-            <Switch />
+            <Switch aria-label="Wrap text" />
           </ToggleRow>
         </RendersDemoCard>
       </>

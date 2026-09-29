@@ -25,6 +25,9 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardLeft,
+  CardMain,
+  CardRight,
   CardTitle,
 } from "@/components/ui/card"
 import {
@@ -59,6 +62,21 @@ export function RendersSurfaceDemo({
             <CardFooter>
               <Button size="sm">Add</Button>
             </CardFooter>
+          </Card>
+        </RendersDemoCard>
+        <RendersDemoCard label="left and right panels">
+          <Card className="w-full shadow-none">
+            <CardLeft>Left</CardLeft>
+            <CardMain>
+              <CardHeader>
+                <CardTitle>Crew</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">Panels run the full height, like columns.</p>
+              </CardContent>
+              <CardFooter>Footer</CardFooter>
+            </CardMain>
+            <CardRight>Right</CardRight>
           </Card>
         </RendersDemoCard>
         <RendersDemoCard>

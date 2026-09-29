@@ -13,19 +13,6 @@
     "description": null
   },
   {
-    "component_key": "admin-shield-cog-config-button",
-    "component_name": "Admin Shield Cog Config Button",
-    "section_key": "controls",
-    "category_key": "buttons",
-    "family_key": "base",
-    "file_path": "components/ui/admin-shield-cog-config-button.tsx",
-    "import_path": "@/components/ui/admin-shield-cog-config-button",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "component_key": "alert",
     "component_name": "Alert",
     "section_key": "signals",
@@ -967,12 +954,12 @@
     "section_key": "controls",
     "category_key": "fields",
     "family_key": "input",
-    "file_path": "components/ui/lexical-editor.tsx",
-    "import_path": "@/components/ui/lexical-editor",
+    "file_path": "components/standard/lexical-editor.tsx",
+    "import_path": "@/components/standard/lexical-editor",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": null
+    "description": "Rich text editor built on Lexical with the Standard Toolbar: block types, history, text formats, alignment, and Markdown shortcuts."
   },
   {
     "component_key": "loading-check",
@@ -1378,6 +1365,19 @@
     "description": null
   },
   {
+    "component_key": "slider",
+    "component_name": "Slider",
+    "section_key": "controls",
+    "category_key": "scroll",
+    "family_key": "scroll",
+    "file_path": "components/standard/slider.tsx",
+    "import_path": "@/components/standard/slider",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Horizontal slider with scroll buttons, drag, keyboard and edge fades."
+  },
+  {
     "component_key": "scroll-horizontal-button",
     "component_name": "Scroll Horizontal Button",
     "section_key": "controls",
@@ -1682,12 +1682,12 @@
     "section_key": "content",
     "category_key": "badges",
     "family_key": "standard",
-    "file_path": "components/ui/standard-toolbar-count.tsx",
-    "import_path": "@/components/ui/standard-toolbar-count",
+    "file_path": "components/standard/toolbar-count.tsx",
+    "import_path": "@/components/standard/toolbar-count",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": null
+    "description": "Toolbar counts: result text, filtered-of-total, pill, corner badge on a button, and a selection chip with clear."
   },
   {
     "component_key": "standard-toolbar-search-cluster",
@@ -1870,6 +1870,19 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": null
+  },
+  {
+    "component_key": "toolbar",
+    "component_name": "Toolbar",
+    "section_key": "controls",
+    "category_key": "buttons",
+    "family_key": "button",
+    "file_path": "components/standard/toolbar.tsx",
+    "import_path": "@/components/standard/toolbar",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select."
   },
   {
     "component_key": "toggle-row",

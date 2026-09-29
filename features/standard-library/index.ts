@@ -1,1 +1,4 @@
-export { RendersStandardLibraryDemo } from "./components/rendersStandardLibraryDemo"
+export {
+  RendersStandardLibraryDemo,
+  resolvesStandardDemo,
+} from "./components/rendersStandardLibraryDemo"

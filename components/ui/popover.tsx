@@ -16,24 +16,59 @@ function PopoverTrigger({
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
 }
 
+type PopoverContentVariant = "default" | "arrow" | "tooltip"
+
+const popoverContentVariantClassNames: Record<PopoverContentVariant, string> = {
+  default:
+    "w-72 gap-2.5 rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10",
+  arrow:
+    "w-72 gap-2.5 rounded-lg border border-foreground/10 bg-popover p-2.5 text-sm text-popover-foreground shadow-md",
+  tooltip:
+    "w-fit max-w-xs gap-1 rounded-md bg-foreground px-3 py-1.5 text-xs text-background",
+}
+
 function PopoverContent({
   className,
   align = "center",
   sideOffset = 4,
+  variant = "default",
+  side,
+  children,
   ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+}: React.ComponentProps<typeof PopoverPrimitive.Content> & {
+  variant?: PopoverContentVariant
+}) {
+  // The tooltip variant reads as a callout, so it points down at the trigger
+  // unless a side is asked for.
+  const resolvedSide = side ?? (variant === "tooltip" ? "top" : undefined)
+
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         data-slot="popover-content"
+        data-variant={variant}
         align={align}
+        side={resolvedSide}
         sideOffset={sideOffset}
         className={cn(
-          "z-50 flex w-72 origin-(--radix-popover-content-transform-origin) flex-col gap-2.5 rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-hidden duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "z-50 flex origin-(--radix-popover-content-transform-origin) flex-col outline-hidden duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          popoverContentVariantClassNames[variant],
           className
         )}
         {...props}
-      />
+      >
+        {children}
+        {variant === "tooltip" ? (
+          <PopoverPrimitive.Arrow className="z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px] bg-foreground fill-foreground" />
+        ) : null}
+        {variant === "arrow" ? (
+          // Radix rotates the arrow wrapper per side, so the caret is always
+          // drawn pointing down: only its bottom two edges need a border.
+          <PopoverPrimitive.Arrow asChild>
+            <span className="z-50 block size-2.5 translate-y-[calc(-50%_-_1px)] rotate-45 rounded-br-[2px] border-r border-b border-foreground/10 bg-popover" />
+          </PopoverPrimitive.Arrow>
+        ) : null}
+      </PopoverPrimitive.Content>
     </PopoverPrimitive.Portal>
   )
 }

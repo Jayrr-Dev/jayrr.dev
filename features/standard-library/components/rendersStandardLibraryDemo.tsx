@@ -1,5 +1,7 @@
 "use client"
 
+import type { ReactNode } from "react"
+
 import { findStandardCatalogEntry } from "@/features/standard-library/domain/catalog/definesStandardCatalog"
 
 import { RendersStandardBadgeDemo } from "./demos/rendersStandardBadgeDemo"
@@ -17,13 +19,21 @@ const FIELD_OVERRIDES = new Set(["Standard Toolbar Search Cluster"])
 
 const BADGE_OVERRIDES = new Set(["Badge Icon"])
 
+type StandardDemo = (props: { pieceName: string }) => ReactNode
+
 export function RendersStandardLibraryDemo({
   pieceName,
 }: {
   pieceName: string
 }) {
+  const Demo = resolvesStandardDemo(pieceName)
+  return <Demo pieceName={pieceName} />
+}
+
+/** Picks the demo for a Standard piece. Every demo here is hook-free. */
+export function resolvesStandardDemo(pieceName: string): StandardDemo {
   if (BADGE_ICON_NAMES.has(pieceName) || BADGE_OVERRIDES.has(pieceName)) {
-    return <RendersStandardBadgeDemo pieceName={pieceName} />
+    return RendersStandardBadgeDemo
   }
 
   const entry = findStandardCatalogEntry(pieceName)
@@ -31,36 +41,36 @@ export function RendersStandardLibraryDemo({
   const section = entry?.section_key ?? "content"
 
   if (pieceName === "Standard Toolbar Search Cluster") {
-    return <RendersStandardSignalDemo pieceName={pieceName} />
+    return RendersStandardSignalDemo
   }
 
   if (category === "buttons" || category === "icons") {
-    return <RendersStandardButtonDemo pieceName={pieceName} />
+    return RendersStandardButtonDemo
   }
 
   if (category === "fields") {
-    return <RendersStandardFieldDemo pieceName={pieceName} />
+    return RendersStandardFieldDemo
   }
 
   if (category === "pickers" || category === "scroll") {
-    return <RendersStandardPickerDemo pieceName={pieceName} />
+    return RendersStandardPickerDemo
   }
 
   if (category === "toggles") {
-    return <RendersStandardToggleDemo pieceName={pieceName} />
+    return RendersStandardToggleDemo
   }
 
   if (category === "badges") {
-    return <RendersStandardBadgeDemo pieceName={pieceName} />
+    return RendersStandardBadgeDemo
   }
 
   if (section === "overlays") {
-    return <RendersStandardOverlayDemo pieceName={pieceName} />
+    return RendersStandardOverlayDemo
   }
 
   if (section === "signals") {
-    return <RendersStandardSignalDemo pieceName={pieceName} />
+    return RendersStandardSignalDemo
   }
 
-  return <RendersStandardContentDemo pieceName={pieceName} />
+  return RendersStandardContentDemo
 }

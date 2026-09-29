@@ -1,0 +1,76 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-effect",
+  "title": "Text Effect",
+  "description": "Text Effect from the Classic library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/ui/text-effect.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction usePrefersReducedMotion() {\n  const [reduce, setReduce] = React.useState(false)\n\n  React.useEffect(() => {\n    const query = window.matchMedia(\"(prefers-reduced-motion: reduce)\")\n    const sync = () => setReduce(query.matches)\n    sync()\n    query.addEventListener(\"change\", sync)\n    return () => query.removeEventListener(\"change\", sync)\n  }, [])\n\n  return reduce\n}\n\nfunction TextCaret({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"text-caret\"\n      aria-hidden=\"true\"\n      className={cn(\n        \"ml-[0.08em] inline-block h-[0.9em] w-[0.08em] animate-text-caret bg-current align-[-0.08em] motion-reduce:hidden\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n/** Wraps every run of ! or ? so it bounces; everything else stays plain text. */\nfunction wiggleMarks(text: string) {\n  return text.split(/([!?]+)/g).map((chunk, index) => {\n    if (!chunk || !/^[!?]+$/.test(chunk)) return chunk\n\n    return (\n      <span\n        key={index}\n        data-slot=\"text-mark\"\n        className={cn(\n          \"inline-block origin-[50%_80%] motion-reduce:animate-none\",\n          chunk.includes(\"!\") ? \"animate-text-bang\" : \"animate-text-ask\"\n        )}\n      >\n        {chunk}\n      </span>\n    )\n  })\n}\n\nfunction TextWiggle({\n  children,\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & { children: string }) {\n  return (\n    <span data-slot=\"text-wiggle\" className={className} {...props}>\n      {wiggleMarks(children)}\n    </span>\n  )\n}\n\n/** Trailing \"...\" that counts up. The dots always take their full width, so nothing shifts. */\nfunction TextDots({\n  children,\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & { children?: string }) {\n  return (\n    <span data-slot=\"text-dots\" className={className} {...props}>\n      {children}\n      <span\n        aria-hidden=\"true\"\n        className=\"inline-block animate-text-dots motion-reduce:animate-none\"\n      >\n        ...\n      </span>\n    </span>\n  )\n}\n\nfunction TextPop({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"text-pop\"\n      className={cn(\n        \"inline-block animate-text-pop motion-reduce:animate-none\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n/**\n * Types `text` out. Pass an array to cycle: type, hold, delete, next.\n * A single string types once unless `loop` is set.\n */\nfunction TextTypewriter({\n  text,\n  loop,\n  typeMs = 55,\n  deleteMs = 25,\n  holdMs = 2500,\n  gapMs = 400,\n  caret = true,\n  wiggle = false,\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & {\n  text: string | readonly string[]\n  loop?: boolean\n  typeMs?: number\n  deleteMs?: number\n  holdMs?: number\n  gapMs?: number\n  caret?: boolean\n  wiggle?: boolean\n}) {\n  const reduceMotion = usePrefersReducedMotion()\n  const lines = React.useMemo(\n    () => (typeof text === \"string\" ? [text] : [...text]),\n    // Compare by content so inline arrays don't restart the animation.\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n    [typeof text === \"string\" ? text : text.join(\"\\u0000\")]\n  )\n  const cycles = loop ?? lines.length > 1\n  const [index, setIndex] = React.useState(0)\n  const [shown, setShown] = React.useState(\"\")\n  const current = lines[index % lines.length] ?? \"\"\n\n  React.useEffect(() => {\n    if (reduceMotion) {\n      setShown(current)\n      if (!cycles) return\n      const timer = window.setTimeout(\n        () => setIndex((value) => (value + 1) % lines.length),\n        holdMs\n      )\n      return () => window.clearTimeout(timer)\n    }\n\n    const chars = Array.from(current)\n    let timer = 0\n    let cancelled = false\n    const later = (ms: number, fn: () => void) => {\n      timer = window.setTimeout(() => {\n        if (!cancelled) fn()\n      }, ms)\n    }\n\n    const type = (count: number) => {\n      setShown(chars.slice(0, count).join(\"\"))\n      if (count < chars.length) return later(typeMs, () => type(count + 1))\n      if (cycles) later(holdMs, () => erase(chars.length))\n    }\n\n    const erase = (count: number) => {\n      setShown(chars.slice(0, count).join(\"\"))\n      if (count > 0) return later(deleteMs, () => erase(count - 1))\n      later(gapMs, () => setIndex((value) => (value + 1) % lines.length))\n    }\n\n    setShown(\"\")\n    later(typeMs, () => type(1))\n\n    return () => {\n      cancelled = true\n      window.clearTimeout(timer)\n    }\n  }, [current, cycles, lines.length, typeMs, deleteMs, holdMs, gapMs, reduceMotion])\n\n  return (\n    <span\n      data-slot=\"text-typewriter\"\n      aria-label={current}\n      className={cn(\"whitespace-pre-wrap\", className)}\n      {...props}\n    >\n      <span aria-hidden=\"true\">{wiggle ? wiggleMarks(shown) : shown}</span>\n      {caret ? <TextCaret /> : null}\n    </span>\n  )\n}\n\n/**\n * Reveals `source` at a capped rate while `live`, for streamed text that\n * arrives in bursts. Text that was never live shows in full straight away.\n */\nfunction useTextReveal(\n  source: string,\n  { live = true, charsPerSecond = 40 }: { live?: boolean; charsPerSecond?: number } = {}\n) {\n  const reduceMotion = usePrefersReducedMotion()\n  const paced = React.useRef(live)\n  if (live) paced.current = true\n\n  const [shown, setShown] = React.useState(() => (live ? \"\" : source))\n  const shownRef = React.useRef(shown)\n  shownRef.current = shown\n\n  React.useEffect(() => {\n    if (reduceMotion || !paced.current) {\n      shownRef.current = source\n      setShown(source)\n      return\n    }\n\n    let frame = 0\n    let last = performance.now()\n    let carry = 0\n\n    const tick = (now: number) => {\n      carry += ((now - last) / 1000) * charsPerSecond\n      last = now\n      const add = Math.floor(carry)\n      carry -= add\n\n      const prev = shownRef.current\n      const next = source.startsWith(prev)\n        ? source.slice(0, Math.min(source.length, prev.length + add))\n        : source.slice(0, Math.max(add, 1))\n\n      if (next !== prev) {\n        shownRef.current = next\n        setShown(next)\n      }\n      if (next.length < source.length) frame = requestAnimationFrame(tick)\n    }\n\n    frame = requestAnimationFrame(tick)\n    return () => cancelAnimationFrame(frame)\n  }, [source, charsPerSecond, reduceMotion])\n\n  return shown\n}\n\nfunction TextReveal({\n  text,\n  live = true,\n  charsPerSecond,\n  caret = true,\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & {\n  text: string\n  live?: boolean\n  charsPerSecond?: number\n  caret?: boolean\n}) {\n  const shown = useTextReveal(text, { live, charsPerSecond })\n  const typing = shown.length < text.length\n\n  return (\n    <span\n      data-slot=\"text-reveal\"\n      className={cn(\"whitespace-pre-wrap\", className)}\n      {...props}\n    >\n      {shown}\n      {caret && typing ? <TextCaret /> : null}\n    </span>\n  )\n}\n\nexport {\n  TextCaret,\n  TextDots,\n  TextPop,\n  TextReveal,\n  TextTypewriter,\n  TextWiggle,\n  useTextReveal,\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "animate-text-caret": "text-caret 1s steps(1) infinite",
+      "animate-text-bang": "text-bang 1.5s ease-in-out infinite",
+      "animate-text-ask": "text-ask 1.8s ease-in-out infinite",
+      "animate-text-dots": "text-dots 1.2s steps(4, jump-none) infinite",
+      "animate-text-pop": "text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both"
+    }
+  },
+  "css": {
+    "@keyframes text-caret": {
+      "0%, 49%": {
+        "opacity": "1"
+      },
+      "50%, 100%": {
+        "opacity": "0"
+      }
+    },
+    "@keyframes text-bang": {
+      "0%, 100%": {
+        "transform": "translateY(0) rotate(0deg) scale(1)"
+      },
+      "35%": {
+        "transform": "translateY(-3px) rotate(-14deg) scale(1.18)"
+      },
+      "55%": {
+        "transform": "translateY(0) rotate(8deg) scale(1.05)"
+      }
+    },
+    "@keyframes text-ask": {
+      "0%, 100%": {
+        "transform": "rotate(0deg) translateY(0)"
+      },
+      "40%": {
+        "transform": "rotate(16deg) translateY(-1px)"
+      },
+      "70%": {
+        "transform": "rotate(-10deg) translateY(0)"
+      }
+    },
+    "@keyframes text-dots": {
+      "from": {
+        "clip-path": "inset(0 100% 0 0)"
+      },
+      "to": {
+        "clip-path": "inset(0 0 0 0)"
+      }
+    },
+    "@keyframes text-pop": {
+      "from": {
+        "transform": "translateY(6px) scale(0.92)",
+        "opacity": "0"
+      },
+      "to": {
+        "transform": "translateY(0) scale(1)",
+        "opacity": "1"
+      }
+    }
+  },
+  "type": "registry:ui"
+}

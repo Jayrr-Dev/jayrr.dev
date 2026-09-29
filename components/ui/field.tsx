@@ -69,17 +69,38 @@ const fieldVariants = cva(
   }
 )
 
+const fieldEdgeClasses = {
+  left: "*:data-[slot=field-label]:left-1.5",
+  center:
+    "*:data-[slot=field-label]:left-1/2 *:data-[slot=field-label]:-translate-x-1/2",
+  right: "*:data-[slot=field-label]:right-1.5",
+} as const
+
 function Field({
   className,
   orientation = "vertical",
+  labelEdge,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
+}: React.ComponentProps<"div"> &
+  VariantProps<typeof fieldVariants> & {
+    /** Straddle the label across the control's top border, aligned left, center or right. */
+    labelEdge?: keyof typeof fieldEdgeClasses
+  }) {
   return (
     <div
       role="group"
       data-slot="field"
       data-orientation={orientation}
-      className={cn(fieldVariants({ orientation }), className)}
+      data-label-edge={labelEdge}
+      className={cn(
+        fieldVariants({ orientation: labelEdge ? "vertical" : orientation }),
+        labelEdge &&
+          cn(
+            "relative mt-2 *:data-[slot=field-label]:pointer-events-none *:data-[slot=field-label]:absolute *:data-[slot=field-label]:top-0 *:data-[slot=field-label]:z-10 *:data-[slot=field-label]:w-auto *:data-[slot=field-label]:-translate-y-1/2 *:data-[slot=field-label]:rounded-md *:data-[slot=field-label]:border *:data-[slot=field-label]:border-input *:data-[slot=field-label]:bg-background *:data-[slot=field-label]:px-1.5 *:data-[slot=field-label]:py-0.5 *:data-[slot=field-label]:text-[11px] *:data-[slot=field-label]:leading-none *:data-[slot=field-label]:text-muted-foreground *:data-[slot=input]:h-9 *:data-[slot=input]:pt-2.5",
+            fieldEdgeClasses[labelEdge]
+          ),
+        className
+      )}
       {...props}
     />
   )

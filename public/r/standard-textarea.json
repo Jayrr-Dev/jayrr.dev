@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "components/standard/textarea.tsx",
-      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Textarea({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"textarea\">) {\r\n  return (\r\n    <textarea\r\n      data-slot=\"textarea\"\r\n      className={cn(\r\n        \"h-20 w-full rounded-lg border border-input bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Textarea }\r\n",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Textarea({\n  className,\n  invalid,\n  ...props\n}: React.ComponentProps<\"textarea\"> & {\n  /** Shows the error style. Same as passing aria-invalid. */\n  invalid?: boolean\n}) {\n  return (\n    <textarea\n      data-slot=\"textarea\"\n      className={cn(\n        \"min-h-20 w-full rounded-lg border border-input bg-transparent px-2.5 py-1.5 text-base outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40\",\n        className\n      )}\n      {...props}\n      aria-invalid={invalid || props[\"aria-invalid\"] || undefined}\n    />\n  )\n}\n\nexport { Textarea }\n",
       "type": "registry:ui"
     }
   ],

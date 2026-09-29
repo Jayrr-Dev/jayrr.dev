@@ -130,13 +130,6 @@ const icons = {
       <path d="M22 36V28m8 8V24m8 12v-6" />
     </>
   ),
-  "Admin Shield Cog Config Button": (
-    <>
-      <path d="M32 10 50 17v14c0 12-8 19-18 23-10-4-18-11-18-23V17Z" />
-      <circle cx="32" cy="30" r="5" />
-      <path d="M32 22v3m0 10v3M24 30h3m10 0h3" />
-    </>
-  ),
   Link: (
     <>
       <path d="M13 31h25m-25 7h25m5-16h9v9m-14 5 14-14" />
@@ -228,6 +221,13 @@ const icons = {
       />
     </>
   ),
+  "Progress Ring": (
+    <>
+      <circle cx="32" cy="32" r="16" strokeWidth="5" opacity=".3" />
+      <path d="M32 16a16 16 0 0 1 13.86 24" strokeWidth="5" />
+      <path d="M28 32h8" opacity=".5" />
+    </>
+  ),
   Skeleton: (
     <g fill="currentColor" stroke="none">
       <circle cx="19" cy="24" r="7" opacity=".3" />
@@ -287,6 +287,13 @@ const icons = {
       <path d="M26 40V28l6 6 6-6v12" />
     </>
   ),
+  "Text Effect": (
+    <>
+      <path d="M12 24h8m-4 0v16M24 32h8m-4-6v14" />
+      <path d="M38 26v14" opacity=".35" />
+      <path d="M46 22v12m0 5v1" />
+    </>
+  ),
   Spinner: (
     <>
       <path d="M32 14a18 18 0 1 1-12.7 5.3" opacity=".35" />
@@ -307,9 +314,20 @@ const icons = {
   ),
   Carousel: (
     <>
-      <path d="m14 32-6-6m6 6-6 6M50 32l6-6m-6 6 6 6" />
-      <rect x="20" y="18" width="24" height="28" rx="3" />
-      <rect x="46" y="22" width="6" height="20" rx="2" opacity=".35" />
+      <rect x="4" y="18" width="10" height="22" rx="2" opacity=".35" />
+      <rect x="50" y="18" width="10" height="22" rx="2" opacity=".35" />
+      <rect
+        x="19"
+        y="12"
+        width="26"
+        height="34"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".1"
+      />
+      <circle cx="26" cy="54" r="2" fill="currentColor" stroke="none" />
+      <circle cx="32" cy="54" r="2" opacity=".4" />
+      <circle cx="38" cy="54" r="2" opacity=".4" />
     </>
   ),
   Chart: (
@@ -338,30 +356,69 @@ const icons = {
   ),
   Breadcrumb: (
     <>
-      <path d="M10 32h10m8 0h10m8 0h8" />
-      <path d="m22 26 6 6-6 6m18-12 6 6-6 6" />
+      <path d="M6 32h8m12 0h8" opacity=".5" />
+      <path d="m18 28 4 4-4 4m20-8 4 4-4 4" opacity=".5" />
+      <rect
+        x="46"
+        y="26"
+        width="14"
+        height="12"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".1"
+      />
     </>
   ),
   "Navigation Menu": (
     <>
-      <rect x="8" y="18" width="48" height="12" rx="3" />
-      <path d="M16 24h8m6 0h8m6 0h6" />
-      <rect x="14" y="36" width="22" height="14" rx="3" opacity=".35" />
+      <rect x="8" y="10" width="48" height="12" rx="3" />
+      <path d="M14 16h8m3-1 2 2 2-2" />
+      <path d="M36 16h6m4 0h6" opacity=".5" />
+      <rect
+        x="8"
+        y="26"
+        width="48"
+        height="28"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".1"
+      />
+      <rect x="13" y="31" width="18" height="18" rx="2" opacity=".5" />
+      <path d="M36 34h14m-14 7h10m-10 7h12" opacity=".5" />
     </>
   ),
   Pagination: (
     <>
-      <path d="m16 32-5-5m5 5-5 5m37-5 5-5m-5 5 5 5" />
-      <circle cx="28" cy="32" r="3" fill="currentColor" stroke="none" />
-      <circle cx="36" cy="32" r="3" opacity=".4" />
-      <circle cx="44" cy="32" r="3" opacity=".25" />
+      <path d="m10 28-4 4 4 4m44-8 4 4-4 4" />
+      <rect x="15" y="27" width="10" height="10" rx="2" opacity=".4" />
+      <rect
+        x="27"
+        y="27"
+        width="10"
+        height="10"
+        rx="2"
+        fill="currentColor"
+        fillOpacity=".15"
+      />
+      <rect x="39" y="27" width="10" height="10" rx="2" opacity=".4" />
     </>
   ),
   Menubar: (
     <>
-      <path d="M8 18h48" />
-      <path d="M14 18v8m12-8v8m12-8v8" />
-      <rect x="12" y="30" width="18" height="16" rx="2" opacity=".4" />
+      <rect x="8" y="10" width="48" height="10" rx="2" />
+      <path d="M13 15h7" />
+      <path d="M26 15h7m6 0h7" opacity=".5" />
+      <rect
+        x="10"
+        y="24"
+        width="26"
+        height="28"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".1"
+      />
+      <path d="M15 31h14m-14 6h10m-14 10h12" opacity=".5" />
+      <path d="M13 42h20" opacity=".25" />
     </>
   ),
   Sidebar: (
@@ -637,7 +694,15 @@ const icons = {
     <>
       <rect x="10" y="12" width="44" height="40" rx="3" />
       <path d="M18 22h22M18 30h22M18 38h16" opacity=".45" />
-      <rect x="46" y="18" width="3" height="14" rx="1.5" fill="currentColor" stroke="none" />
+      <rect
+        x="46"
+        y="18"
+        width="3"
+        height="14"
+        rx="1.5"
+        fill="currentColor"
+        stroke="none"
+      />
     </>
   ),
   Direction: (
@@ -825,9 +890,26 @@ const icons = {
   ),
   "Toggleable Badges": (
     <>
-      <rect x="6" y="22" width="16" height="20" rx="10" fill="currentColor" fillOpacity=".16" />
+      <rect
+        x="6"
+        y="22"
+        width="16"
+        height="20"
+        rx="10"
+        fill="currentColor"
+        fillOpacity=".16"
+      />
       <rect x="24" y="22" width="16" height="20" rx="10" />
       <rect x="42" y="22" width="16" height="20" rx="10" opacity=".4" />
+    </>
+  ),
+  Toolbar: (
+    <>
+      <rect x="6" y="22" width="52" height="20" rx="5" />
+      <path d="M13 28h4a2 2 0 0 1 0 4h-4Zm0 4h4.5a2 2 0 0 1 0 4H13Z" />
+      <path d="M27 28h4M29 28l-2 8M25 36h4" />
+      <path d="M36 26v12" opacity=".4" />
+      <path d="M42 29h10M42 32h7M42 35h10" />
     </>
   ),
   "Button Icon": (
@@ -1010,7 +1092,15 @@ const icons = {
   "Sticky Table": (
     <>
       <rect x="8" y="12" width="48" height="40" rx="3" />
-      <rect x="8" y="12" width="48" height="12" rx="3" fill="currentColor" fillOpacity=".12" />
+      <rect
+        x="8"
+        y="12"
+        width="48"
+        height="12"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
       <path d="M8 36h48M24 12v40" />
     </>
   ),
@@ -1079,7 +1169,15 @@ const icons = {
     <>
       <rect x="12" y="12" width="36" height="40" rx="3" />
       <path d="M18 22h22M18 30h22M18 38h16" opacity=".45" />
-      <rect x="50" y="16" width="3" height="20" rx="1.5" fill="currentColor" stroke="none" />
+      <rect
+        x="50"
+        y="16"
+        width="3"
+        height="20"
+        rx="1.5"
+        fill="currentColor"
+        stroke="none"
+      />
     </>
   ),
   "Loading Check": (

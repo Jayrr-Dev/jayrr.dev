@@ -38,13 +38,14 @@ export const gallerySections: GallerySection[] = [
           { name: "Caption" },
           { name: "Code" },
           library("Kbd"),
+          library("Text Effect"),
         ],
       },
       {
         name: "Icon",
         cards: [
           { name: "Symbol" },
-          { name: "Status" },
+          library("Status"),
           library("Spinner"),
           library("Marker"),
         ],
@@ -126,6 +127,7 @@ export const gallerySections: GallerySection[] = [
         name: "Indicator",
         cards: [
           library("Progress"),
+          library("Progress Ring"),
           library("Skeleton"),
           library("Sonner"),
           library("Empty"),
@@ -169,6 +171,7 @@ export const gallerySections: GallerySection[] = [
         cards: [
           { name: "Stack" },
           { name: "Row" },
+          library("Masonry"),
           library("Resizable"),
           library("Scroll Area"),
           library("Direction"),

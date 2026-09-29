@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar",
+  "title": "Toolbar",
+  "description": "Toolbar from the Standard library.",
+  "dependencies": [
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "button-icon",
+    "divider",
+    "popover",
+    "toggle",
+    "tooltip"
+  ],
+  "files": [
+    {
+      "path": "components/standard/toolbar.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CheckIcon, ChevronDownIcon } from \"lucide-react\"\nimport { cn } from \"cn\"\n\nimport { Button } from \"@/components/standard/button\"\nimport { ButtonIcon } from \"@/components/standard/button-icon\"\nimport { Divider } from \"@/components/standard/divider\"\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/standard/popover\"\nimport { Toggle } from \"@/components/standard/toggle\"\nimport { Tooltip } from \"@/components/standard/tooltip\"\n\nfunction Toolbar({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"toolbar\"\n      role=\"toolbar\"\n      className={cn(\n        \"flex flex-wrap items-center gap-1 border-b border-border bg-muted/30 p-1\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ToolbarGroup({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"toolbar-group\"\n      role=\"group\"\n      className={cn(\"flex items-center gap-0.5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToolbarSeparator({ className }: { className?: string }) {\n  return (\n    <Divider\n      data-slot=\"toolbar-separator\"\n      orientation=\"vertical\"\n      className={cn(\"mx-1 h-5 self-center\", className)}\n    />\n  )\n}\n\nfunction withHint(\n  hint: string | undefined,\n  label: string,\n  node: React.ReactElement\n) {\n  if (!hint) {\n    return node\n  }\n\n  return (\n    <Tooltip label={label} body={hint}>\n      {node}\n    </Tooltip>\n  )\n}\n\nfunction ToolbarButton({\n  className,\n  label,\n  hint,\n  ...props\n}: React.ComponentProps<\"button\"> & { label: string; hint?: string }) {\n  return withHint(\n    hint,\n    label,\n    <ButtonIcon\n      data-slot=\"toolbar-button\"\n      tone=\"ghost\"\n      label={label}\n      className={cn(\"[&_svg]:size-4\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToolbarToggle({\n  className,\n  label,\n  hint,\n  ...props\n}: React.ComponentProps<typeof Toggle> & { label: string; hint?: string }) {\n  return withHint(\n    hint,\n    label,\n    <Toggle\n      data-slot=\"toolbar-toggle\"\n      aria-label={label}\n      className={cn(\n        \"size-8 border-transparent px-0 text-muted-foreground hover:text-foreground data-[pressed=true]:bg-muted data-[pressed=true]:text-foreground [&_svg]:size-4\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport type ToolbarSelectOption = {\n  value: string\n  label: string\n  icon?: React.ReactNode\n}\n\nfunction ToolbarSelect({\n  className,\n  label,\n  options,\n  value,\n  onValueChange,\n  disabled = false,\n}: {\n  className?: string\n  label: string\n  options: ToolbarSelectOption[]\n  value: string\n  onValueChange: (value: string) => void\n  disabled?: boolean\n}) {\n  const [open, setOpen] = React.useState(false)\n  const current = options.find((option) => option.value === value)\n\n  return (\n    <Popover open={open} onOpenChange={setOpen}>\n      <PopoverTrigger asChild>\n        <Button\n          data-slot=\"toolbar-select\"\n          tone=\"ghost\"\n          size=\"sm\"\n          aria-label={label}\n          disabled={disabled}\n          className={cn(\n            \"h-8 min-w-32 justify-between text-foreground [&_svg]:size-3.5\",\n            className\n          )}\n        >\n          <span className=\"flex items-center gap-2 truncate\">\n            {current?.icon}\n            {current?.label ?? label}\n          </span>\n          <ChevronDownIcon className=\"text-muted-foreground\" />\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent align=\"start\" className=\"w-48 gap-0 p-1\">\n        {options.map((option) => (\n          <button\n            key={option.value}\n            type=\"button\"\n            className={cn(\n              \"flex items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none hover:bg-muted focus-visible:bg-muted [&_svg]:size-4 [&_svg]:text-muted-foreground\",\n              option.value === value ? \"bg-muted\" : undefined\n            )}\n            onClick={() => {\n              onValueChange(option.value)\n              setOpen(false)\n            }}\n          >\n            {option.icon}\n            <span className=\"flex-1\">{option.label}</span>\n            {option.value === value ? <CheckIcon /> : null}\n          </button>\n        ))}\n      </PopoverContent>\n    </Popover>\n  )\n}\n\nexport {\n  Toolbar,\n  ToolbarButton,\n  ToolbarGroup,\n  ToolbarSelect,\n  ToolbarSeparator,\n  ToolbarToggle,\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

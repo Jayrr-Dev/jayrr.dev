@@ -11,6 +11,7 @@ function Switch({
   checked,
   defaultChecked,
   onCheckedChange,
+  onClick,
   ...props
 }: Omit<React.ComponentProps<"button">, "onChange"> & {
   checked?: boolean
@@ -20,7 +21,11 @@ function Switch({
   const [uncontrolled, setUncontrolled] = React.useState(defaultChecked ?? false)
   const isOn = checked ?? uncontrolled
 
-  function toggle() {
+  function toggle(event: React.MouseEvent<HTMLButtonElement>) {
+    onClick?.(event)
+    if (event.defaultPrevented) {
+      return
+    }
     const next = !isOn
     if (checked === undefined) {
       setUncontrolled(next)
@@ -34,13 +39,13 @@ function Switch({
       data-checked={isOn}
       type="button"
       role="switch"
+      {...props}
       aria-checked={isOn}
       className={cn(
-        "relative h-5 w-8 rounded-full bg-muted transition-colors data-[checked=true]:bg-primary",
+        "relative h-5 w-8 shrink-0 rounded-full bg-muted transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[checked=true]:bg-primary",
         className
       )}
       onClick={toggle}
-      {...props}
     >
       <span
         className={cn(
@@ -55,12 +60,24 @@ function Switch({
 function LabelledSwitch({
   className,
   label,
+  id,
   ...props
 }: React.ComponentProps<typeof Switch> & { label: string }) {
+  const autoId = React.useId()
+  const switchId = id ?? autoId
+
   return (
     <Row data-slot="labelled-switch" className={className}>
-      <Switch {...props} />
-      <FieldLabel>{label}</FieldLabel>
+      <Switch id={switchId} {...props} />
+      <FieldLabel
+        htmlFor={switchId}
+        className={cn(
+          "cursor-pointer",
+          props.disabled && "cursor-not-allowed opacity-50"
+        )}
+      >
+        {label}
+      </FieldLabel>
     </Row>
   )
 }

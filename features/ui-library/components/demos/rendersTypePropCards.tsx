@@ -15,12 +15,22 @@ import {
 } from "@/components/ui/attachment"
 import { Badge } from "@/components/ui/badge"
 import { Bubble, BubbleContent } from "@/components/ui/bubble"
+import {
+  TextDots,
+  TextPop,
+  TextReveal,
+  TextTypewriter,
+  TextWiggle,
+} from "@/components/ui/text-effect"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import {
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -32,6 +42,7 @@ import {
 } from "@/components/ui/drawer"
 import {
   Empty,
+  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
@@ -107,12 +118,38 @@ function TypeCard({
   )
 }
 
+const carouselDemoSlides = [
+  { value: "1", label: "Plan" },
+  { value: "2", label: "Build" },
+  { value: "3", label: "Ship" },
+]
+
+function CarouselDemoSlides({ className }: { className?: string }) {
+  return (
+    <CarouselContent className={className}>
+      {carouselDemoSlides.map((slide) => (
+        <CarouselItem key={slide.value}>
+          <div className="flex h-32 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40">
+            <span className="text-2xl font-semibold tabular-nums">
+              {slide.value}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {slide.label}
+            </span>
+          </div>
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+  )
+}
+
 const bubbleVariants = [
   "secondary",
   "muted",
   "tinted",
   "outline",
   "ghost",
+  "speech",
   "destructive",
 ] as const
 
@@ -292,14 +329,63 @@ export function RendersTypePropCards({
 
   if (pieceName === "Carousel") {
     return (
-      <TypeCard label="orientation vertical" wide>
-        <Carousel orientation="vertical" className="w-full">
-          <CarouselContent className="h-24">
-            <CarouselItem>One</CarouselItem>
-            <CarouselItem>Two</CarouselItem>
-          </CarouselContent>
-        </Carousel>
-      </TypeCard>
+      <>
+        <TypeCard label="position inside" wide>
+          <Carousel className="w-full">
+            <CarouselDemoSlides />
+            <CarouselPrevious position="inside" />
+            <CarouselNext position="inside" />
+          </Carousel>
+        </TypeCard>
+        <TypeCard label="dots bottom" wide>
+          <Carousel className="w-full">
+            <CarouselDemoSlides />
+            <CarouselPrevious position="inside" />
+            <CarouselNext position="inside" />
+            <CarouselDots position="bottom" />
+          </Carousel>
+        </TypeCard>
+        <TypeCard label="dots top" wide>
+          <Carousel className="w-full">
+            <CarouselDemoSlides />
+            <CarouselPrevious position="inside" />
+            <CarouselNext position="inside" />
+            <CarouselDots position="top" />
+          </Carousel>
+        </TypeCard>
+        <TypeCard label="appearance gradient" wide>
+          <Carousel className="w-full">
+            <CarouselDemoSlides />
+            <CarouselPrevious appearance="gradient" />
+            <CarouselNext appearance="gradient" />
+            <CarouselDots />
+          </Carousel>
+        </TypeCard>
+        <TypeCard label="gradient + arrow" wide>
+          <Carousel className="w-full">
+            <CarouselDemoSlides />
+            <CarouselPrevious appearance="gradient" arrow />
+            <CarouselNext appearance="gradient" arrow />
+            <CarouselDots />
+          </Carousel>
+        </TypeCard>
+        <TypeCard label="reveal side" wide>
+          <Carousel className="w-full">
+            <CarouselDemoSlides />
+            <CarouselPrevious position="inside" reveal="side" />
+            <CarouselNext position="inside" reveal="side" />
+          </Carousel>
+        </TypeCard>
+        <TypeCard label="orientation vertical" wide>
+          <div className="w-full py-10">
+            <Carousel orientation="vertical" className="w-full">
+              <CarouselDemoSlides className="h-32" />
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </TypeCard>
+      </>
     )
   }
 
@@ -348,12 +434,30 @@ export function RendersTypePropCards({
 
   if (pieceName === "Field") {
     return (
-      <TypeCard label="orientation horizontal" wide>
-        <Field orientation="horizontal">
-          <FieldLabel htmlFor="name-row">Name</FieldLabel>
-          <Input id="name-row" placeholder="Jayrr" />
-        </Field>
-      </TypeCard>
+      <>
+        <TypeCard label="orientation horizontal" wide>
+          <Field orientation="horizontal">
+            <FieldLabel htmlFor="name-row">Name</FieldLabel>
+            <Input id="name-row" placeholder="Jayrr" />
+          </Field>
+        </TypeCard>
+        {(["left", "center", "right"] as const).map((edge) => (
+          <TypeCard key={edge} label={`label edge ${edge}`}>
+            <Field labelEdge={edge}>
+              <FieldLabel htmlFor={`name-edge-${edge}`}>Name</FieldLabel>
+              <Input id={`name-edge-${edge}`} placeholder="Jayrr" />
+            </Field>
+          </TypeCard>
+        ))}
+        <TypeCard label="label as placeholder">
+          <Field>
+            <FieldLabel htmlFor="name-placeholder" className="sr-only">
+              Name
+            </FieldLabel>
+            <Input id="name-placeholder" placeholder="Name" />
+          </Field>
+        </TypeCard>
+      </>
     )
   }
 
@@ -433,6 +537,11 @@ export function RendersTypePropCards({
             <EmptyTitle>No files</EmptyTitle>
             <EmptyDescription>Drop one here.</EmptyDescription>
           </EmptyHeader>
+          <EmptyContent>
+            <Button variant="outline" size="sm">
+              Upload file
+            </Button>
+          </EmptyContent>
         </Empty>
       </TypeCard>
     )
@@ -504,6 +613,26 @@ export function RendersTypePropCards({
             </Popover>
           </TypeCard>
         ))}
+        <TypeCard label="variant tooltip">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">tooltip</Button>
+            </PopoverTrigger>
+            <PopoverContent variant="tooltip">
+              Points down at its trigger.
+            </PopoverContent>
+          </Popover>
+        </TypeCard>
+        <TypeCard label="variant arrow">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">arrow</Button>
+            </PopoverTrigger>
+            <PopoverContent variant="arrow" side="top" className="w-56">
+              Surface popover with a caret.
+            </PopoverContent>
+          </Popover>
+        </TypeCard>
       </>
     )
   }
@@ -535,7 +664,7 @@ export function RendersTypePropCards({
     return (
       <>
         <TypeCard label="variant line">
-          <Tabs defaultValue="one">
+          <Tabs defaultValue="one" className="w-full">
             <TabsList variant="line">
               <TabsTrigger value="one">One</TabsTrigger>
               <TabsTrigger value="two">Two</TabsTrigger>
@@ -543,12 +672,37 @@ export function RendersTypePropCards({
           </Tabs>
         </TypeCard>
         <TypeCard label="orientation vertical">
-          <Tabs defaultValue="one" orientation="vertical">
+          <Tabs defaultValue="one" orientation="vertical" className="w-full">
             <TabsList>
               <TabsTrigger value="one">One</TabsTrigger>
               <TabsTrigger value="two">Two</TabsTrigger>
             </TabsList>
           </Tabs>
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Text Effect") {
+    return (
+      <>
+        <TypeCard label="typewriter">
+          <TextTypewriter loop holdMs={4000} text="Typed one letter at a time." />
+        </TypeCard>
+        <TypeCard label="typewriter cycle">
+          <TextTypewriter text={["Hello!", "Hi there", "What's up?"]} />
+        </TypeCard>
+        <TypeCard label="wiggle">
+          <TextWiggle>Oink! Am I real?</TextWiggle>
+        </TypeCard>
+        <TypeCard label="dots">
+          <TextDots>Thinking</TextDots>
+        </TypeCard>
+        <TypeCard label="pop">
+          <TextPop>Saved!</TextPop>
+        </TypeCard>
+        <TypeCard label="reveal">
+          <TextReveal text="Streamed text is paced to a steady read speed, no matter how it arrives." />
         </TypeCard>
       </>
     )
@@ -567,6 +721,20 @@ export function RendersTypePropCards({
         <TypeCard label="align end">
           <Bubble align="end">
             <BubbleContent>Hello</BubbleContent>
+          </Bubble>
+        </TypeCard>
+        <TypeCard label="speech align end">
+          <Bubble variant="speech" align="end">
+            <BubbleContent>Hello</BubbleContent>
+          </Bubble>
+        </TypeCard>
+        <TypeCard label="speech typewriter" wide>
+          <Bubble variant="speech">
+            <BubbleContent>
+              <p className="font-medium">
+                <TextTypewriter text="What's rattling in the bank?" />
+              </p>
+            </BubbleContent>
           </Bubble>
         </TypeCard>
       </>
