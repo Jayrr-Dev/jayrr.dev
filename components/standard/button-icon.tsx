@@ -3,6 +3,7 @@ import { cn } from "cn"
 
 import { Button } from "@/components/standard/button"
 
+/** @deprecated Use <Button iconOnly aria-label> */
 function ButtonIcon({
   className,
   label,
@@ -12,9 +13,11 @@ function ButtonIcon({
   return (
     <Button
       data-slot="button-icon"
+      iconOnly
       aria-label={label}
       size="sm"
-      className={cn("size-8 px-0", className)}
+      // Keeps the original 32px box with small text.
+      className={cn("size-8", className)}
       {...props}
     >
       {children}

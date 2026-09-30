@@ -2,6 +2,9 @@
 
 import { useState } from "react"
 
+import { RefreshCwIcon } from "lucide-react"
+
+import { Button } from "@/components/standard/button"
 import { RefreshButton } from "@/components/standard/refresh-button"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
@@ -46,6 +49,19 @@ export function RendersRefreshButtonDemo() {
       <RendersRefreshButtonSpinDemo />
       <RendersRefreshButtonSpinDemo iconOnly label="icon only" />
       <RendersRefreshButtonSpinDemo disabled label="disabled" />
+      <RendersDemoCard label="refreshing">
+        <RefreshButton refreshing />
+      </RendersDemoCard>
+      <RendersDemoCard label="Button loading spin-icon">
+        <Button
+          tone="outline"
+          size="sm"
+          loading="spin-icon"
+          leading={<RefreshCwIcon aria-hidden className="size-3.5" />}
+        >
+          Syncing
+        </Button>
+      </RendersDemoCard>
     </>
   )
 }
