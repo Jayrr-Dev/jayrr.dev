@@ -9,6 +9,7 @@ import { RendersStandardButtonDemo } from "./demos/rendersStandardButtonDemo"
 import { RendersStandardContentDemo } from "./demos/rendersStandardContentDemo"
 import { RendersStandardCursorDemo } from "./demos/rendersStandardCursorDemo"
 import { RendersStandardFieldDemo } from "./demos/rendersStandardFieldDemo"
+import { RendersStandardLayerDemo } from "./demos/rendersStandardLayerDemo"
 import { RendersStandardOverlayDemo } from "./demos/rendersStandardOverlayDemo"
 import { RendersStandardPickerDemo } from "./demos/rendersStandardPickerDemo"
 import { RendersStandardSignalDemo } from "./demos/rendersStandardSignalDemo"
@@ -23,6 +24,7 @@ const STANDARD_DEMOS: Record<string, StandardDemo> = {
   content: RendersStandardContentDemo,
   cursor: RendersStandardCursorDemo,
   field: RendersStandardFieldDemo,
+  layer: RendersStandardLayerDemo,
   overlay: RendersStandardOverlayDemo,
   picker: RendersStandardPickerDemo,
   signal: RendersStandardSignalDemo,

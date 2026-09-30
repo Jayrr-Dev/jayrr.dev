@@ -448,6 +448,27 @@
       ]
     },
     {
+      "name": "color-grade",
+      "type": "registry:ui",
+      "title": "Color Grade",
+      "description": "Color treatment: sepia, black and white, noir, vivid, muted, vintage, warm, cool, duotone. Wraps content or grades the backdrop.",
+      "files": [
+        {
+          "path": "color-grade.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/color-grade.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "confirm-dialog",
       "type": "registry:ui",
       "title": "Confirm Dialog",
@@ -552,6 +573,27 @@
       ]
     },
     {
+      "name": "distort",
+      "type": "registry:ui",
+      "title": "Distort",
+      "description": "Spatial effect: waves, ripple, warp or blur, optionally animated. Wraps content or distorts the backdrop.",
+      "files": [
+        {
+          "path": "distort.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/distort.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "divider",
       "type": "registry:ui",
       "title": "Divider",
@@ -646,6 +688,27 @@
       ],
       "registryDependencies": [
         "@jayrr/field-label"
+      ]
+    },
+    {
+      "name": "gradient",
+      "type": "registry:ui",
+      "title": "Gradient",
+      "description": "Color transition layer: linear, radial, conic or mesh. Behind or over any relative isolate box.",
+      "files": [
+        {
+          "path": "gradient.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/gradient.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -798,6 +861,27 @@
       ]
     },
     {
+      "name": "mask",
+      "type": "registry:ui",
+      "title": "Mask",
+      "description": "Soft alpha cutout: fade, edges, vignette or spotlight. Wraps content or groups other layers.",
+      "files": [
+        {
+          "path": "mask.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/mask.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:ui",
       "title": "Menu",
@@ -858,6 +942,27 @@
       ],
       "registryDependencies": [
         "@jayrr/notification-badge"
+      ]
+    },
+    {
+      "name": "noise",
+      "type": "registry:ui",
+      "title": "Noise",
+      "description": "Random texture layer: grain, paper fibers or clouds, from SVG turbulence. Optional film jitter.",
+      "files": [
+        {
+          "path": "noise.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/noise.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -931,6 +1036,27 @@
       ],
       "dependencies": [
         "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "pattern",
+      "type": "registry:ui",
+      "title": "Pattern",
+      "description": "Repeating shape layer. Basic: dots, grid, lines, diagonal, checker. Graphic: waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and dashed diagonals, band. Decorative: speed lines, motion lines, sunburst, seigaiha, asanoha, kikko, shippo, sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard, blueprint, fold.",
+      "files": [
+        {
+          "path": "pattern.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/pattern.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
         "cn"
       ]
     },
@@ -1071,6 +1197,27 @@
       ],
       "dependencies": [
         "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "screentone",
+      "type": "registry:ui",
+      "title": "Screentone",
+      "description": "Screentone from the Standard library.",
+      "files": [
+        {
+          "path": "screentone.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/screentone.tsx"
+        },
+        {
+          "path": "layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "dependencies": [
         "cn"
       ]
     },
