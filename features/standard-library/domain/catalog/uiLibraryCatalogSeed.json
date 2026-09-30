@@ -1947,7 +1947,7 @@
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the center, a ring of solid circular actions, and a label card pushed outward from each one, with a notch on hover. Labels always, on hover, or off (tooltips), full ring or arc via startAngle and sweep, solid, violet, primary, secondary, and surface tones, three sizes, and arrow-key navigation."
+    "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the center, a ring of solid circular actions, and a label card pushed outward from each one. Opens at the cursor on right-click via ActionWheelContextMenu. Labels always, on hover, or off (tooltips), full ring or arc via startAngle and sweep, solid, violet, primary, secondary, and surface tones, three sizes, and arrow-key navigation."
   },
   {
     "component_key": "toolbar",

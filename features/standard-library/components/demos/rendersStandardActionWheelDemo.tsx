@@ -18,10 +18,13 @@ import {
   SunDimIcon,
 } from "lucide-react"
 
-import { ActionWheel } from "@/components/standard/action-wheel"
+import {
+  ActionWheel,
+  ActionWheelContextMenu,
+} from "@/components/standard/action-wheel"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
-const WHEEL_ITEMS = [
+export const WHEEL_ITEMS = [
   { label: "Play/Pause", icon: <PlayIcon /> },
   { label: "New note", icon: <NotebookPenIcon /> },
   { label: "Explore AI", icon: <SparklesIcon /> },
@@ -55,9 +58,25 @@ function RendersWheelStage({ children }: { children: React.ReactNode }) {
   )
 }
 
+/** Right-click anywhere in the zone to open the ring at the cursor. */
+export function RendersActionWheelContextDemo() {
+  return (
+    <ActionWheelContextMenu
+      label="Actions"
+      items={WHEEL_ITEMS}
+      className="flex h-72 w-full items-center justify-center rounded-lg border border-dashed border-border text-xs text-muted-foreground select-none"
+    >
+      Right-click anywhere here
+    </ActionWheelContextMenu>
+  )
+}
+
 export function RendersStandardActionWheelDemo() {
   return (
     <>
+      <RendersDemoCard label="right-click · context menu" className="w-full">
+        <RendersActionWheelContextDemo />
+      </RendersDemoCard>
       <RendersDemoCard label="actions ring · logi options+" className="w-full">
         <RendersWheelStage>
           <ActionWheel label="Actions" items={WHEEL_ITEMS} defaultOpen />

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 import { PlusIcon, XIcon } from "lucide-react"
 import { cn } from "cn"
 
@@ -70,8 +71,7 @@ function fixed(value: number) {
 /**
  * Radial action menu modeled on the Logi Options+ Actions Ring: a small gray
  * close button in the middle, a ring of solid circular actions around it,
- * and a label card pushed outward from each one. Hovering an action raises a
- * notch on its outer edge. `startAngle` is in degrees clockwise from
+ * and a label card pushed outward from each one. `startAngle` is in degrees clockwise from
  * 12 o'clock, and `sweep` below 360 spreads the actions over an arc.
  * Arrow keys walk the ring, Escape or a click outside closes it.
  */
@@ -89,6 +89,7 @@ function ActionWheel({
   open: openProp,
   defaultOpen = false,
   onOpenChange,
+  triggerless = false,
 }: {
   className?: string
   /** Accessible name for the trigger and the action group. */
@@ -105,6 +106,8 @@ function ActionWheel({
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
+  /** Hides the launcher while closed, for wheels opened some other way. */
+  triggerless?: boolean
 }) {
   const [openState, setOpenState] = React.useState(defaultOpen)
   const open = openProp ?? openState
@@ -115,6 +118,7 @@ function ActionWheel({
   const metrics = WHEEL_METRICS[size]
   const radius = radiusProp ?? metrics.radius
   const box = radius * 2 + metrics.item
+  const triggerSize = open || triggerless ? metrics.trigger : metrics.item
 
   const setOpen = React.useCallback(
     (next: boolean) => {
@@ -135,18 +139,34 @@ function ActionWheel({
       }
     }
 
-    document.addEventListener("pointerdown", closesOnOutside)
-    return () => document.removeEventListener("pointerdown", closesOnOutside)
-  }, [open, setOpen])
+    // Window capture runs before a host dialog's document listener, so
+    // Escape folds the wheel without also dismissing the dialog under it.
+    function closesOnEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") {
+        return
+      }
 
-  function movesFocus(event: React.KeyboardEvent) {
-    if (event.key === "Escape") {
       event.stopPropagation()
       setOpen(false)
       triggerRef.current?.focus()
-      return
     }
 
+    document.addEventListener("pointerdown", closesOnOutside)
+    window.addEventListener("keydown", closesOnEscape, true)
+    return () => {
+      document.removeEventListener("pointerdown", closesOnOutside)
+      window.removeEventListener("keydown", closesOnEscape, true)
+    }
+  }, [open, setOpen])
+
+  // Without a launcher to click, move focus in so Escape and arrows work.
+  React.useEffect(() => {
+    if (open && triggerless) {
+      triggerRef.current?.focus({ preventScroll: true })
+    }
+  }, [open, triggerless])
+
+  function movesFocus(event: React.KeyboardEvent) {
     const step =
       event.key === "ArrowRight" || event.key === "ArrowDown"
         ? 1
@@ -234,22 +254,6 @@ function ActionWheel({
                 triggerRef.current?.focus()
               }}
             >
-              {/* Hover notch on the edge facing away from the center. */}
-              <span
-                aria-hidden
-                style={{ rotate: `${degrees}deg` }}
-                className="pointer-events-none absolute inset-0"
-              >
-                <span
-                  className={cn(
-                    "absolute top-0 left-1/2 flex size-[34%] -translate-x-1/2 -translate-y-[30%] scale-0 items-center justify-center rounded-full border-0 transition-[scale] duration-200 ease-out group-focus-within/wheel-item:scale-100 group-hover/wheel-item:scale-100",
-                    WHEEL_TONES[tone],
-                    item.className
-                  )}
-                >
-                  <span className="h-0.5 w-1/2 rounded-full bg-current" />
-                </span>
-              </span>
               <span aria-hidden className="relative flex">
                 {item.icon}
               </span>
@@ -311,29 +315,36 @@ function ActionWheel({
         aria-expanded={open}
         aria-controls={ringId}
         style={{
-          width: open ? metrics.trigger : metrics.item,
-          height: open ? metrics.trigger : metrics.item,
-          marginLeft: -(open ? metrics.trigger : metrics.item) / 2,
-          marginTop: -(open ? metrics.trigger : metrics.item) / 2,
+          width: triggerSize,
+          height: triggerSize,
+          marginLeft: -triggerSize / 2,
+          marginTop: -triggerSize / 2,
         }}
+        tabIndex={triggerless && !open ? -1 : undefined}
         className={cn(
-          "pointer-events-auto absolute top-1/2 left-1/2 z-10 inline-flex items-center justify-center rounded-full transition-[width,height,margin,background-color,color,box-shadow,scale] duration-300 ease-out outline-none hover:scale-105 focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-95",
-          open
+          "pointer-events-auto absolute top-1/2 left-1/2 z-10 inline-flex items-center justify-center rounded-full transition-[width,height,margin,background-color,color,box-shadow,scale,opacity] duration-300 ease-out outline-none hover:scale-105 focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-95",
+          open || triggerless
             ? "bg-muted text-muted-foreground hover:text-foreground [&_svg]:size-3.5"
-            : cn("shadow-md", metrics.icon, WHEEL_TONES[tone])
+            : cn("shadow-md", metrics.icon, WHEEL_TONES[tone]),
+          triggerless && !open && "pointer-events-none scale-0 opacity-0"
         )}
         onClick={() => setOpen(!open)}
       >
         <span className="grid [&>*]:col-start-1 [&>*]:row-start-1 [&>*]:transition-[rotate,opacity,scale] [&>*]:duration-300">
           <span
             aria-hidden
-            className={cn("flex", open && "scale-50 rotate-90 opacity-0")}
+            className={cn(
+              "flex",
+              (open || triggerless) && "scale-50 rotate-90 opacity-0"
+            )}
           >
             {icon}
           </span>
           <XIcon
             aria-hidden
-            className={cn(!open && "scale-50 -rotate-90 opacity-0")}
+            className={cn(
+              !open && !triggerless && "scale-50 -rotate-90 opacity-0"
+            )}
           />
         </span>
       </button>
@@ -341,4 +352,112 @@ function ActionWheel({
   )
 }
 
-export { ActionWheel }
+// Matches the slot transition, so the ring can fold back in before unmounting.
+const WHEEL_EXIT_MS = 300
+
+/**
+ * Opens an ActionWheel at the pointer on right-click, like the Logi Options+
+ * ring on a mouse gesture. The wheel's center lands on the cursor and the
+ * gray close button sits under it. Inside a modal dialog the wheel portals
+ * into that dialog, so clicking an action does not count as outside it.
+ */
+function ActionWheelContextMenu({
+  children,
+  className,
+  onOpenChange,
+  ...wheelProps
+}: Omit<
+  React.ComponentProps<typeof ActionWheel>,
+  "open" | "defaultOpen" | "className"
+> & {
+  children: React.ReactNode
+  className?: string
+}) {
+  const [point, setPoint] = React.useState<{
+    x: number
+    y: number
+    host: HTMLElement
+  } | null>(null)
+  const [open, setOpen] = React.useState(false)
+  const exitRef = React.useRef<number | undefined>(undefined)
+  const anchorRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => () => window.clearTimeout(exitRef.current), [])
+
+  function opensAtPointer(event: React.MouseEvent<HTMLDivElement>) {
+    event.preventDefault()
+    window.clearTimeout(exitRef.current)
+
+    const dialog = event.currentTarget.closest<HTMLElement>('[role="dialog"]')
+    const frame = (dialog ?? document.documentElement).getBoundingClientRect()
+
+    setOpen(false)
+    setPoint({
+      x: event.clientX - frame.left + (dialog?.scrollLeft ?? 0),
+      y: event.clientY - frame.top + (dialog?.scrollTop ?? 0),
+      host: dialog ?? document.body,
+    })
+  }
+
+  const onOpenChangeRef = React.useRef(onOpenChange)
+  React.useLayoutEffect(() => {
+    onOpenChangeRef.current = onOpenChange
+  })
+
+  // The wheel commits closed at the new point; flushing its styles before
+  // opening lets the ring spring out from the cursor instead of popping in.
+  React.useLayoutEffect(() => {
+    if (!point) {
+      return
+    }
+
+    anchorRef.current?.getBoundingClientRect()
+    setOpen(true)
+    onOpenChangeRef.current?.(true)
+  }, [point])
+
+  function closes(next: boolean) {
+    if (next) {
+      return
+    }
+
+    setOpen(false)
+    onOpenChange?.(false)
+    window.clearTimeout(exitRef.current)
+    exitRef.current = window.setTimeout(() => setPoint(null), WHEEL_EXIT_MS)
+  }
+
+  return (
+    <>
+      <div
+        data-slot="action-wheel-context-menu"
+        data-open={open || undefined}
+        onContextMenu={opensAtPointer}
+        className={className}
+      >
+        {children}
+      </div>
+      {point
+        ? createPortal(
+            <div
+              key={`${point.x},${point.y}`}
+              ref={anchorRef}
+              style={{ left: point.x, top: point.y }}
+              className="pointer-events-none absolute z-50 size-0"
+            >
+              <ActionWheel
+                {...wheelProps}
+                className="-translate-x-1/2 -translate-y-1/2"
+                triggerless
+                open={open}
+                onOpenChange={closes}
+              />
+            </div>,
+            point.host
+          )
+        : null}
+    </>
+  )
+}
+
+export { ActionWheel, ActionWheelContextMenu }

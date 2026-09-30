@@ -34,6 +34,8 @@ import { Tooltip } from "@/components/standard/tooltip"
 import { Wizard } from "@/components/standard/wizard"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
+import { RendersActionWheelContextDemo } from "./rendersStandardActionWheelDemo"
+
 function rendersStepText(text: string) {
   return <p className="text-sm text-muted-foreground">{text}</p>
 }
@@ -383,9 +385,14 @@ export function RendersStandardOverlayDemo({
 
   if (pieceName === "Context Menu") {
     return (
-      <RendersDemoCard label="Context menu">
-        <ContextMenu items={MENU_ITEMS} />
-      </RendersDemoCard>
+      <>
+        <RendersDemoCard label="Context menu">
+          <ContextMenu items={MENU_ITEMS} />
+        </RendersDemoCard>
+        <RendersDemoCard label="action wheel" className="w-full">
+          <RendersActionWheelContextDemo />
+        </RendersDemoCard>
+      </>
     )
   }
 
