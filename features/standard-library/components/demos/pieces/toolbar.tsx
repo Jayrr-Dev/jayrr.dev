@@ -12,8 +12,12 @@ import {
   ShareIcon,
   StarIcon,
   Trash2Icon,
+  TypeIcon,
+  Heading1Icon,
+  Heading2Icon,
 } from "lucide-react"
 
+import { Select } from "@/components/standard/select"
 import {
   Toolbar,
   ToolbarButton,
@@ -72,6 +76,39 @@ function RendersToolbarGroupsDemo() {
   )
 }
 
+const BLOCK_OPTIONS = [
+  { value: "paragraph", label: "Paragraph", icon: <TypeIcon /> },
+  { value: "h1", label: "Heading 1", icon: <Heading1Icon /> },
+  { value: "h2", label: "Heading 2", icon: <Heading2Icon /> },
+]
+
+function RendersToolbarSelectDemo() {
+  const [block, setBlock] = useState("paragraph")
+
+  return (
+    <RendersDemoCard label="Select appearance toolbar">
+      <Toolbar
+        aria-label="Formatting"
+        className="w-full rounded-lg border border-border"
+      >
+        <Select
+          appearance="toolbar"
+          size="default"
+          aria-label="Block type"
+          placeholder="Block type"
+          options={BLOCK_OPTIONS}
+          value={block}
+          onValueChange={setBlock}
+        />
+        <ToolbarSeparator />
+        <ToolbarButton label="Search" hint="Search">
+          <SearchIcon />
+        </ToolbarButton>
+      </Toolbar>
+    </RendersDemoCard>
+  )
+}
+
 function RendersDockedToolbarDemo({ tone }: { tone: ToolbarTone }) {
   const [starred, setStarred] = useState(tone === "vibrant")
 
@@ -113,6 +150,7 @@ export function RendersToolbarDemo() {
   return (
     <>
       <RendersToolbarGroupsDemo />
+      <RendersToolbarSelectDemo />
       <RendersDockedToolbarDemo tone="standard" />
       <RendersDockedToolbarDemo tone="vibrant" />
     </>

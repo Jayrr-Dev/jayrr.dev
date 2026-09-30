@@ -1,17 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { CheckIcon, ChevronDownIcon } from "lucide-react"
 import { cn } from "cn"
 
-import { Button } from "@/components/standard/button"
 import { ButtonIcon } from "@/components/standard/button-icon"
 import { Divider } from "@/components/standard/divider"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/standard/popover"
+import { Select } from "@/components/standard/select"
 import { Toggle } from "@/components/standard/toggle"
 import { Tooltip } from "@/components/standard/tooltip"
 
@@ -151,6 +145,7 @@ export type ToolbarSelectOption = {
   icon?: React.ReactNode
 }
 
+/** @deprecated Use <Select appearance="toolbar"> */
 function ToolbarSelect({
   className,
   label,
@@ -166,51 +161,19 @@ function ToolbarSelect({
   onValueChange: (value: string) => void
   disabled?: boolean
 }) {
-  const [open, setOpen] = React.useState(false)
-  const current = options.find((option) => option.value === value)
-
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          data-slot="toolbar-select"
-          tone="ghost"
-          size="sm"
-          aria-label={label}
-          disabled={disabled}
-          className={cn(
-            "h-8 min-w-32 justify-between text-foreground group-data-[variant=docked]/toolbar:h-10 group-data-[variant=docked]/toolbar:rounded-full group-data-[tone=vibrant]/toolbar:text-primary-foreground group-data-[tone=vibrant]/toolbar:hover:bg-primary-foreground/10 [&_svg]:size-3.5",
-            className
-          )}
-        >
-          <span className="flex items-center gap-2 truncate">
-            {current?.icon}
-            {current?.label ?? label}
-          </span>
-          <ChevronDownIcon className="text-muted-foreground group-data-[tone=vibrant]/toolbar:text-primary-foreground/70" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent align="start" className="w-48 gap-0 p-1">
-        {options.map((option) => (
-          <button
-            key={option.value}
-            type="button"
-            className={cn(
-              "flex items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none hover:bg-muted focus-visible:bg-muted [&_svg]:size-4 [&_svg]:text-muted-foreground",
-              option.value === value ? "bg-muted" : undefined
-            )}
-            onClick={() => {
-              onValueChange(option.value)
-              setOpen(false)
-            }}
-          >
-            {option.icon}
-            <span className="flex-1">{option.label}</span>
-            {option.value === value ? <CheckIcon /> : null}
-          </button>
-        ))}
-      </PopoverContent>
-    </Popover>
+    <Select
+      data-slot="toolbar-select"
+      appearance="toolbar"
+      size="default"
+      aria-label={label}
+      placeholder={label}
+      options={options}
+      value={value}
+      onValueChange={onValueChange}
+      disabled={disabled}
+      className={className}
+    />
   )
 }
 

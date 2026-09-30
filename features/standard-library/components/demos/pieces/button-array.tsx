@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { LayoutGridIcon, ListIcon, TableIcon } from "lucide-react"
 
 import { ButtonArray } from "@/components/standard/button-array"
 import { StandardText } from "@/components/standard/standard-text"
@@ -12,8 +13,21 @@ const SECTION_ITEMS = [
   { id: "crew", label: "Crew" },
 ]
 
+const VIEW_ITEMS = [
+  { id: "table", label: "Table", icon: <TableIcon /> },
+  { id: "grid", label: "Grid", icon: <LayoutGridIcon /> },
+  { id: "list", label: "List", icon: <ListIcon /> },
+]
+
+const STATUS_ITEMS = [
+  { id: "open", label: "Open", count: 12 },
+  { id: "hold", label: "Hold", count: 3 },
+  { id: "done", label: "Done", count: 48 },
+]
+
 function RendersLiveButtonArray() {
   const [value, setValue] = useState("events")
+  const [values, setValues] = useState<string[]>(["open"])
 
   // One stateful component, so the gallery sees a single card: lay the
   // cards out here and fill the dialog width.
@@ -41,6 +55,61 @@ function RendersLiveButtonArray() {
           variant="underlined"
           items={SECTION_ITEMS}
           defaultValue="reports"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="type multiple">
+        <ButtonArray
+          type="multiple"
+          items={STATUS_ITEMS.map(({ id, label }) => ({ id, label }))}
+          values={values}
+          onValuesChange={setValues}
+        />
+        <StandardText>{values.join(", ") || "none"}</StandardText>
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance segmented">
+        <ButtonArray
+          appearance="segmented"
+          items={SECTION_ITEMS}
+          defaultValue="reports"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="item icon">
+        <ButtonArray
+          appearance="segmented"
+          items={VIEW_ITEMS}
+          defaultValue="grid"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="item count">
+        <ButtonArray
+          appearance="underlined"
+          items={STATUS_ITEMS}
+          defaultValue="open"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="size sm">
+        <ButtonArray size="sm" items={SECTION_ITEMS} defaultValue="crew" />
+        <ButtonArray
+          size="sm"
+          appearance="segmented"
+          items={SECTION_ITEMS}
+          defaultValue="crew"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="block">
+        <ButtonArray
+          block
+          appearance="slider"
+          items={SECTION_ITEMS}
+          defaultValue="events"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance slider · type multiple">
+        <ButtonArray
+          type="multiple"
+          appearance="slider"
+          items={SECTION_ITEMS}
+          defaultValues={["events", "crew"]}
         />
       </RendersDemoCard>
     </div>
