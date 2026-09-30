@@ -4128,6 +4128,7 @@
         "cn"
       ],
       "registryDependencies": [
+        "@jayrr/cursor-label",
         "@jayrr/data-grid"
       ],
       "files": [

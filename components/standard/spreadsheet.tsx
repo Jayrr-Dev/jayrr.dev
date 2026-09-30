@@ -3,6 +3,7 @@
 import * as React from "react"
 import { cn } from "cn"
 
+import { CursorLabel } from "@/components/standard/cursor-label"
 import {
   createGridData,
   DataGrid,
@@ -382,6 +383,54 @@ function FormulaEditor({
   )
 }
 
+/** Numbers in the selection, with formulas read as their results. */
+export type SpreadsheetSelectionStats = {
+  sum: number
+  average: number
+  /** Cells holding a number. */
+  count: number
+}
+
+/** Adds up the numbers in a range: typed numbers, numeric text, and formula results. */
+function statsOf(data: GridData, range: GridRange, results: SpreadsheetResults) {
+  let sum = 0
+  let count = 0
+  for (let row = range.top; row <= range.bottom; row += 1) {
+    const cells = data.rows[row] && data.cells[data.rows[row].id]
+    if (!cells) continue
+    for (let col = range.left; col <= range.right; col += 1) {
+      const column = data.columns[col]
+      if (!column) continue
+      const value = cells[column.id]
+      let number: number | null = null
+      if (typeof value === "number") {
+        number = value
+      } else if (typeof value === "string") {
+        // Guard a copy so the numeric-text branch keeps `value` as a string.
+        const text: CellValue = value
+        if (isFormulaText(text)) {
+          const result = results[formatCellRef({ row, col })]
+          if (result?.status === "ok" && typeof result.value === "number") number = result.value
+        } else if (value.trim() !== "" && Number.isFinite(Number(value))) {
+          number = Number(value)
+        }
+      }
+      if (number !== null) {
+        sum += number
+        count += 1
+      }
+    }
+  }
+  return { sum, average: count ? sum / count : 0, count }
+}
+
+function formatsSelectionStats(
+  { sum, average }: SpreadsheetSelectionStats,
+  format: (value: CalcValue) => string
+) {
+  return `Sum ${format(sum)} · Avg ${format(average)}`
+}
+
 // ---------------------------------------------------------------------------
 // Spreadsheet
 
@@ -391,6 +440,11 @@ export type SpreadsheetProps = DataGridProps &
     formatResult?: (value: CalcValue) => string
     /** Every formula's result, after each change. */
     onResults?: (results: SpreadsheetResults) => void
+    /**
+     * A label at the pointer that adds up the selection once it holds two or
+     * more numbers. Pass a function to write your own text, or `false` to hide it.
+     */
+    selectionSummary?: boolean | ((stats: SpreadsheetSelectionStats) => React.ReactNode)
   }
 
 /**
@@ -409,6 +463,8 @@ export function Spreadsheet({
   functions,
   formatResult = formatsResult,
   onResults,
+  selectionSummary = true,
+  onSelectionChange,
   label = "Spreadsheet",
   ...props
 }: SpreadsheetProps) {
@@ -419,6 +475,7 @@ export function Spreadsheet({
   const [mirror, setMirror] = React.useState(initial)
   const data = value ?? mirror
   const [references] = React.useState(createsReferenceStore)
+  const [selected, setSelected] = React.useState<GridRange | null>(null)
 
   const sheetVariables = React.useMemo(
     () => sheetVariablesOf(data, variables),
@@ -500,20 +557,39 @@ export function Spreadsheet({
     return wrapped
   }, [cellTypes, results, formatResult, preview, references])
 
+  const stats = React.useMemo(
+    () => (selectionSummary && selected ? statsOf(data, selected, results) : null),
+    [selectionSummary, selected, data, results]
+  )
+  const summary =
+    stats && stats.count >= 2
+      ? typeof selectionSummary === "function"
+        ? selectionSummary(stats)
+        : formatsSelectionStats(stats, formatResult)
+      : null
+
   const handlesValueChange = (next: GridData, changes: GridChange[]) => {
     if (value === undefined) setMirror(next)
     onValueChange?.(next, changes)
   }
 
+  const handlesSelectionChange = (range: GridRange) => {
+    setSelected(range)
+    onSelectionChange?.(range)
+  }
+
   return (
-    <DataGrid
-      {...props}
-      data-slot="spreadsheet"
-      label={label}
-      value={value}
-      defaultValue={value === undefined ? initial : undefined}
-      onValueChange={handlesValueChange}
-      cellTypes={types}
-    />
+    <CursorLabel content={summary} disabled={summary === null}>
+      <DataGrid
+        {...props}
+        data-slot="spreadsheet"
+        label={label}
+        value={value}
+        defaultValue={value === undefined ? initial : undefined}
+        onValueChange={handlesValueChange}
+        onSelectionChange={handlesSelectionChange}
+        cellTypes={types}
+      />
+    </CursorLabel>
   )
 }

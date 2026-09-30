@@ -250,6 +250,8 @@ export type DataGridProps = Omit<
     data: GridData,
     source: DataGridChangeSource
   ) => void
+  /** The selected range, whenever it changes (rows and columns selections span the grid). */
+  onSelectionChange?: (range: GridRange) => void
   /** Load, save, and live-update hooks for a backend. Keep the object stable (module scope or useMemo). */
   adapter?: DataGridAdapter
   /** Extra or replacement cell types, keyed by `column.type`. */
@@ -349,6 +351,7 @@ export function DataGrid({
   defaultValue,
   onValueChange,
   onChanges,
+  onSelectionChange,
   adapter,
   cellTypes: customTypes,
   headerMode = "coordinates",
@@ -558,6 +561,10 @@ export function DataGrid({
 
     focusGrid() {
       scrollerRef.current?.focus({ preventScroll: true })
+    },
+
+    emitSelection() {
+      onSelectionChange?.(range)
     },
 
     emit(changes: GridChange[], next: GridData, source: DataGridChangeSource) {
@@ -1713,6 +1720,10 @@ export function DataGrid({
   })
 
   const actions = handlers as unknown as GridActions
+
+  React.useEffect(() => {
+    handlers.emitSelection()
+  }, [handlers, range.top, range.left, range.bottom, range.right])
 
   React.useImperativeHandle(
     ref,
