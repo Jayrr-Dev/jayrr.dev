@@ -7,10 +7,10 @@ import { cn } from "cn"
 
 import { Tooltip } from "@/components/standard/tooltip"
 
-export type ActionWheelSize = "compact" | "default" | "large"
+/** Action diameters of 40, 52, 64, and 76px, matching the FAB size steps. */
+export type ActionWheelSize = "compact" | "default" | "medium" | "large"
 export type ActionWheelTone =
   "solid" | "violet" | "primary" | "secondary" | "surface"
-/** `always` pins a card beside every action, `hover` reveals it on hover or focus. */
 /** `wheel` rings a small center close button; `arc` fans out from a launcher. */
 export type ActionWheelVariant = "wheel" | "arc"
 export type ActionWheelDirection =
@@ -35,6 +35,7 @@ const ARC_DIRECTION_DEGREES: Record<ActionWheelDirection, number> = {
   "up-left": 315,
 }
 
+/** `always` pins a card beside every action, `hover` reveals it on hover or focus. */
 export type ActionWheelLabels = "always" | "hover" | "none"
 /** `click` toggles a nested arc; `hover` also opens it when the mouse rests on its parent. */
 export type ActionWheelSubmenuTrigger = "click" | "hover"
@@ -71,11 +72,18 @@ const WHEEL_METRICS: Record<
     icon: "[&_svg]:size-5",
     text: "text-sm",
   },
-  large: {
-    trigger: 36,
+  medium: {
+    trigger: 34,
     item: 64,
-    radius: 116,
+    radius: 114,
     icon: "[&_svg]:size-6",
+    text: "text-sm",
+  },
+  large: {
+    trigger: 40,
+    item: 76,
+    radius: 136,
+    icon: "[&_svg]:size-7",
     text: "text-base",
   },
 }
@@ -385,9 +393,7 @@ function ActionWheel({
         )}
       >
         {labels === "none" ? (
-          <Tooltip content={item.hint ?? item.label}>
-            {button}
-          </Tooltip>
+          <Tooltip content={item.hint ?? item.label}>{button}</Tooltip>
         ) : (
           button
         )}

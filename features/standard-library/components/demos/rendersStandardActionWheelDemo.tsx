@@ -31,6 +31,7 @@ import {
 import {
   ActionWheel,
   ActionWheelContextMenu,
+  type ActionWheelSize,
 } from "@/components/standard/action-wheel"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
@@ -142,6 +143,34 @@ export function RendersActionWheelContextDemo() {
   )
 }
 
+const WHEEL_SIZES: { size: ActionWheelSize; stage: string }[] = [
+  { size: "compact", stage: "px-28 py-12" },
+  { size: "default", stage: "px-36 py-16" },
+  { size: "medium", stage: "px-40 py-16" },
+  { size: "large", stage: "px-44 py-20" },
+]
+
+function RendersWheelSizes() {
+  return (
+    <>
+      {WHEEL_SIZES.map(({ size, stage }) => (
+        <RendersDemoCard key={size} label={`size · ${size}`} className="w-full">
+          <div
+            className={`flex w-full justify-center overflow-hidden rounded-xl bg-muted/40 ${stage}`}
+          >
+            <ActionWheel
+              label="Actions"
+              size={size}
+              items={WHEEL_ITEMS.slice(0, 6)}
+              defaultOpen
+            />
+          </div>
+        </RendersDemoCard>
+      ))}
+    </>
+  )
+}
+
 export function RendersStandardActionWheelDemo() {
   return (
     <>
@@ -156,6 +185,7 @@ export function RendersStandardActionWheelDemo() {
           <ActionWheel label="Actions" items={WHEEL_ITEMS} defaultOpen />
         </RendersWheelStage>
       </RendersDemoCard>
+      <RendersWheelSizes />
       <RendersDemoCard
         label="nested · click Explore AI or Screenshot"
         className="w-full"
