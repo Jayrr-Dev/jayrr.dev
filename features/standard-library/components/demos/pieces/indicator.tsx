@@ -47,6 +47,15 @@ function RendersIndicatorDemos() {
       <RendersDemoCard label="Custom label">
         <Indicator status="busy" label="In a meeting" showLabel />
       </RendersDemoCard>
+      <RendersDemoCard label="via Avatar status">
+        <Row className="gap-4">
+          {PEOPLE.map((person) => (
+            <Avatar key={person.initials} status={person.status}>
+              {person.initials}
+            </Avatar>
+          ))}
+        </Row>
+      </RendersDemoCard>
     </>
   )
 }

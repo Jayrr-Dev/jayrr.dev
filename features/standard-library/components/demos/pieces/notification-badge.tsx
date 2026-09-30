@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 
 import { CircleBadge } from "@/components/standard/badge-pill"
+import { Button } from "@/components/standard/button"
 import { ButtonIcon } from "@/components/standard/button-icon"
 import { NotificationBadge } from "@/components/standard/notification-badge"
 import { Row } from "@/components/standard/row"
@@ -150,6 +151,85 @@ export function RendersNotificationBadgeDemo() {
   return (
     <>
       <RendersNotificationBadgeDemos />
+      <RendersDemoCard label="tone danger, default, quiet">
+        <Row className="gap-6">
+          <NotificationBadge count={3} tone="danger">
+            <BellIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={3} tone="default">
+            <BellIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={3} tone="quiet">
+            <BellIcon className="size-5" />
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="size inline">
+        <Row className="gap-4">
+          <Button tone="outline" size="sm">
+            Inbox
+            <NotificationBadge size="inline" count={8} />
+          </Button>
+          <span className="inline-flex items-center gap-1.5 text-lg">
+            Mentions
+            <NotificationBadge size="inline" count={2} tone="default" />
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-sm">
+            Updates
+            <NotificationBadge size="inline" dot />
+          </span>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="size sm">
+        <Row className="gap-6">
+          <NotificationBadge size="sm" count={7}>
+            <MailIcon className="size-4" />
+          </NotificationBadge>
+          <NotificationBadge size="sm">
+            <MailIcon className="size-4" />
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="placement top-start, bottom-end, bottom-start">
+        <Row className="gap-8">
+          <NotificationBadge count={2} placement="top-start">
+            <InboxIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={2} placement="bottom-end">
+            <InboxIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={2} placement="bottom-start">
+            <InboxIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge placement="bottom-start">
+            <InboxIcon className="size-5" />
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="pulse">
+        <Row className="gap-6">
+          <NotificationBadge pulse>
+            <BellIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge pulse count={1}>
+            <MessageSquareIcon className="size-5" />
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="ring off">
+        <Row className="gap-6">
+          <NotificationBadge count={4} ring={false}>
+            <ButtonIcon label="Notifications, 4 unread" tone="outline">
+              <BellIcon className="size-4" />
+            </ButtonIcon>
+          </NotificationBadge>
+          <NotificationBadge count={4}>
+            <ButtonIcon label="Notifications, 4 unread" tone="outline">
+              <BellIcon className="size-4" />
+            </ButtonIcon>
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
       <RendersDemoCard label="circle badge">
         <CircleBadge>4</CircleBadge>
       </RendersDemoCard>

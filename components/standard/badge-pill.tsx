@@ -1,49 +1,30 @@
 import * as React from "react"
-import { cn } from "cn"
 
 import { Badge } from "@/components/standard/badge"
 
-function BadgePill({
-  className,
-  ...props
-}: React.ComponentProps<typeof Badge>) {
-  return (
-    <Badge
-      data-slot="badge-pill"
-      className={cn("rounded-full px-3", className)}
-      {...props}
-    />
-  )
+/** @deprecated Use <Badge size="lg"> */
+function BadgePill(props: React.ComponentProps<typeof Badge>) {
+  return <Badge data-slot="badge-pill" size="lg" {...props} />
 }
 
-function CircleBadge({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
-  return (
-    <span
-      data-slot="circle-badge"
-      className={cn(
-        "inline-grid h-[1.5em] min-w-[1.5em] shrink-0 place-items-center rounded-full bg-primary px-[0.25em] text-[0.75em] font-semibold leading-none text-primary-foreground tabular-nums",
-        className
-      )}
-      {...props}
-    />
-  )
+/** @deprecated Use <Badge shape="circle"> */
+function CircleBadge(props: React.ComponentProps<"span">) {
+  return <Badge data-slot="circle-badge" shape="circle" {...props} />
 }
 
+/** @deprecated Use <Badge leading> */
 function BadgeIcon({
-  className,
   children,
+  leading,
   ...props
 }: React.ComponentProps<typeof Badge>) {
+  // The icon used to be the first child; lift it into `leading`.
+  const [first, ...rest] = React.Children.toArray(children)
+  const lifts = leading === undefined && React.isValidElement(first)
+
   return (
-    <Badge
-      data-slot="badge-icon"
-      className={cn("gap-1", className)}
-      {...props}
-    >
-      {children}
+    <Badge data-slot="badge-icon" leading={lifts ? first : leading} {...props}>
+      {lifts ? rest : children}
     </Badge>
   )
 }
