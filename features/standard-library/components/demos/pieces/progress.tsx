@@ -1,7 +1,23 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 import { Progress } from "@/components/standard/progress"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+
+function RendersTickerDemo() {
+  const [value, setValue] = useState(0)
+
+  // Steps the loader forward so the ticker keeps rolling.
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setValue((current) => (current >= 100 ? 0 : Math.min(100, current + 18)))
+    }, 1400)
+    return () => window.clearInterval(id)
+  }, [])
+
+  return <Progress value={value} label="Uploading" ticker />
+}
 
 export function RendersProgressDemo() {
   return (
@@ -40,6 +56,20 @@ export function RendersProgressDemo() {
             { id: "leave", value: 10, className: "bg-muted-foreground/50" },
           ]}
         />
+      </RendersDemoCard>
+      <RendersDemoCard label="segments · showSegmentValues">
+        <Progress
+          size="xl"
+          showSegmentValues
+          segments={[
+            { id: "billable", value: 45 },
+            { id: "overtime", value: 15, tone: "warning" },
+            { id: "leave", value: 10, className: "bg-muted-foreground/50" },
+          ]}
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="ticker">
+        <RendersTickerDemo />
       </RendersDemoCard>
       <RendersDemoCard label="indeterminate">
         <Progress indeterminate aria-label="Syncing" />

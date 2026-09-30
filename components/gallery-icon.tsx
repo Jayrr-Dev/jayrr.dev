@@ -1,5 +1,23 @@
 import type { ReactNode } from "react"
 
+/** Five-point star path centered on (cx, cy). */
+function starPath(cx: number, cy: number, outer: number, inner: number) {
+  const points = Array.from({ length: 10 }, (_, i) => {
+    const radius = i % 2 ? inner : outer
+    const angle = (Math.PI / 5) * i - Math.PI / 2
+    return `${(cx + radius * Math.cos(angle)).toFixed(2)} ${(cy + radius * Math.sin(angle)).toFixed(2)}`
+  })
+  return `M${points.join("L")}Z`
+}
+
+/** Fixed scatter of grain specks inside the 12..52 frame. */
+const noiseSpecks = Array.from({ length: 42 }, (_, i) => ({
+  x: 14 + ((i * 17 + 11) % 37),
+  y: 16 + ((i * 53 + 7) % 33),
+  r: 0.9 + ((i * 7) % 3) * 0.45,
+  opacity: [0.25, 0.55, 1, 0.4, 0.75][i % 5],
+}))
+
 const icons = {
   Heading: (
     <>
@@ -777,10 +795,17 @@ const icons = {
   ),
   "Notification Badge": (
     <>
-      <path d="M20 42V30a12 12 0 0 1 24 0v12H16h32" opacity=".45" />
-      <path d="M28 48h8" opacity=".45" />
-      <circle cx="44" cy="20" r="8" fill="currentColor" fillOpacity=".16" />
-      <path d="M44 16v8" />
+      <path d="M20 42V31a12 12 0 0 1 24 0v11l4 4H16l4-4Z" opacity=".55" />
+      <path d="M28 50a4 4 0 0 0 8 0" opacity=".55" />
+      <circle
+        cx="45"
+        cy="19"
+        r="9"
+        fill="currentColor"
+        stroke="var(--card)"
+        strokeWidth="3"
+      />
+      <path d="m43 16.5 2.5-2V24" stroke="var(--card)" strokeWidth="2" />
     </>
   ),
   Indicator: (
@@ -793,9 +818,28 @@ const icons = {
   ),
   "Standard Toolbar Count": (
     <>
-      <rect x="8" y="22" width="32" height="20" rx="6" opacity=".4" />
-      <circle cx="48" cy="24" r="10" />
-      <path d="M44 24h8" />
+      <rect x="6" y="20" width="52" height="24" rx="6" opacity=".4" />
+      <path d="M11 32h7" opacity=".5" />
+      <rect
+        x="21"
+        y="26"
+        width="20"
+        height="12"
+        rx="6"
+        fill="currentColor"
+        fillOpacity=".18"
+        stroke="none"
+      />
+      <path d="M25 32h5m4-2 3 3m0-3-3 3" />
+      <rect x="44" y="26" width="10" height="12" rx="3" />
+      <circle
+        cx="54"
+        cy="25"
+        r="4"
+        fill="currentColor"
+        stroke="var(--card)"
+        strokeWidth="2"
+      />
     </>
   ),
   "Action Wheel": (
@@ -1002,9 +1046,21 @@ const icons = {
   ),
   "Loading State": (
     <>
-      <path d="M32 12a20 20 0 1 1-14 6" opacity=".3" />
-      <path d="M32 12a20 20 0 0 1 16 8" />
-      <path d="M22 36h20" opacity=".4" />
+      <rect x="8" y="14" width="48" height="16" rx="8" opacity=".45" />
+      <circle cx="18" cy="22" r="4" opacity=".3" />
+      <path d="M18 18a4 4 0 0 1 4 4" />
+      <path d="M27 22h20" opacity=".5" />
+      <rect
+        x="8"
+        y="34"
+        width="48"
+        height="16"
+        rx="8"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
+      <path d="m14.5 42 2.5 2.5 4.5-5" />
+      <path d="M27 42h14" />
     </>
   ),
   Cursor: (
@@ -1104,6 +1160,240 @@ const icons = {
       <rect x="12" y="10" width="40" height="32" rx="4" />
       <path d="M20 20h8m4 0h8m4 0h4" />
       <path d="M28 42v6l6-6" />
+    </>
+  ),
+  Rater: (
+    <>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path
+          key={i}
+          d={starPath(10 + i * 11, 32, 6.5, 2.8)}
+          fill={i < 3 ? "currentColor" : "none"}
+          fillOpacity={i < 3 ? 0.9 : undefined}
+          opacity={i < 3 ? 1 : 0.4}
+          strokeWidth="1.25"
+        />
+      ))}
+    </>
+  ),
+  Masonry: (
+    <>
+      <rect x="8" y="8" width="14" height="20" rx="3" />
+      <rect x="8" y="32" width="14" height="24" rx="3" opacity=".45" />
+      <rect x="25" y="8" width="14" height="30" rx="3" opacity=".6" />
+      <rect x="25" y="42" width="14" height="14" rx="3" />
+      <rect x="42" y="8" width="14" height="12" rx="3" opacity=".45" />
+      <rect x="42" y="24" width="14" height="32" rx="3" />
+    </>
+  ),
+  Gradient: (
+    <>
+      <g stroke="none" fill="currentColor">
+        <rect x="12" y="16" width="10" height="32" opacity=".06" />
+        <rect x="22" y="16" width="10" height="32" opacity=".2" />
+        <rect x="32" y="16" width="10" height="32" opacity=".42" />
+        <rect x="42" y="16" width="10" height="32" opacity=".75" />
+      </g>
+      <rect x="10" y="14" width="44" height="36" rx="4" opacity=".5" />
+    </>
+  ),
+  Noise: (
+    <>
+      <rect x="10" y="14" width="44" height="36" rx="4" opacity=".35" />
+      <g stroke="none" fill="currentColor">
+        {noiseSpecks.map((speck, i) => (
+          <circle
+            key={i}
+            cx={speck.x}
+            cy={speck.y}
+            r={speck.r}
+            opacity={speck.opacity}
+          />
+        ))}
+      </g>
+    </>
+  ),
+  Pattern: (
+    <>
+      <rect x="10" y="10" width="44" height="44" rx="4" opacity=".35" />
+      {[0, 1, 2].map((col) =>
+        [0, 1, 2].map((row) =>
+          (col + row) % 2 ? (
+            <circle
+              key={`${col}-${row}`}
+              cx={20 + col * 12}
+              cy={20 + row * 12}
+              r="2"
+              fill="currentColor"
+              stroke="none"
+            />
+          ) : (
+            <path
+              key={`${col}-${row}`}
+              d={`M${16 + col * 12} ${20 + row * 12}h8m-4-4v8`}
+            />
+          )
+        )
+      )}
+    </>
+  ),
+  Screentone: (
+    <>
+      <rect x="10" y="10" width="44" height="44" rx="4" opacity=".35" />
+      <g stroke="none" fill="currentColor">
+        {[0, 1, 2, 3, 4].map((col) =>
+          [0, 1, 2, 3, 4].map((row) => (
+            <circle
+              key={`${col}-${row}`}
+              cx={16 + col * 8}
+              cy={16 + row * 8}
+              r={0.6 + (col + row) * 0.42}
+            />
+          ))
+        )}
+      </g>
+    </>
+  ),
+  Shader: (
+    <>
+      <rect x="10" y="12" width="44" height="40" rx="4" opacity=".35" />
+      <path d="M12 24c7-6 13 6 20 0s13-6 20 0" />
+      <path d="M12 32c7-6 13 6 20 0s13-6 20 0" opacity=".65" />
+      <path d="M12 40c7-6 13 6 20 0s13-6 20 0" opacity=".35" />
+    </>
+  ),
+  "Image Shader": (
+    <>
+      <rect x="10" y="14" width="44" height="36" rx="4" opacity=".5" />
+      <circle cx="22" cy="24" r="4" />
+      <path d="m11 44 13-12 9 8 8-7 12 11" />
+      <path d="M34 20c3-3 6 3 9 0s6-3 9 0M34 27c3-3 6 3 9 0s6-3 9 0" opacity=".5" />
+    </>
+  ),
+  "Color Grade": (
+    <>
+      <rect x="10" y="10" width="44" height="44" rx="4" opacity=".35" />
+      <path d="M14 50 50 14" strokeDasharray="2 3" opacity=".3" />
+      <path d="M14 50C30 50 34 14 50 14" />
+      <circle cx="24.1" cy="44.4" r="2.5" fill="currentColor" stroke="none" />
+      <circle cx="39.9" cy="19.6" r="2.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  Distort: (
+    <>
+      <rect x="10" y="10" width="44" height="44" rx="4" opacity=".35" />
+      <path d="M21 12q-6 20 0 40M32 12v40M43 12q6 20 0 40" opacity=".6" />
+      <path d="M12 21q20-6 40 0M12 32h40M12 43q20 6 40 0" />
+    </>
+  ),
+  Mask: (
+    <>
+      <path
+        d="M14 10h36a4 4 0 0 1 4 4v36a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4ZM32 20a12 12 0 1 0 0 24 12 12 0 1 0 0-24Z"
+        fill="currentColor"
+        fillOpacity=".18"
+        fillRule="evenodd"
+        opacity=".5"
+      />
+      <circle cx="32" cy="32" r="12" strokeDasharray="3 3" />
+    </>
+  ),
+  "Phone Input": (
+    <>
+      <rect x="8" y="22" width="48" height="20" rx="4" />
+      <rect
+        x="13"
+        y="27"
+        width="10"
+        height="10"
+        rx="2"
+        fill="currentColor"
+        fillOpacity=".18"
+      />
+      <path d="m26 31 2 2 2-2" opacity=".6" />
+      <path d="M34 26v12" opacity=".35" />
+      <path d="M38 32h4m3 0h4" />
+    </>
+  ),
+  "Miller Select": (
+    <>
+      <rect x="6" y="14" width="52" height="36" rx="4" opacity=".4" />
+      <path d="M23 14v36M40 14v36" opacity=".4" />
+      <rect
+        x="8"
+        y="24"
+        width="13"
+        height="8"
+        rx="2"
+        fill="currentColor"
+        fillOpacity=".18"
+        stroke="none"
+      />
+      <rect
+        x="25"
+        y="32"
+        width="13"
+        height="8"
+        rx="2"
+        fill="currentColor"
+        fillOpacity=".18"
+        stroke="none"
+      />
+      <path d="M10 20h7m-7 8h6m-6 8h7M27 20h6m-6 8h7m-7 8h6M44 22h10m-10 6h7" />
+      <path d="m18 26 2 2-2 2m17 4 2 2-2 2" opacity=".6" />
+    </>
+  ),
+  "Data Grid": (
+    <>
+      <rect
+        x="8"
+        y="12"
+        width="48"
+        height="10"
+        fill="currentColor"
+        fillOpacity=".12"
+        stroke="none"
+      />
+      <rect x="8" y="12" width="48" height="40" rx="3" />
+      <path d="M8 22h48M8 32h48M8 42h48M20 12v40M32 12v40M44 12v40" opacity=".45" />
+      <rect x="32" y="32" width="12" height="10" strokeWidth="2.5" />
+    </>
+  ),
+  "Data Table": (
+    <>
+      <rect x="8" y="12" width="48" height="40" rx="3" opacity=".45" />
+      <path d="M8 22h48" />
+      <path d="M8 32h48M8 42h48" opacity=".25" />
+      <rect x="12" y="15" width="4" height="4" rx="1" />
+      <rect
+        x="12"
+        y="25"
+        width="4"
+        height="4"
+        rx="1"
+        fill="currentColor"
+        stroke="none"
+      />
+      <rect x="12" y="35" width="4" height="4" rx="1" />
+      <rect x="12" y="45" width="4" height="4" rx="1" opacity=".5" />
+      <path d="M22 17h14M22 27h18M22 37h12M22 47h16" opacity=".6" />
+      <path d="m46 16 2-2 2 2m-4 3 2 2 2-2" />
+    </>
+  ),
+  Article: (
+    <>
+      <rect x="12" y="8" width="40" height="48" rx="4" opacity=".4" />
+      <path d="M18 16h22" strokeWidth="3" />
+      <rect
+        x="18"
+        y="22"
+        width="28"
+        height="12"
+        rx="2"
+        fill="currentColor"
+        fillOpacity=".14"
+      />
+      <path d="M18 40h28M18 45h28M18 50h18" opacity=".6" />
     </>
   ),
 } satisfies Record<string, ReactNode>
