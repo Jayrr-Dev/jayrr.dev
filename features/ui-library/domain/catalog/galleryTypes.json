@@ -99,6 +99,10 @@
       {
         "id": "layout",
         "label": "Layout"
+      },
+      {
+        "id": "layer",
+        "label": "Layer"
       }
     ]
   },
@@ -222,6 +226,10 @@
       {
         "id": "cursor",
         "label": "Cursor"
+      },
+      {
+        "id": "layers",
+        "label": "Layers"
       }
     ]
   }

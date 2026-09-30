@@ -1826,5 +1826,131 @@
     "needs_mock_data": true,
     "mock_data_key": "nav-items",
     "description": null
+  },
+  {
+    "name": "Gradient",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "gradient",
+    "family_key": "layer",
+    "file_path": "components/standard/gradient.tsx",
+    "import_path": "@/components/standard/gradient",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Color transition layer: linear, radial, conic or mesh. Behind or over any relative isolate box."
+  },
+  {
+    "name": "Noise",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "noise",
+    "family_key": "layer",
+    "file_path": "components/standard/noise.tsx",
+    "import_path": "@/components/standard/noise",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Random texture layer: grain, paper fibers or clouds, from SVG turbulence. Optional film jitter."
+  },
+  {
+    "name": "Pattern",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "pattern",
+    "family_key": "layer",
+    "file_path": "components/standard/pattern.tsx",
+    "import_path": "@/components/standard/pattern",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Repeating shape layer. Basic: dots, grid, lines, diagonal, checker. Graphic: waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and dashed diagonals, band. Decorative: speed lines, motion lines, sunburst, seigaiha, asanoha, kikko, shippo, sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard, blueprint, fold."
+  },
+  {
+    "name": "Screentone",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "screentone",
+    "family_key": "layer",
+    "file_path": "components/standard/screentone.tsx",
+    "import_path": "@/components/standard/screentone",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Manga halftone tone: dots, lines, crosshatch, diamonds, rings or noise that grow with a graded tone (top, bottom, center, edges, corner) or an organic one (clouds, folds, marble, streaks). Optional rough printed edges."
+  },
+  {
+    "name": "Color Grade",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "color-grade",
+    "family_key": "layer",
+    "file_path": "components/standard/color-grade.tsx",
+    "import_path": "@/components/standard/color-grade",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Color treatment: sepia, black and white, noir, vivid, muted, vintage, warm, cool, duotone. Wraps content or grades the backdrop."
+  },
+  {
+    "name": "Distort",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "distort",
+    "family_key": "layer",
+    "file_path": "components/standard/distort.tsx",
+    "import_path": "@/components/standard/distort",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Spatial effect: waves, ripple, warp or blur, optionally animated. Wraps content or distorts the backdrop."
+  },
+  {
+    "name": "Mask",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "mask",
+    "family_key": "layer",
+    "file_path": "components/standard/mask.tsx",
+    "import_path": "@/components/standard/mask",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Soft alpha cutout: fade, edges, vignette or spotlight. Wraps content or groups other layers."
   }
 ]

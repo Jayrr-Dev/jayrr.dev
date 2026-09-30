@@ -1616,6 +1616,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "color-grade",
+      "title": "Color Grade",
+      "description": "Color Grade from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/color-grade.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/color-grade.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "confirm-dialog",
       "title": "Confirm Dialog",
       "description": "Confirm Dialog from the Standard library.",
@@ -1754,6 +1775,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "distort",
+      "title": "Distort",
+      "description": "Distort from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/distort.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/distort.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "divider",
       "title": "Divider",
       "description": "Divider from the Standard library.",
@@ -1850,6 +1892,27 @@
           "path": "components/standard/form-field.tsx",
           "type": "registry:ui",
           "target": "components/standard/form-field.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "gradient",
+      "title": "Gradient",
+      "description": "Gradient from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/gradient.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/gradient.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
         }
       ],
       "type": "registry:ui"
@@ -2046,6 +2109,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "mask",
+      "title": "Mask",
+      "description": "Mask from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/mask.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/mask.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "menu",
       "title": "Menu",
       "description": "Menu from the Standard library.",
@@ -2104,6 +2188,27 @@
           "path": "components/standard/navigation.tsx",
           "type": "registry:ui",
           "target": "components/standard/navigation.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "noise",
+      "title": "Noise",
+      "description": "Noise from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/noise.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/noise.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
         }
       ],
       "type": "registry:ui"
@@ -2178,6 +2283,27 @@
           "path": "components/standard/paragraph.tsx",
           "type": "registry:ui",
           "target": "components/standard/paragraph.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "pattern",
+      "title": "Pattern",
+      "description": "Pattern from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/pattern.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/pattern.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
         }
       ],
       "type": "registry:ui"
@@ -2308,6 +2434,27 @@
           "path": "components/standard/resizable.tsx",
           "type": "registry:ui",
           "target": "components/standard/resizable.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "screentone",
+      "title": "Screentone",
+      "description": "Screentone from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/screentone.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/screentone.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
         }
       ],
       "type": "registry:ui"

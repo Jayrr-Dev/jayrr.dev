@@ -81,6 +81,13 @@ import { RendersToggleDemo } from "./pieces/toggle"
 import { RendersToolbarDemo } from "./pieces/toolbar"
 import { RendersTooltipDemo } from "./pieces/tooltip"
 import { RendersWizardDemo } from "./pieces/wizard"
+import { RendersGradientDemo } from "./pieces/gradient"
+import { RendersNoiseDemo } from "./pieces/noise"
+import { RendersPatternDemo } from "./pieces/pattern"
+import { RendersScreentoneDemo } from "./pieces/screentone"
+import { RendersColorGradeDemo } from "./pieces/color-grade"
+import { RendersDistortDemo } from "./pieces/distort"
+import { RendersMaskDemo } from "./pieces/mask"
 
 /**
  * A Standard piece demo. Called as a plain function by the gallery, so it
@@ -174,4 +181,11 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Toolbar": RendersToolbarDemo,
   "Tooltip": RendersTooltipDemo,
   "Wizard": RendersWizardDemo,
+  "Gradient": RendersGradientDemo,
+  "Noise": RendersNoiseDemo,
+  "Pattern": RendersPatternDemo,
+  "Screentone": RendersScreentoneDemo,
+  "Color Grade": RendersColorGradeDemo,
+  "Distort": RendersDistortDemo,
+  "Mask": RendersMaskDemo,
 }
