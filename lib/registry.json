@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "standard-lint",
+      "type": "registry:file",
+      "title": "Standard Lint",
+      "description": "@shadcn/lint rules for the Standard library: theme colors only, sizes through props, containers take spacing.",
+      "files": [
+        {
+          "path": "standard-lint.mjs",
+          "type": "registry:file",
+          "target": "lib/standard-lint.mjs"
+        }
+      ],
+      "devDependencies": [
+        "@shadcn/lint"
+      ],
+      "docs": "Add to eslint.config.mjs: `import { standardLint } from \"./lib/standard-lint.mjs\"`, then spread `...standardLint()` at the end of the exported array. Pass `standardLint({ ui: \"@/your/components\" })` if Standard lives somewhere other than @/components/standard. Run `npx eslint .`."
+    }
+  ]
+}

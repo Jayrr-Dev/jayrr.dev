@@ -114,7 +114,7 @@ function RendersBoardDemo() {
               aria-pressed={entry.value === color}
               onClick={() => setColor(entry.value)}
               className={cn(
-                "size-6 rounded-full border-2 border-neutral-900 ring-offset-2 ring-offset-background",
+                "size-6 rounded-full border-2 border-black/90 ring-offset-2 ring-offset-background",
                 entry.value === color && "ring-2 ring-foreground"
               )}
               style={{ background: entry.value }}

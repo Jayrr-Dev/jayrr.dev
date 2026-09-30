@@ -789,6 +789,7 @@ function FlipDots({
   shape = "circle",
   color = "oklch(0.93 0.21 118)",
   label,
+  bare = false,
   className,
   style,
   onPointerDown,
@@ -821,6 +822,11 @@ function FlipDots({
   color?: string
   /** Accessible description; defaults to the text or the pattern name. */
   label?: string
+  /**
+   * Drops the bezel (rounding, padding and inset shadow) so the dots run to
+   * the edges, for a board that fills a background or is framed by its parent.
+   */
+  bare?: boolean
 }) {
   const size = cols * rows
   const controlled = value !== undefined
@@ -980,8 +986,11 @@ function FlipDots({
       data-editable={editable || undefined}
       data-variant={variant}
       data-shape={shape}
+      data-bare={bare || undefined}
       className={cn(
-        "w-full rounded-lg bg-neutral-950 p-[1.5%] shadow-[inset_0_2px_8px_rgb(0_0_0/0.6)] select-none",
+        // eslint-disable-next-line shadcn/no-raw-colors -- LED board stays near-black in every theme, like the physical panel
+        "w-full bg-neutral-950 select-none",
+        !bare && "rounded-lg p-[1.5%] shadow-[inset_0_2px_8px_rgb(0_0_0/0.6)]",
         editable && "cursor-crosshair touch-none",
         className
       )}

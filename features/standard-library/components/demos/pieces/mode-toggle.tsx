@@ -8,6 +8,12 @@ import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersD
 
 const DARK_QUERY = "(prefers-color-scheme: dark)"
 
+/** Scopes the tokens and the native color scheme to the resolved mode. */
+const SCHEME_CLASS = {
+  light: "light scheme-light",
+  dark: "dark scheme-dark",
+} as const
+
 /**
  * The site forces dark, so each demo drives a scoped panel instead of the
  * app theme: the panel takes `.light` or `.dark`, which re-declare the tokens.
@@ -33,8 +39,7 @@ function RendersScopedModePreview({
 
   return (
     <div
-      className={`${resolved} flex w-full items-center justify-between gap-4 rounded-lg border border-border bg-background p-3 text-foreground transition-colors`}
-      style={{ colorScheme: resolved }}
+      className={`${SCHEME_CLASS[resolved]} flex w-full items-center justify-between gap-4 rounded-lg border border-border bg-background p-3 text-foreground transition-colors`}
     >
       <div className="flex min-w-0 flex-col gap-0.5">
         <span className="text-sm font-medium">Preview</span>

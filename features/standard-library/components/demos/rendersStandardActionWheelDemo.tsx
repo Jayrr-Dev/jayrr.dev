@@ -132,14 +132,16 @@ function RendersArcStage({
 /** Right-click anywhere in the zone to open the ring at the cursor. */
 export function RendersActionWheelContextDemo() {
   return (
-    <ActionWheelContextMenu
-      label="Actions"
-      items={NESTED_ITEMS}
-      submenuTrigger="hover"
-      className="flex h-72 w-full items-center justify-center rounded-lg border border-dashed border-border text-xs text-muted-foreground select-none"
-    >
-      Right-click anywhere here
-    </ActionWheelContextMenu>
+    <div className="w-full rounded-lg border border-dashed border-border text-xs text-muted-foreground">
+      <ActionWheelContextMenu
+        label="Actions"
+        items={NESTED_ITEMS}
+        submenuTrigger="hover"
+        className="flex h-72 w-full items-center justify-center select-none"
+      >
+        Right-click anywhere here
+      </ActionWheelContextMenu>
+    </div>
   )
 }
 
@@ -182,7 +184,7 @@ export function RendersStandardActionWheelDemo() {
       </RendersDemoCard>
       <RendersDemoCard label="actions ring · logi options+" className="w-full">
         <RendersWheelStage>
-          <ActionWheel label="Actions" items={WHEEL_ITEMS} defaultOpen />
+          <ActionWheel label="Actions" items={WHEEL_ITEMS} labels="always" defaultOpen />
         </RendersWheelStage>
       </RendersDemoCard>
       <RendersWheelSizes />

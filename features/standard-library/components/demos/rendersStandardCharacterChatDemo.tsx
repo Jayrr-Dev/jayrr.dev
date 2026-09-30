@@ -25,8 +25,10 @@ function RendersBust({
   return (
     <svg
       viewBox="0 0 100 130"
-      className="block h-auto w-full drop-shadow-[0_4px_6px_rgb(0_0_0/0.35)]"
-      style={flip ? { transform: "scaleX(-1)" } : undefined}
+      className={cn(
+        "block h-auto w-full drop-shadow-lg/35",
+        flip && "-scale-x-100"
+      )}
     >
       <path d="M8 130c2-26 18-38 42-38s40 12 42 38Z" fill={shirt} />
       <path d="M42 80h16v16c-3 4-13 4-16 0Z" fill={skin} />

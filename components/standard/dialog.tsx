@@ -197,7 +197,7 @@ function Dialog({
                     aria-hidden
                     className={cn(
                       DIALOG_CONTROL_ICON_CLASS,
-                      "group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                      "group-hover:text-info"
                     )}
                   />
                 </button>
@@ -214,7 +214,7 @@ function Dialog({
                     aria-hidden
                     className={cn(
                       DIALOG_CONTROL_ICON_CLASS,
-                      "group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                      "group-hover:text-info"
                     )}
                   />
                 </button>
@@ -228,7 +228,7 @@ function Dialog({
                     aria-hidden
                     className={cn(
                       DIALOG_CONTROL_ICON_CLASS,
-                      "group-hover:text-red-600 dark:group-hover:text-red-400"
+                      "group-hover:text-destructive"
                     )}
                   />
                 </DialogPrimitive.Close>

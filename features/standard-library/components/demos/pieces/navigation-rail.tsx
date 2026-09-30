@@ -17,7 +17,6 @@ function RendersLiveNavigationRail() {
       <RendersDemoCard className="w-full max-w-xl p-0">
         <div className="flex h-96 overflow-hidden rounded-xl">
           <NavigationRail
-            className="border-r border-border"
             items={DESTINATIONS}
             value={value}
             onValueChange={setValue}
@@ -39,7 +38,7 @@ function RendersLiveNavigationRail() {
               </>
             }
           />
-          <div className="flex-1 p-4 text-sm text-muted-foreground">
+          <div className="flex-1 border-l border-border p-4 text-sm text-muted-foreground">
             {value}
           </div>
         </div>

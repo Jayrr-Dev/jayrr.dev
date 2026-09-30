@@ -54,19 +54,21 @@ function RendersNumberLiveCard() {
     <RendersDemoCard label="live while typing · seamless">
       <p className="text-sm">
         Run is
-        <NumberInput
-          aria-label="Run length in feet"
-          value={feet}
-          onChange={(next) => {
-            setFeet(next)
-            setLive(next)
-          }}
-          onChangeImmediate={setLive}
-          min={1}
-          max={5000}
-          seamless
-          className="mx-1 inline-block w-16 ring-1 ring-border focus-visible:ring-ring"
-        />
+        <span className="mx-1 inline-block rounded-sm ring-1 ring-border focus-within:ring-ring">
+          <NumberInput
+            aria-label="Run length in feet"
+            value={feet}
+            onChange={(next) => {
+              setFeet(next)
+              setLive(next)
+            }}
+            onChangeImmediate={setLive}
+            min={1}
+            max={5000}
+            seamless
+            className="inline-block w-16"
+          />
+        </span>
         ft, about {(live * 0.3048).toFixed(1)} m.
       </p>
     </RendersDemoCard>

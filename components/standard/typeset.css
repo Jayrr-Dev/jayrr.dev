@@ -519,3 +519,76 @@
     --typeset-flow: 0.875em;
   }
 }
+
+/*
+ * ProseKit editors (BlockEditor, InlineEditor, MarkdownEditor,
+ * MentionComposer). prosekit/basic/style.css lays out lists, tables and
+ * selections; these fit them to the typeset rhythm and the theme tokens.
+ * Unlayered on purpose: that stylesheet is unlayered too, so layered rules
+ * could not override its colors.
+ */
+.typeset-editor {
+  /* Lists are flat blocks with a marker, not ul/li. */
+  .prosemirror-flat-list {
+    margin-block-start: 0.25em;
+  }
+  .prosemirror-flat-list > .list-content > :first-child {
+    margin-block-start: 0;
+  }
+  .prosemirror-flat-list > .list-marker,
+  .prosemirror-flat-list[data-list-kind="ordered"]::before {
+    color: var(--typeset-muted);
+  }
+  .prosemirror-flat-list[data-list-kind="task"] > .list-marker input {
+    accent-color: var(--color-primary, currentColor);
+  }
+  .prosemirror-flat-list[data-list-kind="task"][data-list-checked]
+    > .list-content {
+    color: var(--typeset-muted);
+    text-decoration-line: line-through;
+  }
+
+  /* @people and #tags. */
+  span[data-mention] {
+    color: var(--color-primary, currentColor);
+    font-weight: 500;
+  }
+
+  /* One line, so a long placeholder can't overflow a short editor. */
+  .prosekit-placeholder::before {
+    color: var(--typeset-muted);
+    opacity: 1;
+    height: auto;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* A full grid, so empty cells show where to click. */
+  table td,
+  table th {
+    border: 1px solid var(--typeset-rule);
+    padding: 0.4em 0.6em;
+  }
+  .ProseMirror-selectednode {
+    outline: 2px solid var(--color-ring, currentColor);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .selectedCell {
+    border-color: var(--color-ring, currentColor);
+    background-color: color-mix(
+      in oklab,
+      var(--color-primary, currentColor) 10%,
+      transparent
+    );
+  }
+  .column-resize-handle {
+    background-color: var(--color-primary, currentColor);
+  }
+}
+
+:root prosekit-table-handle-drop-indicator {
+  background-color: var(--color-primary, currentColor);
+}

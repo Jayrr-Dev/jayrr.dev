@@ -951,7 +951,7 @@ function Gantt({
                             task.forecastEnd &&
                             task.planEnd &&
                             task.forecastEnd > task.planEnd &&
-                            "font-semibold text-violet-600 dark:text-violet-400",
+                            "font-semibold text-warning",
                           column.key === "dependency" &&
                             task.missingDependencies.length > 0 &&
                             "text-destructive"

@@ -31,11 +31,9 @@ function RendersLiveTimePicker() {
         <TimePicker aria-label="Pickup time" invalid className="w-40" />
       </RendersDemoCard>
       <RendersDemoCard label={`inline panel · ${panelTime}`}>
-        <TimePickerPanel
-          value={panelTime}
-          onValueChange={setPanelTime}
-          className="rounded-2xl border border-border"
-        />
+        <div className="w-max rounded-2xl border border-border">
+          <TimePickerPanel value={panelTime} onValueChange={setPanelTime} />
+        </div>
       </RendersDemoCard>
     </>
   )

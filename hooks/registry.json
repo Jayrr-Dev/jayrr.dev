@@ -48,6 +48,18 @@
           "type": "registry:hook"
         }
       ]
+    },
+    {
+      "name": "use-stable-handlers",
+      "type": "registry:hook",
+      "title": "Use Stable Handlers",
+      "description": "Returns one object whose methods keep the same identity for the component's life but always call the latest render's closures, so memoized children never re-render just because a handler was re-created.",
+      "files": [
+        {
+          "path": "use-stable-handlers.ts",
+          "type": "registry:hook"
+        }
+      ]
     }
   ]
 }

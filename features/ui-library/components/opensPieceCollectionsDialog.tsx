@@ -27,7 +27,7 @@ export function OpensPieceCollectionsDialog({
       description={`${bucketName} · ${categoryName}`}
       controls={["minimize", "maximize", "close"]}
       size="xl"
-      className="w-[min(100%,64rem)] max-h-[90vh]"
+      className="w-full max-w-5xl max-h-[90vh]"
     >
       {pieceName ? (
         <>

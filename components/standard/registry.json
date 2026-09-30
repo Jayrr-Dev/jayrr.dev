@@ -77,7 +77,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@jayrr/alert"
+        "@jayrr/alert",
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -192,6 +193,22 @@
       ]
     },
     {
+      "name": "atom-grid",
+      "type": "registry:ui",
+      "title": "Atom Grid",
+      "description": "Dot-matrix loading indicator: a small grid of dots lit in a moving pattern, pure CSS with no JavaScript once rendered. Orbit, orbit-duo, diamond, vortex, spiral, ripple, pulse, snake, scan, wave, diagonal, rain, cross, saltire, corners, checker, sparkle and heart patterns; any grid size, dot size, gap and speed; circle, rounded, square or diamond dots with an optional glow.",
+      "files": [
+        {
+          "path": "atom-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/atom-grid.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "audio-display",
       "type": "registry:ui",
       "title": "Audio Display",
@@ -293,6 +310,9 @@
       "dependencies": [
         "class-variance-authority",
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -313,6 +333,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "@jayrr/standard-tokens",
         "@jayrr/use-controllable-state"
       ]
     },
@@ -349,6 +370,51 @@
       "dependencies": [
         "class-variance-authority",
         "cn"
+      ]
+    },
+    {
+      "name": "block-editor",
+      "type": "registry:ui",
+      "title": "Block Editor",
+      "description": "Notion-style document editor built on ProseKit: the Standard Toolbar (block type, history, text formats, list indent, insert table and divider), a / command menu, a format menu with a link field over selections, drag handles to reorder blocks, task and toggle lists, tables with row and column menus, code blocks, and Markdown shortcuts. onChange gives JSON, HTML and plain text.",
+      "files": [
+        {
+          "path": "block-editor.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/block-editor.tsx"
+        },
+        {
+          "path": "prosekit/block-handles.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/block-handles.tsx"
+        },
+        {
+          "path": "prosekit/editor-frame.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/editor-frame.tsx"
+        },
+        {
+          "path": "prosekit/format.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/format.tsx"
+        },
+        {
+          "path": "prosekit/suggestion-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/suggestion-menu.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "prosekit"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/standard-select",
+        "@jayrr/text-field",
+        "@jayrr/toolbar",
+        "@jayrr/typeset"
       ]
     },
     {
@@ -390,7 +456,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@jayrr/notification-badge"
+        "@jayrr/notification-badge",
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -437,6 +504,22 @@
           "path": "card-bar.tsx",
           "type": "registry:ui",
           "target": "components/standard/card-bar.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "card-corridor",
+      "type": "registry:ui",
+      "title": "Card Corridor",
+      "description": "Two walls of cards that meet and overlap in the middle, fan out and run toward you, growing until they pass the edges while new ones keep arriving. Items cycle on every lap, children sit over the gap, and it sizes from its own width. Directions out or in, pause on hover, pauses off screen and holds still for reduced motion.",
+      "files": [
+        {
+          "path": "card-corridor.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/card-corridor.tsx"
         }
       ],
       "dependencies": [
@@ -700,6 +783,29 @@
       ]
     },
     {
+      "name": "column-filter",
+      "type": "registry:ui",
+      "title": "Column Filter",
+      "description": "A column menu with Sort A → Z / Z → A buttons, a condition picker (contains, between, greater than, is empty and more) and a searchable checklist of the column's values. Each section shows only when you give it something to work with, and edits stay a draft until Apply hands the filter to onValueChange. Drop it in a popover for table or grid headers.",
+      "files": [
+        {
+          "path": "column-filter.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/column-filter.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/standard-checkbox",
+        "@jayrr/standard-select",
+        "@jayrr/use-controllable-state"
+      ]
+    },
+    {
       "name": "comments",
       "type": "registry:ui",
       "title": "Comments",
@@ -722,6 +828,26 @@
         "@jayrr/standard-button",
         "@jayrr/standard-select",
         "@jayrr/standard-textarea",
+        "@jayrr/use-controllable-state"
+      ]
+    },
+    {
+      "name": "comparison-slider",
+      "type": "registry:ui",
+      "title": "Comparison Slider",
+      "description": "Before/after comparison: two layers (image srcs or any content) split by a divider you drag, scrub on hover, or move with the arrow keys. Horizontal or vertical, optional corner labels, controlled or uncontrolled.",
+      "files": [
+        {
+          "path": "comparison-slider.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/comparison-slider.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
         "@jayrr/use-controllable-state"
       ]
     },
@@ -898,10 +1024,11 @@
         "radix-ui"
       ],
       "registryDependencies": [
+        "@jayrr/column-filter",
         "@jayrr/standard-badge",
         "@jayrr/standard-button",
         "@jayrr/standard-checkbox",
-        "@jayrr/standard-select"
+        "@jayrr/use-stable-handlers"
       ]
     },
     {
@@ -965,7 +1092,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@jayrr/standard-button"
+        "@jayrr/standard-button",
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -986,7 +1114,8 @@
       ],
       "registryDependencies": [
         "@jayrr/scroll-horizontal-button",
-        "@jayrr/standard-popover"
+        "@jayrr/standard-popover",
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -1306,6 +1435,7 @@
       ],
       "registryDependencies": [
         "@jayrr/field-label",
+        "@jayrr/standard-tokens",
         "@jayrr/use-field-validation"
       ]
     },
@@ -1329,6 +1459,7 @@
       "registryDependencies": [
         "@jayrr/button-array",
         "@jayrr/standard-button",
+        "@jayrr/standard-tokens",
         "@jayrr/use-controllable-state"
       ]
     },
@@ -1528,6 +1659,9 @@
       "dependencies": [
         "class-variance-authority",
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -1590,6 +1724,41 @@
       "registryDependencies": [
         "@jayrr/standard-popover",
         "@jayrr/standard-tooltip"
+      ]
+    },
+    {
+      "name": "inline-editor",
+      "type": "registry:ui",
+      "title": "Inline Editor",
+      "description": "Rich text editor built on ProseKit with no fixed toolbar: select text and a format menu with a link field floats over it. Markdown shortcuts still work. tone=\"ghost\" edits in place without a border.",
+      "files": [
+        {
+          "path": "inline-editor.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/inline-editor.tsx"
+        },
+        {
+          "path": "prosekit/editor-frame.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/editor-frame.tsx"
+        },
+        {
+          "path": "prosekit/format.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/format.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "prosekit"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/standard-select",
+        "@jayrr/text-field",
+        "@jayrr/toolbar",
+        "@jayrr/typeset"
       ]
     },
     {
@@ -1813,7 +1982,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@jayrr/spinner"
+        "@jayrr/spinner",
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -1839,6 +2009,55 @@
       ]
     },
     {
+      "name": "markdown-editor",
+      "type": "registry:ui",
+      "title": "Markdown Editor",
+      "description": "Rich text editor built on ProseKit that reads and writes Markdown (GFM: tables, task lists, strikethrough). Format with the Standard Toolbar or Markdown shortcuts, or switch to the source or a side-by-side view and edit the Markdown directly. Controlled with value, defaultValue and onValueChange.",
+      "files": [
+        {
+          "path": "markdown-editor.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/markdown-editor.tsx"
+        },
+        {
+          "path": "prosekit/editor-frame.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/editor-frame.tsx"
+        },
+        {
+          "path": "prosekit/format.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/format.tsx"
+        },
+        {
+          "path": "prosekit/markdown.ts",
+          "type": "registry:lib",
+          "target": "components/standard/prosekit/markdown.ts"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "prosekit",
+        "rehype-parse",
+        "rehype-remark",
+        "rehype-stringify",
+        "remark-gfm",
+        "remark-parse",
+        "remark-rehype",
+        "remark-stringify",
+        "unified"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/standard-select",
+        "@jayrr/text-field",
+        "@jayrr/toolbar",
+        "@jayrr/typeset",
+        "@jayrr/use-controllable-state"
+      ]
+    },
+    {
       "name": "mask",
       "type": "registry:ui",
       "title": "Mask",
@@ -1857,6 +2076,39 @@
       ],
       "dependencies": [
         "cn"
+      ]
+    },
+    {
+      "name": "mention-composer",
+      "type": "registry:ui",
+      "title": "Mention Composer",
+      "description": "Chat-style message box built on ProseKit: type @ to mention a person (with avatars) and # to add a tag, Enter to send, Shift+Enter for a new line. onSubmit returns the text, HTML, JSON and every mention as data. leading and trailing slots hold extra buttons.",
+      "files": [
+        {
+          "path": "mention-composer.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/mention-composer.tsx"
+        },
+        {
+          "path": "prosekit/editor-frame.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/editor-frame.tsx"
+        },
+        {
+          "path": "prosekit/suggestion-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/prosekit/suggestion-menu.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "prosekit"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-avatar",
+        "@jayrr/standard-button",
+        "@jayrr/typeset"
       ]
     },
     {
@@ -1924,6 +2176,7 @@
       "registryDependencies": [
         "@jayrr/standard-checkbox",
         "@jayrr/standard-popover",
+        "@jayrr/standard-tokens",
         "@jayrr/use-mobile"
       ]
     },
@@ -2177,6 +2430,25 @@
       ]
     },
     {
+      "name": "planetary",
+      "type": "registry:ui",
+      "title": "Planetary",
+      "description": "Rings of items orbiting a centre, built on Array. Rings alternate direction (inner clockwise, next counter-clockwise) unless a ring sets its own; each ring takes its own radius, duration and starting offset. Items stay upright while their ring turns. Pauses on demand or on hover; honours reduced motion. PlanetaryItem is a round body for rings and the centre.",
+      "files": [
+        {
+          "path": "planetary.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/planetary.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/array"
+      ]
+    },
+    {
       "name": "popover-wizard",
       "type": "registry:ui",
       "title": "Popover Wizard",
@@ -2255,7 +2527,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@jayrr/progress"
+        "@jayrr/progress",
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -2296,6 +2569,26 @@
       ],
       "registryDependencies": [
         "@jayrr/field-label",
+        "@jayrr/standard-tokens",
+        "@jayrr/use-controllable-state"
+      ]
+    },
+    {
+      "name": "reel",
+      "type": "registry:ui",
+      "title": "Reel",
+      "description": "An endless reel of items. Straight, it loops them left, right, up or down like a logo ticker, with edge fades and a hover speed that eases to a stop. Given an SVG path, the items ride along it, round a closed loop or in one end and out the other, turned to face along it or kept upright; with drawable, press and drag to draw the path. Flow sends items as a stream, a number at a time or at random gaps; cycles, rest and loop set how many passes run before it pauses or stops, and playOnView starts it when it scrolls into view.",
+      "files": [
+        {
+          "path": "reel.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/reel.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
         "@jayrr/use-controllable-state"
       ]
     },
@@ -2356,6 +2649,19 @@
       ]
     },
     {
+      "name": "reveal",
+      "type": "registry:ui",
+      "title": "Reveal",
+      "description": "Animates content in as it scrolls into view: fade, rise, drop, slides, zoom, pop, spin or blur. `stagger` cascades direct children, `once={false}` replays on every pass, and `useReveal` exposes the in-view state. Plain CSS transitions; honours reduced motion.",
+      "files": [
+        {
+          "path": "reveal.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/reveal.tsx"
+        }
+      ]
+    },
+    {
       "name": "screentone",
       "type": "registry:ui",
       "title": "Screentone",
@@ -2411,6 +2717,41 @@
       ],
       "registryDependencies": [
         "@jayrr/standard-tooltip"
+      ]
+    },
+    {
+      "name": "scroll-mask",
+      "type": "registry:ui",
+      "title": "Scroll Mask",
+      "description": "Scroll Mask from the Standard library.",
+      "files": [
+        {
+          "path": "scroll-mask.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/scroll-mask.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
+      "name": "scroll-track",
+      "type": "registry:ui",
+      "title": "Scroll Track",
+      "description": "Scroll progress line that fills as the reader scrolls: a straight bar pinned under a header, a vertical line, or any SVG path, with a marker node that rides the tip and can turn to face along the path. Tracks the whole scroller, one element, or a pixel range from start to end, and writes progress to --scroll-track-progress with no React renders.",
+      "files": [
+        {
+          "path": "scroll-track.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/scroll-track.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-tokens"
       ]
     },
     {
@@ -2674,6 +3015,7 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn",
         "lucide-react"
       ],
@@ -2865,6 +3207,22 @@
         "@jayrr/spinner",
         "@jayrr/use-field-validation",
         "@jayrr/use-inline-completion"
+      ]
+    },
+    {
+      "name": "text-highlight",
+      "type": "registry:ui",
+      "title": "Text Highlight",
+      "description": "A paragraph with marker-pen highlights on chosen phrases. Static by default; with animate it blurs in when scrolled into view and sweeps each highlight across its phrase in turn, from any side. Honours reduced motion.",
+      "files": [
+        {
+          "path": "text-highlight.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/text-highlight.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -3175,6 +3533,38 @@
         }
       ],
       "docs": "Add `@import \"../components/standard/typeset.css\";` to your global CSS, after `@import \"tailwindcss\";` (adjust the path to where the file landed)."
+    },
+    {
+      "name": "standard-tokens",
+      "type": "registry:theme",
+      "title": "Standard Tokens",
+      "description": "Tone colors (success, warning, info, each with a -foreground) for the Standard library, used like shadcn's destructive.",
+      "cssVars": {
+        "theme": {
+          "color-success": "var(--success)",
+          "color-success-foreground": "var(--success-foreground)",
+          "color-warning": "var(--warning)",
+          "color-warning-foreground": "var(--warning-foreground)",
+          "color-info": "var(--info)",
+          "color-info-foreground": "var(--info-foreground)"
+        },
+        "light": {
+          "success": "oklch(0.508 0.118 165.612)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.555 0.163 48.998)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.5 0.134 242.749)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "success": "oklch(0.765 0.177 163.223)",
+          "success-foreground": "oklch(0.205 0 0)",
+          "warning": "oklch(0.828 0.189 84.429)",
+          "warning-foreground": "oklch(0.205 0 0)",
+          "info": "oklch(0.746 0.16 232.661)",
+          "info-foreground": "oklch(0.205 0 0)"
+        }
+      }
     }
   ]
 }

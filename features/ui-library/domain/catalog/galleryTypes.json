@@ -237,6 +237,10 @@
       {
         "id": "layers",
         "label": "Layers"
+      },
+      {
+        "id": "theme",
+        "label": "Theme"
       }
     ]
   }

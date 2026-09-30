@@ -47,7 +47,6 @@ export function RendersSocialMediaButtonsDemo() {
           tone="ghost"
           shape="rounded"
           size="sm"
-          className="gap-0.5"
         />
       </RendersDemoCard>
       <RendersDemoCard label="with labels">

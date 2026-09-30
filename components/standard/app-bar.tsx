@@ -155,10 +155,10 @@ function AppBar({
                 "flex flex-col justify-end px-4",
                 variant === "medium"
                   ? subtitle
-                    ? "h-[72px] pb-3"
+                    ? "h-18 pb-3"
                     : "h-12 pb-3"
                   : subtitle
-                    ? "h-[88px] pb-4"
+                    ? "h-22 pb-4"
                     : "h-14 pb-4"
               )}
             >

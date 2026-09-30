@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-stable-handlers",
+  "title": "Use Stable Handlers",
+  "description": "Returns one object whose methods keep the same identity for the component's life but always call the latest render's closures, so memoized children never re-render just because a handler was re-created.",
+  "files": [
+    {
+      "path": "hooks/use-stable-handlers.ts",
+      "content": "import * as React from \"react\"\n\ntype Handler = (...args: never[]) => unknown\n\n/**\n * One object whose methods keep the same identity for the component's life\n * but always call the latest render's closures. Hand it to memoized children\n * so they never re-render just because a handler was re-created.\n *\n * The set of method names is read once, on the first render.\n * Call the methods from events and effects, not while rendering.\n */\nexport function useStableHandlers<T extends Record<string, Handler>>(\n  handlers: T\n): T {\n  const ref = React.useRef(handlers)\n  React.useLayoutEffect(() => {\n    ref.current = handlers\n  })\n  const [stable] = React.useState(() => {\n    const proxy = {} as Record<string, Handler>\n    for (const key of Object.keys(handlers)) {\n      proxy[key] = (...args: never[]) => ref.current[key](...args)\n    }\n    return proxy as T\n  })\n  return stable\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

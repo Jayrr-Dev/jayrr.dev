@@ -72,19 +72,19 @@ export function RendersStructureDemo({
           <Stack gap="md" className="w-full">
             {(["start", "center", "end", "stretch", "baseline"] as const).map(
               (align) => (
-                <Stack
+                <div
                   key={align}
-                  direction="row"
-                  align={align}
-                  className="h-12 rounded-md border border-dashed border-border p-1"
+                  className="rounded-md border border-dashed border-border"
                 >
-                  <span className="w-16 self-center text-xs text-muted-foreground">
-                    {align}
-                  </span>
-                  <span className="min-h-4 w-6 rounded bg-primary/70" />
-                  <span className="min-h-7 w-6 rounded bg-primary/70" />
-                  <span className="min-h-5 w-6 rounded bg-primary/70" />
-                </Stack>
+                  <Stack direction="row" align={align} className="h-12 p-1">
+                    <span className="w-16 self-center text-xs text-muted-foreground">
+                      {align}
+                    </span>
+                    <span className="min-h-4 w-6 rounded bg-primary/70" />
+                    <span className="min-h-7 w-6 rounded bg-primary/70" />
+                    <span className="min-h-5 w-6 rounded bg-primary/70" />
+                  </Stack>
+                </div>
               )
             )}
           </Stack>
@@ -94,19 +94,23 @@ export function RendersStructureDemo({
             {(
               ["start", "center", "end", "between", "around", "evenly"] as const
             ).map((justify) => (
-              <Stack
+              <div
                 key={justify}
-                direction="row"
-                justify={justify}
-                className="relative rounded-md border border-dashed border-border p-1"
+                className="rounded-md border border-dashed border-border"
               >
-                <span className="size-5 rounded bg-primary/70" />
-                <span className="size-5 rounded bg-primary/70" />
-                <span className="size-5 rounded bg-primary/70" />
-                <span className="absolute top-1/2 right-2 -translate-y-1/2 text-xs text-muted-foreground">
-                  {justify}
-                </span>
-              </Stack>
+                <Stack
+                  direction="row"
+                  justify={justify}
+                  className="relative p-1"
+                >
+                  <span className="size-5 rounded bg-primary/70" />
+                  <span className="size-5 rounded bg-primary/70" />
+                  <span className="size-5 rounded bg-primary/70" />
+                  <span className="absolute top-1/2 right-2 -translate-y-1/2 text-xs text-muted-foreground">
+                    {justify}
+                  </span>
+                </Stack>
+              </div>
             ))}
           </Stack>
         </RendersDemoCard>

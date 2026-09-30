@@ -225,7 +225,7 @@ function PhoneFlag({
   const Flag = country ? flags[country] : undefined
 
   return (
-    <span className="flex h-3.5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-[2px] [&_svg]:size-full">
+    <span className="flex h-3.5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-xs [&_svg]:size-full">
       {Flag ? (
         <Flag title={countryName} />
       ) : (

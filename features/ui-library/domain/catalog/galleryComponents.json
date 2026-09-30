@@ -73,6 +73,16 @@
     "installed": true
   },
   {
+    "name": "Number Effect",
+    "type": "content/text",
+    "canonical": "text",
+    "tier": "primitive",
+    "demos": [
+      "classic"
+    ],
+    "installed": true
+  },
+  {
     "name": "Math",
     "type": "content/text",
     "canonical": "text",
@@ -101,6 +111,23 @@
     "family_key": "mood-text",
     "file_path": "components/standard/mood-text.tsx",
     "import_path": "@/components/standard/mood-text",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Text Highlight",
+    "type": "content/text",
+    "canonical": "text",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "text-highlight",
+    "family_key": "text-highlight",
+    "file_path": "components/standard/text-highlight.tsx",
+    "import_path": "@/components/standard/text-highlight",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null
@@ -162,6 +189,23 @@
     ]
   },
   {
+    "name": "Comparison Slider",
+    "type": "content/media",
+    "canonical": "media",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "comparison-slider",
+    "family_key": "comparison-slider",
+    "file_path": "components/standard/comparison-slider.tsx",
+    "import_path": "@/components/standard/comparison-slider",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Avatar",
     "type": "content/media",
     "canonical": "media",
@@ -196,6 +240,23 @@
     "family_key": "media",
     "file_path": "components/ui/carousel.tsx",
     "import_path": "@/components/ui/carousel",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Reel",
+    "type": "content/media",
+    "canonical": "media",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "reel",
+    "family_key": "reel",
+    "file_path": "components/standard/reel.tsx",
+    "import_path": "@/components/standard/reel",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null
@@ -1004,6 +1065,70 @@
     "mock_data_key": null
   },
   {
+    "name": "Block Editor",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "block-editor",
+    "family_key": "input",
+    "file_path": "components/standard/block-editor.tsx",
+    "import_path": "@/components/standard/block-editor",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Inline Editor",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "inline-editor",
+    "family_key": "input",
+    "file_path": "components/standard/inline-editor.tsx",
+    "import_path": "@/components/standard/inline-editor",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Markdown Editor",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "markdown-editor",
+    "family_key": "input",
+    "file_path": "components/standard/markdown-editor.tsx",
+    "import_path": "@/components/standard/markdown-editor",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Mention Composer",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "mention-composer",
+    "family_key": "input",
+    "file_path": "components/standard/mention-composer.tsx",
+    "import_path": "@/components/standard/mention-composer",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Date Picker",
     "type": "interaction/input",
     "canonical": "calendar",
@@ -1050,6 +1175,22 @@
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "pickers"
+  },
+  {
+    "name": "Column Filter",
+    "type": "interaction/input",
+    "canonical": "selects",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "column-filter",
+    "family_key": "standard",
+    "file_path": "components/standard/column-filter.tsx",
+    "import_path": "@/components/standard/column-filter",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Miller Select",
@@ -1126,6 +1267,16 @@
     "tier": "primitive",
     "demos": [
       "classic",
+      "standard"
+    ],
+    "installed": true
+  },
+  {
+    "name": "Theme",
+    "type": "structure/surface",
+    "canonical": "theme",
+    "tier": "primitive",
+    "demos": [
       "standard"
     ],
     "installed": true
@@ -1859,8 +2010,8 @@
   },
   {
     "name": "Steps",
-    "type": "meaning/indicator",
-    "canonical": "loading",
+    "type": "interaction/navigation",
+    "canonical": "navigation",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -1876,8 +2027,8 @@
   },
   {
     "name": "Stepper",
-    "type": "meaning/indicator",
-    "canonical": "loading",
+    "type": "interaction/navigation",
+    "canonical": "navigation",
     "tier": "component",
     "demos": [
       "standard"
@@ -1973,6 +2124,40 @@
     "family_key": "array",
     "file_path": "components/standard/array.tsx",
     "import_path": "@/components/standard/array",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Planetary",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "planetary",
+    "family_key": "array",
+    "file_path": "components/standard/planetary.tsx",
+    "import_path": "@/components/standard/planetary",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Card Corridor",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "card-corridor",
+    "family_key": "array",
+    "file_path": "components/standard/card-corridor.tsx",
+    "import_path": "@/components/standard/card-corridor",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null
@@ -2169,6 +2354,54 @@
     "family_key": "parallax",
     "file_path": "components/standard/parallax.tsx",
     "import_path": "@/components/standard/parallax",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Reveal",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "reveal",
+    "family_key": "reveal",
+    "file_path": "components/standard/reveal.tsx",
+    "import_path": "@/components/standard/reveal",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Scroll Mask",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "scroll-mask",
+    "family_key": "scroll-mask",
+    "file_path": "components/standard/scroll-mask.tsx",
+    "import_path": "@/components/standard/scroll-mask",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Scroll Track",
+    "type": "meaning/indicator",
+    "canonical": "loading",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "scroll-track",
+    "family_key": "scroll-track",
+    "file_path": "components/standard/scroll-track.tsx",
+    "import_path": "@/components/standard/scroll-track",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null
@@ -2441,6 +2674,23 @@
     "family_key": "flip-dots",
     "file_path": "components/standard/flip-dots.tsx",
     "import_path": "@/components/standard/flip-dots",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Atom Grid",
+    "type": "content/media",
+    "canonical": "media",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "atom-grid",
+    "family_key": "atom-grid",
+    "file_path": "components/standard/atom-grid.tsx",
+    "import_path": "@/components/standard/atom-grid",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null

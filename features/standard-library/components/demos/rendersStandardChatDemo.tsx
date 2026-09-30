@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/standard/button"
 import { Avatar } from "@/components/standard/avatar"
 import { Chat, SideChat, type ChatMessage } from "@/components/standard/chat"
+import { Gradient } from "@/components/standard/gradient"
 import { MicButton } from "@/components/standard/mic-button"
 import { Select } from "@/components/standard/select"
 import {
@@ -76,14 +77,21 @@ function RendersWorkLog({
 }) {
   return (
     <Collapsible className="flex flex-col gap-1.5">
-      <CollapsibleTrigger className="group/log flex w-fit items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-        {summary}
-        <ChevronDownIcon className="size-3.5 transition-transform group-data-[state=open]/log:rotate-180" />
+      <CollapsibleTrigger asChild>
+        <button
+          type="button"
+          className="group/log flex w-fit items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        >
+          {summary}
+          <ChevronDownIcon className="size-3.5 transition-transform group-data-[state=open]/log:rotate-180" />
+        </button>
       </CollapsibleTrigger>
-      <CollapsibleContent className="flex flex-col gap-1.5 border-s ps-3 text-sm text-muted-foreground">
-        {steps.map((step) => (
-          <span key={step}>{step}</span>
-        ))}
+      <CollapsibleContent>
+        <div className="flex flex-col gap-1.5 border-s ps-3 text-sm text-muted-foreground">
+          {steps.map((step) => (
+            <span key={step}>{step}</span>
+          ))}
+        </div>
       </CollapsibleContent>
     </Collapsible>
   )
@@ -239,7 +247,7 @@ function RendersAssistantChat() {
 
   return (
     <Chat
-      className="h-[30rem]"
+      className="h-120"
       label="New chat"
       trailing={
         <Button
@@ -271,7 +279,7 @@ function RendersTeamThread() {
 
   return (
     <Chat
-      className="h-[26rem]"
+      className="h-104"
       label="#design-system"
       showAvatars
       copyable={false}
@@ -299,7 +307,7 @@ function RendersAgentRun() {
 
   return (
     <Chat
-      className="h-[34rem]"
+      className="h-136"
       messages={messages}
       placeholder="Send a follow-up"
       attachments
@@ -341,7 +349,17 @@ function RendersGreeting() {
 
   return (
     <Chat
-      className="h-[22rem] bg-[radial-gradient(ellipse_at_bottom,color-mix(in_oklch,var(--primary)_18%,transparent),transparent_70%)]"
+      className="h-88"
+      background={
+        <Gradient
+          kind="radial"
+          at="50% 100%"
+          colors={[
+            "color-mix(in oklch, var(--primary) 18%, transparent)",
+            "transparent 70%",
+          ]}
+        />
+      }
       messages={chat.messages}
       pending={chat.pending}
       onSend={chat.send}
@@ -393,7 +411,7 @@ function RendersSideChat() {
   })
 
   return (
-    <div className="relative h-[40rem] w-full overflow-hidden rounded-xl border bg-muted/40">
+    <div className="relative h-160 w-full overflow-hidden rounded-xl border bg-muted/40">
       <div className="flex flex-col gap-3 p-6">
         <div className="h-6 w-40 rounded-md bg-muted" />
         <div className="h-4 w-72 max-w-full rounded-md bg-muted" />

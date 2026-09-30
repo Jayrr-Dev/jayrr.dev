@@ -34,16 +34,13 @@ function RendersLiveDynamicTabs() {
 
   return (
     <RendersDemoCard label="Add, close, rename" className="w-full max-w-md">
-      <DynamicTabs
-        {...tabs}
-        aria-label="Sheets"
-        addLabel="Add sheet"
-        className="overflow-hidden rounded-lg border border-border"
-      >
-        <p className="px-3 py-6 text-center text-sm text-muted-foreground">
-          {active?.label} panel
-        </p>
-      </DynamicTabs>
+      <div className="min-w-0 overflow-hidden rounded-lg border border-border">
+        <DynamicTabs {...tabs} aria-label="Sheets" addLabel="Add sheet">
+          <p className="px-3 py-6 text-center text-sm text-muted-foreground">
+            {active?.label} panel
+          </p>
+        </DynamicTabs>
+      </div>
     </RendersDemoCard>
   )
 }
@@ -59,12 +56,9 @@ function RendersOverflowDynamicTabs() {
       label="Overflow scroll, size default"
       className="w-full max-w-sm"
     >
-      <DynamicTabs
-        {...tabs}
-        size="default"
-        aria-label="Documents"
-        className="overflow-hidden rounded-lg border border-border"
-      />
+      <div className="min-w-0 overflow-hidden rounded-lg border border-border">
+        <DynamicTabs {...tabs} size="default" aria-label="Documents" />
+      </div>
     </RendersDemoCard>
   )
 }
@@ -80,12 +74,9 @@ function RendersOverlayDynamicTabs() {
       label="Overlay arrows with fade"
       className="w-full max-w-sm"
     >
-      <DynamicTabs
-        {...tabs}
-        scrollButtons="overlay"
-        aria-label="Documents"
-        className="overflow-hidden rounded-lg border border-border"
-      />
+      <div className="min-w-0 overflow-hidden rounded-lg border border-border">
+        <DynamicTabs {...tabs} scrollButtons="overlay" aria-label="Documents" />
+      </div>
     </RendersDemoCard>
   )
 }
@@ -99,16 +90,17 @@ function RendersPinnedDynamicTabs() {
 
   return (
     <RendersDemoCard label="Pinned tab, no rename" className="w-full max-w-md">
-      <DynamicTabs
-        items={items}
-        defaultValue="a"
-        minTabs={0}
-        aria-label="Reports"
-        onClose={(id) =>
-          setItems((previous) => previous.filter((item) => item.id !== id))
-        }
-        className="overflow-hidden rounded-lg border border-border"
-      />
+      <div className="min-w-0 overflow-hidden rounded-lg border border-border">
+        <DynamicTabs
+          items={items}
+          defaultValue="a"
+          minTabs={0}
+          aria-label="Reports"
+          onClose={(id) =>
+            setItems((previous) => previous.filter((item) => item.id !== id))
+          }
+        />
+      </div>
     </RendersDemoCard>
   )
 }

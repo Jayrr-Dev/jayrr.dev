@@ -161,9 +161,9 @@ const bannerLayers: ParallaxLayerEntry[] = [
     speed: 0.35,
     scale: 0.3,
     content: (
-      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden>
+      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" className="text-white" aria-hidden>
         {[30, 60, 90, 120].map((r) => (
-          <circle key={r} cx="320" cy="60" r={r} fill="none" stroke="white" strokeOpacity=".25" />
+          <circle key={r} cx="320" cy="60" r={r} fill="none" stroke="currentColor" strokeOpacity=".25" />
         ))}
       </svg>
     ),

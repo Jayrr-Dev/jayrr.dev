@@ -109,7 +109,8 @@ function toast(message: React.ReactNode, options: ToastOptions = {}) {
           <div
             data-slot="snackbar"
             className={cn(
-              "flex w-max max-w-[min(42rem,calc(100vw-2rem))] min-w-[min(21.5rem,calc(100vw-2rem))] rounded-sm bg-foreground text-sm text-background shadow-lg",
+              // Sonner's toast slot is a fixed 356px, so center the wider snackbar on it.
+              "relative left-1/2 flex w-max max-w-[min(42rem,calc(100vw-2rem))] -translate-x-1/2 min-w-[min(21.5rem,calc(100vw-2rem))] rounded-sm bg-foreground text-sm text-background shadow-lg",
               stackAction
                 ? "flex-col items-stretch gap-1 py-2 pr-2 pl-4"
                 : "min-h-12 items-center gap-2 py-1.5 pr-2 pl-4"

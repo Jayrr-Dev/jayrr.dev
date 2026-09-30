@@ -36,17 +36,33 @@ export function RendersStepsDemo() {
                 index < TITLES.length - 1 ? "flex flex-1 items-center" : "flex"
               }
             >
-              <StepTrigger className="flex items-center gap-2 p-1">
-                <StepIndicator size="sm" />
-                <StepTitle className="text-xs">{title}</StepTitle>
+              <StepTrigger>
+                <span className="flex items-center gap-2 p-1">
+                  <StepIndicator size="sm" />
+                  <StepTitle size="sm">{title}</StepTitle>
+                </span>
               </StepTrigger>
               {index < TITLES.length - 1 ? <StepSeparator className="mx-1" /> : null}
             </Step>
           ))}
         </Steps>
       </RendersDemoCard>
-      <RendersDemoCard label="indicators only">
-        <Steps value={value} onValueChange={setValue} className="w-48">
+      <RendersDemoCard label="cards · styled by state">
+        <Steps value={value} onValueChange={setValue} className="w-72 gap-2">
+          {TITLES.map((title, index) => (
+            <Step key={title} index={index} className="flex flex-1">
+              <StepTrigger className="flex flex-1 flex-col items-start gap-0.5 rounded-lg border px-2.5 py-2 text-start transition-colors group-data-[state=active]/step:border-primary group-data-[state=active]/step:bg-primary/5 group-data-[state=upcoming]/step:opacity-60">
+                <span className="text-xs text-muted-foreground tabular-nums">
+                  Step {index + 1}
+                </span>
+                <StepTitle>{title}</StepTitle>
+              </StepTrigger>
+            </Step>
+          ))}
+        </Steps>
+      </RendersDemoCard>
+      <RendersDemoCard label="custom markers">
+        <Steps value={value} onValueChange={setValue} className="w-56">
           {TITLES.map((title, index) => (
             <Step
               key={title}
@@ -56,32 +72,10 @@ export function RendersStepsDemo() {
               }
             >
               <StepTrigger aria-label={title}>
-                <StepIndicator shape="square" />
+                <StepIndicator shape="square">{title[0]}</StepIndicator>
               </StepTrigger>
               {index < TITLES.length - 1 ? <StepSeparator className="mx-2" /> : null}
             </Step>
-          ))}
-        </Steps>
-      </RendersDemoCard>
-      <RendersDemoCard label="dots · no indicator">
-        <Steps value={value} onValueChange={setValue} className="gap-1.5">
-          {TITLES.map((title, index) => (
-            <Step key={title} index={index} className="flex">
-              <StepTrigger aria-label={title} className="flex h-4 items-center rounded-full">
-                <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30 transition-all group-data-[state=active]/step:w-5 group-data-[state=active]/step:bg-primary group-data-[state=complete]/step:bg-primary/50" />
-              </StepTrigger>
-            </Step>
-          ))}
-        </Steps>
-      </RendersDemoCard>
-      <RendersDemoCard label="segments · not interactive">
-        <Steps value={value} interactive={false} className="w-64 gap-1">
-          {TITLES.map((title, index) => (
-            <Step
-              key={title}
-              index={index}
-              className="h-1 flex-1 rounded-full bg-muted transition-colors data-[state=active]:bg-primary data-[state=complete]:bg-primary"
-            />
           ))}
         </Steps>
       </RendersDemoCard>
@@ -95,16 +89,17 @@ export function RendersStepsDemo() {
                 key={item.title}
                 index={index}
                 status={index === 1 ? "loading" : undefined}
-                className="flex gap-3"
               >
-                <span className="flex flex-col items-center">
-                  <StepIndicator size="sm" />
-                  {last ? null : <StepSeparator className="my-1" />}
-                </span>
-                <span className={last ? "flex flex-col" : "flex flex-col pb-4"}>
-                  <StepTitle>{item.title}</StepTitle>
-                  <StepDescription>{item.description}</StepDescription>
-                </span>
+                <div className="flex gap-3">
+                  <span className="flex flex-col items-center">
+                    <StepIndicator size="sm" />
+                    {last ? null : <StepSeparator className="my-1" />}
+                  </span>
+                  <span className={last ? "flex flex-col" : "flex flex-col pb-4"}>
+                    <StepTitle>{item.title}</StepTitle>
+                    <StepDescription>{item.description}</StepDescription>
+                  </span>
+                </div>
               </Step>
             )
           })}

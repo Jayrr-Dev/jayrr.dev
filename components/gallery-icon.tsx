@@ -75,6 +75,20 @@ const icons = {
       <path d="m11 44 13-12 9 8 8-7 12 11" />
     </>
   ),
+  "Comparison Slider": (
+    <>
+      <rect x="10" y="14" width="44" height="36" rx="4" opacity=".5" />
+      <path
+        d="M32 14h18a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H32Z"
+        fill="currentColor"
+        fillOpacity=".25"
+        stroke="none"
+      />
+      <path d="M32 10v44" />
+      <circle cx="32" cy="32" r="5" fill="var(--background, #fff)" />
+      <path d="M30.5 30v4M33.5 30v4" strokeWidth="1.5" />
+    </>
+  ),
   Avatar: (
     <>
       <circle cx="32" cy="32" r="21" opacity=".35" />
@@ -176,11 +190,46 @@ const icons = {
       <circle cx="42" cy="32" r="7" fill="currentColor" stroke="none" />
     </>
   ),
+  Theme: (
+    <>
+      <rect
+        x="10"
+        y="14"
+        width="20"
+        height="16"
+        rx="4"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
+      <rect
+        x="34"
+        y="14"
+        width="20"
+        height="16"
+        rx="4"
+        fill="currentColor"
+        stroke="none"
+      />
+      <rect x="10" y="34" width="20" height="16" rx="4" opacity=".45" />
+      <rect
+        x="34"
+        y="34"
+        width="20"
+        height="16"
+        rx="4"
+        fill="currentColor"
+        fillOpacity=".35"
+      />
+    </>
+  ),
   "Mode Toggle": (
     <>
       <path d="M32 18a14 14 0 0 1 0 28Z" fill="currentColor" stroke="none" />
       <circle cx="32" cy="32" r="14" />
-      <path d="M32 10v3M32 51v3M10 32h3M51 32h3M16.4 16.4l2.1 2.1M45.5 45.5l2.1 2.1M16.4 47.6l2.1-2.1M45.5 18.5l2.1-2.1" opacity=".45" />
+      <path
+        d="M32 10v3M32 51v3M10 32h3M51 32h3M16.4 16.4l2.1 2.1M45.5 45.5l2.1 2.1M16.4 47.6l2.1-2.1M45.5 18.5l2.1-2.1"
+        opacity=".45"
+      />
     </>
   ),
   Increment: (
@@ -238,6 +287,29 @@ const icons = {
         <circle cx="32" cy="23" r="4" opacity=".65" />
         <circle cx="43" cy="27" r="4" opacity=".8" />
         <circle cx="52" cy="40" r="4" />
+      </g>
+    </>
+  ),
+  "Card Corridor": (
+    <>
+      <path d="M4 14l10 5v26l-10 5Z" fill="currentColor" fillOpacity=".16" />
+      <path d="M17 21l6 3v16l-6 3Z" opacity=".7" />
+      <path d="M25.5 25.5l3 1.5v10l-3 1.5Z" opacity=".4" />
+      <path d="M60 14l-10 5v26l10 5Z" fill="currentColor" fillOpacity=".16" />
+      <path d="M47 21l-6 3v16l6 3Z" opacity=".7" />
+      <path d="M38.5 25.5l-3 1.5v10l3 1.5Z" opacity=".4" />
+    </>
+  ),
+  Planetary: (
+    <>
+      <circle cx="32" cy="32" r="11" opacity=".35" />
+      <circle cx="32" cy="32" r="22" opacity=".35" />
+      <circle cx="32" cy="32" r="5" />
+      <g fill="currentColor" stroke="none">
+        <circle cx="43" cy="32" r="3" />
+        <circle cx="21" cy="32" r="3" opacity=".7" />
+        <circle cx="16.4" cy="16.4" r="3.5" opacity=".8" />
+        <circle cx="47.6" cy="47.6" r="3.5" />
       </g>
     </>
   ),
@@ -329,12 +401,36 @@ const icons = {
       <path d="M46 22v12m0 5v1" />
     </>
   ),
+  "Number Effect": (
+    <>
+      <path d="M14 26l4-3v18" />
+      <path d="M26 27a5 5 0 0 1 10 0c0 5-10 9-10 14h10" />
+      <path d="M44 32h10M47 38h7" opacity=".35" />
+    </>
+  ),
   "Mood Text": (
     <>
       <path d="M10 40h10" opacity=".35" />
       <path d="M24 38c2-6 4-6 6 0s4 6 6 0 4-6 6 0" />
       <path d="M46 40h8" opacity=".35" />
       <path d="M27 26l1.5-4M33 24l1.5-4M39 26l1.5-4" opacity=".6" />
+    </>
+  ),
+  "Text Highlight": (
+    <>
+      <rect
+        x="18"
+        y="25"
+        width="28"
+        height="14"
+        rx="2"
+        fill="currentColor"
+        stroke="none"
+        opacity=".25"
+      />
+      <path d="M8 32h6M20 32h24M50 32h6" />
+      <path d="M8 46h40" opacity=".35" />
+      <path d="M8 18h30" opacity=".35" />
     </>
   ),
   Spinner: (
@@ -353,6 +449,27 @@ const icons = {
     <>
       <rect x="8" y="18" width="48" height="28" rx="3" />
       <path d="M14 24h8M14 40h8m28-16h-8m8 16h-8" />
+    </>
+  ),
+  Reel: (
+    <>
+      {/* Items riding a wave, with a dashed path behind them. */}
+      <path
+        d="M6 40c10-20 20-20 26 0s16 20 26 0"
+        strokeDasharray="3 4"
+        opacity=".4"
+      />
+      <rect x="9" y="24" width="10" height="10" rx="2.5" opacity=".45" />
+      <rect
+        x="27"
+        y="35"
+        width="10"
+        height="10"
+        rx="2.5"
+        fill="currentColor"
+        fillOpacity=".15"
+      />
+      <rect x="45" y="24" width="10" height="10" rx="2.5" opacity=".45" />
     </>
   ),
   Carousel: (
@@ -948,6 +1065,38 @@ const icons = {
       <path d="M36 36v10" />
     </>
   ),
+  "Block Editor": (
+    <>
+      <rect x="8" y="10" width="48" height="44" rx="4" />
+      <path d="M24 22h22M24 32h18M24 42h22" />
+      <path d="M15 20v4m3-4v4M15 30v4m3-4v4" opacity=".45" />
+    </>
+  ),
+  "Inline Editor": (
+    <>
+      <rect x="18" y="10" width="28" height="12" rx="3" />
+      <path d="M24 16h4m4 0h4m4 0h2" opacity=".5" />
+      <path d="M8 34h48M8 44h36" />
+      <rect x="20" y="30" width="24" height="8" rx="1" opacity=".45" />
+    </>
+  ),
+  "Markdown Editor": (
+    <>
+      <rect x="8" y="10" width="48" height="44" rx="4" />
+      <path d="M32 10v44" />
+      <path d="M14 26v12l4-5 4 5V26" />
+      <path d="M38 24h12M38 32h8M38 40h12" opacity=".45" />
+    </>
+  ),
+  "Mention Composer": (
+    <>
+      <rect x="6" y="22" width="52" height="20" rx="6" />
+      <circle cx="17" cy="32" r="3" />
+      <path d="M20 32v1.5a2 2 0 0 0 4 0V32a7 7 0 1 0-3 5.7" />
+      <path d="M30 32h12" opacity=".45" />
+      <path d="m48 28 5 4-5 4z" />
+    </>
+  ),
   "Date Picker": (
     <>
       <rect x="8" y="22" width="48" height="20" rx="4" />
@@ -1125,6 +1274,30 @@ const icons = {
       <circle cx="44" cy="22" r="4" />
     </>
   ),
+  "Scroll Track": (
+    <>
+      <path d="M8 40c8-12 14-12 20 0s12 12 20 0" opacity=".3" />
+      <path d="M8 40c8-12 14-12 20 0" />
+      <circle cx="28" cy="40" r="4" fill="currentColor" />
+      <path d="M8 18h48" opacity=".3" strokeWidth="4" />
+      <path d="M8 18h30" strokeWidth="4" />
+    </>
+  ),
+  "Scroll Mask": (
+    <>
+      <rect x="8" y="10" width="48" height="44" rx="5" opacity=".3" />
+      <circle cx="32" cy="32" r="13" />
+      <path d="M22 36l6-6 5 5 4-4 5 5" opacity=".45" />
+    </>
+  ),
+  Reveal: (
+    <>
+      <rect x="12" y="10" width="40" height="10" rx="3" />
+      <rect x="12" y="27" width="40" height="10" rx="3" opacity=".55" />
+      <rect x="12" y="46" width="40" height="10" rx="3" opacity=".2" />
+      <path d="M32 40v-2m0 4v2" opacity=".55" />
+    </>
+  ),
   "Infinite Scroll": (
     <>
       <rect x="14" y="8" width="36" height="10" rx="3" />
@@ -1282,6 +1455,29 @@ const icons = {
             opacity={(col + row) % 2 ? 0.25 : 1}
           />
         ))
+      )}
+    </>
+  ),
+  "Atom Grid": (
+    <>
+      {[0, 1, 2, 3, 4].map((col) =>
+        [0, 1, 2, 3, 4].map((row) => {
+          const rim = col === 0 || row === 0 || col === 4 || row === 4
+          // A comet running clockwise along the rim, brightest at the top right.
+          const lit =
+            row === 0 && col > 0 ? [0.3, 0.45, 0.7, 1][col - 1] : null
+          return (
+            <circle
+              key={`${col}-${row}`}
+              cx={16 + col * 8}
+              cy={16 + row * 8}
+              r="2.6"
+              fill="currentColor"
+              stroke="none"
+              opacity={lit ?? (rim ? 0.2 : 0.1)}
+            />
+          )
+        })
       )}
     </>
   ),
@@ -1732,7 +1928,14 @@ const icons = {
       <rect x="25.5" y="10" width="13" height="13" rx="2" opacity=".4" />
       <rect x="41" y="10" width="13" height="13" rx="2" opacity=".4" />
       <rect x="10" y="25.5" width="13" height="13" rx="2" opacity=".4" />
-      <rect x="25.5" y="25.5" width="13" height="13" rx="2" strokeDasharray="3 2" />
+      <rect
+        x="25.5"
+        y="25.5"
+        width="13"
+        height="13"
+        rx="2"
+        strokeDasharray="3 2"
+      />
       <rect x="41" y="25.5" width="13" height="13" rx="2" opacity=".4" />
       <rect x="10" y="41" width="13" height="13" rx="2" opacity=".4" />
       <rect x="25.5" y="41" width="13" height="13" rx="2" opacity=".4" />
@@ -1821,15 +2024,48 @@ const icons = {
   ),
   Steps: (
     <>
-      <circle cx="14" cy="28" r="6" fill="currentColor" fillOpacity=".16" />
-      <path d="m11 28 2 2 4-4" />
-      <path d="M20 28h6" />
-      <circle cx="32" cy="28" r="6" />
-      <circle cx="32" cy="28" r="2.2" fill="currentColor" stroke="none" />
-      <path d="M38 28h6" opacity=".4" />
-      <circle cx="50" cy="28" r="6" opacity=".4" />
-      <path d="M9 41h10M27 41h10" />
-      <path d="M45 41h10" opacity=".4" />
+      <rect
+        x="8"
+        y="8"
+        width="21"
+        height="21"
+        rx="3"
+        strokeDasharray="2 2"
+        opacity=".5"
+      />
+      <rect
+        x="35"
+        y="8"
+        width="21"
+        height="21"
+        rx="3"
+        strokeDasharray="2 2"
+        opacity=".5"
+      />
+      <rect
+        x="8"
+        y="35"
+        width="21"
+        height="21"
+        rx="3"
+        strokeDasharray="2 2"
+        opacity=".5"
+      />
+      <rect
+        x="35"
+        y="35"
+        width="21"
+        height="21"
+        rx="3"
+        strokeDasharray="2 2"
+        opacity=".5"
+      />
+      <circle cx="18.5" cy="18.5" r="5" fill="currentColor" fillOpacity=".16" />
+      <path d="m16 18.5 1.8 1.8 3.2-3.2" />
+      <path d="M40 18.5h11" />
+      <path d="M13 42h11M13 49h7" />
+      <circle cx="45.5" cy="45.5" r="5" />
+      <circle cx="45.5" cy="45.5" r="1.8" fill="currentColor" stroke="none" />
     </>
   ),
   "Popover Wizard": (

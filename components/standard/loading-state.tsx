@@ -53,7 +53,7 @@ function LoadingState({
       {done ? (
         <CheckIcon
           className={cn(
-            "size-4 text-emerald-600 dark:text-emerald-400",
+            "size-4 text-success",
             dismisses &&
               "animate-out fade-out zoom-out-50 fill-mode-forwards duration-300"
           )}

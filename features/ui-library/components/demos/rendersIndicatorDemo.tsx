@@ -35,13 +35,13 @@ function ProgressRingLiveDemo() {
   )
 }
 
-function ProgressRingHealthDemo() {
+function ProgressRingHealthDemo({ segments }: { segments?: number }) {
   const [hp, setHp] = useState(100)
   const color =
     hp > 50
-      ? "[--progress-ring-color:var(--color-emerald-500)]"
+      ? "[--progress-ring-color:var(--color-success)]"
       : hp > 25
-        ? "[--progress-ring-color:var(--color-amber-500)]"
+        ? "[--progress-ring-color:var(--color-warning)]"
         : "[--progress-ring-color:var(--color-destructive)]"
 
   return (
@@ -50,6 +50,7 @@ function ProgressRingHealthDemo() {
         value={hp}
         aria-label="Health"
         below="HP"
+        segments={segments}
         className={color}
       >
         {hp}
@@ -149,14 +150,14 @@ export function RendersIndicatorDemo({
             <ProgressRing
               value={100}
               size={56}
-              className="[--progress-ring-color:var(--color-emerald-500)]"
+              className="[--progress-ring-color:var(--color-success)]"
             >
-              <CheckIcon className="size-5 text-emerald-500" />
+              <CheckIcon className="size-5 text-success" />
             </ProgressRing>
             <ProgressRing
               value={80}
               size={56}
-              className="[--progress-ring-color:var(--color-amber-500)]"
+              className="[--progress-ring-color:var(--color-warning)]"
             >
               80
             </ProgressRing>
@@ -177,6 +178,28 @@ export function RendersIndicatorDemo({
         </RendersDemoCard>
         <RendersDemoCard label="health">
           <ProgressRingHealthDemo />
+        </RendersDemoCard>
+        <RendersDemoCard label="health · segments">
+          <ProgressRingHealthDemo segments={5} />
+        </RendersDemoCard>
+        <RendersDemoCard label="segments">
+          <div className="flex items-center gap-4">
+            <ProgressRing value={3} max={4} segments={4} size={56} segmentGap={6}>
+              3/4
+            </ProgressRing>
+            <ProgressRing value={60} segments={12} size={56} thickness={6}>
+              60
+            </ProgressRing>
+            <ProgressRing
+              value={70}
+              segments={24}
+              size={56}
+              thickness={10}
+              segmentGap={2}
+            >
+              70
+            </ProgressRing>
+          </div>
         </RendersDemoCard>
       </>
     )

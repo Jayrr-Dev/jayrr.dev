@@ -7,8 +7,8 @@ import { cn } from "cn"
 const indicatorVariants = cva("inline-block shrink-0 rounded-full", {
   variants: {
     status: {
-      online: "bg-emerald-500",
-      away: "bg-amber-500",
+      online: "bg-success",
+      away: "bg-warning",
       busy: "bg-destructive",
       offline:
         "bg-background shadow-[inset_0_0_0_2px] shadow-muted-foreground/60",

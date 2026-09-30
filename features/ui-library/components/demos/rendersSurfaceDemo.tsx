@@ -51,7 +51,7 @@ export function RendersSurfaceDemo({
     return (
       <>
         <RendersDemoCard>
-          <Card className="w-full shadow-none">
+          <Card className="w-full">
             <CardHeader>
               <CardTitle>Registry item</CardTitle>
               <CardDescription>A button you can install.</CardDescription>
@@ -65,7 +65,7 @@ export function RendersSurfaceDemo({
           </Card>
         </RendersDemoCard>
         <RendersDemoCard label="left and right panels">
-          <Card className="w-full shadow-none">
+          <Card className="w-full">
             <CardLeft>Left</CardLeft>
             <CardMain>
               <CardHeader>

@@ -16,6 +16,7 @@ import {
   type InputCalculatorProps,
 } from "@/components/standard/input-calculator"
 import { NumberInput } from "@/components/standard/number-input"
+import { Switch } from "@/components/standard/switch"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 /** The headless parts ship unstyled; this is one way to dress them. */
@@ -32,7 +33,7 @@ function RendersCalcField({
 
   return (
     <InputCalculator {...props} className="flex w-full items-center gap-2">
-      <div className="grid h-9 min-w-0 flex-1 items-center overflow-hidden rounded-lg border border-input font-mono text-sm focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-[[aria-invalid=true]]:border-destructive dark:bg-input/30">
+      <div className="grid h-9 min-w-0 flex-1 items-center overflow-hidden rounded-lg border border-input font-mono text-sm focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-data-locked:border-dashed has-[[aria-invalid=true]]:border-destructive dark:bg-input/30">
         <InputCalculatorHighlight
           ref={highlight}
           className={`pointer-events-none col-start-1 row-start-1 px-2.5 whitespace-pre ${TOKEN_COLORS}`}
@@ -79,6 +80,7 @@ function RendersVariablesCard() {
   const [qty, setQty] = useState(3)
   const [tax, setTax] = useState(0.0825)
   const [dependencies, setDependencies] = useState<string[]>([])
+  const [locked, setLocked] = useState(true)
   const variables = {
     price,
     qty,
@@ -97,6 +99,7 @@ function RendersVariablesCard() {
         </div>
         <RendersCalcField
           variables={variables}
+          locked={locked}
           defaultValue="=ROUND(subtotal * (1 + tax), 2)"
           onResult={(result) => setDependencies(result.dependencies)}
         />
@@ -114,6 +117,12 @@ function RendersVariablesCard() {
             </span>
           ))}
         </div>
+        <Switch
+          size="sm"
+          label="Lock formula"
+          checked={locked}
+          onCheckedChange={setLocked}
+        />
       </div>
     </RendersDemoCard>
   )

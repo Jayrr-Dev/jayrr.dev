@@ -69,6 +69,11 @@ function Example({ title, children }: { title: string; children: ReactNode }) {
   )
 }
 
+/** The bordered frame each example scrolls inside. */
+function Frame({ children }: { children: ReactNode }) {
+  return <div className="overflow-hidden rounded-xl border">{children}</div>
+}
+
 function EndOfList() {
   return (
     <p className="py-4 text-center text-xs text-muted-foreground">
@@ -91,21 +96,23 @@ function useFeed<T>(fetchPage: ReturnType<typeof fakeFetch<T>>) {
 function PostFeed() {
   const feed = useFeed(fakeFetch(makePost))
   return (
-    <InfiniteScroll
-      {...feed}
-      scroll="container"
-      className="h-80 rounded-xl border p-3"
-      end={<EndOfList />}
-      renderItem={(post) => (
-        <Card padding="sm" className="flex-row items-start gap-3">
-          <Avatar size="sm" fallback={post.author.initials} />
-          <div className="min-w-0">
-            <p className="text-sm font-medium">{post.author.name}</p>
-            <p className="text-sm text-muted-foreground">{post.text}</p>
-          </div>
-        </Card>
-      )}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        scroll="container"
+        className="h-80 p-3"
+        end={<EndOfList />}
+        renderItem={(post) => (
+          <Card padding="sm" className="flex-row items-start">
+            <Avatar size="sm" fallback={post.author.initials} />
+            <div className="min-w-0">
+              <p className="text-sm font-medium">{post.author.name}</p>
+              <p className="text-sm text-muted-foreground">{post.text}</p>
+            </div>
+          </Card>
+        )}
+      />
+    </Frame>
   )
 }
 
@@ -114,43 +121,47 @@ function SwatchGrid() {
     fakeFetch((id) => ({ id, hue: (id * 37) % 360 }), { pages: 6, delay: 500 })
   )
   return (
-    <InfiniteScroll
-      {...feed}
-      layout="grid"
-      minItemWidth={64}
-      scroll="container"
-      className="h-80 rounded-xl border p-3"
-      contentClassName="gap-2"
-      end={<EndOfList />}
-      renderItem={(swatch) => (
-        <div
-          className="flex aspect-square items-end rounded-lg p-1.5 text-[10px] font-medium text-white/90"
-          style={{ background: `oklch(0.68 0.16 ${swatch.hue})` }}
-        >
-          {swatch.hue}°
-        </div>
-      )}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        layout="grid"
+        minItemWidth={64}
+        scroll="container"
+        className="h-80 p-3"
+        contentClassName="gap-2"
+        end={<EndOfList />}
+        renderItem={(swatch) => (
+          <div
+            className="flex aspect-square items-end rounded-lg p-1.5 text-xs font-medium text-white/90"
+            style={{ background: `oklch(0.68 0.16 ${swatch.hue})` }}
+          >
+            {swatch.hue}°
+          </div>
+        )}
+      />
+    </Frame>
   )
 }
 
 function MasonryWall() {
   const feed = useFeed(fakeFetch(makePost, { pages: 4 }))
   return (
-    <InfiniteScroll
-      {...feed}
-      layout="masonry"
-      minItemWidth={160}
-      scroll="container"
-      className="h-80 rounded-xl border p-3"
-      contentClassName="gap-3"
-      end={<EndOfList />}
-      renderItem={(post) => (
-        <Card padding="sm" appearance="muted" title={post.author.name}>
-          <p className="text-sm text-muted-foreground">{post.text}</p>
-        </Card>
-      )}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        layout="masonry"
+        minItemWidth={160}
+        scroll="container"
+        className="h-80 p-3"
+        contentClassName="gap-3"
+        end={<EndOfList />}
+        renderItem={(post) => (
+          <Card padding="sm" appearance="muted" title={post.author.name}>
+            <p className="text-sm text-muted-foreground">{post.text}</p>
+          </Card>
+        )}
+      />
+    </Frame>
   )
 }
 
@@ -159,73 +170,79 @@ function ChatLog() {
   // Pages arrive newest first; show oldest at the top.
   const messages = [...feed.items].reverse()
   return (
-    <InfiniteScroll
-      {...feed}
-      items={messages}
-      direction="up"
-      scroll="container"
-      className="h-80 rounded-xl border p-3"
-      contentClassName="gap-2"
-      end={
-        <p className="py-2 text-center text-xs text-muted-foreground">
-          Start of the conversation
-        </p>
-      }
-      renderItem={(message) => {
-        const mine = message.author.initials === "AL"
-        return (
-          <div
-            className={
-              mine
-                ? "ml-8 self-end rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-sm text-primary-foreground"
-                : "mr-8 self-start rounded-2xl rounded-bl-sm bg-muted px-3 py-2 text-sm"
-            }
-          >
-            {message.text}
-          </div>
-        )
-      }}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        items={messages}
+        direction="up"
+        scroll="container"
+        className="h-80 p-3"
+        contentClassName="gap-2"
+        end={
+          <p className="py-2 text-center text-xs text-muted-foreground">
+            Start of the conversation
+          </p>
+        }
+        renderItem={(message) => {
+          const mine = message.author.initials === "AL"
+          return (
+            <div
+              className={
+                mine
+                  ? "ml-8 self-end rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-sm text-primary-foreground"
+                  : "mr-8 self-start rounded-2xl rounded-bl-sm bg-muted px-3 py-2 text-sm"
+              }
+            >
+              {message.text}
+            </div>
+          )
+        }}
+      />
+    </Frame>
   )
 }
 
 function ButtonFeed() {
   const feed = useFeed(fakeFetch(makePost, { failEvery: 3 }))
   return (
-    <InfiniteScroll
-      {...feed}
-      trigger="button"
-      scroll="container"
-      className="h-80 rounded-xl border p-3"
-      contentClassName="gap-2"
-      end={<EndOfList />}
-      renderItem={(post) => (
-        <div className="rounded-lg border px-3 py-2 text-sm">
-          <span className="font-medium">#{post.id + 1}</span>{" "}
-          <span className="text-muted-foreground">{post.text}</span>
-        </div>
-      )}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        trigger="button"
+        scroll="container"
+        className="h-80 p-3"
+        contentClassName="gap-2"
+        end={<EndOfList />}
+        renderItem={(post) => (
+          <div className="rounded-lg border px-3 py-2 text-sm">
+            <span className="font-medium">#{post.id + 1}</span>{" "}
+            <span className="text-muted-foreground">{post.text}</span>
+          </div>
+        )}
+      />
+    </Frame>
   )
 }
 
 function CardRow() {
   const feed = useFeed(fakeFetch(makePost))
   return (
-    <InfiniteScroll
-      {...feed}
-      direction="right"
-      snap
-      className="rounded-xl border p-3 scroll-px-3"
-      end={<EndOfList />}
-      renderItem={(post) => (
-        <Card padding="sm" className="h-36 w-56" title={post.author.name}>
-          <p className="line-clamp-3 text-sm text-muted-foreground">
-            {post.text}
-          </p>
-        </Card>
-      )}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        direction="right"
+        snap
+        className="p-3 scroll-px-3"
+        end={<EndOfList />}
+        renderItem={(post) => (
+          <Card padding="sm" className="h-36 w-56" title={post.author.name}>
+            <p className="line-clamp-3 text-sm text-muted-foreground">
+              {post.text}
+            </p>
+          </Card>
+        )}
+      />
+    </Frame>
   )
 }
 
@@ -234,24 +251,26 @@ function SwatchShelf() {
     fakeFetch((id) => ({ id, hue: (id * 37) % 360 }), { pages: 6, delay: 500 })
   )
   return (
-    <InfiniteScroll
-      {...feed}
-      direction="right"
-      layout="grid"
-      rows={2}
-      minItemWidth={72}
-      className="rounded-xl border p-3"
-      contentClassName="gap-2"
-      end={<EndOfList />}
-      renderItem={(swatch) => (
-        <div
-          className="flex aspect-square items-end rounded-lg p-1.5 text-[10px] font-medium text-white/90"
-          style={{ background: `oklch(0.68 0.16 ${swatch.hue})` }}
-        >
-          {swatch.hue}°
-        </div>
-      )}
-    />
+    <Frame>
+      <InfiniteScroll
+        {...feed}
+        direction="right"
+        layout="grid"
+        rows={2}
+        minItemWidth={72}
+        className="p-3"
+        contentClassName="gap-2"
+        end={<EndOfList />}
+        renderItem={(swatch) => (
+          <div
+            className="flex aspect-square items-end rounded-lg p-1.5 text-xs font-medium text-white/90"
+            style={{ background: `oklch(0.68 0.16 ${swatch.hue})` }}
+          >
+            {swatch.hue}°
+          </div>
+        )}
+      />
+    </Frame>
   )
 }
 

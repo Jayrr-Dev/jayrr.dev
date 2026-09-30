@@ -55,7 +55,6 @@ import {
 } from "@/components/standard/data-grid-model"
 
 import {
-  useStableHandlers,
   type Axis2,
   type FilterOptions,
   type GridActions,
@@ -105,6 +104,7 @@ import {
   selectionRange,
   type Selection,
 } from "@/components/standard/data-grid/selection"
+import { useStableHandlers } from "@/hooks/use-stable-handlers"
 
 export * from "@/components/standard/data-grid-model"
 export {

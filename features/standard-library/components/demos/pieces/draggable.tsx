@@ -87,29 +87,31 @@ function ChannelsList() {
       <p className="text-xs text-muted-foreground">
         Drag to set priority. Top channels are tried first.
       </p>
-      <Draggable
-        items={channels}
-        onItemsChange={setChannels}
-        getId={(channel) => channel.id}
-        getItemLabel={(channel) => channel.title}
-        label="Notification priority"
-        handle
-        className="w-full gap-0 divide-y divide-border rounded-lg border border-border bg-background"
-        itemClassName="bg-background px-2 py-2 first:rounded-t-lg last:rounded-b-lg"
-        renderItem={(channel, { index }) => (
-          <div className="flex items-center gap-2">
-            <DraggableHandle className="size-7" />
-            <span className="w-4 text-xs text-muted-foreground tabular-nums">
-              {index + 1}
-            </span>
-            <channel.icon aria-hidden className="size-4" />
-            <div className="flex min-w-0 flex-col">
-              <span className="text-sm font-medium">{channel.title}</span>
-              <span className="text-xs text-muted-foreground">{channel.note}</span>
+      <div className="w-full rounded-lg border border-border bg-background">
+        <Draggable
+          items={channels}
+          onItemsChange={setChannels}
+          getId={(channel) => channel.id}
+          getItemLabel={(channel) => channel.title}
+          label="Notification priority"
+          handle
+          className="w-full gap-0 divide-y divide-border"
+          itemClassName="bg-background px-2 py-2 first:rounded-t-lg last:rounded-b-lg"
+          renderItem={(channel, { index }) => (
+            <div className="flex items-center gap-2">
+              <DraggableHandle className="size-7" />
+              <span className="w-4 text-xs text-muted-foreground tabular-nums">
+                {index + 1}
+              </span>
+              <channel.icon aria-hidden className="size-4" />
+              <div className="flex min-w-0 flex-col">
+                <span className="text-sm font-medium">{channel.title}</span>
+                <span className="text-xs text-muted-foreground">{channel.note}</span>
+              </div>
             </div>
-          </div>
-        )}
-      />
+          )}
+        />
+      </div>
     </div>
   )
 }
@@ -125,14 +127,14 @@ function PeopleRow() {
       getItemLabel={(name) => name}
       label="Team order"
       orientation="horizontal"
-      className="w-full overflow-x-auto p-1 [scrollbar-width:none]"
+      className="w-full overflow-x-auto p-1 scrollbar-none"
       itemClassName="rounded-lg"
       renderItem={(name) => (
         <div className="flex w-16 flex-col items-center gap-1.5 p-1">
           <span className="flex size-10 items-center justify-center rounded-full bg-muted text-xs font-medium">
             {initials(name)}
           </span>
-          <span className="w-full truncate text-center text-[11px]">{name}</span>
+          <span className="w-full truncate text-center text-xs">{name}</span>
         </div>
       )}
     />
@@ -178,17 +180,19 @@ function TwoLists() {
   const column = (id: string, title: string) => (
     <div className="flex min-w-0 flex-1 flex-col gap-2">
       <span className="text-xs font-medium text-muted-foreground">{title}</span>
-      <Draggable
-        listId={id}
-        label={title}
-        items={lists[id]}
-        getId={(task) => task}
-        getItemLabel={(task) => task}
-        className="min-h-24 rounded-lg border border-dashed border-border p-2 data-[over]:border-primary/50"
-        itemClassName="rounded-md border border-border bg-background px-2.5 py-2 text-sm"
-        empty={<span className="text-xs text-muted-foreground">Nothing here</span>}
-        renderItem={(task) => task}
-      />
+      <div className="rounded-lg border border-dashed border-border has-data-over:border-primary/50">
+        <Draggable
+          listId={id}
+          label={title}
+          items={lists[id]}
+          getId={(task) => task}
+          getItemLabel={(task) => task}
+          className="min-h-24 p-2"
+          itemClassName="rounded-md border border-border bg-background px-2.5 py-2 text-sm"
+          empty={<span className="text-xs text-muted-foreground">Nothing here</span>}
+          renderItem={(task) => task}
+        />
+      </div>
     </div>
   )
 

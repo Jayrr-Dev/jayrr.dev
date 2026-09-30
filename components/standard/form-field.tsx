@@ -96,7 +96,7 @@ function FormField({
       {showSuccess ? (
         <p
           id={messageId}
-          className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400"
+          className="flex items-center gap-1 text-xs text-success"
         >
           <CircleCheckIcon aria-hidden className="size-3.5 shrink-0" />
           {success}

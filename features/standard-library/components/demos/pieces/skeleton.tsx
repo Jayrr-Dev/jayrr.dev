@@ -9,7 +9,7 @@ export function RendersSkeletonDemo() {
     <>
       <RendersDemoCard>
         <Stack direction="row" align="center" className="w-full">
-          <Skeleton className="size-10 rounded-full" />
+          <Skeleton shape="circle" />
           <Stack className="flex-1">
             <Skeleton className="h-3 w-2/3" />
             <Skeleton className="h-3 w-full" />

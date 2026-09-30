@@ -713,6 +713,21 @@
       ]
     },
     {
+      "name": "number-effect",
+      "type": "registry:ui",
+      "title": "Number Effect",
+      "description": "Numbers that count up or race to a value with a speed smear.",
+      "files": [
+        {
+          "path": "number-effect.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "pagination",
       "type": "registry:ui",
       "title": "Pagination",

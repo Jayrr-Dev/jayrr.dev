@@ -137,8 +137,7 @@ function RendersSessionSidebarDemo() {
                   size="sm"
                   active={project.open && index === 0}
                   icon={<StatusDot status={session.status} />}
-                  label={session.title}
-                  className="font-normal"
+                  label={<span className="font-normal">{session.title}</span>}
                 />
               ))}
             </div>

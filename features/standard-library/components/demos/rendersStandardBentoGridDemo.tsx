@@ -38,10 +38,7 @@ export function RendersStandardBentoGridDemo() {
             description="412 hours logged across 18 jobs."
           >
             <BentoTileFooter>
-              <Button
-                size="sm"
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-              >
+              <Button size="sm" tone="inverse">
                 Open report
               </Button>
             </BentoTileFooter>
@@ -74,12 +71,12 @@ export function RendersStandardBentoGridDemo() {
 
       <RendersDemoCard fill label='variant "hero"'>
         <BentoGrid variant="hero">
-          <BentoTile className="min-h-40 justify-end text-white">
+          <BentoTile variant="inverse" className="min-h-40 justify-end">
             <BentoTileMedia position="background">
               <RendersSwatch className="bg-linear-to-br from-pink-400 via-fuchsia-500 to-indigo-600" />
             </BentoTileMedia>
-            <BentoTileTitle className="text-xl">Spring schedule</BentoTileTitle>
-            <BentoTileDescription className="text-white/80">
+            <BentoTileTitle size="xl">Spring schedule</BentoTileTitle>
+            <BentoTileDescription>
               Background media sits behind the tile content.
             </BentoTileDescription>
           </BentoTile>

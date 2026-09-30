@@ -174,7 +174,7 @@ export function RendersStandardArticleDemo() {
       <RendersDemoCard fill label='layout "sidebar-start", measure "narrow"'>
         <Article layout="sidebar-start" measure="narrow">
           <ArticleHeader>
-            <ArticleTitle className="text-3xl @2xl:text-4xl">
+            <ArticleTitle size="sm">
               Release notes
             </ArticleTitle>
           </ArticleHeader>

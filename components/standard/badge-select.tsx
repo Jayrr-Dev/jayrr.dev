@@ -52,7 +52,7 @@ const OPTION_SELECTED_PRIMARY_CLASS =
 /** Selected option that keeps its own badgeClass colors. */
 const OPTION_SELECTED_WITH_BADGE_CLASS = "border-2 !border-primary shadow-md"
 
-const OPTION_MIN_WIDTH_CLASS = "min-w-[85px]"
+const OPTION_MIN_WIDTH_CLASS = "min-w-21.25"
 const OPTION_ONE_COLUMN_CLASS =
   "max-w-full min-w-0 overflow-hidden whitespace-nowrap"
 

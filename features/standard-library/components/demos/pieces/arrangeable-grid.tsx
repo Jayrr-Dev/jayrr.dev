@@ -127,9 +127,9 @@ function RendersItem({ item }: { item: Item }) {
   const Icon = kind.icon
   return (
     <span className="relative flex size-full items-center justify-center">
-      <Icon className={`size-[55%] ${kind.color}`} strokeWidth={2.25} />
+      <Icon className={`size-11/20 ${kind.color}`} strokeWidth={2.25} />
       {item.count > 1 ? (
-        <span className="absolute right-0.5 bottom-0 text-[10px] font-bold text-foreground tabular-nums [text-shadow:0_1px_0_var(--background)]">
+        <span className="absolute right-0.5 bottom-0 text-2xs font-bold text-foreground tabular-nums text-shadow-2xs text-shadow-background">
           {item.count}
         </span>
       ) : null}
@@ -187,14 +187,18 @@ function RendersInventory() {
             <span className="text-xs text-muted-foreground">Drag in</span>
             <div className="grid grid-cols-2 gap-1">
               {PALETTE.map((kind) => (
-                <ArrangeableGridSource
+                <div
                   key={kind}
-                  label={`Add ${KINDS[kind].name}`}
-                  create={() => make(kind)}
                   className="size-12 rounded-md border border-dashed hover:bg-muted"
                 >
-                  <RendersItem item={{ id: kind, kind, count: 1 }} />
-                </ArrangeableGridSource>
+                  <ArrangeableGridSource
+                    label={`Add ${KINDS[kind].name}`}
+                    create={() => make(kind)}
+                    className="size-full"
+                  >
+                    <RendersItem item={{ id: kind, kind, count: 1 }} />
+                  </ArrangeableGridSource>
+                </div>
               ))}
             </div>
           </div>
@@ -210,19 +214,22 @@ function RendersInventory() {
           />
           <ArrangeableGridTarget>
             {({ isDragging, isOver }) => (
-              <Button
-                tone={isOver ? "danger" : "outline"}
-                size="sm"
-                iconOnly
-                aria-label="Drop here to delete"
+              <span
                 className={
                   isDragging
-                    ? "scale-110 transition-transform"
-                    : "transition-transform"
+                    ? "inline-flex scale-110 transition-transform"
+                    : "inline-flex transition-transform"
                 }
               >
-                <TrashIcon />
-              </Button>
+                <Button
+                  tone={isOver ? "danger" : "outline"}
+                  size="sm"
+                  iconOnly
+                  aria-label="Drop here to delete"
+                >
+                  <TrashIcon />
+                </Button>
+              </span>
             )}
           </ArrangeableGridTarget>
         </div>
@@ -394,7 +401,7 @@ function RendersLetterGrid() {
         getItemLabel={(letter) => `letter ${letter}`}
         renderItem={(letter, { isOverlay }) => (
           <span
-            className={`flex size-[80%] items-center justify-center rounded-sm bg-primary font-mono text-sm font-bold text-primary-foreground ${isOverlay ? "rotate-6" : ""}`}
+            className={`flex size-4/5 items-center justify-center rounded-sm bg-primary font-mono text-sm font-bold text-primary-foreground ${isOverlay ? "rotate-6" : ""}`}
           >
             {letter}
           </span>

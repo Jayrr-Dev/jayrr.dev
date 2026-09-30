@@ -35,7 +35,7 @@ const ARC_DIRECTION_DEGREES: Record<ActionWheelDirection, number> = {
   "up-left": 315,
 }
 
-/** `always` pins a card beside every action, `hover` reveals it on hover or focus. */
+/** `hover` (default) reveals a card beside an action on hover or focus, `always` pins them, `none` falls back to tooltips. */
 export type ActionWheelLabels = "always" | "hover" | "none"
 /** `click` toggles a nested arc; `hover` also opens it when the mouse rests on its parent. */
 export type ActionWheelSubmenuTrigger = "click" | "hover"
@@ -121,7 +121,7 @@ function ActionWheel({
   items,
   size = "default",
   tone = "solid",
-  labels = "always",
+  labels = "hover",
   submenuTrigger = "click",
   radius: radiusProp,
   variant = "wheel",

@@ -660,7 +660,7 @@ function DrawDisplay({
           if (!readOnly) event.preventDefault()
         }}
         className={cn(
-          "relative overflow-hidden text-neutral-900 dark:text-neutral-100",
+          "relative overflow-hidden text-foreground",
           backgrounds[background],
           !readOnly &&
             cn(

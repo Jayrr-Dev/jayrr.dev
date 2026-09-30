@@ -101,7 +101,7 @@ export function RendersTextFieldCards() {
           aria-label="Username"
           placeholder="username"
           leading={<AtSignIcon />}
-          trailing={<CircleCheckIcon className="size-4 text-emerald-600" />}
+          trailing={<CircleCheckIcon className="size-4 text-success" />}
           defaultValue="sam"
         />
       </RendersDemoCard>

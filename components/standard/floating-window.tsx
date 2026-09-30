@@ -48,6 +48,20 @@ type FloatingWindowProps = Omit<React.ComponentProps<"div">, "draggable"> & {
   /** Outline the spot the window will snap to while dragging. */
   snapPreview?: boolean
   previewClassName?: string
+  /**
+   * Corner rounding. Match the window's content so the focus ring follows
+   * its corners.
+   */
+  radius?: FloatingWindowRadius
+}
+
+type FloatingWindowRadius = "none" | "md" | "lg" | "xl"
+
+const FLOATING_WINDOW_RADIUS: Record<FloatingWindowRadius, string> = {
+  none: "",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl",
 }
 
 /** Pointer travel before a press becomes a drag, so clicks inside still land. */
@@ -181,6 +195,7 @@ function FloatingWindow({
   draggable = false,
   snapPreview = true,
   previewClassName,
+  radius = "none",
   className,
   style,
   ref,
@@ -450,6 +465,7 @@ function FloatingWindow({
         }
         className={cn(
           "z-50 w-max max-w-[calc(100%-2rem)] outline-none",
+          FLOATING_WINDOW_RADIUS[radius],
           draggable &&
             "cursor-grab touch-none select-none focus-visible:ring-2 focus-visible:ring-ring/50 data-[dragging]:cursor-grabbing",
           className
@@ -470,4 +486,8 @@ function FloatingWindow({
 }
 
 export { FloatingWindow, floatingWindowPositions }
-export type { FloatingWindowPosition, FloatingWindowProps }
+export type {
+  FloatingWindowPosition,
+  FloatingWindowProps,
+  FloatingWindowRadius,
+}

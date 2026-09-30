@@ -7,3 +7,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# Design system lint
+
+After UI changes, run `npm run lint` and fix every `shadcn/*` error. The rules come from `@shadcn/lint`, configured in `eslint.config.mjs` and `lib/standard-lint.mjs`: use component props and theme tokens (see `docs/component-conventions.md`) instead of restyling components or using palette colors. Don't add `eslint-disable` for these rules without a reason after `--`.
+
+`eslint-suppressions.json` records the known leftovers. Don't add to it; when you fix one, run `npx eslint . --prune-suppressions`.

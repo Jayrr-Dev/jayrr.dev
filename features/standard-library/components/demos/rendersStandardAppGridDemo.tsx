@@ -61,7 +61,7 @@ function RendersAppIcon({
     <div
       className={`flex aspect-square items-center justify-center rounded-[22%] text-white ${className}`}
     >
-      <Icon className="size-[60%]" />
+      <Icon className="size-3/5" />
     </div>
   )
 }

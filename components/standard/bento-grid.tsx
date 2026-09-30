@@ -124,6 +124,8 @@ const bentoTileVariants = cva(
         outline: "border border-border",
         ghost: "",
         primary: "bg-primary text-primary-foreground",
+        // Light text for a tile over dark background media.
+        inverse: "text-white",
       },
       interactive: {
         true: "cursor-pointer transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
@@ -215,7 +217,7 @@ function BentoTileIcon({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="bento-tile-icon"
       className={cn(
-        "mb-1 flex size-9 items-center justify-center rounded-lg bg-muted text-foreground [[data-slot=bento-tile][data-variant=muted]_&]:bg-background [[data-slot=bento-tile][data-variant=primary]_&]:bg-primary-foreground/15 [[data-slot=bento-tile][data-variant=primary]_&]:text-primary-foreground [&_svg:not([class*='size-'])]:size-4.5",
+        "mb-1 flex size-9 items-center justify-center rounded-lg bg-muted text-foreground [[data-slot=bento-tile][data-variant=muted]_&]:bg-background [[data-slot=bento-tile][data-variant=primary]_&]:bg-primary-foreground/15 [[data-slot=bento-tile][data-variant=primary]_&]:text-primary-foreground [[data-slot=bento-tile][data-variant=inverse]_&]:bg-white/15 [[data-slot=bento-tile][data-variant=inverse]_&]:text-white [&_svg:not([class*='size-'])]:size-4.5",
         className
       )}
       {...props}
@@ -223,11 +225,28 @@ function BentoTileIcon({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function BentoTileTitle({ className, ...props }: React.ComponentProps<"h3">) {
+const bentoTileTitleVariants = cva("font-semibold", {
+  variants: {
+    size: {
+      sm: "text-sm",
+      default: "text-base",
+      lg: "text-lg",
+      xl: "text-xl",
+    },
+  },
+  defaultVariants: { size: "default" },
+})
+
+function BentoTileTitle({
+  className,
+  size = "default",
+  ...props
+}: React.ComponentProps<"h3"> & VariantProps<typeof bentoTileTitleVariants>) {
   return (
     <h3
       data-slot="bento-tile-title"
-      className={cn("text-base font-semibold", className)}
+      data-size={size}
+      className={cn(bentoTileTitleVariants({ size }), className)}
       {...props}
     />
   )
@@ -241,7 +260,7 @@ function BentoTileDescription({
     <p
       data-slot="bento-tile-description"
       className={cn(
-        "text-sm text-muted-foreground [[data-slot=bento-tile][data-variant=primary]_&]:text-primary-foreground/75",
+        "text-sm text-muted-foreground [[data-slot=bento-tile][data-variant=primary]_&]:text-primary-foreground/75 [[data-slot=bento-tile][data-variant=inverse]_&]:text-white/80",
         className
       )}
       {...props}

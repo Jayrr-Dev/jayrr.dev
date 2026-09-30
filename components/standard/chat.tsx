@@ -80,6 +80,8 @@ type ChatProps = Omit<React.ComponentProps<"div">, "onSubmit"> & {
   label?: React.ReactNode
   /** Content at the end of the header bar, e.g. a New chat button. */
   trailing?: React.ReactNode
+  /** Layers painted behind the conversation, e.g. a Gradient or Noise. */
+  background?: React.ReactNode
   /** Shown in the middle while there are no messages. */
   empty?: React.ReactNode
   /** Shows a shimmering status line under the last message. */
@@ -292,6 +294,7 @@ function Chat({
   messages,
   label,
   trailing,
+  background,
   empty = "How can I help you today?",
   pending = false,
   onSend,
@@ -359,11 +362,12 @@ function Chat({
     <div
       data-slot="chat"
       className={cn(
-        "flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl border bg-background",
+        "relative isolate flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl border bg-background",
         className
       )}
       {...props}
     >
+      {background}
       {label || trailing ? (
         <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b px-4">
           <Heading level={3} className="text-sm font-semibold" truncate>

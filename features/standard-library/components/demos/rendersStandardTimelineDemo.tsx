@@ -187,7 +187,7 @@ const project: TimelineEntry[] = [
     trailing: (
       <ClockIcon
         aria-label="6 hours overtime"
-        className="size-3.5 text-amber-500"
+        className="size-3.5 text-warning"
       />
     ),
     description: "Two weeks after the visit; 6 hours of overtime.",
@@ -199,7 +199,7 @@ const project: TimelineEntry[] = [
     trailing: (
       <CircleAlertIcon
         aria-label="Held up by the client"
-        className="size-3.5 text-red-500"
+        className="size-3.5 text-destructive"
       />
     ),
     description: "Held for seven weeks.",

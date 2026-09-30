@@ -39,10 +39,7 @@ function RendersToolbarGroupsDemo() {
 
   return (
     <RendersDemoCard label="Groups, toggles, select">
-      <Toolbar
-        aria-label="Board actions"
-        className="w-full rounded-lg border border-border"
-      >
+      <Toolbar variant="floating" aria-label="Board actions" className="w-full">
         <Select
           appearance="toolbar"
           size="default"
@@ -89,10 +86,7 @@ function RendersToolbarSelectDemo() {
 
   return (
     <RendersDemoCard label="Select appearance toolbar">
-      <Toolbar
-        aria-label="Formatting"
-        className="w-full rounded-lg border border-border"
-      >
+      <Toolbar variant="floating" aria-label="Formatting" className="w-full">
         <Select
           appearance="toolbar"
           size="default"

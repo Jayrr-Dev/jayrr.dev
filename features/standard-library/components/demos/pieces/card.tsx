@@ -140,12 +140,11 @@ export function RendersCardDemo() {
         <Card>
           <CardMedia fade="scrim" hover="sheen" ratio="still">
             <div className="size-full bg-linear-to-br from-amber-300 via-orange-500 to-rose-600" />
-            <CardMediaOverlay
-              placement="bottom-left"
-              className="right-3 flex-col items-start gap-0.5 text-white"
-            >
-              <span className="text-xs text-white/70">Feature</span>
-              <span className="text-base font-semibold">Text over media</span>
+            <CardMediaOverlay placement="bottom-left" className="right-3">
+              <div className="flex flex-col items-start gap-0.5 text-white">
+                <span className="text-xs text-white/70">Feature</span>
+                <span className="text-base font-semibold">Text over media</span>
+              </div>
             </CardMediaOverlay>
           </CardMedia>
         </Card>
@@ -224,24 +223,32 @@ export function RendersCardDemo() {
       </RendersDemoCard>
       <RendersDemoCard label="source icon">
         <Card effect="lift">
-          <CardHeader className="flex-row items-center gap-2">
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
-              <GlobeIcon className="size-3.5" />
-            </span>
-            <CardMeta className="flex-1 truncate text-sm text-foreground">
-              grammarhub.dev
-            </CardMeta>
-            <Button iconOnly size="sm" tone="ghost" aria-label="More">
-              <MoreVerticalIcon className="size-4" />
-            </Button>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                <GlobeIcon className="size-3.5" />
+              </span>
+              <CardMeta className="min-w-0 flex-1">
+                <span className="block truncate text-sm text-foreground">
+                  grammarhub.dev
+                </span>
+              </CardMeta>
+              <Button iconOnly size="sm" tone="ghost" aria-label="More">
+                <MoreVerticalIcon className="size-4" />
+              </Button>
+            </div>
           </CardHeader>
-          <CardTitle className="text-lg leading-snug font-medium">
-            Reorder vs Re-order: Which Is Correct?
+          <CardTitle>
+            <span className="block text-lg leading-snug font-medium">
+              Reorder vs Re-order: Which Is Correct?
+            </span>
           </CardTitle>
-          <CardBody className="line-clamp-2">
-            An easy grammar guide. &ldquo;Reorder&rdquo; is the standard
-            spelling; the hyphen only shows up in older style guides and
-            regional usage.
+          <CardBody>
+            <p className="line-clamp-2">
+              An easy grammar guide. &ldquo;Reorder&rdquo; is the standard
+              spelling; the hyphen only shows up in older style guides and
+              regional usage.
+            </p>
           </CardBody>
         </Card>
       </RendersDemoCard>

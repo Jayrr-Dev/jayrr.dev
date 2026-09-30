@@ -196,7 +196,7 @@ function buildsVariantLayers(variant: CursorVariant): CursorLayer[] {
             <svg
               viewBox="0 0 24 24"
               aria-hidden
-              className="size-6 -translate-x-[3px] -translate-y-[2px] fill-foreground stroke-background drop-shadow-sm transition-[fill,scale] duration-150 [stroke-linejoin:round] [stroke-width:1.5] group-data-hover/cursor:scale-110 group-data-hover/cursor:fill-primary group-data-pressed/cursor:scale-95"
+              className="size-6 -translate-x-0.75 -translate-y-0.5 fill-foreground stroke-background drop-shadow-sm transition-[fill,scale] duration-150 [stroke-linejoin:round] [stroke-width:1.5] group-data-hover/cursor:scale-110 group-data-hover/cursor:fill-primary group-data-pressed/cursor:scale-95"
             >
               <path d="M4 2.5 20 11l-7 1.8L9.6 20z" />
             </svg>

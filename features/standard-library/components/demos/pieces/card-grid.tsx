@@ -33,21 +33,21 @@ import { NotificationBadge } from "@/components/standard/notification-badge"
 
 const trayItems: CardGridEntry[] = [
   { id: "sun", label: "Night light", icon: <SunIcon /> },
-  { id: "chat", label: "Messages", icon: <MessageCircleIcon className="text-emerald-500" /> },
-  { id: "shield", label: "Security", icon: <ShieldCheckIcon className="text-sky-500" /> },
-  { id: "cloud", label: "Cloud sync", icon: <CloudIcon className="text-sky-400" /> },
-  { id: "gpu", label: "Graphics", icon: <CpuIcon className="text-lime-500" /> },
+  { id: "chat", label: "Messages", icon: <MessageCircleIcon className="text-success" /> },
+  { id: "shield", label: "Security", icon: <ShieldCheckIcon className="text-info" /> },
+  { id: "cloud", label: "Cloud sync", icon: <CloudIcon className="text-info" /> },
+  { id: "gpu", label: "Graphics", icon: <CpuIcon /> },
   { id: "net", label: "Network", icon: <WifiIcon /> },
-  { id: "globe", label: "Browser", icon: <GlobeIcon className="text-blue-500" /> },
-  { id: "audio", label: "Audio", icon: <HeadphonesIcon className="text-violet-400" /> },
+  { id: "globe", label: "Browser", icon: <GlobeIcon className="text-info" /> },
+  { id: "audio", label: "Audio", icon: <HeadphonesIcon /> },
   { id: "volume", label: "Volume mixer", icon: <VolumeIcon /> },
-  { id: "power", label: "Power", icon: <ZapIcon className="text-amber-400" /> },
-  { id: "team", label: "Team chat", icon: <UsersIcon className="text-indigo-400" /> },
-  { id: "bt", label: "Bluetooth", icon: <BluetoothIcon className="text-blue-400" /> },
+  { id: "power", label: "Power", icon: <ZapIcon className="text-warning" /> },
+  { id: "team", label: "Team chat", icon: <UsersIcon /> },
+  { id: "bt", label: "Bluetooth", icon: <BluetoothIcon className="text-info" /> },
   { id: "usb", label: "Safely remove hardware", icon: <UsbIcon /> },
-  { id: "warn", label: "Security warning", icon: <ShieldAlertIcon className="text-amber-500" /> },
+  { id: "warn", label: "Security warning", icon: <ShieldAlertIcon className="text-warning" /> },
   { id: "display", label: "Display", icon: <MonitorIcon /> },
-  { id: "disk", label: "Storage", icon: <HardDriveIcon className="text-rose-500" />, disabled: true },
+  { id: "disk", label: "Storage", icon: <HardDriveIcon className="text-destructive" />, disabled: true },
 ]
 
 const people = [
@@ -107,12 +107,12 @@ function BadgedTray() {
       </CardGridItem>
       <CardGridItem label="Calendar, new">
         <NotificationBadge tone="default">
-          <CalendarIcon className="size-6 text-sky-500" />
+          <CalendarIcon className="size-6 text-info" />
         </NotificationBadge>
       </CardGridItem>
       <CardGridItem label="Alerts, 120 unread">
         <NotificationBadge count={120}>
-          <BellIcon className="size-6 text-amber-400" />
+          <BellIcon className="size-6 text-warning" />
         </NotificationBadge>
       </CardGridItem>
     </CardGrid>

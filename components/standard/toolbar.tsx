@@ -8,13 +8,15 @@ import { Divider } from "@/components/standard/divider"
 import { Toggle } from "@/components/standard/toggle"
 import { Tooltip } from "@/components/standard/tooltip"
 
-export type ToolbarVariant = "default" | "docked"
+export type ToolbarVariant = "default" | "docked" | "floating"
 export type ToolbarTone = "standard" | "vibrant"
 
 /**
  * `docked` follows the Material 3 docked toolbar: a full-width 64px bar with
  * square corners and evenly spaced 40px actions, meant to sit on the bottom
  * edge of a screen or pane (position it with `sticky bottom-0` or `fixed`).
+ * `floating` is a rounded bar with a full border, for a toolbar that sits on
+ * its own rather than along the edge of a pane.
  * `tone="vibrant"` swaps the surface for the primary color.
  */
 function Toolbar({
@@ -36,7 +38,9 @@ function Toolbar({
         "group/toolbar flex items-center",
         variant === "docked"
           ? "h-16 w-full justify-evenly gap-2 border-t px-4"
-          : "flex-wrap gap-1 border-b p-1",
+          : variant === "floating"
+            ? "flex-wrap gap-1 rounded-lg border p-1"
+            : "flex-wrap gap-1 border-b p-1",
         tone === "vibrant"
           ? "border-transparent bg-primary text-primary-foreground"
           : variant === "docked"

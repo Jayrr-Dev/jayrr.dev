@@ -42,13 +42,12 @@ function RendersLiveNavigationDrawer() {
       <RendersDemoCard className="w-full max-w-xl p-0">
         <div className="flex overflow-hidden rounded-xl">
           <NavigationDrawer
-            className="border-r border-border"
             title="Mail"
             sections={DRAWER_SECTIONS}
             value={value}
             onValueChange={setValue}
           />
-          <div className="flex-1 p-4 text-sm text-muted-foreground">
+          <div className="flex-1 border-l border-border p-4 text-sm text-muted-foreground">
             {value}
           </div>
         </div>

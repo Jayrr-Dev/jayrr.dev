@@ -415,8 +415,8 @@ type DialslideDay = {
 
 const TONE_CLASS: Record<NonNullable<DialslideEvent["tone"]>, string> = {
   default: "border-foreground/40",
-  accent: "border-emerald-500/70 dark:border-emerald-400/70",
-  warning: "border-amber-500/70 dark:border-amber-400/70",
+  accent: "border-success/70",
+  warning: "border-warning/70",
 }
 
 function todayIso() {

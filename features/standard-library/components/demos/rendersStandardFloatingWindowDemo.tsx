@@ -123,7 +123,7 @@ function RendersDraggableDemo() {
           position={position}
           onPositionChange={setPosition}
           aria-label="Chat"
-          className="rounded-xl"
+          radius="xl"
         >
           <div className="flex w-60 flex-col gap-2 rounded-xl border border-border bg-popover p-3 text-popover-foreground shadow-lg">
             <div className="flex items-center gap-2 text-sm font-medium">

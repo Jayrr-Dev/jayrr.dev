@@ -191,7 +191,7 @@ function RendersGradientDemo() {
         className={cn(
           preset === "parchment" &&
             placement === "behind" &&
-            "text-zinc-900 [&_.text-muted-foreground]:text-zinc-600"
+            "text-black/90 [&_.text-muted-foreground]:text-black/65"
         )}
         layers={
           look && (
@@ -439,7 +439,7 @@ function RendersColorGradeDemo() {
       <div className="grid w-full gap-3 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <span className="text-xs text-muted-foreground">Wrapping content</span>
-          <ColorGrade preset={grade} className="rounded-xl">
+          <ColorGrade preset={grade}>
             <RendersTarget layers={<Gradient kind="mesh" />} />
           </ColorGrade>
         </div>
@@ -582,27 +582,30 @@ function RendersSurfaceDemo() {
             layers={layers}
             className={cn(
               "flex h-56 flex-col justify-end gap-1 overflow-clip rounded-xl border border-border p-4",
-              lightBacked ? "text-zinc-900" : "text-white"
+              lightBacked ? "text-black/90" : "text-white"
             )}
           >
             <p className="text-base font-semibold">{stack}</p>
-            <p className={cn("text-sm", lightBacked ? "text-zinc-700" : "text-white/75")}>
+            <p className={cn("text-sm", lightBacked ? "text-black/75" : "text-white/75")}>
               {layers.length} layers from props.
             </p>
           </Surface>
         </div>
         <div className="flex flex-col gap-1.5">
           <span className="text-xs text-muted-foreground">asChild on a Card</span>
-          <Surface asChild layers={layers}>
+          <Surface
+            asChild
+            layers={layers}
+            className={cn(
+              "h-56 justify-end overflow-clip",
+              lightBacked
+                ? "text-black/90 [&_[data-slot=card-meta]]:text-black/75"
+                : "text-white [&_[data-slot=card-meta]]:text-white/75"
+            )}
+          >
             <Card
               title="Card with layers"
               meta="The Card keeps its own styles and slots."
-              className={cn(
-                "h-56 justify-end overflow-clip",
-                lightBacked
-                  ? "text-zinc-900 [&_[data-slot=card-meta]]:text-zinc-700"
-                  : "text-white [&_[data-slot=card-meta]]:text-white/75"
-              )}
             />
           </Surface>
         </div>

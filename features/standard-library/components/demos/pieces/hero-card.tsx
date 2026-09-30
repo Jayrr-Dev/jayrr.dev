@@ -1,6 +1,11 @@
 "use client"
 
-import { useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react"
+import {
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+} from "react"
 
 import {
   Art,
@@ -35,7 +40,7 @@ import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersD
 import { cn } from "@/lib/utils"
 
 /** Wraps layer children in a filter group that sits behind the content. */
-const layerGroup = "absolute inset-0 -z-10 overflow-hidden rounded-[inherit]"
+const layerGroup = "absolute inset-0 -z-10 overflow-hidden rounded-xl"
 
 type HeroLook = {
   label: string
@@ -217,18 +222,20 @@ const heroLooks = {
     accent: "text-orange-300",
     children: (
       <>
-        <ColorGrade
-          preset="duotone"
-          duotone={["#0b1a3a", "#ff9f6b"]}
-          className={layerGroup}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/samples/sample-video-poster.jpg"
-            alt=""
-            className="size-full object-cover"
-          />
-        </ColorGrade>
+        <div className={layerGroup}>
+          <ColorGrade
+            preset="duotone"
+            duotone={["#0b1a3a", "#ff9f6b"]}
+            className="size-full"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/samples/sample-video-poster.jpg"
+              alt=""
+              className="size-full object-cover"
+            />
+          </ColorGrade>
+        </div>
         <Gradient preset="scrim" />
         <Noise opacity={0.25} blend="overlay" />
       </>
@@ -326,7 +333,7 @@ const heroLooks = {
           kind="liquid-metal"
           src="/hero/prism.svg"
           params={{ colorBack: "#00000000", colorTint: "#c7d2fe", scale: 0.9 }}
-          className="bottom-[30%] left-[40%]"
+          className="bottom-3/10 left-2/5"
         />
         <Gradient preset="spotlight" />
         <Noise opacity={0.15} blend="overlay" />
@@ -371,7 +378,7 @@ const heroLooks = {
             sweep="none"
             variant="flat"
             color="oklch(0.8 0.17 70)"
-            className="rounded-none p-0 shadow-none"
+            bare
           />
         </div>
         <Gradient preset="vignette" />
@@ -429,73 +436,68 @@ function RendersHeroLook({
   const [before, figure, after] = look.title
 
   return (
-    <HeroCard
-      tone="ghost"
-      size={size}
+    <div
       className={cn(
+        "w-full overflow-hidden rounded-xl",
         light ? "text-white" : "text-neutral-900",
         look.className
       )}
-      layers={look.layers}
-      position={position ?? look.position}
-      subtitlePosition={subtitlePosition ?? look.subtitlePosition}
-      actionsPosition={actionsPosition ?? look.actionsPosition}
-      trailing={
-        look.trailing ??
-        (look.art ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={look.art.src}
-            alt=""
-            className={cn("h-auto max-w-full", look.art.className)}
-          />
-        ) : undefined)
-      }
-      trailingPosition={trailingPosition ?? look.trailingPosition}
-      leading={
-        <Badge
-          appearance="outline"
-          className="border-current/40 bg-transparent text-current"
-        >
-          {look.eyebrow}
-        </Badge>
-      }
-      title={
-        <>
-          {before}
-          <HeadingHighlight className={look.accent}>{figure}</HeadingHighlight>
-          {after}
-        </>
-      }
-      subtitle={look.subtitle}
-      actions={
-        <>
-          <Button
-            size={size === "sm" ? "default" : "lg"}
-            className={
-              light
-                ? "bg-white text-neutral-900 hover:bg-white/90"
-                : "bg-neutral-900 text-white hover:bg-neutral-800"
-            }
-          >
-            Get started
-          </Button>
-          <Button
-            size={size === "sm" ? "default" : "lg"}
-            tone="outline"
-            className="border-current/40 bg-transparent text-current hover:bg-current/10"
-          >
-            Learn more
-          </Button>
-        </>
-      }
     >
-      {look.children}
-      {(scene ?? look.scene) ? (
-        <Art items={scene ?? look.scene} parallax={parallax} />
-      ) : null}
-      {overlay}
-    </HeroCard>
+      <HeroCard
+        tone="ghost"
+        size={size}
+        layers={look.layers}
+        position={position ?? look.position}
+        subtitlePosition={subtitlePosition ?? look.subtitlePosition}
+        actionsPosition={actionsPosition ?? look.actionsPosition}
+        trailing={
+          look.trailing ??
+          (look.art ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={look.art.src}
+              alt=""
+              className={cn("h-auto max-w-full", look.art.className)}
+            />
+          ) : undefined)
+        }
+        trailingPosition={trailingPosition ?? look.trailingPosition}
+        leading={
+          <Badge appearance="outline" tone="inverse">
+            {look.eyebrow}
+          </Badge>
+        }
+        title={
+          <>
+            {before}
+            <HeadingHighlight>
+              <span className={look.accent}>{figure}</span>
+            </HeadingHighlight>
+            {after}
+          </>
+        }
+        subtitle={look.subtitle}
+        actions={
+          <>
+            <Button size={size === "sm" ? "default" : "lg"} tone="inverse">
+              Get started
+            </Button>
+            <Button
+              size={size === "sm" ? "default" : "lg"}
+              tone="inverse-outline"
+            >
+              Learn more
+            </Button>
+          </>
+        }
+      >
+        {look.children}
+        {(scene ?? look.scene) ? (
+          <Art items={scene ?? look.scene} parallax={parallax} />
+        ) : null}
+        {overlay}
+      </HeroCard>
+    </div>
   )
 }
 
@@ -582,7 +584,7 @@ function PositionPad({
     <div
       role="radiogroup"
       aria-label={`${editableParts.find((p) => p.id === part)?.label} position`}
-      className="grid aspect-[16/10] grid-cols-3 grid-rows-3 gap-1 rounded-lg border border-border bg-muted/30 p-1"
+      className="grid aspect-16/10 grid-cols-3 grid-rows-3 gap-1 rounded-lg border border-border bg-muted/30 p-1"
     >
       {heroCardPositions.map((position) => {
         const here = editableParts.filter((p) => layout[p.id] === position)
@@ -658,7 +660,7 @@ function EditorOverlay({
 
   return (
     <div
-      className="absolute inset-0 z-30 grid grid-cols-3 grid-rows-3 rounded-[inherit] outline-2 -outline-offset-2 outline-white/60 outline-dashed"
+      className="absolute inset-0 z-30 grid grid-cols-3 grid-rows-3 rounded-xl outline-2 -outline-offset-2 outline-white/60 outline-dashed"
       onPointerMove={drags}
       onPointerUp={() => setDragging(null)}
       onPointerCancel={() => setDragging(null)}
@@ -690,10 +692,15 @@ function EditorOverlay({
             setDragging(index)
           }}
           className={cn(
-            "absolute flex -translate-x-1/2 -translate-y-1/2 cursor-grab items-center gap-1 rounded-full bg-black/70 px-2 py-1 text-[11px] font-medium text-white shadow-lg ring-1 ring-white/30 backdrop-blur active:cursor-grabbing",
-            index === selectedPiece && "bg-emerald-500 ring-white"
+            "absolute top-(--piece-y) left-(--piece-x) flex -translate-x-1/2 -translate-y-1/2 cursor-grab items-center gap-1 rounded-full bg-black/70 px-2 py-1 text-xs font-medium text-white shadow-lg ring-1 ring-white/30 backdrop-blur active:cursor-grabbing",
+            index === selectedPiece && "bg-success text-success-foreground ring-white"
           )}
-          style={{ left: `${piece.x ?? 50}%`, top: `${piece.y ?? 50}%` }}
+          style={
+            {
+              "--piece-x": `${piece.x ?? 50}%`,
+              "--piece-y": `${piece.y ?? 50}%`,
+            } as CSSProperties
+          }
         >
           <span className="size-1.5 rounded-full bg-current" />
           {pieceName(piece)}

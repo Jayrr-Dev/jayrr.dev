@@ -36,6 +36,12 @@ type UseInputCalculatorOptions = {
   onCommit?: (result: CalcResult) => void
   /** On commit, replace the formula with its value: `=6*7` becomes `42`. */
   resolveOnCommit?: boolean
+  /**
+   * Stops the formula being edited: the field turns read-only and Enter,
+   * Escape and blur do nothing. The result still follows `variables`, and
+   * `value` or `setFormula` can still change the formula from code.
+   */
+  locked?: boolean
 }
 
 type InputCalculatorState = {
@@ -48,6 +54,7 @@ type InputCalculatorState = {
   commit: () => void
   /** Puts back the formula from the last commit. */
   revert: () => void
+  locked: boolean
   inputId: string
   outputId: string
   /** Props for any input or textarea: value, handlers, ids and aria state. */
@@ -78,6 +85,7 @@ function useInputCalculator({
   onResult,
   onCommit,
   resolveOnCommit = false,
+  locked = false,
 }: UseInputCalculatorOptions = {}): InputCalculatorState {
   const [formula, setFormula] = useControllableState({
     value,
@@ -114,6 +122,7 @@ function useInputCalculator({
   }, [resultKey])
 
   const commit = React.useCallback(() => {
+    if (locked) return
     const current = latestResult.current
     let next = current.formula
     if (resolveOnCommit && current.status === "ok") {
@@ -122,11 +131,17 @@ function useInputCalculator({
     }
     committed.current = next
     callbacks.current.onCommit?.(current)
-  }, [resolveOnCommit, requireEquals, setFormula])
+  }, [locked, resolveOnCommit, requireEquals, setFormula])
 
   const revert = React.useCallback(() => {
+    if (locked) return
     setFormula(committed.current)
-  }, [setFormula])
+  }, [locked, setFormula])
+
+  // A formula set while locked is the new baseline for Escape once unlocked.
+  React.useEffect(() => {
+    if (locked) committed.current = formula
+  }, [locked, formula])
 
   const getInputProps = React.useCallback(
     <P extends InputLikeProps>(props = {} as P) =>
@@ -139,6 +154,8 @@ function useInputCalculator({
         ...props,
         id: props.id ?? inputId,
         value: formula,
+        readOnly: locked || props.readOnly,
+        "data-locked": locked ? "" : undefined,
         "aria-invalid":
           result.status === "error" && !result.error.incomplete
             ? true
@@ -146,11 +163,11 @@ function useInputCalculator({
         "data-status": result.status,
         onChange: (event) => {
           props.onChange?.(event)
-          if (!event.defaultPrevented) setFormula(event.target.value)
+          if (!event.defaultPrevented && !locked) setFormula(event.target.value)
         },
         onKeyDown: (event) => {
           props.onKeyDown?.(event)
-          if (event.defaultPrevented || event.nativeEvent.isComposing) return
+          if (locked || event.defaultPrevented || event.nativeEvent.isComposing) return
           if (event.key === "Enter" && !event.shiftKey) {
             commit()
           } else if (event.key === "Escape" && formula !== committed.current) {
@@ -162,10 +179,10 @@ function useInputCalculator({
         },
         onBlur: (event) => {
           props.onBlur?.(event)
-          if (formula !== committed.current) commit()
+          if (!locked && formula !== committed.current) commit()
         },
       }) as P & InputLikeProps,
-    [commit, formula, inputId, outputId, result, revert, setFormula]
+    [commit, formula, inputId, locked, outputId, result, revert, setFormula]
   )
 
   return {
@@ -176,6 +193,7 @@ function useInputCalculator({
     tokens,
     commit,
     revert,
+    locked,
     inputId,
     outputId,
     getInputProps,
@@ -212,6 +230,7 @@ function InputCalculator({
   onResult,
   onCommit,
   resolveOnCommit,
+  locked,
   children,
   ...props
 }: InputCalculatorProps) {
@@ -226,6 +245,7 @@ function InputCalculator({
     onResult,
     onCommit,
     resolveOnCommit,
+    locked,
   })
 
   return (
@@ -233,6 +253,7 @@ function InputCalculator({
       <div
         data-slot="input-calculator"
         data-status={state.result.status}
+        data-locked={state.locked ? "" : undefined}
         {...props}
       >
         {typeof children === "function" ? children(state) : children}

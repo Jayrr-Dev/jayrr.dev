@@ -17,9 +17,9 @@ const FILLED_TONE_CLASSES: Record<RaterTone, string> = {
   default: "text-primary [&_svg]:fill-current",
   quiet: "text-muted-foreground [&_svg]:fill-current",
   outline: "text-foreground",
-  success: "text-emerald-500 [&_svg]:fill-current",
-  warning: "text-amber-500 [&_svg]:fill-current",
-  info: "text-sky-500 [&_svg]:fill-current",
+  success: "text-success [&_svg]:fill-current",
+  warning: "text-warning [&_svg]:fill-current",
+  info: "text-info [&_svg]:fill-current",
   danger: "text-destructive [&_svg]:fill-current",
 }
 

@@ -26,6 +26,15 @@ export default function Page() {
         <pre className="overflow-x-auto rounded-lg border bg-card p-4 font-mono text-xs text-muted-foreground">
           npx shadcn@latest add https://jayrr.dev/r/button.json
         </pre>
+        <div className="flex flex-col gap-2">
+          <p className="text-sm text-muted-foreground">
+            Lint rules that keep your code on the design system, for{" "}
+            <code className="font-mono text-xs">@shadcn/lint</code>:
+          </p>
+          <pre className="overflow-x-auto rounded-lg border bg-card p-4 font-mono text-xs text-muted-foreground">
+            npx shadcn@latest add https://jayrr.dev/r/standard-lint.json
+          </pre>
+        </div>
       </div>
     </main>
   )

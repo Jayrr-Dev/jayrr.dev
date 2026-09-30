@@ -169,7 +169,7 @@ export function RendersDropdownMenuDemo() {
               <Bar
                 size="lg"
                 icon={
-                  <span className="grid size-6 place-items-center rounded-md bg-primary text-[11px] font-semibold text-primary-foreground">
+                  <span className="grid size-6 place-items-center rounded-md bg-primary text-xs font-semibold text-primary-foreground">
                     A
                   </span>
                 }

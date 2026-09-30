@@ -33,7 +33,7 @@ const contents = {
       </span>
       <div className="flex flex-col leading-tight">
         <span className="text-xs font-medium">Jayrr</span>
-        <span className="text-[10px] text-muted-foreground">is editing</span>
+        <span className="text-2xs text-muted-foreground">is editing</span>
       </div>
     </div>
   ),
@@ -115,7 +115,7 @@ function RendersCursorLabelPlayground() {
       <div className="flex flex-wrap items-center gap-4">
         <RendersPlacementPicker value={placement} onChange={setPlacement} />
         <div className="flex flex-col gap-1.5">
-          <span className="font-mono text-[10px] text-muted-foreground uppercase">
+          <span className="font-mono text-2xs text-muted-foreground uppercase">
             {placement}
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -131,15 +131,17 @@ function RendersCursorLabelPlayground() {
           </div>
         </div>
       </div>
-      <CursorLabel
-        placement={placement}
-        content={contents[content]}
-        className="flex h-56 w-full items-center justify-center rounded-lg border border-dashed border-border bg-background"
-      >
-        <p className="text-sm text-muted-foreground">
-          Move around here. Try the edges.
-        </p>
-      </CursorLabel>
+      <div className="w-full rounded-lg border border-dashed border-border bg-background">
+        <CursorLabel
+          placement={placement}
+          content={contents[content]}
+          className="flex h-56 w-full items-center justify-center"
+        >
+          <p className="text-sm text-muted-foreground">
+            Move around here. Try the edges.
+          </p>
+        </CursorLabel>
+      </div>
     </div>
   )
 }

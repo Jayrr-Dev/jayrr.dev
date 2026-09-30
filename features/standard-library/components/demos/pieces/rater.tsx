@@ -56,7 +56,6 @@ function RendersRaterFacesCard() {
         value={mood}
         onValueChange={setMood}
         getValueText={(value) => FACE_NAMES[value - 1] ?? "Not rated"}
-        className="gap-1"
       />
     </RendersDemoCard>
   )

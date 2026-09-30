@@ -70,56 +70,59 @@ function RendersLiveAppBar() {
       </RendersDemoCard>
       <RendersDemoCard label="small" className="w-full max-w-md">
         <div className="flex w-full flex-col gap-2">
+          <div className="overflow-hidden rounded-xl border border-border">
+            <AppBar
+              title="Schedule"
+              leading={
+                <Button iconOnly aria-label="Menu" tone="ghost">
+                  <MenuIcon className="size-4" />
+                </Button>
+              }
+              actions={<RendersAppBarActions />}
+            />
+          </div>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <AppBar
+              align="center"
+              title="Schedule"
+              subtitle="Week 40"
+              scrolled
+              leading={
+                <Button iconOnly aria-label="Back" tone="ghost">
+                  <ArrowLeftIcon className="size-4" />
+                </Button>
+              }
+              actions={<RendersAppBarActions />}
+            />
+          </div>
+        </div>
+      </RendersDemoCard>
+      <RendersDemoCard label="search" className="w-full max-w-md">
+        <div className="w-full overflow-hidden rounded-xl border border-border">
           <AppBar
-            className="rounded-xl border border-border"
-            title="Schedule"
+            variant="search"
             leading={
               <Button iconOnly aria-label="Menu" tone="ghost">
                 <MenuIcon className="size-4" />
               </Button>
             }
-            actions={<RendersAppBarActions />}
-          />
-          <AppBar
-            className="rounded-xl border border-border"
-            align="center"
-            title="Schedule"
-            subtitle="Week 40"
-            scrolled
-            leading={
-              <Button iconOnly aria-label="Back" tone="ghost">
-                <ArrowLeftIcon className="size-4" />
-              </Button>
+            search={
+              <AppBarSearch
+                placeholder="Search jobs"
+                trailing={
+                  <Button
+                    iconOnly
+                    shape="circle"
+                    aria-label="Voice search"
+                    tone="ghost"
+                  >
+                    <MicIcon className="size-4" />
+                  </Button>
+                }
+              />
             }
-            actions={<RendersAppBarActions />}
           />
         </div>
-      </RendersDemoCard>
-      <RendersDemoCard label="search" className="w-full max-w-md">
-        <AppBar
-          className="rounded-xl border border-border"
-          variant="search"
-          leading={
-            <Button iconOnly aria-label="Menu" tone="ghost">
-              <MenuIcon className="size-4" />
-            </Button>
-          }
-          search={
-            <AppBarSearch
-              placeholder="Search jobs"
-              trailing={
-                <Button
-                  iconOnly
-                  aria-label="Voice search"
-                  tone="ghost"
-                  className="rounded-full"
-                >
-                  <MicIcon className="size-4" />
-                </Button>
-              }
-            />
-          }
-        />
       </RendersDemoCard>
     </>
   )

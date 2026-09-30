@@ -89,19 +89,19 @@ const bannerVariants = cva(
         appearance: "soft",
         tone: "info",
         className:
-          "border-sky-500/30 from-sky-500/10 to-sky-500/10 text-sky-900 dark:text-sky-100",
+          "border-info/30 from-info/10 to-info/10 text-info",
       },
       {
         appearance: "soft",
         tone: "success",
         className:
-          "border-emerald-500/30 from-emerald-500/10 to-emerald-500/10 text-emerald-900 dark:text-emerald-100",
+          "border-success/30 from-success/10 to-success/10 text-success",
       },
       {
         appearance: "soft",
         tone: "warning",
         className:
-          "border-amber-500/30 from-amber-500/10 to-amber-500/10 text-amber-900 dark:text-amber-100",
+          "border-warning/30 from-warning/10 to-warning/10 text-warning",
       },
       {
         appearance: "soft",
@@ -116,9 +116,9 @@ const bannerVariants = cva(
       },
       // Solid: filled surface, inverse text.
       { appearance: "solid", tone: "default", className: "bg-foreground text-background" },
-      { appearance: "solid", tone: "info", className: "bg-sky-600 text-white" },
-      { appearance: "solid", tone: "success", className: "bg-emerald-600 text-white" },
-      { appearance: "solid", tone: "warning", className: "bg-amber-500 text-black" },
+      { appearance: "solid", tone: "info", className: "bg-info text-info-foreground" },
+      { appearance: "solid", tone: "success", className: "bg-success text-success-foreground" },
+      { appearance: "solid", tone: "warning", className: "bg-warning text-warning-foreground" },
       { appearance: "solid", tone: "danger", className: "bg-destructive text-white" },
       {
         appearance: "solid",
@@ -130,17 +130,17 @@ const bannerVariants = cva(
       {
         appearance: "outline",
         tone: "info",
-        className: "border-sky-500/60 text-sky-700 dark:text-sky-300",
+        className: "border-info/60 text-info",
       },
       {
         appearance: "outline",
         tone: "success",
-        className: "border-emerald-500/60 text-emerald-700 dark:text-emerald-300",
+        className: "border-success/60 text-success",
       },
       {
         appearance: "outline",
         tone: "warning",
-        className: "border-amber-500/60 text-amber-700 dark:text-amber-300",
+        className: "border-warning/60 text-warning",
       },
       {
         appearance: "outline",

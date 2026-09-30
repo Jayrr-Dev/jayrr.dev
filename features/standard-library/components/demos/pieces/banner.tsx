@@ -17,21 +17,21 @@ const tones = [
 ] as const
 
 const quotes = [
-  <>
-    ACME <span className="text-emerald-500">▲ 2.41%</span>
-  </>,
-  <>
+  <span key="ACME" className="font-mono">
+    ACME <span className="text-success">▲ 2.41%</span>
+  </span>,
+  <span key="GLOBEX" className="font-mono">
     GLOBEX <span className="text-destructive">▼ 0.87%</span>
-  </>,
-  <>
-    INITECH <span className="text-emerald-500">▲ 1.12%</span>
-  </>,
-  <>
+  </span>,
+  <span key="INITECH" className="font-mono">
+    INITECH <span className="text-success">▲ 1.12%</span>
+  </span>,
+  <span key="UMBRELLA" className="font-mono">
     UMBRELLA <span className="text-destructive">▼ 3.05%</span>
-  </>,
-  <>
-    HOOLI <span className="text-emerald-500">▲ 0.34%</span>
-  </>,
+  </span>,
+  <span key="HOOLI" className="font-mono">
+    HOOLI <span className="text-success">▲ 0.34%</span>
+  </span>,
 ]
 
 const news = [
@@ -165,9 +165,8 @@ export function RendersBannerDemo() {
           motion="ticker"
           appearance="solid"
           size="sm"
-          title="MARKETS"
+          title={<span className="font-mono">MARKETS</span>}
           items={quotes}
-          className="font-mono"
         />
       </RendersDemoCard>
       <RendersDemoCard label="motion ticker · news, reverse" className="w-full max-w-xl">
@@ -193,7 +192,6 @@ export function RendersBannerDemo() {
             size="sm"
             appearance="solid"
             items={quotes}
-            className="font-mono"
           />
           <Banner
             layout="floating"

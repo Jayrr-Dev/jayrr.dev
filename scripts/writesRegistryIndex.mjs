@@ -75,6 +75,42 @@ function usesTypeset(text) {
   return /(?<![\w-])typeset(?![\w.-])/.test(code)
 }
 
+// The tone colors (success, warning, info) are theme tokens that stock shadcn
+// themes don't declare, so a file using one depends on the standard-tokens item
+// that ships them as cssVars.
+const TONE_TOKENS = {
+  theme: {
+    "color-success": "var(--success)",
+    "color-success-foreground": "var(--success-foreground)",
+    "color-warning": "var(--warning)",
+    "color-warning-foreground": "var(--warning-foreground)",
+    "color-info": "var(--info)",
+    "color-info-foreground": "var(--info-foreground)",
+  },
+  light: {
+    success: "oklch(0.508 0.118 165.612)",
+    "success-foreground": "oklch(0.985 0 0)",
+    warning: "oklch(0.555 0.163 48.998)",
+    "warning-foreground": "oklch(0.985 0 0)",
+    info: "oklch(0.5 0.134 242.749)",
+    "info-foreground": "oklch(0.985 0 0)",
+  },
+  dark: {
+    success: "oklch(0.765 0.177 163.223)",
+    "success-foreground": "oklch(0.205 0 0)",
+    warning: "oklch(0.828 0.189 84.429)",
+    "warning-foreground": "oklch(0.205 0 0)",
+    info: "oklch(0.746 0.16 232.661)",
+    "info-foreground": "oklch(0.205 0 0)",
+  },
+}
+
+function usesToneTokens(text) {
+  return /(?<![\w-])[a-z]+(?:-[a-z]+)*-(?:success|warning|info)(?:-foreground)?(?![\w-])/.test(
+    text
+  )
+}
+
 function analyze(filePath, seen = new Set([filePath])) {
   const text = fs.readFileSync(filePath, "utf8")
   const deps = new Set()
@@ -85,6 +121,10 @@ function analyze(filePath, seen = new Set([filePath])) {
 
   if (usesTypeset(text)) {
     registry.add("typeset")
+  }
+
+  if (usesToneTokens(text)) {
+    registry.add("standard-tokens")
   }
 
   while (match) {
@@ -254,8 +294,22 @@ const typesetItem = {
   docs: 'Add `@import "../components/standard/typeset.css";` to your global CSS, after `@import "tailwindcss";` (adjust the path to where the file landed).',
 }
 
+const standardTokensItem = {
+  name: "standard-tokens",
+  type: "registry:theme",
+  title: "Standard Tokens",
+  description:
+    "Tone colors (success, warning, info, each with a -foreground) for the Standard library, used like shadcn's destructive.",
+  ...(standardEntries.get("standard-tokens") ?? {}),
+  cssVars: TONE_TOKENS,
+}
+
 writeItems("components/ui/registry.json", uiItems)
-writeItems("components/standard/registry.json", [...standardItems, typesetItem])
+writeItems("components/standard/registry.json", [
+  ...standardItems,
+  typesetItem,
+  standardTokensItem,
+])
 const hookEntries = readsEntries("hooks/registry.json")
 
 const hookItems = fs
@@ -273,7 +327,13 @@ const hookItems = fs
     )
   )
 
-const allNames = [...uiItems, ...standardItems, typesetItem, ...hookItems].map(
+const allNames = [
+  ...uiItems,
+  ...standardItems,
+  typesetItem,
+  standardTokensItem,
+  ...hookItems,
+].map(
   (entry) => entry.name
 )
 const duplicates = allNames.filter(
@@ -286,6 +346,30 @@ if (duplicates.length > 0) {
 
 writeItems("hooks/registry.json", hookItems)
 
+// The Standard lint rules ship as a config module the installer spreads into
+// their own eslint.config.mjs. It never targets that file, so it can't
+// overwrite an existing config, and no component depends on it.
+const libEntries = readsEntries("lib/registry.json")
+const standardLintItem = {
+  name: "standard-lint",
+  type: "registry:file",
+  title: "Standard Lint",
+  description:
+    "@shadcn/lint rules for the Standard library: theme colors only, sizes through props, containers take spacing.",
+  ...(libEntries.get("standard-lint") ?? {}),
+  files: [
+    {
+      path: "standard-lint.mjs",
+      type: "registry:file",
+      target: "lib/standard-lint.mjs",
+    },
+  ],
+  devDependencies: ["@shadcn/lint"],
+  docs: 'Add to eslint.config.mjs: `import { standardLint } from "./lib/standard-lint.mjs"`, then spread `...standardLint()` at the end of the exported array. Pass `standardLint({ ui: "@/your/components" })` if Standard lives somewhere other than @/components/standard. Run `npx eslint .`.',
+}
+
+writeItems("lib/registry.json", [standardLintItem])
+
 fs.writeFileSync(
   "registry.json",
   `${JSON.stringify(
@@ -297,6 +381,7 @@ fs.writeFileSync(
         "components/ui/registry.json",
         "components/standard/registry.json",
         "hooks/registry.json",
+        "lib/registry.json",
       ],
     },
     null,

@@ -30,6 +30,7 @@ import { RendersChartDemo } from "./pieces/chart"
 import { RendersCheckboxDemo } from "./pieces/checkbox"
 import { RendersChipDemo } from "./pieces/chip"
 import { RendersCommandDemo } from "./pieces/command"
+import { RendersColumnFilterDemo } from "./pieces/column-filter"
 import { RendersConfirmDialogDemo } from "./pieces/confirm-dialog"
 import { RendersContextMenuDemo } from "./pieces/context-menu"
 import { RendersControlBarDemo } from "./pieces/control-bar"
@@ -44,6 +45,8 @@ import { RendersDropdownMenuDemo } from "./pieces/dropdown-menu"
 import { RendersFieldDemo } from "./pieces/field"
 import { RendersFilterSelectDemo } from "./pieces/filter-select"
 import { RendersArrayDemo } from "./pieces/array"
+import { RendersPlanetaryDemo } from "./pieces/planetary"
+import { RendersCardCorridorDemo } from "./pieces/card-corridor"
 import { RendersBarDemo } from "./pieces/bar"
 import { RendersIncrementDemo } from "./pieces/increment"
 import { RendersDigitalClockDemo } from "./pieces/digital-clock"
@@ -61,23 +64,34 @@ import { RendersPdfDisplayDemo } from "./pieces/pdf-display"
 import { RendersSvgDisplayDemo } from "./pieces/svg-display"
 import { RendersVideoDisplayDemo } from "./pieces/video-display"
 import { RendersFlipDotsDemo } from "./pieces/flip-dots"
+import { RendersReelDemo } from "./pieces/reel"
+import { RendersAtomGridDemo } from "./pieces/atom-grid"
 import { RendersInfiniteCanvasDemo } from "./pieces/infinite-canvas"
 import { RendersFloatingActionButtonDemo } from "./pieces/floating-action-button"
 import { RendersFormDemo } from "./pieces/form"
 import { RendersImageDemo } from "./pieces/image"
+import { RendersComparisonSliderDemo } from "./pieces/comparison-slider"
 import { RendersImageUploadDemo } from "./pieces/image-upload"
 import { RendersIndicatorDemo } from "./pieces/indicator"
 import { RendersInfiniteScrollDemo } from "./pieces/infinite-scroll"
 import { RendersParallaxDemo } from "./pieces/parallax"
+import { RendersRevealDemo } from "./pieces/reveal"
+import { RendersScrollMaskDemo } from "./pieces/scroll-mask"
+import { RendersScrollTrackDemo } from "./pieces/scroll-track"
 import { RendersInfoIconDemo } from "./pieces/info-icon"
 import { RendersInputDemo } from "./pieces/input"
 import { RendersInputFillDemo } from "./pieces/input-fill"
 import { RendersInputOtpDemo } from "./pieces/input-otp"
 import { RendersLabelDemo } from "./pieces/label"
 import { RendersLexicalEditorDemo } from "./pieces/lexical-editor"
+import { RendersBlockEditorDemo } from "./pieces/block-editor"
+import { RendersInlineEditorDemo } from "./pieces/inline-editor"
+import { RendersMarkdownEditorDemo } from "./pieces/markdown-editor"
+import { RendersMentionComposerDemo } from "./pieces/mention-composer"
 import { RendersLoadingStateDemo } from "./pieces/loading-state"
 import { RendersMathDemo } from "./pieces/math"
 import { RendersMoodTextDemo } from "./pieces/mood-text"
+import { RendersTextHighlightDemo } from "./pieces/text-highlight"
 import { RendersMillerSelectDemo } from "./pieces/miller-select"
 import { RendersNavigationBarDemo } from "./pieces/navigation-bar"
 import { RendersNavigationDrawerDemo } from "./pieces/navigation-drawer"
@@ -132,6 +146,7 @@ import { RendersTimePickerDemo } from "./pieces/time-picker"
 import { RendersToastDemo } from "./pieces/toast"
 import { RendersToggleDemo } from "./pieces/toggle"
 import { RendersModeToggleDemo } from "./pieces/mode-toggle"
+import { RendersThemeDemo } from "./pieces/theme"
 import { RendersToolbarDemo } from "./pieces/toolbar"
 import { RendersTooltipDemo } from "./pieces/tooltip"
 import { RendersArrangeableGridDemo } from "./pieces/arrangeable-grid"
@@ -178,8 +193,12 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Headline: RendersHeadlineDemo,
   "Hero Card": RendersHeroCardDemo,
   "Flip-Dots": RendersFlipDotsDemo,
+  Reel: RendersReelDemo,
+  "Atom Grid": RendersAtomGridDemo,
   "Infinite Canvas": RendersInfiniteCanvasDemo,
   Array: RendersArrayDemo,
+  Planetary: RendersPlanetaryDemo,
+  "Card Corridor": RendersCardCorridorDemo,
   Bar: RendersBarDemo,
   Increment: RendersIncrementDemo,
   "Digital Clock": RendersDigitalClockDemo,
@@ -215,6 +234,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Checkbox: RendersCheckboxDemo,
   Chip: RendersChipDemo,
   Command: RendersCommandDemo,
+  "Column Filter": RendersColumnFilterDemo,
   "Confirm Dialog": RendersConfirmDialogDemo,
   "Context Menu": RendersContextMenuDemo,
   "Control Bar": RendersControlBarDemo,
@@ -231,10 +251,14 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Floating Action Button": RendersFloatingActionButtonDemo,
   Form: RendersFormDemo,
   Image: RendersImageDemo,
+  "Comparison Slider": RendersComparisonSliderDemo,
   "Image Upload": RendersImageUploadDemo,
   Indicator: RendersIndicatorDemo,
   "Infinite Scroll": RendersInfiniteScrollDemo,
   Parallax: RendersParallaxDemo,
+  Reveal: RendersRevealDemo,
+  "Scroll Mask": RendersScrollMaskDemo,
+  "Scroll Track": RendersScrollTrackDemo,
   "Info Icon": RendersInfoIconDemo,
   Draggable: RendersDraggableDemo,
   "Arrangeable Grid": RendersArrangeableGridDemo,
@@ -245,9 +269,14 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Gantt: RendersGanttDemo,
   Label: RendersLabelDemo,
   "Lexical Editor": RendersLexicalEditorDemo,
+  "Block Editor": RendersBlockEditorDemo,
+  "Inline Editor": RendersInlineEditorDemo,
+  "Markdown Editor": RendersMarkdownEditorDemo,
+  "Mention Composer": RendersMentionComposerDemo,
   "Loading State": RendersLoadingStateDemo,
   Math: RendersMathDemo,
   "Mood Text": RendersMoodTextDemo,
+  "Text Highlight": RendersTextHighlightDemo,
   "Miller Select": RendersMillerSelectDemo,
   "Navigation Bar": RendersNavigationBarDemo,
   "Navigation Drawer": RendersNavigationDrawerDemo,
@@ -291,6 +320,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Toast: RendersToastDemo,
   Toggle: RendersToggleDemo,
   "Mode Toggle": RendersModeToggleDemo,
+  Theme: RendersThemeDemo,
   Toolbar: RendersToolbarDemo,
   Tooltip: RendersTooltipDemo,
   "Responsive Tooltip": RendersResponsiveTooltipDemo,

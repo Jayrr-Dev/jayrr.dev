@@ -27,9 +27,11 @@ import {
   TextFade,
   TextPop,
   TextReveal,
+  TextSpeed,
   TextTypewriter,
   TextWiggle,
 } from "@/components/ui/text-effect"
+import { NumberCountUp, NumberSpeed } from "@/components/ui/number-effect"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import {
@@ -147,9 +149,7 @@ function CarouselDemoSlides({ className }: { className?: string }) {
             <span className="text-2xl font-semibold tabular-nums">
               {slide.value}
             </span>
-            <span className="text-xs text-muted-foreground">
-              {slide.label}
-            </span>
+            <span className="text-xs text-muted-foreground">{slide.label}</span>
           </div>
         </CarouselItem>
       ))}
@@ -176,11 +176,7 @@ const sheetSides = ["top", "left", "bottom"] as const
 const drawerDirections = ["top", "left", "right"] as const
 const popoverSides = ["top", "left", "right"] as const
 
-export function RendersTypePropCards({
-  pieceName,
-}: {
-  pieceName: string
-}) {
+export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
   if (pieceName === "Button") {
     return (
       <>
@@ -433,7 +429,11 @@ export function RendersTypePropCards({
             <Button variant="outline">Export</Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" aria-label="More export options">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  aria-label="More export options"
+                >
                   <ChevronDownIcon className="transition-transform group-aria-expanded/button:rotate-180" />
                 </Button>
               </DropdownMenuTrigger>
@@ -516,11 +516,7 @@ export function RendersTypePropCards({
           <Slider defaultValue={[40]} className="w-full" />
         </TypeCard>
         <TypeCard label="orientation vertical">
-          <Slider
-            orientation="vertical"
-            defaultValue={[60]}
-            className="h-24"
-          />
+          <Slider orientation="vertical" defaultValue={[60]} className="h-24" />
         </TypeCard>
       </>
     )
@@ -762,7 +758,11 @@ export function RendersTypePropCards({
     return (
       <>
         <TypeCard label="typewriter">
-          <TextTypewriter loop holdMs={4000} text="Typed one letter at a time." />
+          <TextTypewriter
+            loop
+            holdMs={4000}
+            text="Typed one letter at a time."
+          />
         </TypeCard>
         <TypeCard label="typewriter cycle">
           <TextTypewriter text={["Hello!", "Hi there", "What's up?"]} />
@@ -781,6 +781,34 @@ export function RendersTypePropCards({
         </TypeCard>
         <TypeCard label="reveal">
           <TextReveal text="Streamed text is paced to a steady read speed, no matter how it arrives." />
+        </TypeCard>
+        <TypeCard label="speed words">
+          <TextSpeed words={["Faster", "Sharper", "Louder"]} />
+        </TypeCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Number Effect") {
+    return (
+      <>
+        <TypeCard label="count up">
+          <NumberCountUp to={100} />
+        </TypeCard>
+        <TypeCard label="count down">
+          <NumberCountUp from={0} to={10} direction="down" delayMs={400} />
+        </TypeCard>
+        <TypeCard label="separator">
+          <NumberCountUp to={1234567} separator=" " />
+        </TypeCard>
+        <TypeCard label="decimals">
+          <NumberCountUp to={98.6} suffix="°F" />
+        </TypeCard>
+        <TypeCard label="speed">
+          <NumberSpeed value={20000} prefix="$" loop />
+        </TypeCard>
+        <TypeCard label="speed percent">
+          <NumberSpeed value={99.9} suffix="%" />
         </TypeCard>
       </>
     )

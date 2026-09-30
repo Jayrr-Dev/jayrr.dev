@@ -1,4 +1,4 @@
-import * as React from "react"
+import type * as React from "react"
 
 import type {
   CellValue,
@@ -8,27 +8,8 @@ import type {
 } from "@/components/standard/data-grid-model"
 import type { DataGridEditMove } from "@/components/standard/data-grid/cell-types"
 
-// Stable handlers: memoized cells get one object whose methods always call
-// the latest render's closures.
-
-export type Handler = (...args: never[]) => unknown
-
-export function useStableHandlers<T extends Record<string, Handler>>(
-  handlers: T
-): T {
-  const ref = React.useRef(handlers)
-  React.useLayoutEffect(() => {
-    ref.current = handlers
-  })
-  const [stable] = React.useState(() => {
-    const proxy = {} as Record<string, Handler>
-    for (const key of Object.keys(handlers)) {
-      proxy[key] = (...args: never[]) => ref.current[key](...args)
-    }
-    return proxy as T
-  })
-  return stable
-}
+// The handler object the grid hands its memoized cells and headers, built
+// with useStableHandlers so its identity never changes.
 
 export type Axis2 = "row" | "col"
 

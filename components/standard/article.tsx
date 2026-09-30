@@ -87,12 +87,28 @@ function ArticleEyebrow({ className, ...props }: React.ComponentProps<"p">) {
 
 // Title and lead are Heading / Paragraph with the article's own weight and
 // the larger title size once the container reaches @2xl.
-function ArticleTitle({ className, ...props }: React.ComponentProps<"h1">) {
+const articleTitleVariants = cva("font-semibold", {
+  variants: {
+    size: {
+      // For shorter pages (release notes, docs) beside a sidebar.
+      sm: "text-3xl @2xl:text-4xl",
+      default: "@2xl:text-5xl",
+    },
+  },
+  defaultVariants: { size: "default" },
+})
+
+function ArticleTitle({
+  className,
+  size = "default",
+  ...props
+}: React.ComponentProps<"h1"> & VariantProps<typeof articleTitleVariants>) {
   return (
     <Heading
       level={1}
       data-slot="article-title"
-      className={cn("font-semibold @2xl:text-5xl", className)}
+      data-size={size}
+      className={cn(articleTitleVariants({ size }), className)}
       {...props}
     />
   )

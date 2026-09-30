@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import {
   BookOpenIcon,
@@ -130,6 +131,7 @@ import {
 import { Item, ItemContent, ItemTitle } from "@/components/ui/item"
 import { Kbd } from "@/components/ui/kbd"
 import { TextTypewriter } from "@/components/ui/text-effect"
+import { NumberCountUp } from "@/components/ui/number-effect"
 import { Label } from "@/components/ui/label"
 import { Marker, MarkerContent } from "@/components/ui/marker"
 import {
@@ -308,23 +310,25 @@ function MessageThreadDemo() {
   return (
     <div className="flex w-full flex-col gap-2">
       <MessageScrollerProvider autoScroll defaultScrollPosition="end">
-        <MessageScroller className="h-56 w-full rounded-lg border">
-          <MessageScrollerViewport>
-            <MessageScrollerContent className="gap-2 p-3">
-              {notes.map((note, index) => (
-                <MessageScrollerItem key={`${note}-${index}`}>
-                  <Bubble
-                    align={index % 2 === 0 ? "start" : "end"}
-                    variant={index % 2 === 0 ? "muted" : "default"}
-                  >
-                    <BubbleContent>{note}</BubbleContent>
-                  </Bubble>
-                </MessageScrollerItem>
-              ))}
-            </MessageScrollerContent>
-          </MessageScrollerViewport>
-          <MessageScrollerButton />
-        </MessageScroller>
+        <div className="h-56 w-full overflow-hidden rounded-lg border">
+          <MessageScroller>
+            <MessageScrollerViewport>
+              <MessageScrollerContent className="gap-2 p-3">
+                {notes.map((note, index) => (
+                  <MessageScrollerItem key={`${note}-${index}`}>
+                    <Bubble
+                      align={index % 2 === 0 ? "start" : "end"}
+                      variant={index % 2 === 0 ? "muted" : "default"}
+                    >
+                      <BubbleContent>{note}</BubbleContent>
+                    </Bubble>
+                  </MessageScrollerItem>
+                ))}
+              </MessageScrollerContent>
+            </MessageScrollerViewport>
+            <MessageScrollerButton />
+          </MessageScroller>
+        </div>
       </MessageScrollerProvider>
       <Button
         className="self-end"
@@ -408,13 +412,34 @@ function libraryDemo(pieceName: string) {
     )
   }
 
+  if (pieceName === "Number Effect") {
+    return (
+      <p className="text-4xl font-semibold">
+        <NumberCountUp to={12480} startOnView={false} />
+      </p>
+    )
+  }
+
   if (pieceName === "Spinner") {
     return (
       <div className="grid w-full grid-cols-4 gap-3">
-        {(["ring", "orbit", "dots", "bars", "pulse", "burst", "grid", "triangle"] as const).map((variant) => (
+        {(
+          [
+            "ring",
+            "orbit",
+            "dots",
+            "bars",
+            "pulse",
+            "burst",
+            "grid",
+            "triangle",
+          ] as const
+        ).map((variant) => (
           <div key={variant} className="flex flex-col items-center gap-2">
             <Spinner variant={variant} className="size-6" />
-            <span className="text-xs text-muted-foreground capitalize">{variant}</span>
+            <span className="text-xs text-muted-foreground capitalize">
+              {variant}
+            </span>
           </div>
         ))}
       </div>
@@ -527,20 +552,17 @@ function libraryDemo(pieceName: string) {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink
-              href="/gallery"
-              className={navigationMenuTriggerStyle()}
-              data-active
-            >
-              Registry
+            <NavigationMenuLink asChild data-active>
+              <Link href="/gallery" className={navigationMenuTriggerStyle()}>
+                Registry
+              </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink
-              href="/gallery"
-              className={navigationMenuTriggerStyle()}
-            >
-              About
+            <NavigationMenuLink asChild>
+              <Link href="/gallery" className={navigationMenuTriggerStyle()}>
+                About
+              </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
@@ -626,7 +648,7 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Sidebar") {
     return (
-      <div className="relative h-[30rem] w-full overflow-hidden rounded-xl border bg-sidebar">
+      <div className="relative h-120 w-full overflow-hidden rounded-xl border bg-sidebar">
         <SidebarProvider
           className="h-full min-h-0"
           style={{ "--sidebar-width-icon": "2.5rem" } as React.CSSProperties}
@@ -812,16 +834,18 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Command") {
     return (
-      <Command className="w-full rounded-lg border">
-        <CommandInput placeholder="Search pieces" />
-        <CommandList>
-          <CommandEmpty>No piece</CommandEmpty>
-          <CommandGroup heading="Pieces">
-            <CommandItem>Button</CommandItem>
-            <CommandItem>Card</CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
+      <div className="w-full rounded-xl border">
+        <Command>
+          <CommandInput placeholder="Search pieces" />
+          <CommandList>
+            <CommandEmpty>No piece</CommandEmpty>
+            <CommandGroup heading="Pieces">
+              <CommandItem>Button</CommandItem>
+              <CommandItem>Card</CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </div>
     )
   }
 
@@ -932,7 +956,10 @@ function libraryDemo(pieceName: string) {
           onClick={() =>
             toast("File deleted", {
               position: "bottom-right",
-              action: { label: "Undo", onClick: () => toast.success("Restored") },
+              action: {
+                label: "Undo",
+                onClick: () => toast.success("Restored"),
+              },
             })
           }
         >
@@ -944,17 +971,19 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Empty") {
     return (
-      <Empty className="w-full border">
-        <EmptyHeader>
-          <EmptyTitle>No pieces</EmptyTitle>
-          <EmptyDescription>This shelf is empty.</EmptyDescription>
-        </EmptyHeader>
-        <EmptyContent>
-          <Button variant="outline" size="sm">
-            Add piece
-          </Button>
-        </EmptyContent>
-      </Empty>
+      <div className="w-full rounded-xl border border-dashed">
+        <Empty>
+          <EmptyHeader>
+            <EmptyTitle>No pieces</EmptyTitle>
+            <EmptyDescription>This shelf is empty.</EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Button variant="outline" size="sm">
+              Add piece
+            </Button>
+          </EmptyContent>
+        </Empty>
+      </div>
     )
   }
 
@@ -1069,9 +1098,11 @@ function libraryDemo(pieceName: string) {
   if (pieceName === "Context Menu") {
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-16 w-full items-center justify-center rounded-lg border border-dashed text-sm">
-          Right click
-        </ContextMenuTrigger>
+        <div className="w-full rounded-lg border border-dashed text-sm">
+          <ContextMenuTrigger className="flex h-16 w-full items-center justify-center">
+            Right click
+          </ContextMenuTrigger>
+        </div>
         <ContextMenuContent>
           <ContextMenuItem>Copy</ContextMenuItem>
         </ContextMenuContent>
@@ -1096,8 +1127,8 @@ function libraryDemo(pieceName: string) {
         <CollapsibleTrigger asChild>
           <Button variant="outline">Show more</Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="pt-2 text-sm">
-          Hidden until you open it.
+        <CollapsibleContent className="pt-2">
+          <p className="text-sm">Hidden until you open it.</p>
         </CollapsibleContent>
       </Collapsible>
     )
@@ -1275,58 +1306,62 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Resizable") {
     return (
-      <ResizablePanelGroup className="h-48 w-full rounded-lg border">
-        <ResizablePanel defaultSize="30%" minSize="20%">
-          <div className="flex h-full flex-col gap-1.5 p-2 text-xs">
-            <span className="px-1.5 pb-1 font-medium tracking-wide text-muted-foreground uppercase">
-              Collections
-            </span>
-            {["Components", "Hooks", "Templates", "Icons"].map((name, i) => (
-              <div
-                key={name}
-                className={
-                  i === 0
-                    ? "rounded-md bg-accent px-2 py-1.5 font-medium text-accent-foreground"
-                    : "rounded-md px-2 py-1.5 text-muted-foreground"
-                }
-              >
-                {name}
-              </div>
-            ))}
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize="70%" minSize="30%">
-          <ResizablePanelGroup orientation="vertical">
-            <ResizablePanel defaultSize="60%" minSize="25%">
-              <div className="flex h-full flex-col justify-center gap-1 p-3">
-                <span className="text-sm font-medium">Components</span>
-                <span className="text-xs text-muted-foreground">
-                  Drag the handles to resize panes.
-                </span>
-              </div>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize="40%" minSize="20%">
-              <div className="flex h-full items-center p-3 font-mono text-xs text-muted-foreground">
-                {"> preview ready"}
-              </div>
-            </ResizablePanel>
-          </ResizablePanelGroup>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+      <div className="h-48 w-full overflow-hidden rounded-lg border">
+        <ResizablePanelGroup>
+          <ResizablePanel defaultSize="30%" minSize="20%">
+            <div className="flex h-full flex-col gap-1.5 p-2 text-xs">
+              <span className="px-1.5 pb-1 font-medium tracking-wide text-muted-foreground uppercase">
+                Collections
+              </span>
+              {["Components", "Hooks", "Templates", "Icons"].map((name, i) => (
+                <div
+                  key={name}
+                  className={
+                    i === 0
+                      ? "rounded-md bg-accent px-2 py-1.5 font-medium text-accent-foreground"
+                      : "rounded-md px-2 py-1.5 text-muted-foreground"
+                  }
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel defaultSize="70%" minSize="30%">
+            <ResizablePanelGroup orientation="vertical">
+              <ResizablePanel defaultSize="60%" minSize="25%">
+                <div className="flex h-full flex-col justify-center gap-1 p-3">
+                  <span className="text-sm font-medium">Components</span>
+                  <span className="text-xs text-muted-foreground">
+                    Drag the handles to resize panes.
+                  </span>
+                </div>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize="40%" minSize="20%">
+                <div className="flex h-full items-center p-3 font-mono text-xs text-muted-foreground">
+                  {"> preview ready"}
+                </div>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
     )
   }
 
   if (pieceName === "Scroll Area") {
     return (
-      <ScrollArea className="h-24 w-full rounded-lg border p-2">
-        <p className="text-sm">Line one</p>
-        <p className="text-sm">Line two</p>
-        <p className="text-sm">Line three</p>
-        <p className="text-sm">Line four</p>
-        <p className="text-sm">Line five</p>
-      </ScrollArea>
+      <div className="w-full overflow-hidden rounded-lg border">
+        <ScrollArea className="h-24 w-full p-2">
+          <p className="text-sm">Line one</p>
+          <p className="text-sm">Line two</p>
+          <p className="text-sm">Line three</p>
+          <p className="text-sm">Line four</p>
+          <p className="text-sm">Line five</p>
+        </ScrollArea>
+      </div>
     )
   }
 
@@ -1369,7 +1404,10 @@ export function RendersShadcnLibraryDemo({ pieceName }: { pieceName: string }) {
   }
 
   return (
-    <RendersDemoCard className={cardClassName} fill={FILL_PIECES.has(pieceName)}>
+    <RendersDemoCard
+      className={cardClassName}
+      fill={FILL_PIECES.has(pieceName)}
+    >
       {demo}
     </RendersDemoCard>
   )

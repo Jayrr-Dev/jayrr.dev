@@ -11,7 +11,7 @@ const BOX = 240
 
 function Dot({ index }: { index: number }) {
   return (
-    <span className="grid size-6 place-items-center rounded-full border bg-card text-[10px] font-medium tabular-nums">
+    <span className="grid size-6 place-items-center rounded-full border bg-card text-xs font-medium tabular-nums">
       {index + 1}
     </span>
   )

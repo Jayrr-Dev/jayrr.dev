@@ -3,7 +3,14 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 type BadgeTone =
-  "default" | "quiet" | "outline" | "danger" | "success" | "warning" | "info"
+  | "default"
+  | "quiet"
+  | "outline"
+  | "danger"
+  | "success"
+  | "warning"
+  | "info"
+  | "inverse"
 type BadgeAppearance = "solid" | "soft" | "outline"
 
 // Colour per appearance and tone. Solid fills with the tone, soft tints the
@@ -14,9 +21,11 @@ const TONE_CLASSES: Record<BadgeAppearance, Record<BadgeTone, string>> = {
     quiet: "border-transparent bg-secondary text-secondary-foreground",
     outline: "border-border bg-transparent text-foreground",
     danger: "border-transparent bg-destructive text-white",
-    success: "border-transparent bg-emerald-600 text-white",
-    warning: "border-transparent bg-amber-400 text-amber-950",
-    info: "border-transparent bg-sky-600 text-white",
+    success: "border-transparent bg-success text-success-foreground",
+    warning: "border-transparent bg-warning text-warning-foreground",
+    info: "border-transparent bg-info text-info-foreground",
+    // The label is flipped to the opposite colour (see Badge below).
+    inverse: "border-transparent bg-current",
   },
   soft: {
     default: "border-transparent bg-primary/10 text-primary",
@@ -24,22 +33,20 @@ const TONE_CLASSES: Record<BadgeAppearance, Record<BadgeTone, string>> = {
     outline: "border-border bg-transparent text-foreground",
     danger:
       "border-transparent bg-destructive/10 text-destructive dark:bg-destructive/20",
-    success:
-      "border-transparent bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
-    warning:
-      "border-transparent bg-amber-500/15 text-amber-700 dark:text-amber-400",
-    info: "border-transparent bg-sky-500/15 text-sky-700 dark:text-sky-400",
+    success: "border-transparent bg-success/15 text-success",
+    warning: "border-transparent bg-warning/15 text-warning",
+    info: "border-transparent bg-info/15 text-info",
+    inverse: "border-transparent bg-current/15 text-current",
   },
   outline: {
     default: "border-primary/50 bg-transparent text-primary",
     quiet: "border-border bg-transparent text-muted-foreground",
     outline: "border-border bg-transparent text-foreground",
     danger: "border-destructive/50 bg-transparent text-destructive",
-    success:
-      "border-emerald-500/50 bg-transparent text-emerald-700 dark:text-emerald-400",
-    warning:
-      "border-amber-500/50 bg-transparent text-amber-700 dark:text-amber-400",
-    info: "border-sky-500/50 bg-transparent text-sky-700 dark:text-sky-400",
+    success: "border-success/50 bg-transparent text-success",
+    warning: "border-warning/50 bg-transparent text-warning",
+    info: "border-info/50 bg-transparent text-info",
+    inverse: "border-current/40 bg-transparent text-current",
   },
 }
 
@@ -56,6 +63,7 @@ const badgeVariants = cva(
         success: "",
         warning: "",
         info: "",
+        inverse: "",
       },
       appearance: {
         solid: "",
@@ -98,6 +106,8 @@ const badgeVariants = cva(
  * Short label or count. `leading` / `trailing` hold an icon or other content
  * beside the text; `dot` adds a small status dot in the text colour.
  * `shape="circle"` makes a round count that scales with the text around it.
+ * `tone="inverse"` takes its colour from the surrounding text, for badges over
+ * media or a coloured surface.
  */
 function Badge({
   className,
@@ -117,6 +127,21 @@ function Badge({
     leading?: React.ReactNode
     trailing?: React.ReactNode
   }) {
+  const content = (
+    <>
+      {dot ? (
+        <span
+          aria-hidden="true"
+          data-slot="badge-dot"
+          className="size-1.5 shrink-0 rounded-full bg-current"
+        />
+      ) : null}
+      {leading}
+      {children}
+      {trailing}
+    </>
+  )
+
   return (
     <span
       data-slot="badge"
@@ -130,16 +155,18 @@ function Badge({
       )}
       {...props}
     >
-      {dot ? (
+      {tone === "inverse" && appearance === "solid" ? (
+        // The fill is the surrounding text colour, so draw the content in that
+        // colour and flip it to a neutral opposite.
         <span
-          aria-hidden="true"
-          data-slot="badge-dot"
-          className="size-1.5 shrink-0 rounded-full bg-current"
-        />
-      ) : null}
-      {leading}
-      {children}
-      {trailing}
+          data-slot="badge-label"
+          className="inline-flex items-center gap-1 grayscale invert"
+        >
+          {content}
+        </span>
+      ) : (
+        content
+      )}
     </span>
   )
 }

@@ -167,7 +167,7 @@ export function RendersSelectDemo() {
         />
       </RendersDemoCard>
       <RendersDemoCard label="appearance toolbar">
-        <Toolbar aria-label="Text" className="rounded-lg border border-border">
+        <Toolbar variant="floating" aria-label="Text">
           <Select
             appearance="toolbar"
             size="default"

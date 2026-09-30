@@ -32,6 +32,30 @@ Deliberate extras outside the vocabulary:
   has it.
 - Caption takes `tone="uppercase"`. It is a casing, not a colour; it is a
   candidate for a future `casing` prop.
+- `inverse` is for content over media or a coloured surface. Button and
+  Badge take it from the surrounding text colour (`currentColor`): Button's
+  `tone="inverse"` fills with it and flips the label to a neutral opposite,
+  and `tone="inverse-outline"` draws a current-colour border; Badge's
+  `tone="inverse"` works with every appearance. Set the ink on the surface
+  (`text-white` over a dark photo) and the controls follow it. BentoTile's
+  `variant="inverse"` is light text for a tile over dark background media.
+
+## Tokens
+
+Tones map to theme tokens declared in `app/globals.css`: `success`,
+`warning`, `info` and `destructive`, each used like shadcn's `destructive`.
+
+- Solid: `bg-success text-success-foreground`.
+- Soft: `border-success/30 bg-success/10 text-success`.
+- Outline: `border-success/60 text-success`.
+
+Don't use palette colors (`emerald-600`, `amber-500`) for a tone. The tokens
+follow the installer's theme; palette colors don't. The `standard-tokens`
+registry item ships them as `cssVars`, and `scripts/writesRegistryIndex.mjs`
+adds it to any item whose file uses a tone class.
+
+`npm run lint` enforces this with `@shadcn/lint`; see
+[lint-rollout.md](lint-rollout.md).
 
 ## Loading
 

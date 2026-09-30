@@ -25,13 +25,13 @@ const fabVariants = cva(
     variants: {
       size: {
         compact:
-          "h-8 min-w-8 rounded-full px-[9px] text-xs shadow-md hover:shadow-lg [&_svg]:size-3.5",
+          "h-8 min-w-8 rounded-full px-2.25 text-xs shadow-md hover:shadow-lg [&_svg]:size-3.5",
         default:
           "h-14 min-w-14 rounded-2xl px-4 text-base shadow-lg hover:shadow-xl [&_svg]:size-6",
         medium:
-          "h-20 min-w-20 rounded-[20px] px-[26px] text-xl shadow-lg hover:shadow-xl [&_svg]:size-7",
+          "h-20 min-w-20 rounded-[20px] px-6.5 text-xl shadow-lg hover:shadow-xl [&_svg]:size-7",
         large:
-          "h-24 min-w-24 rounded-[28px] px-[30px] text-2xl shadow-lg hover:shadow-xl [&_svg]:size-9",
+          "h-24 min-w-24 rounded-[28px] px-7.5 text-2xl shadow-lg hover:shadow-xl [&_svg]:size-9",
       },
       tone: {
         primary: "bg-primary text-primary-foreground",

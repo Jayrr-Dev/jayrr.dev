@@ -1,0 +1,37 @@
+{
+  "features/standard-library/components/demos/pieces/arrangeable-grid.tsx": {
+    "shadcn/no-arbitrary-values": {
+      "count": 1
+    }
+  },
+  "features/standard-library/components/demos/pieces/draggable.tsx": {
+    "shadcn/no-restyle": {
+      "count": 1
+    }
+  },
+  "features/standard-library/components/demos/pieces/input-calculator.tsx": {
+    "shadcn/no-restyle": {
+      "count": 37
+    }
+  },
+  "features/standard-library/components/demos/pieces/theme.tsx": {
+    "shadcn/no-arbitrary-values": {
+      "count": 5
+    }
+  },
+  "features/standard-library/components/demos/rendersStandardAppGridDemo.tsx": {
+    "shadcn/no-arbitrary-values": {
+      "count": 1
+    }
+  },
+  "features/standard-library/components/demos/rendersStandardFloatingWindowDemo.tsx": {
+    "shadcn/no-arbitrary-values": {
+      "count": 1
+    }
+  },
+  "features/standard-library/components/demos/rendersStandardLayerDemo.tsx": {
+    "shadcn/no-arbitrary-values": {
+      "count": 2
+    }
+  }
+}

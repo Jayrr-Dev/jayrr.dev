@@ -114,7 +114,7 @@ export function RendersStandardMoodTextDemo() {
               <span className="text-base">
                 <MoodText effects={preset}>{preset}</MoodText>
               </span>
-              <span className="font-mono text-[10px] text-muted-foreground">
+              <span className="font-mono text-2xs text-muted-foreground">
                 {moodTextPresets[preset].join(" + ")}
               </span>
             </div>

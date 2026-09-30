@@ -39,23 +39,29 @@ function RendersHealthDemo() {
         <span className="text-xs text-muted-foreground tabular-nums">{hp} / 100</span>
       </div>
       <div className="relative">
+        {/* The trail is a faded danger segment stacked after the real bar. */}
         <Progress
-          value={trail}
           size="xl"
-          tone="danger"
-          aria-hidden
-          className="absolute inset-0 opacity-60"
+          aria-label="HP"
+          segments={[
+            { id: "hp", value: hp, tone },
+            {
+              id: "trail",
+              value: Math.max(0, trail - hp),
+              tone: "danger",
+              className: "opacity-60",
+            },
+          ]}
         />
-        <Progress value={hp} size="xl" tone={tone} aria-label="HP" className="relative bg-transparent" />
-        {/* Tick marks: a gap every 10 HP, cut through both bars. */}
+        {/* Tick marks: a gap every 10 HP, cut through the bar. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-full"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(to right, transparent 0, transparent calc(10% - 2px), var(--card, #111) calc(10% - 2px), var(--card, #111) 10%)",
-          }}
-        />
+          className="pointer-events-none absolute inset-0 flex overflow-hidden rounded-full"
+        >
+          {Array.from({ length: 10 }, (_, index) => (
+            <span key={index} className="flex-1 border-r-2 border-card" />
+          ))}
+        </div>
       </div>
       <div className="flex gap-2">
         <Button size="sm" variant="outline" onClick={() => setHp((v) => Math.max(0, v - 20))}>

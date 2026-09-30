@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { CheckIcon, LoaderCircleIcon, XIcon } from "lucide-react"
+import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
@@ -246,17 +247,33 @@ function StepIndicator({
   )
 }
 
-function StepTitle({ className, ...props }: React.ComponentProps<"span">) {
+const stepTitleVariants = cva(
+  "font-medium whitespace-nowrap data-[state=error]:text-destructive data-[state=upcoming]:text-muted-foreground",
+  {
+    variants: {
+      // `sm` pairs with a `size="sm"` StepIndicator.
+      size: {
+        sm: "text-xs",
+        default: "text-sm",
+      },
+    },
+    defaultVariants: { size: "default" },
+  }
+)
+
+function StepTitle({
+  className,
+  size = "default",
+  ...props
+}: React.ComponentProps<"span"> & VariantProps<typeof stepTitleVariants>) {
   const { state } = useStepContext("StepTitle")
 
   return (
     <span
       data-slot="step-title"
       data-state={state}
-      className={cn(
-        "text-sm font-medium whitespace-nowrap data-[state=error]:text-destructive data-[state=upcoming]:text-muted-foreground",
-        className
-      )}
+      data-size={size}
+      className={cn(stepTitleVariants({ size }), className)}
       {...props}
     />
   )

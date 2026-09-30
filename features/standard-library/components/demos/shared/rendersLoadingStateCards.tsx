@@ -39,8 +39,7 @@ function MultiStateSpinner() {
         {state.key === "loading" && <Spinner aria-hidden />}
         {state.key === "success" && (
           <CheckIcon
-            className="size-4 text-emerald-600 dark:text-emerald-400 animate-out fade-out zoom-out-50 fill-mode-forwards duration-300"
-            style={{ animationDelay: "900ms" }}
+            className="size-4 text-success animate-out fade-out zoom-out-50 fill-mode-forwards delay-900 duration-300"
           />
         )}
         {state.key === "error" && (

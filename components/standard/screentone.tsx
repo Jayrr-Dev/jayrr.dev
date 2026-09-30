@@ -209,6 +209,7 @@ function CellField({
     )
   }
 
+  /* eslint-disable shadcn/no-raw-colors -- SVG mask luminance, not a theme color */
   if (kind === "rings") {
     const [cx, cy] = at.split(" ")
     return (
@@ -285,6 +286,7 @@ function CellField({
     </>
   )
 }
+/* eslint-enable shadcn/no-raw-colors */
 
 /**
  * One screen: cells and tone averaged, cut at 50%, optionally roughened,

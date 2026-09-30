@@ -64,7 +64,7 @@ function RendersCursorPlayground() {
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="mr-1 font-mono text-[10px] text-muted-foreground uppercase">
+        <span className="mr-1 font-mono text-2xs text-muted-foreground uppercase">
           content
         </span>
         {(Object.keys(customContents) as CustomContent[]).map((entry) => (
@@ -81,24 +81,28 @@ function RendersCursorPlayground() {
           trail
         </RendersChip>
       </div>
-      <Cursor
-        variant={variant}
-        content={customContents[custom]}
-        trail={trail}
-        className="flex h-56 w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg border border-dashed border-border bg-background"
-      >
-        <p className="text-sm text-muted-foreground">Move around here</p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <Button size="sm">Hover me</Button>
-          <a href="#cursor" className="text-sm underline underline-offset-4">
-            A link
-          </a>
-          <input
-            placeholder="Text caret"
-            className="h-8 w-32 rounded-md border border-border bg-transparent px-2 text-sm"
-          />
-        </div>
-      </Cursor>
+      <div className="w-full overflow-hidden rounded-lg border border-dashed border-border bg-background">
+        <Cursor
+          variant={variant}
+          content={customContents[custom]}
+          trail={trail}
+          className="flex h-56 w-full flex-col items-center justify-center overflow-hidden"
+        >
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-sm text-muted-foreground">Move around here</p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Button size="sm">Hover me</Button>
+              <a href="#cursor" className="text-sm underline underline-offset-4">
+                A link
+              </a>
+              <input
+                placeholder="Text caret"
+                className="h-8 w-32 rounded-md border border-border bg-transparent px-2 text-sm"
+              />
+            </div>
+          </div>
+        </Cursor>
+      </div>
     </div>
   )
 }

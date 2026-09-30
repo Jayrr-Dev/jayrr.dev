@@ -21,7 +21,7 @@ const TRIGGER_CLASS =
   "group flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg border border-input bg-transparent text-left text-sm text-foreground transition-colors outline-none hover:bg-muted/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent dark:bg-input/30"
 
 const SELECTED_CLASS =
-  "bg-green-100 text-foreground hover:bg-green-100 dark:bg-green-900/30 dark:hover:bg-green-900/30"
+  "bg-success/15 text-foreground hover:bg-success/15"
 
 const TAB_CLASS =
   "inline-flex cursor-pointer items-center gap-1 rounded-md px-2.5 py-1 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
@@ -667,7 +667,7 @@ export function MillerSelect({
         side={lockedSide ?? "bottom"}
         collisionPadding={resolvesCollisionPadding(lockedSide)}
         className={cn(
-          "z-[200] w-[800px] max-w-[calc(100vw-1rem)] gap-0 p-3",
+          "z-[200] w-200 max-w-[calc(100vw-1rem)] gap-0 p-3",
           contentClassName
         )}
         onWheelCapture={(event) => event.stopPropagation()}

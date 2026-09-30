@@ -124,7 +124,7 @@ function Node({
         <ChevronRightIcon
           aria-hidden
           className={cn(
-            "mt-[3px] mr-1 size-4 shrink-0 text-muted-foreground transition-transform duration-150",
+            "mt-0.75 mr-1 size-4 shrink-0 text-muted-foreground transition-transform duration-150",
             open && "rotate-90"
           )}
         />

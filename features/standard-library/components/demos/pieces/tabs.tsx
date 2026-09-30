@@ -48,12 +48,8 @@ export function RendersTabsDemo() {
             ))}
           </TabsList>
           {NAV_ITEMS.map((item) => (
-            <TabsContent
-              key={item.id}
-              value={item.id}
-              className="text-muted-foreground"
-            >
-              {item.label} panel
+            <TabsContent key={item.id} value={item.id}>
+              <span className="text-muted-foreground">{item.label} panel</span>
             </TabsContent>
           ))}
         </Tabs>

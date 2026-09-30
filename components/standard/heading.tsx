@@ -12,7 +12,7 @@ const headingVariants = cva("scroll-m-20 text-balance tracking-tight", {
     // Marketing headline: heavy, tight, solid line height, and never wider
     // than ~70 characters. Sizes come from the level (see compoundVariants).
     display: {
-      true: "max-w-[1000px] font-display font-extrabold leading-none tracking-[-0.4px]",
+      true: "max-w-250 font-display font-extrabold leading-none tracking-[-0.4px]",
       false: "",
     },
     tone: {

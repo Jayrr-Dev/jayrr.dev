@@ -480,6 +480,7 @@ function CharacterChat({
               "leading-relaxed text-pretty whitespace-pre-line",
               sized.text,
               variant === "tab" && "mt-3 font-medium",
+              // eslint-disable-next-line shadcn/no-raw-colors -- frame variant is fixed dark game-UI art (hex gradient panel) in every theme
               variant === "frame" && "text-neutral-200"
             )}
           >

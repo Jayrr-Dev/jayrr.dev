@@ -244,7 +244,7 @@ export function BucketGallery() {
                     <div className="flex flex-col gap-1">
                       <h4 className="flex items-baseline gap-2 text-sm font-medium">
                         {tier.name}
-                        <span className="font-mono text-[11px] text-muted-foreground">
+                        <span className="font-mono text-xs text-muted-foreground">
                           {tier.cards.length}
                         </span>
                       </h4>
@@ -264,7 +264,7 @@ export function BucketGallery() {
                           key={group.id}
                           className="flex flex-col gap-2 rounded-lg border border-border bg-card/40 p-3"
                         >
-                          <h5 className="font-mono text-[11px] tracking-wide text-muted-foreground uppercase">
+                          <h5 className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
                             {group.name}
                           </h5>
                           {renderCards(group.cards, bucket.name, tier.name, true)}
@@ -281,7 +281,7 @@ export function BucketGallery() {
                     key={category.id}
                     className="flex w-max max-w-full flex-col gap-2"
                   >
-                    <h4 className="font-mono text-[11px] tracking-wide text-muted-foreground uppercase">
+                    <h4 className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
                       {category.name}
                     </h4>
                     {renderCards(category.cards, bucket.name, category.name)}

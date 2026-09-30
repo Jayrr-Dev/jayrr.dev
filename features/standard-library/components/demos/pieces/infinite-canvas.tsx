@@ -107,7 +107,7 @@ function RendersBoardItem({
     return (
       <figure className="flex w-56 flex-col gap-2 rounded-lg border border-border bg-card p-2 shadow-sm">
         <div
-          className="aspect-[4/3] rounded-md"
+          className="aspect-4/3 rounded-md"
           style={{ background: item.tone }}
         />
         <figcaption className="px-1 text-xs text-muted-foreground">
@@ -176,7 +176,7 @@ function RendersBoardDemo() {
       </div>
       <InfiniteCanvas
         aria-label="Moodboard"
-        className="h-[28rem]"
+        className="h-112"
         items={items}
         onItemsChange={setItems}
         getItemLabel={(item) => item.title}

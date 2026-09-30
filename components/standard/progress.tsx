@@ -19,8 +19,8 @@ const progressVariants = cva("", {
     // Colours the ui indicator from the root, since it takes no className.
     tone: {
       default: "",
-      success: "*:data-[slot=progress-indicator]:bg-emerald-500",
-      warning: "*:data-[slot=progress-indicator]:bg-amber-500",
+      success: "*:data-[slot=progress-indicator]:bg-success",
+      warning: "*:data-[slot=progress-indicator]:bg-warning",
       danger: "*:data-[slot=progress-indicator]:bg-destructive",
     },
   },
@@ -32,8 +32,8 @@ const progressVariants = cva("", {
 
 const segmentToneClassName = {
   default: "bg-primary",
-  success: "bg-emerald-500",
-  warning: "bg-amber-500",
+  success: "bg-success",
+  warning: "bg-warning",
   danger: "bg-destructive",
 } as const
 

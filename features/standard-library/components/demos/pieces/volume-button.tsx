@@ -40,7 +40,7 @@ function RendersMixerChannel({ name, level }: { name: string; level: number }) {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <span className="font-mono text-[10px] text-muted-foreground tabular-nums">
+      <span className="font-mono text-xs text-muted-foreground tabular-nums">
         {muted ? "—" : Math.round(volume * 100)}
       </span>
       <VolumeButton
@@ -52,7 +52,7 @@ function RendersMixerChannel({ name, level }: { name: string; level: number }) {
         muted={muted}
         onMutedChange={setMuted}
       />
-      <span className="text-[10px] font-medium tracking-wide text-muted-foreground uppercase">
+      <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
         {name}
       </span>
     </div>

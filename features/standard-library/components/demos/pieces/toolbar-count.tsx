@@ -53,7 +53,7 @@ function RendersLiveToolbarCount() {
 
   return (
     <RendersDemoCard label="In a toolbar">
-      <Toolbar aria-label="Jobs" className="rounded-lg border border-border">
+      <Toolbar variant="floating" aria-label="Jobs">
         <ToolbarGroup>
           <ToolbarButton label="Search" hint="Search">
             <SearchIcon />

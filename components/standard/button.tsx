@@ -26,9 +26,14 @@ const buttonVariants = cva(
           "bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground active:bg-muted/70",
         link: "bg-transparent text-primary underline-offset-4 hover:underline",
         success:
-          "bg-emerald-600 text-white hover:bg-emerald-600/90 active:bg-emerald-600/80",
+          "bg-success text-success-foreground hover:bg-success/90 active:bg-success/80",
         danger:
           "bg-destructive text-white hover:bg-destructive/90 active:bg-destructive/80",
+        // For media and coloured surfaces: fills with the surrounding text
+        // colour, and the label takes the opposite (see INVERSE_LABEL).
+        inverse: "bg-current hover:bg-current/90 active:bg-current/80",
+        "inverse-outline":
+          "border border-current/40 bg-transparent hover:bg-current/10 active:bg-current/15",
       },
       size: {
         xs: "h-6 gap-1 rounded-md px-2 text-xs",
@@ -107,6 +112,15 @@ type ButtonProps = ButtonOwnProps &
     download?: React.ComponentProps<"a">["download"]
   }
 
+// An inverse button's fill is the surrounding text colour, so its label and
+// icons are drawn in that colour and flipped to a neutral opposite.
+const INVERSE_LABEL = {
+  xs: "inline-flex items-center gap-1 grayscale invert",
+  sm: "inline-flex items-center gap-1.5 grayscale invert",
+  default: "inline-flex items-center gap-1.5 grayscale invert",
+  lg: "inline-flex items-center gap-1.5 grayscale invert",
+} as const
+
 const SPINNER_SIZE = {
   xs: "size-3",
   sm: "size-3.5",
@@ -141,7 +155,7 @@ function Button(allProps: ButtonProps) {
   // An icon-only button with no leading slot swaps its icon for the spinner.
   const spinnerReplacesBody = spinner !== null && iconOnly && leading == null
 
-  const content = (
+  const body = (
     <>
       {spinner && !spinnerReplacesBody ? (
         spinner
@@ -173,6 +187,17 @@ function Button(allProps: ButtonProps) {
       ) : null}
     </>
   )
+  const content =
+    tone === "inverse" ? (
+      <span
+        data-slot="button-label"
+        className={INVERSE_LABEL[size ?? "default"]}
+      >
+        {body}
+      </span>
+    ) : (
+      body
+    )
 
   const shared = {
     "data-tone": tone,

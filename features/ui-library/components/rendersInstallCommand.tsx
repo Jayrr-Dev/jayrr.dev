@@ -31,8 +31,8 @@ export function RendersInstallCommand({ pieceName }: { pieceName: string }) {
         >
           <TabsList>
             {packageManagers.map((option) => (
-              <TabsTrigger key={option} value={option} className="font-mono">
-                {option}
+              <TabsTrigger key={option} value={option}>
+                <span className="font-mono">{option}</span>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -75,7 +75,7 @@ function CommandRow({
   return (
     <div className="flex min-w-0 items-center gap-2 rounded-md bg-muted py-1 pr-1 pl-3">
       {label ? (
-        <span className="shrink-0 font-mono text-[11px] text-muted-foreground capitalize">
+        <span className="shrink-0 font-mono text-xs text-muted-foreground capitalize">
           {label}
         </span>
       ) : null}
