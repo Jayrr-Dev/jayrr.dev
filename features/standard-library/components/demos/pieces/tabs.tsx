@@ -3,6 +3,7 @@
 import { useState } from "react"
 
 import { TabNavigation } from "@/components/standard/tab-navigation"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const NAV_ITEMS = [
@@ -31,5 +32,29 @@ function RendersLiveTabs() {
 }
 
 export function RendersTabsDemo() {
-  return <RendersLiveTabs />
+  return (
+    <>
+      <RendersLiveTabs />
+      <RendersDemoCard label="TabsList variant line (replaces TabNavigation)">
+        <Tabs defaultValue="events" className="w-full">
+          <TabsList variant="line">
+            {NAV_ITEMS.map((item) => (
+              <TabsTrigger key={item.id} value={item.id}>
+                {item.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {NAV_ITEMS.map((item) => (
+            <TabsContent
+              key={item.id}
+              value={item.id}
+              className="text-muted-foreground"
+            >
+              {item.label} panel
+            </TabsContent>
+          ))}
+        </Tabs>
+      </RendersDemoCard>
+    </>
+  )
 }

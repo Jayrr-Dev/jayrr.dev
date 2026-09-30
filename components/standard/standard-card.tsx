@@ -1,6 +1,18 @@
 import * as React from "react"
 import { cn } from "cn"
 
+import { Card } from "@/components/standard/card"
+
+// Reproduces the old look on top of Card: a centred title over a full-width
+// rule, then the meta line and the body, each with their own padding.
+const STANDARD_CARD_CLASS = cn(
+  "gap-0",
+  "*:data-[slot=card-header]:gap-0",
+  "[&>[data-slot=card-header]>[data-slot=card-title]]:border-b [&>[data-slot=card-header]>[data-slot=card-title]]:border-border [&>[data-slot=card-header]>[data-slot=card-title]]:px-3 [&>[data-slot=card-header]>[data-slot=card-title]]:py-2 [&>[data-slot=card-header]>[data-slot=card-title]]:text-center [&>[data-slot=card-header]>[data-slot=card-title]]:text-sm",
+  "[&>[data-slot=card-header]>[data-slot=card-meta]]:px-3 [&>[data-slot=card-header]>[data-slot=card-meta]]:pt-2"
+)
+
+/** @deprecated Use <Card title meta padding="none"> */
 function StandardCard({
   className,
   title,
@@ -12,22 +24,16 @@ function StandardCard({
   meta?: string
 }) {
   return (
-    <article
+    <Card
       data-slot="standard-card"
-      className={cn(
-        "flex w-full flex-col rounded-xl border border-border bg-card",
-        className
-      )}
+      padding="none"
+      title={title}
+      meta={meta || undefined}
+      className={cn(STANDARD_CARD_CLASS, className)}
       {...props}
     >
-      <header className="border-b border-border px-3 py-2 text-center text-sm font-semibold">
-        {title}
-      </header>
-      {meta ? (
-        <p className="px-3 pt-2 text-xs text-muted-foreground">{meta}</p>
-      ) : null}
       <div className="px-3 py-2 text-sm">{children}</div>
-    </article>
+    </Card>
   )
 }
 

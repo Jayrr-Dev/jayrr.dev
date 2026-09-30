@@ -3,6 +3,10 @@
 import * as React from "react"
 import { cn } from "cn"
 
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useControllableState } from "@/hooks/use-controllable-state"
+
+/** @deprecated Use <Tabs> with <TabsList variant="line"> from components/ui/tabs */
 function TabNavigation({
   className,
   items,
@@ -16,43 +20,27 @@ function TabNavigation({
   defaultValue?: string
   onValueChange?: (id: string) => void
 }) {
-  const [uncontrolled, setUncontrolled] = React.useState(
-    defaultValue ?? items[0]?.id
-  )
-  const selected = value ?? uncontrolled
-
-  function select(id: string) {
-    if (value === undefined) {
-      setUncontrolled(id)
-    }
-    onValueChange?.(id)
-  }
+  const [selected, setSelected] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? items[0]?.id ?? "",
+    onChange: onValueChange,
+  })
 
   return (
-    <nav
+    <Tabs
       data-slot="tab-navigation"
-      className={cn("flex gap-3 border-b border-border", className)}
+      value={selected}
+      onValueChange={setSelected}
+      className={cn("w-full", className)}
     >
-      {items.map((item) => {
-        const isOn = item.id === selected
-
-        return (
-          <button
-            key={item.id}
-            type="button"
-            className={cn(
-              "border-b-2 pb-1 text-sm",
-              isOn
-                ? "border-foreground text-foreground"
-                : "border-transparent text-muted-foreground"
-            )}
-            onClick={() => select(item.id)}
-          >
+      <TabsList variant="line">
+        {items.map((item) => (
+          <TabsTrigger key={item.id} value={item.id}>
             {item.label}
-          </button>
-        )
-      })}
-    </nav>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   )
 }
 
