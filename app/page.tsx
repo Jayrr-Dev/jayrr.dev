@@ -24,7 +24,7 @@ export default function Page() {
           <a href="/gallery">Browse</a>
         </Button>
         <pre className="overflow-x-auto rounded-lg border bg-card p-4 font-mono text-xs text-muted-foreground">
-          npx shadcn@latest add @jayrr/button
+          npx shadcn@latest add https://jayrr.dev/r/button.json
         </pre>
       </div>
     </main>

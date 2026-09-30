@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 
 import { RendersGalleryPieceDemos } from "@/features/ui-library/components/demos/rendersGalleryPieceDemos"
+import { RendersInstallCommand } from "@/features/ui-library/components/rendersInstallCommand"
 import { findPiece } from "@/features/ui-library/domain/catalog/definesGalleryCatalog"
 
 type PageProps = {
@@ -54,6 +55,7 @@ export default async function PieceCollectionsPage({ params }: PageProps) {
           <h1 className="text-lg font-medium tracking-tight">
             {match.card.name} Collections
           </h1>
+          <RendersInstallCommand pieceName={match.card.name} />
           <RendersGalleryPieceDemos pieceName={match.card.name} />
         </section>
       </div>

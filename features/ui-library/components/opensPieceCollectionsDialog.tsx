@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { RendersGalleryPieceDemos } from "./demos/rendersGalleryPieceDemos"
+import { RendersInstallCommand } from "./rendersInstallCommand"
 
 export function OpensPieceCollectionsDialog({
   pieceName,
@@ -35,7 +36,10 @@ export function OpensPieceCollectionsDialog({
           </DialogDescription>
         </DialogHeader>
         {pieceName ? (
-          <RendersGalleryPieceDemos pieceName={pieceName} />
+          <>
+            <RendersInstallCommand pieceName={pieceName} />
+            <RendersGalleryPieceDemos pieceName={pieceName} />
+          </>
         ) : null}
       </DialogContent>
     </Dialog>
