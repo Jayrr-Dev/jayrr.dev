@@ -57,6 +57,7 @@ function ensuresDialogDock() {
 function Dialog({
   className,
   title,
+  titleAddon,
   description,
   trigger = "Open",
   children,
@@ -70,6 +71,8 @@ function Dialog({
 }: {
   className?: string
   title: string
+  /** Sits right after the title, e.g. a help icon. Not part of its accessible name. */
+  titleAddon?: React.ReactNode
   description?: string
   /** Pass `null` for a controlled dialog opened from elsewhere. */
   trigger?: React.ReactNode
@@ -235,14 +238,17 @@ function Dialog({
               ) : null}
             </div>
           ) : null}
-          <DialogPrimitive.Title
+          <div
             className={cn(
-              "text-base font-semibold",
+              "flex items-center gap-1",
               hasControls && controlsPlacement === "inline" && "pr-20"
             )}
           >
-            {title}
-          </DialogPrimitive.Title>
+            <DialogPrimitive.Title className="text-base font-semibold">
+              {title}
+            </DialogPrimitive.Title>
+            {titleAddon}
+          </div>
           {description ? (
             <DialogPrimitive.Description className="mt-1 text-sm text-muted-foreground">
               {description}

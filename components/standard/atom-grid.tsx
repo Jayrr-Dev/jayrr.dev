@@ -16,6 +16,12 @@ import { cn } from "cn"
  * <AtomGrid />
  * <AtomGrid pattern="snake" cols={7} dotSize={3} />
  * <AtomGrid pattern="ripple" cols={9} glow className="text-primary" />
+ *
+ * With `fill` the grid ignores `cols` and `rows`, measures its box and lays
+ * out as many dots as fit, so a pattern can cover a whole card. The box needs
+ * a size of its own, such as `absolute inset-0` inside a sized parent.
+ *
+ * <AtomGrid fill pattern="ripple" className="absolute inset-0" />
  */
 
 const atomGridPatterns = [
@@ -190,10 +196,13 @@ const PATTERNS: Record<AtomGridPattern, PatternSpec> = {
   heart: {
     motion: "breathe",
     speed: 1.2,
-    phase: ({ x, y, cols, rows, dist }) =>
-      HEART[Math.floor((y * 7) / rows)][Math.floor((x * 7) / cols)] === "X"
-        ? dist * 0.2
-        : null,
+    phase: ({ dx, dy, cols, rows, dist }) => {
+      // A square in the middle, so a wide grid doesn't stretch the heart.
+      const side = Math.min(cols, rows)
+      const row = Math.floor(((dy + (side - 1) / 2) * 7) / side)
+      const col = Math.floor(((dx + (side - 1) / 2) * 7) / side)
+      return HEART[row]?.[col] === "X" ? dist * 0.2 : null
+    },
   },
 }
 
@@ -279,8 +288,10 @@ function AtomGrid({
   paused = false,
   color,
   label = "Loading",
+  fill = false,
   className,
   style,
+  ref,
   ...props
 }: Omit<React.ComponentProps<"span">, "children" | "color"> & {
   pattern?: AtomGridPattern
@@ -304,21 +315,57 @@ function AtomGrid({
   color?: string
   /** Accessible name for the status. */
   label?: string
+  /** Fit as many dots as the box holds, instead of `cols` by `rows`. */
+  fill?: boolean
 }) {
   const spec = PATTERNS[pattern]
   const seconds = speed ?? spec.speed
 
+  const node = React.useRef<HTMLSpanElement | null>(null)
+  const [fitted, setFitted] = React.useState<{ cols: number; rows: number }>()
+
+  React.useEffect(() => {
+    const element = node.current
+    if (!fill || !element) return
+    const pitch = dotSize + gap
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect
+      const next = {
+        cols: Math.max(1, Math.floor((width + gap) / pitch)),
+        rows: Math.max(1, Math.floor((height + gap) / pitch)),
+      }
+      setFitted((was) =>
+        was?.cols === next.cols && was.rows === next.rows ? was : next
+      )
+    })
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [fill, dotSize, gap])
+
+  // A filled grid draws nothing until it has measured its box.
+  const across = fill ? (fitted?.cols ?? 0) : cols
+  const down = fill ? (fitted?.rows ?? 0) : rows
+
   const atoms = React.useMemo(
     () =>
-      Array.from({ length: cols * rows }, (_, index) =>
-        spec.phase(pointAt(index % cols, Math.floor(index / cols), cols, rows))
+      Array.from({ length: across * down }, (_, index) =>
+        spec.phase(
+          pointAt(index % across, Math.floor(index / across), across, down)
+        )
       ),
-    [spec, cols, rows]
+    [spec, across, down]
   )
+
+  const setRef = (element: HTMLSpanElement | null) => {
+    node.current = element
+    if (typeof ref === "function") ref(element)
+    else if (ref) ref.current = element
+  }
 
   // A span, so the loader can sit inside a paragraph or a button.
   return (
     <span
+      ref={setRef}
       role="status"
       aria-label={label}
       data-slot="atom-grid"
@@ -327,10 +374,16 @@ function AtomGrid({
       data-shape={shape}
       data-glow={glow || undefined}
       data-paused={paused || undefined}
-      className={cn("inline-grid shrink-0 align-middle", className)}
+      data-fill={fill || undefined}
+      className={cn(
+        fill
+          ? "grid size-full content-center justify-center overflow-hidden"
+          : "inline-grid shrink-0 align-middle",
+        className
+      )}
       style={
         {
-          gridTemplateColumns: `repeat(${cols}, ${dotSize}px)`,
+          gridTemplateColumns: `repeat(${across}, ${dotSize}px)`,
           gap,
           color,
           "--atom-dot": `${dotSize}px`,

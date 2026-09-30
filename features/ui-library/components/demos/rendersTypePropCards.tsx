@@ -1,6 +1,6 @@
 "use client"
 
-import type { ReactNode } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import {
   ChevronDownIcon,
   ChevronRightIcon,
@@ -31,7 +31,11 @@ import {
   TextTypewriter,
   TextWiggle,
 } from "@/components/ui/text-effect"
-import { NumberCountUp, NumberSpeed } from "@/components/ui/number-effect"
+import {
+  NumberCountUp,
+  NumberFlip,
+  NumberSpeed,
+} from "@/components/ui/number-effect"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import {
@@ -111,6 +115,21 @@ import {
 } from "@/components/ui/tooltip"
 
 import { RendersDemoCard } from "./rendersDemoCard"
+
+/** Nudges a flip board up every couple of seconds, so the flips keep coming. */
+function FlipTicker() {
+  const [value, setValue] = useState(4270)
+
+  useEffect(() => {
+    const timer = window.setInterval(
+      () => setValue((v) => v + 1 + Math.floor(Math.random() * 12)),
+      2200
+    )
+    return () => window.clearInterval(timer)
+  }, [])
+
+  return <NumberFlip value={value} from={4270} stepMs={110} />
+}
 
 function TypeCard({
   label,
@@ -518,6 +537,29 @@ export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
         <TypeCard label="orientation vertical">
           <Slider orientation="vertical" defaultValue={[60]} className="h-24" />
         </TypeCard>
+        <TypeCard label="variant ticks">
+          <Slider variant="ticks" step={10} defaultValue={[40]} className="w-full" />
+        </TypeCard>
+        <TypeCard label="variant segments">
+          <Slider variant="segments" step={10} defaultValue={[40]} className="w-full" />
+        </TypeCard>
+        <TypeCard label="segments range">
+          <Slider
+            variant="segments"
+            step={10}
+            defaultValue={[20, 70]}
+            className="w-full"
+          />
+        </TypeCard>
+        <TypeCard label="ticks vertical">
+          <Slider
+            variant="ticks"
+            orientation="vertical"
+            divisions={5}
+            defaultValue={[60]}
+            className="h-24"
+          />
+        </TypeCard>
       </>
     )
   }
@@ -809,6 +851,15 @@ export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
         </TypeCard>
         <TypeCard label="speed percent">
           <NumberSpeed value={99.9} suffix="%" />
+        </TypeCard>
+        <TypeCard label="flip">
+          <NumberFlip value={2048} />
+        </TypeCard>
+        <TypeCard label="flip price">
+          <NumberFlip value={1299} prefix="$" />
+        </TypeCard>
+        <TypeCard label="flip live">
+          <FlipTicker />
         </TypeCard>
       </>
     )

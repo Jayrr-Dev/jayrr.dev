@@ -324,4 +324,171 @@ function NumberSpeed({
   )
 }
 
-export { NumberCountUp, NumberSpeed }
+const isDigit = (char: string) => char >= "0" && char <= "9"
+
+/** One click of a split-flap wheel: digits roll forward, anything else jumps. */
+function stepToward(face: string, target: string) {
+  if (!isDigit(target)) return target
+  if (!isDigit(face)) return "0"
+  return String((Number(face) + 1) % 10)
+}
+
+function FlipHalf({
+  char,
+  side,
+  ref,
+  className,
+}: {
+  char: string
+  side: "top" | "bottom"
+  ref?: React.Ref<HTMLSpanElement>
+  className?: string
+}) {
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      className={cn(
+        "absolute inset-x-0 h-1/2 overflow-hidden bg-muted [backface-visibility:hidden]",
+        side === "top"
+          ? "top-0 origin-bottom rounded-t-[inherit] border-b border-background/60"
+          : "bottom-0 origin-top rounded-b-[inherit]",
+        className
+      )}
+    >
+      {/* Twice the half's height, so the glyph sits centred on the whole card. */}
+      <span
+        className={cn(
+          "absolute inset-x-0 flex h-[200%] items-center justify-center",
+          side === "bottom" && "bottom-0"
+        )}
+      >
+        {char}
+      </span>
+    </span>
+  )
+}
+
+/** A single card that rolls to `char`, flipping once per step. */
+function FlipCard({
+  char,
+  stepMs,
+  reduceMotion,
+}: {
+  char: string
+  stepMs: number
+  reduceMotion: boolean
+}) {
+  const [face, setFace] = React.useState(char)
+  const [prev, setPrev] = React.useState(char)
+  const topLeafRef = React.useRef<HTMLSpanElement>(null)
+  const bottomLeafRef = React.useRef<HTMLSpanElement>(null)
+
+  React.useEffect(() => {
+    if (reduceMotion || face === char) return
+    const timer = window.setTimeout(() => {
+      setPrev(face)
+      setFace(stepToward(face, char))
+    }, stepMs)
+    return () => window.clearTimeout(timer)
+  }, [face, char, stepMs, reduceMotion])
+
+  React.useLayoutEffect(() => {
+    if (prev === face) return
+    const half = stepMs / 2
+    // The old top folds down, then the new bottom falls into place.
+    const top = topLeafRef.current?.animate(
+      [{ transform: "rotateX(0deg)" }, { transform: "rotateX(-90deg)" }],
+      { duration: half, easing: "ease-in", fill: "both" }
+    )
+    const bottom = bottomLeafRef.current?.animate(
+      [{ transform: "rotateX(90deg)" }, { transform: "rotateX(0deg)" }],
+      { duration: half, delay: half, easing: "ease-out", fill: "both" }
+    )
+    return () => {
+      top?.cancel()
+      bottom?.cancel()
+    }
+  }, [prev, face, stepMs])
+
+  const shown = reduceMotion ? char : face
+  const under = reduceMotion ? char : prev
+
+  return (
+    <span className="relative inline-block rounded-[0.18em] px-[0.14em] py-[0.08em] [perspective:6em]">
+      {/* Blank cards still hold a digit's width. */}
+      <span className="invisible">0</span>
+      <FlipHalf char={shown} side="top" />
+      <FlipHalf char={under} side="bottom" />
+      <FlipHalf ref={topLeafRef} char={under} side="top" />
+      <FlipHalf ref={bottomLeafRef} char={shown} side="bottom" />
+    </span>
+  )
+}
+
+/**
+ * A split-flap board: each digit sits on its own card and rolls forward,
+ * flipping once per number, until it reaches `value`. Changing `value`
+ * rolls only the digits that differ.
+ */
+function NumberFlip({
+  value,
+  from = 0,
+  stepMs = 140,
+  decimals,
+  locale,
+  separator,
+  prefix = "",
+  suffix = "",
+  startOnView = true,
+  className,
+  ...props
+}: Omit<NumberBaseProps, "durationMs"> & {
+  value: number
+  /** How long each single flip takes. */
+  stepMs?: number
+}) {
+  const reduceMotion = usePrefersReducedMotion()
+  const rootRef = React.useRef<HTMLSpanElement>(null)
+  const started = useSeen(rootRef, startOnView)
+  const format = useFormat({
+    decimals: decimals ?? Math.max(decimalsOf(from), decimalsOf(value)),
+    locale,
+    separator,
+  })
+  const text = (n: number) => `${prefix}${format(n)}${suffix}`
+  const target = text(value)
+  // Right-aligned, so units stay over units while the length changes.
+  const width = Math.max(target.length, text(from).length)
+  const board = (started ? target : text(from)).padStart(width, " ")
+
+  return (
+    <span
+      ref={rootRef}
+      data-slot="number-flip"
+      className={cn(
+        "inline-flex items-center gap-[0.08em] tabular-nums",
+        className
+      )}
+      {...props}
+    >
+      <span className="sr-only">{target}</span>
+      {Array.from(board, (char, index) =>
+        isDigit(char) || char === " " ? (
+          <FlipCard
+            key={width - index}
+            char={char}
+            stepMs={stepMs}
+            reduceMotion={reduceMotion}
+          />
+        ) : (
+          <span key={width - index} aria-hidden="true">
+            {char}
+          </span>
+        )
+      )}
+    </span>
+  )
+}
+
+export { NumberCountUp, NumberFlip, NumberSpeed }

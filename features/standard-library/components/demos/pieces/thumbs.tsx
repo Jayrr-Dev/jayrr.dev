@@ -2,9 +2,14 @@
 
 import { useState } from "react"
 
-import { Thumbs, type ThumbsValue } from "@/components/standard/thumbs"
+import {
+  Thumbs,
+  type ThumbsEffect,
+  type ThumbsValue,
+} from "@/components/standard/thumbs"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
+const EFFECTS: ThumbsEffect[] = ["tilt", "pop", "burst", "float"]
 const BASE_COUNTS = { up: 128, down: 7 }
 
 function RendersThumbsCountsCard() {
@@ -27,9 +32,14 @@ function RendersThumbsCountsCard() {
 export function RendersThumbsDemo() {
   return (
     <>
-      <RendersDemoCard>
-        <Thumbs />
+      <RendersDemoCard label="no effect (default)">
+        <Thumbs size="lg" />
       </RendersDemoCard>
+      {EFFECTS.map((effect) => (
+        <RendersDemoCard key={effect} label={`effect ${effect}`}>
+          <Thumbs effect={effect} size="lg" />
+        </RendersDemoCard>
+      ))}
       <RendersDemoCard label="defaultValue up">
         <Thumbs defaultValue="up" />
       </RendersDemoCard>

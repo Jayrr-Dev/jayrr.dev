@@ -78,7 +78,7 @@ function RendersLiveNavBadges() {
   )
 }
 
-function RendersNotificationBadgeDemos() {
+export function RendersNotificationBadgeDemo() {
   return (
     <>
       <RendersLiveNavBadges />
@@ -121,14 +121,6 @@ function RendersNotificationBadgeDemos() {
           </NotificationBadge>
         </Stack>
       </RendersDemoCard>
-    </>
-  )
-}
-
-export function RendersNotificationBadgeDemo() {
-  return (
-    <>
-      <RendersNotificationBadgeDemos />
       <RendersDemoCard label="tone danger, default, quiet">
         <Stack direction="row" align="center" className="gap-6">
           <NotificationBadge count={3} tone="danger">

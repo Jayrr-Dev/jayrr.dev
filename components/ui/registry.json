@@ -716,7 +716,7 @@
       "name": "number-effect",
       "type": "registry:ui",
       "title": "Number Effect",
-      "description": "Numbers that count up or race to a value with a speed smear.",
+      "description": "Numbers that count up, race to a value with a speed smear, or roll on split-flap cards.",
       "files": [
         {
           "path": "number-effect.tsx",

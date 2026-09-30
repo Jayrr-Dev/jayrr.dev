@@ -655,6 +655,30 @@ const icons = {
       <path d="m44 30 3 3 3-3" />
     </>
   ),
+  "Column Filter": (
+    <>
+      <rect x="8" y="10" width="48" height="10" rx="2" opacity=".5" />
+      <path d="M12 15h14" />
+      <path d="M43 12.5h9l-3.5 4v3l-2-1v-2Z" />
+      <path d="M12 28h6M12 36h6M12 44h6M12 52h6" opacity=".3" />
+      <rect x="22" y="24" width="34" height="30" rx="3" />
+      <path d="M28 28v6m-2-2 2 2 2-2" />
+      <path d="M34 31h16" opacity=".6" />
+      <path d="M22 38h34" opacity=".3" />
+      <rect
+        x="27"
+        y="41"
+        width="4"
+        height="4"
+        rx="1"
+        fill="currentColor"
+        stroke="none"
+      />
+      <path d="M35 43h14" opacity=".6" />
+      <rect x="27" y="47" width="4" height="4" rx="1" />
+      <path d="M35 49h10" opacity=".6" />
+    </>
+  ),
   "Native Select": (
     <>
       <rect x="8" y="22" width="48" height="20" rx="3" />
@@ -2112,6 +2136,29 @@ const icons = {
         <path d="M17 14V2" />
         <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" />
       </g>
+    </>
+  ),
+  Heart: (
+    <>
+      {/* A filled heart with a burst of dots around it. */}
+      <g transform="translate(17 18) scale(1.25)">
+        <path
+          d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+          fill="currentColor"
+          fillOpacity=".9"
+        />
+      </g>
+      {[0, 60, 120, 180, 240, 300].map((angle) => (
+        <circle
+          key={angle}
+          cx={32 + 23 * Math.sin((angle * Math.PI) / 180)}
+          cy={32 - 23 * Math.cos((angle * Math.PI) / 180)}
+          r="1.8"
+          fill="currentColor"
+          stroke="none"
+          opacity=".5"
+        />
+      ))}
     </>
   ),
   Masonry: (

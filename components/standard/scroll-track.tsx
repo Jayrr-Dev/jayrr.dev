@@ -20,6 +20,9 @@ import { cn } from "cn"
  * - `target` tracks reading through one element instead: empty when its top
  *   reaches the top of the view, full when its bottom reaches the bottom.
  * - `progress` (0–1) skips scrolling and draws a fixed value.
+ * - `chapters` splits a straight line into one segment per element. A
+ *   segment fills from where its chapter reaches the top of the view to
+ *   where the next one does; `onChapterChange` reports the chapter being read.
  *
  * The scroller is `container`, else the nearest scrolling ancestor, else the
  * window. `pin` keeps the track stuck to the top or bottom of the scroller.
@@ -29,6 +32,7 @@ import { cn } from "cn"
  * smoothing.
  *
  * <ScrollTrack pin="top" rail />
+ * <ScrollTrack chapters={[introRef, methodsRef, resultsRef]} rail rounded />
  * <ScrollTrack target={articleRef} d="M0 10 Q 25 0 50 10 T 100 10" viewBox="0 0 100 20" marker={<Dot />} />
  */
 
@@ -51,6 +55,12 @@ type ScrollTrackProps = Omit<React.ComponentProps<"div">, "children"> & {
   target?: React.RefObject<HTMLElement | null>
   /** Scroller to follow. Defaults to the nearest scrolling ancestor, or the window. */
   container?: React.RefObject<HTMLElement | null>
+  /** One segment per chapter, filled in turn. Straight lines only; ignored with `d`. */
+  chapters?: React.RefObject<HTMLElement | null>[]
+  /** Space between chapter segments, in pixels. */
+  chapterGap?: number
+  /** The chapter being read, as an index into `chapters`. */
+  onChapterChange?: (index: number) => void
   /** 0–1. A fixed value instead of scroll progress. */
   progress?: number
   /** Direction of the default straight line. Ignored when `d` is set. */
@@ -105,6 +115,9 @@ function ScrollTrack({
   end,
   target,
   container,
+  chapters,
+  chapterGap = 4,
+  onChapterChange,
   progress,
   orientation = "horizontal",
   d,
@@ -129,10 +142,14 @@ function ScrollTrack({
   const markerRef = React.useRef<HTMLDivElement>(null)
   const reduced = usePrefersReducedMotion()
   const vertical = !d && orientation === "vertical"
-  // Read through a ref so a new callback each render doesn't rewire scrolling.
+  const chapterCount = d ? 0 : (chapters?.length ?? 0)
+  const segmentRefs = React.useRef<(HTMLDivElement | null)[]>([])
+  // Read through refs so a new callback each render doesn't rewire scrolling.
   const reports = React.useRef(onProgressChange)
+  const reportsChapter = React.useRef(onChapterChange)
   React.useEffect(() => {
     reports.current = onProgressChange
+    reportsChapter.current = onChapterChange
   })
 
   React.useEffect(() => {
@@ -148,6 +165,7 @@ function ScrollTrack({
     let shown = -1
     let last = 0
     let frameId = 0
+    let chapter = -1
 
     const measures = () => {
       if (progress !== undefined) {
@@ -157,6 +175,26 @@ function ScrollTrack({
       const view = scroller
         ? { top: scroller.getBoundingClientRect().top + scroller.clientTop, height: scroller.clientHeight }
         : { top: 0, height: window.innerHeight }
+      const offset = scroller ? scroller.scrollTop : window.scrollY
+      const max = scroller
+        ? scroller.scrollHeight - scroller.clientHeight
+        : document.documentElement.scrollHeight - window.innerHeight
+      if (chapterCount && chapters) {
+        // Where each chapter's top meets the top of the view, capped at the
+        // end of the scroller so short last chapters still fill.
+        const starts = chapters.map((ref) => {
+          const element = ref.current
+          if (!element) return max
+          return Math.min(max, element.getBoundingClientRect().top - view.top + offset)
+        })
+        // Each segment is an equal share, so the whole line is their mean.
+        wanted =
+          starts.reduce((sum, from, index) => {
+            const to = starts[index + 1] ?? max
+            return sum + (to > from ? clamp01((offset - from) / (to - from)) : offset >= from ? 1 : 0)
+          }, 0) / chapterCount
+        return
+      }
       const element = target?.current
       if (element && start === undefined && end === undefined) {
         const rect = element.getBoundingClientRect()
@@ -169,10 +207,6 @@ function ScrollTrack({
               : 0
         return
       }
-      const offset = scroller ? scroller.scrollTop : window.scrollY
-      const max = scroller
-        ? scroller.scrollHeight - scroller.clientHeight
-        : document.documentElement.scrollHeight - window.innerHeight
       const from = start ?? 0
       const to = end ?? max
       wanted = to > from ? clamp01((offset - from) / (to - from)) : offset >= from ? 1 : 0
@@ -182,7 +216,11 @@ function ScrollTrack({
       const node = markerRef.current
       if (!node) return
       if (!path) {
-        const along = `${(value * 100).toFixed(3)}%`
+        // With chapters, skip the gaps before the current segment.
+        const passed = chapterCount ? Math.min(chapterCount - 1, Math.floor(value * chapterCount)) : 0
+        const along = chapterCount
+          ? `calc((100% - ${(chapterCount - 1) * chapterGap}px) * ${value.toFixed(4)} + ${passed * chapterGap}px)`
+          : `${(value * 100).toFixed(3)}%`
         node.style.left = vertical ? "50%" : along
         node.style.top = vertical ? along : "50%"
         node.style.rotate = rotateMarker && vertical ? "90deg" : ""
@@ -210,6 +248,18 @@ function ScrollTrack({
         path.style.strokeDashoffset = `${((1 - value) * length).toFixed(3)}`
         // A zero-length dash still paints a round cap as a dot.
         path.style.opacity = value > 0 ? "" : "0"
+      } else if (chapterCount) {
+        // Segments fill in order, so each one's share falls out of the total.
+        segmentRefs.current.forEach((segment, index) => {
+          const part = clamp01(value * chapterCount - index)
+          if (segment) segment.style.transform = vertical ? `scaleY(${part})` : `scaleX(${part})`
+        })
+        const current = Math.min(chapterCount - 1, Math.floor(value * chapterCount))
+        root.dataset.chapter = String(current)
+        if (current !== chapter) {
+          chapter = current
+          reportsChapter.current?.(current)
+        }
       } else if (fillRef.current) {
         fillRef.current.style.transform = vertical ? `scaleY(${value})` : `scaleX(${value})`
       }
@@ -252,6 +302,7 @@ function ScrollTrack({
     observer.observe(scroller ?? document.documentElement)
     if (scroller?.firstElementChild) observer.observe(scroller.firstElementChild)
     if (target?.current) observer.observe(target.current)
+    chapters?.forEach((ref) => ref.current && observer.observe(ref.current))
     source.addEventListener("scroll", schedules, { passive: true })
     window.addEventListener("resize", resizes)
     return () => {
@@ -260,7 +311,7 @@ function ScrollTrack({
       source.removeEventListener("scroll", schedules)
       window.removeEventListener("resize", resizes)
     }
-  }, [container, target, start, end, progress, smooth, reduced, d, vertical, rotateMarker])
+  }, [container, target, chapters, chapterCount, chapterGap, start, end, progress, smooth, reduced, d, vertical, rotateMarker])
 
   const fill = fills[tone]
 
@@ -319,6 +370,34 @@ function ScrollTrack({
             className={fill.stroke}
           />
         </svg>
+      ) : chapterCount ? (
+        <div
+          aria-hidden
+          className={cn("absolute inset-0 flex", vertical && "flex-col")}
+          style={{ gap: chapterGap }}
+        >
+          {Array.from({ length: chapterCount }, (_, index) => (
+            <div
+              key={index}
+              data-slot="scroll-track-segment"
+              className={cn("flex-1 overflow-hidden", rail && "bg-border", rounded && "rounded-full")}
+            >
+              <div
+                ref={(node) => {
+                  segmentRefs.current[index] = node
+                }}
+                data-slot="scroll-track-fill"
+                className={cn(
+                  "size-full will-change-transform",
+                  vertical ? "origin-top" : "origin-left",
+                  rounded && "rounded-full",
+                  fill.bar
+                )}
+                style={{ transform: vertical ? "scaleY(0)" : "scaleX(0)" }}
+              />
+            </div>
+          ))}
+        </div>
       ) : (
         <div
           aria-hidden

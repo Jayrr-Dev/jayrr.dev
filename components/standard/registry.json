@@ -2433,7 +2433,7 @@
       "name": "planetary",
       "type": "registry:ui",
       "title": "Planetary",
-      "description": "Rings of items orbiting a centre, built on Array. Rings alternate direction (inner clockwise, next counter-clockwise) unless a ring sets its own; each ring takes its own radius, duration and starting offset. Items stay upright while their ring turns. Pauses on demand or on hover; honours reduced motion. PlanetaryItem is a round body for rings and the centre.",
+      "description": "Rings of items orbiting a centre. Rings alternate direction (inner clockwise, next counter-clockwise) unless a ring sets its own; each ring takes its own radius, duration and starting offset. Items stay upright while their ring turns. Pauses on demand or on hover; honours reduced motion. PlanetaryItem is a round body for rings and the centre.",
       "files": [
         {
           "path": "planetary.tsx",
@@ -2443,9 +2443,6 @@
       ],
       "dependencies": [
         "cn"
-      ],
-      "registryDependencies": [
-        "@jayrr/array"
       ]
     },
     {
@@ -3250,12 +3247,33 @@
       "name": "thumbs",
       "type": "registry:ui",
       "title": "Thumbs",
-      "description": "Thumbs up / thumbs down feedback toggle with optional counts and sizes.",
+      "description": "Thumbs up / thumbs down feedback toggle with optional tilt, pop, burst or floating-thumbs effects, optional counts and sizes; honours reduced motion.",
       "files": [
         {
           "path": "thumbs.tsx",
           "type": "registry:ui",
           "target": "components/standard/thumbs.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ]
+    },
+    {
+      "name": "heart",
+      "type": "registry:ui",
+      "title": "Heart",
+      "description": "Like toggle whose heart fills with a burst, pop, heartbeat, floating hearts or liquid fill effect, and can break, deflate, drop or drain the heart on unlike. Optional count and sizes; honours reduced motion.",
+      "files": [
+        {
+          "path": "heart.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/heart.tsx"
         }
       ],
       "dependencies": [

@@ -1,10 +1,13 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import { GalleryIcon } from "@/components/gallery-icon"
 import { TextField } from "@/components/standard/text-field"
-import { OpensPieceCollectionsDialog } from "@/features/ui-library/components/opensPieceCollectionsDialog"
+import {
+  OpensPieceCollectionsDialog,
+  type PieceStepDirection,
+} from "@/features/ui-library/components/opensPieceCollectionsDialog"
 import { Masonry } from "@/components/ui/masonry"
 import { galleryBuckets, type GalleryCategory } from "@/lib/design-system"
 import { cn } from "@/lib/utils"
@@ -16,6 +19,10 @@ type OpenPiece = {
   bucketName: string
   categoryName: string
 }
+
+// Arrow keys belong to these while they have focus.
+const ARROW_KEY_OWNERS =
+  'input, textarea, select, [contenteditable="true"], [role="tab"], [role="slider"], [role="radio"], [role="menuitem"], [role="option"], [role="spinbutton"]'
 
 /**
  * Keeps a category's cards that match the search. A match on the parent or
@@ -57,9 +64,9 @@ export function BucketGallery() {
   const [query, setQuery] = useState("")
 
   // Every open piece gets its own dialog, so minimized ones stack in the dock.
-  const [openPieces, setOpenPieces] = useState<(OpenPiece & { key: number })[]>(
-    []
-  )
+  const [openPieces, setOpenPieces] = useState<
+    (OpenPiece & { key: number; direction?: PieceStepDirection })[]
+  >([])
 
   const opensPiece = (piece: OpenPiece) => {
     // Reopening a piece that is already open (say, minimized) remounts it
@@ -115,6 +122,79 @@ export function BucketGallery() {
     const fallback = search(allBuckets)
     return { filteredBuckets: fallback, widened: fallback.length > 0 }
   }, [query, selectedBucket])
+
+  // Every visible card in on-screen order, for stepping with the arrow keys.
+  const visiblePieces = useMemo(() => {
+    const seen = new Set<string>()
+    const pieces: OpenPiece[] = []
+    const collects = (
+      category: GalleryCategory,
+      bucketName: string,
+      categoryName: string
+    ) => {
+      for (const card of category.cards) {
+        if (seen.has(card.name)) continue
+        seen.add(card.name)
+        pieces.push({ name: card.name, bucketName, categoryName })
+      }
+    }
+    for (const bucket of filteredBuckets) {
+      for (const category of bucket.categories) {
+        if (bucket.groupBy === "tier") {
+          for (const group of category.groups ?? []) {
+            collects(group, bucket.name, category.name)
+          }
+        } else {
+          collects(category, bucket.name, category.name)
+        }
+      }
+    }
+    return pieces
+  }, [filteredBuckets])
+
+  // Left and Right swap the focused dialog's piece for its neighbour in the
+  // list, wrapping at the ends. The dialog stays open and slides the new
+  // piece in.
+  useEffect(() => {
+    const stepsPiece = (event: KeyboardEvent) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
+      if (event.defaultPrevented || event.altKey || event.ctrlKey) return
+      if (event.metaKey || event.shiftKey) return
+      if (!(event.target instanceof Element)) return
+      if (event.target.closest(ARROW_KEY_OWNERS)) return
+
+      const current = event.target
+        .closest('[role="dialog"]')
+        ?.querySelector<HTMLElement>("[data-gallery-piece]")
+        ?.dataset.galleryPiece
+      if (!current || visiblePieces.length < 2) return
+
+      const index = visiblePieces.findIndex((piece) => piece.name === current)
+      if (index === -1) return
+
+      event.preventDefault()
+      const direction: PieceStepDirection =
+        event.key === "ArrowRight" ? "next" : "previous"
+      const step = direction === "next" ? 1 : -1
+      const target =
+        visiblePieces[
+          (index + step + visiblePieces.length) % visiblePieces.length
+        ]
+
+      setOpenPieces((open) =>
+        open
+          // The neighbour may already sit minimized in the dock; this dialog
+          // takes it over instead of showing it twice.
+          .filter((piece) => piece.name !== target.name)
+          .map((piece) =>
+            piece.name === current ? { ...piece, ...target, direction } : piece
+          )
+      )
+    }
+
+    window.addEventListener("keydown", stepsPiece)
+    return () => window.removeEventListener("keydown", stepsPiece)
+  }, [visiblePieces])
 
   function renderCards(
     cards: GalleryCategory["cards"],
@@ -299,6 +379,7 @@ export function BucketGallery() {
           pieceName={piece.name}
           bucketName={piece.bucketName}
           categoryName={piece.categoryName}
+          direction={piece.direction}
           open
           onOpenChange={(open) => {
             if (!open) closesPiece(piece.key)

@@ -24,6 +24,12 @@ const inks = [
   { label: "Danger", value: "var(--destructive)" },
 ]
 
+const fillCards: { pattern: AtomGridPattern; title: string; ink: string }[] = [
+  { pattern: "ripple", title: "Generating", ink: "var(--primary)" },
+  { pattern: "rain", title: "Syncing", ink: "var(--muted-foreground)" },
+  { pattern: "orbit", title: "Waiting for review", ink: "var(--success)" },
+]
+
 function RendersChips<T extends string>({
   options,
   value,
@@ -104,6 +110,7 @@ function RendersPlayground() {
   const [speed, setSpeed] = useState(1.2)
   const [glow, setGlow] = useState(false)
   const [paused, setPaused] = useState(false)
+  const [fill, setFill] = useState(false)
 
   return (
     <div className="flex w-full flex-col gap-3">
@@ -112,8 +119,10 @@ function RendersPlayground() {
         value={pattern}
         onChange={setPattern}
       />
-      <div className="flex h-44 w-full items-center justify-center rounded-lg border border-border bg-muted/40">
+      <div className="relative flex h-44 w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/40">
         <AtomGrid
+          fill={fill}
+          className={fill ? "absolute inset-0" : undefined}
           pattern={pattern}
           cols={Number(size)}
           shape={shape}
@@ -179,6 +188,14 @@ function RendersPlayground() {
           <Button
             size="sm"
             tone="outline"
+            aria-pressed={fill}
+            onClick={() => setFill((was) => !was)}
+          >
+            {fill ? "Fill on" : "Fill off"}
+          </Button>
+          <Button
+            size="sm"
+            tone="outline"
             aria-pressed={glow}
             onClick={() => setGlow((was) => !was)}
           >
@@ -213,6 +230,30 @@ export function RendersStandardAtomGridDemo() {
               <AtomGrid pattern={pattern} cols={7} dotSize={4} gap={2} />
               <span className="font-mono text-xs text-muted-foreground">
                 {pattern}
+              </span>
+            </div>
+          ))}
+        </div>
+      </RendersDemoCard>
+      <RendersDemoCard fill label="fill · behind a card">
+        <div className="grid w-full gap-2 sm:grid-cols-3">
+          {fillCards.map((card) => (
+            <div
+              key={card.pattern}
+              className="relative flex h-40 flex-col justify-end overflow-hidden rounded-lg border border-border bg-background p-4"
+            >
+              <AtomGrid
+                fill
+                pattern={card.pattern}
+                dotSize={4}
+                gap={4}
+                idleOpacity={0.08}
+                color={card.ink}
+                className="absolute inset-0"
+              />
+              <span className="relative text-sm font-medium">{card.title}</span>
+              <span className="relative font-mono text-xs text-muted-foreground">
+                {card.pattern}
               </span>
             </div>
           ))}

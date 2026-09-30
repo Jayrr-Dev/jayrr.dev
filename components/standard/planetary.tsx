@@ -3,13 +3,14 @@
 import * as React from "react"
 import { cn } from "cn"
 
-import { ArrayLayout } from "@/components/standard/array"
-
 /**
- * Rings of items orbiting a centre, each ring an `ArrayLayout` circle that
- * spins on its own. Rings alternate direction by default: the inner ring turns
- * clockwise, the next counter-clockwise, and so on. Items stay upright while
- * their ring turns.
+ * Rings of items orbiting a centre. Rings alternate direction by default: the
+ * inner ring turns clockwise, the next counter-clockwise, and so on. Items
+ * stay upright while their ring turns.
+ *
+ * Each item orbits on its own from a zero-size anchor at the centre, so
+ * nothing larger than the items themselves turns, and the rings never push
+ * a scroll container into overflow.
  *
  * Radii are in a `size` x `size` box that scales with the element.
  *
@@ -57,20 +58,39 @@ type PlanetaryProps = Omit<React.ComponentProps<"div">, "children"> & {
   orbitClassName?: string
 }
 
+// An item turns about the centre by its angle, steps out by the radius, and
+// turns back: all the way back to stay upright, or only by its starting angle
+// to turn with the ring. Reduced motion holds the first frame, which is the
+// item's resting place.
 const planetaryKeyframes = `
-@keyframes planetary-spin{to{transform:rotate(360deg)}}
-[data-slot=planetary]:is([data-paused],[data-pause-on-hover]:hover) [data-planetary-spin]{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){[data-planetary-spin]{animation:none!important}}
+@keyframes planetary-orbit{from{transform:rotate(var(--planetary-angle)) translateX(var(--planetary-radius)) rotate(calc(-1 * var(--planetary-angle)))}to{transform:rotate(calc(var(--planetary-angle) + 360deg)) translateX(var(--planetary-radius)) rotate(calc(-1 * var(--planetary-angle)))}}
+@keyframes planetary-orbit-upright{from{transform:rotate(var(--planetary-angle)) translateX(var(--planetary-radius)) rotate(calc(-1 * var(--planetary-angle)))}to{transform:rotate(calc(var(--planetary-angle) + 360deg)) translateX(var(--planetary-radius)) rotate(calc(-1 * var(--planetary-angle) - 360deg))}}
+[data-slot=planetary]:is([data-paused],[data-pause-on-hover]:hover) [data-planetary-orbit]{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){[data-planetary-orbit]{animation-play-state:paused!important}}
 `
 
-function spins(
-  duration: number,
+function orbits({
+  angle,
+  radius,
+  size,
+  duration,
+  direction,
+  upright,
+}: {
+  angle: number
+  radius: number
+  size: number
+  duration: number
   direction: PlanetaryDirection
-): React.CSSProperties {
+  upright: boolean
+}) {
   return {
-    animation: `planetary-spin ${duration}s linear infinite`,
+    "--planetary-angle": `${angle}deg`,
+    // Box units to a share of the element's width, which sets its height too.
+    "--planetary-radius": `${(radius / size) * 100}cqw`,
+    animation: `${upright ? "planetary-orbit-upright" : "planetary-orbit"} ${duration}s linear infinite`,
     animationDirection: direction === "clockwise" ? "normal" : "reverse",
-  }
+  } as React.CSSProperties
 }
 
 function Planetary({
@@ -97,7 +117,7 @@ function Planetary({
       data-paused={paused || undefined}
       data-pause-on-hover={pauseOnHover || undefined}
       className={cn("relative w-full", className)}
-      style={{ aspectRatio: "1 / 1", ...style }}
+      style={{ aspectRatio: "1 / 1", containerType: "inline-size", ...style }}
       {...props}
     >
       <style href="standard-planetary" precedence="default">
@@ -108,8 +128,7 @@ function Planetary({
         const direction =
           ring.direction ?? (index % 2 === 0 ? "clockwise" : "counterclockwise")
         const seconds = ring.duration ?? duration
-        const opposite =
-          direction === "clockwise" ? "counterclockwise" : "clockwise"
+        const count = ring.items.length
 
         return (
           <div
@@ -134,30 +153,33 @@ function Planetary({
                 />
               </svg>
             ) : null}
-            <div
-              data-planetary-spin
-              className="absolute inset-0"
-              style={spins(seconds, direction)}
-            >
-              <ArrayLayout
-                shape="circle"
-                width={size}
-                height={size}
-                radius={radius}
-                offset={ring.offset}
-                className={ring.className}
-                itemClassName={itemClassName}
-                count={ring.items.length}
-                renderItem={(item) => (
+            <div className={cn("absolute inset-0", ring.className)}>
+              {ring.items.map((item, position) => (
+                <div
+                  key={position}
+                  data-planetary-orbit
+                  className="absolute top-1/2 left-1/2 size-0"
+                  style={orbits({
+                    // Evenly round the ring, clockwise from the right.
+                    angle: ((position / count + (ring.offset ?? 0)) % 1) * 360,
+                    radius,
+                    size,
+                    duration: seconds,
+                    direction,
+                    upright,
+                  })}
+                >
                   <div
                     data-slot="planetary-item"
-                    data-planetary-spin={upright || undefined}
-                    style={upright ? spins(seconds, opposite) : undefined}
+                    className={cn(
+                      "absolute -translate-x-1/2 -translate-y-1/2",
+                      itemClassName
+                    )}
                   >
-                    {ring.items[item]}
+                    {item}
                   </div>
-                )}
-              />
+                </div>
+              ))}
             </div>
           </div>
         )

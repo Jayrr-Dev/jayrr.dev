@@ -1017,6 +1017,22 @@
     "mock_data_key": null
   },
   {
+    "name": "Heart",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "heart",
+    "family_key": "heart",
+    "file_path": "components/standard/heart.tsx",
+    "import_path": "@/components/standard/heart",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Input Fill",
     "type": "interaction/input",
     "canonical": "inputs",

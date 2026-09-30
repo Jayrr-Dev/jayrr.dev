@@ -109,6 +109,7 @@ import { RendersProgressDemo } from "./pieces/progress"
 import { RendersRadioGroupDemo } from "./pieces/radio-group"
 import { RendersRaterDemo } from "./pieces/rater"
 import { RendersThumbsDemo } from "./pieces/thumbs"
+import { RendersHeartDemo } from "./pieces/heart"
 import { RendersResponsiveTooltipDemo } from "./pieces/responsive-tooltip"
 import { RendersRefreshButtonDemo } from "./pieces/refresh-button"
 import { RendersPrintButtonDemo } from "./pieces/print-button"
@@ -294,6 +295,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Radio Group": RendersRadioGroupDemo,
   Rater: RendersRaterDemo,
   Thumbs: RendersThumbsDemo,
+  Heart: RendersHeartDemo,
   "Refresh Button": RendersRefreshButtonDemo,
   "Scroll Area": RendersScrollAreaDemo,
   "Scroll Horizontal Button": RendersScrollHorizontalButtonDemo,

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { ModeToggle } from "@/components/standard/mode-toggle"
 import { RendersGalleryPieceDemos } from "@/features/ui-library/components/demos/rendersGalleryPieceDemos"
 import { RendersInstallCommand } from "@/features/ui-library/components/rendersInstallCommand"
+import { RendersPieceDescriptionHint } from "@/features/ui-library/components/rendersPieceDescriptionHint"
 import { findPiece } from "@/features/ui-library/domain/catalog/definesGalleryCatalog"
 
 type PageProps = {
@@ -58,15 +59,11 @@ export default async function PieceCollectionsPage({ params }: PageProps) {
         </div>
 
         <section className="flex flex-col gap-5 rounded-xl border border-border bg-card/30 p-5">
-          <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-1">
             <h1 className="text-lg font-medium tracking-tight">
               {match.card.name} Collections
             </h1>
-            {match.card.description ? (
-              <p className="text-sm text-muted-foreground">
-                {match.card.description}
-              </p>
-            ) : null}
+            <RendersPieceDescriptionHint pieceName={match.card.name} />
           </div>
           <RendersInstallCommand pieceName={match.card.name} />
           <RendersGalleryPieceDemos pieceName={match.card.name} />

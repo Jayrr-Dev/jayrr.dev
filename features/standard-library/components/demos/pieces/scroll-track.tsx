@@ -130,6 +130,40 @@ function Section() {
   )
 }
 
+const chapterTitles = ["Origins", "The first models", "Scaling up", "What comes next"]
+
+/** One segment per chapter, each filling while that chapter is read. */
+function Chapters() {
+  const ref0 = useRef<HTMLElement>(null)
+  const ref1 = useRef<HTMLElement>(null)
+  const ref2 = useRef<HTMLElement>(null)
+  const ref3 = useRef<HTMLElement>(null)
+  // A stable array, so the track doesn't rewire on every render.
+  const [chapters] = useState(() => [ref0, ref1, ref2, ref3])
+  const [current, setCurrent] = useState(0)
+  return (
+    <div className="h-72 overflow-y-auto rounded-xl border">
+      <div className="sticky top-0 z-10 flex flex-col gap-2 border-b bg-background px-4 py-2">
+        <p className="text-xs text-muted-foreground">
+          Chapter {current + 1} of {chapterTitles.length} ·{" "}
+          <span className="font-medium text-foreground">{chapterTitles[current]}</span>
+        </p>
+        <ScrollTrack chapters={chapters} onChapterChange={setCurrent} thickness={4} rounded rail />
+      </div>
+      <div className="flex flex-col gap-6 p-4">
+        {chapterTitles.map((title, index) => (
+          <section key={title} ref={chapters[index]} className="flex flex-col gap-3">
+            <p className="text-sm font-medium">
+              {index + 1}. {title}
+            </p>
+            <Filler lines={3 + (index % 2) * 2} />
+          </section>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /** A vertical line with a fixed range: y1 = 200px to y2 = 600px of scroll. */
 function Range() {
   return (
@@ -170,6 +204,9 @@ export function RendersScrollTrackDemo() {
       </Example>
       <Example title="Tracking one section">
         <Section />
+      </Example>
+      <Example title="Chapters, one segment each">
+        <Chapters />
       </Example>
       <Example title="Vertical, from y1 to y2">
         <Range />
