@@ -160,7 +160,7 @@ function Button(allProps: ButtonProps) {
       {count !== undefined ? (
         <NotificationBadge
           count={count}
-          tone={tone === "default" ? "neutral" : "alert"}
+          tone={tone === "default" ? "quiet" : "danger"}
           className={
             tone === "default" ? "bg-primary-foreground text-primary" : undefined
           }

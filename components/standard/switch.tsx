@@ -152,13 +152,5 @@ function Switch({
   )
 }
 
-/** @deprecated Use <Switch label> */
-function LabelledSwitch({
-  label,
-  ...props
-}: React.ComponentProps<typeof Switch> & { label: string }) {
-  return <Switch label={label} {...props} />
-}
-
-export { LabelledSwitch, Switch, switchVariants }
+export { Switch, switchVariants }
 export type { SwitchProps }

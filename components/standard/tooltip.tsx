@@ -43,7 +43,6 @@ const TOOLTIP_TONE_CLASS: Record<TooltipTone, string> = {
 function Tooltip({
   label,
   content,
-  body,
   shortcut,
   tone = "default",
   trigger = "hover",
@@ -60,8 +59,6 @@ function Tooltip({
   label?: string
   /** What the tooltip says. */
   content?: React.ReactNode
-  /** @deprecated Use content */
-  body?: React.ReactNode
   /** Keyboard shortcut after the text. A string renders in a Kbd. */
   shortcut?: React.ReactNode
   tone?: TooltipTone
@@ -80,7 +77,6 @@ function Tooltip({
   children?: React.ReactNode
 }) {
   const hasProvider = React.useContext(TooltipProviderContext)
-  const text = content ?? body
 
   const triggerNode = children ?? (
     <button
@@ -93,7 +89,7 @@ function Tooltip({
 
   const inner = (
     <>
-      {text}
+      {content}
       {shortcut == null ? null : typeof shortcut === "string" ? (
         <Kbd>{shortcut}</Kbd>
       ) : (

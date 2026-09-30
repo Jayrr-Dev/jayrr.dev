@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cn } from "cn"
 
-import { ButtonBack } from "@/components/standard/button-link"
+import { Button } from "@/components/standard/button"
 import { InfoIcon } from "@/components/standard/info-icon"
 
 function PageHeader({
@@ -31,7 +31,9 @@ function PageHeader({
     >
       <div className="flex min-w-0 items-center gap-2">
         {backLabel ? (
-          <ButtonBack href="#back" onClick={onBack} />
+          <Button href="#back" tone="outline" className="gap-1" onClick={onBack}>
+            Back
+          </Button>
         ) : null}
         <h2 className="text-xs font-semibold leading-none">{title}</h2>
         {info ? <InfoIcon label={`${title} help`} body={info} /> : null}
@@ -42,7 +44,3 @@ function PageHeader({
 }
 
 export { PageHeader }
-
-// Moved to their own files; re-exported so existing imports keep working.
-export { ControlBar } from "@/components/standard/control-bar"
-export { TabNavigation } from "@/components/standard/tab-navigation"

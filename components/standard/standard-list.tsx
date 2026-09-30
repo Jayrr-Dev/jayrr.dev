@@ -18,7 +18,6 @@ import {
 } from "@/components/standard/standard-list-chrome"
 import {
   readingColumnFilters,
-  readingTableDensity,
   RendersStandardTableBody,
   type StandardTableViewProps,
 } from "@/components/standard/standard-table"
@@ -115,8 +114,7 @@ function StandardList<T extends object>({
   columns,
   getRowKey,
   sorting = true,
-  density,
-  compact = false,
+  density = "default",
   striped = false,
   bordered = false,
   stickyFirstColumn = false,
@@ -198,7 +196,7 @@ function StandardList<T extends object>({
           sortKey={list.sortKey}
           sortDir={list.sortDir}
           onSort={list.sortBy}
-          density={readingTableDensity(density, compact)}
+          density={density}
           striped={striped}
           bordered={bordered}
           stickyFirstColumn={stickyFirstColumn}

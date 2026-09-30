@@ -175,6 +175,3 @@ function ConfirmDialog({
 }
 
 export { ConfirmDialog }
-
-// Moved to its own file; re-exported so existing imports keep working.
-export { TabbedDialog } from "@/components/standard/tabbed-dialog"

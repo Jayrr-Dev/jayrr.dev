@@ -385,7 +385,7 @@ function ActionWheel({
         )}
       >
         {labels === "none" ? (
-          <Tooltip label={item.label} body={item.hint ?? item.label}>
+          <Tooltip content={item.hint ?? item.label}>
             {button}
           </Tooltip>
         ) : (

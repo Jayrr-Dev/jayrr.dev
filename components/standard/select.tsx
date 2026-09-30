@@ -513,23 +513,5 @@ function Select({
   )
 }
 
-type MultiSelectProps = TriggerProps & {
-  options: SelectOption[]
-  values?: string[]
-  defaultValues?: string[]
-  onValuesChange?: (values: string[]) => void
-  placeholder?: string
-  /** How a selected option is marked: a check mark or a checkbox square. */
-  indicator?: SelectIndicator
-}
-
-/** @deprecated Use <Select multiple> */
-function MultiSelect(props: MultiSelectProps) {
-  return <Select data-slot="multi-select" {...props} multiple />
-}
-
-export { MultiSelect, Select, selectTriggerVariants }
-export type { MultiSelectProps, SelectProps }
-
-// Moved to its own file; re-exported so existing imports keep working.
-export { DatePicker } from "@/components/standard/date-picker"
+export { Select, selectTriggerVariants }
+export type { SelectProps }

@@ -25,8 +25,3 @@ function Accordion({
 }
 
 export { Accordion }
-
-// Moved to their own files; re-exported so existing imports keep working.
-export { StandardText } from "@/components/standard/standard-text"
-export { Table } from "@/components/standard/table"
-export { ToggleRow } from "@/components/standard/toggle-row"

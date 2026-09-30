@@ -95,8 +95,6 @@ type ButtonArrayProps = Omit<
   defaultValues?: string[]
   onValuesChange?: (ids: string[]) => void
   appearance?: ButtonArrayAppearance
-  /** @deprecated Use appearance */
-  variant?: "badge" | "underlined" | "slider"
   size?: ButtonArraySize
   /** Stretches the array to its container, sharing the width between items. */
   block?: boolean
@@ -118,13 +116,11 @@ function ButtonArray({
   values,
   defaultValues,
   onValuesChange,
-  appearance: appearanceProp,
-  variant,
+  appearance = "badge",
   size = "default",
   block = false,
   ...props
 }: ButtonArrayProps) {
-  const appearance = appearanceProp ?? variant ?? "badge"
   const multiple = type === "multiple"
   const [selected, setSelected] = useControllableState({
     value,
@@ -188,7 +184,6 @@ function ButtonArray({
     <div
       data-slot="button-array"
       data-appearance={appearance}
-      data-variant={appearance}
       data-type={type}
       data-size={size}
       role={role}

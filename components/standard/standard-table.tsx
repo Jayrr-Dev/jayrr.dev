@@ -132,8 +132,6 @@ export type StandardTableViewProps<T extends object> = {
   sorting?: boolean
   /** Row height and padding. */
   density?: StandardTableDensity
-  /** @deprecated Use density="compact" */
-  compact?: boolean
   /** Shades every other row. */
   striped?: boolean
   /** Adds lines between columns. */
@@ -148,17 +146,6 @@ export type StandardTableViewProps<T extends object> = {
 
 export type StandardTableProps<T extends object> = StandardListProps<T> &
   StandardTableViewProps<T>
-
-/** Resolves `density`, falling back to the deprecated `compact` flag. */
-export function readingTableDensity(
-  density: StandardTableDensity | undefined,
-  compact: boolean | undefined
-): StandardTableDensity {
-  if (density) {
-    return density
-  }
-  return compact ? "compact" : "default"
-}
 
 /** Lists the filters declared on columns. */
 export function readingColumnFilters<T>(columns: StandardTableColumn<T>[]) {
@@ -187,7 +174,7 @@ export function RendersStandardTableBody<T extends object>({
   bulkActions,
   getRowLabel,
   emptyMessage = "No Data",
-}: Omit<StandardTableViewProps<T>, "compact"> & {
+}: StandardTableViewProps<T> & {
   rows: T[]
   sortKey: string | null
   sortDir: StandardListSortDirection
@@ -348,8 +335,7 @@ function StandardTable<T extends object>({
   data,
   getRowKey,
   className,
-  density,
-  compact = false,
+  density = "default",
   striped = false,
   bordered = false,
   sorting = true,
@@ -405,7 +391,7 @@ function StandardTable<T extends object>({
         sortKey={list.sortKey}
         sortDir={list.sortDir}
         onSort={list.sortBy}
-        density={readingTableDensity(density, compact)}
+        density={density}
         striped={striped}
         bordered={bordered}
         stickyFirstColumn={stickyFirstColumn}

@@ -5,7 +5,7 @@ import { XIcon } from "lucide-react"
 import { cn } from "cn"
 
 import { Badge } from "@/components/standard/badge"
-import { ButtonIcon } from "@/components/standard/button-icon"
+import { Button } from "@/components/standard/button"
 import { NotificationBadge } from "@/components/standard/notification-badge"
 
 function formatsCount(count: number, max?: number) {
@@ -138,14 +138,15 @@ function ToolbarSelectionCount({
       <Badge shape="circle">{formatsCount(count, 999)}</Badge>
       selected
       {onClear ? (
-        <ButtonIcon
-          label="Clear selection"
+        <Button
+          iconOnly
+          aria-label="Clear selection"
           tone="ghost"
           className="size-6 [&_svg]:size-3.5"
           onClick={onClear}
         >
           <XIcon />
-        </ButtonIcon>
+        </Button>
       ) : null}
     </span>
   )

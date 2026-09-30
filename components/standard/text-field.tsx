@@ -58,10 +58,6 @@ type TextFieldProps = Omit<React.ComponentProps<"input">, "size" | "prefix"> &
     leading?: React.ReactNode
     /** Content after the text, usually an icon. */
     trailing?: React.ReactNode
-    /** @deprecated Use leading */
-    leadingIcon?: React.ReactNode
-    /** @deprecated Use trailing */
-    trailingIcon?: React.ReactNode
     /** Text inside the field before the value, e.g. "$" or "https://". */
     prefix?: React.ReactNode
     /** Text inside the field after the value, e.g. "ft" or "%". */
@@ -91,9 +87,7 @@ function TextField({
   label,
   invalid,
   leading: leadingProp,
-  trailing: trailingProp,
-  leadingIcon,
-  trailingIcon,
+  trailing,
   prefix,
   suffix,
   shortcut,
@@ -124,9 +118,7 @@ function TextField({
     Boolean(props.value ?? props.defaultValue)
   )
   const isSearch = type === "search"
-  const leading =
-    leadingProp ?? leadingIcon ?? (isSearch ? <SearchIcon /> : undefined)
-  const trailing = trailingProp ?? trailingIcon
+  const leading = leadingProp ?? (isSearch ? <SearchIcon /> : undefined)
   const clearable = clearableProp ?? isSearch
   const isControlled = props.value !== undefined
   const filled = isControlled ? String(props.value).length > 0 : hasValue
@@ -371,14 +363,7 @@ function TextField({
               )}
             </button>
           ) : trailing != null ? (
-            <span
-              // The deprecated trailingIcon is always decorative; trailing may be interactive.
-              aria-hidden={trailingProp == null || undefined}
-              className={cn(
-                "flex min-w-6 items-center justify-center text-muted-foreground [&_svg:not([class*='size-'])]:size-4",
-                trailingProp != null && "pointer-events-auto"
-              )}
-            >
+            <span className="pointer-events-auto flex min-w-6 items-center justify-center text-muted-foreground [&_svg:not([class*='size-'])]:size-4">
               {trailing}
             </span>
           ) : null}

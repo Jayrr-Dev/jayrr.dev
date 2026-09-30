@@ -38,6 +38,27 @@
       ]
     },
     {
+      "name": "standard-alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Alert from the Standard library.",
+      "files": [
+        {
+          "path": "alert.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/alert.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/alert"
+      ]
+    },
+    {
       "name": "app-bar",
       "type": "registry:ui",
       "title": "App Bar",
@@ -85,6 +106,10 @@
       "dependencies": [
         "class-variance-authority",
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/heading",
+        "@jayrr/paragraph"
       ]
     },
     {
@@ -121,25 +146,10 @@
       "dependencies": [
         "class-variance-authority",
         "cn"
-      ]
-    },
-    {
-      "name": "badge-pill",
-      "type": "registry:ui",
-      "title": "Badge Pill",
-      "description": "Badge Pill from the Standard library.",
-      "files": [
-        {
-          "path": "badge-pill.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/badge-pill.tsx"
-        }
-      ],
-      "dependencies": [
-        "cn"
       ],
       "registryDependencies": [
-        "@jayrr/standard-badge"
+        "@jayrr/avatar",
+        "@jayrr/indicator"
       ]
     },
     {
@@ -186,22 +196,6 @@
       ]
     },
     {
-      "name": "bar-stack",
-      "type": "registry:ui",
-      "title": "Bar Stack",
-      "description": "Bar Stack from the Standard library.",
-      "files": [
-        {
-          "path": "bar-stack.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/bar-stack.tsx"
-        }
-      ],
-      "dependencies": [
-        "cn"
-      ]
-    },
-    {
       "name": "bento-grid",
       "type": "registry:ui",
       "title": "Bento Grid",
@@ -231,49 +225,12 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
-        "@jayrr/standard-button"
-      ]
-    },
-    {
-      "name": "button-icon",
-      "type": "registry:ui",
-      "title": "Button Icon",
-      "description": "Button Icon from the Standard library.",
-      "files": [
-        {
-          "path": "button-icon.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/button-icon.tsx"
-        }
-      ],
-      "dependencies": [
-        "cn"
-      ],
-      "registryDependencies": [
-        "@jayrr/standard-button"
-      ]
-    },
-    {
-      "name": "button-link",
-      "type": "registry:ui",
-      "title": "Button Link",
-      "description": "Button Link from the Standard library.",
-      "files": [
-        {
-          "path": "button-link.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/button-link.tsx"
-        }
-      ],
-      "dependencies": [
-        "cn",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "@jayrr/link"
+        "@jayrr/standard-badge",
+        "@jayrr/use-controllable-state"
       ]
     },
     {
@@ -292,23 +249,9 @@
         "class-variance-authority",
         "cn",
         "lucide-react"
-      ]
-    },
-    {
-      "name": "caption-button",
-      "type": "registry:ui",
-      "title": "Caption Button",
-      "description": "Caption Button from the Standard library.",
-      "files": [
-        {
-          "path": "caption-button.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/caption-button.tsx"
-        }
       ],
-      "dependencies": [
-        "class-variance-authority",
-        "cn"
+      "registryDependencies": [
+        "@jayrr/notification-badge"
       ]
     },
     {
@@ -411,6 +354,9 @@
       ],
       "dependencies": [
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/choice-label"
       ]
     },
     {
@@ -432,6 +378,23 @@
       ]
     },
     {
+      "name": "choice-label",
+      "type": "registry:ui",
+      "title": "Choice Label",
+      "description": "Choice Label from the Standard library.",
+      "files": [
+        {
+          "path": "choice-label.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/choice-label.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
       "name": "code",
       "type": "registry:ui",
       "title": "Code",
@@ -444,7 +407,12 @@
         }
       ],
       "dependencies": [
-        "cn"
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/button"
       ]
     },
     {
@@ -460,8 +428,26 @@
         }
       ],
       "registryDependencies": [
+        "@jayrr/alert-dialog",
+        "@jayrr/input",
         "@jayrr/standard-button",
-        "@jayrr/standard-dialog"
+        "@jayrr/use-controllable-state"
+      ]
+    },
+    {
+      "name": "control-bar",
+      "type": "registry:ui",
+      "title": "Control Bar",
+      "description": "Control Bar from the Standard library.",
+      "files": [
+        {
+          "path": "control-bar.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/control-bar.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -507,6 +493,22 @@
         "@jayrr/standard-button",
         "@jayrr/standard-checkbox",
         "@jayrr/standard-select"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Date Picker from the Standard library.",
+      "files": [
+        {
+          "path": "date-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/date-picker.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -564,7 +566,11 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/separator"
       ]
     },
     {
@@ -696,7 +702,11 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn"
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/aspect-ratio"
       ]
     },
     {
@@ -755,6 +765,22 @@
       ]
     },
     {
+      "name": "standard-kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Kbd from the Standard library.",
+      "files": [
+        {
+          "path": "kbd.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/kbd.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "@jayrr/kbd"
+      ]
+    },
+    {
       "name": "lexical-editor",
       "type": "registry:ui",
       "title": "Lexical Editor",
@@ -778,6 +804,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "@jayrr/standard-select",
         "@jayrr/toolbar"
       ]
     },
@@ -795,6 +822,27 @@
       ],
       "dependencies": [
         "cn"
+      ]
+    },
+    {
+      "name": "loading-state",
+      "type": "registry:ui",
+      "title": "Loading State",
+      "description": "Loading State from the Standard library.",
+      "files": [
+        {
+          "path": "loading-state.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/loading-state.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/spinner"
       ]
     },
     {
@@ -913,8 +961,8 @@
         "cn"
       ],
       "registryDependencies": [
-        "@jayrr/button-link",
-        "@jayrr/info-icon"
+        "@jayrr/info-icon",
+        "@jayrr/standard-button"
       ]
     },
     {
@@ -984,9 +1032,8 @@
           "target": "components/standard/popover.tsx"
         }
       ],
-      "dependencies": [
-        "cn",
-        "radix-ui"
+      "registryDependencies": [
+        "@jayrr/popover"
       ]
     },
     {
@@ -1002,7 +1049,12 @@
         }
       ],
       "dependencies": [
-        "cn"
+        "class-variance-authority",
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@jayrr/progress"
       ]
     },
     {
@@ -1019,6 +1071,9 @@
       ],
       "dependencies": [
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/choice-label"
       ]
     },
     {
@@ -1055,23 +1110,6 @@
       ],
       "dependencies": [
         "react-resizable-panels"
-      ]
-    },
-    {
-      "name": "row",
-      "type": "registry:ui",
-      "title": "Row",
-      "description": "Row from the Standard library.",
-      "files": [
-        {
-          "path": "row.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/row.tsx"
-        }
-      ],
-      "dependencies": [
-        "class-variance-authority",
-        "cn"
       ]
     },
     {
@@ -1112,22 +1150,6 @@
       ]
     },
     {
-      "name": "scrollbar",
-      "type": "registry:ui",
-      "title": "Scrollbar",
-      "description": "Scrollbar from the Standard library.",
-      "files": [
-        {
-          "path": "scrollbar.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/scrollbar.tsx"
-        }
-      ],
-      "dependencies": [
-        "cn"
-      ]
-    },
-    {
       "name": "search",
       "type": "registry:ui",
       "title": "Search",
@@ -1139,10 +1161,8 @@
           "target": "components/standard/search.tsx"
         }
       ],
-      "dependencies": [
-        "class-variance-authority",
-        "cn",
-        "lucide-react"
+      "registryDependencies": [
+        "@jayrr/text-field"
       ]
     },
     {
@@ -1158,12 +1178,13 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn",
         "lucide-react"
       ],
       "registryDependencies": [
-        "@jayrr/standard-button",
-        "@jayrr/standard-popover"
+        "@jayrr/standard-popover",
+        "@jayrr/use-controllable-state"
       ]
     },
     {
@@ -1179,10 +1200,10 @@
         }
       ],
       "dependencies": [
-        "cn",
-        "radix-ui"
+        "cn"
       ],
       "registryDependencies": [
+        "@jayrr/sheet",
         "@jayrr/standard-button"
       ]
     },
@@ -1199,7 +1220,11 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/skeleton"
       ]
     },
     {
@@ -1217,6 +1242,9 @@
       "dependencies": [
         "class-variance-authority",
         "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/divider"
       ]
     },
     {
@@ -1251,11 +1279,34 @@
         }
       ],
       "registryDependencies": [
-        "@jayrr/badge-pill",
         "@jayrr/refresh-button",
-        "@jayrr/search",
+        "@jayrr/standard-badge",
         "@jayrr/standard-button",
-        "@jayrr/standard-select"
+        "@jayrr/standard-select",
+        "@jayrr/text-field"
+      ]
+    },
+    {
+      "name": "standard-list",
+      "type": "registry:ui",
+      "title": "Standard List",
+      "description": "Standard List from the Standard library.",
+      "files": [
+        {
+          "path": "standard-list.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/standard-list.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-grid",
+        "@jayrr/standard-list-chrome",
+        "@jayrr/standard-table",
+        "@jayrr/use-controllable-state"
       ]
     },
     {
@@ -1271,29 +1322,13 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn",
-        "lucide-react",
-        "radix-ui"
+        "lucide-react"
       ],
       "registryDependencies": [
+        "@jayrr/menu",
         "@jayrr/standard-list-chrome"
-      ]
-    },
-    {
-      "name": "standard-status",
-      "type": "registry:ui",
-      "title": "Status",
-      "description": "Status from the Standard library.",
-      "files": [
-        {
-          "path": "status.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/status.tsx"
-        }
-      ],
-      "dependencies": [
-        "class-variance-authority",
-        "cn"
       ]
     },
     {
@@ -1309,11 +1344,12 @@
         }
       ],
       "dependencies": [
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
         "@jayrr/field-label",
-        "@jayrr/row"
+        "@jayrr/use-controllable-state"
       ]
     },
     {
@@ -1334,6 +1370,39 @@
       ]
     },
     {
+      "name": "tabbed-dialog",
+      "type": "registry:ui",
+      "title": "Tabbed Dialog",
+      "description": "Tabbed Dialog from the Standard library.",
+      "files": [
+        {
+          "path": "tabbed-dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/tabbed-dialog.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-dialog",
+        "@jayrr/tabs"
+      ]
+    },
+    {
+      "name": "standard-simple-table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Table from the Standard library.",
+      "files": [
+        {
+          "path": "table.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/table.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "text-field",
       "type": "registry:ui",
       "title": "Text Field",
@@ -1349,6 +1418,10 @@
         "class-variance-authority",
         "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/kbd",
+        "@jayrr/spinner"
       ]
     },
     {
@@ -1421,26 +1494,11 @@
         }
       ],
       "dependencies": [
-        "cn"
-      ]
-    },
-    {
-      "name": "toggleable-badges",
-      "type": "registry:ui",
-      "title": "Toggleable Badges",
-      "description": "Toggleable Badges from the Standard library.",
-      "files": [
-        {
-          "path": "toggleable-badges.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/toggleable-badges.tsx"
-        }
-      ],
-      "dependencies": [
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
-        "@jayrr/standard-badge"
+        "@jayrr/use-controllable-state"
       ]
     },
     {
@@ -1460,8 +1518,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@jayrr/badge-pill",
-        "@jayrr/button-icon"
+        "@jayrr/notification-badge",
+        "@jayrr/standard-badge",
+        "@jayrr/standard-button"
       ]
     },
     {
@@ -1477,14 +1536,11 @@
         }
       ],
       "dependencies": [
-        "cn",
-        "lucide-react"
+        "cn"
       ],
       "registryDependencies": [
-        "@jayrr/button-icon",
         "@jayrr/divider",
         "@jayrr/standard-button",
-        "@jayrr/standard-popover",
         "@jayrr/standard-toggle",
         "@jayrr/standard-tooltip"
       ]
@@ -1502,8 +1558,12 @@
         }
       ],
       "dependencies": [
-        "cn",
-        "radix-ui"
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/kbd",
+        "@jayrr/popover",
+        "@jayrr/tooltip"
       ]
     },
     {

@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 
 import { GalleryIcon } from "@/components/gallery-icon"
-import { Search } from "@/components/standard/search"
+import { TextField } from "@/components/standard/text-field"
 import { OpensPieceCollectionsDialog } from "@/features/ui-library/components/opensPieceCollectionsDialog"
 import { Masonry } from "@/components/ui/masonry"
 import { galleryBuckets, type GalleryCategory } from "@/lib/design-system"
@@ -128,9 +128,11 @@ export function BucketGallery() {
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2 className="text-sm font-medium">Buckets</h2>
-          <Search
-            className="w-full max-w-xs"
+          <TextField
+            type="search"
+            containerClassName="w-full max-w-xs"
             size="sm"
+            clearable={false}
             placeholder="Search pieces"
             value={query}
             onChange={(event) => setQuery(event.target.value)}

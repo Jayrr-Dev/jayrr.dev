@@ -3,9 +3,8 @@
 import * as React from "react"
 import { cn } from "cn"
 
-import { ButtonIcon } from "@/components/standard/button-icon"
+import { Button } from "@/components/standard/button"
 import { Divider } from "@/components/standard/divider"
-import { Select } from "@/components/standard/select"
 import { Toggle } from "@/components/standard/toggle"
 import { Tooltip } from "@/components/standard/tooltip"
 
@@ -81,17 +80,13 @@ function ToolbarSeparator({ className }: { className?: string }) {
 const TOOLBAR_ITEM_CLASS =
   "group-data-[variant=docked]/toolbar:size-10 group-data-[variant=docked]/toolbar:rounded-full group-data-[variant=docked]/toolbar:[&_svg]:size-5 group-data-[tone=vibrant]/toolbar:text-primary-foreground group-data-[tone=vibrant]/toolbar:hover:bg-primary-foreground/10 group-data-[tone=vibrant]/toolbar:hover:text-primary-foreground"
 
-function withHint(
-  hint: string | undefined,
-  label: string,
-  node: React.ReactElement
-) {
+function withHint(hint: string | undefined, node: React.ReactElement) {
   if (!hint) {
     return node
   }
 
   return (
-    <Tooltip label={label} body={hint}>
+    <Tooltip content={hint}>
       {node}
     </Tooltip>
   )
@@ -105,11 +100,11 @@ function ToolbarButton({
 }: React.ComponentProps<"button"> & { label: string; hint?: string }) {
   return withHint(
     hint,
-    label,
-    <ButtonIcon
+    <Button
+      iconOnly
       data-slot="toolbar-button"
       tone="ghost"
-      label={label}
+      aria-label={label}
       className={cn("[&_svg]:size-4", TOOLBAR_ITEM_CLASS, className)}
       {...props}
     />
@@ -124,12 +119,13 @@ function ToolbarToggle({
 }: React.ComponentProps<typeof Toggle> & { label: string; hint?: string }) {
   return withHint(
     hint,
-    label,
     <Toggle
       data-slot="toolbar-toggle"
+      tone="ghost"
+      iconOnly
       aria-label={label}
       className={cn(
-        "size-8 border-transparent px-0 text-muted-foreground hover:text-foreground data-[pressed=true]:bg-muted data-[pressed=true]:text-foreground [&_svg]:size-4",
+        "[&_svg]:size-4",
         TOOLBAR_ITEM_CLASS,
         "group-data-[variant=docked]/toolbar:data-[pressed=true]:bg-background group-data-[tone=vibrant]/toolbar:data-[pressed=true]:bg-primary-foreground group-data-[tone=vibrant]/toolbar:data-[pressed=true]:text-primary",
         className
@@ -139,49 +135,10 @@ function ToolbarToggle({
   )
 }
 
-export type ToolbarSelectOption = {
-  value: string
-  label: string
-  icon?: React.ReactNode
-}
-
-/** @deprecated Use <Select appearance="toolbar"> */
-function ToolbarSelect({
-  className,
-  label,
-  options,
-  value,
-  onValueChange,
-  disabled = false,
-}: {
-  className?: string
-  label: string
-  options: ToolbarSelectOption[]
-  value: string
-  onValueChange: (value: string) => void
-  disabled?: boolean
-}) {
-  return (
-    <Select
-      data-slot="toolbar-select"
-      appearance="toolbar"
-      size="default"
-      aria-label={label}
-      placeholder={label}
-      options={options}
-      value={value}
-      onValueChange={onValueChange}
-      disabled={disabled}
-      className={className}
-    />
-  )
-}
-
 export {
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
-  ToolbarSelect,
   ToolbarSeparator,
   ToolbarToggle,
 }

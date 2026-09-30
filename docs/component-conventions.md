@@ -1,17 +1,15 @@
 # Component conventions
 
 Rules for Standard components (`components/standard/*`) and their gallery
-entries. New work follows them; older props stay working as deprecated aliases
-until callers move.
+entries.
 
 ## Slots
 
 - Content placed before or after a component's main content goes in
   `leading` and `trailing`.
-- Older slot props stay as deprecated aliases that map onto the new ones:
-  `icon` + `iconPosition`, `image` + `imagePosition`, and
-  `leadingIcon` / `trailingIcon`. Keep them working and mark them
-  `/** @deprecated Use leading / trailing */`.
+- Don't add other slot names for the same idea (`icon` + `iconPosition`,
+  `image` + `imagePosition`, `leadingIcon` / `trailingIcon`); those were
+  removed in the consolidation.
 
 ## Labels
 
@@ -28,6 +26,19 @@ One vocabulary for every component that takes a tone:
 A component supports the subset that makes sense for it, and does not invent
 other names for the same idea.
 
+Deliberate extras outside the vocabulary:
+
+- Button takes `tone="link"` (text-only link styling). No other component
+  has it.
+- Caption takes `tone="uppercase"`. It is a casing, not a colour; it is a
+  candidate for a future `casing` prop.
+
+## Loading
+
+Button's `loading` is `true` (spinner replaces the leading slot, or the
+icon for icon-only buttons) or `"spin-icon"` (the `leading` icon itself spins,
+e.g. a refresh arrow).
+
 ## Size
 
 Scale: `xs | sm | default | lg | xl`.
@@ -39,6 +50,11 @@ Fields, selects and buttons share heights so they line up in a row:
 | `sm`      | `h-7`  |
 | `default` | `h-8`  |
 | `lg`      | `h-9`  |
+
+Every one of them defaults to `default` (`h-8`), with one deliberate
+exception: **Select defaults to `sm` (`h-7`)** so it lines up with the `h-7`
+toolbar and list controls it usually sits beside. Pass `size="default"` to
+line it up with an `h-8` field or button.
 
 ## Data components
 
@@ -53,17 +69,17 @@ buttons) accept either an `items` array or composed children.
   `hooks/use-controllable-state.ts`, so a component is controlled when the
   parent passes `value` and keeps its own state otherwise.
 
-## Deprecation
+## Replacing a component
 
-When a component is merged into another, it stays in its original file as a
-thin wrapper:
-
-- same export name and same props, so every import keeps working;
-- it renders the component it was merged into with the matching prop;
-- it is marked `/** @deprecated Use <X prop> */`, naming the replacement,
-  e.g. `/** @deprecated Use <Button tone="danger"> */`.
-
-Exports that moved to their own file leave a re-export in the old file.
+When a component is merged into another, move every caller onto the
+surviving component in the same change and delete the old one: its file, its
+exports, its gallery piece and catalog entry, and its registry item. Don't
+leave deprecated wrappers, prop aliases or old-location re-exports behind.
+The consolidation removed the last of them (ButtonIcon, ButtonLink,
+ButtonBack, CaptionButton, BadgePill, CircleBadge, MultiSelect,
+ToolbarSelect, ToggleableBadges, LabelledSwitch, ToggleRow, BroadcastBanner,
+BarStack, Row, ThinScrollbar, StandardCard, StandardText, TabNavigation and
+the deprecated props).
 
 ## Gallery catalog
 

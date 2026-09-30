@@ -115,7 +115,7 @@ function Fab({
 
   const tip = hint ?? (alwaysOpen ? undefined : label)
   const withTip = tip ? (
-    <Tooltip label={label} body={tip}>
+    <Tooltip content={tip}>
       {button}
     </Tooltip>
   ) : (

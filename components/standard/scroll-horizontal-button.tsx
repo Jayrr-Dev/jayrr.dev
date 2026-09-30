@@ -197,7 +197,7 @@ function ScrollHorizontalButton({
   }
 
   return (
-    <Tooltip label={label} body={label}>
+    <Tooltip content={label}>
       {button}
     </Tooltip>
   )

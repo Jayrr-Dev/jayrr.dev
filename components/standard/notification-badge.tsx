@@ -7,13 +7,6 @@ type NotificationBadgeSize = "inline" | "sm" | "default"
 type NotificationBadgePlacement =
   "top-end" | "top-start" | "bottom-end" | "bottom-start"
 
-// Older tone names, kept so existing callers keep working.
-const TONE_ALIASES = {
-  alert: "danger",
-  brand: "default",
-  neutral: "quiet",
-} as const
-
 const notificationBadgeVariants = cva(
   "pointer-events-none isolate inline-grid shrink-0 place-items-center rounded-full leading-none font-semibold tabular-nums",
   {
@@ -22,12 +15,6 @@ const notificationBadgeVariants = cva(
         danger: "bg-destructive text-white",
         default: "bg-primary text-primary-foreground",
         quiet: "bg-foreground text-background",
-        /** @deprecated Use tone="danger" */
-        alert: "bg-destructive text-white",
-        /** @deprecated Use tone="default" */
-        brand: "bg-primary text-primary-foreground",
-        /** @deprecated Use tone="quiet" */
-        neutral: "bg-foreground text-background",
       },
       shape: {
         dot: "",
@@ -122,8 +109,7 @@ function NotificationBadge({
   count?: number
   max?: number
   dot?: boolean
-  /** `alert`, `brand` and `neutral` are deprecated: use danger, default, quiet. */
-  tone?: NotificationBadgeTone | keyof typeof TONE_ALIASES | null
+  tone?: NotificationBadgeTone | null
   size?: NotificationBadgeSize | null
   /** Corner to pin to when wrapping a child. */
   placement?: NotificationBadgePlacement
@@ -139,10 +125,7 @@ function NotificationBadge({
   const visible = isDot || (count ?? 0) > 0 || showZero
   const spoken =
     label ?? (isDot || count === undefined ? "New" : `${count} unread`)
-  const resolvedTone: NotificationBadgeTone =
-    tone && tone in TONE_ALIASES
-      ? TONE_ALIASES[tone as keyof typeof TONE_ALIASES]
-      : ((tone as NotificationBadgeTone | null) ?? "danger")
+  const resolvedTone: NotificationBadgeTone = tone ?? "danger"
   const shape = isDot ? "dot" : "count"
   const anchored = Boolean(children)
   const hasRing = ring ?? anchored

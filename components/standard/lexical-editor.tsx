@@ -88,14 +88,13 @@ import {
 } from "lucide-react"
 import { cn } from "cn"
 
+import { Select, type SelectOption } from "@/components/standard/select"
 import {
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
-  ToolbarSelect,
   ToolbarSeparator,
   ToolbarToggle,
-  type ToolbarSelectOption,
 } from "@/components/standard/toolbar"
 
 export type LexicalEditorValue = {
@@ -144,7 +143,7 @@ const THEME: EditorThemeClasses = {
   },
 }
 
-const BLOCK_OPTIONS: (ToolbarSelectOption & { value: BlockType })[] = [
+const BLOCK_OPTIONS: (SelectOption & { value: BlockType })[] = [
   { value: "paragraph", label: "Normal", icon: <PilcrowIcon /> },
   { value: "h1", label: "Heading 1", icon: <Heading1Icon /> },
   { value: "h2", label: "Heading 2", icon: <Heading2Icon /> },
@@ -330,8 +329,11 @@ function EditorToolbar() {
 
   return (
     <Toolbar aria-label="Formatting">
-      <ToolbarSelect
-        label="Block type"
+      <Select
+        appearance="toolbar"
+        size="default"
+        aria-label="Block type"
+        placeholder="Block type"
         options={BLOCK_OPTIONS}
         value={state.blockType}
         onValueChange={formatBlock}

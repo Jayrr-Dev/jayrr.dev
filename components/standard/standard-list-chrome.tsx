@@ -2,11 +2,11 @@
 
 import * as React from "react"
 
-import { CircleBadge } from "@/components/standard/badge-pill"
+import { Badge } from "@/components/standard/badge"
 import { Button } from "@/components/standard/button"
 import { Select } from "@/components/standard/select"
 import { RefreshButton } from "@/components/standard/refresh-button"
-import { Search } from "@/components/standard/search"
+import { TextField } from "@/components/standard/text-field"
 
 export type StandardListFilterOption = {
   id: string
@@ -269,7 +269,7 @@ export function RendersStandardListChrome({
                 title={action.label}
                 onClick={action.onSelect}
               >
-                <CircleBadge>{action.label}</CircleBadge>
+                <Badge shape="circle">{action.label}</Badge>
               </button>
             ))}
           </div>
@@ -279,8 +279,11 @@ export function RendersStandardListChrome({
         <div className="flex flex-wrap items-center gap-2 px-4 py-2">
           {showSearch ? (
             <div className="min-w-40 flex-1">
-              <Search
+              <TextField
+                type="search"
                 size="sm"
+                clearable={false}
+                aria-label={searchPlaceholder ?? "Search"}
                 placeholder={searchPlaceholder ?? "Search"}
                 value={searchValue}
                 onChange={(event) => onSearchChange(event.target.value)}
