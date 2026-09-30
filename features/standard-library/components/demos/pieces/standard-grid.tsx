@@ -2,14 +2,14 @@
 
 import {
   RendersStandardGridDemo as RendersStandardGridPanels,
-  RendersStandardHybridDemo,
+  RendersStandardListDemo,
 } from "@/features/standard-library/components/demos/rendersStandardTableGridDemo"
 
 export function RendersStandardGridDemo() {
   return (
     <>
       <RendersStandardGridPanels />
-      <RendersStandardHybridDemo />
+      <RendersStandardListDemo />
     </>
   )
 }

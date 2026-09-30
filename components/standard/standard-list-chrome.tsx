@@ -25,8 +25,32 @@ export type StandardListFilter = {
 export type StandardListTitleBar = {
   left?: string
   center?: string
-  actions?: { id: string; label: string }[]
+  actions?: { id: string; label: string; onSelect?: () => void }[]
 }
+
+/** Chrome and paging props shared by StandardTable, StandardGrid and StandardList. */
+export type StandardListProps<T extends object> = {
+  data: T[]
+  className?: string
+  emptyMessage?: string
+  showSearch?: boolean
+  searchPlaceholder?: string
+  filterBadge?: boolean
+  filterSelect?: boolean
+  showRefresh?: boolean
+  onRefresh?: () => void
+  titleBar?: StandardListTitleBar
+  errorBar?: string
+  pagination?: boolean
+  initialPageSize?: number
+}
+
+export type StandardListSortColumn<T> = {
+  key: string
+  sortFunction?: (a: T, b: T) => number
+}
+
+export type StandardListSortDirection = "asc" | "desc"
 
 export function readingListCell(item: object, key: string) {
   const record = item as Record<string, unknown>
@@ -68,8 +92,117 @@ export function filteringListRows<T extends object>(
   })
 }
 
+/**
+ * Search, filter, sort and paging state behind the list chrome. Returns the
+ * rows at each stage plus ready-made props for RendersStandardListChrome and
+ * RendersStandardListPager, so every list view behaves the same.
+ */
+export function useStandardList<T extends object>({
+  data,
+  filters,
+  columns = [],
+  sorting = false,
+  pagination = false,
+  initialPageSize = 10,
+}: {
+  data: T[]
+  filters: StandardListFilter[]
+  /** Columns that can be sorted, with their optional comparators. */
+  columns?: StandardListSortColumn<T>[]
+  sorting?: boolean
+  pagination?: boolean
+  initialPageSize?: number
+}) {
+  const [query, setQuery] = React.useState("")
+  const [sortKey, setSortKey] = React.useState<string | null>(null)
+  const [sortDir, setSortDir] = React.useState<StandardListSortDirection>("asc")
+  const [page, setPage] = React.useState(1)
+  const [pageSize, setPageSize] = React.useState(initialPageSize)
+  const [selectedFilters, setSelectedFilters] = React.useState<
+    Record<string, string>
+  >({})
+
+  const filtered = filteringListRows(data, query, filters, selectedFilters)
+
+  const sorted = [...filtered].sort((left, right) => {
+    if (!sortKey) {
+      return 0
+    }
+
+    const column = columns.find((entry) => entry.key === sortKey)
+    if (column?.sortFunction) {
+      const compared = column.sortFunction(left, right)
+      if (sortDir === "asc") {
+        return compared
+      }
+      return compared * -1
+    }
+
+    const compared = readingListCell(left, sortKey).localeCompare(
+      readingListCell(right, sortKey)
+    )
+    if (sortDir === "asc") {
+      return compared
+    }
+    return compared * -1
+  })
+
+  const pageCount = Math.max(1, Math.ceil(sorted.length / pageSize))
+  const currentPage = Math.min(page, pageCount)
+  const paged = pagination
+    ? sorted.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    : sorted
+
+  function sortBy(key: string) {
+    if (!sorting) {
+      return
+    }
+    if (sortKey === key) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc")
+      return
+    }
+    setSortKey(key)
+    setSortDir("asc")
+  }
+
+  return {
+    query,
+    sortKey,
+    sortDir,
+    sortBy,
+    selectedFilters,
+    filtered,
+    sorted,
+    paged,
+    chromeProps: {
+      filters,
+      searchValue: query,
+      onSearchChange: (value: string) => {
+        setQuery(value)
+        setPage(1)
+      },
+      selectedFilters,
+      onFilterChange: (key: string, value: string) => {
+        setSelectedFilters((current) => ({ ...current, [key]: value }))
+        setPage(1)
+      },
+    },
+    pagerProps: {
+      page: currentPage,
+      pageSize,
+      total: sorted.length,
+      onPageChange: setPage,
+      onPageSizeChange: (next: number) => {
+        setPageSize(next)
+        setPage(1)
+      },
+    },
+  }
+}
+
 export function RendersStandardListChrome({
   titleBar,
+  titleBarTrailing,
   errorBar,
   showSearch,
   searchPlaceholder,
@@ -84,6 +217,8 @@ export function RendersStandardListChrome({
   onFilterChange,
 }: {
   titleBar?: StandardListTitleBar
+  /** Extra controls at the end of the title bar, e.g. a view switcher. */
+  titleBarTrailing?: React.ReactNode
   errorBar?: string
   showSearch?: boolean
   searchPlaceholder?: string
@@ -113,24 +248,26 @@ export function RendersStandardListChrome({
           {`>\t${errorBar}`}
         </p>
       ) : null}
-      {titleBar ? (
+      {titleBar || titleBarTrailing ? (
         <div
           data-slot="title-bar"
           className="grid w-full min-w-0 grid-cols-4 items-center gap-2 border-b border-foreground px-4 py-2 text-xs font-semibold leading-none text-foreground"
         >
           <div className="col-span-1 min-w-0 justify-self-start self-center text-left">
-            {titleBar.left}
+            {titleBar?.left}
           </div>
           <div className="col-span-2 min-w-0 justify-self-center self-center text-center">
-            {titleBar.center}
+            {titleBar?.center}
           </div>
           <div className="col-span-1 flex min-w-0 items-center justify-end gap-1 justify-self-end self-center">
-            {titleBar.actions?.map((action) => (
+            {titleBarTrailing}
+            {titleBar?.actions?.map((action) => (
               <button
                 key={action.id}
                 type="button"
                 aria-label={action.label}
                 title={action.label}
+                onClick={action.onSelect}
               >
                 <CircleBadge>{action.label}</CircleBadge>
               </button>

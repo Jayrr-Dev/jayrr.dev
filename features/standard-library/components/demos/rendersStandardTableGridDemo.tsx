@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import { EyeIcon, PencilIcon, Trash2Icon } from "lucide-react"
 
 import { Badge } from "@/components/standard/badge"
 import { InfoIcon } from "@/components/standard/info-icon"
 import { StandardCard } from "@/components/standard/standard-card"
 import { StandardGrid } from "@/components/standard/standard-grid"
+import { StandardList } from "@/components/standard/standard-list"
 import { StandardTable, type StandardTableColumn } from "@/components/standard/standard-table"
 import { ToggleableBadges } from "@/components/standard/toggleable-badges"
 import {
@@ -96,6 +98,9 @@ function renderingGetsGridCard(row: StandardMockRow) {
 const TABLE_PANELS = [
   { id: "default", label: "Default" },
   { id: "compact", label: "Compact" },
+  { id: "comfortable", label: "Comfortable" },
+  { id: "striped", label: "Striped" },
+  { id: "bordered", label: "Bordered" },
   { id: "filters", label: "Filters" },
   { id: "chrome", label: "Chrome" },
   { id: "paging", label: "Paging" },
@@ -105,7 +110,10 @@ const TABLE_PANELS = [
 ]
 
 const TABLE_PANEL_LABELS: Record<string, string> = {
-  compact: "compact={true}",
+  compact: 'density="compact"',
+  comfortable: 'density="comfortable"',
+  striped: "striped",
+  bordered: "bordered · striped",
   filters: "filterBadge · filterSelect · showRefresh",
   chrome: "errorBar · titleBar",
   paging: "pagination · initialPageSize={3}",
@@ -143,7 +151,15 @@ export function RendersStandardTableDemo() {
           getRowKey={(row) => row.id}
           showSearch
           sorting
-          compact={panel === "compact"}
+          density={
+            panel === "compact"
+              ? "compact"
+              : panel === "comfortable"
+                ? "comfortable"
+                : "default"
+          }
+          striped={panel === "striped" || panel === "bordered"}
+          bordered={panel === "bordered"}
           filterBadge={panel === "filters"}
           filterSelect={panel === "filters" || panel === "chrome"}
           showRefresh={panel === "filters" || panel === "chrome"}
@@ -165,12 +181,23 @@ export function RendersStandardTableDemo() {
           rowActions={
             actions
               ? () => [
-                  { id: "open", label: "Open", onSelect: () => undefined },
-                  { id: "edit", label: "Edit", onSelect: () => undefined },
+                  {
+                    id: "open",
+                    label: "Open",
+                    icon: <EyeIcon />,
+                    onSelect: () => undefined,
+                  },
+                  {
+                    id: "edit",
+                    label: "Edit",
+                    icon: <PencilIcon />,
+                    onSelect: () => undefined,
+                  },
                   {
                     id: "delete",
                     label: "Delete",
                     tone: "danger",
+                    icon: <Trash2Icon />,
                     onSelect: () => undefined,
                   },
                 ]
@@ -254,60 +281,42 @@ export function RendersStandardGridDemo() {
   )
 }
 
-export function RendersStandardHybridDemo() {
-  const [view, setView] = useState("table")
+/** StandardList: one list with a table / grid toggle in its title bar. */
+export function RendersStandardListDemo() {
   const rows = STANDARD_MOCK_TABLE_ROWS
 
   return (
-    <RendersDemoCard className="w-full max-w-2xl" label="table · grid">
-      <div className="flex w-full flex-col gap-3">
-        <ToggleableBadges
-          items={[
-            { id: "table", label: "Table" },
-            { id: "grid", label: "Grid" },
-          ]}
-          value={view}
-          onValueChange={setView}
-        />
-        {view === "table" ? (
-          <StandardTable
-            data={rows}
-            columns={COLUMNS}
-            getRowKey={(row) => row.id}
-            showSearch
-            sorting
-            filterSelect
-            titleBar={{
-              left: "Projects",
-              center: `${rows.length} open`,
-              actions: [{ id: "add", label: "+" }],
-            }}
-            pagination
-            initialPageSize={3}
-            emptyMessage="No projects match your filters."
-          />
-        ) : (
-          <StandardGrid
-            data={rows}
-            getItemKey={(row) => row.id}
-            columns={{ base: 1, sm: 2 }}
-            gap="sm"
-            skipCardWrapper
-            showSearch
-            filterSelect
-            filters={[DEPT_FILTER]}
-            titleBar={{
-              left: "Projects",
-              center: `${rows.length} open`,
-              actions: [{ id: "add", label: "+" }],
-            }}
-            pagination
-            initialPageSize={3}
-            emptyMessage="No projects match your filters."
-            renderCard={(row) => renderingGetsGridCard(row)}
-          />
-        )}
-      </div>
+    <RendersDemoCard
+      className="w-full max-w-2xl"
+      label="StandardList · viewSwitcher"
+    >
+      <StandardList
+        data={rows}
+        columns={COLUMNS}
+        getRowKey={(row) => row.id}
+        renderCard={(row) => renderingGetsGridCard(row)}
+        viewSwitcher
+        defaultView="table"
+        gridColumns={{ base: 1, sm: 2 }}
+        gap="sm"
+        skipCardWrapper
+        showSearch
+        sorting
+        filterSelect
+        titleBar={{
+          left: "Projects",
+          center: `${rows.length} open`,
+          actions: [{ id: "add", label: "+" }],
+        }}
+        pagination
+        initialPageSize={3}
+        emptyMessage="No projects match your filters."
+      />
     </RendersDemoCard>
   )
+}
+
+/** @deprecated Use RendersStandardListDemo; the table / grid toggle now lives in StandardList. */
+export function RendersStandardHybridDemo() {
+  return <RendersStandardListDemo />
 }
