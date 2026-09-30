@@ -1,205 +1,123 @@
-export type GalleryCard = {
-  name: string
-  installed?: boolean
+import componentPool from "@/features/ui-library/domain/catalog/galleryComponents.json"
+import typeTree from "@/features/ui-library/domain/catalog/galleryTypes.json"
+
+/**
+ * A node in galleryTypes.json. Depth 0 is a style (Classic, Standard),
+ * depth 1 a section (Content, Structure), depth 2 a category (Surface, Layout).
+ */
+export type GalleryTypeNode = {
+  id: string
+  label: string
+  children?: GalleryTypeNode[]
 }
 
+/**
+ * One entry in galleryComponents.json. `type` is the path of ids through the
+ * type tree, e.g. "classic/structure/surface".
+ */
+export type GalleryComponent = {
+  name: string
+  type: string
+  installed?: boolean
+  key?: string
+  family_key?: string | null
+  file_path?: string | null
+  import_path?: string | null
+  preview_mode?: string | null
+  needs_mock_data?: boolean
+  mock_data_key?: string | null
+  description?: string | null
+}
+
+export type GalleryCard = GalleryComponent
+
 export type GalleryCategory = {
+  id: string
   name: string
   cards: GalleryCard[]
 }
 
 export type GallerySection = {
+  id: string
   name: string
   categories: GalleryCategory[]
 }
 
 export type GalleryStyle = {
+  id: string
   name: string
   sections: GallerySection[]
 }
 
-import { buildsStandardSections } from "@/features/standard-library/domain/catalog/definesStandardCatalog"
+export const galleryTypes = typeTree as GalleryTypeNode[]
+export const galleryComponents = componentPool as GalleryComponent[]
 
-export const standardSections: GallerySection[] = buildsStandardSections()
-
-function library(name: string): GalleryCard {
-  return { name, installed: true }
+/** Components grouped by type path, keeping pool order. */
+function groupsComponentsByType() {
+  const byType = new Map<string, GalleryComponent[]>()
+  for (const component of galleryComponents) {
+    const list = byType.get(component.type) ?? []
+    list.push(component)
+    byType.set(component.type, list)
+  }
+  return byType
 }
 
-export const gallerySections: GallerySection[] = [
-  {
-    name: "Content",
-    categories: [
-      {
-        name: "Text",
-        cards: [
-          { name: "Heading" },
-          { name: "Paragraph" },
-          { name: "Caption" },
-          { name: "Code" },
-          library("Kbd"),
-          library("Text Effect"),
-        ],
-      },
-      {
-        name: "Icon",
-        cards: [
-          { name: "Symbol" },
-          library("Status"),
-          library("Spinner"),
-          library("Marker"),
-        ],
-      },
-      {
-        name: "Media",
-        cards: [
-          { name: "Image" },
-          library("Avatar"),
-          library("Aspect Ratio"),
-          library("Carousel"),
-          library("Chart"),
-        ],
-      },
-    ],
-  },
-  {
-    name: "Interaction",
-    categories: [
-      {
-        name: "Action",
-        cards: [library("Button"), library("Button Group")],
-      },
-      {
-        name: "Navigation",
-        cards: [
-          { name: "Link" },
-          library("Breadcrumb"),
-          library("Navigation Menu"),
-          library("Pagination"),
-          library("Menubar"),
-          library("Sidebar"),
-        ],
-      },
-      {
-        name: "Input",
-        cards: [
-          { name: "Text field" },
-          { name: "Search" },
-          library("Input"),
-          library("Textarea"),
-          library("Input OTP"),
-          library("Input Group"),
-          library("Select"),
-          library("Native Select"),
-          library("Combobox"),
-          library("Command"),
-          library("Field"),
-          library("Slider"),
-          library("Calendar"),
-        ],
-      },
-      {
-        name: "Selection",
-        cards: [
-          library("Checkbox"),
-          library("Radio"),
-          library("Radio Group"),
-          library("Toggle"),
-          library("Toggle Group"),
-          library("Switch"),
-        ],
-      },
-    ],
-  },
-  {
-    name: "Meaning",
-    categories: [
-      {
-        name: "Label",
-        cards: [
-          { name: "Field label" },
-          library("Label"),
-          library("Badge"),
-          library("Item"),
-        ],
-      },
-      {
-        name: "Indicator",
-        cards: [
-          library("Progress"),
-          library("Progress Ring"),
-          library("Skeleton"),
-          library("Sonner"),
-          library("Empty"),
-        ],
-      },
-    ],
-  },
-  {
-    name: "Structure",
-    categories: [
-      {
-        name: "Surface",
-        cards: [
-          library("Card"),
-          library("Dialog"),
-          library("Alert"),
-          library("Alert Dialog"),
-          library("Sheet"),
-          library("Drawer"),
-          library("Popover"),
-          library("Hover Card"),
-          library("Tooltip"),
-          library("Dropdown Menu"),
-          library("Context Menu"),
-          library("Accordion"),
-          library("Collapsible"),
-          library("Tabs"),
-          library("Table"),
-          library("Bubble"),
-          library("Message"),
-          library("Attachment"),
-          library("Questionnaire"),
-        ],
-      },
-      {
-        name: "Separator",
-        cards: [{ name: "Divider" }, library("Separator")],
-      },
-      {
-        name: "Layout",
-        cards: [
-          { name: "Stack" },
-          { name: "Row" },
-          library("Masonry"),
-          library("Resizable"),
-          library("Scroll Area"),
-          library("Direction"),
-          library("Message Scroller"),
-        ],
-      },
-    ],
-  },
-]
+/** Walks the type tree and fills each category with its components. Empty branches are dropped. */
+function buildsGalleryStyles(): GalleryStyle[] {
+  const byType = groupsComponentsByType()
 
-export const galleryStyles: GalleryStyle[] = [
-  {
-    name: "Classic",
-    sections: gallerySections,
-  },
-  {
-    name: "Standard",
-    sections: standardSections,
-  },
-]
+  if (process.env.NODE_ENV !== "production") {
+    const known = new Set(
+      galleryTypes.flatMap((style) =>
+        (style.children ?? []).flatMap((section) =>
+          (section.children ?? []).map(
+            (category) => `${style.id}/${section.id}/${category.id}`
+          )
+        )
+      )
+    )
+    for (const [type, components] of byType) {
+      if (!known.has(type)) {
+        console.warn(
+          `galleryComponents.json: unknown type "${type}" on ${components.map((c) => c.name).join(", ")}`
+        )
+      }
+    }
+  }
+
+  return galleryTypes.map((style) => ({
+    id: style.id,
+    name: style.label,
+    sections: (style.children ?? [])
+      .map((section) => ({
+        id: section.id,
+        name: section.label,
+        categories: (section.children ?? [])
+          .map((category) => ({
+            id: category.id,
+            name: category.label,
+            cards: byType.get(`${style.id}/${section.id}/${category.id}`) ?? [],
+          }))
+          .filter((category) => category.cards.length > 0),
+      }))
+      .filter((section) => section.categories.length > 0),
+  }))
+}
+
+export const galleryStyles: GalleryStyle[] = buildsGalleryStyles()
+
+export const gallerySections: GallerySection[] =
+  galleryStyles.find((style) => style.id === "classic")?.sections ?? []
 
 export function toPieceSlug(name: string) {
   return name.toLowerCase().replace(/\s+/g, "-")
 }
 
 export function findStyle(styleName: string) {
+  const needle = styleName.toLowerCase()
   return galleryStyles.find(
-    (entry) => entry.name.toLowerCase() === styleName.toLowerCase()
+    (entry) => entry.id === needle || entry.name.toLowerCase() === needle
   )
 }
 
@@ -220,4 +138,12 @@ export function findPiece(styleName: string, pieceSlug: string) {
   }
 
   return null
+}
+
+/** Finds a component by style id and display name. */
+export function findComponent(styleId: string, name: string) {
+  return galleryComponents.find(
+    (component) =>
+      component.name === name && component.type.startsWith(`${styleId}/`)
+  )
 }

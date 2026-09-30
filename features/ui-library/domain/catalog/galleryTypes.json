@@ -1,0 +1,198 @@
+[
+  {
+    "id": "classic",
+    "label": "Classic",
+    "children": [
+      {
+        "id": "content",
+        "label": "Content",
+        "children": [
+          {
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "id": "media",
+            "label": "Media"
+          }
+        ]
+      },
+      {
+        "id": "interaction",
+        "label": "Interaction",
+        "children": [
+          {
+            "id": "action",
+            "label": "Action"
+          },
+          {
+            "id": "navigation",
+            "label": "Navigation"
+          },
+          {
+            "id": "input",
+            "label": "Input"
+          },
+          {
+            "id": "selection",
+            "label": "Selection"
+          }
+        ]
+      },
+      {
+        "id": "meaning",
+        "label": "Meaning",
+        "children": [
+          {
+            "id": "label",
+            "label": "Label"
+          },
+          {
+            "id": "indicator",
+            "label": "Indicator"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "label": "Structure",
+        "children": [
+          {
+            "id": "surface",
+            "label": "Surface"
+          },
+          {
+            "id": "separator",
+            "label": "Separator"
+          },
+          {
+            "id": "layout",
+            "label": "Layout"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "standard",
+    "label": "Standard",
+    "children": [
+      {
+        "id": "controls",
+        "label": "Controls",
+        "children": [
+          {
+            "id": "buttons",
+            "label": "Buttons"
+          },
+          {
+            "id": "fields",
+            "label": "Fields"
+          },
+          {
+            "id": "pickers",
+            "label": "Pickers"
+          },
+          {
+            "id": "toggles",
+            "label": "Toggles"
+          },
+          {
+            "id": "scroll",
+            "label": "Scroll"
+          },
+          {
+            "id": "cursor",
+            "label": "Cursor"
+          },
+          {
+            "id": "badges",
+            "label": "Badges"
+          },
+          {
+            "id": "icons",
+            "label": "Icons"
+          }
+        ]
+      },
+      {
+        "id": "content",
+        "label": "Content",
+        "children": [
+          {
+            "id": "tables",
+            "label": "Tables"
+          },
+          {
+            "id": "cards",
+            "label": "Cards"
+          },
+          {
+            "id": "charts",
+            "label": "Charts"
+          },
+          {
+            "id": "badges",
+            "label": "Badges"
+          },
+          {
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "id": "layout",
+            "label": "Layout"
+          }
+        ]
+      },
+      {
+        "id": "overlays",
+        "label": "Overlays",
+        "children": [
+          {
+            "id": "dialogs",
+            "label": "Dialogs"
+          },
+          {
+            "id": "sheets",
+            "label": "Sheets"
+          },
+          {
+            "id": "popovers",
+            "label": "Popovers"
+          },
+          {
+            "id": "menus",
+            "label": "Menus"
+          }
+        ]
+      },
+      {
+        "id": "signals",
+        "label": "Signals",
+        "children": [
+          {
+            "id": "loading",
+            "label": "Loading"
+          },
+          {
+            "id": "alerts",
+            "label": "Alerts"
+          },
+          {
+            "id": "notifications",
+            "label": "Notifications"
+          },
+          {
+            "id": "nav",
+            "label": "Nav"
+          }
+        ]
+      }
+    ]
+  }
+]
