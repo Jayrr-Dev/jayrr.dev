@@ -1,6 +1,8 @@
 import * as React from "react"
 import { cn } from "cn"
 
+import { ChoiceLabel } from "@/components/standard/choice-label"
+
 function RadioGroup({
   className,
   legend,
@@ -31,21 +33,28 @@ function Radio({
   label,
   description,
   invalid,
+  size = "default",
+  appearance = "default",
   ...props
-}: Omit<React.ComponentProps<"input">, "type"> & {
+}: Omit<React.ComponentProps<"input">, "type" | "size"> & {
   /** Renders a clickable label next to the circle. */
   label?: React.ReactNode
   description?: React.ReactNode
   /** Shows the error style. Same as passing aria-invalid. */
   invalid?: boolean
+  size?: "sm" | "default"
+  /** card: a bordered tile around circle and label, highlighted while checked. Needs a label. */
+  appearance?: "default" | "card"
 }) {
   const circle = (
     <input
       data-slot="radio"
+      data-size={size}
       type="radio"
       className={cn(
-        "size-4 shrink-0 accent-primary outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 aria-invalid:ring-destructive/40",
-        label ? "mt-0.5" : className
+        "shrink-0 accent-primary outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 aria-invalid:ring-destructive/40",
+        size === "sm" ? "size-3.5" : "size-4",
+        label ? (size === "sm" ? "mt-px" : "mt-0.5") : className
       )}
       {...props}
       aria-invalid={invalid || props["aria-invalid"] || undefined}
@@ -57,21 +66,15 @@ function Radio({
   }
 
   return (
-    <label
-      data-slot="radio-label"
-      className={cn(
-        "-mx-2 flex cursor-pointer items-start gap-2 rounded-md px-2 py-1.5 text-sm has-disabled:cursor-not-allowed has-disabled:opacity-50",
-        className
-      )}
-    >
-      {circle}
-      <span className="flex flex-col gap-0.5 leading-snug">
-        <span>{label}</span>
-        {description ? (
-          <span className="text-xs text-muted-foreground">{description}</span>
-        ) : null}
-      </span>
-    </label>
+    <ChoiceLabel
+      slot="radio-label"
+      className={className}
+      size={size}
+      appearance={appearance}
+      control={circle}
+      label={label}
+      description={description}
+    />
   )
 }
 

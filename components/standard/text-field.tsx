@@ -2,8 +2,11 @@
 
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { EyeIcon, EyeOffIcon, XIcon } from "lucide-react"
+import { EyeIcon, EyeOffIcon, SearchIcon, XIcon } from "lucide-react"
 import { cn } from "cn"
+
+import { Kbd } from "@/components/ui/kbd"
+import { Spinner } from "@/components/ui/spinner"
 
 const textFieldVariants = cva(
   "w-full min-w-0 text-base outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
@@ -23,6 +26,11 @@ const textFieldVariants = cva(
         sm: "",
         lg: "",
       },
+      align: {
+        start: "",
+        // Right-aligned figures line up in columns of numbers.
+        end: "text-right tabular-nums",
+      },
     },
     compoundVariants: [
       { variant: "default", size: "default", className: "h-8" },
@@ -35,39 +43,70 @@ const textFieldVariants = cva(
     defaultVariants: {
       variant: "default",
       size: "default",
+      align: "start",
     },
   }
 )
 
-type TextFieldProps = Omit<React.ComponentProps<"input">, "size"> &
+type TextFieldProps = Omit<React.ComponentProps<"input">, "size" | "prefix"> &
   VariantProps<typeof textFieldVariants> & {
     /** Floating label. Used by the filled and outlined variants. */
     label?: React.ReactNode
     /** Shows the error style. Same as passing aria-invalid. */
     invalid?: boolean
+    /** Decorative content before the text, usually an icon. Defaults to a search icon when type="search". */
+    leading?: React.ReactNode
+    /** Content after the text, usually an icon. */
+    trailing?: React.ReactNode
+    /** @deprecated Use leading */
     leadingIcon?: React.ReactNode
+    /** @deprecated Use trailing */
     trailingIcon?: React.ReactNode
-    /** Shows a clear button once the field has a value. */
+    /** Text inside the field before the value, e.g. "$" or "https://". */
+    prefix?: React.ReactNode
+    /** Text inside the field after the value, e.g. "ft" or "%". */
+    suffix?: React.ReactNode
+    /** Keyboard hint on the right, e.g. "⌘K". */
+    shortcut?: React.ReactNode
+    /** Shows a spinner in the trailing slot and marks the field busy. */
+    loading?: boolean
+    /** Shows a clear button once the field has a value. Defaults to true when type="search". */
     clearable?: boolean
     /** Adds a show/hide toggle when type="password". */
     revealable?: boolean
+    /** Classes for the wrapper that holds the adornments. Falls back onto the input when there is no wrapper. */
+    containerClassName?: string
   }
+
+/** Space between an adornment group and the text, in px. */
+const ADORNMENT_GAP = { default: 6, material: 8 }
 
 function TextField({
   className,
+  containerClassName,
   variant = "default",
   size = "default",
+  align = "start",
   type = "text",
   label,
   invalid,
+  leading: leadingProp,
+  trailing: trailingProp,
   leadingIcon,
   trailingIcon,
-  clearable = false,
+  prefix,
+  suffix,
+  shortcut,
+  loading = false,
+  clearable: clearableProp,
   revealable = false,
   ref,
   ...props
 }: TextFieldProps) {
   const inputRef = React.useRef<HTMLInputElement>(null)
+  const wrapperRef = React.useRef<HTMLDivElement>(null)
+  const leadingRef = React.useRef<HTMLSpanElement>(null)
+  const trailingRef = React.useRef<HTMLSpanElement>(null)
   const setRefs = React.useCallback(
     (node: HTMLInputElement | null) => {
       inputRef.current = node
@@ -84,6 +123,11 @@ function TextField({
   const [hasValue, setHasValue] = React.useState(
     Boolean(props.value ?? props.defaultValue)
   )
+  const isSearch = type === "search"
+  const leading =
+    leadingProp ?? leadingIcon ?? (isSearch ? <SearchIcon /> : undefined)
+  const trailing = trailingProp ?? trailingIcon
+  const clearable = clearableProp ?? isSearch
   const isControlled = props.value !== undefined
   const filled = isControlled ? String(props.value).length > 0 : hasValue
   const canReveal = revealable && type === "password"
@@ -91,7 +135,53 @@ function TextField({
   const isMaterial = variant === "filled" || variant === "outlined"
   const hasLabel = isMaterial && label != null
   const inputId = props.id ?? autoId
-  const hasTrailing = trailingIcon || clearable || canReveal
+  const hasLeading = leading != null || prefix != null
+  const hasTrailing =
+    trailing != null ||
+    suffix != null ||
+    shortcut != null ||
+    loading ||
+    clearable ||
+    canReveal
+  const hasWrapper = isMaterial || hasLeading || hasTrailing
+  const gap = isMaterial ? ADORNMENT_GAP.material : ADORNMENT_GAP.default
+
+  // Adornments vary in width ("$" vs "https://"), so measure them and pad the
+  // text past them through CSS variables on the wrapper. The padding classes
+  // below carry a close first guess until the measurement lands.
+  React.useLayoutEffect(() => {
+    const wrapper = wrapperRef.current
+    if (!wrapper || (!hasLeading && !hasTrailing)) {
+      return
+    }
+    function measure() {
+      if (!wrapper) {
+        return
+      }
+      const start = leadingRef.current
+      const end = trailingRef.current
+      if (start) {
+        wrapper.style.setProperty(
+          "--text-field-start",
+          `${start.offsetLeft + start.offsetWidth + gap}px`
+        )
+      }
+      if (end) {
+        wrapper.style.setProperty(
+          "--text-field-end",
+          `${wrapper.clientWidth - end.offsetLeft + gap}px`
+        )
+      }
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    for (const node of [wrapper, leadingRef.current, trailingRef.current]) {
+      if (node) {
+        observer.observe(node)
+      }
+    }
+    return () => observer.disconnect()
+  }, [hasLeading, hasTrailing, gap])
 
   const input = (
     <input
@@ -99,14 +189,25 @@ function TextField({
       data-slot="text-field"
       data-variant={variant}
       data-size={size}
+      data-align={align}
       type={canReveal && revealed ? "text" : type}
+      aria-busy={loading || undefined}
       className={cn(
-        textFieldVariants({ variant, size }),
-        leadingIcon && (isMaterial ? "pl-10" : "pl-8"),
-        hasTrailing && (isMaterial ? "pr-10" : "pr-8"),
-        clearable && (trailingIcon || canReveal) && "pr-16",
+        textFieldVariants({ variant, size, align }),
+        hasLeading &&
+          (isMaterial
+            ? "pl-[var(--text-field-start,2.5rem)]"
+            : "pl-[var(--text-field-start,2rem)]"),
+        hasTrailing &&
+          (isMaterial
+            ? "pr-[var(--text-field-end,2.5rem)]"
+            : "pr-[var(--text-field-end,2rem)]"),
+        isSearch &&
+          clearable &&
+          "[&::-webkit-search-cancel-button]:appearance-none",
         hasLabel &&
           "pt-4 placeholder:text-transparent focus:placeholder:text-muted-foreground",
+        !hasWrapper && containerClassName,
         className
       )}
       {...props}
@@ -121,7 +222,7 @@ function TextField({
     />
   )
 
-  if (!isMaterial && !leadingIcon && !hasTrailing) {
+  if (!hasWrapper) {
     return input
   }
 
@@ -140,28 +241,26 @@ function TextField({
     el.focus()
   }
 
-  const iconClass = size === "sm" && !isMaterial ? "size-3.5" : "size-4"
+  const small = size === "sm" && !isMaterial
+  const iconClass = small ? "size-3.5" : "size-4"
+  // Under a floating label, prefix and suffix wait until the label floats up.
+  const affixClass = cn(
+    "whitespace-nowrap text-muted-foreground",
+    small ? "text-xs" : "text-base md:text-sm",
+    // pt-4 matches the input's, so the affix sits on the value's line.
+    hasLabel && "pt-4 opacity-0 transition-opacity duration-150"
+  )
+  const affixRevealClass =
+    hasLabel &&
+    "peer-focus:*:data-[slot=text-field-affix]:opacity-100 peer-[:not(:placeholder-shown)]:*:data-[slot=text-field-affix]:opacity-100"
 
   return (
     <div
+      ref={wrapperRef}
       data-slot="text-field-wrapper"
       data-variant={variant}
-      className="relative w-full"
+      className={cn("relative w-full", containerClassName)}
     >
-      {leadingIcon ? (
-        <span
-          aria-hidden
-          className={cn(
-            "pointer-events-none absolute top-1/2 z-10 flex -translate-y-1/2 text-muted-foreground [&_svg]:shrink-0",
-            isMaterial ? "left-3" : "left-2.5",
-            size === "sm" && !isMaterial
-              ? "[&_svg:not([class*='size-'])]:size-3.5"
-              : "[&_svg:not([class*='size-'])]:size-4"
-          )}
-        >
-          {leadingIcon}
-        </span>
-      ) : null}
       {input}
       {variant === "outlined" ? (
         <fieldset
@@ -178,18 +277,44 @@ function TextField({
           </legend>
         </fieldset>
       ) : null}
+      {hasLeading ? (
+        // After the input in the DOM so it can follow the input's peer state.
+        <span
+          ref={leadingRef}
+          data-slot="text-field-leading"
+          className={cn(
+            "pointer-events-none absolute top-1/2 z-10 flex -translate-y-1/2 items-center gap-1.5 text-muted-foreground [&_svg]:shrink-0",
+            isMaterial ? "left-3" : "left-2.5",
+            small
+              ? "[&_svg:not([class*='size-'])]:size-3.5"
+              : "[&_svg:not([class*='size-'])]:size-4",
+            affixRevealClass
+          )}
+        >
+          {leading != null ? (
+            <span aria-hidden className="flex">
+              {leading}
+            </span>
+          ) : null}
+          {prefix != null ? (
+            <span data-slot="text-field-affix" className={affixClass}>
+              {prefix}
+            </span>
+          ) : null}
+        </span>
+      ) : null}
       {hasLabel ? (
         <label
           htmlFor={inputId}
           className={cn(
             "pointer-events-none absolute top-1/2 max-w-[calc(100%-1.5rem)] origin-left -translate-y-1/2 truncate text-base text-muted-foreground transition-all duration-150 md:text-sm",
             "peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:text-xs peer-aria-invalid:text-destructive peer-disabled:opacity-50",
-            leadingIcon ? "left-10" : "left-3",
+            hasLeading ? "left-[var(--text-field-start,2.5rem)]" : "left-3",
             variant === "filled"
               ? "peer-focus:top-3 peer-[:not(:placeholder-shown)]:top-3"
               : cn(
                   "peer-focus:top-0 peer-[:not(:placeholder-shown)]:top-0",
-                  leadingIcon &&
+                  hasLeading &&
                     "peer-focus:left-3 peer-[:not(:placeholder-shown)]:left-3"
                 )
           )}
@@ -199,17 +324,33 @@ function TextField({
       ) : null}
       {hasTrailing ? (
         <span
+          ref={trailingRef}
+          data-slot="text-field-trailing"
           className={cn(
-            "absolute top-1/2 z-10 flex -translate-y-1/2 items-center gap-0.5",
-            isMaterial ? "right-2" : "right-1"
+            "pointer-events-none absolute top-1/2 z-10 flex -translate-y-1/2 items-center gap-0.5",
+            isMaterial ? "right-2" : "right-1",
+            affixRevealClass
           )}
         >
+          {suffix != null ? (
+            <span
+              data-slot="text-field-affix"
+              className={cn(affixClass, "px-1.5")}
+            >
+              {suffix}
+            </span>
+          ) : null}
+          {loading ? (
+            <span className="flex size-6 items-center justify-center text-muted-foreground">
+              <Spinner className={iconClass} />
+            </span>
+          ) : null}
           {clearable && filled && !props.disabled && !props.readOnly ? (
             <button
               type="button"
-              aria-label="Clear"
+              aria-label={isSearch ? "Clear search" : "Clear"}
               onClick={clear}
-              className="flex size-6 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="pointer-events-auto flex size-6 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
             >
               <XIcon aria-hidden className={iconClass} />
             </button>
@@ -221,7 +362,7 @@ function TextField({
               aria-pressed={revealed}
               disabled={props.disabled}
               onClick={() => setRevealed((current) => !current)}
-              className="flex size-6 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none"
+              className="pointer-events-auto flex size-6 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none"
             >
               {revealed ? (
                 <EyeOffIcon aria-hidden className={iconClass} />
@@ -229,13 +370,22 @@ function TextField({
                 <EyeIcon aria-hidden className={iconClass} />
               )}
             </button>
-          ) : trailingIcon ? (
+          ) : trailing != null ? (
             <span
-              aria-hidden
-              className="pointer-events-none flex size-6 items-center justify-center text-muted-foreground [&_svg:not([class*='size-'])]:size-4"
+              // The deprecated trailingIcon is always decorative; trailing may be interactive.
+              aria-hidden={trailingProp == null || undefined}
+              className={cn(
+                "flex min-w-6 items-center justify-center text-muted-foreground [&_svg:not([class*='size-'])]:size-4",
+                trailingProp != null && "pointer-events-auto"
+              )}
             >
-              {trailingIcon}
+              {trailing}
             </span>
+          ) : null}
+          {shortcut != null ? (
+            <Kbd data-slot="text-field-shortcut" className="mr-1">
+              {shortcut}
+            </Kbd>
           ) : null}
         </span>
       ) : null}

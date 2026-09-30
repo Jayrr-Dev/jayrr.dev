@@ -36,6 +36,31 @@ export function RendersCheckboxDemo() {
       <RendersDemoCard label="invalid">
         <Checkbox label="I accept the terms" invalid />
       </RendersDemoCard>
+      <RendersDemoCard label="size sm">
+        <Checkbox
+          size="sm"
+          label="Show archived"
+          description="Hidden by default."
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="indeterminate">
+        <Checkbox label="Select all" indeterminate />
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance card">
+        <div className="grid w-full gap-2">
+          <Checkbox
+            appearance="card"
+            label="Nightly backup"
+            description="Copies every job at 2 am."
+            defaultChecked
+          />
+          <Checkbox
+            appearance="card"
+            label="Weekly report"
+            description="Emailed Monday morning."
+          />
+        </div>
+      </RendersDemoCard>
     </>
   )
 }

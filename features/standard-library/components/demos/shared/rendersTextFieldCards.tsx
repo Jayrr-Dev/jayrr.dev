@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchIcon } from "lucide-react"
+import { AtSignIcon, CircleCheckIcon, SearchIcon } from "lucide-react"
 
 import { TextField } from "@/components/standard/text-field"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
@@ -60,6 +60,84 @@ export function RendersTextFieldCards() {
           revealable
           invalid
         />
+      </RendersDemoCard>
+      <RendersDemoCard label="leading · trailing">
+        <TextField
+          aria-label="Username"
+          placeholder="username"
+          leading={<AtSignIcon />}
+          trailing={<CircleCheckIcon className="size-4 text-emerald-600" />}
+          defaultValue="sam"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="prefix $">
+        <TextField
+          aria-label="Price"
+          inputMode="decimal"
+          prefix="$"
+          defaultValue="1,250.00"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="suffix ft">
+        <TextField
+          aria-label="Run length"
+          inputMode="decimal"
+          suffix="ft"
+          defaultValue="120"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="prefix · suffix">
+        <TextField
+          aria-label="Site"
+          prefix="https://"
+          suffix=".com"
+          defaultValue="jayrr"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="type search">
+        <TextField
+          type="search"
+          aria-label="Search jobs"
+          placeholder="Search jobs"
+          defaultValue="Main st"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="shortcut">
+        <TextField
+          type="search"
+          aria-label="Search"
+          placeholder="Search"
+          shortcut="⌘K"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="align end">
+        <TextField
+          aria-label="Quantity"
+          inputMode="decimal"
+          align="end"
+          suffix="ea"
+          defaultValue="1,024"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="loading">
+        <TextField
+          aria-label="Address"
+          placeholder="Looking up address…"
+          defaultValue="42 Main st"
+          loading
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="filled · prefix · suffix">
+        <TextField
+          variant="filled"
+          label="Budget"
+          prefix="$"
+          suffix="USD"
+          defaultValue="4,800"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="outlined · type search">
+        <TextField variant="outlined" label="Search" type="search" />
       </RendersDemoCard>
     </>
   )
