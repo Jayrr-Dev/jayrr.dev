@@ -2,6 +2,9 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
+import { Heading } from "@/components/standard/heading"
+import { Paragraph } from "@/components/standard/paragraph"
+
 // Page-level layout. Header, aside and footer sit at the reading measure;
 // ArticleContent is a breakout grid so figures and sections can step out to
 // "wide" or "full" width. Sidebar layouts only kick in once the container
@@ -82,27 +85,21 @@ function ArticleEyebrow({ className, ...props }: React.ComponentProps<"p">) {
   )
 }
 
+// Title and lead are Heading / Paragraph with the article's own weight and
+// the larger title size once the container reaches @2xl.
 function ArticleTitle({ className, ...props }: React.ComponentProps<"h1">) {
   return (
-    <h1
+    <Heading
+      level={1}
       data-slot="article-title"
-      className={cn(
-        "scroll-m-20 text-4xl font-semibold tracking-tight text-balance @2xl:text-5xl",
-        className
-      )}
+      className={cn("font-semibold @2xl:text-5xl", className)}
       {...props}
     />
   )
 }
 
-function ArticleLead({ className, ...props }: React.ComponentProps<"p">) {
-  return (
-    <p
-      data-slot="article-lead"
-      className={cn("text-xl text-pretty text-muted-foreground", className)}
-      {...props}
-    />
-  )
+function ArticleLead(props: React.ComponentProps<"p">) {
+  return <Paragraph size="lead" data-slot="article-lead" {...props} />
 }
 
 function ArticleMeta({ className, ...props }: React.ComponentProps<"div">) {

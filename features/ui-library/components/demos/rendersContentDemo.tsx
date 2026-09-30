@@ -1,8 +1,24 @@
 "use client"
 
+import { Caption } from "@/components/standard/caption"
+import { Code } from "@/components/standard/code"
+import { Heading } from "@/components/standard/heading"
+import { Paragraph } from "@/components/standard/paragraph"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
 
 import { RendersDemoCard } from "./rendersDemoCard"
+
+const longHeading =
+  "The king's joke tax, and why the treasury stayed empty long after every jester had left town"
+
+const longParagraph =
+  "The king thought long and hard, and finally came up with a brilliant plan: he would tax the jokes in the kingdom. Jokesters paid a gold coin per joke, so people stopped telling them, the laughter faded, and the treasury stayed as empty as before."
+
+const blockSnippet = `import { Code } from "@/components/standard/code"
+
+export function Example() {
+  return <Code variant="block" copyable>npx shadcn@latest add https://example.com/r/code.json --overwrite</Code>
+}`
 
 export function RendersContentDemo({
   pieceName,
@@ -13,19 +29,28 @@ export function RendersContentDemo({
     return (
       <>
         <RendersDemoCard>
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
-            Taxing Laughter
-          </h1>
+          <Heading level={1}>Taxing Laughter</Heading>
         </RendersDemoCard>
         <RendersDemoCard>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">
-            The King&apos;s Plan
-          </h2>
+          <Heading level={2}>The King&apos;s Plan</Heading>
         </RendersDemoCard>
         <RendersDemoCard>
-          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          <Heading level={3}>The Joke Tax</Heading>
+        </RendersDemoCard>
+        <RendersDemoCard label="tone muted">
+          <Heading level={3} tone="muted">
             The Joke Tax
-          </h3>
+          </Heading>
+        </RendersDemoCard>
+        <RendersDemoCard label="lineClamp 2">
+          <Heading level={3} lineClamp={2}>
+            {longHeading}
+          </Heading>
+        </RendersDemoCard>
+        <RendersDemoCard label="truncate">
+          <Heading level={3} truncate className="w-full">
+            {longHeading}
+          </Heading>
         </RendersDemoCard>
       </>
     )
@@ -35,20 +60,36 @@ export function RendersContentDemo({
     return (
       <>
         <RendersDemoCard>
-          <p className="text-xl text-muted-foreground">
+          <Paragraph size="lead">
             A far-off land ran out of money, so the king taxed the jokes.
-          </p>
+          </Paragraph>
         </RendersDemoCard>
         <RendersDemoCard>
-          <p className="leading-7">
+          <Paragraph>
             The king thought long and hard, and finally came up with a
             brilliant plan.
-          </p>
+          </Paragraph>
         </RendersDemoCard>
         <RendersDemoCard>
-          <p className="text-sm text-muted-foreground">
+          <Paragraph size="muted">
             People stopped telling jokes. The treasury stayed empty.
-          </p>
+          </Paragraph>
+        </RendersDemoCard>
+        <RendersDemoCard label="size sm">
+          <Paragraph size="sm">Sep 22, 2026 · 8.0 h</Paragraph>
+        </RendersDemoCard>
+        <RendersDemoCard label="tone muted">
+          <Paragraph tone="muted">
+            The jesters packed up and left for the next kingdom over.
+          </Paragraph>
+        </RendersDemoCard>
+        <RendersDemoCard label="lineClamp 2">
+          <Paragraph lineClamp={2}>{longParagraph}</Paragraph>
+        </RendersDemoCard>
+        <RendersDemoCard label="truncate">
+          <Paragraph truncate className="w-full">
+            {longParagraph}
+          </Paragraph>
         </RendersDemoCard>
       </>
     )
@@ -58,14 +99,16 @@ export function RendersContentDemo({
     return (
       <>
         <RendersDemoCard>
-          <p className="text-sm text-muted-foreground">
-            Figure 1. The joke tax in one line.
-          </p>
+          <Caption>Figure 1. The joke tax in one line.</Caption>
         </RendersDemoCard>
         <RendersDemoCard>
-          <p className="text-xs tracking-wide text-muted-foreground uppercase">
-            Posted yesterday
-          </p>
+          <Caption tone="uppercase">Posted yesterday</Caption>
+        </RendersDemoCard>
+        <RendersDemoCard label="tone muted">
+          <Caption tone="muted">Last edited 3 minutes ago</Caption>
+        </RendersDemoCard>
+        <RendersDemoCard label="tone danger">
+          <Caption tone="danger">That joke is already taxed.</Caption>
         </RendersDemoCard>
       </>
     )
@@ -75,15 +118,21 @@ export function RendersContentDemo({
     return (
       <>
         <RendersDemoCard>
-          <code className="relative rounded bg-muted px-2 py-1 font-mono text-sm">
-            npx shadcn add button
-          </code>
+          <Code>npx shadcn add button</Code>
         </RendersDemoCard>
         <RendersDemoCard>
           <KbdGroup>
             <Kbd>Ctrl</Kbd>
             <Kbd>K</Kbd>
           </KbdGroup>
+        </RendersDemoCard>
+        <RendersDemoCard label="Code block">
+          <Code variant="block">{blockSnippet}</Code>
+        </RendersDemoCard>
+        <RendersDemoCard label="Code block copyable">
+          <Code variant="block" copyable>
+            {blockSnippet}
+          </Code>
         </RendersDemoCard>
       </>
     )

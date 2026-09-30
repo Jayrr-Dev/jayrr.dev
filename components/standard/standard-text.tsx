@@ -1,17 +1,10 @@
 import * as React from "react"
-import { cn } from "cn"
 
-function StandardText({
-  className,
-  ...props
-}: React.ComponentProps<"p">) {
-  return (
-    <p
-      data-slot="standard-text"
-      className={cn("text-sm leading-relaxed", className)}
-      {...props}
-    />
-  )
+import { Paragraph } from "@/components/standard/paragraph"
+
+/** @deprecated Use <Paragraph size="sm"> */
+function StandardText(props: React.ComponentProps<"p">) {
+  return <Paragraph data-slot="standard-text" size="sm" {...props} />
 }
 
 export { StandardText }
