@@ -32,6 +32,7 @@ function ScrollHorizontalButton({
   speedPxPerFrame = DEFAULT_SPEED_PX_PER_FRAME,
   holdDelayMs = DEFAULT_HOLD_DELAY_MS,
   size = "default",
+  showsInstructions = false,
 }: {
   className?: string
   direction: "left" | "right"
@@ -45,6 +46,7 @@ function ScrollHorizontalButton({
   speedPxPerFrame?: number
   holdDelayMs?: number
   size?: "default" | "strip"
+  showsInstructions?: boolean
 }) {
   const rafRef = React.useRef<number | null>(null)
   const delayRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -160,35 +162,43 @@ function ScrollHorizontalButton({
     }
   }, [])
 
+  const button = (
+    <button
+      type="button"
+      data-slot="scroll-horizontal-button"
+      data-pressed={pressed ? "" : undefined}
+      className={cn(
+        BASE_CLASS,
+        usesStripSize ? "p-2" : "p-1",
+        className
+      )}
+      onClick={handleClick}
+      onPointerDown={startContinuousScroll}
+      onPointerUp={stopContinuousScroll}
+      onPointerLeave={stopContinuousScroll}
+      onPointerCancel={stopContinuousScroll}
+      onDoubleClick={handleDoubleClick}
+      aria-label={label}
+    >
+      {direction === "left" ? (
+        <ChevronLeftIcon
+          className={usesStripSize ? "size-5" : "size-4"}
+        />
+      ) : (
+        <ChevronRightIcon
+          className={usesStripSize ? "size-5" : "size-4"}
+        />
+      )}
+    </button>
+  )
+
+  if (!showsInstructions) {
+    return button
+  }
+
   return (
     <Tooltip label={label} body={label}>
-      <button
-        type="button"
-        data-slot="scroll-horizontal-button"
-        data-pressed={pressed ? "" : undefined}
-        className={cn(
-          BASE_CLASS,
-          usesStripSize ? "p-2" : "p-1",
-          className
-        )}
-        onClick={handleClick}
-        onPointerDown={startContinuousScroll}
-        onPointerUp={stopContinuousScroll}
-        onPointerLeave={stopContinuousScroll}
-        onPointerCancel={stopContinuousScroll}
-        onDoubleClick={handleDoubleClick}
-        aria-label={label}
-      >
-        {direction === "left" ? (
-          <ChevronLeftIcon
-            className={usesStripSize ? "size-5" : "size-4"}
-          />
-        ) : (
-          <ChevronRightIcon
-            className={usesStripSize ? "size-5" : "size-4"}
-          />
-        )}
-      </button>
+      {button}
     </Tooltip>
   )
 }

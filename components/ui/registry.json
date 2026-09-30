@@ -611,6 +611,22 @@
       ]
     },
     {
+      "name": "math",
+      "type": "registry:ui",
+      "title": "Math",
+      "description": "Renders LaTeX formulas with KaTeX, inline or as a display block.",
+      "files": [
+        {
+          "path": "math.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "katex"
+      ]
+    },
+    {
       "name": "menubar",
       "type": "registry:ui",
       "title": "Menubar",

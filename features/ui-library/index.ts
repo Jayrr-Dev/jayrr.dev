@@ -1,8 +1,8 @@
 export { RendersGalleryPieceDemos } from "./components/demos/rendersGalleryPieceDemos"
 export {
+  findComponent,
   findPiece,
-  findStyle,
-  gallerySections,
-  galleryStyles,
+  galleryBuckets,
+  galleryComponents,
   toPieceSlug,
 } from "./domain/catalog/definesGalleryCatalog"

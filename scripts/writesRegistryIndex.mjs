@@ -33,10 +33,21 @@ function titleFrom(name) {
     .join(" ")
 }
 
-function analyze(filePath) {
+// A Standard import with only a .ts file (e.g. data-grid-model.ts) is a helper,
+// not a registry item, so it ships as an extra file of the item importing it.
+function standardHelperFor(spec) {
+  const base = path.basename(spec).replace(/\.(tsx|ts)$/, "")
+  const helper = path.join("components/standard", `${base}.ts`)
+  const isItem = fs.existsSync(path.join("components/standard", `${base}.tsx`))
+
+  return !isItem && fs.existsSync(helper) ? helper : null
+}
+
+function analyze(filePath, seen = new Set([filePath])) {
   const text = fs.readFileSync(filePath, "utf8")
   const deps = new Set()
   const registry = new Set()
+  const helpers = new Set()
   const importRe = /from\s+["']([^"']+)["']/g
   let match = importRe.exec(text)
 
@@ -46,7 +57,19 @@ function analyze(filePath) {
     if (spec.startsWith("@/components/ui/") || spec.startsWith("@/hooks/")) {
       registry.add(path.basename(spec).replace(/\.(tsx|ts)$/, ""))
     } else if (spec.startsWith("@/components/standard/")) {
-      registry.add(standardNameFor(path.basename(spec).replace(/\.(tsx|ts)$/, "")))
+      const helper = standardHelperFor(spec)
+
+      if (helper && !seen.has(helper)) {
+        seen.add(helper)
+        helpers.add(helper)
+        // The helper's own imports belong to this item too.
+        const nested = analyze(helper, seen)
+        nested.dependencies.forEach((dep) => deps.add(dep))
+        nested.registryNames.forEach((name) => registry.add(name))
+        nested.helpers.forEach((file) => helpers.add(file))
+      } else if (!helper) {
+        registry.add(standardNameFor(path.basename(spec).replace(/\.(tsx|ts)$/, "")))
+      }
     } else if (
       !spec.startsWith(".") &&
       !spec.startsWith("@/") &&
@@ -66,8 +89,10 @@ function analyze(filePath) {
 
   return {
     dependencies: [...deps].sort(),
+    registryNames: [...registry],
     // Bare names resolve against ui.shadcn.com, so point at this registry explicitly.
     registryDependencies: [...registry].sort().map((name) => `@jayrr/${name}`),
+    helpers: [...helpers].sort(),
   }
 }
 
@@ -93,7 +118,14 @@ function item(name, file, type, libraryName, title, options = {}) {
     title: displayTitle,
     description: `${displayTitle} from the ${libraryName} library.`,
     ...kept,
-    files: [registryFile],
+    files: [
+      registryFile,
+      ...found.helpers.map((helper) => ({
+        path: path.basename(helper),
+        type: "registry:lib",
+        target: helper.split(path.sep).join("/"),
+      })),
+    ],
   }
 
   if (found.dependencies.length > 0) {

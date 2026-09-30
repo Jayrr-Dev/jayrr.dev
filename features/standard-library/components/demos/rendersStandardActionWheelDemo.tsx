@@ -133,7 +133,8 @@ export function RendersActionWheelContextDemo() {
   return (
     <ActionWheelContextMenu
       label="Actions"
-      items={WHEEL_ITEMS}
+      items={NESTED_ITEMS}
+      submenuTrigger="hover"
       className="flex h-72 w-full items-center justify-center rounded-lg border border-dashed border-border text-xs text-muted-foreground select-none"
     >
       Right-click anywhere here
@@ -144,7 +145,10 @@ export function RendersActionWheelContextDemo() {
 export function RendersStandardActionWheelDemo() {
   return (
     <>
-      <RendersDemoCard label="right-click · context menu" className="w-full">
+      <RendersDemoCard
+        label="right-click · context menu, hover Explore AI"
+        className="w-full"
+      >
         <RendersActionWheelContextDemo />
       </RendersDemoCard>
       <RendersDemoCard label="actions ring · logi options+" className="w-full">

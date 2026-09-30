@@ -12,7 +12,10 @@ import { DatePicker, MultiSelect, Select } from "@/components/standard/select"
 import { TimePicker, TimePickerPanel } from "@/components/standard/time-picker"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
-import { RendersFilterSelectDemo } from "./rendersStandardSelectDemo"
+import {
+  RendersFilterSelectDemo,
+  RendersMillerSelectDemo,
+} from "./rendersStandardSelectDemo"
 
 /** Events placed relative to today so the strip always has something nearby. */
 const CALENDAR_EVENT_OFFSETS: [number, DialslideEvent][] = [
@@ -185,6 +188,10 @@ export function RendersStandardPickerDemo({
 }) {
   if (pieceName === "Filter Select") {
     return <RendersFilterSelectDemo />
+  }
+
+  if (pieceName === "Miller Select") {
+    return <RendersMillerSelectDemo />
   }
 
   if (pieceName === "Date Picker" || pieceName === "Calendar") {

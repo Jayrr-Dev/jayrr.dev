@@ -1110,6 +1110,17 @@ const icons = {
       <rect x="8" y="40" width="28" height="16" rx="3" opacity=".35" />
     </>
   ),
+  "App Grid": (
+    <>
+      <rect x="8" y="8" width="22" height="22" rx="4" />
+      <rect x="34" y="8" width="22" height="22" rx="4" />
+      <rect x="8" y="34" width="22" height="22" rx="4" opacity=".6" />
+      <rect x="34" y="34" width="9" height="9" rx="2" opacity=".45" />
+      <rect x="47" y="34" width="9" height="9" rx="2" opacity=".45" />
+      <rect x="34" y="47" width="9" height="9" rx="2" opacity=".45" />
+      <rect x="47" y="47" width="9" height="9" rx="2" opacity=".45" />
+    </>
+  ),
   "Card Bar": (
     <>
       <rect x="10" y="16" width="44" height="32" rx="5" />

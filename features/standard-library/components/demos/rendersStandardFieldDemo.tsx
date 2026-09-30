@@ -317,7 +317,7 @@ export function RendersStandardFieldDemo({ pieceName }: { pieceName: string }) {
     )
   }
 
-  if (pieceName === "Input Otp") {
+  if (pieceName === "Input OTP") {
     return (
       <>
         <RendersDemoCard label="Input otp">

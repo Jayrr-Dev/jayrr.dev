@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 
-import { findStandardCatalogEntry } from "@/features/standard-library/domain/catalog/definesStandardCatalog"
+import { findComponent } from "@/features/ui-library/domain/catalog/definesGalleryCatalog"
 
 import { RendersStandardBadgeDemo } from "./demos/rendersStandardBadgeDemo"
 import { RendersStandardButtonDemo } from "./demos/rendersStandardButtonDemo"
@@ -14,13 +14,20 @@ import { RendersStandardPickerDemo } from "./demos/rendersStandardPickerDemo"
 import { RendersStandardSignalDemo } from "./demos/rendersStandardSignalDemo"
 import { RendersStandardToggleDemo } from "./demos/rendersStandardToggleDemo"
 
-const BADGE_ICON_NAMES = new Set(["Info Icon", "Question Icon", "Kbd"])
-
-const FIELD_OVERRIDES = new Set(["Standard Toolbar Search Cluster"])
-
-const BADGE_OVERRIDES = new Set(["Badge Icon"])
-
 type StandardDemo = (props: { pieceName: string }) => ReactNode
+
+/** Keyed by `standard_demo` in galleryComponents.json. */
+const STANDARD_DEMOS: Record<string, StandardDemo> = {
+  badge: RendersStandardBadgeDemo,
+  button: RendersStandardButtonDemo,
+  content: RendersStandardContentDemo,
+  cursor: RendersStandardCursorDemo,
+  field: RendersStandardFieldDemo,
+  overlay: RendersStandardOverlayDemo,
+  picker: RendersStandardPickerDemo,
+  signal: RendersStandardSignalDemo,
+  toggle: RendersStandardToggleDemo,
+}
 
 export function RendersStandardLibraryDemo({
   pieceName,
@@ -33,49 +40,6 @@ export function RendersStandardLibraryDemo({
 
 /** Picks the demo for a Standard piece. Every demo here is hook-free. */
 export function resolvesStandardDemo(pieceName: string): StandardDemo {
-  if (BADGE_ICON_NAMES.has(pieceName) || BADGE_OVERRIDES.has(pieceName)) {
-    return RendersStandardBadgeDemo
-  }
-
-  const entry = findStandardCatalogEntry(pieceName)
-  const category = entry?.category_key ?? "text"
-  const section = entry?.section_key ?? "content"
-
-  if (pieceName === "Standard Toolbar Search Cluster") {
-    return RendersStandardSignalDemo
-  }
-
-  if (category === "buttons" || category === "icons") {
-    return RendersStandardButtonDemo
-  }
-
-  if (category === "fields") {
-    return RendersStandardFieldDemo
-  }
-
-  if (category === "pickers" || category === "scroll") {
-    return RendersStandardPickerDemo
-  }
-
-  if (category === "cursor") {
-    return RendersStandardCursorDemo
-  }
-
-  if (category === "toggles") {
-    return RendersStandardToggleDemo
-  }
-
-  if (category === "badges") {
-    return RendersStandardBadgeDemo
-  }
-
-  if (section === "overlays") {
-    return RendersStandardOverlayDemo
-  }
-
-  if (section === "signals") {
-    return RendersStandardSignalDemo
-  }
-
-  return RendersStandardContentDemo
+  const key = findComponent(pieceName)?.standard_demo ?? "content"
+  return STANDARD_DEMOS[key] ?? RendersStandardContentDemo
 }

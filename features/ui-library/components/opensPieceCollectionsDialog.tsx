@@ -12,13 +12,13 @@ import { RendersGalleryPieceDemos } from "./demos/rendersGalleryPieceDemos"
 
 export function OpensPieceCollectionsDialog({
   pieceName,
-  styleName,
+  bucketName,
   categoryName,
   open,
   onOpenChange,
 }: {
   pieceName: string | null
-  styleName: string
+  bucketName: string
   categoryName: string
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -31,14 +31,11 @@ export function OpensPieceCollectionsDialog({
             {pieceName ? `${pieceName} Collections` : "Collections"}
           </DialogTitle>
           <DialogDescription>
-            {styleName} · {categoryName}
+            {bucketName} · {categoryName}
           </DialogDescription>
         </DialogHeader>
         {pieceName ? (
-          <RendersGalleryPieceDemos
-            pieceName={pieceName}
-            styleName={styleName}
-          />
+          <RendersGalleryPieceDemos pieceName={pieceName} />
         ) : null}
       </DialogContent>
     </Dialog>

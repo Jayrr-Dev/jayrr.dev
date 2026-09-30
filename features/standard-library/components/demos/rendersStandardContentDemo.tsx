@@ -24,11 +24,14 @@ import { Chart } from "@/components/standard/chart"
 import { Progress } from "@/components/standard/progress"
 import { Resizable } from "@/components/standard/resizable"
 import { Divider } from "@/components/standard/divider"
+import { Math as MathFormula } from "@/components/ui/math"
 import { Row } from "@/components/standard/row"
 import { Stack } from "@/components/standard/stack"
 import { ChevronRightIcon, ClockIcon, PlayIcon } from "lucide-react"
 import { RendersStandardArticleDemo } from "@/features/standard-library/components/demos/rendersStandardArticleDemo"
+import { RendersStandardAppGridDemo } from "@/features/standard-library/components/demos/rendersStandardAppGridDemo"
 import { RendersStandardBentoGridDemo } from "@/features/standard-library/components/demos/rendersStandardBentoGridDemo"
+import { RendersStandardDataGridDemo } from "@/features/standard-library/components/demos/rendersStandardDataGridDemo"
 import {
   RendersStandardGridDemo,
   RendersStandardHybridDemo,
@@ -325,6 +328,10 @@ export function RendersStandardContentDemo({
     return <RendersStandardBentoGridDemo />
   }
 
+  if (pieceName === "App Grid") {
+    return <RendersStandardAppGridDemo />
+  }
+
   if (pieceName === "Progress") {
     return (
       <>
@@ -459,6 +466,10 @@ export function RendersStandardContentDemo({
     return <RendersStandardTableDemo />
   }
 
+  if (pieceName === "Data Grid") {
+    return <RendersStandardDataGridDemo />
+  }
+
   if (pieceName === "Sticky Table") {
     return <RendersStandardTableDemo mode="sticky" />
   }
@@ -497,17 +508,48 @@ export function RendersStandardContentDemo({
     )
   }
 
+  if (pieceName === "Math") {
+    return (
+      <>
+        <RendersDemoCard label="display · quadratic formula">
+          <MathFormula display tex={String.raw`x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}`} />
+        </RendersDemoCard>
+        <RendersDemoCard label="display · gaussian integral">
+          <MathFormula display tex={String.raw`\int_0^{\infty} e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}`} />
+        </RendersDemoCard>
+        <RendersDemoCard label="display · series">
+          <MathFormula display tex={String.raw`\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}`} />
+        </RendersDemoCard>
+        <RendersDemoCard label="display · matrix">
+          <MathFormula
+            display
+            tex={String.raw`\det \begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc`}
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="inline">
+          <p className="text-sm">
+            Euler&apos;s identity <MathFormula tex={String.raw`e^{i\pi} + 1 = 0`} /> ties
+            together five constants, and <MathFormula tex={String.raw`E = mc^2`} /> fits
+            in a sentence.
+          </p>
+        </RendersDemoCard>
+        <RendersDemoCard label="invalid tex · shown in red">
+          <MathFormula display tex={String.raw`\frac{1}{`} />
+        </RendersDemoCard>
+      </>
+    )
+  }
+
   if (
     pieceName === "Standard Text" ||
     pieceName === "Standard Cell Text" ||
-    pieceName === "Math" ||
     pieceName === "Vacation Hours Display" ||
     pieceName === "Standard Date Format"
   ) {
     const sample =
       pieceName === "Standard Date Format"
         ? "Sep 22, 2026"
-        : pieceName === "Vacation Hours Display" || pieceName === "Math"
+        : pieceName === "Vacation Hours Display"
           ? "8.0 h"
           : "Sep 22, 2026 · 8.0 h"
     return (

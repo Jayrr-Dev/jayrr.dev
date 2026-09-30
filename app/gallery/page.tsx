@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
-import { StyleGallery } from "@/components/style-gallery"
+import { BucketGallery } from "@/components/bucket-gallery"
 
 export const metadata: Metadata = {
   title: "Gallery · jayrr.dev",
-  description: "Design system gallery grouped by section, category, and piece.",
+  description: "Design system gallery grouped by bucket, category, and piece.",
 }
 
 export default function GalleryPage() {
@@ -22,7 +22,7 @@ export default function GalleryPage() {
           <h1 className="text-3xl font-medium tracking-tight">Gallery</h1>
         </div>
 
-        <StyleGallery />
+        <BucketGallery />
       </div>
     </main>
   )

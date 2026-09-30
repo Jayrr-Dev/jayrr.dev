@@ -4,6 +4,7 @@ import { Children, Fragment, isValidElement, type ReactNode } from "react"
 
 import { Masonry } from "@/components/ui/masonry"
 import { resolvesStandardDemo } from "@/features/standard-library"
+import { findComponent } from "@/features/ui-library/domain/catalog/definesGalleryCatalog"
 
 import { RendersActionDemo } from "./rendersActionDemo"
 import { RendersChartDemo } from "./rendersChartDemo"
@@ -20,15 +21,12 @@ import { RendersShadcnLibraryDemo } from "./rendersShadcnLibraryDemo"
 import { RendersSurfaceDemo } from "./rendersSurfaceDemo"
 import { RendersTypePropCards } from "./rendersTypePropCards"
 
-export function RendersGalleryPieceDemos({
-  pieceName,
-  styleName = "Classic",
-}: {
-  pieceName: string
-  styleName?: string
-}) {
-  const demos =
-    styleName === "Standard" ? [resolvesStandardDemo(pieceName)] : classicDemos
+export function RendersGalleryPieceDemos({ pieceName }: { pieceName: string }) {
+  const sets = findComponent(pieceName)?.demos ?? ["classic"]
+  const demos = [
+    ...(sets.includes("classic") ? classicDemos : []),
+    ...(sets.includes("standard") ? [resolvesStandardDemo(pieceName)] : []),
+  ]
 
   // Called as plain functions (they hold no hooks) so Masonry receives the
   // individual demo cards from each fragment instead of one opaque element.
@@ -40,7 +38,7 @@ export function RendersGalleryPieceDemos({
     // min-w-0: the dialog body is a grid, and wide scrollers would otherwise
     // stretch its column to their full content width.
     return (
-      <div className="flex w-full max-w-xl min-w-0 flex-col gap-3 has-data-fill:max-w-none">
+      <div className="flex w-full min-w-0 flex-col gap-3">
         {cards}
       </div>
     )

@@ -613,6 +613,22 @@
       "type": "registry:ui"
     },
     {
+      "name": "math",
+      "title": "Math",
+      "description": "Renders LaTeX formulas with KaTeX, inline or as a display block.",
+      "dependencies": [
+        "cn",
+        "katex"
+      ],
+      "files": [
+        {
+          "path": "components/ui/math.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "menubar",
       "title": "Menubar",
       "description": "Menubar from the Classic library.",
@@ -1238,6 +1254,23 @@
       "type": "registry:ui"
     },
     {
+      "name": "app-grid",
+      "title": "App Grid",
+      "description": "Launcher grid of folders after the Windows 11 Start menu: each tile shows a 2x2 of items, and a mini cluster in the fourth slot opens the full folder.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/standard/app-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/app-grid.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "article",
       "title": "Article",
       "description": "Flexible article layout: single column or sidebar/sidebar-start page layouts, a breakout content grid with wide/full-bleed figures, split sections, header, aside and footer parts, and automatic prose styles for plain markup.",
@@ -1648,6 +1681,35 @@
       "type": "registry:ui"
     },
     {
+      "name": "data-grid",
+      "title": "Data Grid",
+      "description": "Data Grid from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-badge",
+        "@jayrr/standard-button",
+        "@jayrr/standard-checkbox",
+        "@jayrr/standard-select"
+      ],
+      "files": [
+        {
+          "path": "components/standard/data-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-grid.tsx"
+        },
+        {
+          "path": "components/standard/data-grid-model.ts",
+          "type": "registry:lib",
+          "target": "components/standard/data-grid-model.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-dialog",
       "title": "Dialog",
       "description": "Dialog from the Standard library.",
@@ -1754,7 +1816,6 @@
       "registryDependencies": [
         "@jayrr/badge-select",
         "@jayrr/standard-badge",
-        "@jayrr/standard-checkbox",
         "@jayrr/standard-popover",
         "@jayrr/use-mobile"
       ],
@@ -1953,6 +2014,29 @@
           "path": "components/standard/menu.tsx",
           "type": "registry:ui",
           "target": "components/standard/menu.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "miller-select",
+      "title": "Miller Select",
+      "description": "Miller Select from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-checkbox",
+        "@jayrr/standard-popover",
+        "@jayrr/use-mobile"
+      ],
+      "files": [
+        {
+          "path": "components/standard/miller-select.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/miller-select.tsx"
         }
       ],
       "type": "registry:ui"

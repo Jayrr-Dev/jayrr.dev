@@ -36,6 +36,8 @@ const ARC_DIRECTION_DEGREES: Record<ActionWheelDirection, number> = {
 }
 
 export type ActionWheelLabels = "always" | "hover" | "none"
+/** `click` toggles a nested arc; `hover` also opens it when the mouse rests on its parent. */
+export type ActionWheelSubmenuTrigger = "click" | "hover"
 
 export type ActionWheelItem = {
   label: string
@@ -112,6 +114,7 @@ function ActionWheel({
   size = "default",
   tone = "solid",
   labels = "always",
+  submenuTrigger = "click",
   radius: radiusProp,
   variant = "wheel",
   direction = "up",
@@ -130,6 +133,8 @@ function ActionWheel({
   size?: ActionWheelSize
   tone?: ActionWheelTone
   labels?: ActionWheelLabels
+  /** How nested actions open. Touch and keyboard always open on click. */
+  submenuTrigger?: ActionWheelSubmenuTrigger
   /** Distance in px from the center to each action's center. */
   radius?: number
   variant?: ActionWheelVariant
@@ -172,9 +177,24 @@ function ActionWheel({
   const triggerSize = compactTrigger ? metrics.trigger : metrics.item
 
   const [expanded, setExpanded] = React.useState<number | null>(null)
+  const hoverRef = React.useRef<number | undefined>(undefined)
+
+  React.useEffect(() => () => window.clearTimeout(hoverRef.current), [])
+
+  // A short rest before switching, so sweeping across the ring to reach an
+  // outer action does not flicker through every submenu on the way.
+  function expandsOnHover(event: React.PointerEvent, next: number | null) {
+    if (submenuTrigger !== "hover" || event.pointerType !== "mouse") {
+      return
+    }
+
+    window.clearTimeout(hoverRef.current)
+    hoverRef.current = window.setTimeout(() => setExpanded(next), 120)
+  }
 
   const setOpen = React.useCallback(
     (next: boolean) => {
+      window.clearTimeout(hoverRef.current)
       setOpenState(next)
       setExpanded(null)
       onOpenChange?.(next)
@@ -295,6 +315,7 @@ function ActionWheel({
     labelHidden = false,
     parent = false,
     onActivate,
+    onHover,
   }: {
     item: ActionWheelItem
     slotKey: string
@@ -308,6 +329,7 @@ function ActionWheel({
     labelHidden?: boolean
     parent?: boolean
     onActivate: () => void
+    onHover?: (event: React.PointerEvent) => void
   }) {
     const { sin, cos, distance } = at
     const isExpanded = parent && index === expanded
@@ -337,6 +359,7 @@ function ActionWheel({
           item.className
         )}
         onClick={onActivate}
+        onPointerEnter={onHover}
       >
         <span aria-hidden className="relative flex">
           {item.icon}
@@ -439,8 +462,19 @@ function ActionWheel({
             labelHidden: submenu !== null,
             parent: hasChildren,
             onActivate: hasChildren
-              ? () => setExpanded(index === expanded ? null : index)
+              ? () => {
+                  window.clearTimeout(hoverRef.current)
+                  // A hover-opened arc stays open on click instead of folding.
+                  setExpanded(
+                    index === expanded && submenuTrigger === "click"
+                      ? null
+                      : index
+                  )
+                }
               : () => selects(item),
+            // Resting on a plain ring action folds any open arc away.
+            onHover: (event) =>
+              expandsOnHover(event, hasChildren ? index : null),
           })
         })}
         {items.map((item, index) => {
@@ -462,6 +496,8 @@ function ActionWheel({
               delay:
                 (shown ? childIndex : children.length - 1 - childIndex) * 30,
               onActivate: () => selects(child),
+              // Reaching the arc cancels a pending switch from the ring.
+              onHover: () => window.clearTimeout(hoverRef.current),
             })
           )
         })}

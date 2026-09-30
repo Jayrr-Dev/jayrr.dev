@@ -1,197 +1,227 @@
 [
   {
-    "id": "classic",
-    "label": "Classic",
+    "id": "tier",
+    "label": "Tier",
+    "groupBy": "tier",
     "children": [
       {
-        "id": "content",
-        "label": "Content",
-        "children": [
-          {
-            "id": "text",
-            "label": "Text"
-          },
-          {
-            "id": "icon",
-            "label": "Icon"
-          },
-          {
-            "id": "media",
-            "label": "Media"
-          }
-        ]
+        "id": "primitive",
+        "label": "Primitives"
       },
       {
-        "id": "interaction",
-        "label": "Interaction",
-        "children": [
-          {
-            "id": "action",
-            "label": "Action"
-          },
-          {
-            "id": "navigation",
-            "label": "Navigation"
-          },
-          {
-            "id": "input",
-            "label": "Input"
-          },
-          {
-            "id": "selection",
-            "label": "Selection"
-          }
-        ]
+        "id": "component",
+        "label": "Components"
       },
       {
-        "id": "meaning",
-        "label": "Meaning",
-        "children": [
-          {
-            "id": "label",
-            "label": "Label"
-          },
-          {
-            "id": "indicator",
-            "label": "Indicator"
-          }
-        ]
-      },
-      {
-        "id": "structure",
-        "label": "Structure",
-        "children": [
-          {
-            "id": "surface",
-            "label": "Surface"
-          },
-          {
-            "id": "separator",
-            "label": "Separator"
-          },
-          {
-            "id": "layout",
-            "label": "Layout"
-          }
-        ]
+        "id": "block",
+        "label": "Blocks"
       }
     ]
   },
   {
-    "id": "standard",
-    "label": "Standard",
+    "id": "content",
+    "label": "Content",
     "children": [
       {
-        "id": "controls",
-        "label": "Controls",
-        "children": [
-          {
-            "id": "buttons",
-            "label": "Buttons"
-          },
-          {
-            "id": "fields",
-            "label": "Fields"
-          },
-          {
-            "id": "pickers",
-            "label": "Pickers"
-          },
-          {
-            "id": "toggles",
-            "label": "Toggles"
-          },
-          {
-            "id": "scroll",
-            "label": "Scroll"
-          },
-          {
-            "id": "cursor",
-            "label": "Cursor"
-          },
-          {
-            "id": "badges",
-            "label": "Badges"
-          },
-          {
-            "id": "icons",
-            "label": "Icons"
-          }
-        ]
+        "id": "text",
+        "label": "Text"
       },
       {
-        "id": "content",
-        "label": "Content",
-        "children": [
-          {
-            "id": "tables",
-            "label": "Tables"
-          },
-          {
-            "id": "cards",
-            "label": "Cards"
-          },
-          {
-            "id": "charts",
-            "label": "Charts"
-          },
-          {
-            "id": "badges",
-            "label": "Badges"
-          },
-          {
-            "id": "text",
-            "label": "Text"
-          },
-          {
-            "id": "layout",
-            "label": "Layout"
-          }
-        ]
+        "id": "icon",
+        "label": "Icon"
       },
       {
-        "id": "overlays",
-        "label": "Overlays",
-        "children": [
-          {
-            "id": "dialogs",
-            "label": "Dialogs"
-          },
-          {
-            "id": "sheets",
-            "label": "Sheets"
-          },
-          {
-            "id": "popovers",
-            "label": "Popovers"
-          },
-          {
-            "id": "menus",
-            "label": "Menus"
-          }
-        ]
+        "id": "media",
+        "label": "Media"
       },
       {
-        "id": "signals",
-        "label": "Signals",
-        "children": [
-          {
-            "id": "loading",
-            "label": "Loading"
-          },
-          {
-            "id": "alerts",
-            "label": "Alerts"
-          },
-          {
-            "id": "notifications",
-            "label": "Notifications"
-          },
-          {
-            "id": "nav",
-            "label": "Nav"
-          }
-        ]
+        "id": "data",
+        "label": "Data"
+      }
+    ]
+  },
+  {
+    "id": "interaction",
+    "label": "Interaction",
+    "children": [
+      {
+        "id": "action",
+        "label": "Action"
+      },
+      {
+        "id": "navigation",
+        "label": "Navigation"
+      },
+      {
+        "id": "input",
+        "label": "Input"
+      },
+      {
+        "id": "selection",
+        "label": "Selection"
+      }
+    ]
+  },
+  {
+    "id": "meaning",
+    "label": "Meaning",
+    "children": [
+      {
+        "id": "label",
+        "label": "Label"
+      },
+      {
+        "id": "indicator",
+        "label": "Indicator"
+      },
+      {
+        "id": "feedback",
+        "label": "Feedback"
+      }
+    ]
+  },
+  {
+    "id": "structure",
+    "label": "Structure",
+    "children": [
+      {
+        "id": "surface",
+        "label": "Surface"
+      },
+      {
+        "id": "overlay",
+        "label": "Overlay"
+      },
+      {
+        "id": "separator",
+        "label": "Separator"
+      },
+      {
+        "id": "layout",
+        "label": "Layout"
+      }
+    ]
+  },
+  {
+    "id": "canonical",
+    "label": "Canonical",
+    "groupBy": "canonical",
+    "children": [
+      {
+        "id": "text",
+        "label": "Text"
+      },
+      {
+        "id": "icons",
+        "label": "Icons"
+      },
+      {
+        "id": "media",
+        "label": "Media"
+      },
+      {
+        "id": "charts",
+        "label": "Charts"
+      },
+      {
+        "id": "tables",
+        "label": "Tables"
+      },
+      {
+        "id": "cards",
+        "label": "Cards"
+      },
+      {
+        "id": "buttons",
+        "label": "Buttons"
+      },
+      {
+        "id": "inputs",
+        "label": "Inputs"
+      },
+      {
+        "id": "search",
+        "label": "Search"
+      },
+      {
+        "id": "selects",
+        "label": "Selects"
+      },
+      {
+        "id": "calendar",
+        "label": "Calendar"
+      },
+      {
+        "id": "toggles",
+        "label": "Toggles"
+      },
+      {
+        "id": "forms",
+        "label": "Forms"
+      },
+      {
+        "id": "badges",
+        "label": "Badges"
+      },
+      {
+        "id": "loading",
+        "label": "Loading"
+      },
+      {
+        "id": "alerts",
+        "label": "Alerts"
+      },
+      {
+        "id": "notifications",
+        "label": "Notifications"
+      },
+      {
+        "id": "dialogs",
+        "label": "Dialogs"
+      },
+      {
+        "id": "sheets",
+        "label": "Sheets"
+      },
+      {
+        "id": "popovers",
+        "label": "Popovers"
+      },
+      {
+        "id": "menus",
+        "label": "Menus"
+      },
+      {
+        "id": "navigation",
+        "label": "Navigation"
+      },
+      {
+        "id": "tabs",
+        "label": "Tabs"
+      },
+      {
+        "id": "scroll",
+        "label": "Scroll"
+      },
+      {
+        "id": "accordions",
+        "label": "Accordions"
+      },
+      {
+        "id": "dividers",
+        "label": "Dividers"
+      },
+      {
+        "id": "layout",
+        "label": "Layout"
+      },
+      {
+        "id": "chat",
+        "label": "Chat"
+      },
+      {
+        "id": "cursor",
+        "label": "Cursor"
       }
     ]
   }

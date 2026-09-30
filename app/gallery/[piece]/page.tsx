@@ -7,7 +7,6 @@ import { findPiece } from "@/features/ui-library/domain/catalog/definesGalleryCa
 
 type PageProps = {
   params: Promise<{
-    style: string
     piece: string
   }>
 }
@@ -15,8 +14,8 @@ type PageProps = {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { style, piece } = await params
-  const match = findPiece(style, piece)
+  const { piece } = await params
+  const match = findPiece(piece)
 
   if (!match) {
     return { title: "Not found · jayrr.dev" }
@@ -24,13 +23,13 @@ export async function generateMetadata({
 
   return {
     title: `${match.card.name} Collections · jayrr.dev`,
-    description: `Demos for ${match.card.name} in ${match.style.name}.`,
+    description: `Demos for ${match.card.name} in ${match.bucket.name}.`,
   }
 }
 
 export default async function PieceCollectionsPage({ params }: PageProps) {
-  const { style, piece } = await params
-  const match = findPiece(style, piece)
+  const { piece } = await params
+  const match = findPiece(piece)
 
   if (!match) {
     notFound()
@@ -47,7 +46,7 @@ export default async function PieceCollectionsPage({ params }: PageProps) {
             Gallery
           </Link>
           <p className="font-mono text-xs text-muted-foreground">
-            {match.style.name} · {match.category.name}
+            {match.bucket.name} · {match.category.name}
           </p>
         </div>
 
@@ -55,10 +54,7 @@ export default async function PieceCollectionsPage({ params }: PageProps) {
           <h1 className="text-lg font-medium tracking-tight">
             {match.card.name} Collections
           </h1>
-          <RendersGalleryPieceDemos
-            pieceName={match.card.name}
-            styleName={match.style.name}
-          />
+          <RendersGalleryPieceDemos pieceName={match.card.name} />
         </section>
       </div>
     </main>

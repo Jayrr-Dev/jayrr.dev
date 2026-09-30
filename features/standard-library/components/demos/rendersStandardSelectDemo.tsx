@@ -12,6 +12,11 @@ import {
   type FilterSelectGroup,
   type FilterSelectValue,
 } from "@/components/standard/filter-select"
+import {
+  MillerSelect,
+  type MillerSelectGroup,
+  type MillerSelectValue,
+} from "@/components/standard/miller-select"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const STATUS_OPTIONS: BadgeSelectOption[] = [
@@ -101,7 +106,7 @@ function listsActivities(stepId: string, header: string, labels: string[]) {
 }
 
 /** Process tree shaped like the utilitek timesheet Work Performed picker. */
-const WORK_PERFORMED_GROUPS: FilterSelectGroup[] = [
+const WORK_PERFORMED_GROUPS: MillerSelectGroup[] = [
   {
     id: "s1",
     section: "Design",
@@ -142,25 +147,77 @@ const WORK_PERFORMED_GROUPS: FilterSelectGroup[] = [
   },
 ]
 
-function RendersWorkPerformedFilterSelect() {
-  const [filters, setFilters] = useState<FilterSelectValue>({
+/** No sections, so the tab strip is skipped; Owner is single-select. */
+const ASSIGNMENT_GROUPS: MillerSelectGroup[] = [
+  {
+    id: "crew",
+    label: "Crew",
+    description: "Who is on site",
+    options: [
+      { id: "north-1", label: "Line crew 1", header: "North" },
+      { id: "north-2", label: "Line crew 2", header: "North" },
+      { id: "south-1", label: "Civil crew", header: "South" },
+      { id: "south-2", label: "Survey crew", header: "South", subtitle: "Contract" },
+    ],
+  },
+  {
+    id: "owner",
+    label: "Owner",
+    selectType: "single",
+    options: [
+      { id: "me", label: "Me" },
+      { id: "lead", label: "Crew lead" },
+      { id: "pm", label: "Project manager" },
+    ],
+  },
+]
+
+function RendersWorkPerformedMillerSelect() {
+  const [value, setValue] = useState<MillerSelectValue>({
     s2: ["s2-B0"],
   })
 
   return (
-    <RendersDemoCard label="layout miller · work performed">
-      <FilterSelect
-        layout="miller"
+    <RendersDemoCard label="sections · work performed">
+      <MillerSelect
         columnLabels={["Steps", "Substeps", "Activity"]}
         placeholder="Work performed"
         groups={WORK_PERFORMED_GROUPS}
-        value={filters}
+        value={value}
         onChange={(groupId, selected) =>
-          setFilters((previous) => ({ ...previous, [groupId]: selected }))
+          setValue((previous) => ({ ...previous, [groupId]: selected }))
         }
-        onClearAll={() => setFilters({})}
+        onClearAll={() => setValue({})}
       />
     </RendersDemoCard>
+  )
+}
+
+function RendersAssignmentMillerSelect() {
+  const [value, setValue] = useState<MillerSelectValue>({})
+
+  return (
+    <RendersDemoCard label="no sections · compact · single owner">
+      <MillerSelect
+        compact
+        columnLabels={["Field", "Group", "Pick"]}
+        placeholder="Assign"
+        groups={ASSIGNMENT_GROUPS}
+        value={value}
+        onChange={(groupId, selected) =>
+          setValue((previous) => ({ ...previous, [groupId]: selected }))
+        }
+      />
+    </RendersDemoCard>
+  )
+}
+
+export function RendersMillerSelectDemo() {
+  return (
+    <>
+      <RendersWorkPerformedMillerSelect />
+      <RendersAssignmentMillerSelect />
+    </>
   )
 }
 
@@ -199,7 +256,6 @@ export function RendersFilterSelectDemo() {
       <RendersLiveFilterSelect label="compact" compact />
       <RendersLiveFilterSelect label="variant select" variant="select" />
       <RendersLiveFilterSelect label="variant badge" variant="badge" />
-      <RendersWorkPerformedFilterSelect />
     </>
   )
 }

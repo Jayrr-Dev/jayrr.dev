@@ -1,13 +1,14 @@
 export {
+  findComponent,
   findPiece,
-  findStyle,
-  gallerySections,
-  galleryStyles,
+  galleryBuckets,
+  galleryComponents,
   toPieceSlug,
 } from "@/features/ui-library/domain/catalog/definesGalleryCatalog"
 export type {
+  GalleryBucket,
   GalleryCard,
   GalleryCategory,
-  GallerySection,
-  GalleryStyle,
+  GalleryComponent,
+  GalleryTier,
 } from "@/features/ui-library/domain/catalog/definesGalleryCatalog"
