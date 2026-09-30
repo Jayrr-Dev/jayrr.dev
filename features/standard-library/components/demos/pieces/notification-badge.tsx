@@ -1,0 +1,161 @@
+"use client"
+
+import { useState } from "react"
+import {
+  BellIcon,
+  InboxIcon,
+  MailIcon,
+  MessageSquareIcon,
+  ShoppingCartIcon,
+  SquarePlayIcon,
+  TriangleIcon,
+  UsersIcon,
+} from "lucide-react"
+
+import { CircleBadge } from "@/components/standard/badge-pill"
+import { ButtonIcon } from "@/components/standard/button-icon"
+import { NotificationBadge } from "@/components/standard/notification-badge"
+import { Row } from "@/components/standard/row"
+import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+
+const NAV_ITEMS: {
+  id: string
+  label: string
+  icon: typeof MailIcon
+  count?: number
+}[] = [
+  { id: "mail", label: "Mail", icon: MailIcon, count: 1284 },
+  { id: "chat", label: "Chat", icon: MessageSquareIcon, count: 10 },
+  { id: "rooms", label: "Rooms", icon: UsersIcon, count: undefined },
+  { id: "meet", label: "Meet", icon: SquarePlayIcon, count: 3 },
+]
+
+function RendersLiveNavBadges() {
+  const [active, setActive] = useState("mail")
+  const [read, setRead] = useState<string[]>([])
+
+  return (
+    <RendersDemoCard label="Navigation bar (click to mark read)">
+      <nav
+        aria-label="Apps"
+        className="flex w-full max-w-md justify-around rounded-xl bg-muted/60 p-2"
+      >
+        {NAV_ITEMS.map((item) => {
+          const Icon = item.icon
+          const unread = !read.includes(item.id)
+          const isActive = active === item.id
+
+          return (
+            <button
+              key={item.id}
+              type="button"
+              aria-current={isActive ? "page" : undefined}
+              onClick={() => {
+                setActive(item.id)
+                setRead((current) => [...current, item.id])
+              }}
+              className="flex flex-col items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            >
+              <span
+                className={
+                  isActive
+                    ? "grid h-8 w-14 place-items-center rounded-full bg-primary/10"
+                    : "grid h-8 w-14 place-items-center rounded-full"
+                }
+              >
+                {unread ? (
+                  <NotificationBadge count={item.count} max={999}>
+                    <Icon className="size-5" />
+                  </NotificationBadge>
+                ) : (
+                  <Icon className="size-5" />
+                )}
+              </span>
+              {item.label}
+            </button>
+          )
+        })}
+      </nav>
+    </RendersDemoCard>
+  )
+}
+
+function RendersNotificationBadgeDemos() {
+  return (
+    <>
+      <RendersLiveNavBadges />
+      <RendersDemoCard label="Dot, count, max">
+        <Row className="gap-10">
+          <NotificationBadge>
+            <TriangleIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={1}>
+            <TriangleIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={1500} max={999}>
+            <TriangleIcon className="size-5" />
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="tone alert, brand, neutral">
+        <Row className="gap-6">
+          <NotificationBadge count={4}>
+            <ButtonIcon label="Notifications, 4 unread" tone="outline">
+              <BellIcon className="size-4" />
+            </ButtonIcon>
+          </NotificationBadge>
+          <NotificationBadge count={5} tone="brand">
+            <ButtonIcon label="Cart, 5 items" tone="outline">
+              <ShoppingCartIcon className="size-4" />
+            </ButtonIcon>
+          </NotificationBadge>
+          <NotificationBadge count={12} tone="neutral">
+            <ButtonIcon label="Inbox, 12 unread" tone="outline">
+              <InboxIcon className="size-4" />
+            </ButtonIcon>
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+      <RendersDemoCard label="Inline in a list">
+        <div className="flex w-56 flex-col gap-1 text-sm">
+          <span className="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted">
+            Inbox
+            <NotificationBadge count={24} />
+          </span>
+          <span className="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted">
+            Mentions
+            <NotificationBadge />
+          </span>
+          <span className="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted">
+            Archive
+            <NotificationBadge count={0} />
+          </span>
+        </div>
+      </RendersDemoCard>
+      <RendersDemoCard label="Zero: hidden vs showZero">
+        <Row className="gap-6">
+          <NotificationBadge count={0}>
+            <BellIcon className="size-5" />
+          </NotificationBadge>
+          <NotificationBadge count={0} showZero tone="neutral">
+            <BellIcon className="size-5" />
+          </NotificationBadge>
+        </Row>
+      </RendersDemoCard>
+    </>
+  )
+}
+
+export function RendersNotificationBadgeDemo() {
+  return (
+    <>
+      <RendersNotificationBadgeDemos />
+      <RendersDemoCard label="circle badge">
+        <CircleBadge>4</CircleBadge>
+      </RendersDemoCard>
+      <RendersDemoCard label="circle badge · count 12">
+        <CircleBadge>12</CircleBadge>
+      </RendersDemoCard>
+    </>
+  )
+}

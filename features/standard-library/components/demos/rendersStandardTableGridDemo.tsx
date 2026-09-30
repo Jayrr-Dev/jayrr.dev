@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import { Badge } from "@/components/standard/badge"
 import { InfoIcon } from "@/components/standard/info-icon"
-import { StandardCard } from "@/components/standard/card-bar"
+import { StandardCard } from "@/components/standard/standard-card"
 import { StandardGrid } from "@/components/standard/standard-grid"
 import { StandardTable, type StandardTableColumn } from "@/components/standard/standard-table"
 import { ToggleableBadges } from "@/components/standard/toggleable-badges"
@@ -100,7 +100,19 @@ const TABLE_PANELS = [
   { id: "chrome", label: "Chrome" },
   { id: "paging", label: "Paging" },
   { id: "empty", label: "Empty" },
+  { id: "sticky", label: "Sticky" },
+  { id: "actions", label: "Actions" },
 ]
+
+const TABLE_PANEL_LABELS: Record<string, string> = {
+  compact: "compact={true}",
+  filters: "filterBadge · filterSelect · showRefresh",
+  chrome: "errorBar · titleBar",
+  paging: "pagination · initialPageSize={3}",
+  empty: "emptyMessage",
+  sticky: "stickyFirstColumn",
+  actions: "rowActions · bulkActions · pagination",
+}
 
 const GRID_PANELS = [
   { id: "default", label: "Default" },
@@ -111,25 +123,11 @@ const GRID_PANELS = [
   { id: "empty", label: "Empty" },
 ]
 
-export function RendersStandardTableDemo({
-  mode = "default",
-}: {
-  mode?: "default" | "sticky" | "actions"
-}) {
+export function RendersStandardTableDemo() {
   const [panel, setPanel] = useState("default")
   const rows = STANDARD_MOCK_TABLE_ROWS
-  const label =
-    panel === "compact"
-      ? "compact={true}"
-      : panel === "filters"
-        ? "filterBadge · filterSelect · showRefresh"
-        : panel === "chrome"
-          ? "errorBar · titleBar"
-          : panel === "paging"
-            ? "pagination · initialPageSize={3}"
-            : panel === "empty"
-              ? "emptyMessage"
-              : "showSearch · sorting"
+  const actions = panel === "actions"
+  const label = TABLE_PANEL_LABELS[panel] ?? "showSearch · sorting"
 
   return (
     <RendersDemoCard className="w-full max-w-2xl" label={label}>
@@ -160,12 +158,12 @@ export function RendersStandardTableDemo({
           errorBar={
             panel === "chrome" ? "2 rows missing cost codes" : undefined
           }
-          pagination={panel === "paging" || mode === "actions"}
-          initialPageSize={panel === "paging" || mode === "actions" ? 3 : 10}
-          stickyFirstColumn={mode === "sticky"}
+          pagination={panel === "paging" || actions}
+          initialPageSize={panel === "paging" || actions ? 3 : 10}
+          stickyFirstColumn={panel === "sticky"}
           getRowLabel={(row) => row.name}
           rowActions={
-            mode === "actions"
+            actions
               ? () => [
                   { id: "open", label: "Open", onSelect: () => undefined },
                   { id: "edit", label: "Edit", onSelect: () => undefined },
@@ -179,7 +177,7 @@ export function RendersStandardTableDemo({
               : undefined
           }
           bulkActions={
-            mode === "actions"
+            actions
               ? (visible) => [
                   {
                     id: "archive",

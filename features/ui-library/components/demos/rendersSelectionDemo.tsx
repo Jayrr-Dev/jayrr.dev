@@ -24,17 +24,17 @@ export function RendersSelectionDemo({
     )
   }
 
-  if (pieceName === "Radio") {
+  if (pieceName === "Radio Group") {
     return (
       <RendersDemoCard>
         <RadioGroup defaultValue="classic" className="w-full">
           <div className="flex items-center gap-2">
-            <RadioGroupItem value="classic" id="classic" />
-            <Label htmlFor="classic">Classic</Label>
+            <RadioGroupItem value="classic" id="radio-classic" />
+            <Label htmlFor="radio-classic">Classic</Label>
           </div>
           <div className="flex items-center gap-2">
-            <RadioGroupItem value="standard" id="standard" />
-            <Label htmlFor="standard">Standard</Label>
+            <RadioGroupItem value="standard" id="radio-standard" />
+            <Label htmlFor="radio-standard">Standard</Label>
           </div>
         </RadioGroup>
       </RendersDemoCard>

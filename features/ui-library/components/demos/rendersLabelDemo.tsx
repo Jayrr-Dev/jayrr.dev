@@ -15,7 +15,7 @@ export function RendersLabelDemo({
 }: {
   pieceName: string
 }) {
-  if (pieceName === "Field label") {
+  if (pieceName === "Label") {
     return (
       <>
         <RendersDemoCard>

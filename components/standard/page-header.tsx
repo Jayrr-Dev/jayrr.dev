@@ -41,73 +41,8 @@ function PageHeader({
   )
 }
 
-function ControlBar({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="control-bar"
-      className={cn(
-        "flex w-full flex-wrap items-center gap-2 rounded-lg border border-border bg-muted/40 px-2 py-1.5",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+export { PageHeader }
 
-function TabNavigation({
-  className,
-  items,
-  value,
-  defaultValue,
-  onValueChange,
-}: {
-  className?: string
-  items: { id: string; label: string }[]
-  value?: string
-  defaultValue?: string
-  onValueChange?: (id: string) => void
-}) {
-  const [uncontrolled, setUncontrolled] = React.useState(
-    defaultValue ?? items[0]?.id
-  )
-  const selected = value ?? uncontrolled
-
-  function select(id: string) {
-    if (value === undefined) {
-      setUncontrolled(id)
-    }
-    onValueChange?.(id)
-  }
-
-  return (
-    <nav
-      data-slot="tab-navigation"
-      className={cn("flex gap-3 border-b border-border", className)}
-    >
-      {items.map((item) => {
-        const isOn = item.id === selected
-
-        return (
-          <button
-            key={item.id}
-            type="button"
-            className={cn(
-              "border-b-2 pb-1 text-sm",
-              isOn
-                ? "border-foreground text-foreground"
-                : "border-transparent text-muted-foreground"
-            )}
-            onClick={() => select(item.id)}
-          >
-            {item.label}
-          </button>
-        )
-      })}
-    </nav>
-  )
-}
-
-export { ControlBar, PageHeader, TabNavigation }
+// Moved to their own files; re-exported so existing imports keep working.
+export { ControlBar } from "@/components/standard/control-bar"
+export { TabNavigation } from "@/components/standard/tab-navigation"

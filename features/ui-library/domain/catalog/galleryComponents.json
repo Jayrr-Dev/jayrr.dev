@@ -41,11 +41,9 @@
     "canonical": "text",
     "tier": "primitive",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "badge",
     "key": "kbd",
     "family_key": "kbd",
     "file_path": "src/components/ui/kbd.tsx",
@@ -73,47 +71,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "math",
     "family_key": "math",
     "file_path": "components/ui/math.tsx",
     "import_path": "@/components/ui/math",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Standard Cell Text",
-    "type": "content/text",
-    "canonical": "text",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "standard-cell-text",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-cell-text.tsx",
-    "import_path": "@/components/ui/standard-cell-text",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Standard Date Format",
-    "type": "content/text",
-    "canonical": "text",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "standard-date-format",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-date-format.tsx",
-    "import_path": "@/components/ui/standard-date-format",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
@@ -127,29 +88,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "standard-text",
     "family_key": "standard",
     "file_path": "components/ui/standard-text.tsx",
     "import_path": "@/components/ui/standard-text",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Vacation Hours Display",
-    "type": "content/text",
-    "canonical": "text",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "vacation-hours-display",
-    "family_key": "text",
-    "file_path": "components/ui/vacation-hours-display.tsx",
-    "import_path": "@/components/ui/vacation-hours-display",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
@@ -161,7 +103,8 @@
     "canonical": "icons",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ]
   },
   {
@@ -185,114 +128,6 @@
     "installed": true
   },
   {
-    "name": "Badge Icon",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "badge-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/badge-icon.tsx",
-    "import_path": "@/components/ui/badge-icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Captions Array",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "captions-array",
-    "family_key": "icon",
-    "file_path": "components/ui/captions-array.tsx",
-    "import_path": "@/components/ui/captions-array",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Icon",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "icon",
-    "family_key": "icon",
-    "file_path": "components/ui/icon.tsx",
-    "import_path": "@/components/ui/icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Icon Popover",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "icon-popover",
-    "family_key": "icon",
-    "file_path": "components/ui/icon-popover.tsx",
-    "import_path": "@/components/ui/icon-popover",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Icon Tooltip Label",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "icon-tooltip-label",
-    "family_key": "icon",
-    "file_path": "components/ui/icon-tooltip-label.tsx",
-    "import_path": "@/components/ui/icon-tooltip-label",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Iconify Icon",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "iconify-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/iconify-icon.tsx",
-    "import_path": "@/components/ui/iconify-icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Info Icon",
     "type": "content/icon",
     "canonical": "icons",
@@ -300,7 +135,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "info-icon",
     "family_key": "icon",
     "file_path": "components/ui/info-icon.tsx",
@@ -308,60 +142,6 @@
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Question Icon",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "question-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/question-icon.tsx",
-    "import_path": "@/components/ui/question-icon",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Shield Cog Corner Icon",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "shield-cog-corner-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/icons/shield-cog-corner-icon.tsx",
-    "import_path": "@/components/ui/icons/shield-cog-corner-icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Standard Icon",
-    "type": "content/icon",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "standard-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/standard-icon.tsx",
-    "import_path": "@/components/ui/standard-icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
     "description": null
   },
   {
@@ -403,7 +183,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "carousel",
     "family_key": "media",
     "file_path": "components/ui/carousel.tsx",
@@ -423,7 +202,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "chart",
     "family_key": "chart",
     "file_path": "src/components/ui/chart.tsx",
@@ -443,29 +221,10 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "table",
     "family_key": "hybrid",
     "file_path": "components/ui/table.tsx",
     "import_path": "@/components/ui/table",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Card List",
-    "type": "content/data",
-    "canonical": "tables",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "card-list",
-    "family_key": "hybrid",
-    "file_path": "components/ui/card-list.tsx",
-    "import_path": "@/components/ui/card-list",
     "preview_mode": "inline",
     "needs_mock_data": true,
     "mock_data_key": "table-rows",
@@ -479,29 +238,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "standard-grid",
     "family_key": "standard",
     "file_path": "components/ui/standard-grid.tsx",
     "import_path": "@/components/ui/standard-grid",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Standard Hybrid",
-    "type": "content/data",
-    "canonical": "tables",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "standard-hybrid",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-hybrid.tsx",
-    "import_path": "@/components/ui/standard-hybrid",
     "preview_mode": "inline",
     "needs_mock_data": true,
     "mock_data_key": "table-rows",
@@ -515,7 +255,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "standard-table",
     "family_key": "standard",
     "file_path": "components/ui/standard-table.tsx",
@@ -533,7 +272,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "data-grid",
     "family_key": "standard",
     "file_path": "components/standard/data-grid.tsx",
@@ -544,24 +282,6 @@
     "description": "Excel-style spreadsheet grid with A1 coordinates and a Name Box, letter and number headers with optional labels, range selection, and keyboard navigation. Drag the fill handle down, right, or diagonally to continue number, date, weekday, and Item 1 series, or press Ctrl+D to copy the cell above. Insert, delete, duplicate, hide, and freeze rows and columns from the right-click menu or the + between headers. Opt-in sorting by header click, per-column filter buttons with value lists and conditions, and declarative JSON formatting rules that style cells, rows, or columns (background, text color, weight, decoration, alignment, borders, any CSS) when values match. Cells render components by type (text, number, checkbox, select, date, or your own), rows and columns are virtualized for 10,000+ rows, and every edit is a change list with undo and redo that onChanges or an adapter can sync to a database."
   },
   {
-    "name": "Sticky Table",
-    "type": "content/data",
-    "canonical": "tables",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "sticky-table",
-    "family_key": "hybrid",
-    "file_path": "components/ui/sticky-table.tsx",
-    "import_path": "@/components/ui/sticky-table",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
     "name": "Bar Stack",
     "type": "content/data",
     "canonical": "charts",
@@ -569,7 +289,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "bar-stack",
     "family_key": "chart",
     "file_path": "components/ui/bar-stack.tsx",
@@ -589,7 +308,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "button",
     "key": "button",
     "family_key": "base",
     "file_path": "src/components/ui/button.tsx",
@@ -605,11 +323,9 @@
     "canonical": "buttons",
     "tier": "component",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "button",
     "key": "button-group",
     "family_key": "base",
     "file_path": "src/components/ui/button-group.tsx",
@@ -627,7 +343,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "button-array",
     "family_key": "array",
     "file_path": "src/components/ui/button-array.tsx",
@@ -645,47 +360,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "button-back",
     "family_key": "base",
-    "file_path": "components/ui/button-back.tsx",
+    "file_path": "components/standard/button-link.tsx",
     "import_path": "@/components/ui/button-back",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Button Base",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "button-base",
-    "family_key": "base",
-    "file_path": "src/components/ui/button-base.tsx",
-    "import_path": "@/components/ui/button-base",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Button Enhanced",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "button-enhanced",
-    "family_key": "base",
-    "file_path": "src/components/ui/button-enhanced.tsx",
-    "import_path": "@/components/ui/button-enhanced",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
@@ -699,7 +377,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "button-link",
     "family_key": "base",
     "file_path": "components/ui/button-link.tsx",
@@ -717,47 +394,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "refresh-button",
     "family_key": "base",
     "file_path": "components/ui/refresh-button.tsx",
     "import_path": "@/components/ui/refresh-button",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Reports Button",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "reports-button",
-    "family_key": "base",
-    "file_path": "components/ui/reports-button.tsx",
-    "import_path": "@/components/ui/reports-button",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Standard Button",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "standard-button",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-button.tsx",
-    "import_path": "@/components/ui/standard-button",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
@@ -771,7 +411,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "fab",
     "family_key": "button",
     "file_path": "components/standard/fab.tsx",
@@ -789,7 +428,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "action-wheel",
     "family_key": "button",
     "file_path": "components/standard/action-wheel.tsx",
@@ -807,7 +445,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "toolbar",
     "family_key": "button",
     "file_path": "components/standard/toolbar.tsx",
@@ -825,7 +462,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "cursor",
     "key": "cursor",
     "family_key": "cursor",
     "file_path": "components/standard/cursor.tsx",
@@ -843,7 +479,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "button-icon",
     "family_key": "icon",
     "file_path": "components/ui/button-icon.tsx",
@@ -861,7 +496,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "button",
     "key": "caption-button",
     "family_key": "icon",
     "file_path": "components/ui/caption-button.tsx",
@@ -896,11 +530,9 @@
     "canonical": "navigation",
     "tier": "primitive",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "signal",
     "key": "navigation-menu",
     "family_key": "nav",
     "file_path": "components/ui/navigation-menu.tsx",
@@ -950,7 +582,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "signal",
     "key": "tabs",
     "family_key": "tabs",
     "file_path": "components/ui/tabs.tsx",
@@ -961,24 +592,6 @@
     "description": null
   },
   {
-    "name": "Renders Standard Hybrid Pagination Footer",
-    "type": "interaction/navigation",
-    "canonical": "navigation",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "renders-standard-hybrid-pagination-footer",
-    "family_key": "standard",
-    "file_path": "components/ui/rendersStandardHybridPaginationFooter.tsx",
-    "import_path": "@/components/ui/rendersStandardHybridPaginationFooter",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
     "name": "App Bar",
     "type": "interaction/navigation",
     "canonical": "navigation",
@@ -986,7 +599,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "app-bar",
     "family_key": "nav",
     "file_path": "components/standard/app-bar.tsx",
@@ -1004,10 +616,9 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "control-bar",
     "family_key": "chrome",
-    "file_path": "components/ui/control-bar.tsx",
+    "file_path": "components/standard/control-bar.tsx",
     "import_path": "@/components/ui/control-bar",
     "preview_mode": "dialog",
     "needs_mock_data": true,
@@ -1022,7 +633,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "navigation-bar",
     "family_key": "nav",
     "file_path": "components/standard/navigation.tsx",
@@ -1040,7 +650,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "navigation-drawer",
     "family_key": "nav",
     "file_path": "components/standard/navigation.tsx",
@@ -1058,47 +667,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "navigation-rail",
     "family_key": "nav",
     "file_path": "components/standard/navigation.tsx",
     "import_path": "@/components/standard/navigation",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
-  },
-  {
-    "name": "Tab Drawn",
-    "type": "interaction/navigation",
-    "canonical": "tabs",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "tab-drawn",
-    "family_key": "tabs",
-    "file_path": "components/ui/tab-drawn.tsx",
-    "import_path": "@/components/ui/tab-drawn",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
-  },
-  {
-    "name": "Tab Navigation",
-    "type": "interaction/navigation",
-    "canonical": "tabs",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "tab-navigation",
-    "family_key": "tabs",
-    "file_path": "components/ui/tab-navigation.tsx",
-    "import_path": "@/components/ui/tab-navigation",
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "nav-items",
@@ -1110,7 +682,7 @@
     "canonical": "inputs",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "standard"
     ]
   },
   {
@@ -1119,7 +691,8 @@
     "canonical": "search",
     "tier": "component",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ]
   },
   {
@@ -1128,11 +701,9 @@
     "canonical": "inputs",
     "tier": "primitive",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "field",
     "key": "input",
     "family_key": "input",
     "file_path": "src/components/ui/input.tsx",
@@ -1152,7 +723,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "field",
     "key": "textarea",
     "family_key": "input",
     "file_path": "src/components/ui/textarea.tsx",
@@ -1172,7 +742,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "field",
     "key": "input-otp",
     "family_key": "input",
     "file_path": "src/components/ui/input-otp.tsx",
@@ -1202,7 +771,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "picker",
     "key": "select",
     "family_key": "select",
     "file_path": "components/ui/select.tsx",
@@ -1242,7 +810,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "command",
     "family_key": "menu",
     "file_path": "components/ui/command.tsx",
@@ -1262,7 +829,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "field",
     "key": "field",
     "family_key": "input",
     "file_path": "src/components/ui/field.tsx",
@@ -1288,11 +854,9 @@
     "canonical": "calendar",
     "tier": "component",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "picker",
     "key": "calendar",
     "family_key": "date",
     "file_path": "components/ui/calendar.tsx",
@@ -1310,7 +874,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "field",
     "key": "autocomplete-input",
     "family_key": "input",
     "file_path": "components/ui/autocomplete-input.tsx",
@@ -1328,10 +891,9 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "field",
     "key": "form",
     "family_key": "input",
-    "file_path": "components/ui/form.tsx",
+    "file_path": "components/standard/form-field.tsx",
     "import_path": "@/components/ui/form",
     "preview_mode": "inline",
     "needs_mock_data": false,
@@ -1346,30 +908,11 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "field",
     "key": "image-upload",
     "family_key": "upload",
     "file_path": "components/ui/image-upload.tsx",
     "import_path": "@/components/ui/image-upload",
     "preview_mode": "dialog",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Input Select",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "field",
-    "key": "input-select",
-    "family_key": "input",
-    "file_path": "components/ui/input-select.tsx",
-    "import_path": "@/components/ui/input-select",
-    "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": null
@@ -1382,7 +925,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "field",
     "key": "number-input",
     "family_key": "input",
     "file_path": "components/standard/number-input.tsx",
@@ -1400,7 +942,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "field",
     "key": "lexical-editor",
     "family_key": "input",
     "file_path": "components/standard/lexical-editor.tsx",
@@ -1411,78 +952,6 @@
     "description": "Rich text editor built on Lexical with the Standard Toolbar: block types, history, text formats, alignment, and Markdown shortcuts."
   },
   {
-    "name": "Standard Search",
-    "type": "interaction/input",
-    "canonical": "search",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "field",
-    "key": "standard-search",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-search.tsx",
-    "import_path": "@/components/ui/standard-search",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Standard Toolbar Search Cluster",
-    "type": "interaction/input",
-    "canonical": "search",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "standard-toolbar-search-cluster",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-toolbar-search-cluster.ts",
-    "import_path": "@/components/ui/standard-toolbar-search-cluster",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Category Filtered Select",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "category-filtered-select",
-    "family_key": "select",
-    "file_path": "components/ui/category-filtered-select.tsx",
-    "import_path": "@/components/ui/category-filtered-select",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "Data Filters",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "data-filters",
-    "family_key": "filter",
-    "file_path": "components/ui/data-filters.tsx",
-    "import_path": "@/components/ui/data-filters",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
     "name": "Date Picker",
     "type": "interaction/input",
     "canonical": "calendar",
@@ -1490,7 +959,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "date-picker",
     "family_key": "date",
     "file_path": "components/ui/date-picker.tsx",
@@ -1508,7 +976,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "time-picker",
     "family_key": "time",
     "file_path": "components/standard/time-picker.tsx",
@@ -1519,24 +986,6 @@
     "description": "Material 3 time picker: drag the clock dial or type the time, AM/PM or 24-hour, Cancel/OK in a popover."
   },
   {
-    "name": "Department Select",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "department-select",
-    "family_key": "select",
-    "file_path": "components/ui/department-select.tsx",
-    "import_path": "@/components/ui/department-select",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
     "name": "Filter Select",
     "type": "interaction/input",
     "canonical": "selects",
@@ -1544,7 +993,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "filter-select",
     "family_key": "select",
     "file_path": "components/ui/filter-select.tsx",
@@ -1562,7 +1010,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "miller-select",
     "family_key": "select",
     "file_path": "components/standard/miller-select.tsx",
@@ -1573,24 +1020,6 @@
     "description": "Miller-column picker from the utilitek timesheet Work Performed field: sections as tabs, then group, header, and checkbox columns side by side, with a search that lists matches from every group. Popover on desktop, stacked bottom sheet on mobile."
   },
   {
-    "name": "Month Select",
-    "type": "interaction/input",
-    "canonical": "calendar",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "month-select",
-    "family_key": "select",
-    "file_path": "components/ui/month-select.tsx",
-    "import_path": "@/components/ui/month-select",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
     "name": "Multi Select",
     "type": "interaction/input",
     "canonical": "selects",
@@ -1598,7 +1027,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "multi-select",
     "family_key": "select",
     "file_path": "components/ui/multi-select.tsx",
@@ -1609,114 +1037,6 @@
     "description": null
   },
   {
-    "name": "Period Filter",
-    "type": "interaction/input",
-    "canonical": "calendar",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "period-filter",
-    "family_key": "select",
-    "file_path": "components/ui/period-filter.tsx",
-    "import_path": "@/components/ui/period-filter",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "Rendering Standard Toolbar Filter Select",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "rendering-standard-toolbar-filter-select",
-    "family_key": "standard",
-    "file_path": "components/ui/rendering-standard-toolbar-filter-select.tsx",
-    "import_path": "@/components/ui/rendering-standard-toolbar-filter-select",
-    "preview_mode": "none",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Searchable Project Select",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "searchable-project-select",
-    "family_key": "select",
-    "file_path": "components/ui/searchable-project-select.tsx",
-    "import_path": "@/components/ui/searchable-project-select",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "Select Filter Sheet Button",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "select-filter-sheet-button",
-    "family_key": "select",
-    "file_path": "components/ui/select-filter-sheet-button.tsx",
-    "import_path": "@/components/ui/select-filter-sheet-button",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "Static Employee Selector",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "static-employee-selector",
-    "family_key": "select",
-    "file_path": "components/ui/static-employee-selector.tsx",
-    "import_path": "@/components/ui/static-employee-selector",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "View Mode Filter",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "view-mode-filter",
-    "family_key": "filter",
-    "file_path": "components/ui/view-mode-filter.tsx",
-    "import_path": "@/components/ui/view-mode-filter",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Dialslide",
     "type": "interaction/input",
     "canonical": "scroll",
@@ -1724,7 +1044,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "dialslide",
     "family_key": "scroll",
     "file_path": "components/standard/dialslide.tsx",
@@ -1733,42 +1052,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": "Horizontal slider for any row, with a calendar variant: scroll buttons, drag, keyboard and edge fades."
-  },
-  {
-    "name": "Lazy Icon Picker",
-    "type": "interaction/input",
-    "canonical": "icons",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "lazy-icon-picker",
-    "family_key": "icon",
-    "file_path": "components/ui/lazy-icon-picker.tsx",
-    "import_path": "@/components/ui/lazy-icon-picker",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "Tag Manager",
-    "type": "interaction/input",
-    "canonical": "badges",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "tag-manager",
-    "family_key": "tag",
-    "file_path": "components/ui/tag-manager.tsx",
-    "import_path": "@/components/ui/tag-manager",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
   },
   {
     "name": "Checkbox",
@@ -1780,7 +1063,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "toggle",
     "key": "checkbox",
     "family_key": "switch",
     "file_path": "components/ui/checkbox.tsx",
@@ -1789,16 +1071,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": null
-  },
-  {
-    "name": "Radio",
-    "type": "interaction/selection",
-    "canonical": "toggles",
-    "tier": "primitive",
-    "demos": [
-      "classic"
-    ],
-    "installed": true
   },
   {
     "name": "Radio Group",
@@ -1810,7 +1082,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "toggle",
     "key": "radio-group",
     "family_key": "switch",
     "file_path": "components/ui/radio-group.tsx",
@@ -1850,7 +1121,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "toggle",
     "key": "switch",
     "family_key": "switch",
     "file_path": "components/ui/switch.tsx",
@@ -1868,29 +1138,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "field",
     "key": "labelled-switch",
     "family_key": "input",
     "file_path": "components/ui/labelled-switch.tsx",
     "import_path": "@/components/ui/labelled-switch",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Text Wrap Toggle",
-    "type": "interaction/selection",
-    "canonical": "toggles",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "toggle",
-    "key": "text-wrap-toggle",
-    "family_key": "switch",
-    "file_path": "components/ui/text-wrap-toggle.tsx",
-    "import_path": "@/components/ui/text-wrap-toggle",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
@@ -1904,7 +1155,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "toggle",
     "key": "toggle-row",
     "family_key": "switch",
     "file_path": "components/ui/toggle-row.tsx",
@@ -1922,7 +1172,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "badge-select",
     "family_key": "select",
     "file_path": "components/ui/badge-select.tsx",
@@ -1933,24 +1182,6 @@
     "description": null
   },
   {
-    "name": "Filter Category Badge",
-    "type": "interaction/selection",
-    "canonical": "badges",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "filter-category-badge",
-    "family_key": "badge",
-    "file_path": "components/ui/filter-category-badge.tsx",
-    "import_path": "@/components/ui/filter-category-badge",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Toggleable Badges",
     "type": "interaction/selection",
     "canonical": "toggles",
@@ -1958,7 +1189,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "toggleable-badges",
     "family_key": "array",
     "file_path": "components/ui/toggleable-badges.tsx",
@@ -1967,15 +1197,6 @@
     "needs_mock_data": true,
     "mock_data_key": "nav-items",
     "description": null
-  },
-  {
-    "name": "Field label",
-    "type": "meaning/label",
-    "canonical": "forms",
-    "tier": "primitive",
-    "demos": [
-      "classic"
-    ]
   },
   {
     "name": "Label",
@@ -1987,7 +1208,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "field",
     "key": "label",
     "family_key": "input",
     "file_path": "src/components/ui/label.tsx",
@@ -2007,7 +1227,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "badge",
     "key": "badge",
     "family_key": "badge",
     "file_path": "components/ui/badge.tsx",
@@ -2035,7 +1254,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "pill",
     "family_key": "badge",
     "file_path": "components/standard/pill.tsx",
@@ -2046,24 +1264,6 @@
     "description": "Split badge with a muted label on the left and a contrasting value on the right, in four corner radii."
   },
   {
-    "name": "Circle Badge",
-    "type": "meaning/label",
-    "canonical": "badges",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "circle-badge",
-    "family_key": "badge",
-    "file_path": "components/ui/circle-badge.tsx",
-    "import_path": "@/components/ui/circle-badge",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Chip",
     "type": "meaning/label",
     "canonical": "badges",
@@ -2071,7 +1271,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "chip",
     "family_key": "badge",
     "file_path": "components/standard/chip.tsx",
@@ -2080,60 +1279,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": "Pressable tag: filter/selection chips with a check when on, action chips with an icon, and removable filter chips. Looks interactive so it is never mistaken for a Badge."
-  },
-  {
-    "name": "Displays Defines New Badge",
-    "type": "meaning/label",
-    "canonical": "badges",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "displays-defines-new-badge",
-    "family_key": "badge",
-    "file_path": "components/ui/displaysDefinesNewBadge.tsx",
-    "import_path": "@/components/ui/displaysDefinesNewBadge",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Standard Badge",
-    "type": "meaning/label",
-    "canonical": "badges",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "standard-badge",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-badge.tsx",
-    "import_path": "@/components/ui/standard-badge",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Tag Label",
-    "type": "meaning/label",
-    "canonical": "badges",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "badge",
-    "key": "tag-label",
-    "family_key": "tag",
-    "file_path": "components/ui/tag-label.tsx",
-    "import_path": "@/components/ui/tag-label",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
   },
   {
     "name": "Spinner",
@@ -2145,7 +1290,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "signal",
     "key": "spinner",
     "family_key": "spinner",
     "file_path": "src/components/ui/spinner.tsx",
@@ -2165,7 +1309,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "progress",
     "family_key": "chart",
     "file_path": "components/ui/progress.tsx",
@@ -2195,7 +1338,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "signal",
     "key": "skeleton",
     "family_key": "spinner",
     "file_path": "components/ui/skeleton.tsx",
@@ -2216,42 +1358,6 @@
     "installed": true
   },
   {
-    "name": "Icon Indicator",
-    "type": "meaning/indicator",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "icon-indicator",
-    "family_key": "icon",
-    "file_path": "components/ui/icon-indicator.tsx",
-    "import_path": "@/components/ui/icon-indicator",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Save Check Icon",
-    "type": "meaning/indicator",
-    "canonical": "icons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "button",
-    "key": "save-check-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/icons/save-check-icon.tsx",
-    "import_path": "@/components/ui/icons/save-check-icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Notification Badge",
     "type": "meaning/indicator",
     "canonical": "badges",
@@ -2259,7 +1365,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "notification-badge",
     "family_key": "badge",
     "file_path": "components/standard/notification-badge.tsx",
@@ -2277,7 +1382,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "indicator",
     "family_key": "badge",
     "file_path": "components/standard/indicator.tsx",
@@ -2295,7 +1399,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "badge",
     "key": "standard-toolbar-count",
     "family_key": "standard",
     "file_path": "components/standard/toolbar-count.tsx",
@@ -2306,42 +1409,6 @@
     "description": "Toolbar counts: result text, filtered-of-total, pill, corner badge on a button, and a selection chip with clear."
   },
   {
-    "name": "Job Costing Skeleton",
-    "type": "meaning/indicator",
-    "canonical": "loading",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "job-costing-skeleton",
-    "family_key": "spinner",
-    "file_path": "components/ui/job-costing-skeleton.tsx",
-    "import_path": "@/components/ui/job-costing-skeleton",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-loading",
-    "description": null
-  },
-  {
-    "name": "Loading Check",
-    "type": "meaning/indicator",
-    "canonical": "loading",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "loading-check",
-    "family_key": "spinner",
-    "file_path": "components/ui/loading-check.tsx",
-    "import_path": "@/components/ui/loading-check",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-loading",
-    "description": null
-  },
-  {
     "name": "Loading State",
     "type": "meaning/indicator",
     "canonical": "loading",
@@ -2349,29 +1416,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "loading-state",
     "family_key": "spinner",
     "file_path": "components/ui/loading-state.tsx",
     "import_path": "@/components/ui/loading-state",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-loading",
-    "description": null
-  },
-  {
-    "name": "Page Skeletons",
-    "type": "meaning/indicator",
-    "canonical": "loading",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "page-skeletons",
-    "family_key": "spinner",
-    "file_path": "components/ui/page-skeletons.tsx",
-    "import_path": "@/components/ui/page-skeletons",
     "preview_mode": "inline",
     "needs_mock_data": true,
     "mock_data_key": "signals-loading",
@@ -2397,29 +1445,10 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "signal",
     "key": "alert",
     "family_key": "alert",
     "file_path": "components/ui/alert.tsx",
     "import_path": "@/components/ui/alert",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
-    "name": "Scroll Dismiss Banner",
-    "type": "meaning/feedback",
-    "canonical": "alerts",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "scroll-dismiss-banner",
-    "family_key": "scroll",
-    "file_path": "components/ui/scroll-dismiss-banner.tsx",
-    "import_path": "@/components/ui/scroll-dismiss-banner",
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "signals-alert",
@@ -2433,7 +1462,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "broadcast-banner",
     "family_key": "alert",
     "file_path": "components/ui/BroadcastBanner.tsx",
@@ -2451,7 +1479,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "broadcast-banner-container",
     "family_key": "alert",
     "file_path": "components/ui/BroadcastBannerContainer.tsx",
@@ -2462,114 +1489,6 @@
     "description": null
   },
   {
-    "name": "App Badge Notification",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "app-badge-notification",
-    "family_key": "alert",
-    "file_path": "utils/tab-attention.ts",
-    "import_path": "@/utils/tab-attention",
-    "preview_mode": "dialog",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "App Title Notification",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "app-title-notification",
-    "family_key": "alert",
-    "file_path": "utils/tab-attention.ts",
-    "import_path": "@/utils/tab-attention",
-    "preview_mode": "dialog",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Favicon Notification",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "favicon-notification",
-    "family_key": "alert",
-    "file_path": "utils/tab-attention.ts",
-    "import_path": "@/utils/tab-attention",
-    "preview_mode": "dialog",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Popup Notification Container",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "popup-notification-container",
-    "family_key": "alert",
-    "file_path": "components/ui/PopupNotificationContainer.tsx",
-    "import_path": "@/components/ui/PopupNotificationContainer",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
-    "name": "Popup Notification Display",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "popup-notification-display",
-    "family_key": "alert",
-    "file_path": "components/ui/PopupNotificationDisplay.tsx",
-    "import_path": "@/components/ui/PopupNotificationDisplay",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
-    "name": "PWA Notification",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "pwa-notification",
-    "family_key": "alert",
-    "file_path": "utils/pwa-notifications.ts",
-    "import_path": "@/utils/pwa-notifications",
-    "preview_mode": "dialog",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Toast",
     "type": "meaning/feedback",
     "canonical": "notifications",
@@ -2577,7 +1496,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "toast",
     "family_key": "alert",
     "file_path": "utils/toast-logger.ts",
@@ -2597,7 +1515,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "card",
     "family_key": "card",
     "file_path": "src/components/ui/card.tsx",
@@ -2617,7 +1534,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "accordion",
     "family_key": "disclosure",
     "file_path": "components/ui/accordion.tsx",
@@ -2685,47 +1601,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "card-bar",
     "family_key": "card",
     "file_path": "components/ui/card-bar.tsx",
     "import_path": "@/components/ui/card-bar",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Card Bars",
-    "type": "structure/surface",
-    "canonical": "cards",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "card-bars",
-    "family_key": "card",
-    "file_path": "components/ui/card-bars.tsx",
-    "import_path": "@/components/ui/card-bars",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Card Header Image",
-    "type": "structure/surface",
-    "canonical": "cards",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "card-header-image",
-    "family_key": "card",
-    "file_path": "src/components/ui/card-header-image.tsx",
-    "import_path": "@/components/ui/card-header-image",
     "preview_mode": "inline",
     "needs_mock_data": true,
     "mock_data_key": "table-rows",
@@ -2739,29 +1618,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "standard-card",
     "family_key": "standard",
     "file_path": "components/ui/standard-card.tsx",
     "import_path": "@/components/ui/standard-card",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Standard Card Chrome",
-    "type": "structure/surface",
-    "canonical": "cards",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "standard-card-chrome",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-card-chrome.tsx",
-    "import_path": "@/components/ui/standard-card-chrome",
     "preview_mode": "inline",
     "needs_mock_data": true,
     "mock_data_key": "table-rows",
@@ -2777,7 +1637,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "dialog",
     "family_key": "dialog",
     "file_path": "components/ui/dialog.tsx",
@@ -2793,11 +1652,9 @@
     "canonical": "dialogs",
     "tier": "primitive",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "alert-dialog",
     "family_key": "dialog",
     "file_path": "components/ui/alert-dialog.tsx",
@@ -2817,7 +1674,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "sheet",
     "family_key": "sheet",
     "file_path": "components/ui/sheet.tsx",
@@ -2847,7 +1703,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "popover",
     "family_key": "popover",
     "file_path": "components/ui/popover.tsx",
@@ -2877,7 +1732,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "tooltip",
     "family_key": "popover",
     "file_path": "src/components/ui/tooltip.tsx",
@@ -2897,7 +1751,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "dropdown-menu",
     "family_key": "menu",
     "file_path": "components/ui/dropdown-menu.tsx",
@@ -2917,65 +1770,10 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "overlay",
     "key": "context-menu",
     "family_key": "menu",
     "file_path": "components/ui/context-menu.tsx",
     "import_path": "@/components/ui/context-menu",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Standard Table Row Actions Menu",
-    "type": "structure/overlay",
-    "canonical": "menus",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "standard-table-row-actions-menu",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-table-row-actions-menu.tsx",
-    "import_path": "@/components/ui/standard-table-row-actions-menu",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Bulk Hold Modal",
-    "type": "structure/overlay",
-    "canonical": "dialogs",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "overlay",
-    "key": "bulk-hold-modal",
-    "family_key": "dialog",
-    "file_path": "components/ui/bulk-hold-modal.tsx",
-    "import_path": "@/components/ui/bulk-hold-modal",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Config Dialog",
-    "type": "structure/overlay",
-    "canonical": "dialogs",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "overlay",
-    "key": "config-dialog",
-    "family_key": "dialog",
-    "file_path": "components/ui/config-dialog.tsx",
-    "import_path": "@/components/ui/config-dialog",
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "overlay-body",
@@ -2989,29 +1787,10 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "overlay",
     "key": "confirm-dialog",
     "family_key": "dialog",
     "file_path": "components/ui/confirm-dialog.tsx",
     "import_path": "@/components/ui/confirm-dialog",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Dialog Simple Search",
-    "type": "structure/overlay",
-    "canonical": "search",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "overlay",
-    "key": "dialog-simple-search",
-    "family_key": "dialog",
-    "file_path": "components/ui/dialog-simple-search.tsx",
-    "import_path": "@/components/ui/dialog-simple-search",
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "overlay-body",
@@ -3025,7 +1804,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "overlay",
     "key": "tabbed-dialog",
     "family_key": "dialog",
     "file_path": "components/ui/tabbed-dialog.tsx",
@@ -3043,7 +1821,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "overlay",
     "key": "wizard",
     "family_key": "dialog",
     "file_path": "components/standard/wizard.tsx",
@@ -3054,24 +1831,6 @@
     "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue."
   },
   {
-    "name": "Popover Column",
-    "type": "structure/overlay",
-    "canonical": "popovers",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "overlay",
-    "key": "popover-column",
-    "family_key": "popover",
-    "file_path": "components/ui/popover-column.tsx",
-    "import_path": "@/components/ui/popover-column",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
     "name": "Popover Wizard",
     "type": "structure/overlay",
     "canonical": "popovers",
@@ -3079,7 +1838,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "overlay",
     "key": "popover-wizard",
     "family_key": "popover",
     "file_path": "components/standard/popover-wizard.tsx",
@@ -3088,51 +1846,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": "Small multi-step panel anchored to its trigger: header dots, Back and Next, for tours and quick setup."
-  },
-  {
-    "name": "Validation Tooltip",
-    "type": "structure/overlay",
-    "canonical": "popovers",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "overlay",
-    "key": "validation-tooltip",
-    "family_key": "popover",
-    "file_path": "components/ui/validation-tooltip.tsx",
-    "import_path": "@/components/ui/validation-tooltip",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
-  },
-  {
-    "name": "Blur Overlay",
-    "type": "structure/overlay",
-    "canonical": "dialogs",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "signal",
-    "key": "blur-overlay",
-    "family_key": "alert",
-    "file_path": "components/ui/blur-overlay.tsx",
-    "import_path": "@/components/ui/blur-overlay",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
-    "name": "Divider",
-    "type": "structure/separator",
-    "canonical": "dividers",
-    "tier": "primitive",
-    "demos": [
-      "classic"
-    ]
   },
   {
     "name": "Separator",
@@ -3144,7 +1857,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "separator",
     "family_key": "divider",
     "file_path": "src/components/ui/separator.tsx",
@@ -3156,15 +1868,6 @@
   },
   {
     "name": "Stack",
-    "type": "structure/layout",
-    "canonical": "layout",
-    "tier": "primitive",
-    "demos": [
-      "classic"
-    ]
-  },
-  {
-    "name": "Row",
     "type": "structure/layout",
     "canonical": "layout",
     "tier": "primitive",
@@ -3188,11 +1891,9 @@
     "canonical": "layout",
     "tier": "primitive",
     "demos": [
-      "classic",
-      "standard"
+      "classic"
     ],
     "installed": true,
-    "standard_demo": "content",
     "key": "resizable",
     "family_key": "panels",
     "file_path": "src/components/ui/resizable.tsx",
@@ -3212,7 +1913,6 @@
       "standard"
     ],
     "installed": true,
-    "standard_demo": "picker",
     "key": "scroll-area",
     "family_key": "scroll",
     "file_path": "components/ui/scroll-area.tsx",
@@ -3243,24 +1943,6 @@
     "installed": true
   },
   {
-    "name": "Renders Scroll Vertical Arrows",
-    "type": "structure/layout",
-    "canonical": "scroll",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "picker",
-    "key": "renders-scroll-vertical-arrows",
-    "family_key": "scroll",
-    "file_path": "components/ui/renders-scroll-vertical-arrows.tsx",
-    "import_path": "@/components/ui/renders-scroll-vertical-arrows",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Scroll Horizontal Button",
     "type": "structure/layout",
     "canonical": "scroll",
@@ -3268,7 +1950,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "scroll-horizontal-button",
     "family_key": "scroll",
     "file_path": "components/ui/scroll-horizontal-button.tsx",
@@ -3286,7 +1967,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "picker",
     "key": "thin-scrollbar",
     "family_key": "scroll",
     "file_path": "components/standard/scrollbar.tsx",
@@ -3297,24 +1977,6 @@
     "description": "Excalidraw-style thin native scrollbar (4px). Use ThinScrollbar or class scrollbar-thin."
   },
   {
-    "name": "App Cards Layout",
-    "type": "structure/layout",
-    "canonical": "cards",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "standard_demo": "content",
-    "key": "app-cards-layout",
-    "family_key": "card",
-    "file_path": "components/ui/app-cards-layout.tsx",
-    "import_path": "@/components/ui/app-cards-layout",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
     "name": "Article",
     "type": "structure/layout",
     "canonical": "text",
@@ -3322,7 +1984,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "article",
     "family_key": "article",
     "file_path": "components/standard/article.tsx",
@@ -3340,7 +2001,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "bento-grid",
     "family_key": "grid",
     "file_path": "components/standard/bento-grid.tsx",
@@ -3358,7 +2018,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "content",
     "key": "app-grid",
     "family_key": "grid",
     "file_path": "components/standard/app-grid.tsx",
@@ -3376,7 +2035,6 @@
     "demos": [
       "standard"
     ],
-    "standard_demo": "signal",
     "key": "page-header",
     "family_key": "chrome",
     "file_path": "components/ui/page-header.tsx",

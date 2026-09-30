@@ -40,7 +40,6 @@ export type GalleryComponent = {
   canonical: string
   tier: GalleryTier
   demos: GalleryDemoSet[]
-  standard_demo?: string
   installed?: boolean
   key?: string
   family_key?: string | null

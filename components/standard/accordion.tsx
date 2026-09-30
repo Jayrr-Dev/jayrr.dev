@@ -1,4 +1,3 @@
-import * as React from "react"
 import { cn } from "cn"
 
 function Accordion({
@@ -25,78 +24,9 @@ function Accordion({
   )
 }
 
-function Table({
-  className,
-  headers,
-  rows,
-}: {
-  className?: string
-  headers: string[]
-  rows: string[][]
-}) {
-  return (
-    <table
-      data-slot="table"
-      className={cn("w-full text-left text-sm", className)}
-    >
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th key={header} className="border-b border-border pb-1 font-medium">
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, index) => (
-          <tr key={index}>
-            {row.map((cell) => (
-              <td key={cell} className="py-1 text-muted-foreground">
-                {cell}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )
-}
+export { Accordion }
 
-function StandardText({
-  className,
-  ...props
-}: React.ComponentProps<"p">) {
-  return (
-    <p
-      data-slot="standard-text"
-      className={cn("text-sm leading-relaxed", className)}
-      {...props}
-    />
-  )
-}
-
-function ToggleRow({
-  className,
-  label,
-  children,
-}: {
-  className?: string
-  label: string
-  children: React.ReactNode
-}) {
-  return (
-    <div
-      data-slot="toggle-row"
-      className={cn(
-        "flex w-full items-center justify-between gap-3 rounded-lg border border-border px-3 py-2",
-        className
-      )}
-    >
-      <span className="text-sm">{label}</span>
-      {children}
-    </div>
-  )
-}
-
-export { Accordion, StandardText, Table, ToggleRow }
+// Moved to their own files; re-exported so existing imports keep working.
+export { StandardText } from "@/components/standard/standard-text"
+export { Table } from "@/components/standard/table"
+export { ToggleRow } from "@/components/standard/toggle-row"

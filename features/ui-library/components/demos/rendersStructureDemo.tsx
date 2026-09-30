@@ -10,7 +10,7 @@ export function RendersStructureDemo({
 }: {
   pieceName: string
 }) {
-  if (pieceName === "Divider") {
+  if (pieceName === "Separator") {
     return (
       <>
         <RendersDemoCard>
@@ -33,25 +33,22 @@ export function RendersStructureDemo({
 
   if (pieceName === "Stack") {
     return (
-      <RendersDemoCard>
-        <div className="flex w-full flex-col gap-2">
-          <Button variant="outline">First</Button>
-          <Button variant="outline">Second</Button>
-          <Button variant="outline">Third</Button>
-        </div>
-      </RendersDemoCard>
-    )
-  }
-
-  if (pieceName === "Row") {
-    return (
-      <RendersDemoCard>
-        <div className="flex w-full items-center gap-2">
-          <Button variant="outline">One</Button>
-          <Button variant="outline">Two</Button>
-          <Button>Go</Button>
-        </div>
-      </RendersDemoCard>
+      <>
+        <RendersDemoCard>
+          <div className="flex w-full flex-col gap-2">
+            <Button variant="outline">First</Button>
+            <Button variant="outline">Second</Button>
+            <Button variant="outline">Third</Button>
+          </div>
+        </RendersDemoCard>
+        <RendersDemoCard label="row">
+          <div className="flex w-full items-center gap-2">
+            <Button variant="outline">One</Button>
+            <Button variant="outline">Two</Button>
+            <Button>Go</Button>
+          </div>
+        </RendersDemoCard>
+      </>
     )
   }
 
