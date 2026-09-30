@@ -11,7 +11,17 @@ const uiFiles = fs
 const uiNames = new Set(uiFiles.map((file) => file.replace(/\.tsx$/, "")))
 
 // Standard files that share a name with a Classic file publish as standard-<name>.
+// When that name already belongs to a Standard file of its own (table.tsx vs
+// standard-table.tsx), the override below keeps both names unique and stable.
+const STANDARD_NAME_OVERRIDES = {
+  table: "standard-simple-table",
+}
+
 function standardNameFor(base) {
+  if (STANDARD_NAME_OVERRIDES[base]) {
+    return STANDARD_NAME_OVERRIDES[base]
+  }
+
   return uiNames.has(base) ? `standard-${base}` : base
 }
 
@@ -106,11 +116,10 @@ function item(name, file, type, libraryName, title, options = {}) {
     registryFile.target = options.target
   }
 
-  const {
-    dependencies: _dependencies,
-    registryDependencies: _registryDependencies,
-    ...kept
-  } = options.existing?.get(name) ?? {}
+  // Dependencies are always derived from the imports, never carried over.
+  const kept = { ...(options.existing?.get(name) ?? {}) }
+  delete kept.dependencies
+  delete kept.registryDependencies
 
   const entry = {
     name,
@@ -140,6 +149,15 @@ function item(name, file, type, libraryName, title, options = {}) {
 }
 
 function writeItems(file, items) {
+  const names = new Set()
+
+  for (const entry of items) {
+    if (names.has(entry.name)) {
+      throw new Error(`${file}: duplicate registry item "${entry.name}"`)
+    }
+    names.add(entry.name)
+  }
+
   fs.writeFileSync(
     file,
     `${JSON.stringify(
@@ -188,11 +206,35 @@ const standardItems = standardFiles.map((file) => {
 
 writeItems("components/ui/registry.json", uiItems)
 writeItems("components/standard/registry.json", standardItems)
-writeItems("hooks/registry.json", [
-  item("use-mobile", "hooks/use-mobile.ts", "registry:hook", "Classic", undefined, {
-    existing: readsEntries("hooks/registry.json"),
-  }),
-])
+const hookEntries = readsEntries("hooks/registry.json")
+
+const hookItems = fs
+  .readdirSync("hooks")
+  .filter((file) => file.endsWith(".ts"))
+  .sort()
+  .map((file) =>
+    item(
+      file.replace(/.ts$/, ""),
+      path.join("hooks", file),
+      "registry:hook",
+      "Standard",
+      undefined,
+      { existing: hookEntries }
+    )
+  )
+
+const allNames = [...uiItems, ...standardItems, ...hookItems].map(
+  (entry) => entry.name
+)
+const duplicates = allNames.filter(
+  (name, index) => allNames.indexOf(name) !== index
+)
+
+if (duplicates.length > 0) {
+  throw new Error(`duplicate registry items: ${duplicates.join(", ")}`)
+}
+
+writeItems("hooks/registry.json", hookItems)
 
 fs.writeFileSync(
   "registry.json",
@@ -214,3 +256,4 @@ fs.writeFileSync(
 
 console.log(`ui items ${uiItems.length}`)
 console.log(`standard items ${standardItems.length}`)
+console.log(`hook items ${hookItems.length}`)

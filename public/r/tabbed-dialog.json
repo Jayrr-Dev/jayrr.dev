@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabbed-dialog",
+  "title": "Tabbed Dialog",
+  "description": "Tabbed Dialog from the Standard library.",
+  "registryDependencies": [
+    "@jayrr/standard-dialog",
+    "@jayrr/tabs"
+  ],
+  "files": [
+    {
+      "path": "components/standard/tabbed-dialog.tsx",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\n\r\nimport { Dialog } from \"@/components/standard/dialog\"\r\nimport {\r\n  Tabs,\r\n  TabsContent,\r\n  TabsList,\r\n  TabsTrigger,\r\n} from \"@/components/ui/tabs\"\r\n\r\n// Arrow keys move between tabs (roving focus) and each panel is linked to\r\n// its tab, so the dialog reads as one tablist to screen readers.\r\nfunction TabbedDialog({\r\n  title,\r\n  tabs,\r\n  trigger = \"Open tabs\",\r\n}: {\r\n  title: string\r\n  tabs: { id: string; label: string; body: React.ReactNode }[]\r\n  trigger?: React.ReactNode\r\n}) {\r\n  return (\r\n    <Dialog title={title} trigger={trigger}>\r\n      <Tabs\r\n        data-slot=\"tabbed-dialog\"\r\n        defaultValue={tabs[0]?.id}\r\n        className=\"gap-2\"\r\n      >\r\n        <TabsList>\r\n          {tabs.map((tab) => (\r\n            <TabsTrigger key={tab.id} value={tab.id}>\r\n              {tab.label}\r\n            </TabsTrigger>\r\n          ))}\r\n        </TabsList>\r\n        {tabs.map((tab) => (\r\n          <TabsContent\r\n            key={tab.id}\r\n            value={tab.id}\r\n            className=\"text-muted-foreground\"\r\n          >\r\n            {tab.body}\r\n          </TabsContent>\r\n        ))}\r\n      </Tabs>\r\n    </Dialog>\r\n  )\r\n}\r\n\r\nexport { TabbedDialog }\r\n",
+      "type": "registry:ui",
+      "target": "components/standard/tabbed-dialog.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

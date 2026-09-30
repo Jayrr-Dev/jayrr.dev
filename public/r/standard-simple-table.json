@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-simple-table",
+  "title": "Table",
+  "description": "Table from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/table.tsx",
+      "content": "import { cn } from \"cn\"\n\nfunction Table({\n  className,\n  headers,\n  rows,\n}: {\n  className?: string\n  headers: string[]\n  rows: string[][]\n}) {\n  return (\n    <table\n      data-slot=\"table\"\n      className={cn(\"w-full text-left text-sm\", className)}\n    >\n      <thead>\n        <tr>\n          {headers.map((header) => (\n            <th key={header} className=\"border-b border-border pb-1 font-medium\">\n              {header}\n            </th>\n          ))}\n        </tr>\n      </thead>\n      <tbody>\n        {rows.map((row, index) => (\n          <tr key={index}>\n            {row.map((cell) => (\n              <td key={cell} className=\"py-1 text-muted-foreground\">\n                {cell}\n              </td>\n            ))}\n          </tr>\n        ))}\n      </tbody>\n    </table>\n  )\n}\n\nexport { Table }\n",
+      "type": "registry:ui",
+      "target": "components/standard/table.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

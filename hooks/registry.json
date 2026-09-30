@@ -2,6 +2,18 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "items": [
     {
+      "name": "use-controllable-state",
+      "type": "registry:hook",
+      "title": "Use Controllable State",
+      "description": "Use Controllable State from the Standard library.",
+      "files": [
+        {
+          "path": "use-controllable-state.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "use-mobile",
       "type": "registry:hook",
       "title": "Use Mobile",

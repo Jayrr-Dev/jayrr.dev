@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "standard-kbd",
+  "title": "Kbd",
+  "description": "Kbd from the Standard library.",
+  "registryDependencies": [
+    "@jayrr/kbd"
+  ],
+  "files": [
+    {
+      "path": "components/standard/kbd.tsx",
+      "content": "// The standard Kbd is the ui primitive; kept here so existing\r\n// \"@/components/standard/kbd\" imports keep working.\r\nexport { Kbd, KbdGroup } from \"@/components/ui/kbd\"\r\n",
+      "type": "registry:ui",
+      "target": "components/standard/kbd.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

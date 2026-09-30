@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "control-bar",
+  "title": "Control Bar",
+  "description": "Control Bar from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/control-bar.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction ControlBar({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"control-bar\"\n      className={cn(\n        \"flex w-full flex-wrap items-center gap-2 rounded-lg border border-border bg-muted/40 px-2 py-1.5\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ControlBar }\n",
+      "type": "registry:ui",
+      "target": "components/standard/control-bar.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

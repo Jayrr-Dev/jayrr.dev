@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-controllable-state",
+  "title": "Use Controllable State",
+  "description": "Use Controllable State from the Standard library.",
+  "files": [
+    {
+      "path": "hooks/use-controllable-state.ts",
+      "content": "import * as React from \"react\"\n\n/**\n * State that a parent may control. Pass `value` to control it; leave it\n * undefined to let the component keep its own state, seeded by `defaultValue`.\n * `onChange` fires on every set, controlled or not, when the value changes.\n */\nexport function useControllableState<T>({\n  value,\n  defaultValue,\n  onChange,\n}: {\n  value?: T\n  defaultValue: T\n  onChange?: (value: T) => void\n}) {\n  const [uncontrolled, setUncontrolled] = React.useState<T>(defaultValue)\n  const isControlled = value !== undefined\n  const current = isControlled ? (value as T) : uncontrolled\n\n  const onChangeRef = React.useRef(onChange)\n  React.useEffect(() => {\n    onChangeRef.current = onChange\n  })\n\n  const setValue = React.useCallback(\n    (next: T | ((previous: T) => T)) => {\n      const resolved =\n        typeof next === \"function\"\n          ? (next as (previous: T) => T)(current)\n          : next\n      if (Object.is(resolved, current)) {\n        return\n      }\n      if (!isControlled) {\n        setUncontrolled(resolved)\n      }\n      onChangeRef.current?.(resolved)\n    },\n    [current, isControlled]\n  )\n\n  return [current, setValue] as const\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

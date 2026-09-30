@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker",
+  "title": "Date Picker",
+  "description": "Date Picker from the Standard library.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/date-picker.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction DatePicker({\r\n  className,\r\n  invalid,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"type\"> & {\r\n  /** Shows the error style. Same as passing aria-invalid. */\r\n  invalid?: boolean\r\n}) {\r\n  return (\r\n    <input\r\n      data-slot=\"date-picker\"\r\n      type=\"date\"\r\n      className={cn(\r\n        \"h-8 rounded-lg border border-input bg-transparent px-2 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40\",\r\n        className\r\n      )}\r\n      {...props}\r\n      aria-invalid={invalid || props[\"aria-invalid\"] || undefined}\r\n    />\r\n  )\r\n}\n\nexport { DatePicker }\n",
+      "type": "registry:ui",
+      "target": "components/standard/date-picker.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

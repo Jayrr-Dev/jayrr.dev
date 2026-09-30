@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "choice-label",
+  "title": "Choice Label",
+  "description": "Choice Label from the Standard library.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/standard/choice-label.tsx",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst choiceLabelVariants = cva(\r\n  \"flex cursor-pointer items-start gap-2 has-disabled:cursor-not-allowed has-disabled:opacity-50\",\r\n  {\r\n    variants: {\r\n      appearance: {\r\n        default: \"-mx-2 rounded-md px-2 py-1.5\",\r\n        // Bordered option tile that lights up while its control is checked.\r\n        card: \"rounded-lg border border-input p-3 transition-colors hover:bg-muted/40 has-checked:border-primary has-checked:bg-primary/5 has-focus-visible:ring-3 has-focus-visible:ring-ring/50 has-aria-invalid:border-destructive\",\r\n      },\r\n      size: {\r\n        default: \"text-sm\",\r\n        sm: \"text-xs\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      appearance: \"default\",\r\n      size: \"default\",\r\n    },\r\n  }\r\n)\r\n\r\n/**\r\n * The clickable label, and optional description, shared by Checkbox and\r\n * Radio. Internal: reach for those components instead.\r\n */\r\nfunction ChoiceLabel({\r\n  slot,\r\n  className,\r\n  appearance = \"default\",\r\n  size = \"default\",\r\n  control,\r\n  label,\r\n  description,\r\n}: VariantProps<typeof choiceLabelVariants> & {\r\n  /** data-slot for the label, e.g. \"checkbox-label\". */\r\n  slot: string\r\n  className?: string\r\n  /** The input the label wraps. */\r\n  control: React.ReactNode\r\n  label: React.ReactNode\r\n  description?: React.ReactNode\r\n}) {\r\n  return (\r\n    <label\r\n      data-slot={slot}\r\n      data-appearance={appearance}\r\n      className={cn(choiceLabelVariants({ appearance, size }), className)}\r\n    >\r\n      {control}\r\n      <span className=\"flex flex-col gap-0.5 leading-snug\">\r\n        <span className={cn(appearance === \"card\" && \"font-medium\")}>\r\n          {label}\r\n        </span>\r\n        {description ? (\r\n          <span\r\n            className={cn(\r\n              \"text-muted-foreground\",\r\n              size === \"sm\" ? \"text-[0.6875rem]\" : \"text-xs\"\r\n            )}\r\n          >\r\n            {description}\r\n          </span>\r\n        ) : null}\r\n      </span>\r\n    </label>\r\n  )\r\n}\r\n\r\nexport { ChoiceLabel, choiceLabelVariants }\r\n",
+      "type": "registry:ui",
+      "target": "components/standard/choice-label.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

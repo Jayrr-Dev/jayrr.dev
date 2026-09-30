@@ -4,12 +4,17 @@
   "title": "Code",
   "description": "Code from the Standard library.",
   "dependencies": [
-    "cn"
+    "class-variance-authority",
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@jayrr/button"
   ],
   "files": [
     {
       "path": "components/standard/code.tsx",
-      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Code({ className, ...props }: React.ComponentProps<\"code\">) {\r\n  return (\r\n    <code\r\n      data-slot=\"code\"\r\n      className={cn(\r\n        \"relative rounded bg-muted px-2 py-1 font-mono text-sm\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Code }\r\n",
+      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { CheckIcon, CopyIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/ui/button\"\r\n\r\nconst codeVariants = cva(\"font-mono text-sm\", {\r\n  variants: {\r\n    variant: {\r\n      inline: \"relative rounded bg-muted px-2 py-1\",\r\n      // Multi-line snippet; long lines scroll sideways instead of wrapping.\r\n      block:\r\n        \"block w-full min-w-0 overflow-x-auto rounded-md bg-muted p-4 leading-relaxed whitespace-pre\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    variant: \"inline\",\r\n  },\r\n})\r\n\r\n// Copies the text of the block it sits in.\r\nfunction CodeCopyButton({ className }: { className?: string }) {\r\n  const [copied, setCopied] = React.useState(false)\r\n\r\n  React.useEffect(() => {\r\n    if (!copied) return\r\n    const timeout = window.setTimeout(() => setCopied(false), 1500)\r\n    return () => window.clearTimeout(timeout)\r\n  }, [copied])\r\n\r\n  return (\r\n    <Button\r\n      type=\"button\"\r\n      variant=\"ghost\"\r\n      size=\"icon-sm\"\r\n      data-slot=\"code-copy\"\r\n      aria-label={copied ? \"Copied\" : \"Copy code\"}\r\n      className={cn(\"absolute top-2 right-2\", className)}\r\n      onClick={(event) => {\r\n        const text = event.currentTarget\r\n          .closest(\"[data-slot=code-block]\")\r\n          ?.querySelector(\"pre\")?.textContent\r\n        if (!text) return\r\n        void navigator.clipboard?.writeText(text).then(() => setCopied(true))\r\n      }}\r\n    >\r\n      {copied ? <CheckIcon /> : <CopyIcon />}\r\n    </Button>\r\n  )\r\n}\r\n\r\nfunction Code({\r\n  className,\r\n  variant = \"inline\",\r\n  copyable = false,\r\n  ...props\r\n}: React.ComponentProps<\"code\"> &\r\n  VariantProps<typeof codeVariants> & {\r\n    /** Show a copy button. Block variant only. */\r\n    copyable?: boolean\r\n  }) {\r\n  if (variant === \"block\") {\r\n    return (\r\n      <div data-slot=\"code-block\" className=\"relative w-full min-w-0\">\r\n        <pre className=\"m-0\">\r\n          <code\r\n            data-slot=\"code\"\r\n            data-variant=\"block\"\r\n            className={cn(\r\n              codeVariants({ variant: \"block\" }),\r\n              copyable && \"pr-12\",\r\n              className\r\n            )}\r\n            {...props}\r\n          />\r\n        </pre>\r\n        {copyable ? <CodeCopyButton /> : null}\r\n      </div>\r\n    )\r\n  }\r\n\r\n  return (\r\n    <code\r\n      data-slot=\"code\"\r\n      data-variant=\"inline\"\r\n      className={cn(codeVariants({ variant: \"inline\" }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Code, codeVariants }\r\n",
       "type": "registry:ui",
       "target": "components/standard/code.tsx"
     }
