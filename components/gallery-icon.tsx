@@ -961,6 +961,19 @@ const icons = {
       <rect x="42" y="22" width="16" height="20" rx="10" opacity=".4" />
     </>
   ),
+  "Action Wheel": (
+    <>
+      <circle cx="32" cy="32" r="5" fill="currentColor" fillOpacity=".16" />
+      <circle cx="32" cy="12" r="5" />
+      <circle cx="46" cy="18" r="5" opacity=".4" />
+      <circle cx="52" cy="32" r="5" />
+      <circle cx="46" cy="46" r="5" opacity=".4" />
+      <circle cx="32" cy="52" r="5" />
+      <circle cx="18" cy="46" r="5" opacity=".4" />
+      <circle cx="12" cy="32" r="5" />
+      <circle cx="18" cy="18" r="5" opacity=".4" />
+    </>
+  ),
   "Floating Action Button": (
     <>
       <rect x="8" y="10" width="48" height="44" rx="6" opacity=".4" />

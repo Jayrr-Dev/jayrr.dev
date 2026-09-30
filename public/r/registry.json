@@ -1202,6 +1202,26 @@
       "type": "registry:ui"
     },
     {
+      "name": "action-wheel",
+      "title": "Action Wheel",
+      "description": "Action Wheel from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-tooltip"
+      ],
+      "files": [
+        {
+          "path": "components/standard/action-wheel.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/action-wheel.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "app-bar",
       "title": "App Bar",
       "description": "App Bar from the Standard library.",
@@ -1734,6 +1754,7 @@
       "registryDependencies": [
         "@jayrr/badge-select",
         "@jayrr/standard-badge",
+        "@jayrr/standard-checkbox",
         "@jayrr/standard-popover",
         "@jayrr/use-mobile"
       ],

@@ -36,6 +36,7 @@ import {
   type ToolbarTone,
 } from "@/components/standard/toolbar"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+import { RendersStandardActionWheelDemo } from "./rendersStandardActionWheelDemo"
 import { RendersStandardFabDemo } from "./rendersStandardFabDemo"
 
 const SECTION_ITEMS = [
@@ -274,6 +275,10 @@ export function RendersStandardButtonDemo({
         <RendersDockedToolbarDemo tone="vibrant" />
       </>
     )
+  }
+
+  if (pieceName === "Action Wheel") {
+    return <RendersStandardActionWheelDemo />
   }
 
   if (pieceName === "Floating Action Button") {

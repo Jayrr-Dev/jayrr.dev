@@ -1937,6 +1937,19 @@
     "description": "Material 3 FAB in FAB, medium, and large sizes with primary, secondary, and surface tones, extended labels, and the expressive FAB menu, plus utilitek's 32px compact chrome that grows into a pill on hover, a corner-pinned FabStack, and scroll collapse/hide."
   },
   {
+    "component_key": "action-wheel",
+    "component_name": "Action Wheel",
+    "section_key": "controls",
+    "category_key": "buttons",
+    "family_key": "button",
+    "file_path": "components/standard/action-wheel.tsx",
+    "import_path": "@/components/standard/action-wheel",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Logictek-style radial action menu: a small center trigger turns into a red close button while a ring of circular actions springs out around it. Full ring or arc via startAngle and sweep, inverse, surface, and secondary tones, three sizes, arrow-key navigation, and tooltips."
+  },
+  {
     "component_key": "toolbar",
     "component_name": "Toolbar",
     "section_key": "controls",

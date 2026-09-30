@@ -18,6 +18,26 @@
       ]
     },
     {
+      "name": "action-wheel",
+      "type": "registry:ui",
+      "title": "Action Wheel",
+      "description": "Action Wheel from the Standard library.",
+      "files": [
+        {
+          "path": "action-wheel.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/action-wheel.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-tooltip"
+      ]
+    },
+    {
       "name": "app-bar",
       "type": "registry:ui",
       "title": "App Bar",
