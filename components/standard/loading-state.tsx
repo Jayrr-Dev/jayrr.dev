@@ -1,35 +1,62 @@
 import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { CheckIcon } from "lucide-react"
 import { cn } from "cn"
 
-function Spinner({ className, ...props }: React.ComponentProps<"span">) {
-  return (
-    <span
-      data-slot="spinner"
-      className={cn(
-        "size-4 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-foreground",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+import { Spinner } from "@/components/ui/spinner"
+
+const loadingStateVariants = cva(
+  "flex items-center gap-2 text-sm text-muted-foreground",
+  {
+    variants: {
+      layout: {
+        inline: "",
+        // Centred in its own block, e.g. an empty panel while it loads.
+        block: "w-full flex-col justify-center py-8",
+        // Covers the nearest positioned parent with a blurred scrim.
+        overlay:
+          "absolute inset-0 z-10 flex-col justify-center rounded-[inherit] bg-background/60 backdrop-blur-sm",
+      },
+    },
+    defaultVariants: {
+      layout: "inline",
+    },
+  }
+)
 
 function LoadingState({
   className,
   label = "Loading",
+  layout = "inline",
+  done = false,
+  doneLabel = "Done",
 }: {
   className?: string
   label?: string
-}) {
+  /** Shows a check and `doneLabel` in place of the spinner. */
+  done?: boolean
+  doneLabel?: string
+} & VariantProps<typeof loadingStateVariants>) {
   return (
     <div
       data-slot="loading-state"
-      className={cn("flex items-center gap-2 text-sm text-muted-foreground", className)}
+      data-layout={layout}
+      data-state={done ? "done" : "loading"}
+      role="status"
+      aria-live="polite"
+      className={cn(loadingStateVariants({ layout }), className)}
     >
-      <Spinner />
-      {label}
+      {done ? (
+        <CheckIcon className="size-4 text-emerald-600 dark:text-emerald-400" />
+      ) : (
+        <Spinner aria-hidden />
+      )}
+      {done ? doneLabel : label}
     </div>
   )
 }
 
-export { LoadingState, Spinner }
+export { LoadingState, loadingStateVariants }
+
+// The standard Spinner is the ui one; re-exported so existing imports keep working.
+export { Spinner, type SpinnerVariant } from "@/components/ui/spinner"

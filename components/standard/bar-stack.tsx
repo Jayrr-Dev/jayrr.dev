@@ -1,5 +1,8 @@
 import { cn } from "cn"
 
+import { Progress } from "@/components/standard/progress"
+
+/** @deprecated Use <Progress segments> */
 function BarStack({
   className,
   segments,
@@ -7,25 +10,17 @@ function BarStack({
   className?: string
   segments: { id: string; value: number; className?: string }[]
 }) {
+  // BarStack segments share the whole bar; Progress segments are out of max.
   const total = segments.reduce((sum, segment) => sum + segment.value, 0)
 
   return (
-    <div
+    <Progress
       data-slot="bar-stack"
-      className={cn("flex h-3 w-full overflow-hidden rounded-full bg-muted", className)}
-    >
-      {segments.map((segment) => {
-        const width = total === 0 ? 0 : (segment.value / total) * 100
-
-        return (
-          <span
-            key={segment.id}
-            className={cn("h-full bg-primary", segment.className)}
-            style={{ width: `${width}%` }}
-          />
-        )
-      })}
-    </div>
+      size="lg"
+      max={total === 0 ? 1 : total}
+      segments={segments}
+      className={cn("w-full", className)}
+    />
   )
 }
 
