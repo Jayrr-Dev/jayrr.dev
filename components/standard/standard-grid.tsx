@@ -4,11 +4,11 @@ import * as React from "react"
 import { cn } from "cn"
 
 import {
-  filteringListRows,
   RendersStandardListChrome,
   RendersStandardListPager,
+  useStandardList,
   type StandardListFilter,
-  type StandardListTitleBar,
+  type StandardListProps,
 } from "@/components/standard/standard-list-chrome"
 
 export type StandardGridColumnConfig = {
@@ -17,27 +17,19 @@ export type StandardGridColumnConfig = {
   md?: number
 }
 
-export type StandardGridProps<T extends object> = {
-  data: T[]
+/** Grid-only props, shared by StandardGrid and StandardList's grid view. */
+export type StandardGridViewProps<T extends object> = {
   renderCard: (item: T, index: number) => React.ReactNode
   getItemKey: (item: T, index: number) => string | number
   columns?: StandardGridColumnConfig
   gap?: "sm" | "md" | "lg"
-  className?: string
   skipCardWrapper?: boolean
-  emptyMessage?: string
-  showSearch?: boolean
-  searchPlaceholder?: string
-  filterBadge?: boolean
-  filterSelect?: boolean
-  filters?: StandardListFilter[]
-  showRefresh?: boolean
-  onRefresh?: () => void
-  titleBar?: StandardListTitleBar
-  errorBar?: string
-  pagination?: boolean
-  initialPageSize?: number
 }
+
+export type StandardGridProps<T extends object> = StandardListProps<T> &
+  StandardGridViewProps<T> & {
+    filters?: StandardListFilter[]
+  }
 
 const GAP_CLASS = {
   sm: "gap-2",
@@ -64,6 +56,62 @@ function readingColClass(count: number | undefined, prefix: string) {
   return `${prefix}grid-cols-1`
 }
 
+/**
+ * The scrolling card grid, or the empty state. State lives in the caller
+ * (see useStandardList).
+ */
+export function RendersStandardGridBody<T extends object>({
+  rows,
+  renderCard,
+  getItemKey,
+  columns,
+  gap = "md",
+  skipCardWrapper = false,
+  emptyMessage = "No Data",
+}: StandardGridViewProps<T> & {
+  rows: T[]
+  emptyMessage?: string
+}) {
+  if (rows.length === 0) {
+    return (
+      <div className="rounded-lg border border-dashed border-border py-14 text-center text-sm text-muted-foreground">
+        {emptyMessage}
+      </div>
+    )
+  }
+
+  const gridClass = cn(
+    "grid",
+    GAP_CLASS[gap],
+    readingColClass(columns?.base ?? 1, ""),
+    readingColClass(columns?.sm, "sm:"),
+    readingColClass(columns?.md, "md:")
+  )
+
+  return (
+    <div className={cn("max-h-80 overflow-auto", gridClass)}>
+      {rows.map((item, index) => {
+        const card = renderCard(item, index)
+        if (skipCardWrapper) {
+          return (
+            <div key={getItemKey(item, index)} className="min-w-0">
+              {card}
+            </div>
+          )
+        }
+        return (
+          <div
+            key={getItemKey(item, index)}
+            className="min-w-0 rounded-xl border border-border bg-card p-3"
+          >
+            {card}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 function StandardGrid<T extends object>({
   data,
   renderCard,
@@ -85,27 +133,12 @@ function StandardGrid<T extends object>({
   pagination = false,
   initialPageSize = 10,
 }: StandardGridProps<T>) {
-  const [query, setQuery] = React.useState("")
-  const [page, setPage] = React.useState(1)
-  const [pageSize, setPageSize] = React.useState(initialPageSize)
-  const [selectedFilters, setSelectedFilters] = React.useState<
-    Record<string, string>
-  >({})
-
-  const filtered = filteringListRows(data, query, filters, selectedFilters)
-  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize))
-  const currentPage = Math.min(page, pageCount)
-  const paged = pagination
-    ? filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)
-    : filtered
-
-  const gridClass = cn(
-    "grid",
-    GAP_CLASS[gap],
-    readingColClass(columns?.base ?? 1, ""),
-    readingColClass(columns?.sm, "sm:"),
-    readingColClass(columns?.md, "md:")
-  )
+  const list = useStandardList({
+    data,
+    filters,
+    pagination,
+    initialPageSize,
+  })
 
   return (
     <div
@@ -120,60 +153,22 @@ function StandardGrid<T extends object>({
         errorBar={errorBar}
         showSearch={showSearch}
         searchPlaceholder={searchPlaceholder}
-        searchValue={query}
-        onSearchChange={(value) => {
-          setQuery(value)
-          setPage(1)
-        }}
         showRefresh={showRefresh}
         onRefresh={onRefresh}
         filterBadge={filterBadge}
         filterSelect={filterSelect}
-        filters={filters}
-        selectedFilters={selectedFilters}
-        onFilterChange={(key, value) => {
-          setSelectedFilters((current) => ({ ...current, [key]: value }))
-          setPage(1)
-        }}
+        {...list.chromeProps}
       />
-      {paged.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-border py-14 text-center text-sm text-muted-foreground">
-          {emptyMessage}
-        </div>
-      ) : (
-        <div className={cn("max-h-80 overflow-auto", gridClass)}>
-          {paged.map((item, index) => {
-            const card = renderCard(item, index)
-            if (skipCardWrapper) {
-              return (
-                <div key={getItemKey(item, index)} className="min-w-0">
-                  {card}
-                </div>
-              )
-            }
-            return (
-              <div
-                key={getItemKey(item, index)}
-                className="min-w-0 rounded-xl border border-border bg-card p-3"
-              >
-                {card}
-              </div>
-            )
-          })}
-        </div>
-      )}
-      {pagination ? (
-        <RendersStandardListPager
-          page={currentPage}
-          pageSize={pageSize}
-          total={filtered.length}
-          onPageChange={setPage}
-          onPageSizeChange={(next) => {
-            setPageSize(next)
-            setPage(1)
-          }}
-        />
-      ) : null}
+      <RendersStandardGridBody
+        rows={list.paged}
+        renderCard={renderCard}
+        getItemKey={getItemKey}
+        columns={columns}
+        gap={gap}
+        skipCardWrapper={skipCardWrapper}
+        emptyMessage={emptyMessage}
+      />
+      {pagination ? <RendersStandardListPager {...list.pagerProps} /> : null}
     </div>
   )
 }
