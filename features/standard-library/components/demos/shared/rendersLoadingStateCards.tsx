@@ -1,7 +1,91 @@
 "use client"
 
+import * as React from "react"
+import { CheckIcon, XIcon } from "lucide-react"
+
 import { LoadingState, Spinner } from "@/components/standard/loading-state"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+
+const multiStates = [
+  { key: "loading", label: "Syncing jobs" },
+  { key: "success", label: "Jobs synced" },
+  { key: "error", label: "Sync failed" },
+] as const
+
+/** Cycles a single slot through loading → success → error. */
+function MultiStateSpinner() {
+  const [index, setIndex] = React.useState(0)
+  const state = multiStates[index]
+
+  React.useEffect(() => {
+    const id = setTimeout(
+      () => setIndex((i) => (i + 1) % multiStates.length),
+      state.key === "loading" ? 1800 : 1400
+    )
+    return () => clearTimeout(id)
+  }, [state.key])
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      data-state={state.key}
+      className="flex items-center gap-2 text-sm text-muted-foreground"
+    >
+      <span
+        key={state.key}
+        className="flex size-4 items-center justify-center animate-in fade-in zoom-in-50 duration-200"
+      >
+        {state.key === "loading" && <Spinner aria-hidden />}
+        {state.key === "success" && (
+          <CheckIcon
+            className="size-4 text-emerald-600 dark:text-emerald-400 animate-out fade-out zoom-out-50 fill-mode-forwards duration-300"
+            style={{ animationDelay: "900ms" }}
+          />
+        )}
+        {state.key === "error" && (
+          <XIcon className="size-4 text-destructive" />
+        )}
+      </span>
+      <span key={`${state.key}-label`} className="animate-in fade-in duration-200">
+        {state.label}
+      </span>
+    </div>
+  )
+}
+
+/** Loads, shows the check, then lets `doneDismissAfter` fade it out. */
+function DoneDismissDemo() {
+  const [run, setRun] = React.useState(0)
+  const [done, setDone] = React.useState(false)
+
+  React.useEffect(() => {
+    const id = setTimeout(() => setDone(true), 1500)
+    return () => clearTimeout(id)
+  }, [run])
+
+  return (
+    <div className="flex items-center gap-4">
+      <LoadingState
+        key={run}
+        label="Saving"
+        done={done}
+        doneLabel="Saved"
+        doneDismissAfter={1200}
+      />
+      <button
+        type="button"
+        onClick={() => {
+          setDone(false)
+          setRun((r) => r + 1)
+        }}
+        className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+      >
+        Replay
+      </button>
+    </div>
+  )
+}
 
 const spinnerVariants = [
   "ring",
@@ -49,6 +133,12 @@ export function RendersLoadingStateCards() {
       </RendersDemoCard>
       <RendersDemoCard label="done">
         <LoadingState done doneLabel="Jobs loaded" />
+      </RendersDemoCard>
+      <RendersDemoCard label="done dismiss after">
+        <DoneDismissDemo />
+      </RendersDemoCard>
+      <RendersDemoCard label="multi state">
+        <MultiStateSpinner />
       </RendersDemoCard>
     </>
   )

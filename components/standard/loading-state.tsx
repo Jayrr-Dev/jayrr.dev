@@ -30,13 +30,17 @@ function LoadingState({
   layout = "inline",
   done = false,
   doneLabel = "Done",
+  doneDismissAfter,
 }: {
   className?: string
   label?: string
   /** Shows a check and `doneLabel` in place of the spinner. */
   done?: boolean
   doneLabel?: string
+  /** When done, fades the check out after this many ms; the label stays. */
+  doneDismissAfter?: number
 } & VariantProps<typeof loadingStateVariants>) {
+  const dismisses = done && doneDismissAfter != null
   return (
     <div
       data-slot="loading-state"
@@ -47,7 +51,14 @@ function LoadingState({
       className={cn(loadingStateVariants({ layout }), className)}
     >
       {done ? (
-        <CheckIcon className="size-4 text-emerald-600 dark:text-emerald-400" />
+        <CheckIcon
+          className={cn(
+            "size-4 text-emerald-600 dark:text-emerald-400",
+            dismisses &&
+              "animate-out fade-out zoom-out-50 fill-mode-forwards duration-300"
+          )}
+          style={dismisses ? { animationDelay: `${doneDismissAfter}ms` } : undefined}
+        />
       ) : (
         <Spinner aria-hidden />
       )}

@@ -2,15 +2,11 @@
 
 import * as React from "react"
 import { Dialog as DialogPrimitive } from "radix-ui"
-import {
-  CheckIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  XIcon,
-} from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react"
 import { cn } from "cn"
 
 import { Button } from "@/components/standard/button"
+import { Stepper } from "@/components/standard/stepper"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 type WizardStep = {
@@ -52,7 +48,7 @@ const MAX_WIDTH_CLASS = {
 type WizardMaxWidth = keyof typeof MAX_WIDTH_CLASS
 
 /**
- * How progress shows under the title.
+ * How progress shows under the title, drawn by `Stepper`.
  * steps: numbered circles with titles. dots: small dots, the current one
  * stretched. bar: a segmented bar with "Step 2 of 4". none: no progress.
  */
@@ -296,191 +292,33 @@ function Wizard({
     setStep(target)
   }
 
-  const iconSize = compact ? "size-3" : "size-4"
-
-  function describesStep(step: WizardStep, index: number) {
-    return step.description?.trim() || step.title || `Step ${index + 1}`
-  }
-
-  const dotsStrip = (
-    <div
-      data-slot="wizard-steps"
-      className={cn(
-        "flex shrink-0 items-center justify-center gap-1.5 px-4 pb-3",
-        divided && "border-b border-border"
-      )}
-    >
-      {steps.map((step, index) => {
-        const label = describesStep(step, index)
-
-        return (
-          <button
-            key={step.id}
-            type="button"
-            onClick={() => goTo(index)}
-            disabled={!allowStepClick || busy}
-            aria-label={label}
-            aria-current={index === stepIndex ? "step" : undefined}
-            title={label}
-            className="group flex h-4 items-center rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed"
-          >
-            <span
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-200",
-                index === stepIndex
-                  ? "w-5 bg-primary"
-                  : index < stepIndex
-                    ? "w-1.5 bg-primary/50 group-enabled:group-hover:bg-primary/80"
-                    : "w-1.5 bg-muted-foreground/30 group-enabled:group-hover:bg-muted-foreground/60"
-              )}
-            />
-          </button>
-        )
-      })}
-    </div>
-  )
-
-  const barStrip = (
-    <div
-      data-slot="wizard-steps"
-      className={cn(
-        "flex shrink-0 flex-col gap-2 px-4 pb-3",
-        divided && "border-b border-border"
-      )}
-    >
-      <div className="flex items-baseline justify-between gap-2 text-xs">
-        <span className="text-muted-foreground tabular-nums">
-          Step {stepIndex + 1} of {steps.length}
-        </span>
-        <span className="truncate font-medium">{current?.title}</span>
-      </div>
-      <div className="flex gap-1">
-        {steps.map((step, index) => {
-          const label = describesStep(step, index)
-
-          return (
-            <button
-              key={step.id}
-              type="button"
-              onClick={() => goTo(index)}
-              disabled={!allowStepClick || busy}
-              aria-label={label}
-              aria-current={index === stepIndex ? "step" : undefined}
-              title={label}
-              className="flex h-3 flex-1 items-center rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed"
-            >
-              <span
-                className={cn(
-                  "h-1 w-full rounded-full transition-colors duration-200",
-                  index <= stepIndex ? "bg-primary" : "bg-muted"
-                )}
-              />
-            </button>
-          )
-        })}
-      </div>
-    </div>
-  )
-
-  const stepsStrip = (
-    <div
-      data-slot="wizard-steps"
-      className={cn(
-        "flex w-full shrink-0 flex-nowrap items-center justify-center overflow-x-auto",
-        divided && "border-b border-border",
-        compact ? "min-h-8 gap-0.5 py-0.5" : "min-h-11 gap-1 py-1"
-      )}
-    >
-      {steps.map((step, index) => {
-        const isActive = index === stepIndex
-        const isDone = index < stepIndex
-        const StepIcon = step.icon
-        const label = describesStep(step, index)
-
-        return (
-          <React.Fragment key={step.id}>
-            {index > 0 && !hideConnectors ? (
-              <div
-                aria-hidden
-                className={cn(
-                  "h-0.5 shrink-0 transition-colors",
-                  compact ? "mx-0.5 w-3" : "mx-1 w-8",
-                  isDone || isActive ? "bg-primary" : "bg-muted"
-                )}
-              />
-            ) : null}
-            <button
-              type="button"
-              onClick={() => goTo(index)}
-              disabled={!allowStepClick || busy}
-              aria-label={label}
-              aria-current={isActive ? "step" : undefined}
-              title={label}
-              className={cn(
-                "flex shrink-0 items-center transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed",
-                compact
-                  ? "gap-1 rounded-md px-1.5 py-1"
-                  : "gap-2 rounded-lg px-3 py-2",
-                isActive && "bg-primary/10 text-primary",
-                isDone && "text-primary",
-                !isActive && !isDone && "text-muted-foreground"
-              )}
-            >
-              <span
-                className={cn(
-                  "flex items-center justify-center rounded-full font-medium transition-colors",
-                  compact ? "size-6 text-xs" : "size-7 text-sm",
-                  isActive || isDone
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground"
-                )}
-              >
-                {isDone ? (
-                  <CheckIcon className={iconSize} />
-                ) : StepIcon ? (
-                  <StepIcon className={iconSize} />
-                ) : showStepNumbers ? (
-                  index + 1
-                ) : (
-                  <span
-                    className={cn(
-                      "rounded-full bg-current",
-                      compact ? "size-1.5" : "size-2"
-                    )}
-                  />
-                )}
-              </span>
-              {!hideStepTitles && step.title.trim() ? (
-                <span
-                  className={cn(
-                    "hidden font-medium whitespace-nowrap sm:inline",
-                    compact ? "text-xs" : "text-sm"
-                  )}
-                >
-                  {step.title}
-                  {step.required ? (
-                    <span aria-hidden className="text-destructive">
-                      {" "}
-                      *
-                    </span>
-                  ) : null}
-                </span>
-              ) : null}
-            </button>
-          </React.Fragment>
-        )
-      })}
-    </div>
-  )
-
   const strip =
-    indicator === "dots"
-      ? dotsStrip
-      : indicator === "bar"
-        ? barStrip
-        : indicator === "none"
-          ? null
-          : stepsStrip
+    indicator === "none" ? null : (
+      <Stepper
+        data-slot="wizard-steps"
+        steps={steps.map((step, index) => ({
+          id: step.id,
+          title: step.title.trim() ? step.title : undefined,
+          icon: step.icon,
+          required: step.required,
+          ariaLabel:
+            step.description?.trim() || step.title || `Step ${index + 1}`,
+        }))}
+        value={stepIndex}
+        onValueChange={goTo}
+        variant={indicator}
+        size={compact ? "sm" : "md"}
+        showNumbers={showStepNumbers}
+        hideTitles={hideStepTitles}
+        hideConnectors={hideConnectors}
+        interactive={allowStepClick}
+        disabled={busy}
+        className={cn(
+          "shrink-0 px-4 pb-3",
+          divided && "border-b border-border"
+        )}
+      />
+    )
 
   const footer = renderFooter ? (
     renderFooter({

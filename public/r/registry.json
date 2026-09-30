@@ -1238,6 +1238,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "activity-overview",
+      "title": "Activity Overview",
+      "description": "A year of activity: headline total, streak stats, a contribution graph and a panel for the picked day.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/calendar-heatmap",
+        "@jayrr/cell-grid",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/activity-overview.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/activity-overview.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-alert",
       "title": "Alert",
       "description": "Alert from the Standard library.",
@@ -1396,6 +1417,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "banner",
+      "title": "Banner",
+      "description": "Banner from the Standard library.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/banner.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/banner.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "bento-grid",
       "title": "Bento Grid",
       "description": "Responsive bento layout with preset variants (uniform, featured, hero, sidebar, split, mosaic), per-tile col/row spans, and tile surface variants.",
@@ -1450,6 +1492,23 @@
           "path": "components/standard/button.tsx",
           "type": "registry:ui",
           "target": "components/standard/button.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "description": "Contribution graph: a cell per day, a column per week, month and weekday labels, today marked.",
+      "registryDependencies": [
+        "@jayrr/cell-grid",
+        "@jayrr/heatmap"
+      ],
+      "files": [
+        {
+          "path": "components/standard/calendar-heatmap.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/calendar-heatmap.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1520,6 +1579,25 @@
           "path": "components/standard/carousel.tsx",
           "type": "registry:ui",
           "target": "components/standard/carousel.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "cell-grid",
+      "title": "Cell Grid",
+      "description": "Grid of equal cells on a color ramp, filled by row or by column, with per-cell colors, marks and keyboard selection. The base of heatmaps, timelines and seat maps.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/cell-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/cell-grid.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1717,6 +1795,33 @@
       "type": "registry:ui"
     },
     {
+      "name": "data-table",
+      "title": "Data Table",
+      "description": "Data Table from the Standard library.",
+      "dependencies": [
+        "@tanstack/react-table",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/menu",
+        "@jayrr/search",
+        "@jayrr/standard-button",
+        "@jayrr/standard-checkbox",
+        "@jayrr/standard-popover",
+        "@jayrr/standard-select",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/data-table.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-table.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "date-picker",
       "title": "Date Picker",
       "description": "Date Picker from the Standard library.",
@@ -1775,6 +1880,22 @@
       "type": "registry:ui"
     },
     {
+      "name": "digital-clock",
+      "title": "Digital Clock",
+      "description": "Seven-segment LED clock: slanted bevelled digits, a blinking colon and faint unlit segments. 12 or 24-hour, seconds, AM/PM, time zones, a fixed time, and an optional housing with a glass face.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/digital-clock.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/digital-clock.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "distort",
       "title": "Distort",
       "description": "Distort from the Standard library.",
@@ -1811,6 +1932,23 @@
           "path": "components/standard/divider.tsx",
           "type": "registry:ui",
           "target": "components/standard/divider.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "draggable",
+      "title": "Draggable",
+      "description": "Draggable from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/standard/draggable.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/draggable.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1877,6 +2015,22 @@
       "type": "registry:ui"
     },
     {
+      "name": "flip-dots",
+      "title": "Flip Dots",
+      "description": "Electromechanical flip-dot board: two-sided discs flip edge-on in a column sweep. Built-in marquee, text, clock, wave, ripple, rain, Life, checker, wipe, sparkle, bounce, pong and snake patterns, a controlled value, and press-and-drag painting. Shaded disc or flat faces, in circle, square, rounded, diamond, hexagon, triangle, star or plus shapes.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/flip-dots.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/flip-dots.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "form-field",
       "title": "Form Field",
       "description": "Form Field from the Standard library.",
@@ -1930,6 +2084,47 @@
           "path": "components/standard/heading.tsx",
           "type": "registry:ui",
           "target": "components/standard/heading.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "heatmap",
+      "title": "Heatmap",
+      "description": "Matrix of values shaded on a ramp, with row and column labels, a Less-More legend and a readout of the hovered cell.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/cell-grid"
+      ],
+      "files": [
+        {
+          "path": "components/standard/heatmap.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/heatmap.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "image-shader",
+      "title": "Image Shader",
+      "description": "WebGL image effect layer from Paper Shaders. Filter: paper texture, fluted glass, water, dithering, halftone dots, halftone CMYK, lens distortion. Logo: heatmap, liquid metal, gem smoke. Takes a same-origin or CORS image src, with Paper's presets.",
+      "dependencies": [
+        "@paper-design/shaders-react",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/image-shader.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/image-shader.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
         }
       ],
       "type": "registry:ui"
@@ -2011,6 +2206,26 @@
       "type": "registry:ui"
     },
     {
+      "name": "input-fill",
+      "title": "Input Fill",
+      "description": "Masked text field that inserts literals as you type and shows the rest of the template as a faint fill.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/text-field",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/input-fill.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/input-fill.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-input-otp",
       "title": "Input Otp",
       "description": "Input Otp from the Standard library.",
@@ -2023,6 +2238,28 @@
           "path": "components/standard/input-otp.tsx",
           "type": "registry:ui",
           "target": "components/standard/input-otp.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "kanban",
+      "title": "Kanban",
+      "description": "Kanban from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/draggable",
+        "@jayrr/standard-badge",
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/kanban.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/kanban.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2309,6 +2546,30 @@
       "type": "registry:ui"
     },
     {
+      "name": "phone-input",
+      "title": "Phone Input",
+      "description": "Phone Input from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "react-phone-number-input"
+      ],
+      "registryDependencies": [
+        "@jayrr/command",
+        "@jayrr/field-label",
+        "@jayrr/standard-popover",
+        "@jayrr/text-field"
+      ],
+      "files": [
+        {
+          "path": "components/standard/phone-input.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/phone-input.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "pill",
       "title": "Pill",
       "description": "Pill from the Standard library.",
@@ -2398,6 +2659,28 @@
           "path": "components/standard/radio.tsx",
           "type": "registry:ui",
           "target": "components/standard/radio.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "rater",
+      "title": "Rater",
+      "description": "Star rating input with half steps, tones, sizes and custom icons.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/field-label",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/rater.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/rater.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2530,6 +2813,33 @@
           "path": "components/standard/select.tsx",
           "type": "registry:ui",
           "target": "components/standard/select.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "shader",
+      "title": "Shader",
+      "description": "WebGL shader layer from Paper Shaders. Color: mesh, static mesh, static radial, grain, color panels. Noise: perlin, simplex, neuro, voronoi, warp, swirl, spiral, waves. Dots: dot orbit, dot grid, dithering, metaballs. Light: spotlight, stage beams, shine sweep, bokeh, god rays, smoke ring, pulsing border, aurora. Fractal: mandelbrot dive, julia, burning ship, newton, sierpinski carpet, apollonian gasket. Retro: hypno, plasma, tunnel, kaleidoscope, starfield. Code: matrix rain, hacker terminal, synthwave. Each with presets.",
+      "dependencies": [
+        "@paper-design/shaders-react",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/shader.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/shader.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        },
+        {
+          "path": "components/standard/shader-programs.ts",
+          "type": "registry:lib",
+          "target": "components/standard/shader-programs.ts"
         }
       ],
       "type": "registry:ui"
@@ -2674,6 +2984,26 @@
           "path": "components/standard/standard-table.tsx",
           "type": "registry:ui",
           "target": "components/standard/standard-table.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "description": "Stepper from the Standard library.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/stepper.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/stepper.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2924,6 +3254,7 @@
       ],
       "registryDependencies": [
         "@jayrr/standard-button",
+        "@jayrr/stepper",
         "@jayrr/use-mobile"
       ],
       "files": [

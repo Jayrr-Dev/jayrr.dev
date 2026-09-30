@@ -4,10 +4,15 @@ import { RendersAccordionDemo } from "./pieces/accordion"
 import { RendersActionWheelDemo } from "./pieces/action-wheel"
 import { RendersAlertDemo } from "./pieces/alert"
 import { RendersAppBarDemo } from "./pieces/app-bar"
+import { RendersActivityOverviewDemo } from "./pieces/activity-overview"
 import { RendersAppGridDemo } from "./pieces/app-grid"
+import { RendersCalendarHeatmapDemo } from "./pieces/calendar-heatmap"
+import { RendersCellGridDemo } from "./pieces/cell-grid"
+import { RendersHeatmapDemo } from "./pieces/heatmap"
 import { RendersArticleDemo } from "./pieces/article"
 import { RendersAutocompleteInputDemo } from "./pieces/autocomplete-input"
 import { RendersAvatarDemo } from "./pieces/avatar"
+import { RendersBannerDemo } from "./pieces/banner"
 import { RendersBadgeDemo } from "./pieces/badge"
 import { RendersBadgeSelectDemo } from "./pieces/badge-select"
 import { RendersBentoGridDemo } from "./pieces/bento-grid"
@@ -25,18 +30,22 @@ import { RendersContextMenuDemo } from "./pieces/context-menu"
 import { RendersControlBarDemo } from "./pieces/control-bar"
 import { RendersCursorDemo } from "./pieces/cursor"
 import { RendersDataGridDemo } from "./pieces/data-grid"
+import { RendersDataTableDemo } from "./pieces/data-table"
 import { RendersDatePickerDemo } from "./pieces/date-picker"
 import { RendersDialogDemo } from "./pieces/dialog"
 import { RendersDialslideDemo } from "./pieces/dialslide"
 import { RendersDropdownMenuDemo } from "./pieces/dropdown-menu"
 import { RendersFieldDemo } from "./pieces/field"
 import { RendersFilterSelectDemo } from "./pieces/filter-select"
+import { RendersDigitalClockDemo } from "./pieces/digital-clock"
+import { RendersFlipDotsDemo } from "./pieces/flip-dots"
 import { RendersFloatingActionButtonDemo } from "./pieces/floating-action-button"
 import { RendersFormDemo } from "./pieces/form"
 import { RendersImageDemo } from "./pieces/image"
 import { RendersImageUploadDemo } from "./pieces/image-upload"
 import { RendersIndicatorDemo } from "./pieces/indicator"
 import { RendersInfoIconDemo } from "./pieces/info-icon"
+import { RendersInputFillDemo } from "./pieces/input-fill"
 import { RendersInputOtpDemo } from "./pieces/input-otp"
 import { RendersLabelDemo } from "./pieces/label"
 import { RendersLexicalEditorDemo } from "./pieces/lexical-editor"
@@ -50,11 +59,13 @@ import { RendersNotificationBadgeDemo } from "./pieces/notification-badge"
 import { RendersNumberInputDemo } from "./pieces/number-input"
 import { RendersPageHeaderDemo } from "./pieces/page-header"
 import { RendersParagraphDemo } from "./pieces/paragraph"
+import { RendersPhoneInputDemo } from "./pieces/phone-input"
 import { RendersPillDemo } from "./pieces/pill"
 import { RendersPopoverDemo } from "./pieces/popover"
 import { RendersPopoverWizardDemo } from "./pieces/popover-wizard"
 import { RendersProgressDemo } from "./pieces/progress"
 import { RendersRadioGroupDemo } from "./pieces/radio-group"
+import { RendersRaterDemo } from "./pieces/rater"
 import { RendersRefreshButtonDemo } from "./pieces/refresh-button"
 import { RendersScrollAreaDemo } from "./pieces/scroll-area"
 import { RendersScrollHorizontalButtonDemo } from "./pieces/scroll-horizontal-button"
@@ -80,11 +91,16 @@ import { RendersToastDemo } from "./pieces/toast"
 import { RendersToggleDemo } from "./pieces/toggle"
 import { RendersToolbarDemo } from "./pieces/toolbar"
 import { RendersTooltipDemo } from "./pieces/tooltip"
+import { RendersDraggableDemo } from "./pieces/draggable"
+import { RendersKanbanDemo } from "./pieces/kanban"
+import { RendersStepperDemo } from "./pieces/stepper"
 import { RendersWizardDemo } from "./pieces/wizard"
 import { RendersGradientDemo } from "./pieces/gradient"
 import { RendersNoiseDemo } from "./pieces/noise"
 import { RendersPatternDemo } from "./pieces/pattern"
 import { RendersScreentoneDemo } from "./pieces/screentone"
+import { RendersShaderDemo } from "./pieces/shader"
+import { RendersImageShaderDemo } from "./pieces/image-shader"
 import { RendersColorGradeDemo } from "./pieces/color-grade"
 import { RendersDistortDemo } from "./pieces/distort"
 import { RendersMaskDemo } from "./pieces/mask"
@@ -104,11 +120,18 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Action Wheel": RendersActionWheelDemo,
   "Alert": RendersAlertDemo,
   "App Bar": RendersAppBarDemo,
+  "Activity Overview": RendersActivityOverviewDemo,
   "App Grid": RendersAppGridDemo,
+  "Calendar Heatmap": RendersCalendarHeatmapDemo,
+  "Cell Grid": RendersCellGridDemo,
+  "Heatmap": RendersHeatmapDemo,
+  "Flip-Dots": RendersFlipDotsDemo,
+  "Digital Clock": RendersDigitalClockDemo,
   "Article": RendersArticleDemo,
   "Autocomplete Input": RendersAutocompleteInputDemo,
   "Avatar": RendersAvatarDemo,
   "Badge": RendersBadgeDemo,
+  "Banner": RendersBannerDemo,
   "Badge Select": RendersBadgeSelectDemo,
   "Bento Grid": RendersBentoGridDemo,
   "Button": RendersButtonDemo,
@@ -125,6 +148,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Control Bar": RendersControlBarDemo,
   "Cursor": RendersCursorDemo,
   "Data Grid": RendersDataGridDemo,
+  "Data Table": RendersDataTableDemo,
   "Date Picker": RendersDatePickerDemo,
   "Dialog": RendersDialogDemo,
   "Dialslide": RendersDialslideDemo,
@@ -137,7 +161,10 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Image Upload": RendersImageUploadDemo,
   "Indicator": RendersIndicatorDemo,
   "Info Icon": RendersInfoIconDemo,
+  "Draggable": RendersDraggableDemo,
+  "Input Fill": RendersInputFillDemo,
   "Input OTP": RendersInputOtpDemo,
+  "Kanban": RendersKanbanDemo,
   "Label": RendersLabelDemo,
   "Lexical Editor": RendersLexicalEditorDemo,
   "Loading State": RendersLoadingStateDemo,
@@ -150,11 +177,13 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Number Input": RendersNumberInputDemo,
   "Page Header": RendersPageHeaderDemo,
   "Paragraph": RendersParagraphDemo,
+  "Phone Input": RendersPhoneInputDemo,
   "Pill": RendersPillDemo,
   "Popover": RendersPopoverDemo,
   "Popover Wizard": RendersPopoverWizardDemo,
   "Progress": RendersProgressDemo,
   "Radio Group": RendersRadioGroupDemo,
+  "Rater": RendersRaterDemo,
   "Refresh Button": RendersRefreshButtonDemo,
   "Scroll Area": RendersScrollAreaDemo,
   "Scroll Horizontal Button": RendersScrollHorizontalButtonDemo,
@@ -180,11 +209,14 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Toggle": RendersToggleDemo,
   "Toolbar": RendersToolbarDemo,
   "Tooltip": RendersTooltipDemo,
+  "Stepper": RendersStepperDemo,
   "Wizard": RendersWizardDemo,
   "Gradient": RendersGradientDemo,
   "Noise": RendersNoiseDemo,
   "Pattern": RendersPatternDemo,
   "Screentone": RendersScreentoneDemo,
+  "Shader": RendersShaderDemo,
+  "Image Shader": RendersImageShaderDemo,
   "Color Grade": RendersColorGradeDemo,
   "Distort": RendersDistortDemo,
   "Mask": RendersMaskDemo,

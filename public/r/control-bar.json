@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "components/standard/control-bar.tsx",
-      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction ControlBar({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"control-bar\"\n      className={cn(\n        \"flex w-full flex-wrap items-center gap-2 rounded-lg border border-border bg-muted/40 px-2 py-1.5\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ControlBar }\n",
+      "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction ControlBar({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"div\">) {\r\n  return (\r\n    <div\r\n      data-slot=\"control-bar\"\r\n      className={cn(\r\n        \"flex w-full flex-wrap items-center gap-2 rounded-lg border border-border bg-muted/40 px-2 py-1.5\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { ControlBar }\r\n",
       "type": "registry:ui",
       "target": "components/standard/control-bar.tsx"
     }

@@ -372,6 +372,14 @@ const icons = {
       <path d="M49 26v12" opacity=".45" />
     </>
   ),
+  "Input Fill": (
+    <>
+      <rect x="8" y="22" width="48" height="20" rx="4" />
+      <path d="M14 32h4m3 0h4m6 0h4" />
+      <path d="M39 32h4m3 0h4" opacity=".35" />
+      <path d="M28 27v10" opacity=".6" />
+    </>
+  ),
   Textarea: (
     <>
       <rect x="10" y="12" width="44" height="40" rx="4" />
@@ -510,6 +518,13 @@ const icons = {
       <rect x="10" y="16" width="44" height="32" rx="4" />
       <path d="M32 24v10" />
       <circle cx="32" cy="40" r="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  Banner: (
+    <>
+      <rect x="8" y="24" width="48" height="16" rx="4" />
+      <path d="M16 32h6m6 0h8m6 0h6" />
+      <path d="M8 16h48M8 48h48" opacity=".35" />
     </>
   ),
   "Alert Dialog": (
@@ -847,6 +862,115 @@ const icons = {
       <rect x="47" y="47" width="9" height="9" rx="2" opacity=".45" />
     </>
   ),
+  "Cell Grid": (
+    <>
+      {[0, 1, 2, 3, 4].map((col) =>
+        [0, 1, 2, 3, 4].map((row) => (
+          <rect
+            key={`${col}-${row}`}
+            x={9 + col * 10}
+            y={9 + row * 10}
+            width="7"
+            height="7"
+            rx="1.5"
+            opacity={col === 3 && row === 1 ? 1 : 0.35}
+            fill={col === 3 && row === 1 ? "currentColor" : "none"}
+          />
+        ))
+      )}
+    </>
+  ),
+  Heatmap: (
+    <>
+      {[0, 1, 2, 3, 4].map((col) =>
+        [0, 1, 2, 3].map((row) => (
+          <rect
+            key={`${col}-${row}`}
+            x={9 + col * 10}
+            y={14 + row * 10}
+            width="7"
+            height="7"
+            rx="1.5"
+            fill="currentColor"
+            stroke="none"
+            opacity={[0.15, 0.35, 0.6, 1][(col * 3 + row * 2) % 4]}
+          />
+        ))
+      )}
+    </>
+  ),
+  "Calendar Heatmap": (
+    <>
+      <path d="M12 12h6M28 12h6M44 12h6" opacity=".45" />
+      {[0, 1, 2, 3, 4, 5].map((col) =>
+        [0, 1, 2, 3, 4, 5, 6].map((row) => (
+          <rect
+            key={`${col}-${row}`}
+            x={12 + col * 7}
+            y={18 + row * 6}
+            width="4.5"
+            height="4.5"
+            rx="1"
+            fill="currentColor"
+            stroke="none"
+            opacity={
+              col === 5 && row > 3
+                ? 0
+                : [0.15, 0.4, 0.15, 0.7, 1, 0.4][(col * 5 + row * 3) % 6]
+            }
+          />
+        ))
+      )}
+    </>
+  ),
+  "Activity Overview": (
+    <>
+      <rect x="6" y="8" width="52" height="48" rx="5" opacity=".35" />
+      <path d="M12 16h16" />
+      <path d="M12 22h10M26 22h10M40 22h10" opacity=".45" />
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((col) =>
+        [0, 1, 2, 3].map((row) => (
+          <rect
+            key={`${col}-${row}`}
+            x={12 + col * 5.25}
+            y={30 + row * 5.25}
+            width="3.5"
+            height="3.5"
+            rx=".75"
+            fill="currentColor"
+            stroke="none"
+            opacity={[0.15, 0.45, 1, 0.3][(col * 3 + row) % 4]}
+          />
+        ))
+      )}
+    </>
+  ),
+  "Flip-Dots": (
+    <>
+      <rect x="8" y="14" width="48" height="36" rx="4" opacity=".35" />
+      {[0, 1, 2, 3, 4].map((col) =>
+        [0, 1, 2].map((row) => (
+          <circle
+            key={`${col}-${row}`}
+            cx={16 + col * 8}
+            cy={24 + row * 8}
+            r="2.6"
+            fill="currentColor"
+            stroke="none"
+            opacity={(col + row) % 2 ? 0.25 : 1}
+          />
+        ))
+      )}
+    </>
+  ),
+  "Digital Clock": (
+    <>
+      <rect x="6" y="16" width="52" height="32" rx="4" opacity=".35" />
+      <path d="M15 24v16M21 24h7v8h-7v8h7M41 24v8h7M48 24v16" />
+      <circle cx="34" cy="28" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="34" cy="36" r="1.2" fill="currentColor" stroke="none" />
+    </>
+  ),
   "Card Bar": (
     <>
       <rect x="10" y="16" width="44" height="32" rx="5" />
@@ -945,6 +1069,34 @@ const icons = {
       <circle cx="32" cy="32" r="6" />
       <circle cx="52" cy="32" r="6" opacity=".4" />
       <path d="M18 32h8m12 0h8" />
+    </>
+  ),
+  Draggable: (
+    <>
+      <rect x="10" y="12" width="44" height="10" rx="3" opacity=".4" />
+      <rect x="14" y="27" width="44" height="10" rx="3" fill="currentColor" fillOpacity=".16" />
+      <rect x="10" y="42" width="44" height="10" rx="3" opacity=".4" />
+      <path d="M20 30v4m4-4v4" />
+    </>
+  ),
+  Kanban: (
+    <>
+      <rect x="8" y="10" width="14" height="44" rx="3" opacity=".4" />
+      <rect x="25" y="10" width="14" height="44" rx="3" opacity=".4" />
+      <rect x="42" y="10" width="14" height="44" rx="3" opacity=".4" />
+      <rect x="10" y="14" width="10" height="8" rx="2" />
+      <rect x="10" y="25" width="10" height="8" rx="2" />
+      <rect x="27" y="14" width="10" height="8" rx="2" fill="currentColor" fillOpacity=".16" />
+      <rect x="44" y="14" width="10" height="8" rx="2" />
+    </>
+  ),
+  Stepper: (
+    <>
+      <rect x="6" y="26" width="12" height="12" rx="3" fill="currentColor" fillOpacity=".16" />
+      <rect x="26" y="26" width="12" height="12" rx="3" />
+      <rect x="46" y="26" width="12" height="12" rx="3" opacity=".4" />
+      <path d="M18 32h8m12 0h8" />
+      <path d="M9 32l2 2 4-4" />
     </>
   ),
   "Popover Wizard": (

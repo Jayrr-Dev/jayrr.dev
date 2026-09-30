@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "components/standard/accordion.tsx",
-      "content": "import { cn } from \"cn\"\n\nfunction Accordion({\n  className,\n  items,\n}: {\n  className?: string\n  items: { id: string; title: string; body: string }[]\n}) {\n  return (\n    <div data-slot=\"accordion\" className={cn(\"w-full\", className)}>\n      {items.map((item) => (\n        <details\n          key={item.id}\n          className=\"border-b border-border py-2\"\n        >\n          <summary className=\"cursor-pointer text-sm font-medium\">\n            {item.title}\n          </summary>\n          <p className=\"pt-1 text-sm text-muted-foreground\">{item.body}</p>\n        </details>\n      ))}\n    </div>\n  )\n}\n\nexport { Accordion }\n",
+      "content": "import { cn } from \"cn\"\r\n\r\nfunction Accordion({\r\n  className,\r\n  items,\r\n}: {\r\n  className?: string\r\n  items: { id: string; title: string; body: string }[]\r\n}) {\r\n  return (\r\n    <div data-slot=\"accordion\" className={cn(\"w-full\", className)}>\r\n      {items.map((item) => (\r\n        <details\r\n          key={item.id}\r\n          className=\"border-b border-border py-2\"\r\n        >\r\n          <summary className=\"cursor-pointer text-sm font-medium\">\r\n            {item.title}\r\n          </summary>\r\n          <p className=\"pt-1 text-sm text-muted-foreground\">{item.body}</p>\r\n        </details>\r\n      ))}\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { Accordion }\r\n",
       "type": "registry:ui",
       "target": "components/standard/accordion.tsx"
     }

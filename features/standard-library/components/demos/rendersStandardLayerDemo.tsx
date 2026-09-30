@@ -29,6 +29,18 @@ import {
   type ScreentoneKind,
   type ScreentoneTone,
 } from "@/components/standard/screentone"
+import {
+  ImageShader,
+  imageShaderGroups,
+  imageShaderPresetNames,
+  type ImageShaderKind,
+} from "@/components/standard/image-shader"
+import {
+  Shader,
+  shaderGroups,
+  shaderPresetNames,
+  type ShaderKind,
+} from "@/components/standard/shader"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 import { cn } from "@/lib/utils"
@@ -94,7 +106,7 @@ function RendersTabbedChips<T extends string>({
 
   return (
     <Tabs value={tab} onValueChange={setTab} className="w-full">
-      <TabsList variant="line">
+      <TabsList variant="line" className="h-auto max-w-full flex-wrap justify-start group-data-horizontal/tabs:h-auto [&>[data-slot=tabs-trigger]]:h-8 [&>[data-slot=tabs-trigger]]:flex-none">
         {groups.map((group) => (
           <TabsTrigger key={group.label} value={group.label}>
             {group.label}
@@ -251,7 +263,7 @@ function RendersScreentoneDemo() {
   return (
     <div className="flex w-full flex-col gap-3">
       <Tabs defaultValue="shape" className="w-full">
-        <TabsList variant="line">
+        <TabsList variant="line" className="h-auto max-w-full flex-wrap justify-start group-data-horizontal/tabs:h-auto [&>[data-slot=tabs-trigger]]:h-8 [&>[data-slot=tabs-trigger]]:flex-none">
           <TabsTrigger value="shape">Shape</TabsTrigger>
           <TabsTrigger value="gradation">Gradation</TabsTrigger>
           <TabsTrigger value="organic">Organic</TabsTrigger>
@@ -291,6 +303,100 @@ function RendersScreentoneDemo() {
               tone={tone}
               rough={finish === "rough"}
               color="color-mix(in oklch, var(--foreground) 38%, transparent)"
+            />
+          )
+        }
+      />
+    </div>
+  )
+}
+
+function RendersShaderDemo() {
+  const [kind, setKind] = useState<ShaderKind | null>("mesh-gradient")
+  const [preset, setPreset] = useState<string | null>(null)
+  const presets = kind ? shaderPresetNames(kind) : []
+
+  return (
+    <div className="flex w-full flex-col gap-3">
+      <RendersTabbedChips
+        clearable
+        groups={[
+          { label: "Color", options: shaderGroups.gradient },
+          { label: "Noise", options: shaderGroups.noise },
+          { label: "Dots", options: shaderGroups.dots },
+          { label: "Light", options: shaderGroups.light },
+          { label: "Fractal", options: shaderGroups.fractal },
+          { label: "Retro", options: shaderGroups.retro },
+          { label: "Code", options: shaderGroups.code },
+        ]}
+        value={kind}
+        onChange={(next) => {
+          setKind(next)
+          setPreset(null)
+        }}
+      />
+      {presets.length > 1 ? (
+        <RendersChips
+          options={presets}
+          value={preset ?? presets[0]}
+          onChange={(next) => next && setPreset(next)}
+        />
+      ) : null}
+      <RendersTarget
+        className="h-72"
+        layers={kind && <Shader kind={kind} preset={preset ?? undefined} />}
+      />
+    </div>
+  )
+}
+
+const sampleImages = {
+  scene: "/fx/sample-scene.svg",
+  logo: "/fx/sample-logo.svg",
+}
+
+function RendersImageShaderDemo() {
+  const [kind, setKind] = useState<ImageShaderKind | null>("halftone-dots")
+  const [preset, setPreset] = useState<string | null>(null)
+  const presets = kind ? imageShaderPresetNames(kind) : []
+  const isLogo = kind !== null && (imageShaderGroups.logo as readonly string[]).includes(kind)
+
+  return (
+    <div className="flex w-full flex-col gap-3">
+      <RendersTabbedChips
+        clearable
+        groups={[
+          { label: "Filter", options: imageShaderGroups.filter },
+          { label: "Logo", options: imageShaderGroups.logo },
+        ]}
+        value={kind}
+        onChange={(next) => {
+          setKind(next)
+          setPreset(null)
+        }}
+      />
+      {presets.length > 1 ? (
+        <RendersChips
+          options={presets}
+          value={preset ?? presets[0]}
+          onChange={(next) => next && setPreset(next)}
+        />
+      ) : null}
+      <RendersTarget
+        className="h-72"
+        layers={
+          kind ? (
+            <ImageShader
+              kind={kind}
+              preset={preset ?? undefined}
+              src={isLogo ? sampleImages.logo : sampleImages.scene}
+            />
+          ) : (
+            // Without an effect, show the untouched source.
+            <img
+              alt=""
+              src={sampleImages.scene}
+              className="absolute inset-0 -z-10 size-full rounded-[inherit] object-cover"
             />
           )
         }
@@ -422,6 +528,8 @@ const LAYER_DEMOS: Record<string, () => ReactNode> = {
   Noise: RendersNoiseDemo,
   Pattern: RendersPatternDemo,
   Screentone: RendersScreentoneDemo,
+  Shader: RendersShaderDemo,
+  "Image Shader": RendersImageShaderDemo,
   "Color Grade": RendersColorGradeDemo,
   Distort: RendersDistortDemo,
   Mask: RendersMaskDemo,

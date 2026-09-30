@@ -285,6 +285,23 @@
     "description": "Excel-style spreadsheet grid with A1 coordinates and a Name Box, letter and number headers with optional labels, range selection, and keyboard navigation. Drag the fill handle down, right, or diagonally to continue number, date, weekday, and Item 1 series, or press Ctrl+D to copy the cell above. Insert, delete, duplicate, hide, and freeze rows and columns from the right-click menu or the + between headers. Opt-in sorting by header click, per-column filter buttons with value lists and conditions, and declarative JSON formatting rules that style cells, rows, or columns (background, text color, weight, decoration, alignment, borders, any CSS) when values match. Cells render components by type (text, number, checkbox, select, date, or your own), rows and columns are virtualized for 10,000+ rows, and every edit is a change list with undo and redo that onChanges or an adapter can sync to a database."
   },
   {
+    "name": "Data Table",
+    "type": "content/data",
+    "canonical": "tables",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "key": "data-table",
+    "family_key": "standard",
+    "file_path": "components/standard/data-table.tsx",
+    "import_path": "@/components/standard/data-table",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "TanStack Table v9 data table. Sort by header click, search every column, filter by text or by a column's distinct values, and page through rows. Select rows with a checkbox column and run bulk actions on the selection. Resize, drag to reorder, pin to either edge, and hide columns; switch between compact, default and comfortable density. Show nested rows as an expandable tree with getSubRows, edit cells in place, and export the filtered rows as CSV or JSON."
+  },
+  {
     "name": "Button",
     "type": "interaction/action",
     "canonical": "buttons",
@@ -853,6 +870,57 @@
     "description": "Text box for numbers: digits only, clamps to min/max and rounds on blur, Enter jumps to the next field."
   },
   {
+    "name": "Phone Input",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "phone-input",
+    "family_key": "input",
+    "file_path": "components/standard/phone-input.tsx",
+    "import_path": "@/components/standard/phone-input",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Phone number field with a searchable country picker: formats as you type and reports E.164."
+  },
+  {
+    "name": "Rater",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "rater",
+    "family_key": "rater",
+    "file_path": "components/standard/rater.tsx",
+    "import_path": "@/components/standard/rater",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Star rating: pick a score with pointer or arrow keys, in whole or half steps, with any icon or one per position."
+  },
+  {
+    "name": "Input Fill",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "input-fill",
+    "family_key": "input",
+    "file_path": "components/standard/input-fill.tsx",
+    "import_path": "@/components/standard/input-fill",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Masked text field for phones, dates, cards and codes: inserts literals as you type and keeps the rest of the template visible as a faint fill."
+  },
+  {
     "name": "Lexical Editor",
     "type": "interaction/input",
     "canonical": "inputs",
@@ -1306,6 +1374,24 @@
     "description": null
   },
   {
+    "name": "Banner",
+    "type": "meaning/feedback",
+    "canonical": "alerts",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "banner",
+    "family_key": "alert",
+    "file_path": "components/standard/banner.tsx",
+    "import_path": "@/components/standard/banner",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Announcement bar, inline or floating on any edge, static or scrolling like a stock ticker."
+  },
+  {
     "name": "Toast",
     "type": "meaning/feedback",
     "canonical": "notifications",
@@ -1614,6 +1700,60 @@
     "description": null
   },
   {
+    "name": "Draggable",
+    "type": "interaction/action",
+    "canonical": "layout",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "draggable",
+    "family_key": "array",
+    "file_path": "components/standard/draggable.tsx",
+    "import_path": "@/components/standard/draggable",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Sortable list: drag rows, grid chips or a horizontal strip by pointer or keyboard, whole item or grip, and move items between lists."
+  },
+  {
+    "name": "Kanban",
+    "type": "content/data",
+    "canonical": "cards",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "kanban",
+    "family_key": "array",
+    "file_path": "components/standard/kanban.tsx",
+    "import_path": "@/components/standard/kanban",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Board of columns with cards that drag between them, column counts and limits, and an Add card button."
+  },
+  {
+    "name": "Stepper",
+    "type": "meaning/indicator",
+    "canonical": "loading",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "stepper",
+    "family_key": "nav",
+    "file_path": "components/standard/stepper.tsx",
+    "import_path": "@/components/standard/stepper",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Step progress for multi-step flows: numbers, icons or dots, labels beside or under, horizontal, vertical or responsive."
+  },
+  {
     "name": "Wizard",
     "type": "structure/overlay",
     "canonical": "dialogs",
@@ -1900,6 +2040,44 @@
     "description": "Manga halftone tone: dots, lines, crosshatch, diamonds, rings or noise that grow with a graded tone (top, bottom, center, edges, corner) or an organic one (clouds, folds, marble, streaks). Optional rough printed edges."
   },
   {
+    "name": "Shader",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "standard_demo": "layer",
+    "key": "shader",
+    "family_key": "layer",
+    "file_path": "components/standard/shader.tsx",
+    "import_path": "@/components/standard/shader",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "WebGL shader layer from Paper Shaders. Color: mesh, static mesh, static radial, grain, color panels. Noise: perlin, simplex, neuro, voronoi, warp, swirl, spiral, waves. Dots: dot orbit, dot grid, dithering, metaballs. Light: spotlight, stage beams, shine sweep, bokeh, god rays, smoke ring, pulsing border, aurora. Fractal: mandelbrot dive, julia, burning ship, newton, sierpinski carpet, apollonian gasket. Retro: hypno, plasma, tunnel, kaleidoscope, starfield. Code: matrix rain, hacker terminal, synthwave. Each with presets."
+  },
+  {
+    "name": "Image Shader",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "standard_demo": "layer",
+    "key": "image-shader",
+    "family_key": "layer",
+    "file_path": "components/standard/image-shader.tsx",
+    "import_path": "@/components/standard/image-shader",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "WebGL image effect layer from Paper Shaders. Filter: paper texture, fluted glass, water, dithering, halftone dots, halftone CMYK, lens distortion. Logo: heatmap, liquid metal, gem smoke. Takes a same-origin or CORS image src, with Paper's presets."
+  },
+  {
     "name": "Color Grade",
     "type": "structure/layer",
     "canonical": "layers",
@@ -1952,5 +2130,113 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": "Soft alpha cutout: fade, edges, vignette or spotlight. Wraps content or groups other layers."
+  },
+  {
+    "name": "Flip-Dots",
+    "type": "content/media",
+    "canonical": "media",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "flip-dots",
+    "family_key": "flip-dots",
+    "file_path": "components/standard/flip-dots.tsx",
+    "import_path": "@/components/standard/flip-dots",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Electromechanical flip-dot board: discs flip edge-on in a column sweep. Marquee, clock, Life, rain and more patterns, or paint dots by hand."
+  },
+  {
+    "name": "Cell Grid",
+    "type": "content/data",
+    "canonical": "charts",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "cell-grid",
+    "family_key": "cell-grid",
+    "file_path": "components/standard/cell-grid.tsx",
+    "import_path": "@/components/standard/cell-grid",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Grid of equal cells on a color ramp, filled by row or by column, with per-cell colors, marks and keyboard selection. The base of heatmaps, timelines and seat maps."
+  },
+  {
+    "name": "Heatmap",
+    "type": "content/data",
+    "canonical": "charts",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "heatmap",
+    "family_key": "cell-grid",
+    "file_path": "components/standard/heatmap.tsx",
+    "import_path": "@/components/standard/heatmap",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Matrix of values shaded on a ramp, with row and column labels, a Less-More legend and a readout of the hovered cell."
+  },
+  {
+    "name": "Calendar Heatmap",
+    "type": "content/data",
+    "canonical": "calendar",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "calendar-heatmap",
+    "family_key": "cell-grid",
+    "file_path": "components/standard/calendar-heatmap.tsx",
+    "import_path": "@/components/standard/calendar-heatmap",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Contribution graph: a cell per day, a column per week, month and weekday labels, today marked."
+  },
+  {
+    "name": "Activity Overview",
+    "type": "content/data",
+    "canonical": "charts",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "activity-overview",
+    "family_key": "cell-grid",
+    "file_path": "components/standard/activity-overview.tsx",
+    "import_path": "@/components/standard/activity-overview",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "A year of activity: headline total, streak stats, a contribution graph and a panel for the picked day."
+  },
+  {
+    "name": "Digital Clock",
+    "type": "content/data",
+    "canonical": "calendar",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "digital-clock",
+    "family_key": "digital-clock",
+    "file_path": "components/standard/digital-clock.tsx",
+    "import_path": "@/components/standard/digital-clock",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Seven-segment LED clock: slanted bevelled digits, blinking colon and faint unlit segments. 12/24-hour, seconds, time zones, optional housing."
   }
 ]
