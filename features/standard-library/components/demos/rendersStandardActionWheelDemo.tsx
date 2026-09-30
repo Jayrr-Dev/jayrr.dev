@@ -2,9 +2,19 @@
 
 import {
   AppWindowIcon,
+  CameraIcon,
   ContrastIcon,
   DropletIcon,
+  FileTextIcon,
   FolderOpenIcon,
+  ImageIcon,
+  LanguagesIcon,
+  MessageCircleQuestionIcon,
+  MonitorIcon,
+  PencilIcon,
+  Share2Icon,
+  SquareDashedIcon,
+  WandSparklesIcon,
   MonitorCogIcon,
   NotebookPenIcon,
   PlayIcon,
@@ -35,6 +45,50 @@ export const WHEEL_ITEMS = [
   { label: "Finder", icon: <FolderOpenIcon /> },
 ]
 
+// Explore AI and Screenshot open submenus on an outer arc.
+const NESTED_ITEMS = WHEEL_ITEMS.map((item) =>
+  item.label === "Explore AI"
+    ? {
+        ...item,
+        items: [
+          { label: "Summarize", icon: <FileTextIcon /> },
+          { label: "Translate", icon: <LanguagesIcon /> },
+          { label: "Rewrite", icon: <WandSparklesIcon /> },
+          { label: "Ask", icon: <MessageCircleQuestionIcon /> },
+        ],
+      }
+    : item.label === "Screenshot"
+      ? {
+          ...item,
+          items: [
+            { label: "Region", icon: <SquareDashedIcon /> },
+            { label: "Window", icon: <AppWindowIcon /> },
+            { label: "Full screen", icon: <MonitorIcon /> },
+          ],
+        }
+      : item
+)
+
+const ARC_ITEMS = [
+  { label: "Photo", icon: <CameraIcon /> },
+  { label: "Note", icon: <PencilIcon /> },
+  { label: "Share", icon: <Share2Icon /> },
+]
+
+const NESTED_ARC_ITEMS = [
+  { label: "Photo", icon: <CameraIcon /> },
+  {
+    label: "Media",
+    icon: <ImageIcon />,
+    items: [
+      { label: "Image", icon: <ImageIcon /> },
+      { label: "Screenshot", icon: <ScanIcon /> },
+      { label: "Document", icon: <FileTextIcon /> },
+    ],
+  },
+  { label: "Note", icon: <PencilIcon /> },
+]
+
 const PHOTO_ITEMS = [
   {
     label: "Easy Speed Change (Premiere Pro)",
@@ -53,6 +107,22 @@ const PHOTO_ITEMS = [
 function RendersWheelStage({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex w-full justify-center overflow-hidden rounded-xl bg-muted/40 px-36 py-16">
+      {children}
+    </div>
+  )
+}
+
+function RendersArcStage({
+  children,
+  className = "items-end justify-center",
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <div
+      className={`flex h-96 w-full overflow-hidden rounded-xl bg-muted/40 p-10 ${className}`}
+    >
       {children}
     </div>
   )
@@ -81,6 +151,40 @@ export function RendersStandardActionWheelDemo() {
         <RendersWheelStage>
           <ActionWheel label="Actions" items={WHEEL_ITEMS} defaultOpen />
         </RendersWheelStage>
+      </RendersDemoCard>
+      <RendersDemoCard
+        label="nested · click Explore AI or Screenshot"
+        className="w-full"
+      >
+        <div className="flex w-full justify-center overflow-hidden rounded-xl bg-muted/40 px-40 py-40">
+          <ActionWheel label="Actions" items={NESTED_ITEMS} defaultOpen />
+        </div>
+      </RendersDemoCard>
+      <RendersDemoCard label="arc variant · launcher" className="w-full">
+        <RendersArcStage>
+          <ActionWheel
+            label="Create"
+            variant="arc"
+            direction="up"
+            sweep={120}
+            items={ARC_ITEMS}
+          />
+        </RendersArcStage>
+      </RendersDemoCard>
+      <RendersDemoCard
+        label="arc variant · corner, nested Media"
+        className="w-full"
+      >
+        <RendersArcStage className="items-end justify-end">
+          <ActionWheel
+            label="Create"
+            variant="arc"
+            direction="up-left"
+            tone="violet"
+            labels="hover"
+            items={NESTED_ARC_ITEMS}
+          />
+        </RendersArcStage>
       </RendersDemoCard>
       <RendersDemoCard label="violet tone · smart action" className="w-full">
         <RendersWheelStage>
