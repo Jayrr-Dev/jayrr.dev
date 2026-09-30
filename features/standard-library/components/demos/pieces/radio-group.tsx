@@ -34,6 +34,29 @@ export function RendersRadioGroupDemo() {
           <Radio name="delivery" label="Ship" description="2–3 business days" />
         </RadioGroup>
       </RendersDemoCard>
+      <RendersDemoCard label="size sm">
+        <RadioGroup legend="Density">
+          <Radio size="sm" name="density" label="Comfortable" defaultChecked />
+          <Radio size="sm" name="density" label="Compact" />
+        </RadioGroup>
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance card">
+        <RadioGroup legend="Plan" className="w-full">
+          <Radio
+            appearance="card"
+            name="plan"
+            label="Crew"
+            description="Up to 10 people."
+            defaultChecked
+          />
+          <Radio
+            appearance="card"
+            name="plan"
+            label="Company"
+            description="Unlimited people and sites."
+          />
+        </RadioGroup>
+      </RendersDemoCard>
     </>
   )
 }

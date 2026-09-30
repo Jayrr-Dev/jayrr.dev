@@ -4,6 +4,7 @@ import { ControlBar } from "@/components/standard/control-bar"
 import { Dialog } from "@/components/standard/dialog"
 import { Search } from "@/components/standard/search"
 import { Select } from "@/components/standard/select"
+import { TextField } from "@/components/standard/text-field"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersSearchDemo() {
@@ -14,6 +15,31 @@ export function RendersSearchDemo() {
       </RendersDemoCard>
       <RendersDemoCard label="clearable">
         <Search placeholder="Search pieces" defaultValue="button" clearable />
+      </RendersDemoCard>
+      <RendersDemoCard label="TextField type search">
+        <TextField
+          type="search"
+          aria-label="Search pieces"
+          placeholder="Search pieces"
+          defaultValue="button"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="shortcut">
+        <TextField
+          type="search"
+          aria-label="Search pieces"
+          placeholder="Search pieces"
+          shortcut="⌘K"
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="loading">
+        <TextField
+          type="search"
+          aria-label="Search pieces"
+          placeholder="Search pieces"
+          defaultValue="butt"
+          loading
+        />
       </RendersDemoCard>
       <RendersDemoCard label="in a dialog">
         <Dialog title="Find a piece" trigger="Search">

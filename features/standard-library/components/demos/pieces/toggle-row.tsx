@@ -17,6 +17,9 @@ export function RendersToggleRowDemo() {
           <Switch aria-label="Wrap text" />
         </ToggleRow>
       </RendersDemoCard>
+      <RendersDemoCard label="Switch labelPosition start">
+        <Switch label="Alerts" labelPosition="start" defaultChecked />
+      </RendersDemoCard>
     </>
   )
 }
