@@ -4,6 +4,8 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
+import { Toggle } from "@/components/standard/toggle"
+
 const captionButtonVariants = cva(
   "inline-flex items-center justify-center border border-border bg-background text-foreground hover:bg-muted data-[pressed=true]:bg-muted",
   {
@@ -25,15 +27,12 @@ const captionButtonVariants = cva(
   }
 )
 
+/** @deprecated Use <Toggle iconOnly shape aria-label> */
 function CaptionButton({
   className,
   label,
-  pressed,
-  defaultPressed = false,
-  onPressedChange,
   shape = "circle",
   size = "default",
-  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof captionButtonVariants> & {
@@ -42,39 +41,24 @@ function CaptionButton({
     defaultPressed?: boolean
     onPressedChange?: (pressed: boolean) => void
   }) {
-  const [uncontrolled, setUncontrolled] = React.useState(defaultPressed)
-  const isOn = pressed ?? uncontrolled
-
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    props.onClick?.(event)
-    if (event.defaultPrevented) {
-      return
-    }
-    const next = !isOn
-    if (pressed === undefined) {
-      setUncontrolled(next)
-    }
-    onPressedChange?.(next)
-  }
-
   return (
-    <button
+    <Toggle
       data-slot="caption-button"
-      data-pressed={isOn}
-      data-shape={shape}
-      data-size={size}
-      type="button"
+      iconOnly
+      shape={shape ?? "circle"}
+      size={size ?? "default"}
       aria-label={label}
-      aria-pressed={isOn}
+      // Keeps the original caption look and box sizes (sm 24px, lg 40px).
       className={cn(captionButtonVariants({ shape, size }), className)}
       {...props}
-      onClick={handleClick}
-    >
-      {children}
-    </button>
+    />
   )
 }
 
+/**
+ * @deprecated Use a plain `flex gap-1` container. Kept only so imports keep
+ * working; slated for removal.
+ */
 function CaptionsArray({
   className,
   children,

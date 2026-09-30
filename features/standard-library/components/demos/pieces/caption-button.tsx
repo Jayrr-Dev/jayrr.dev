@@ -6,6 +6,7 @@ import {
   CaptionButton,
   CaptionsArray,
 } from "@/components/standard/caption-button"
+import { Toggle } from "@/components/standard/toggle"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersCaptionButtonDemo() {
@@ -35,6 +36,16 @@ export function RendersCaptionButtonDemo() {
         <CaptionButton label="Star" size="lg">
           <StarIcon className="size-5" />
         </CaptionButton>
+      </RendersDemoCard>
+      <RendersDemoCard label="Toggle iconOnly shape circle">
+        <Toggle iconOnly shape="circle" aria-label="Favorite">
+          <StarIcon className="size-4" />
+        </Toggle>
+      </RendersDemoCard>
+      <RendersDemoCard label="Toggle iconOnly shape square">
+        <Toggle iconOnly shape="square" aria-label="Search" defaultPressed>
+          <SearchIcon className="size-4" />
+        </Toggle>
       </RendersDemoCard>
       <RendersDemoCard label="captions array">
         <CaptionsArray>

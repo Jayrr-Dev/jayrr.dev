@@ -3,10 +3,13 @@ import { cn } from "cn"
 
 import { Button } from "@/components/standard/button"
 
+/** Outline refresh action whose icon spins while `refreshing`. */
 function RefreshButton({
   className,
   iconOnly = false,
   refreshing = false,
+  loading,
+  children,
   ...props
 }: React.ComponentProps<typeof Button> & {
   iconOnly?: boolean
@@ -15,19 +18,18 @@ function RefreshButton({
   return (
     <Button
       data-slot="refresh-button"
-      data-icon-only={iconOnly || undefined}
       data-refreshing={refreshing || undefined}
       tone="outline"
       size="sm"
+      shape={iconOnly ? "circle" : undefined}
+      iconOnly={iconOnly}
       aria-label="Refresh"
-      aria-busy={refreshing || undefined}
-      className={cn(iconOnly && "size-8 rounded-full px-0", className)}
+      leading={<RefreshCwIcon aria-hidden className="size-3.5" />}
+      loading={refreshing ? "spin-icon" : loading}
+      className={cn(iconOnly && "size-8", className)}
       {...props}
     >
-      <RefreshCwIcon
-        className={cn("size-3.5", refreshing && "animate-spin")}
-      />
-      {iconOnly ? null : "Refresh"}
+      {iconOnly ? null : (children ?? "Refresh")}
     </Button>
   )
 }

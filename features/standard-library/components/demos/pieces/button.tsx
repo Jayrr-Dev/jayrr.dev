@@ -1,6 +1,14 @@
 "use client"
 
-import { StarIcon } from "lucide-react"
+import {
+  ArrowRightIcon,
+  CheckIcon,
+  ExternalLinkIcon,
+  InboxIcon,
+  PlusIcon,
+  RefreshCwIcon,
+  StarIcon,
+} from "lucide-react"
 
 import { CircleBadge } from "@/components/standard/badge-pill"
 import { Button } from "@/components/standard/button"
@@ -43,6 +51,90 @@ export function RendersButtonDemo() {
         <Button tone="outline">
           Reports
           <CircleBadge className="bg-destructive text-white">2</CircleBadge>
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="leading icon">
+        <Button leading={<PlusIcon className="size-4" />}>New item</Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="trailing icon">
+        <Button tone="outline" trailing={<ArrowRightIcon className="size-4" />}>
+          Continue
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="count">
+        <div className="flex flex-wrap items-center gap-2">
+          <Button leading={<InboxIcon className="size-4" />} count={3}>
+            Inbox
+          </Button>
+          <Button tone="outline" count={12}>
+            Reports
+          </Button>
+        </div>
+      </RendersDemoCard>
+      <RendersDemoCard label="iconOnly">
+        <div className="flex flex-wrap items-center gap-2">
+          <Button iconOnly aria-label="Add">
+            <PlusIcon className="size-4" />
+          </Button>
+          <Button iconOnly tone="outline" aria-label="Star">
+            <StarIcon className="size-4" />
+          </Button>
+          <Button iconOnly tone="ghost" aria-label="Refresh">
+            <RefreshCwIcon className="size-4" />
+          </Button>
+        </div>
+      </RendersDemoCard>
+      <RendersDemoCard label="iconOnly shape circle">
+        <Button iconOnly shape="circle" tone="outline" aria-label="Star">
+          <StarIcon className="size-4" />
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="iconOnly shape square">
+        <Button iconOnly shape="square" tone="quiet" aria-label="Add">
+          <PlusIcon className="size-4" />
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="href">
+        <Button
+          href="#gallery"
+          tone="outline"
+          trailing={<ExternalLinkIcon className="size-3.5" />}
+        >
+          Open gallery
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="tone quiet">
+        <Button tone="quiet">Archive</Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="tone ghost">
+        <Button tone="ghost">Skip</Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="tone link">
+        <Button tone="link">Learn more</Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="tone success">
+        <Button tone="success" leading={<CheckIcon className="size-4" />}>
+          Approve
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="size xs">
+        <Button size="xs">Tiny</Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="shape pill">
+        <Button shape="pill" leading={<PlusIcon className="size-4" />}>
+          Follow
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="block">
+        <Button block>Continue</Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="loading spin-icon">
+        <Button
+          tone="outline"
+          loading="spin-icon"
+          leading={<RefreshCwIcon className="size-4" />}
+        >
+          Syncing
         </Button>
       </RendersDemoCard>
     </>
