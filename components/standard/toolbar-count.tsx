@@ -4,8 +4,9 @@ import * as React from "react"
 import { XIcon } from "lucide-react"
 import { cn } from "cn"
 
-import { BadgePill, CircleBadge } from "@/components/standard/badge-pill"
+import { Badge } from "@/components/standard/badge"
 import { ButtonIcon } from "@/components/standard/button-icon"
+import { NotificationBadge } from "@/components/standard/notification-badge"
 
 function formatsCount(count: number, max?: number) {
   if (max !== undefined && count > max) {
@@ -44,16 +45,17 @@ function ToolbarCount({
 
   if (variant === "pill") {
     return (
-      <BadgePill
+      <Badge
         data-slot="toolbar-count"
         data-variant="pill"
         tone="quiet"
+        size="lg"
         aria-live="polite"
         className={cn("tabular-nums", className)}
         {...props}
       >
         {label}
-      </BadgePill>
+      </Badge>
     )
   }
 
@@ -74,8 +76,9 @@ function ToolbarCount({
 }
 
 /**
- * Count bubble pinned to the corner of a button. Wrap the button so the
- * bubble has a positioned parent. Hidden at zero unless `showZero`.
+ * Count bubble pinned to the corner of a button. A NotificationBadge with
+ * toolbar defaults: brand tone and a "N new" label. Hidden at zero unless
+ * `showZero`.
  */
 function ToolbarCountBadge({
   className,
@@ -92,23 +95,19 @@ function ToolbarCountBadge({
   showZero?: boolean
   children: React.ReactNode
 }) {
-  const visible = count > 0 || showZero
-
   return (
-    <span data-slot="toolbar-count-badge" className="relative inline-flex">
-      {children}
-      {visible ? (
-        <CircleBadge
-          aria-label={`${count} new`}
-          className={cn(
-            "pointer-events-none absolute -top-1.5 -right-1.5 text-[11px] ring-2 ring-background",
-            tone === "danger" ? "bg-destructive text-white" : undefined,
-            className
-          )}
-        >
-          {formatsCount(count, max)}
-        </CircleBadge>
-      ) : null}
+    <span data-slot="toolbar-count-badge" className="inline-flex">
+      <NotificationBadge
+        className={className}
+        count={count}
+        max={max}
+        dot={false}
+        tone={tone}
+        showZero={showZero}
+        label={`${count} new`}
+      >
+        {children}
+      </NotificationBadge>
     </span>
   )
 }
@@ -136,7 +135,7 @@ function ToolbarSelectionCount({
         className
       )}
     >
-      <CircleBadge>{formatsCount(count, 999)}</CircleBadge>
+      <Badge shape="circle">{formatsCount(count, 999)}</Badge>
       selected
       {onClear ? (
         <ButtonIcon
