@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 96" fill="none" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <filter id="drop" x="-20%" y="-40%" width="140%" height="190%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0b1020" flood-opacity=".3"/>
+    </filter>
+  </defs>
+  <g filter="url(#drop)">
+    <rect x="10" y="10" width="280" height="70" rx="18" fill="#ffffff"/>
+    <circle cx="48" cy="45" r="18" fill="#dcfce7"/>
+    <path d="M40 45 L46 51 L57 39" stroke="#16a34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="78" y="40" font-size="14" fill="#111827" font-weight="700">Payment received</text>
+    <text x="78" y="60" font-size="12" fill="#6b7280">From Acme Inc. just now</text>
+    <text x="272" y="50" text-anchor="end" font-size="16" fill="#16a34a" font-weight="800">+$240</text>
+  </g>
+</svg>

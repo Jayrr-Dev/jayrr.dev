@@ -3,13 +3,20 @@
 import { useState, type ReactNode } from "react"
 
 import { Button } from "@/components/standard/button"
+import { Card } from "@/components/standard/card"
 import {
   ColorGrade,
   colorGradePresets,
   type ColorGradePreset,
 } from "@/components/standard/color-grade"
 import { Distort, distortKinds, type DistortKind } from "@/components/standard/distort"
-import { Gradient, gradientKinds, type GradientKind } from "@/components/standard/gradient"
+import {
+  Gradient,
+  gradientKinds,
+  gradientPresets,
+  type GradientKind,
+  type GradientPreset,
+} from "@/components/standard/gradient"
 import type { LayerPlacement } from "@/components/standard/layer"
 import { Mask, maskKinds, type MaskKind } from "@/components/standard/mask"
 import { Noise, noiseKinds, type NoiseKind } from "@/components/standard/noise"
@@ -41,6 +48,7 @@ import {
   shaderPresetNames,
   type ShaderKind,
 } from "@/components/standard/shader"
+import { Surface, type SurfaceLayer } from "@/components/standard/surface"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 import { cn } from "@/lib/utils"
@@ -164,21 +172,31 @@ function RendersTargetContent() {
 const stillness = ["still", "animated"] as const
 
 function RendersGradientDemo() {
-  const [kind, setKind] = useState<GradientKind | null>("mesh")
+  const [look, setLook] = useState<GradientKind | GradientPreset | null>("mesh")
   const [placement, setPlacement] = useState<LayerPlacement>("behind")
+  const preset = gradientPresets.find((entry) => entry === look)
+  const kind = gradientKinds.find((entry) => entry === look)
 
   return (
     <div className="flex w-full flex-col gap-3">
-      <RendersChips clearable options={gradientKinds} value={kind} onChange={setKind} />
+      <RendersChips clearable options={gradientKinds} value={kind ?? null} onChange={setLook} />
+      <RendersChips clearable options={gradientPresets} value={preset ?? null} onChange={setLook} />
       <RendersChips
         options={placements}
         value={placement}
         onChange={(next) => next && setPlacement(next)}
       />
       <RendersTarget
+        // Parchment stays light in dark mode, so its text stays dark.
+        className={cn(
+          preset === "parchment" &&
+            placement === "behind" &&
+            "text-zinc-900 [&_.text-muted-foreground]:text-zinc-600"
+        )}
         layers={
-          kind && (
+          look && (
             <Gradient
+              preset={preset}
               kind={kind}
               placement={placement}
               blend={placement === "over" ? "soft-light" : undefined}
@@ -203,6 +221,7 @@ function RendersNoiseDemo() {
         onChange={(next) => next && setMotion(next)}
       />
       <RendersTarget
+        className="h-80"
         layers={
           <>
             <Gradient kind="mesh" />
@@ -503,23 +522,95 @@ function RendersMaskDemo() {
   )
 }
 
-/** Every primitive at once, to show they stack. */
-function RendersStackedDemo() {
+const hillsSvg =
+  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'><path d='M0 62Q70 28 150 54T290 44T400 58V100H0Z' fill='rgb(40 10 50 / .55)'/><path d='M0 80Q110 52 220 76T400 70V100H0Z' fill='rgb(30 5 40 / .8)'/></svg>"
+
+const starsSvg =
+  "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><g fill='white'><circle cx='12' cy='18' r='1'/><circle cx='64' cy='9' r='.6'/><circle cx='98' cy='40' r='1.2'/><circle cx='36' cy='62' r='.7'/><circle cx='82' cy='88' r='1'/><circle cx='20' cy='104' r='.6'/><circle cx='110' cy='112' r='.8'/></g></svg>"
+
+/** Ready-made stacks. Layers run bottom to top. */
+const surfaceStacks = {
+  aurora: [
+    { type: "gradient", preset: "aurora" },
+    { type: "pattern", kind: "grid", size: 24, color: "rgb(255 255 255 / 0.12)" },
+    { type: "gradient", preset: "vignette" },
+    { type: "noise", kind: "grain", blend: "overlay", opacity: 0.5 },
+  ],
+  dusk: [
+    { type: "gradient", preset: "sunset" },
+    { type: "gradient", kind: "radial", colors: ["oklch(0.97 0.08 90)", "transparent 12%"], at: "70% 38%" },
+    { type: "svg", svg: hillsSvg, size: "100% 55%", position: "bottom", repeat: "no-repeat" },
+  ],
+  night: [
+    { type: "gradient", preset: "midnight" },
+    { type: "svg", svg: starsSvg, size: "120px 120px", drift: { x: "120px", duration: 40 } },
+    { type: "svg", svg: starsSvg, size: "60px 60px", opacity: 0.5, drift: { x: "60px", duration: 40 } },
+    { type: "gradient", preset: "scrim" },
+  ],
+  blueprint: [
+    { type: "gradient", colors: ["oklch(0.45 0.13 255)", "oklch(0.35 0.12 260)"], angle: 180 },
+    { type: "pattern", kind: "blueprint", size: 12, color: "rgb(255 255 255 / 0.3)" },
+    { type: "noise", kind: "paper", blend: "soft-light" },
+  ],
+  halftone: [
+    { type: "gradient", preset: "peach" },
+    { type: "screentone", kind: "dots", tone: "corner", color: "rgb(120 40 20 / 0.35)" },
+  ],
+} satisfies Record<string, SurfaceLayer[]>
+
+type SurfaceStack = keyof typeof surfaceStacks
+
+const surfaceStackNames = Object.keys(surfaceStacks) as SurfaceStack[]
+
+function RendersSurfaceDemo() {
+  const [stack, setStack] = useState<SurfaceStack>("aurora")
+  const layers: SurfaceLayer[] = surfaceStacks[stack]
+  // Light-backed stacks keep dark text in either theme.
+  const lightBacked = stack === "halftone"
+
   return (
-    <ColorGrade preset="vintage" className="w-full rounded-xl">
-      <RendersTarget
-        layers={
-          <>
-            <Gradient kind="mesh" />
-            <Mask kind="fade" direction="bottom" softness={60} placement="behind">
-              <Pattern kind="grid" size={20} />
-            </Mask>
-            <Noise kind="paper" blend="multiply" opacity={0.35} />
-            <Noise kind="grain" placement="over" blend="overlay" opacity={0.25} />
-          </>
-        }
+    <div className="flex w-full flex-col gap-3">
+      <RendersChips
+        options={surfaceStackNames}
+        value={stack}
+        onChange={(next) => next && setStack(next)}
       />
-    </ColorGrade>
+      <div className="grid w-full gap-3 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
+          <span className="text-xs text-muted-foreground">As a div</span>
+          <Surface
+            layers={layers}
+            className={cn(
+              "flex h-56 flex-col justify-end gap-1 overflow-clip rounded-xl border border-border p-4",
+              lightBacked ? "text-zinc-900" : "text-white"
+            )}
+          >
+            <p className="text-base font-semibold">{stack}</p>
+            <p className={cn("text-sm", lightBacked ? "text-zinc-700" : "text-white/75")}>
+              {layers.length} layers from props.
+            </p>
+          </Surface>
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <span className="text-xs text-muted-foreground">asChild on a Card</span>
+          <Surface asChild layers={layers}>
+            <Card
+              title="Card with layers"
+              meta="The Card keeps its own styles and slots."
+              className={cn(
+                "h-56 justify-end overflow-clip",
+                lightBacked
+                  ? "text-zinc-900 [&_[data-slot=card-meta]]:text-zinc-700"
+                  : "text-white [&_[data-slot=card-meta]]:text-white/75"
+              )}
+            />
+          </Surface>
+        </div>
+      </div>
+      <pre className="max-h-48 overflow-auto rounded-md border border-border bg-muted/40 p-3 font-mono text-xs">
+        {JSON.stringify(layers, (key, value) => (key === "svg" ? "<svg …>" : value), 2)}
+      </pre>
+    </div>
   )
 }
 
@@ -533,19 +624,17 @@ const LAYER_DEMOS: Record<string, () => ReactNode> = {
   "Color Grade": RendersColorGradeDemo,
   Distort: RendersDistortDemo,
   Mask: RendersMaskDemo,
+  Surface: RendersSurfaceDemo,
 }
 
 export function RendersStandardLayerDemo({ pieceName }: { pieceName: string }) {
   const Demo = LAYER_DEMOS[pieceName] ?? RendersGradientDemo
 
   return (
-    <>
+    <div data-fill className="flex w-full flex-col gap-3">
       <RendersDemoCard fill label={`${pieceName.toLowerCase()} · on any relative isolate box`}>
         <Demo />
       </RendersDemoCard>
-      <RendersDemoCard fill label="stacked · gradient + pattern + mask + noise + color grade">
-        <RendersStackedDemo />
-      </RendersDemoCard>
-    </>
+    </div>
   )
 }

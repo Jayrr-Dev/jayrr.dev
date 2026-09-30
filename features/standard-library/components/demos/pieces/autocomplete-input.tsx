@@ -5,13 +5,24 @@ import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersD
 
 export function RendersAutocompleteInputDemo() {
   return (
-    <RendersDemoCard label="Autocomplete">
-      <AutocompleteInput
-        aria-label="Project"
-        placeholder="Project"
-        options={["Alpha", "Bravo", "Charlie"]}
-        clearable
-      />
-    </RendersDemoCard>
+    <>
+      <RendersDemoCard label="Autocomplete">
+        <AutocompleteInput
+          aria-label="Project"
+          placeholder="Project"
+          options={["Alpha", "Bravo", "Charlie"]}
+          clearable
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="inlineCompletion">
+        <AutocompleteInput
+          aria-label="Project"
+          placeholder="Project"
+          options={["Alpha", "Alpine", "Bravo", "Charlie", "Chartreuse"]}
+          inlineCompletion
+          clearable
+        />
+      </RendersDemoCard>
+    </>
   )
 }

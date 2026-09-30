@@ -1078,7 +1078,8 @@
           "animate-text-bang": "text-bang 1.5s ease-in-out infinite",
           "animate-text-ask": "text-ask 1.8s ease-in-out infinite",
           "animate-text-dots": "text-dots 1.2s steps(4, jump-none) infinite",
-          "animate-text-pop": "text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both"
+          "animate-text-pop": "text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          "animate-text-fade": "text-fade 1.2s ease-out both"
         }
       },
       "css": {
@@ -1128,6 +1129,16 @@
           "to": {
             "transform": "translateY(0) scale(1)",
             "opacity": "1"
+          }
+        },
+        "@keyframes text-fade": {
+          "from": {
+            "opacity": "0",
+            "filter": "blur(4px)"
+          },
+          "to": {
+            "opacity": "1",
+            "filter": "blur(0)"
           }
         }
       },
@@ -1204,9 +1215,10 @@
     {
       "name": "standard-accordion",
       "title": "Accordion",
-      "description": "Accordion from the Standard library.",
+      "description": "Collapsible sections with the chevron at the end, start, inline after the title, swapped in for the icon on hover, or hidden. Divided or plain (sidebar) tone, optional single-open.",
       "dependencies": [
-        "cn"
+        "cn",
+        "lucide-react"
       ],
       "files": [
         {
@@ -1220,7 +1232,7 @@
     {
       "name": "action-wheel",
       "title": "Action Wheel",
-      "description": "Action Wheel from the Standard library.",
+      "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the center, a ring of solid circular actions, and a label card pushed outward from each one. Opens at the cursor on right-click via ActionWheelContextMenu. Actions with nested items open a submenu on an outer arc, and variant=\"arc\" drops the ring for a launcher that fans actions toward a direction. Labels always, on hover, or off (tooltips), full ring or arc via startAngle and sweep, solid, violet, primary, secondary, and surface tones, compact, default, medium, and large sizes, and arrow-key navigation.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -1282,7 +1294,7 @@
     {
       "name": "app-bar",
       "title": "App Bar",
-      "description": "App Bar from the Standard library.",
+      "description": "Material 3 top app bar: Small, Medium and Large flexible (big title that collapses on scroll), and Search, with leading nav, trailing actions and a fill on scroll.",
       "dependencies": [
         "cn"
       ],
@@ -1313,6 +1325,62 @@
       "type": "registry:ui"
     },
     {
+      "name": "arrangeable-grid",
+      "title": "Arrangeable Grid",
+      "description": "Inventory-style grid of fixed slots, any size from 1 × 10 to 5 × 5: drag to move or swap, stack with a merge rule, per-slot accept rules, linked grids in one root, drop targets such as a trash button, sources that drag new items in, files dropped from the desktop, drag out or Delete to remove, full keyboard support, and a headless useArrangeableGrid hook for adding, removing, counting and sorting items from code.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/arrangeable-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/arrangeable-grid.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "array",
+      "title": "Array",
+      "description": "Lays any elements out along a line, arc, circle, SVG path or hand-drawn points. Justify spreads them like justify-content (between, around, evenly) or packs them gap apart (start, center, end); offset shifts items along the path; orient turns them to follow it.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/array.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/array.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "art",
+      "title": "Art",
+      "description": "Layer of positioned art pieces (images, SVGs or any element). Each piece has x/y, width, rotate and depth, an `enter` animation (rise, pop, spin, blur...) staggered in order, and an `idle` loop. `parallax` drifts pieces with the pointer by depth. Honours reduced motion.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/art.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/art.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "article",
       "title": "Article",
       "description": "Flexible article layout: single column or sidebar/sidebar-start page layouts, a breakout content grid with wide/full-bleed figures, split sections, header, aside and footer parts, and automatic prose styles for plain markup.",
@@ -1322,13 +1390,34 @@
       ],
       "registryDependencies": [
         "@jayrr/heading",
-        "@jayrr/paragraph"
+        "@jayrr/paragraph",
+        "@jayrr/typeset"
       ],
       "files": [
         {
           "path": "components/standard/article.tsx",
           "type": "registry:ui",
           "target": "components/standard/article.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "audio-display",
+      "title": "Audio Display",
+      "description": "An audio player with cover art, title and artist, a seek bar that can draw a decoded or given waveform, speed, mute and download.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/audio-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/audio-display.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1341,7 +1430,8 @@
         "cn"
       ],
       "registryDependencies": [
-        "@jayrr/text-field"
+        "@jayrr/text-field",
+        "@jayrr/use-inline-completion"
       ],
       "files": [
         {
@@ -1419,7 +1509,7 @@
     {
       "name": "banner",
       "title": "Banner",
-      "description": "Banner from the Standard library.",
+      "description": "Announcement bar, inline or floating on any edge, static or scrolling like a stock ticker.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1433,6 +1523,24 @@
           "path": "components/standard/banner.tsx",
           "type": "registry:ui",
           "target": "components/standard/banner.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "bar",
+      "title": "Bar",
+      "description": "One row with optional leading, label and trailing slots, like a Card cut to a single line. A button by default; a link or static row with asChild.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": "components/standard/bar.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/bar.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1547,6 +1655,23 @@
       "type": "registry:ui"
     },
     {
+      "name": "card-grid",
+      "title": "Card Grid",
+      "description": "A card holding a fixed-column grid of icon tiles, after the Windows tray overflow flyout. Takes an items array or CardGridItem children; arrow keys move between tiles.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/card-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/card-grid.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-card",
       "title": "Card",
       "description": "Card from the Standard library.",
@@ -1603,6 +1728,25 @@
       "type": "registry:ui"
     },
     {
+      "name": "character-chat",
+      "title": "Character Chat",
+      "description": "Visual-novel dialogue box with no input: the speaker's name, the line typed out a letter at a time with pauses after punctuation, and a portrait standing beside the box on either side. Click or press Enter/Space to finish the line, then again for the next; *asterisks* for italics. Default, classic, soft, tab, frame and minimal looks, arrow, chevron, dots or next marks, per-speaker accent colours, thinking dots, auto-advance, a controlled or uncontrolled line index, and a trailing slot for save or replay buttons. Respects reduced motion.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/character-chat.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/character-chat.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-chart",
       "title": "Chart",
       "description": "Chart from the Standard library.",
@@ -1614,6 +1758,37 @@
           "path": "components/standard/chart.tsx",
           "type": "registry:ui",
           "target": "components/standard/chart.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "chat",
+      "title": "Chat Card",
+      "description": "Chat window block built on Message Scroller, Message, Bubble, Attachment and Marker with Standard pieces: an optional header bar, a thread that anchors each new turn and follows streamed replies, a jump-to-latest button, system separators, avatars and author names for group threads, file attachments, a shimmering pending line, copy and regenerate actions on replies, prompt suggestions in the empty state, follow-up chips, bubble-less plain replies for agent transcripts, and a composer that sends on Enter (Shift+Enter for a new line) with a slot for tools such as a model picker or mic. SideChat docks it to a corner as a support widget: a launcher button with an unread count that opens a floating panel with a close button.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/attachment",
+        "@jayrr/bubble",
+        "@jayrr/caption",
+        "@jayrr/chip",
+        "@jayrr/fab",
+        "@jayrr/heading",
+        "@jayrr/marker",
+        "@jayrr/message",
+        "@jayrr/message-scroller",
+        "@jayrr/standard-avatar",
+        "@jayrr/standard-button",
+        "@jayrr/standard-textarea"
+      ],
+      "files": [
+        {
+          "path": "components/standard/chat.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/chat.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1640,7 +1815,7 @@
     {
       "name": "chip",
       "title": "Chip",
-      "description": "Chip from the Standard library.",
+      "description": "Pressable tag: filter/selection chips with a check when on, action chips with an icon, and removable filter chips. Looks interactive so it is never mistaken for a Badge.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1696,7 +1871,7 @@
     {
       "name": "color-grade",
       "title": "Color Grade",
-      "description": "Color Grade from the Standard library.",
+      "description": "Color treatment: sepia, black and white, noir, vivid, muted, vintage, warm, cool, duotone. Wraps content or grades the backdrop.",
       "dependencies": [
         "cn"
       ],
@@ -1710,6 +1885,53 @@
           "path": "components/standard/layer.ts",
           "type": "registry:lib",
           "target": "components/standard/layer.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "color-picker",
+      "title": "Color Picker",
+      "description": "A color field on the browser color picker: a swatch that opens the native picker, a hex field that accepts #rgb or #rrggbb, preset swatches, and an eyedropper where the browser supports it. Controlled or uncontrolled.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/color-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/color-picker.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "comments",
+      "title": "Comments",
+      "description": "Comment section block built from Standard pieces: a heading with a Newest/Oldest sort select, a reply textarea with its submit button inside, a Login or Subscribe prompt for signed-out visitors, and a list of comments with avatars and relative times. Controlled or uncontrolled sort, async onSubmit that clears the box when it resolves, Ctrl/Cmd+Enter to post, and an empty state.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/caption",
+        "@jayrr/heading",
+        "@jayrr/link",
+        "@jayrr/standard-avatar",
+        "@jayrr/standard-button",
+        "@jayrr/standard-select",
+        "@jayrr/standard-textarea",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/comments.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/comments.tsx"
         }
       ],
       "type": "registry:ui"
@@ -1750,6 +1972,65 @@
       "type": "registry:ui"
     },
     {
+      "name": "copy-button",
+      "title": "Copy Button",
+      "description": "Copies text to the clipboard, from a string or a function read at click time, and shows a check and \"Copied\" for a moment.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/copy-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/copy-button.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "csv-button",
+      "title": "CSV Button",
+      "description": "Exports rows to a UTF-8 .csv file that Excel opens cleanly, with quoting and a custom delimiter. Shows as an icon, iconed text or text.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/csv-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/csv-button.tsx"
+        },
+        {
+          "path": "components/standard/file-actions.ts",
+          "type": "registry:lib",
+          "target": "components/standard/file-actions.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "cursor-label",
+      "title": "Cursor Label",
+      "description": "A label that follows the pointer on one of 8 sides and flips near edges. Holds text, any element, or a function of the pointer position.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/cursor-label.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/cursor-label.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "cursor",
       "title": "Cursor",
       "description": "Custom cursor replacement with dot, ring, dot-ring, crosshair, spotlight, blend, arrow and trail variants.",
@@ -1768,7 +2049,7 @@
     {
       "name": "data-grid",
       "title": "Data Grid",
-      "description": "Data Grid from the Standard library.",
+      "description": "Excel-style spreadsheet grid with A1 coordinates and a Name Box, letter and number headers with optional labels, range selection, and keyboard navigation. Drag the fill handle down, right, or diagonally to continue number, date, weekday, and Item 1 series, or press Ctrl+D to copy the cell above. Insert, delete, duplicate, hide, and freeze rows and columns from the right-click menu or the + between headers. Opt-in sorting by header click, per-column filter buttons with value lists and conditions, and declarative JSON formatting rules that style cells, rows, or columns (background, text color, weight, decoration, alignment, borders, any CSS) when values match. Cells render components by type (text, number, checkbox, select, date, or your own), rows and columns are virtualized for 10,000+ rows, and every edit is a change list with undo and redo that onChanges or an adapter can sync to a database.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -1790,6 +2071,46 @@
           "path": "components/standard/data-grid-model.ts",
           "type": "registry:lib",
           "target": "components/standard/data-grid-model.ts"
+        },
+        {
+          "path": "components/standard/data-grid/actions.ts",
+          "type": "registry:lib",
+          "target": "components/standard/data-grid/actions.ts"
+        },
+        {
+          "path": "components/standard/data-grid/axis.ts",
+          "type": "registry:lib",
+          "target": "components/standard/data-grid/axis.ts"
+        },
+        {
+          "path": "components/standard/data-grid/cell-types.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-grid/cell-types.tsx"
+        },
+        {
+          "path": "components/standard/data-grid/cell.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-grid/cell.tsx"
+        },
+        {
+          "path": "components/standard/data-grid/filter.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-grid/filter.tsx"
+        },
+        {
+          "path": "components/standard/data-grid/header.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-grid/header.tsx"
+        },
+        {
+          "path": "components/standard/data-grid/name-box.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/data-grid/name-box.tsx"
+        },
+        {
+          "path": "components/standard/data-grid/selection.ts",
+          "type": "registry:lib",
+          "target": "components/standard/data-grid/selection.ts"
         }
       ],
       "type": "registry:ui"
@@ -1797,7 +2118,7 @@
     {
       "name": "data-table",
       "title": "Data Table",
-      "description": "Data Table from the Standard library.",
+      "description": "TanStack Table v9 data table. Sort by header click, search every column, filter by text or by a column's distinct values, and page through rows. Select rows with a checkbox column and run bulk actions on the selection. Resize, drag to reorder, pin to either edge, and hide columns; switch between compact, default and comfortable density. Show nested rows as an expandable tree with getSubRows, edit cells in place, and export the filtered rows as CSV or JSON.",
       "dependencies": [
         "@tanstack/react-table",
         "cn",
@@ -1861,7 +2182,7 @@
     {
       "name": "dialslide",
       "title": "Dialslide",
-      "description": "Dialslide from the Standard library.",
+      "description": "Horizontal slider for any row, with a calendar variant: scroll buttons, drag, keyboard and edge fades.",
       "dependencies": [
         "cn",
         "date-fns"
@@ -1896,9 +2217,29 @@
       "type": "registry:ui"
     },
     {
+      "name": "display-frame",
+      "title": "Display Frame",
+      "description": "The shared chrome for the Display pieces: a header with icon, title, meta and actions, an optional toolbar row, and copy, open, download and view-switch actions.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/display-frame.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/display-frame.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "distort",
       "title": "Distort",
-      "description": "Distort from the Standard library.",
+      "description": "Spatial effect: waves, ripple, warp or blur, optionally animated. Wraps content or distorts the backdrop.",
       "dependencies": [
         "cn"
       ],
@@ -1937,9 +2278,33 @@
       "type": "registry:ui"
     },
     {
+      "name": "download-button",
+      "title": "Download Button",
+      "description": "Downloads a file from a URL, or one built on click from a Blob. Shows as an icon, iconed text or text.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/download-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/download-button.tsx"
+        },
+        {
+          "path": "components/standard/file-actions.ts",
+          "type": "registry:lib",
+          "target": "components/standard/file-actions.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "draggable",
       "title": "Draggable",
-      "description": "Draggable from the Standard library.",
+      "description": "Sortable list: drag rows, grid chips or a horizontal strip by pointer or keyboard, whole item or grip, and move items between lists.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -1954,9 +2319,94 @@
       "type": "registry:ui"
     },
     {
+      "name": "draw-display",
+      "title": "Draw Display",
+      "description": "A touch-friendly sketch pad: pen, highlighter and eraser, colors and sizes, undo and redo, two-finger tap to undo, palm rejection with a stylus, and SVG or PNG export.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/draw-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/draw-display.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "dynamic-tabs",
+      "title": "Dynamic Tabs",
+      "description": "Browser-style tab strip: add, close and rename tabs (double-click, press and hold, or F2), overflow scroll arrows, arrow-key navigation, pinned tabs, plus a useDynamicTabs hook for local state.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/standard-tooltip",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/dynamic-tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/dynamic-tabs.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "email-button",
+      "title": "Email Button",
+      "description": "Opens a mailto: link with recipients, cc, bcc, subject and body filled in, or copies the address to the clipboard.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/email-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/email-button.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "excel-button",
+      "title": "Excel Button",
+      "description": "Exports rows to an .xlsx workbook with no spreadsheet library, keeping numbers as values under a bold frozen header. Shows as an icon, iconed text or text.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/excel-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/excel-button.tsx"
+        },
+        {
+          "path": "components/standard/file-actions.ts",
+          "type": "registry:lib",
+          "target": "components/standard/file-actions.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "fab",
       "title": "Fab",
-      "description": "Fab from the Standard library.",
+      "description": "Material 3 FAB in FAB, medium, and large sizes with primary, secondary, and surface tones, extended labels, and the expressive FAB menu, plus utilitek's 32px compact chrome that grows into a pill on hover, a FabStack pinned to any of eight edge slots that can be dragged and snapped between them, and scroll collapse/hide.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -2031,6 +2481,25 @@
       "type": "registry:ui"
     },
     {
+      "name": "floating-window",
+      "title": "Floating Window",
+      "description": "Floats any element at one of nine spots on the viewport or its positioned parent. Optionally draggable: drop it anywhere and it snaps to the nearest spot, with a preview outline while dragging and arrow-key moves when focused.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/floating-window.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/floating-window.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "form-field",
       "title": "Form Field",
       "description": "Form Field from the Standard library.",
@@ -2039,7 +2508,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@jayrr/field-label"
+        "@jayrr/field-label",
+        "@jayrr/use-field-validation"
       ],
       "files": [
         {
@@ -2051,9 +2521,32 @@
       "type": "registry:ui"
     },
     {
+      "name": "gantt",
+      "title": "Gantt",
+      "description": "Project schedule: a WBS task table frozen beside a day, week, month or quarter timeline. Plan bars fill with progress, actual bars shade from green to red as they slip, forecasts overshoot in violet, and milestones sit as diamonds. Phases roll up their children; unfinished dependencies grey a task out and a child outside its phase turns red.",
+      "dependencies": [
+        "cn",
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/button-array",
+        "@jayrr/standard-button",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/gantt.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/gantt.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "gradient",
       "title": "Gradient",
-      "description": "Gradient from the Standard library.",
+      "description": "Color transition layer: linear, radial, conic or mesh. Behind or over any relative isolate box.",
       "dependencies": [
         "cn"
       ],
@@ -2074,7 +2567,7 @@
     {
       "name": "heading",
       "title": "Heading",
-      "description": "Heading from the Standard library.",
+      "description": "Heading from the Standard library. `display` applies landing-page headline rules (60/48px, extrabold, -0.4px tracking, line height 1, 1000px max width); HeadingHighlight colours a number in it.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -2084,6 +2577,27 @@
           "path": "components/standard/heading.tsx",
           "type": "registry:ui",
           "target": "components/standard/heading.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "headline",
+      "title": "Headline",
+      "description": "A landing-page section: a display Heading, one paragraph, one call to action and one image. `align` stacks it centred or puts the media beside the copy.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/heading",
+        "@jayrr/paragraph"
+      ],
+      "files": [
+        {
+          "path": "components/standard/headline.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/headline.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2103,6 +2617,28 @@
           "path": "components/standard/heatmap.tsx",
           "type": "registry:ui",
           "target": "components/standard/heatmap.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "hero-card",
+      "title": "Hero Card",
+      "description": "A hero on a card. Title, subtitle, actions and trailing art each take one of nine positions, over Surface `layers` data or layer components (Gradient, Noise, Shader, Art) passed as children.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/heading",
+        "@jayrr/paragraph",
+        "@jayrr/surface"
+      ],
+      "files": [
+        {
+          "path": "components/standard/hero-card.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/hero-card.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2168,9 +2704,30 @@
       "type": "registry:ui"
     },
     {
+      "name": "increment",
+      "title": "Increment",
+      "description": "A value nudged with minus and plus buttons, like gap 32. Hold to repeat; arrow keys, Page Up/Down, Home and End step it from the keyboard.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/increment.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/increment.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "indicator",
       "title": "Indicator",
-      "description": "Indicator from the Standard library.",
+      "description": "Presence dot for avatars and people lists: online, away, busy, offline. Its own colour set, so busy red never reads as unread.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -2180,6 +2737,47 @@
           "path": "components/standard/indicator.tsx",
           "type": "registry:ui",
           "target": "components/standard/indicator.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "infinite-canvas",
+      "title": "Infinite Canvas",
+      "description": "Pannable, zoomable surface that goes on forever. Drag, scroll or hold space to pan; pinch or ctrl + scroll to zoom at the pointer. Draggable items with snapping and keyboard moves, dots, grid or ruled backgrounds, zoom controls, a minimap, and a controlled view, item list and selection.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/infinite-canvas.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/infinite-canvas.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "infinite-scroll",
+      "title": "Infinite Scroll",
+      "description": "Lays out any components as a list, responsive grid or masonry and calls onLoadMore as the end scrolls into view. Takes items with renderItem or composed children; scrolls the page or its own container, loads upward for chat history, or waits for a Load more button. useInfiniteList turns a page fetcher into its props, with loading, error and retry.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/loading-state",
+        "@jayrr/masonry",
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/infinite-scroll.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/infinite-scroll.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2201,6 +2799,27 @@
           "path": "components/standard/info-icon.tsx",
           "type": "registry:ui",
           "target": "components/standard/info-icon.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "input-calculator",
+      "title": "Input Calculator",
+      "description": "Headless formula field: type spreadsheet-style maths with variables and functions and get the result live.",
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/input-calculator.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/input-calculator.tsx"
+        },
+        {
+          "path": "components/standard/input-calculator-model.ts",
+          "type": "registry:lib",
+          "target": "components/standard/input-calculator-model.ts"
         }
       ],
       "type": "registry:ui"
@@ -2243,9 +2862,49 @@
       "type": "registry:ui"
     },
     {
+      "name": "json-display",
+      "title": "Json Display",
+      "description": "JSON as a collapsible, color-coded tree with item counts, expand and collapse all, a Raw view, copy, and parse errors shown over the text.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/json-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/json-display.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "json-viewer",
+      "title": "Json Viewer",
+      "description": "An interactive JSON explorer on CSS grid: label and value cells, boxed objects and arrays under type headers, click any key to collapse, parse JSON strings in place, hovered path in the footer, and an optional Input view.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/json-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/json-viewer.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "kanban",
       "title": "Kanban",
-      "description": "Kanban from the Standard library.",
+      "description": "Board of columns with cards that drag between them, column counts and limits, and an Add card button.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -2283,7 +2942,7 @@
     {
       "name": "lexical-editor",
       "title": "Lexical Editor",
-      "description": "Lexical Editor from the Standard library.",
+      "description": "Rich text editor built on Lexical with the Standard Toolbar: block types, history, text formats, alignment, and Markdown shortcuts.",
       "dependencies": [
         "@lexical/list",
         "@lexical/markdown",
@@ -2297,7 +2956,8 @@
       ],
       "registryDependencies": [
         "@jayrr/standard-select",
-        "@jayrr/toolbar"
+        "@jayrr/toolbar",
+        "@jayrr/typeset"
       ],
       "files": [
         {
@@ -2325,6 +2985,28 @@
       "type": "registry:ui"
     },
     {
+      "name": "list",
+      "title": "List",
+      "description": "A card of Bars. Rows as data or composed: links, selectable options (value / onValueChange), expandable tree branches, collapsible sections and separators. Title, trailing and footer slots; default, quiet, outline or ghost tone.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/bar",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/list.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/list.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "loading-state",
       "title": "Loading State",
       "description": "Loading State from the Standard library.",
@@ -2346,9 +3028,31 @@
       "type": "registry:ui"
     },
     {
+      "name": "markdown-display",
+      "title": "Markdown Display",
+      "description": "Markdown rendered with no dependencies and no raw HTML: headings, nested and task lists, tables, quotes, code blocks and safe links, with an optional Preview / Source switch.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/code",
+        "@jayrr/display-frame",
+        "@jayrr/typeset"
+      ],
+      "files": [
+        {
+          "path": "components/standard/markdown-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/markdown-display.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "mask",
       "title": "Mask",
-      "description": "Mask from the Standard library.",
+      "description": "Soft alpha cutout: fade, edges, vignette or spotlight. Wraps content or groups other layers.",
       "dependencies": [
         "cn"
       ],
@@ -2388,9 +3092,33 @@
       "type": "registry:ui"
     },
     {
+      "name": "mic-button",
+      "title": "Mic Button",
+      "description": "Turns the microphone on and off with getUserMedia, with a live input level meter while on. Hands the stream to onStreamChange and stops every track on unmount. Needs a secure (https) page.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/mic-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/mic-button.tsx"
+        },
+        {
+          "path": "components/standard/media-device.ts",
+          "type": "registry:lib",
+          "target": "components/standard/media-device.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "miller-select",
       "title": "Miller Select",
-      "description": "Miller Select from the Standard library.",
+      "description": "Miller-column picker from the utilitek timesheet Work Performed field: sections as tabs, then group, header, and checkbox columns side by side, with a search that lists matches from every group. Popover on desktop, stacked bottom sheet on mobile.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -2406,6 +3134,44 @@
           "path": "components/standard/miller-select.tsx",
           "type": "registry:ui",
           "target": "components/standard/miller-select.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "mode-toggle",
+      "title": "Mode Toggle",
+      "description": "Light, dark and system theme switch as a menu, a one-click toggle or a segmented control. Uncontrolled it sets the app theme through next-themes, so wrap the app in a next-themes ThemeProvider with attribute=\"class\"; pass value and onValueChange to drive a scoped preview instead.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "next-themes"
+      ],
+      "registryDependencies": [
+        "@jayrr/menu",
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/mode-toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/mode-toggle.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "mood-text",
+      "title": "Mood Text",
+      "description": "Text that carries a mood. Each word is a span with a stack of effects, one per slot: motion, pose, size, tracking, case, font, weight, draw, ink, glow and fade. A mood sets the whole line; highlights pick out phrases with presets such as goldWave, wrath or phantom.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/mood-text.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/mood-text.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2432,7 +3198,7 @@
     {
       "name": "noise",
       "title": "Noise",
-      "description": "Noise from the Standard library.",
+      "description": "Random texture layer: grain, paper fibers or clouds, from SVG turbulence. Optional film jitter.",
       "dependencies": [
         "cn"
       ],
@@ -2453,7 +3219,7 @@
     {
       "name": "notification-badge",
       "title": "Notification Badge",
-      "description": "Notification Badge from the Standard library.",
+      "description": "Unread marker pinned to an icon: dot, count, or capped count (999+). Red alert tone by default, with brand and neutral tones for non-urgent counts.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -2470,7 +3236,7 @@
     {
       "name": "number-input",
       "title": "Number Input",
-      "description": "Number Input from the Standard library.",
+      "description": "Text box for numbers: digits only, clamps to min/max and rounds on blur, Enter jumps to the next field.",
       "dependencies": [
         "cn"
       ],
@@ -2525,9 +3291,25 @@
       "type": "registry:ui"
     },
     {
+      "name": "parallax",
+      "title": "Parallax",
+      "description": "Parallax from the Standard library.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/parallax.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/parallax.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "pattern",
       "title": "Pattern",
-      "description": "Pattern from the Standard library.",
+      "description": "Repeating shape layer. Basic: dots, grid, lines, diagonal, checker. Graphic: waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and dashed diagonals, band. Decorative: speed lines, motion lines, sunburst, seigaiha, asanoha, kikko, shippo, sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard, blueprint, fold.",
       "dependencies": [
         "cn"
       ],
@@ -2546,9 +3328,28 @@
       "type": "registry:ui"
     },
     {
+      "name": "pdf-display",
+      "title": "Pdf Display",
+      "description": "A PDF in the browser viewer with a title bar, open and download actions, a starting page and zoom, and a fallback card where PDFs cannot show inline.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/pdf-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/pdf-display.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "phone-input",
       "title": "Phone Input",
-      "description": "Phone Input from the Standard library.",
+      "description": "Phone number field with a searchable country picker: formats as you type and reports E.164.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -2572,7 +3373,7 @@
     {
       "name": "pill",
       "title": "Pill",
-      "description": "Pill from the Standard library.",
+      "description": "Split badge with a muted label on the left and a contrasting value on the right, in four corner radii.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -2589,7 +3390,7 @@
     {
       "name": "popover-wizard",
       "title": "Popover Wizard",
-      "description": "Popover Wizard from the Standard library.",
+      "description": "Small multi-step panel anchored to its trigger: header dots, Back and Next, for tours and quick setup.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -2619,6 +3420,30 @@
           "path": "components/standard/popover.tsx",
           "type": "registry:ui",
           "target": "components/standard/popover.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "print-button",
+      "title": "Print Button",
+      "description": "Opens the print dialog for the page, or prints one element in a hidden frame with the page's styles. Shows as an icon, iconed text or text.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/print-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/print-button.tsx"
+        },
+        {
+          "path": "components/standard/file-actions.ts",
+          "type": "registry:lib",
+          "target": "components/standard/file-actions.ts"
         }
       ],
       "type": "registry:ui"
@@ -2722,9 +3547,29 @@
       "type": "registry:ui"
     },
     {
+      "name": "responsive-tooltip",
+      "title": "Responsive Tooltip",
+      "description": "Hover tooltip on desktop, tap popover on touch devices.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-popover",
+        "@jayrr/standard-tooltip"
+      ],
+      "files": [
+        {
+          "path": "components/standard/responsive-tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/responsive-tooltip.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "screentone",
       "title": "Screentone",
-      "description": "Screentone from the Standard library.",
+      "description": "Manga halftone tone: dots, lines, crosshatch, diamonds, rings or noise that grow with a graded tone (top, bottom, center, edges, corner) or an organic one (clouds, folds, marble, streaks). Optional rough printed edges.",
       "dependencies": [
         "cn"
       ],
@@ -2784,7 +3629,8 @@
       "title": "Search",
       "description": "Search from the Standard library.",
       "registryDependencies": [
-        "@jayrr/text-field"
+        "@jayrr/text-field",
+        "@jayrr/use-field-validation"
       ],
       "files": [
         {
@@ -2845,6 +3691,25 @@
       "type": "registry:ui"
     },
     {
+      "name": "share-button",
+      "title": "Share Button",
+      "description": "Shares a link with the Web Share API (navigator.share), opening the native share sheet on mobile and desktop, and copies the link to the clipboard where the API is unavailable.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/share-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/share-button.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-sheet",
       "title": "Sheet",
       "description": "Sheet from the Standard library.",
@@ -2880,6 +3745,48 @@
           "path": "components/standard/skeleton.tsx",
           "type": "registry:ui",
           "target": "components/standard/skeleton.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "social-media-buttons",
+      "title": "Social Media Buttons",
+      "description": "Brand-coloured buttons linking to social profiles (Facebook, X, Instagram, LinkedIn, YouTube, TikTok, GitHub, email, RSS) in brand, outline or ghost tones and square, rounded or circle shapes.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/standard/social-media-buttons.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/social-media-buttons.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "spreadsheet",
+      "title": "Spreadsheet",
+      "description": "Data Grid with formulas: cells take =SUM(B2:B9), =B2 * $C$1 and named values, recalculate as you edit, and shift references when filled.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/data-grid"
+      ],
+      "files": [
+        {
+          "path": "components/standard/spreadsheet.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/spreadsheet.tsx"
+        },
+        {
+          "path": "components/standard/input-calculator-model.ts",
+          "type": "registry:lib",
+          "target": "components/standard/input-calculator-model.ts"
         }
       ],
       "type": "registry:ui"
@@ -2944,29 +3851,6 @@
       "type": "registry:ui"
     },
     {
-      "name": "standard-list",
-      "title": "Standard List",
-      "description": "Standard List from the Standard library.",
-      "dependencies": [
-        "cn",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "@jayrr/standard-grid",
-        "@jayrr/standard-list-chrome",
-        "@jayrr/standard-table",
-        "@jayrr/use-controllable-state"
-      ],
-      "files": [
-        {
-          "path": "components/standard/standard-list.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/standard-list.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
       "name": "standard-table",
       "title": "Standard Table",
       "description": "Standard Table from the Standard library.",
@@ -2989,9 +3873,9 @@
       "type": "registry:ui"
     },
     {
-      "name": "stepper",
-      "title": "Stepper",
-      "description": "Stepper from the Standard library.",
+      "name": "step",
+      "title": "Steps",
+      "description": "An ordered sequence with a current position. Each step exposes complete, active or upcoming for its optional trigger, indicator, title, description and separator to style.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3001,9 +3885,77 @@
       ],
       "files": [
         {
+          "path": "components/standard/step.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/step.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "description": "Preset of Steps for multi-step flows: numbers, icons or dots, labels beside or under, horizontal, vertical or responsive.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@jayrr/step",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
           "path": "components/standard/stepper.tsx",
           "type": "registry:ui",
           "target": "components/standard/stepper.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "surface",
+      "title": "Surface",
+      "description": "Stacks layers from a props array: gradients, patterns, images, inline SVG, noise and screentone, with optional drift animation. Neighbouring plain backgrounds merge into one element's multiple backgrounds. Use asChild to paint onto a Card or any other element.",
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "@jayrr/gradient",
+        "@jayrr/noise",
+        "@jayrr/pattern",
+        "@jayrr/screentone"
+      ],
+      "files": [
+        {
+          "path": "components/standard/surface.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/surface.tsx"
+        },
+        {
+          "path": "components/standard/layer.ts",
+          "type": "registry:lib",
+          "target": "components/standard/layer.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "svg-display",
+      "title": "Svg Display",
+      "description": "An SVG on a transparency checkerboard with zoom, a Preview / Code switch, dimensions and size, and copy and download. Drawn through an img so scripts never run.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/svg-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/svg-display.tsx"
         }
       ],
       "type": "registry:ui"
@@ -3064,6 +4016,29 @@
       "type": "registry:ui"
     },
     {
+      "name": "table-list",
+      "title": "Table List",
+      "description": "A list block with a title bar, search, column filters and paging that switches between a table view and a card grid view.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-grid",
+        "@jayrr/standard-list-chrome",
+        "@jayrr/standard-table",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/table-list.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/table-list.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-simple-table",
       "title": "Table",
       "description": "Table from the Standard library.",
@@ -3090,7 +4065,9 @@
       ],
       "registryDependencies": [
         "@jayrr/kbd",
-        "@jayrr/spinner"
+        "@jayrr/spinner",
+        "@jayrr/use-field-validation",
+        "@jayrr/use-inline-completion"
       ],
       "files": [
         {
@@ -3108,6 +4085,11 @@
       "dependencies": [
         "cn"
       ],
+      "registryDependencies": [
+        "@jayrr/text-field",
+        "@jayrr/use-field-validation",
+        "@jayrr/use-inline-completion"
+      ],
       "files": [
         {
           "path": "components/standard/textarea.tsx",
@@ -3118,9 +4100,30 @@
       "type": "registry:ui"
     },
     {
+      "name": "thumbs",
+      "title": "Thumbs",
+      "description": "Thumbs up / thumbs down feedback toggle with optional counts and sizes.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/thumbs.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/thumbs.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "time-picker",
       "title": "Time Picker",
-      "description": "Time Picker from the Standard library.",
+      "description": "Material 3 time picker: drag the clock dial or type the time, AM/PM or 24-hour, Cancel/OK in a popover.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3139,15 +4142,29 @@
       "type": "registry:ui"
     },
     {
+      "name": "timeline",
+      "title": "Timeline",
+      "description": "Events along a line. Each entry takes elements for its badge, date, title, description, extra content and marker. Vertical or horizontal, content on one side or alternating, the date beside the content or across the line; ring, number or dot markers, solid, dashed or pin connectors, and per-entry colors. Give entries dates to space them by time, draw gaps solid, dashed or dotted by length with labels, group by day, month or year, and mark the current entry; plus reversed order, loading placeholders and an empty state.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/timeline.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/timeline.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "toast",
       "title": "Toast",
-      "description": "Toast from the Standard library.",
+      "description": "Short messages that appear and leave on their own: toasts with a danger tone, or Material snackbars with an action. Built on Sonner; call toast() anywhere under a Toaster.",
       "dependencies": [
         "cn",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "@jayrr/standard-button"
+        "lucide-react",
+        "sonner"
       ],
       "files": [
         {
@@ -3181,7 +4198,7 @@
     {
       "name": "toolbar-count",
       "title": "Toolbar Count",
-      "description": "Toolbar Count from the Standard library.",
+      "description": "Toolbar counts: result text, filtered-of-total, pill, corner badge on a button, and a selection chip with clear.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3203,7 +4220,7 @@
     {
       "name": "toolbar",
       "title": "Toolbar",
-      "description": "Toolbar from the Standard library.",
+      "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select, plus a Material 3 docked variant (standard or vibrant) for the bottom edge of a screen.",
       "dependencies": [
         "cn"
       ],
@@ -3244,9 +4261,99 @@
       "type": "registry:ui"
     },
     {
+      "name": "upload-button",
+      "title": "Upload Button",
+      "description": "Opens the file picker from a button and hands back the chosen files, with accept, multiple and a size limit. Shows as an icon, iconed text or text.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/upload-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/upload-button.tsx"
+        },
+        {
+          "path": "components/standard/file-actions.ts",
+          "type": "registry:lib",
+          "target": "components/standard/file-actions.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "video-display",
+      "title": "Video Display",
+      "description": "A video player with custom controls: buffered seek bar, volume, speed, captions, picture-in-picture, fullscreen and keyboard shortcuts, fading while it plays.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/display-frame"
+      ],
+      "files": [
+        {
+          "path": "components/standard/video-display.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/video-display.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "volume-button",
+      "title": "Volume Button",
+      "description": "A mute button with a volume slider that slides out on hover and focus, stays open or opens in a popover, horizontal or vertical. Controlled or uncontrolled, and can drive an audio or video element directly.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button",
+        "@jayrr/standard-popover",
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/volume-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/volume-button.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "webcam-button",
+      "title": "Webcam Button",
+      "description": "Turns the camera on and off with getUserMedia, hands the stream to onStreamChange and stops every track on unmount. Needs a secure (https) page.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/webcam-button.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/webcam-button.tsx"
+        },
+        {
+          "path": "components/standard/media-device.ts",
+          "type": "registry:lib",
+          "target": "components/standard/media-device.ts"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "wizard",
       "title": "Wizard",
-      "description": "Wizard from the Standard library.",
+      "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -3267,12 +4374,50 @@
       "type": "registry:ui"
     },
     {
+      "name": "typeset",
+      "title": "Typeset",
+      "description": "Prose styles (shadcn/typeset plus article, compact, editor and chat presets) for the Standard library.",
+      "files": [
+        {
+          "path": "components/standard/typeset.css",
+          "type": "registry:file",
+          "target": "components/standard/typeset.css"
+        }
+      ],
+      "docs": "Add `@import \"../components/standard/typeset.css\";` to your global CSS, after `@import \"tailwindcss\";` (adjust the path to where the file landed).",
+      "type": "registry:item"
+    },
+    {
       "name": "use-controllable-state",
       "title": "Use Controllable State",
       "description": "Use Controllable State from the Standard library.",
       "files": [
         {
           "path": "hooks/use-controllable-state.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "type": "registry:hook"
+    },
+    {
+      "name": "use-field-validation",
+      "title": "Use Field Validation",
+      "description": "Use Field Validation from the Standard library.",
+      "files": [
+        {
+          "path": "hooks/use-field-validation.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "type": "registry:hook"
+    },
+    {
+      "name": "use-inline-completion",
+      "title": "Use Inline Completion",
+      "description": "Use Inline Completion from the Standard library.",
+      "files": [
+        {
+          "path": "hooks/use-inline-completion.ts",
           "type": "registry:hook"
         }
       ],

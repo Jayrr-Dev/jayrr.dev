@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toolbar-count",
   "title": "Toolbar Count",
-  "description": "Toolbar Count from the Standard library.",
+  "description": "Toolbar counts: result text, filtered-of-total, pill, corner badge on a button, and a selection chip with clear.",
   "dependencies": [
     "cn",
     "lucide-react"

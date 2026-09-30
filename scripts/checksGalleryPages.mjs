@@ -10,6 +10,8 @@
  * - names are unique
  * - every entry with "standard" in `demos` has a key in
  *   definesStandardPieceDemos.ts
+ * - every entry has a description under its tier in shortDescriptions.json,
+ *   carries no `description` of its own, and that file names no other pieces
  *
  * Page checks: GETs /gallery/<slug> for each (or each listed) piece in turn
  * against a running dev server. Exits non-zero on any failure.
@@ -53,7 +55,7 @@ function readsJson(file) {
 }
 
 /** Returns one message per catalog problem. */
-function validatesCatalog(components, types) {
+function validatesCatalog(components, types, descriptions) {
   const problems = []
   const known = new Set(
     types.flatMap((bucket) =>
@@ -99,6 +101,21 @@ function validatesCatalog(components, types) {
         problems.push(`${name}: no key in definesStandardPieceDemos.ts`)
       }
     }
+
+    if (!descriptions[component.tier]?.[name]) {
+      problems.push(`${name}: no ${component.tier} entry in shortDescriptions.json`)
+    }
+    if ("description" in component) {
+      problems.push(`${name}: description belongs in shortDescriptions.json`)
+    }
+  }
+
+  for (const [tier, entries] of Object.entries(descriptions)) {
+    for (const name of Object.keys(entries)) {
+      if (!components.some((c) => c.name === name && c.tier === tier)) {
+        problems.push(`shortDescriptions.json: no ${tier} piece "${name}"`)
+      }
+    }
   }
   return problems
 }
@@ -127,8 +144,9 @@ async function checksPages(names, port) {
 const args = readsArgs(process.argv.slice(2))
 const components = readsJson("galleryComponents.json")
 const types = readsJson("galleryTypes.json")
+const descriptions = readsJson("shortDescriptions.json")
 
-const catalogProblems = validatesCatalog(components, types)
+const catalogProblems = validatesCatalog(components, types, descriptions)
 for (const problem of catalogProblems) {
   console.error(`catalog: ${problem}`)
 }

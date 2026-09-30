@@ -66,10 +66,12 @@ function Dialog({
   defaultMaximized = false,
   controlsPlacement = "inline",
   size = "md",
+  modal = true,
 }: {
   className?: string
   title: string
   description?: string
+  /** Pass `null` for a controlled dialog opened from elsewhere. */
   trigger?: React.ReactNode
   children?: React.ReactNode
   open?: boolean
@@ -79,6 +81,11 @@ function Dialog({
   controlsPlacement?: DialogControlsPlacement
   /** Width of the card. `full` fills the viewport less a margin. */
   size?: DialogSize
+  /**
+   * `false` leaves the page behind interactive: no overlay, no focus trap,
+   * and clicking outside keeps the dialog open.
+   */
+  modal?: boolean
 }) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false)
   const [isMinimized, setIsMinimized] = React.useState(false)
@@ -126,6 +133,13 @@ function Dialog({
     }
   }
 
+  // A non-modal dialog shares the page, so outside clicks never dismiss it.
+  const blockOutsideDismiss = (event: Event) => {
+    if (isMinimizedActive || !modal) {
+      event.preventDefault()
+    }
+  }
+
   const triggerNode =
     typeof trigger === "string" ? (
       <Button tone="outline">{trigger}</Button>
@@ -139,18 +153,21 @@ function Dialog({
     <DialogPrimitive.Root
       open={isOpen}
       onOpenChange={setOpen}
-      modal={!isMinimizedActive}
+      modal={modal && !isMinimizedActive}
     >
-      <DialogPrimitive.Trigger asChild>{triggerNode}</DialogPrimitive.Trigger>
+      {triggerNode == null ? null : (
+        <DialogPrimitive.Trigger asChild>{triggerNode}</DialogPrimitive.Trigger>
+      )}
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/40" />
         <DialogPrimitive.Content
           inert={isMinimizedActive || undefined}
           data-size={size}
+          data-modal={modal ? "" : undefined}
           data-maximized={isMaximized ? "" : undefined}
           data-minimized={isMinimizedActive ? "" : undefined}
           onEscapeKeyDown={blockWhileMinimized}
-          onInteractOutside={blockWhileMinimized}
+          onInteractOutside={blockOutsideDismiss}
           className={cn(
             "fixed top-1/2 left-1/2 z-50 max-h-[calc(100dvh-2rem)] min-w-72 -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-border bg-background p-4 text-foreground shadow-lg",
             DIALOG_SIZE_CLASS[size],
@@ -239,11 +256,13 @@ function Dialog({
             <div className="mt-3 flex flex-col gap-3">{children}</div>
           ) : null}
           {canClose ? null : (
-            <DialogPrimitive.Close asChild>
-              <Button tone="outline" size="sm" className="mt-3">
-                Close
-              </Button>
-            </DialogPrimitive.Close>
+            <div className="mt-3 flex justify-end">
+              <DialogPrimitive.Close asChild>
+                <Button tone="outline" size="sm">
+                  Close
+                </Button>
+              </DialogPrimitive.Close>
+            </div>
           )}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

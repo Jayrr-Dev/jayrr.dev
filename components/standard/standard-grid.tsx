@@ -17,12 +17,15 @@ export type StandardGridColumnConfig = {
   md?: number
 }
 
-/** Grid-only props, shared by StandardGrid and StandardList's grid view. */
+type StandardGridColumnCount = 1 | 2 | 3 | 4 | 5 | 6
+
+/** Grid-only props, shared by StandardGrid and TableList's grid view. */
 export type StandardGridViewProps<T extends object> = {
   renderCard: (item: T, index: number) => React.ReactNode
   getItemKey: (item: T, index: number) => string | number
   columns?: StandardGridColumnConfig
-  gap?: "sm" | "md" | "lg"
+  /** `xs` packs tiles edge to edge, for media grids. */
+  gap?: "xs" | "sm" | "md" | "lg"
   skipCardWrapper?: boolean
 }
 
@@ -32,28 +35,52 @@ export type StandardGridProps<T extends object> = StandardListProps<T> &
   }
 
 const GAP_CLASS = {
+  xs: "gap-0.5",
   sm: "gap-2",
   md: "gap-3",
   lg: "gap-4",
 } as const
 
-function readingColClass(count: number | undefined, prefix: string) {
+// Literal class names so Tailwind generates every breakpoint.
+const COL_CLASS = {
+  "": {
+    1: "grid-cols-1",
+    2: "grid-cols-2",
+    3: "grid-cols-3",
+    4: "grid-cols-4",
+    5: "grid-cols-5",
+    6: "grid-cols-6",
+  },
+  "sm:": {
+    1: "sm:grid-cols-1",
+    2: "sm:grid-cols-2",
+    3: "sm:grid-cols-3",
+    4: "sm:grid-cols-4",
+    5: "sm:grid-cols-5",
+    6: "sm:grid-cols-6",
+  },
+  "md:": {
+    1: "md:grid-cols-1",
+    2: "md:grid-cols-2",
+    3: "md:grid-cols-3",
+    4: "md:grid-cols-4",
+    5: "md:grid-cols-5",
+    6: "md:grid-cols-6",
+  },
+} as const
+
+function readingColClass(
+  count: number | undefined,
+  prefix: keyof typeof COL_CLASS
+) {
   if (count === undefined) {
-    if (prefix) {
-      return ""
-    }
-    return "grid-cols-1"
+    return prefix ? "" : COL_CLASS[""][1]
   }
-  if (count === 2) {
-    return `${prefix}grid-cols-2`
-  }
-  if (count === 3) {
-    return `${prefix}grid-cols-3`
-  }
-  if (count === 4) {
-    return `${prefix}grid-cols-4`
-  }
-  return `${prefix}grid-cols-1`
+  const clamped = Math.min(
+    Math.max(Math.round(count), 1),
+    6
+  ) as StandardGridColumnCount
+  return COL_CLASS[prefix][clamped]
 }
 
 /**

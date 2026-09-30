@@ -84,6 +84,8 @@ function DropdownMenu({
   items,
   trigger,
   align,
+  side,
+  openOn = "click",
   modal,
   disabled = false,
   className,
@@ -97,7 +99,13 @@ function DropdownMenu({
    */
   trigger?: React.ReactElement
   align?: "start" | "center" | "end"
-  /** Blocks the rest of the page while open. Radix default: true. */
+  side?: "top" | "right" | "bottom" | "left"
+  /**
+   * "hover" opens the menu while a mouse rests on the trigger or panel and
+   * closes it shortly after leaving; keyboard and touch still open on press.
+   */
+  openOn?: "click" | "hover"
+  /** Blocks the rest of the page while open. Radix default: true. Ignored for hover. */
   modal?: boolean
   disabled?: boolean
   /** Classes for the menu panel. */
@@ -105,6 +113,25 @@ function DropdownMenu({
   /** Classes added to every item. */
   itemClassName?: string
 }) {
+  const hover = openOn === "hover"
+  const [hoverOpen, setHoverOpen] = React.useState(false)
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout>>(undefined)
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+  React.useEffect(() => () => clearTimeout(closeTimer.current), [])
+
+  function openingOnHover(event: React.PointerEvent) {
+    if (!hover || disabled || event.pointerType !== "mouse") return
+    clearTimeout(closeTimer.current)
+    setHoverOpen(true)
+  }
+
+  function closingOnLeave(event: React.PointerEvent) {
+    if (!hover || event.pointerType !== "mouse") return
+    clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => setHoverOpen(false), 150)
+  }
+
   function renderingItem(item: MenuItem) {
     return (
       <DropdownMenuPrimitive.Item
@@ -119,15 +146,40 @@ function DropdownMenu({
   }
 
   return (
-    <DropdownMenuPrimitive.Root modal={modal}>
-      <DropdownMenuPrimitive.Trigger asChild disabled={disabled}>
+    <DropdownMenuPrimitive.Root
+      {...(hover
+        ? { open: hoverOpen, onOpenChange: setHoverOpen, modal: false }
+        : { modal })}
+    >
+      <DropdownMenuPrimitive.Trigger
+        ref={triggerRef}
+        asChild
+        disabled={disabled}
+        onPointerEnter={openingOnHover}
+        onPointerLeave={closingOnLeave}
+        onPointerDown={(event) => {
+          // Already open from hovering: a press should not toggle it shut.
+          if (hover && hoverOpen && event.pointerType === "mouse") {
+            event.preventDefault()
+          }
+        }}
+      >
         {trigger ?? <Button tone="outline">{label}</Button>}
       </DropdownMenuPrimitive.Trigger>
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content
           align={align}
+          side={side}
           sideOffset={4}
           className={cn(menuContentClass, className)}
+          onPointerEnter={openingOnHover}
+          onPointerLeave={closingOnLeave}
+          onInteractOutside={(event) => {
+            // Non-modal menus count the trigger as outside; keep hover menus open.
+            if (hover && triggerRef.current?.contains(event.target as Node)) {
+              event.preventDefault()
+            }
+          }}
         >
           {items.map((entry) => {
             if (entry.type === "separator") {
@@ -184,7 +236,9 @@ function ContextMenu({
   return (
     <ContextMenuPrimitive.Root>
       {trigger ? (
-        <ContextMenuPrimitive.Trigger asChild>{trigger}</ContextMenuPrimitive.Trigger>
+        <ContextMenuPrimitive.Trigger asChild>
+          {trigger}
+        </ContextMenuPrimitive.Trigger>
       ) : (
         <ContextMenuPrimitive.Trigger className="rounded-lg border border-dashed border-border px-4 py-6 text-xs text-muted-foreground">
           {label}
@@ -261,7 +315,9 @@ function CommandMenu({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/40" />
         <DialogPrimitive.Content className="fixed top-[20%] left-1/2 z-50 w-[min(100%,24rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-lg">
-          <DialogPrimitive.Title className="sr-only">Command</DialogPrimitive.Title>
+          <DialogPrimitive.Title className="sr-only">
+            Command
+          </DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">
             Search commands
           </DialogPrimitive.Description>

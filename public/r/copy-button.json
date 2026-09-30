@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "title": "Copy Button",
+  "description": "Copies text to the clipboard, from a string or a function read at click time, and shows a check and \"Copied\" for a moment.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@jayrr/standard-button"
+  ],
+  "files": [
+    {
+      "path": "components/standard/copy-button.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CheckIcon, CopyIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/standard/button\"\n\n/**\n * Copies text to the clipboard, then shows a check and \"Copied\" for a moment.\n * `value` can be a string or a function, so the text can be read at click time\n * (an input's current value, a generated link).\n *\n * <CopyButton value=\"npm i @jayrr/ui\" />\n * <CopyButton iconOnly value={() => inputRef.current?.value ?? \"\"} />\n * <CopyButton value={shareUrl}>Copy link</CopyButton>\n */\n\ntype CopyButtonProps = Omit<\n  React.ComponentProps<typeof Button>,\n  \"href\" | \"onClick\" | \"download\" | \"value\"\n> & {\n  /** The text to copy, or a function that returns it when clicked. */\n  value: string | (() => string | Promise<string>)\n  /** Label shown for a moment after the text is copied. */\n  copiedLabel?: React.ReactNode\n  /** Accessible name when `iconOnly`. */\n  label?: string\n  onCopy?: (text: string) => void\n  onCopyError?: (error: unknown) => void\n}\n\nconst COPIED_MS = 2000\n\nfunction CopyButton({\n  value,\n  copiedLabel = \"Copied\",\n  label = \"Copy\",\n  onCopy,\n  onCopyError,\n  iconOnly = false,\n  tone = \"outline\",\n  children,\n  ...props\n}: CopyButtonProps) {\n  const [copied, setCopied] = React.useState(false)\n  const timer = React.useRef<number | undefined>(undefined)\n\n  React.useEffect(() => () => window.clearTimeout(timer.current), [])\n\n  async function copiesValue() {\n    try {\n      const text = typeof value === \"function\" ? await value() : value\n      await navigator.clipboard.writeText(text)\n      setCopied(true)\n      window.clearTimeout(timer.current)\n      timer.current = window.setTimeout(() => setCopied(false), COPIED_MS)\n      onCopy?.(text)\n    } catch (error) {\n      onCopyError?.(error)\n    }\n  }\n\n  const icon = copied ? (\n    <CheckIcon aria-hidden className=\"size-4\" />\n  ) : (\n    <CopyIcon aria-hidden className=\"size-4\" />\n  )\n\n  return (\n    <>\n      <Button\n        type=\"button\"\n        data-slot=\"copy-button\"\n        data-copied={copied || undefined}\n        tone={tone}\n        iconOnly={iconOnly}\n        aria-label={iconOnly ? label : undefined}\n        title={iconOnly ? label : undefined}\n        leading={iconOnly ? undefined : icon}\n        onClick={copiesValue}\n        {...props}\n      >\n        {iconOnly ? icon : copied ? copiedLabel : (children ?? \"Copy\")}\n      </Button>\n      <span role=\"status\" className=\"sr-only\">\n        {copied ? \"Copied to clipboard\" : \"\"}\n      </span>\n    </>\n  )\n}\n\nexport { CopyButton }\n",
+      "type": "registry:ui",
+      "target": "components/standard/copy-button.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

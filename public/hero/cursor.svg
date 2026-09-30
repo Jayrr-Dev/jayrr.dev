@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 110" fill="none" font-family="Inter, Arial, sans-serif" font-weight="700">
+  <defs>
+    <filter id="drop" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity=".3"/>
+    </filter>
+  </defs>
+  <g filter="url(#drop)">
+    <path d="M10 8 L10 62 L24 50 L34 72 L44 67 L34 46 L52 46Z" fill="#111827" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="48" y="60" width="100" height="34" rx="17" fill="#8b5cf6"/>
+    <text x="98" y="82" text-anchor="middle" font-size="15" fill="#fff">Jay</text>
+  </g>
+</svg>

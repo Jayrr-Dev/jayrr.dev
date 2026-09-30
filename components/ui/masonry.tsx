@@ -11,6 +11,7 @@ import { cn } from "cn"
  *
  * Pass `minColumnWidth` (px) to pick the column count from the container
  * width; `columns` is then the count used before the first measurement.
+ * `maxColumns` caps the measured count on wide containers.
  *
  * Fragments are unwrapped, so every card inside `<>...</>` is its own item.
  *
@@ -40,12 +41,14 @@ function Masonry({
   className,
   columns = 3,
   minColumnWidth,
+  maxColumns,
   style,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   columns?: number
   minColumnWidth?: number
+  maxColumns?: number
 }) {
   const ref = React.useRef<HTMLDivElement>(null)
   const [measured, setMeasured] = React.useState<number | null>(null)
@@ -68,7 +71,10 @@ function Masonry({
     return () => observer.disconnect()
   }, [minColumnWidth])
 
-  const count = Math.max(1, Math.floor(measured ?? columns))
+  const count = Math.max(
+    1,
+    Math.min(Math.floor(measured ?? columns), maxColumns ?? Infinity)
+  )
   const items = flattenChildren(children)
   const cols: React.ReactNode[][] = Array.from({ length: count }, () => [])
   items.forEach((item, index) => cols[index % count].push(item))

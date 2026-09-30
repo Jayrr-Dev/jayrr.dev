@@ -114,13 +114,7 @@ function Fab({
   )
 
   const tip = hint ?? (alwaysOpen ? undefined : label)
-  const withTip = tip ? (
-    <Tooltip content={tip}>
-      {button}
-    </Tooltip>
-  ) : (
-    button
-  )
+  const withTip = tip ? <Tooltip content={tip}>{button}</Tooltip> : button
 
   if (badge === undefined) {
     return withTip
@@ -133,53 +127,314 @@ function Fab({
   )
 }
 
+type FabRow = "top" | "middle" | "bottom"
+
+/** The eight edge and corner slots a FabStack can pin to. */
+export type FabPosition = Exclude<`${FabRow}-${FabPlacement}`, "middle-center">
+
+const FAB_ROWS: FabRow[] = ["top", "middle", "bottom"]
+const FAB_COLUMNS: FabPlacement[] = ["start", "center", "end"]
+
 // M3 keeps FABs 16px off the edges; the viewport also clears device insets.
-const FAB_STACK_PLACEMENT: Record<
+const FAB_STACK_EDGE: Record<
   "viewport" | "container",
-  Record<FabPlacement, string>
+  Record<FabRow | FabPlacement, string>
 > = {
   viewport: {
-    end: "right-[max(1rem,env(safe-area-inset-right))] items-end",
+    top: "top-[max(1rem,env(safe-area-inset-top))]",
+    middle: "top-1/2 -translate-y-1/2",
+    bottom: "bottom-[max(1rem,env(safe-area-inset-bottom))]",
     start: "left-[max(1rem,env(safe-area-inset-left))] items-start",
     center: "left-1/2 -translate-x-1/2 items-center",
+    end: "right-[max(1rem,env(safe-area-inset-right))] items-end",
   },
   container: {
-    end: "right-4 items-end",
+    top: "top-4",
+    middle: "top-1/2 -translate-y-1/2",
+    bottom: "bottom-4",
     start: "left-4 items-start",
     center: "left-1/2 -translate-x-1/2 items-center",
+    end: "right-4 items-end",
   },
 }
 
+// `hidden` slides the stack off whichever edge it sits against.
+const FAB_STACK_HIDDEN: Record<FabPosition, string> = {
+  "top-start": "-translate-y-[calc(100%+2rem)]",
+  "top-center": "-translate-y-[calc(100%+2rem)]",
+  "top-end": "-translate-y-[calc(100%+2rem)]",
+  "middle-start": "-translate-x-[calc(100%+2rem)]",
+  "middle-end": "translate-x-[calc(100%+2rem)]",
+  "bottom-start": "translate-y-[calc(100%+2rem)]",
+  "bottom-center": "translate-y-[calc(100%+2rem)]",
+  "bottom-end": "translate-y-[calc(100%+2rem)]",
+}
+
+// Pointer travel before a press becomes a drag, so taps still click.
+const FAB_DRAG_THRESHOLD = 6
+
+function splitsPosition(position: FabPosition) {
+  const [row, column] = position.split("-") as [FabRow, FabPlacement]
+  return { row, column }
+}
+
+/** Snaps a point to the nearest slot, splitting the bounds into thirds. */
+function snapsToPosition(x: number, y: number, bounds: DOMRect): FabPosition {
+  const nx = (x - bounds.left) / bounds.width
+  const ny = (y - bounds.top) / bounds.height
+  const column = FAB_COLUMNS[Math.min(2, Math.max(0, Math.floor(nx * 3)))]
+  const row = FAB_ROWS[Math.min(2, Math.max(0, Math.floor(ny * 3)))]
+
+  if (row === "middle" && column === "center") {
+    // The dead center has no slot: fall to whichever edge is closer.
+    return Math.abs(nx - 0.5) > Math.abs(ny - 0.5)
+      ? nx < 0.5
+        ? "middle-start"
+        : "middle-end"
+      : ny < 0.5
+        ? "top-center"
+        : "bottom-center"
+  }
+
+  return `${row}-${column}` as FabPosition
+}
+
+/** Steps one slot along the 3×3 grid, hopping over the empty center. */
+function stepsPosition(position: FabPosition, dx: number, dy: number) {
+  const { row, column } = splitsPosition(position)
+  let r = FAB_ROWS.indexOf(row)
+  let c = FAB_COLUMNS.indexOf(column)
+
+  do {
+    r = Math.min(2, Math.max(0, r + dy))
+    c = Math.min(2, Math.max(0, c + dx))
+  } while (r === 1 && c === 1)
+
+  return `${FAB_ROWS[r]}-${FAB_COLUMNS[c]}` as FabPosition
+}
+
 /**
- * Pins FABs to a corner, stacked upward from the first child (utilitek's
- * `flex-col-reverse` column). The column lets clicks through between buttons.
- * `anchor="container"` pins to the nearest positioned parent instead of the
- * viewport. `hidden` slides the stack off the bottom edge, e.g. on scroll.
+ * Pins FABs to one of eight edge slots, stacked away from the edge from the
+ * first child (utilitek's `flex-col-reverse` column, flipped along the top).
+ * The column lets clicks through between buttons. `anchor="container"` pins
+ * to the nearest positioned parent instead of the viewport. `hidden` slides
+ * the stack off its edge, e.g. on scroll.
+ *
+ * `draggable` lets people fling the stack to another slot: it follows the
+ * pointer, then snaps to the nearest corner or edge with a FLIP glide.
+ * Alt + arrow keys step between slots from the keyboard.
  */
 function FabStack({
   className,
   placement = "end",
+  position: positionProp,
+  defaultPosition,
+  onPositionChange,
   anchor = "viewport",
   hidden = false,
+  draggable = false,
+  onPointerDown,
+  onKeyDown,
   ...props
-}: React.ComponentProps<"div"> & {
+}: Omit<React.ComponentProps<"div">, "draggable"> & {
+  /** Bottom-row shorthand, used when no `position` is set. */
   placement?: FabPlacement
+  position?: FabPosition
+  defaultPosition?: FabPosition
+  onPositionChange?: (position: FabPosition) => void
   anchor?: "viewport" | "container"
   hidden?: boolean
+  draggable?: boolean
 }) {
+  const [positionState, setPositionState] = React.useState(defaultPosition)
+  const position: FabPosition =
+    positionProp ?? positionState ?? `bottom-${placement}`
+  const uncontrolledPosition = positionProp === undefined
+  const { row, column } = splitsPosition(position)
+
+  const rootRef = React.useRef<HTMLDivElement>(null)
+  // Where the stack sat on screen just before it moved slots, for FLIP.
+  const flipFromRef = React.useRef<DOMRect | null>(null)
+  const [dragging, setDragging] = React.useState(false)
+
+  const movesTo = React.useCallback(
+    (next: FabPosition, from: DOMRect) => {
+      if (next === position) {
+        return false
+      }
+
+      flipFromRef.current = from
+      if (uncontrolledPosition) {
+        setPositionState(next)
+      }
+      onPositionChange?.(next)
+      return true
+    },
+    [position, uncontrolledPosition, onPositionChange]
+  )
+
+  React.useLayoutEffect(() => {
+    const element = rootRef.current
+    const from = flipFromRef.current
+    flipFromRef.current = null
+
+    if (!element || !from) {
+      return
+    }
+
+    // Invert: jump back to where it was, then play the transform to zero.
+    element.style.transition = "none"
+    element.style.transform = ""
+    const to = element.getBoundingClientRect()
+    element.style.transform = `translate(${from.left - to.left}px, ${from.top - to.top}px)`
+    void element.offsetWidth
+    element.style.transition = ""
+    element.style.transform = ""
+  }, [position])
+
+  function startsDrag(event: React.PointerEvent<HTMLDivElement>) {
+    onPointerDown?.(event)
+
+    const element = rootRef.current
+    if (
+      !draggable ||
+      hidden ||
+      !element ||
+      event.defaultPrevented ||
+      event.button !== 0
+    ) {
+      return
+    }
+
+    const pointerId = event.pointerId
+    const startX = event.clientX
+    const startY = event.clientY
+    let moved = false
+
+    function follows(move: PointerEvent) {
+      if (move.pointerId !== pointerId || !element) {
+        return
+      }
+
+      const dx = move.clientX - startX
+      const dy = move.clientY - startY
+
+      if (!moved && Math.hypot(dx, dy) < FAB_DRAG_THRESHOLD) {
+        return
+      }
+
+      if (!moved) {
+        moved = true
+        setDragging(true)
+        element.style.transition = "none"
+      }
+
+      move.preventDefault()
+      element.style.transform = `translate(${dx}px, ${dy}px)`
+    }
+
+    function drops(up: PointerEvent) {
+      if (up.pointerId !== pointerId) {
+        return
+      }
+
+      window.removeEventListener("pointermove", follows)
+      window.removeEventListener("pointerup", drops)
+      window.removeEventListener("pointercancel", drops)
+
+      if (!moved || !element) {
+        return
+      }
+
+      setDragging(false)
+      // The release lands on a FAB, which would otherwise fire its click.
+      function swallowsClick(click: MouseEvent) {
+        click.stopPropagation()
+        click.preventDefault()
+      }
+      window.addEventListener("click", swallowsClick, {
+        capture: true,
+        once: true,
+      })
+      setTimeout(
+        () => window.removeEventListener("click", swallowsClick, true),
+        0
+      )
+
+      const from = element.getBoundingClientRect()
+      const bounds =
+        anchor === "container" && element.offsetParent
+          ? element.offsetParent.getBoundingClientRect()
+          : new DOMRect(0, 0, window.innerWidth, window.innerHeight)
+      const next =
+        up.type === "pointercancel"
+          ? position
+          : snapsToPosition(
+              from.left + from.width / 2,
+              from.top + from.height / 2,
+              bounds
+            )
+
+      if (!movesTo(next, from)) {
+        // Same slot (or a controlled parent that said no): glide home.
+        element.style.transition = ""
+        element.style.transform = ""
+      }
+    }
+
+    window.addEventListener("pointermove", follows)
+    window.addEventListener("pointerup", drops)
+    window.addEventListener("pointercancel", drops)
+  }
+
+  function stepsWithKeys(event: React.KeyboardEvent<HTMLDivElement>) {
+    onKeyDown?.(event)
+
+    const element = rootRef.current
+    if (!draggable || !event.altKey || event.defaultPrevented || !element) {
+      return
+    }
+
+    const step: Record<string, [number, number]> = {
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0],
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+    }
+    const delta = step[event.key]
+
+    if (!delta) {
+      return
+    }
+
+    event.preventDefault()
+    movesTo(
+      stepsPosition(position, delta[0], delta[1]),
+      element.getBoundingClientRect()
+    )
+  }
+
   return (
     <div
+      ref={rootRef}
       data-slot="fab-stack"
-      data-placement={placement}
+      data-placement={column}
+      data-position={position}
       data-hidden={hidden || undefined}
+      data-draggable={draggable || undefined}
+      data-dragging={dragging || undefined}
       inert={hidden}
+      onPointerDown={startsDrag}
+      onKeyDown={stepsWithKeys}
       className={cn(
-        "pointer-events-none z-30 flex flex-col-reverse gap-3 transition-[translate,opacity] duration-300 ease-out [&>*]:pointer-events-auto",
-        anchor === "viewport"
-          ? "fixed bottom-[max(1rem,env(safe-area-inset-bottom))]"
-          : "absolute bottom-4",
-        FAB_STACK_PLACEMENT[anchor][placement],
-        hidden && "translate-y-[calc(100%+2rem)] opacity-0",
+        "pointer-events-none z-30 flex gap-3 transition-[translate,opacity,transform] duration-300 ease-out [&>*]:pointer-events-auto",
+        row === "top" ? "flex-col" : "flex-col-reverse",
+        anchor === "viewport" ? "fixed" : "absolute",
+        FAB_STACK_EDGE[anchor][row],
+        FAB_STACK_EDGE[anchor][column],
+        draggable && "[&>*]:cursor-grab [&>*]:touch-none",
+        dragging && "[&>*]:cursor-grabbing",
+        hidden && [FAB_STACK_HIDDEN[position], "opacity-0"],
         className
       )}
       {...props}
@@ -194,6 +449,14 @@ export type FabMenuItem = {
   disabled?: boolean
 }
 
+const FAB_MENU_ALIGN: Record<FabPlacement | "auto", string> = {
+  start: "items-start",
+  center: "items-center",
+  end: "items-end",
+  // Follow a draggable FabStack as it moves between columns.
+  auto: "items-end [[data-placement=start]_&]:items-start [[data-placement=center]_&]:items-center",
+}
+
 /**
  * Material 3 expressive FAB menu: the FAB turns into a close button and a
  * column of pill actions rises above it. Escape or a click outside closes it
@@ -206,7 +469,7 @@ function FabMenu({
   items,
   size = "default",
   tone = "primary",
-  align = "end",
+  align,
   open: openProp,
   defaultOpen = false,
   onOpenChange,
@@ -217,6 +480,7 @@ function FabMenu({
   items: FabMenuItem[]
   size?: Exclude<FabSize, "compact">
   tone?: FabTone
+  /** Defaults to the enclosing FabStack's column, else `end`. */
   align?: FabPlacement
   open?: boolean
   defaultOpen?: boolean
@@ -260,7 +524,11 @@ function FabMenu({
       return
     }
 
-    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") {
+    // Alt + arrows belong to a draggable FabStack moving between slots.
+    if (
+      event.altKey ||
+      (event.key !== "ArrowUp" && event.key !== "ArrowDown")
+    ) {
       return
     }
 
@@ -296,10 +564,9 @@ function FabMenu({
       data-open={open || undefined}
       onKeyDown={movesFocus}
       className={cn(
-        "flex flex-col-reverse gap-2",
-        align === "end" && "items-end",
-        align === "start" && "items-start",
-        align === "center" && "items-center",
+        // Along the top edge of a FabStack the menu drops down instead.
+        "flex flex-col-reverse gap-2 [[data-position^=top]_&]:flex-col",
+        FAB_MENU_ALIGN[align ?? "auto"],
         className
       )}
     >
@@ -330,10 +597,8 @@ function FabMenu({
         aria-label={label}
         inert={!open}
         className={cn(
-          "flex flex-col-reverse gap-1",
-          align === "end" && "items-end",
-          align === "start" && "items-start",
-          align === "center" && "items-center"
+          "flex flex-col-reverse gap-1 [[data-position^=top]_&]:flex-col",
+          FAB_MENU_ALIGN[align ?? "auto"]
         )}
       >
         {items.map((item, index) => (

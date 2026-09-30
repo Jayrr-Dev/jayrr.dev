@@ -45,12 +45,34 @@ function titleFrom(name) {
 
 // A Standard import with only a .ts file (e.g. data-grid-model.ts) is a helper,
 // not a registry item, so it ships as an extra file of the item importing it.
+// So does anything in a subfolder (data-grid/cell.tsx): the parts of one item.
 function standardHelperFor(spec) {
+  const rel = spec.slice("@/components/standard/".length)
+
+  if (rel.includes("/")) {
+    const part = [".tsx", ".ts"]
+      .map((ext) => path.join("components/standard", `${rel}${ext}`))
+      .find((file) => fs.existsSync(file))
+
+    return part ?? null
+  }
+
   const base = path.basename(spec).replace(/\.(tsx|ts)$/, "")
   const helper = path.join("components/standard", `${base}.ts`)
   const isItem = fs.existsSync(path.join("components/standard", `${base}.tsx`))
 
   return !isItem && fs.existsSync(helper) ? helper : null
+}
+
+// Prose styles live in typeset.css, which has no import to follow, so a file
+// that puts the `typeset` class on an element depends on the typeset item.
+// Comments are stripped first so prose mentioning typeset does not count.
+function usesTypeset(text) {
+  const code = text
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/(?<!:)\/\/.*$/gm, "")
+
+  return /(?<![\w-])typeset(?![\w.-])/.test(code)
 }
 
 function analyze(filePath, seen = new Set([filePath])) {
@@ -60,6 +82,10 @@ function analyze(filePath, seen = new Set([filePath])) {
   const helpers = new Set()
   const importRe = /from\s+["']([^"']+)["']/g
   let match = importRe.exec(text)
+
+  if (usesTypeset(text)) {
+    registry.add("typeset")
+  }
 
   while (match) {
     const spec = match[1]
@@ -78,7 +104,9 @@ function analyze(filePath, seen = new Set([filePath])) {
         nested.registryNames.forEach((name) => registry.add(name))
         nested.helpers.forEach((file) => helpers.add(file))
       } else if (!helper) {
-        registry.add(standardNameFor(path.basename(spec).replace(/\.(tsx|ts)$/, "")))
+        registry.add(
+          standardNameFor(path.basename(spec).replace(/\.(tsx|ts)$/, ""))
+        )
       }
     } else if (
       !spec.startsWith(".") &&
@@ -130,8 +158,11 @@ function item(name, file, type, libraryName, title, options = {}) {
     files: [
       registryFile,
       ...found.helpers.map((helper) => ({
-        path: path.basename(helper),
-        type: "registry:lib",
+        path: path
+          .relative(path.dirname(file), helper)
+          .split(path.sep)
+          .join("/"),
+        type: helper.endsWith(".tsx") ? "registry:ui" : "registry:lib",
         target: helper.split(path.sep).join("/"),
       })),
     ],
@@ -204,8 +235,27 @@ const standardItems = standardFiles.map((file) => {
   )
 })
 
+// typeset.css ships as a file, not the `css` field, so the nested upstream
+// stylesheet installs untouched and can be updated by copying it over.
+const typesetItem = {
+  name: "typeset",
+  type: "registry:item",
+  title: "Typeset",
+  description:
+    "Prose styles (shadcn/typeset plus article, compact, editor and chat presets) for the Standard library.",
+  ...(standardEntries.get("typeset") ?? {}),
+  files: [
+    {
+      path: "typeset.css",
+      type: "registry:file",
+      target: "components/standard/typeset.css",
+    },
+  ],
+  docs: 'Add `@import "../components/standard/typeset.css";` to your global CSS, after `@import "tailwindcss";` (adjust the path to where the file landed).',
+}
+
 writeItems("components/ui/registry.json", uiItems)
-writeItems("components/standard/registry.json", standardItems)
+writeItems("components/standard/registry.json", [...standardItems, typesetItem])
 const hookEntries = readsEntries("hooks/registry.json")
 
 const hookItems = fs
@@ -223,7 +273,7 @@ const hookItems = fs
     )
   )
 
-const allNames = [...uiItems, ...standardItems, ...hookItems].map(
+const allNames = [...uiItems, ...standardItems, typesetItem, ...hookItems].map(
   (entry) => entry.name
 )
 const duplicates = allNames.filter(

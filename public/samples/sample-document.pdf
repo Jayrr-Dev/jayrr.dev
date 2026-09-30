@@ -1,0 +1,54 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 355 >>
+stream
+BT
+/F1 28 Tf 1 0 0 1 72 720 Tm (Display primitives) Tj
+/F1 12 Tf 1 0 0 1 72 676 Tm (A sample document for the PDF Display demo.) Tj
+/F1 12 Tf 1 0 0 1 72 648 Tm (It is two US Letter pages, drawn with the built-in Helvetica font.) Tj
+/F1 12 Tf 1 0 0 1 72 628 Tm (Use the viewer's own controls to page through, zoom and search.) Tj
+ET
+0.85 g 72 90 468 2 re f
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 247 >>
+stream
+BT
+/F1 20 Tf 1 0 0 1 72 720 Tm (Page two) Tj
+/F1 12 Tf 1 0 0 1 72 684 Tm (PdfDisplay opens on any page with the page prop,) Tj
+/F1 12 Tf 1 0 0 1 72 664 Tm (and falls back to an Open link where PDFs can't show inline.) Tj
+ET
+0.85 g 72 90 468 2 re f
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000597 00000 n 
+0000000723 00000 n 
+0000001021 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+1147
+%%EOF

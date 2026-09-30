@@ -31,7 +31,14 @@ const standardAliases: Record<string, string> = {
   "Navigation Drawer": "navigation",
   "Navigation Rail": "navigation",
   Form: "form-field",
-  "Standard Toolbar Count": "toolbar-count",
+  // Standard's single-line input is TextField.
+  Input: "text-field",
+  "Table Grid": "standard-grid",
+}
+
+/** Gallery names whose Classic registry item has another title. */
+const classicAliases: Record<string, string> = {
+  Toast: "sonner",
 }
 
 const normalizes = (value: string) =>
@@ -44,7 +51,8 @@ function findsByTitle(items: { name: string; title: string }[], title: string) {
 
 /** Registry items a gallery piece installs from, Classic first. */
 export function resolvesInstallItems(pieceName: string): InstallItem[] {
-  const classic = findsByTitle(uiRegistry.items, pieceName)
+  const classic =
+    classicAliases[pieceName] ?? findsByTitle(uiRegistry.items, pieceName)
   const standard =
     standardAliases[pieceName] ??
     findsByTitle(standardRegistry.items, pieceName)

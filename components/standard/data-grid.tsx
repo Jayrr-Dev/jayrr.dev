@@ -1,30 +1,14 @@
 "use client"
 
 import * as React from "react"
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-  ChevronsLeftRightIcon,
-  ChevronsUpDownIcon,
-  ListFilterIcon,
-  MoveHorizontalIcon,
-  PlusIcon,
-} from "lucide-react"
+import { CheckIcon, ChevronRightIcon } from "lucide-react"
 import {
   ContextMenu as ContextMenuPrimitive,
   AlertDialog as AlertDialogPrimitive,
-  Popover as PopoverPrimitive,
 } from "radix-ui"
 import { cn } from "cn"
 
-import { Badge } from "@/components/standard/badge"
 import { Button } from "@/components/standard/button"
-import { Checkbox } from "@/components/standard/checkbox"
-import { Select } from "@/components/standard/select"
 import {
   applyGridChanges,
   clearRange,
@@ -42,17 +26,14 @@ import {
   filteredOutRows,
   filterKey,
   formatCellRef,
-  formatRange,
   insertColumns,
   insertRows,
   isEmptyValue,
-  normalizeRange,
   parseRange,
   pasteText,
   rangeContains,
   rangeToText,
   readCell,
-  resolveGridColor,
   setCellValues,
   setColumnsHidden,
   setFilter,
@@ -64,1476 +45,77 @@ import {
   type DataGridAdapter,
   type GridChange,
   type GridColumn,
-  type GridConditionOp,
   type GridData,
   type GridFilter,
   type GridFilterMenu,
   type GridFormatRule,
   type GridRange,
-  type GridRow,
   type GridStyle,
   type SortDirection,
 } from "@/components/standard/data-grid-model"
 
+import {
+  useStableHandlers,
+  type Axis2,
+  type FilterOptions,
+  type GridActions,
+} from "@/components/standard/data-grid/actions"
+import {
+  buildAxis,
+  firstVisibleIn,
+  jumpPos,
+  lastVisibleIn,
+  nearestVisiblePos,
+  windowOf,
+} from "@/components/standard/data-grid/axis"
+import { GridCell } from "@/components/standard/data-grid/cell"
+import {
+  CELL_CHROME,
+  dataGridCellTypes,
+  formatsPlain,
+  type DataGridCellType,
+  type DataGridEditMove,
+} from "@/components/standard/data-grid/cell-types"
+import {
+  hasFilterSections,
+  resolvesFilterSections,
+} from "@/components/standard/data-grid/filter"
+import {
+  HeaderCell,
+  type DataGridSortIndicator,
+  type HeaderMode,
+  type HeaderState,
+} from "@/components/standard/data-grid/header"
+import {
+  AutoFitButton,
+  NameBox,
+} from "@/components/standard/data-grid/name-box"
+import {
+  clampIndex,
+  clampRef,
+  EDGE_BOTTOM,
+  EDGE_LEFT,
+  EDGE_RIGHT,
+  EDGE_TOP,
+  indicesOf,
+  rangeSelection,
+  sameRange,
+  sameRef,
+  sameSelection,
+  selectionRange,
+  type Selection,
+} from "@/components/standard/data-grid/selection"
+
 export * from "@/components/standard/data-grid-model"
-
-// ---------------------------------------------------------------------------
-// Cell types
-
-export type DataGridCellContext = {
-  value: CellValue
-  column: GridColumn
-  row: GridRow
-  rowIndex: number
-  colIndex: number
-  active: boolean
-  readOnly: boolean
-  /** Writes a new value as one undo step. */
-  setValue: (value: CellValue) => void
-}
-
-export type DataGridFitContext = {
-  value: CellValue
-  column: GridColumn
-  /** The formatted value. */
-  text: string
-  /** Text width in px at the given font size (default 14) and weight (default 400). */
-  measure: (text: string, size?: number, weight?: number) => number
-}
-
-/** Horizontal cell padding (px-2 on both sides) plus the grid line. */
-const CELL_CHROME = 17
-
-export type DataGridEditMove = "down" | "up" | "right" | "left" | "none"
-
-export type DataGridEditorContext = DataGridCellContext & {
-  /** The key that opened the editor, or null for F2, Enter, or double-click. */
-  initialText: string | null
-  /** The current value as editable text. */
-  text: string
-  parse: (text: string) => CellValue
-  commit: (value: CellValue, move?: DataGridEditMove) => void
-  cancel: () => void
-  /** Registers how to save the draft when the grid ends editing (a click elsewhere, blur). */
-  register: (save: (() => void) | null) => void
-}
-
-export type DataGridCellType = {
-  /** Display content. Defaults to the formatted value as text. */
-  render?: (context: DataGridCellContext) => React.ReactNode
-  /** Editor shown while editing. Defaults to a text input; `false` makes cells non-editable. */
-  edit?: ((context: DataGridEditorContext) => React.ReactNode) | false
-  /** Text (typed or pasted) to value. */
-  parse?: (text: string, column: GridColumn) => CellValue
-  /** Value to text, for copying and the editor's starting text. */
-  format?: (value: CellValue, column: GridColumn) => string
-  align?: "start" | "center" | "end"
-  /** Space flips the value with this, and the cell never opens an editor. */
-  toggle?: (value: CellValue) => CellValue
-  /**
-   * Content width in px for auto-fit, padding included. Defaults to the
-   * formatted text's width plus the cell padding.
-   */
-  fitWidth?: (context: DataGridFitContext) => number
-}
-
-function formatsPlain(value: CellValue) {
-  return value === null ? "" : String(value)
-}
-
-function useRegistersEditor(
-  context: DataGridEditorContext,
-  read: () => CellValue
-) {
-  const readRef = React.useRef(read)
-  React.useLayoutEffect(() => {
-    readRef.current = read
-  })
-  const { register, commit } = context
-  React.useEffect(() => {
-    register(() => commit(readRef.current(), "none"))
-    return () => register(null)
-  }, [register, commit])
-}
-
-function keyMove(event: React.KeyboardEvent): DataGridEditMove | null {
-  if (event.key === "Enter") {
-    return event.shiftKey ? "up" : "down"
-  }
-  if (event.key === "Tab") {
-    return event.shiftKey ? "left" : "right"
-  }
-  return null
-}
-
-function TextEditor({
-  context,
-  inputType = "text",
-}: {
-  context: DataGridEditorContext
-  inputType?: "text" | "number" | "date"
-}) {
-  const [draft, setDraft] = React.useState(context.initialText ?? context.text)
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  useRegistersEditor(context, () => context.parse(draft))
-
-  React.useLayoutEffect(() => {
-    const input = inputRef.current
-    if (!input) {
-      return
-    }
-    input.focus({ preventScroll: true })
-    if (input.type === "text") {
-      input.setSelectionRange(input.value.length, input.value.length)
-    }
-  }, [])
-
-  return (
-    <input
-      ref={inputRef}
-      data-grid-editor
-      type={inputType}
-      value={draft}
-      aria-label={`Edit ${formatCellRef({ row: context.rowIndex, col: context.colIndex })}`}
-      className={cn(
-        "absolute inset-0 size-full min-w-0 bg-background px-2 text-sm outline-none",
-        context.column.type === "number" && "text-right tabular-nums"
-      )}
-      onChange={(event) => setDraft(event.target.value)}
-      onBlur={() => context.commit(context.parse(draft), "none")}
-      onKeyDown={(event) => {
-        event.stopPropagation()
-        const move = keyMove(event)
-        if (move) {
-          event.preventDefault()
-          context.commit(context.parse(draft), move)
-        } else if (event.key === "Escape") {
-          event.preventDefault()
-          context.cancel()
-        }
-      }}
-    />
-  )
-}
-
-function SelectEditor({ context }: { context: DataGridEditorContext }) {
-  const options = context.column.options ?? []
-  const [index, setIndex] = React.useState(() => {
-    const typed = context.initialText?.toLowerCase()
-    if (typed) {
-      const match = options.findIndex((option) =>
-        (option.label ?? option.value).toLowerCase().startsWith(typed)
-      )
-      if (match >= 0) {
-        return match
-      }
-    }
-    return Math.max(
-      0,
-      options.findIndex((option) => option.value === context.value)
-    )
-  })
-  const listRef = React.useRef<HTMLDivElement>(null)
-  useRegistersEditor(context, () => context.value)
-
-  React.useLayoutEffect(() => {
-    listRef.current?.focus({ preventScroll: true })
-  }, [])
-
-  const current = options.find((option) => option.value === context.value)
-  return (
-    <>
-      {current ? (
-        <Badge tone={current.tone ?? "quiet"} className="truncate">
-          {current.label ?? current.value}
-        </Badge>
-      ) : null}
-      <div
-        ref={listRef}
-        data-grid-editor
-        role="listbox"
-        tabIndex={-1}
-        aria-label={context.column.label ?? "Options"}
-        aria-activedescendant={
-          options[index] ? `${context.column.id}-option-${index}` : undefined
-        }
-        className="absolute top-full left-0 z-50 mt-1 flex max-h-56 min-w-full flex-col overflow-y-auto rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-none"
-        onBlur={() => context.cancel()}
-        onKeyDown={(event) => {
-          event.stopPropagation()
-          const move = keyMove(event)
-          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-            event.preventDefault()
-            const step = event.key === "ArrowDown" ? 1 : -1
-            setIndex((current) =>
-              Math.min(options.length - 1, Math.max(0, current + step))
-            )
-          } else if (move) {
-            event.preventDefault()
-            context.commit(options[index]?.value ?? context.value, move)
-          } else if (event.key === "Escape") {
-            event.preventDefault()
-            context.cancel()
-          } else if (event.key === "Delete" || event.key === "Backspace") {
-            event.preventDefault()
-            context.commit(null, "none")
-          } else if (event.key.length === 1) {
-            const typed = event.key.toLowerCase()
-            const match = options.findIndex((option) =>
-              (option.label ?? option.value).toLowerCase().startsWith(typed)
-            )
-            if (match >= 0) {
-              setIndex(match)
-            }
-          }
-        }}
-      >
-        {options.length === 0 ? (
-          <p className="px-2 py-1.5 text-xs text-muted-foreground">
-            No options
-          </p>
-        ) : null}
-        {options.map((option, at) => (
-          <button
-            key={option.value}
-            id={`${context.column.id}-option-${at}`}
-            type="button"
-            role="option"
-            tabIndex={-1}
-            aria-selected={at === index}
-            className={cn(
-              "flex items-center gap-2 rounded-md px-2 py-1 text-left text-sm",
-              at === index && "bg-accent text-accent-foreground"
-            )}
-            onPointerEnter={() => setIndex(at)}
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={() => context.commit(option.value, "none")}
-          >
-            <CheckIcon
-              aria-hidden
-              className={cn(
-                "size-3.5 shrink-0",
-                option.value !== context.value && "invisible"
-              )}
-            />
-            <Badge tone={option.tone ?? "quiet"}>
-              {option.label ?? option.value}
-            </Badge>
-          </button>
-        ))}
-      </div>
-    </>
-  )
-}
-
-const TRUE_TEXT = /^(true|yes|y|1|x|on|✓)$/i
-const utcDate = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-  timeZone: "UTC",
-})
-
-function parsesDate(text: string): CellValue {
-  const trimmed = text.trim()
-  if (trimmed === "") {
-    return null
-  }
-  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
-    return trimmed
-  }
-  const time = Date.parse(trimmed)
-  if (Number.isNaN(time)) {
-    return trimmed
-  }
-  const local = new Date(time)
-  return new Date(
-    Date.UTC(local.getFullYear(), local.getMonth(), local.getDate())
-  )
-    .toISOString()
-    .slice(0, 10)
-}
-
-/** The built-in cell types. Spread them into `cellTypes` to add your own. */
-export const dataGridCellTypes: Record<string, DataGridCellType> = {
-  text: {
-    format: formatsPlain,
-    parse: (text) => text,
-  },
-  number: {
-    align: "end",
-    format: formatsPlain,
-    parse: (text) => {
-      const trimmed = text.trim().replace(/,/g, "")
-      if (trimmed === "") {
-        return null
-      }
-      const number = Number(trimmed)
-      return Number.isFinite(number) ? number : text
-    },
-    render: ({ value }) =>
-      typeof value === "number" ? (
-        <span className="truncate tabular-nums">
-          {value.toLocaleString("en-US", { maximumFractionDigits: 10 })}
-        </span>
-      ) : (
-        <span className="truncate">{formatsPlain(value)}</span>
-      ),
-    edit: (context) => <TextEditor context={context} />,
-  },
-  checkbox: {
-    fitWidth: () => 40,
-    align: "center",
-    edit: false,
-    toggle: (value) => !value,
-    format: (value) => (value ? "TRUE" : "FALSE"),
-    parse: (text) => TRUE_TEXT.test(text.trim()),
-    render: ({ value, readOnly, setValue, column }) => (
-      <Checkbox
-        tabIndex={-1}
-        checked={Boolean(value)}
-        disabled={readOnly}
-        aria-label={column.label ?? "Toggle"}
-        onChange={(event) => setValue(event.target.checked)}
-      />
-    ),
-  },
-  select: {
-    // Badge: text-xs medium, px-2 and a 1px border.
-    fitWidth: ({ text, measure }) => measure(text, 12, 500) + 18 + CELL_CHROME,
-    format: (value, column) => {
-      const option = column.options?.find((item) => item.value === value)
-      return option?.label ?? formatsPlain(value)
-    },
-    parse: (text, column) => {
-      const lower = text.trim().toLowerCase()
-      if (lower === "") {
-        return null
-      }
-      const option = column.options?.find(
-        (item) =>
-          item.value.toLowerCase() === lower ||
-          item.label?.toLowerCase() === lower
-      )
-      return option?.value ?? text
-    },
-    render: ({ value, column }) => {
-      if (isEmptyValue(value)) {
-        return null
-      }
-      const option = column.options?.find((item) => item.value === value)
-      return (
-        <Badge tone={option?.tone ?? "quiet"} className="truncate">
-          {option?.label ?? String(value)}
-        </Badge>
-      )
-    },
-    edit: (context) => <SelectEditor context={context} />,
-  },
-  date: {
-    fitWidth: ({ value, text, measure }) =>
-      measure(
-        typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)
-          ? utcDate.format(new Date(`${value}T00:00:00Z`))
-          : text
-      ) + CELL_CHROME,
-    format: formatsPlain,
-    parse: parsesDate,
-    render: ({ value }) => {
-      if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-        return <span className="truncate">{formatsPlain(value)}</span>
-      }
-      return (
-        <span className="truncate tabular-nums">
-          {utcDate.format(new Date(`${value}T00:00:00Z`))}
-        </span>
-      )
-    },
-    edit: (context) => <TextEditor context={context} inputType="date" />,
-  },
-}
-
-// ---------------------------------------------------------------------------
-// Layout: prefix sums per axis so a 100k-row grid finds its window with a
-// binary search instead of walking every row.
-
-type Axis = {
-  count: number
-  sizes: Float64Array
-  /** Offset inside the item's zone (frozen or scrolling), or -1 when hidden. */
-  offsets: Float64Array
-  frozenCount: number
-  frozen: number[]
-  scroll: number[]
-  scrollStarts: number[]
-  frozenSize: number
-  scrollSize: number
-  /** Visible indices in order: the frozen ones, then the scrolling ones. */
-  visible: number[]
-  /** Index → position in `visible`, or -1 when hidden. */
-  visiblePos: Int32Array
-}
-
-function buildAxis<T extends { hidden?: boolean }>(
-  items: T[],
-  sizeOf: (item: T, index: number) => number,
-  frozenCount: number,
-  excluded?: Uint8Array | null
-): Axis {
-  const count = items.length
-  const sizes = new Float64Array(count)
-  const offsets = new Float64Array(count).fill(-1)
-  const visiblePos = new Int32Array(count).fill(-1)
-  const frozen: number[] = []
-  const scroll: number[] = []
-  const scrollStarts: number[] = []
-  const pinned = Math.min(Math.max(frozenCount, 0), count)
-  let frozenSize = 0
-  let scrollSize = 0
-  items.forEach((item, index) => {
-    sizes[index] = sizeOf(item, index)
-    if (item.hidden || excluded?.[index]) {
-      return
-    }
-    if (index < pinned) {
-      offsets[index] = frozenSize
-      frozenSize += sizes[index]
-      frozen.push(index)
-    } else {
-      offsets[index] = scrollSize
-      scrollStarts.push(scrollSize)
-      scrollSize += sizes[index]
-      scroll.push(index)
-    }
-  })
-  const visible = [...frozen, ...scroll]
-  visible.forEach((index, position) => {
-    visiblePos[index] = position
-  })
-  return {
-    count,
-    sizes,
-    offsets,
-    frozenCount: pinned,
-    frozen,
-    scroll,
-    scrollStarts,
-    frozenSize,
-    scrollSize,
-    visible,
-    visiblePos,
-  }
-}
-
-/** Scrolling items that overlap [start, start + length), plus overscan. */
-function windowOf(axis: Axis, start: number, length: number, overscan: number) {
-  const { scrollStarts, scroll, sizes } = axis
-  let low = 0
-  let high = scrollStarts.length
-  while (low < high) {
-    const middle = (low + high) >> 1
-    if (scrollStarts[middle] + sizes[scroll[middle]] <= start) {
-      low = middle + 1
-    } else {
-      high = middle
-    }
-  }
-  let last = low
-  while (last < scrollStarts.length && scrollStarts[last] < start + length) {
-    last += 1
-  }
-  return scroll.slice(
-    Math.max(0, low - overscan),
-    Math.min(scroll.length, last + overscan)
-  )
-}
-
-function firstVisibleIn(axis: Axis, from: number, to: number) {
-  for (let index = from; index <= to; index += 1) {
-    if (axis.visiblePos[index] >= 0) {
-      return index
-    }
-  }
-  return -1
-}
-
-function lastVisibleIn(axis: Axis, from: number, to: number) {
-  for (let index = to; index >= from; index -= 1) {
-    if (axis.visiblePos[index] >= 0) {
-      return index
-    }
-  }
-  return -1
-}
-
-/** Position in `visible` of `index`, or of the nearest visible item after (then before) it. */
-function nearestVisiblePos(axis: Axis, index: number) {
-  if (axis.visible.length === 0) {
-    return -1
-  }
-  for (let at = index; at < axis.count; at += 1) {
-    if (axis.visiblePos[at] >= 0) {
-      return axis.visiblePos[at]
-    }
-  }
-  for (let at = index - 1; at >= 0; at -= 1) {
-    if (axis.visiblePos[at] >= 0) {
-      return axis.visiblePos[at]
-    }
-  }
-  return -1
-}
-
-/** Ctrl+arrow: jump to the edge of the current block of filled cells, or to the next one. */
-function jumpPos(
-  visible: number[],
-  from: number,
-  step: 1 | -1,
-  filled: (index: number) => boolean
-) {
-  const inside = (position: number) =>
-    position >= 0 && position < visible.length
-  let position = from
-  if (!inside(position + step)) {
-    return position
-  }
-  if (filled(visible[position]) && filled(visible[position + step])) {
-    while (inside(position + step) && filled(visible[position + step])) {
-      position += step
-    }
-    return position
-  }
-  position += step
-  while (inside(position + step) && !filled(visible[position])) {
-    position += step
-  }
-  return position
-}
-
-// ---------------------------------------------------------------------------
-// Selection
-
-type SelectionMode = "cells" | "rows" | "cols" | "all"
-type Selection = { anchor: CellRef; focus: CellRef; mode: SelectionMode }
-
-function clampIndex(value: number, count: number) {
-  return Math.min(Math.max(value, 0), Math.max(count - 1, 0))
-}
-
-function clampRef(ref: CellRef, rows: number, cols: number): CellRef {
-  return { row: clampIndex(ref.row, rows), col: clampIndex(ref.col, cols) }
-}
-
-function selectionRange(
-  selection: Selection,
-  rows: number,
-  cols: number
-): GridRange {
-  const range = normalizeRange(selection.anchor, selection.focus)
-  if (selection.mode === "rows" || selection.mode === "all") {
-    range.left = 0
-    range.right = cols - 1
-  }
-  if (selection.mode === "cols" || selection.mode === "all") {
-    range.top = 0
-    range.bottom = rows - 1
-  }
-  return range
-}
-
-function sameRef(a: CellRef, b: CellRef) {
-  return a.row === b.row && a.col === b.col
-}
-
-function sameSelection(a: Selection, b: Selection) {
-  return (
-    a.mode === b.mode &&
-    sameRef(a.anchor, b.anchor) &&
-    sameRef(a.focus, b.focus)
-  )
-}
-
-function sameRange(a: GridRange | null, b: GridRange | null) {
-  if (a === null || b === null) {
-    return a === b
-  }
-  return (
-    a.top === b.top &&
-    a.left === b.left &&
-    a.bottom === b.bottom &&
-    a.right === b.right
-  )
-}
-
-function rangeSelection(range: GridRange): Selection {
-  return {
-    anchor: { row: range.top, col: range.left },
-    focus: { row: range.bottom, col: range.right },
-    mode: "cells",
-  }
-}
-
-function indicesOf(from: number, to: number) {
-  return Array.from({ length: to - from + 1 }, (_, at) => from + at)
-}
-
-const EDGE_TOP = 1
-const EDGE_RIGHT = 2
-const EDGE_BOTTOM = 4
-const EDGE_LEFT = 8
-
-function edgeShadows(edges: number, color: string) {
-  const parts: string[] = []
-  if (edges & EDGE_TOP) parts.push(`inset 0 1px 0 0 ${color}`)
-  if (edges & EDGE_BOTTOM) parts.push(`inset 0 -1px 0 0 ${color}`)
-  if (edges & EDGE_LEFT) parts.push(`inset 1px 0 0 0 ${color}`)
-  if (edges & EDGE_RIGHT) parts.push(`inset -1px 0 0 0 ${color}`)
-  return parts
-}
-
-// ---------------------------------------------------------------------------
-// Stable handlers: memoized cells get one object whose methods always call
-// the latest render's closures.
-
-type Handler = (...args: never[]) => unknown
-
-function useStableHandlers<T extends Record<string, Handler>>(handlers: T): T {
-  const ref = React.useRef(handlers)
-  React.useLayoutEffect(() => {
-    ref.current = handlers
-  })
-  const [stable] = React.useState(() => {
-    const proxy = {} as Record<string, Handler>
-    for (const key of Object.keys(handlers)) {
-      proxy[key] = (...args: never[]) => ref.current[key](...args)
-    }
-    return proxy as T
-  })
-  return stable
-}
-
-type Axis2 = "row" | "col"
-
-type GridActions = {
-  cellPointerDown: (event: React.PointerEvent, row: number, col: number) => void
-  cellDoubleClick: (row: number, col: number) => void
-  cellContextMenu: (event: React.MouseEvent, row: number, col: number) => void
-  fillPointerDown: (event: React.PointerEvent) => void
-  setCellValue: (row: number, col: number, value: CellValue) => void
-  commitEdit: (value: CellValue, move?: DataGridEditMove) => void
-  cancelEdit: () => void
-  registerEditor: (save: (() => void) | null) => void
-  headerPointerDown: (
-    event: React.PointerEvent,
-    axis: Axis2,
-    index: number
-  ) => void
-  headerDoubleClick: (axis: Axis2, index: number) => void
-  headerContextMenu: (
-    event: React.MouseEvent,
-    axis: Axis2,
-    index: number
-  ) => void
-  resizePointerDown: (
-    event: React.PointerEvent,
-    axis: Axis2,
-    index: number
-  ) => void
-  resizeReset: (axis: Axis2, index: number) => void
-  insertAfter: (axis: Axis2, index: number) => void
-  unhideNear: (axis: Axis2, index: number, side: "before" | "after") => void
-  finishRename: (axis: Axis2, index: number, label: string | null) => void
-  headerClick: (event: React.MouseEvent, axis: Axis2, index: number) => void
-  filterOptions: (index: number) => FilterOptions
-  applyFilter: (index: number, filter: GridFilter | null) => void
-  sortColumn: (index: number, direction: SortDirection | null) => void
-  focusGrid: () => void
-}
-
-type FilterOptions = {
-  name: string
-  filter: GridFilter | null
-  values: { key: string; label: string }[]
-  sections: FilterSections
-  /** This column's current sort, if the rows are sorted by it. */
-  sorted: SortDirection | null
-}
-
-type FilterSections = {
-  sort: boolean
-  /** Operators to offer; empty hides the condition section. */
-  conditions: GridConditionOp[]
-  values: boolean
-}
-
-/** Merges the grid's filter menu defaults with a column's own settings. */
-function resolvesFilterSections(
-  gridMenu: GridFilterMenu | undefined,
-  column: GridColumn,
-  readOnly: boolean
-): FilterSections {
-  const menu: GridFilterMenu = {
-    ...gridMenu,
-    ...(typeof column.filterable === "object" ? column.filterable : null),
-  }
-  const conditions = menu.conditions ?? true
-  return {
-    sort: (menu.sort ?? true) && !readOnly,
-    conditions:
-      conditions === false
-        ? []
-        : conditions === true
-          ? CONDITION_OPTIONS.map((option) => option.value)
-          : conditions,
-    values: menu.values ?? true,
-  }
-}
-
-function hasFilterSections(sections: FilterSections) {
-  return sections.sort || sections.conditions.length > 0 || sections.values
-}
-
-// ---------------------------------------------------------------------------
-// Cells and headers
-
-type GridCellProps = {
-  gridId: string
-  rowIndex: number
-  colIndex: number
-  row: GridRow
-  column: GridColumn
-  value: CellValue
-  type: DataGridCellType
-  x: number
-  y: number
-  width: number
-  height: number
-  inRange: boolean
-  active: boolean
-  rangeEdges: number
-  inFill: boolean
-  fillEdges: number
-  handle: boolean
-  editing: boolean
-  initialText: string | null
-  readOnly: boolean
-  ruleStyle: GridStyle | null
-  actions: GridActions
-}
-
-const ALIGN_CLASS = {
-  start: "justify-start",
-  center: "justify-center",
-  end: "justify-end",
-} as const
-
-/** Inline CSS for a rule style. Keeps the selection tint on top of a rule background. */
-function ruleCss(
-  style: GridStyle | null,
-  tinted: boolean
-): React.CSSProperties {
-  if (!style) {
-    return {}
-  }
-  const css: React.CSSProperties = { ...(style.css as React.CSSProperties) }
-  if (style.background) {
-    const background = resolveGridColor(style.background, "background")
-    css.background = tinted
-      ? `linear-gradient(var(--grid-tint), var(--grid-tint)), ${background}`
-      : background
-  }
-  if (style.color) css.color = resolveGridColor(style.color, "text")
-  if (style.bold) css.fontWeight = 600
-  if (style.italic) css.fontStyle = "italic"
-  if (style.fontSize) css.fontSize = style.fontSize
-  const lines = [
-    style.underline && "underline",
-    style.strike && "line-through",
-  ].filter(Boolean)
-  if (lines.length > 0) css.textDecorationLine = lines.join(" ")
-  return css
-}
-
-const GridCell = React.memo(function GridCell({
-  gridId,
-  rowIndex,
-  colIndex,
-  row,
-  column,
-  value,
-  type,
-  x,
-  y,
-  width,
-  height,
-  inRange,
-  active,
-  rangeEdges,
-  inFill,
-  fillEdges,
-  handle,
-  editing,
-  initialText,
-  readOnly,
-  ruleStyle,
-  actions,
-}: GridCellProps) {
-  const context: DataGridCellContext = {
-    value,
-    column,
-    row,
-    rowIndex,
-    colIndex,
-    active,
-    readOnly,
-    setValue: (next) => actions.setCellValue(rowIndex, colIndex, next),
-  }
-  const shadows = [
-    ...(active ? ["inset 0 0 0 2px var(--grid-accent)"] : []),
-    ...edgeShadows(rangeEdges, "var(--grid-accent)"),
-    ...edgeShadows(fillEdges, "var(--grid-fill-edge)"),
-    ...(ruleStyle?.border
-      ? [`inset 0 0 0 1px ${resolveGridColor(ruleStyle.border, "text")}`]
-      : []),
-  ]
-  const align = ruleStyle?.align ?? type.align
-
-  let content: React.ReactNode
-  if (editing && type.edit !== false) {
-    const editorContext: DataGridEditorContext = {
-      ...context,
-      initialText,
-      text: (type.format ?? formatsPlain)(value, column),
-      parse: (text) => (type.parse ? type.parse(text, column) : text),
-      commit: actions.commitEdit,
-      cancel: actions.cancelEdit,
-      register: actions.registerEditor,
-    }
-    content = type.edit ? (
-      type.edit(editorContext)
-    ) : (
-      <TextEditor context={editorContext} />
-    )
-  } else if (type.render) {
-    content = type.render(context)
-  } else {
-    content = (
-      <span className="truncate">
-        {(type.format ?? formatsPlain)(value, column)}
-      </span>
-    )
-  }
-
-  return (
-    <div
-      role="gridcell"
-      id={active ? `${gridId}-active` : undefined}
-      aria-colindex={colIndex + 2}
-      aria-selected={inRange}
-      aria-readonly={readOnly || undefined}
-      data-grid-row={rowIndex}
-      data-grid-col={colIndex}
-      data-active={active || undefined}
-      className={cn(
-        "absolute flex min-w-0 items-center border-r border-b border-border px-2 text-sm",
-        align && ALIGN_CLASS[align],
-        inRange && !active && "bg-(--grid-tint)",
-        inFill && "bg-(--grid-tint)",
-        editing || handle ? "z-10 overflow-visible" : "overflow-hidden",
-        editing && "bg-background",
-        ruleStyle?.className
-      )}
-      style={{
-        ...ruleCss(ruleStyle, (inRange && !active) || inFill),
-        left: x,
-        top: y,
-        width,
-        height,
-        boxShadow: shadows.length > 0 ? shadows.join(", ") : undefined,
-      }}
-      onPointerDown={(event) =>
-        actions.cellPointerDown(event, rowIndex, colIndex)
-      }
-      onDoubleClick={() => actions.cellDoubleClick(rowIndex, colIndex)}
-      onContextMenu={(event) =>
-        actions.cellContextMenu(event, rowIndex, colIndex)
-      }
-    >
-      {content}
-      {handle ? (
-        <span
-          aria-hidden
-          data-grid-fill-handle
-          className="absolute -right-1 -bottom-1 z-10 size-2 cursor-crosshair border border-background bg-(--grid-accent)"
-          onPointerDown={actions.fillPointerDown}
-        />
-      ) : null}
-    </div>
-  )
-})
-
-type HeaderMode = "coordinates" | "labels" | "both"
-type HeaderState = "none" | "partial" | "full"
-
-type HeaderCellProps = {
-  axis: Axis2
-  index: number
-  x: number
-  y: number
-  width: number
-  height: number
-  label: string | undefined
-  mode: HeaderMode
-  state: HeaderState
-  hiddenBefore: boolean
-  hiddenAfter: boolean
-  renaming: boolean
-  editable: boolean
-  sortDirection: SortDirection | null
-  sortIndicator: DataGridSortIndicator
-  filterable: boolean
-  filterActive: boolean
-  actions: GridActions
-}
-
-const CONDITION_OPTIONS: {
-  value: GridConditionOp
-  label: string
-  inputs: 0 | 1 | 2
-}[] = [
-  { value: "contains", label: "Contains", inputs: 1 },
-  { value: "notContains", label: "Does not contain", inputs: 1 },
-  { value: "equals", label: "Is equal to", inputs: 1 },
-  { value: "notEquals", label: "Is not equal to", inputs: 1 },
-  { value: "startsWith", label: "Starts with", inputs: 1 },
-  { value: "endsWith", label: "Ends with", inputs: 1 },
-  { value: "gt", label: "Greater than", inputs: 1 },
-  { value: "gte", label: "Greater than or equal", inputs: 1 },
-  { value: "lt", label: "Less than", inputs: 1 },
-  { value: "lte", label: "Less than or equal", inputs: 1 },
-  { value: "between", label: "Between", inputs: 2 },
-  { value: "empty", label: "Is empty", inputs: 0 },
-  { value: "notEmpty", label: "Is not empty", inputs: 0 },
-  { value: "true", label: "Is checked", inputs: 0 },
-  { value: "false", label: "Is not checked", inputs: 0 },
-]
-
-const VALUE_LIST_LIMIT = 300
-
-function parsesConditionInput(text: string): CellValue {
-  const trimmed = text.trim()
-  if (trimmed === "") {
-    return null
-  }
-  return /^-?\d+(\.\d+)?$/.test(trimmed) ? Number(trimmed) : trimmed
-}
-
-function FilterPanel({
-  index,
-  actions,
-  onDone,
-}: {
-  index: number
-  actions: GridActions
-  onDone: () => void
-}) {
-  const [info] = React.useState(() => actions.filterOptions(index))
-  const allKeys = info.values.map((item) => item.key)
-  const [search, setSearch] = React.useState("")
-  const [checked, setChecked] = React.useState(
-    () => new Set(info.filter?.values ?? allKeys)
-  )
-  const [op, setOp] = React.useState<string>(info.filter?.condition?.op ?? "")
-  const [first, setFirst] = React.useState(
-    String(info.filter?.condition?.value ?? "")
-  )
-  const [second, setSecond] = React.useState(
-    String(info.filter?.condition?.value2 ?? "")
-  )
-  const needle = search.trim().toLowerCase()
-  const matching = needle
-    ? info.values.filter((item) => item.label.toLowerCase().includes(needle))
-    : info.values
-  const shown = matching.slice(0, VALUE_LIST_LIMIT)
-  const allMatchingChecked = matching.every((item) => checked.has(item.key))
-  const inputs =
-    CONDITION_OPTIONS.find((option) => option.value === op)?.inputs ?? 0
-  const { sections } = info
-  const conditionOptions = CONDITION_OPTIONS.filter((option) =>
-    sections.conditions.includes(option.value)
-  )
-  const filters = sections.conditions.length > 0 || sections.values
-
-  function apply() {
-    // A hidden section keeps whatever the filter already had (e.g. set by a backend).
-    const values = !sections.values
-      ? info.filter?.values
-      : allKeys.every((key) => checked.has(key))
-        ? undefined
-        : allKeys.filter((key) => checked.has(key))
-    const condition =
-      sections.conditions.length === 0
-        ? info.filter?.condition
-        : op
-          ? {
-              op: op as GridConditionOp,
-              ...(inputs > 0 ? { value: parsesConditionInput(first) } : {}),
-              ...(inputs > 1 ? { value2: parsesConditionInput(second) } : {}),
-            }
-          : undefined
-    actions.applyFilter(
-      index,
-      values || condition ? { values, condition } : null
-    )
-    onDone()
-  }
-
-  return (
-    <div className="flex flex-col gap-3 p-3 text-sm">
-      {sections.sort ? (
-        <div className="grid grid-cols-2 gap-1.5">
-          <Button
-            tone={info.sorted === "asc" ? "default" : "outline"}
-            size="sm"
-            aria-pressed={info.sorted === "asc"}
-            title={
-              info.sorted === "asc"
-                ? "Click again to clear the sort"
-                : undefined
-            }
-            onClick={() => {
-              actions.sortColumn(index, info.sorted === "asc" ? null : "asc")
-              onDone()
-            }}
-          >
-            <ArrowUpIcon aria-hidden className="size-3.5" />
-            Sort A → Z
-          </Button>
-          <Button
-            tone={info.sorted === "desc" ? "default" : "outline"}
-            size="sm"
-            aria-pressed={info.sorted === "desc"}
-            title={
-              info.sorted === "desc"
-                ? "Click again to clear the sort"
-                : undefined
-            }
-            onClick={() => {
-              actions.sortColumn(index, info.sorted === "desc" ? null : "desc")
-              onDone()
-            }}
-          >
-            <ArrowDownIcon aria-hidden className="size-3.5" />
-            Sort Z → A
-          </Button>
-        </div>
-      ) : null}
-
-      {conditionOptions.length > 0 ? (
-        <div className="flex flex-col gap-1.5">
-          <p className="text-xs font-medium text-muted-foreground">
-            By condition
-          </p>
-          <Select
-            className="w-full"
-            placeholder="None"
-            options={conditionOptions.map(({ value, label }) => ({
-              value,
-              label,
-            }))}
-            value={op}
-            onValueChange={setOp}
-          />
-          {inputs > 0 ? (
-            <input
-              aria-label="Value"
-              placeholder="Value"
-              value={first}
-              className="h-7 rounded-md border border-input bg-transparent px-2 text-xs outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-              onChange={(event) => setFirst(event.target.value)}
-              onKeyDown={(event) => event.key === "Enter" && apply()}
-            />
-          ) : null}
-          {inputs > 1 ? (
-            <input
-              aria-label="Second value"
-              placeholder="And"
-              value={second}
-              className="h-7 rounded-md border border-input bg-transparent px-2 text-xs outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-              onChange={(event) => setSecond(event.target.value)}
-              onKeyDown={(event) => event.key === "Enter" && apply()}
-            />
-          ) : null}
-        </div>
-      ) : null}
-
-      {sections.values ? (
-        <div className="flex flex-col gap-1.5">
-          <p className="text-xs font-medium text-muted-foreground">By values</p>
-          <input
-            aria-label={`Search ${info.name} values`}
-            placeholder="Search"
-            value={search}
-            autoFocus
-            className="h-7 rounded-md border border-input bg-transparent px-2 text-xs outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-            onChange={(event) => setSearch(event.target.value)}
-            onKeyDown={(event) => event.key === "Enter" && apply()}
-          />
-          <div className="flex max-h-44 flex-col overflow-y-auto rounded-md border border-border py-1">
-            <Checkbox
-              className="mx-0 px-2 py-1 text-xs"
-              label={needle ? "Select all matches" : "Select all"}
-              checked={matching.length > 0 && allMatchingChecked}
-              onChange={(event) =>
-                setChecked((current) => {
-                  const next = new Set(current)
-                  for (const item of matching) {
-                    if (event.target.checked) next.add(item.key)
-                    else next.delete(item.key)
-                  }
-                  return next
-                })
-              }
-            />
-            {shown.map((item) => (
-              <Checkbox
-                key={item.key}
-                className="mx-0 px-2 py-1 text-xs"
-                label={
-                  <span
-                    className={cn(
-                      "truncate",
-                      item.key === "" && "text-muted-foreground italic"
-                    )}
-                  >
-                    {item.label}
-                  </span>
-                }
-                checked={checked.has(item.key)}
-                onChange={(event) =>
-                  setChecked((current) => {
-                    const next = new Set(current)
-                    if (event.target.checked) next.add(item.key)
-                    else next.delete(item.key)
-                    return next
-                  })
-                }
-              />
-            ))}
-            {matching.length > shown.length ? (
-              <p className="px-2 py-1 text-xs text-muted-foreground">
-                {matching.length - shown.length} more. Search to narrow the
-                list.
-              </p>
-            ) : null}
-            {matching.length === 0 ? (
-              <p className="px-2 py-1 text-xs text-muted-foreground">
-                No values
-              </p>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-
-      {filters ? (
-        <div className="flex items-center gap-1.5">
-          <Button
-            tone="ghost"
-            size="sm"
-            disabled={!info.filter}
-            onClick={() => {
-              actions.applyFilter(index, null)
-              onDone()
-            }}
-          >
-            Clear
-          </Button>
-          <span className="flex-1" />
-          <Button tone="outline" size="sm" onClick={onDone}>
-            Cancel
-          </Button>
-          <Button size="sm" onClick={apply}>
-            Apply
-          </Button>
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
-function stopsEvent(event: React.SyntheticEvent) {
-  event.stopPropagation()
-}
-
-function HeaderFilter({
-  index,
-  active,
-  actions,
-}: {
-  index: number
-  active: boolean
-  actions: GridActions
-}) {
-  const [open, setOpen] = React.useState(false)
-  return (
-    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
-      <PopoverPrimitive.Trigger asChild>
-        <button
-          type="button"
-          aria-label={active ? "Filter (active)" : "Filter"}
-          data-active={active || undefined}
-          className={cn(
-            "absolute top-1/2 right-2.5 z-20 flex size-5 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground hover:bg-muted hover:text-foreground",
-            active &&
-              "bg-(--grid-accent) text-primary-foreground hover:bg-(--grid-accent) hover:text-primary-foreground"
-          )}
-          onPointerDown={stopsEvent}
-          onClick={stopsEvent}
-          onDoubleClick={stopsEvent}
-        >
-          <ListFilterIcon aria-hidden className="size-3.5" />
-        </button>
-      </PopoverPrimitive.Trigger>
-      <PopoverPrimitive.Portal>
-        <PopoverPrimitive.Content
-          data-grid-editor
-          align="end"
-          sideOffset={6}
-          collisionPadding={8}
-          className="z-50 w-64 rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-none"
-          onPointerDown={stopsEvent}
-          onClick={stopsEvent}
-          onDoubleClick={stopsEvent}
-          onContextMenu={stopsEvent}
-          onCloseAutoFocus={(event) => {
-            event.preventDefault()
-            actions.focusGrid()
-          }}
-        >
-          {open ? (
-            <FilterPanel
-              index={index}
-              actions={actions}
-              onDone={() => setOpen(false)}
-            />
-          ) : null}
-        </PopoverPrimitive.Content>
-      </PopoverPrimitive.Portal>
-    </PopoverPrimitive.Root>
-  )
-}
-
-const HeaderCell = React.memo(function HeaderCell({
-  axis,
-  index,
-  x,
-  y,
-  width,
-  height,
-  label,
-  mode,
-  state,
-  hiddenBefore,
-  hiddenAfter,
-  renaming,
-  editable,
-  sortDirection,
-  sortIndicator,
-  filterable,
-  filterActive,
-  actions,
-}: HeaderCellProps) {
-  const coordinate = axis === "col" ? columnLetter(index) : String(index + 1)
-  const isCol = axis === "col"
-  const UnhideIcon = isCol ? ChevronsLeftRightIcon : ChevronsUpDownIcon
-  const noun = isCol ? "column" : "row"
-
-  return (
-    <div
-      role={isCol ? "columnheader" : "rowheader"}
-      aria-colindex={isCol ? index + 2 : 1}
-      aria-selected={state !== "none"}
-      data-grid-row={isCol ? -1 : index}
-      data-grid-col={isCol ? index : -1}
-      className={cn(
-        "group/header absolute flex min-w-0 items-center gap-1.5 border-r border-b border-border bg-muted/60 px-2 text-xs text-muted-foreground select-none",
-        mode === "coordinates" && "justify-center",
-        filterable && "pr-9",
-        state === "partial" && "bg-(--grid-tint) text-foreground",
-        state === "full" &&
-          "bg-(--grid-tint-strong) font-medium text-foreground"
-      )}
-      style={{ left: x, top: y, width, height }}
-      onPointerDown={(event) => actions.headerPointerDown(event, axis, index)}
-      onClick={(event) => actions.headerClick(event, axis, index)}
-      onDoubleClick={() => actions.headerDoubleClick(axis, index)}
-      onContextMenu={(event) => actions.headerContextMenu(event, axis, index)}
-    >
-      {renaming ? (
-        <input
-          data-grid-editor
-          autoFocus
-          defaultValue={label ?? ""}
-          aria-label={`Rename ${noun} ${coordinate}`}
-          className="h-6 min-w-0 flex-1 rounded-sm bg-background px-1 text-xs text-foreground ring-1 ring-(--grid-accent) outline-none"
-          onPointerDown={(event) => event.stopPropagation()}
-          onBlur={(event) =>
-            actions.finishRename(axis, index, event.currentTarget.value)
-          }
-          onKeyDown={(event) => {
-            event.stopPropagation()
-            if (event.key === "Enter") {
-              actions.finishRename(axis, index, event.currentTarget.value)
-            } else if (event.key === "Escape") {
-              actions.finishRename(axis, index, null)
-            }
-          }}
-        />
-      ) : (
-        <>
-          {mode !== "labels" || !label ? (
-            <span
-              className={cn(
-                "shrink-0 tabular-nums",
-                mode === "both" && label && "font-mono opacity-60"
-              )}
-            >
-              {coordinate}
-            </span>
-          ) : null}
-          {mode !== "coordinates" && label ? (
-            <span className="truncate">{label}</span>
-          ) : null}
-          {sortDirection && sortIndicator === "arrow" ? (
-            <span
-              aria-label={
-                sortDirection === "asc"
-                  ? "Sorted ascending"
-                  : "Sorted descending"
-              }
-              className="shrink-0 text-foreground"
-            >
-              {sortDirection === "asc" ? (
-                <ArrowUpIcon aria-hidden className="size-3" />
-              ) : (
-                <ArrowDownIcon aria-hidden className="size-3" />
-              )}
-            </span>
-          ) : null}
-        </>
-      )}
-
-      {sortDirection && sortIndicator === "chevron" ? (
-        <span
-          role="img"
-          aria-label={
-            sortDirection === "asc" ? "Sorted ascending" : "Sorted descending"
-          }
-          className={cn(
-            "pointer-events-none absolute left-1/2 flex -translate-x-1/2 text-foreground",
-            sortDirection === "asc" ? "-top-0.5" : "-bottom-0.5"
-          )}
-        >
-          {sortDirection === "asc" ? (
-            <ChevronUpIcon aria-hidden className="size-3.5" strokeWidth={2.5} />
-          ) : (
-            <ChevronDownIcon
-              aria-hidden
-              className="size-3.5"
-              strokeWidth={2.5}
-            />
-          )}
-        </span>
-      ) : null}
-
-      {filterable && !renaming ? (
-        <HeaderFilter index={index} active={filterActive} actions={actions} />
-      ) : null}
-
-      {hiddenBefore ? (
-        <button
-          type="button"
-          aria-label={`Show hidden ${noun}s`}
-          className={cn(
-            "absolute z-20 flex items-center justify-center rounded-sm border border-border bg-background text-muted-foreground hover:text-foreground",
-            isCol
-              ? "top-1/2 -left-1.5 h-4 w-3 -translate-y-1/2"
-              : "-top-1.5 left-1/2 h-3 w-4 -translate-x-1/2"
-          )}
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={() => actions.unhideNear(axis, index, "before")}
-        >
-          <UnhideIcon aria-hidden className="size-2.5" />
-        </button>
-      ) : null}
-      {hiddenAfter ? (
-        <button
-          type="button"
-          aria-label={`Show hidden ${noun}s`}
-          className={cn(
-            "absolute z-20 flex items-center justify-center rounded-sm border border-border bg-background text-muted-foreground hover:text-foreground",
-            isCol
-              ? "top-1/2 -right-1.5 h-4 w-3 -translate-y-1/2"
-              : "-bottom-1.5 left-1/2 h-3 w-4 -translate-x-1/2"
-          )}
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={() => actions.unhideNear(axis, index, "after")}
-        >
-          <UnhideIcon aria-hidden className="size-2.5" />
-        </button>
-      ) : null}
-
-      {editable ? (
-        // The edge between this header and the next: drag to resize, and the
-        // insert button shows only while the pointer is on this edge.
-        <div
-          className={cn(
-            "group/edge absolute z-10",
-            isCol
-              ? "top-0 -right-1.5 h-full w-3"
-              : "-bottom-1.5 left-0 h-3 w-full"
-          )}
-          // Clicks here resize or insert; they must not reach the header and sort it.
-          onClick={stopsEvent}
-          onDoubleClick={stopsEvent}
-        >
-          <span
-            aria-hidden
-            className={cn(
-              "absolute inset-0 group-hover/edge:bg-(--grid-tint-strong)",
-              isCol ? "cursor-col-resize" : "cursor-row-resize"
-            )}
-            onPointerDown={(event) =>
-              actions.resizePointerDown(event, axis, index)
-            }
-            onDoubleClick={(event) => {
-              event.stopPropagation()
-              actions.resizeReset(axis, index)
-            }}
-          />
-          <button
-            type="button"
-            tabIndex={-1}
-            aria-label={
-              isCol
-                ? `Insert column after ${coordinate}`
-                : `Insert row after ${coordinate}`
-            }
-            className="absolute top-1/2 left-1/2 hidden size-3.5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-(--grid-accent) text-primary-foreground shadow-sm group-hover/edge:flex"
-            onPointerDown={(event) => event.stopPropagation()}
-            onDoubleClick={(event) => event.stopPropagation()}
-            onClick={(event) => {
-              event.stopPropagation()
-              actions.insertAfter(axis, index)
-            }}
-          >
-            <PlusIcon aria-hidden className="size-3" />
-          </button>
-        </div>
-      ) : null}
-    </div>
-  )
-})
+export {
+  dataGridCellTypes,
+  type DataGridCellContext,
+  type DataGridCellType,
+  type DataGridEditMove,
+  type DataGridEditorContext,
+  type DataGridFitContext,
+} from "@/components/standard/data-grid/cell-types"
+export type { DataGridSortIndicator } from "@/components/standard/data-grid/header"
 
 // ---------------------------------------------------------------------------
 // Context menu parts
@@ -1652,8 +234,6 @@ export type DataGridHandle = {
   autoFit: (columnIds?: string[]) => void
 }
 
-export type DataGridSortIndicator = "arrow" | "chevron"
-
 export type DataGridChangeSource = "edit" | "undo" | "redo"
 
 export type DataGridProps = Omit<
@@ -1682,6 +262,10 @@ export type DataGridProps = Omit<
   columnWidth?: number
   headerHeight?: number
   rowHeaderWidth?: number
+  /** Shows the column header strip (letters or labels) above the cells. Defaults to true. */
+  showColumnHeaders?: boolean
+  /** Shows the row header strip (numbers or labels) left of the cells. Defaults to true. */
+  showRowHeaders?: boolean
   /** Height of the scrolling area. */
   height?: number | string
   readOnly?: boolean
@@ -1771,8 +355,10 @@ export function DataGrid({
   rowHeaderMode = "coordinates",
   rowHeight = 32,
   columnWidth = 120,
-  headerHeight = 32,
+  headerHeight: headerHeightProp = 32,
   rowHeaderWidth,
+  showColumnHeaders = true,
+  showRowHeaders = true,
   height = 420,
   readOnly = false,
   showNameBox = true,
@@ -1837,7 +423,6 @@ export function DataGrid({
     width: 0,
     height: 0,
   })
-  const [nameDraft, setNameDraft] = React.useState<string | null>(null)
   const [pendingDelete, setPendingDelete] = React.useState<{
     axis: Axis2
     indices: number[]
@@ -1853,11 +438,13 @@ export function DataGrid({
 
   const rowCount = data.rows.length
   const colCount = data.columns.length
-  const rowHeaderW =
-    rowHeaderWidth ??
-    (rowHeaderMode === "coordinates"
-      ? Math.max(48, String(rowCount).length * 8 + 24)
-      : 140)
+  const headerHeight = showColumnHeaders ? headerHeightProp : 0
+  const rowHeaderW = !showRowHeaders
+    ? 0
+    : (rowHeaderWidth ??
+      (rowHeaderMode === "coordinates"
+        ? Math.max(48, String(rowCount).length * 8 + 24)
+        : 140))
 
   const filtered = React.useMemo(() => filteredOutRows(data), [data])
   const rowAxis = React.useMemo(
@@ -3291,6 +1878,7 @@ export function DataGrid({
   }
 
   function renderHeader(axis: Axis2, index: number, x: number, y: number) {
+    if (axis === "col" ? !showColumnHeaders : !showRowHeaders) return null
     const items: { hidden?: boolean; label?: string; id: string }[] =
       axis === "col" ? data.columns : data.rows
     const axisData = axis === "col" ? colAxis : rowAxis
@@ -3785,64 +2373,29 @@ export function DataGrid({
       {...props}
     >
       {showNameBox ? (
-        <div className="flex h-10 shrink-0 items-center gap-2 border-b border-border px-2">
-          <input
-            aria-label="Name box"
-            value={nameDraft ?? formatRange(range)}
-            spellCheck={false}
-            className="h-7 w-28 shrink-0 rounded-md border border-input bg-transparent px-2 font-mono text-xs outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-            onFocus={(event) => {
-              setNameDraft(formatRange(range))
-              event.currentTarget.select()
-            }}
-            onChange={(event) => setNameDraft(event.target.value)}
-            onBlur={() => setNameDraft(null)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                event.preventDefault()
-                handlers.selectRange(event.currentTarget.value)
-                setNameDraft(null)
-                handlers.focusGrid()
-              } else if (event.key === "Escape") {
-                setNameDraft(null)
-                handlers.focusGrid()
-              }
-            }}
-          />
-          <span aria-hidden className="h-5 w-px bg-border" />
-          <p
-            className="min-w-0 flex-1 truncate text-sm text-muted-foreground"
-            aria-live="polite"
-          >
-            {activeText}
-          </p>
-          {toolbar}
-          {autoFitButton ? (
-            <button
-              type="button"
-              aria-label={
-                sel.mode === "cols"
-                  ? "Fit selected columns to content"
-                  : "Fit all columns to content"
-              }
-              title={
-                sel.mode === "cols"
-                  ? "Fit selected columns to content"
-                  : "Fit all columns to content"
-              }
-              disabled={readOnly}
-              className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none disabled:opacity-50"
-              onClick={() => {
-                handlers.fitColumns(
-                  sel.mode === "cols" ? colTargets : undefined
-                )
-                handlers.focusGrid()
-              }}
-            >
-              <MoveHorizontalIcon aria-hidden className="size-3.5" />
-            </button>
-          ) : null}
-        </div>
+        <NameBox
+          range={range}
+          activeText={activeText}
+          onSelectRange={handlers.selectRange}
+          onDone={handlers.focusGrid}
+          trailing={
+            <>
+              {toolbar}
+              {autoFitButton ? (
+                <AutoFitButton
+                  selectedOnly={sel.mode === "cols"}
+                  disabled={readOnly}
+                  onFit={() => {
+                    handlers.fitColumns(
+                      sel.mode === "cols" ? colTargets : undefined
+                    )
+                    handlers.focusGrid()
+                  }}
+                />
+              ) : null}
+            </>
+          }
+        />
       ) : null}
 
       <ContextMenuPrimitive.Root modal={false}>
@@ -3940,32 +2493,34 @@ export function DataGrid({
                 style={{ gridArea: "1 / 1" }}
               >
                 <div role="row" aria-rowindex={1} className="contents">
-                  <button
-                    type="button"
-                    aria-label="Select all"
-                    data-grid-row={-1}
-                    data-grid-col={-1}
-                    className="absolute top-0 left-0 border-r border-b border-border bg-muted/60 hover:bg-muted"
-                    style={{ width: rowHeaderW, height: headerHeight }}
-                    onPointerDown={(event) => event.stopPropagation()}
-                    onClick={() => {
-                      handlers.finishEditing()
-                      setSelection({
-                        anchor: sel.anchor,
-                        focus: sel.anchor,
-                        mode: "all",
-                      })
-                      handlers.focusGrid()
-                    }}
-                  >
-                    <svg
-                      aria-hidden
-                      viewBox="0 0 8 8"
-                      className="absolute right-1 bottom-1 size-2 fill-muted-foreground/50"
+                  {showColumnHeaders && showRowHeaders ? (
+                    <button
+                      type="button"
+                      aria-label="Select all"
+                      data-grid-row={-1}
+                      data-grid-col={-1}
+                      className="absolute top-0 left-0 border-r border-b border-border bg-muted/60 hover:bg-muted"
+                      style={{ width: rowHeaderW, height: headerHeight }}
+                      onPointerDown={(event) => event.stopPropagation()}
+                      onClick={() => {
+                        handlers.finishEditing()
+                        setSelection({
+                          anchor: sel.anchor,
+                          focus: sel.anchor,
+                          mode: "all",
+                        })
+                        handlers.focusGrid()
+                      }}
                     >
-                      <path d="M8 0V8H0Z" />
-                    </svg>
-                  </button>
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 8 8"
+                        className="absolute right-1 bottom-1 size-2 fill-muted-foreground/50"
+                      >
+                        <path d="M8 0V8H0Z" />
+                      </svg>
+                    </button>
+                  ) : null}
                   {colAxis.frozen.map((col) =>
                     renderHeader("col", col, frozenColX(col), 0)
                   )}

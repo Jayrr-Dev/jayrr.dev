@@ -4,12 +4,13 @@
   "title": "Search",
   "description": "Search from the Standard library.",
   "registryDependencies": [
-    "@jayrr/text-field"
+    "@jayrr/text-field",
+    "@jayrr/use-field-validation"
   ],
   "files": [
     {
       "path": "components/standard/search.tsx",
-      "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\n\r\nimport { TextField } from \"@/components/standard/text-field\"\r\n\r\n/**\r\n * Search preset: a <TextField type=\"search\"> that is not clearable by default,\r\n * styles its outer box through className and takes its aria-label from the\r\n * placeholder.\r\n */\r\nfunction Search({\r\n  className,\r\n  size = \"default\",\r\n  clearable = false,\r\n  ...props\r\n}: Omit<React.ComponentProps<\"input\">, \"type\" | \"size\"> & {\r\n  size?: \"sm\" | \"default\" | \"lg\"\r\n  /** Shows a clear button once there's a query. */\r\n  clearable?: boolean\r\n}) {\r\n  return (\r\n    <TextField\r\n      type=\"search\"\r\n      size={size}\r\n      clearable={clearable}\r\n      // Search's className has always styled the outer box.\r\n      containerClassName={className}\r\n      {...props}\r\n      aria-label={\r\n        props[\"aria-label\"] ??\r\n        (props[\"aria-labelledby\"] ? undefined : (props.placeholder ?? \"Search\"))\r\n      }\r\n    />\r\n  )\r\n}\r\n\r\nexport { Search }\r\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport {\n  TextField,\n  type TextFieldProps,\n} from \"@/components/standard/text-field\"\nimport type { FieldValidationProps } from \"@/hooks/use-field-validation\"\n\ntype SearchProps = Omit<React.ComponentProps<\"input\">, \"type\" | \"size\"> &\n  Pick<TextFieldProps, \"completion\" | \"completionKeys\"> &\n  FieldValidationProps & {\n    size?: \"sm\" | \"default\" | \"lg\"\n    /** Shows a clear button once there's a query. */\n    clearable?: boolean\n  }\n\n/**\n * Search preset: a <TextField type=\"search\"> that is not clearable by default,\n * styles its outer box through className and takes its aria-label from the\n * placeholder. Pass `completion` for ghost-text suggestions.\n */\nfunction Search({\n  className,\n  size = \"default\",\n  clearable = false,\n  ...props\n}: SearchProps) {\n  return (\n    <TextField\n      type=\"search\"\n      size={size}\n      clearable={clearable}\n      // Search's className has always styled the outer box.\n      containerClassName={className}\n      {...props}\n      aria-label={\n        props[\"aria-label\"] ??\n        (props[\"aria-labelledby\"] ? undefined : (props.placeholder ?? \"Search\"))\n      }\n    />\n  )\n}\n\nexport { Search }\nexport type { SearchProps }\n",
       "type": "registry:ui",
       "target": "components/standard/search.tsx"
     }

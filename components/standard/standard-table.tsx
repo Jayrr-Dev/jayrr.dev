@@ -125,7 +125,7 @@ function RendersTableActionsMenu({
   )
 }
 
-/** Table-only props, shared by StandardTable and StandardList's table view. */
+/** Table-only props, shared by StandardTable and TableList's table view. */
 export type StandardTableViewProps<T extends object> = {
   columns: StandardTableColumn<T>[]
   getRowKey: (item: T, index: number) => string | number

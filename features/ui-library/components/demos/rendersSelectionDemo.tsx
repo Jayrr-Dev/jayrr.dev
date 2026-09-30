@@ -3,7 +3,6 @@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Switch } from "@/components/ui/switch"
 import { Toggle } from "@/components/ui/toggle"
 
 import { RendersDemoCard } from "./rendersDemoCard"
@@ -43,19 +42,11 @@ export function RendersSelectionDemo({
 
   if (pieceName === "Toggle") {
     return (
-      <>
-        <RendersDemoCard>
-          <Toggle aria-label="Bold" defaultPressed>
-            Bold
-          </Toggle>
-        </RendersDemoCard>
-        <RendersDemoCard>
-          <div className="flex items-center gap-2">
-            <Switch id="alerts" defaultChecked />
-            <Label htmlFor="alerts">Alerts</Label>
-          </div>
-        </RendersDemoCard>
-      </>
+      <RendersDemoCard>
+        <Toggle aria-label="Bold" defaultPressed>
+          Bold
+        </Toggle>
+      </RendersDemoCard>
     )
   }
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { PlayIcon } from "lucide-react"
+import { GlobeIcon, MoreVerticalIcon, PlayIcon } from "lucide-react"
 
 import { Button } from "@/components/standard/button"
 import {
@@ -12,6 +12,7 @@ import {
   CardMain,
   CardMedia,
   CardMediaOverlay,
+  CardMeta,
   CardRight,
   CardThumbnail,
   CardTitle,
@@ -220,6 +221,29 @@ export function RendersCardDemo() {
           title="Go to reports"
           meta="Renders as a link"
         />
+      </RendersDemoCard>
+      <RendersDemoCard label="source icon">
+        <Card effect="lift">
+          <CardHeader className="flex-row items-center gap-2">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+              <GlobeIcon className="size-3.5" />
+            </span>
+            <CardMeta className="flex-1 truncate text-sm text-foreground">
+              grammarhub.dev
+            </CardMeta>
+            <Button iconOnly size="sm" tone="ghost" aria-label="More">
+              <MoreVerticalIcon className="size-4" />
+            </Button>
+          </CardHeader>
+          <CardTitle className="text-lg leading-snug font-medium">
+            Reorder vs Re-order: Which Is Correct?
+          </CardTitle>
+          <CardBody className="line-clamp-2">
+            An easy grammar guide. &ldquo;Reorder&rdquo; is the standard
+            spelling; the hyphen only shows up in older style guides and
+            regional usage.
+          </CardBody>
+        </Card>
       </RendersDemoCard>
       <RendersDemoCard label="thumbnail">
         <Card>

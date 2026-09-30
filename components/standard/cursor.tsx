@@ -30,6 +30,8 @@ type CursorLayer = {
   ease?: number
   /** Follow the previous layer instead of the pointer (trails). */
   chain?: boolean
+  /** Follow the layer at this index instead of the pointer. */
+  follow?: number
   /** Which axes track the pointer. Crosshair lines use one each. */
   axis?: "both" | "x" | "y"
   /** Center the layer on the point. Off for the arrow, whose tip is the point. */
@@ -40,8 +42,64 @@ type CursorLayer = {
 
 const TRAIL_LENGTH = 8
 
+/** Your own SVG, emoji or element as the cursor. The point sits at its center. */
+function buildsContentLayers(content: React.ReactNode): CursorLayer[] {
+  return [
+    {
+      ease: 1,
+      children: (
+        <span className="flex items-center justify-center text-2xl leading-none transition-[scale,opacity] duration-200 select-none group-data-hover/cursor:scale-125 group-data-pressed/cursor:scale-90 group-data-text/cursor:opacity-50">
+          {content}
+        </span>
+      ),
+    },
+  ]
+}
+
+/**
+ * Echoes that chase the pointer behind any variant. Copies `content` when
+ * given, dots otherwise. Ordered tail-first so the tail paints underneath;
+ * each echo follows the one after it, and the last follows the pointer.
+ */
+function buildsTrailLayers(length: number, content: React.ReactNode): CursorLayer[] {
+  return Array.from({ length }, (_, step) => {
+    const fade = (step + 1) / (length + 1)
+    return {
+      ease: 0.45,
+      follow: step < length - 1 ? step + 1 : undefined,
+      children:
+        content != null ? (
+          <span
+            className="flex items-center justify-center text-2xl leading-none select-none"
+            style={{ opacity: fade, scale: 0.4 + fade * 0.5 }}
+          >
+            {content}
+          </span>
+        ) : (
+          <span
+            className="block size-2 rounded-full bg-foreground"
+            style={{ opacity: fade * 0.8, scale: 0.4 + fade * 0.6 }}
+          />
+        ),
+    }
+  })
+}
+
 /** Hover, text and pressed states read these from the overlay via `group-data-*`. */
-function buildsCursorLayers(variant: CursorVariant): CursorLayer[] {
+function buildsCursorLayers(
+  variant: CursorVariant,
+  content: React.ReactNode,
+  trail: boolean | number
+): CursorLayer[] {
+  const base = content != null ? buildsContentLayers(content) : buildsVariantLayers(variant)
+  const length = trail === true ? TRAIL_LENGTH : trail || 0
+  if (length <= 0 || (variant === "trail" && content == null)) {
+    return base
+  }
+  return [...buildsTrailLayers(length, content), ...base]
+}
+
+function buildsVariantLayers(variant: CursorVariant): CursorLayer[] {
   switch (variant) {
     case "dot":
       return [
@@ -185,8 +243,12 @@ function useMediaQuery(query: string) {
   )
 }
 
-type CursorProps = Omit<React.ComponentProps<"div">, "children"> & {
+type CursorProps = Omit<React.ComponentProps<"div">, "children" | "content"> & {
   variant?: CursorVariant
+  /** Your own cursor: an emoji, an `<svg>`, any node. Replaces the variant's shape. */
+  content?: React.ReactNode
+  /** Add a trail behind any variant. `true` uses 8 echoes; a number sets the length. */
+  trail?: boolean | number
   /** Replace the cursor on the whole page instead of only inside `children`. */
   global?: boolean
   /** How fast lagging layers catch up, 0–1. 1 is instant. */
@@ -205,6 +267,8 @@ type CursorProps = Omit<React.ComponentProps<"div">, "children"> & {
  */
 function Cursor({
   variant = "dot-ring",
+  content,
+  trail = false,
   global = false,
   smoothing = 0.2,
   hoverSelector = cursorHoverSelector,
@@ -226,7 +290,10 @@ function Cursor({
   )
   const active = mounted && !disabled && !isCoarse
 
-  const layers = React.useMemo(() => buildsCursorLayers(variant), [variant])
+  const layers = React.useMemo(
+    () => buildsCursorLayers(variant, content, trail),
+    [variant, content, trail]
+  )
 
   React.useEffect(() => {
     if (!active) {
@@ -255,7 +322,12 @@ function Cursor({
       let settled = true
 
       layers.forEach((layer, index) => {
-        const goal = layer.chain ? positions[index - 1] : pointer
+        const goal =
+          layer.follow != null
+            ? positions[layer.follow]
+            : layer.chain
+              ? positions[index - 1]
+              : pointer
         const ease = reducedMotion ? 1 : (layer.ease ?? smoothing)
         const position = positions[index]
         position.x += (goal.x - position.x) * ease

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "thumbs",
+  "title": "Thumbs",
+  "description": "Thumbs up / thumbs down feedback toggle with optional counts and sizes.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@jayrr/use-controllable-state"
+  ],
+  "files": [
+    {
+      "path": "components/standard/thumbs.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { ThumbsDownIcon, ThumbsUpIcon } from \"lucide-react\"\n\nimport { useControllableState } from \"@/hooks/use-controllable-state\"\n\ntype ThumbsValue = \"up\" | \"down\" | null\ntype ThumbsSize = \"sm\" | \"default\" | \"lg\"\n\nconst thumbsButtonVariants = cva(\n  \"inline-flex shrink-0 items-center justify-center gap-1 rounded-md text-muted-foreground tabular-nums transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0\",\n  {\n    variants: {\n      size: {\n        sm: \"h-7 min-w-7 px-1.5 text-xs [&_svg]:size-3.5\",\n        default: \"h-8 min-w-8 px-2 text-sm [&_svg]:size-4\",\n        lg: \"h-9 min-w-9 px-2.5 text-sm [&_svg]:size-5\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\n// A chosen thumb fills its icon: up in the primary colour, down in danger.\nconst ACTIVE_CLASSES = {\n  up: \"text-primary hover:text-primary [&_svg]:fill-current\",\n  down: \"text-destructive hover:text-destructive [&_svg]:fill-current\",\n} as const\n\ntype ThumbsProps = Omit<\n  React.ComponentProps<\"div\">,\n  \"defaultValue\" | \"onChange\" | \"children\"\n> & {\n  value?: ThumbsValue\n  defaultValue?: ThumbsValue\n  /** Clicking the chosen thumb again clears it to `null`. */\n  onValueChange?: (value: ThumbsValue) => void\n  size?: ThumbsSize\n  disabled?: boolean\n  /** Counts shown beside each icon. */\n  counts?: { up?: number; down?: number }\n  /** Accessible names for the two buttons. */\n  upLabel?: string\n  downLabel?: string\n}\n\n/**\n * Thumbs up / thumbs down feedback. Each thumb is a pressed-state toggle;\n * picking one clears the other.\n */\nfunction Thumbs({\n  className,\n  value,\n  defaultValue,\n  onValueChange,\n  size = \"default\",\n  disabled = false,\n  counts,\n  upLabel = \"Thumbs up\",\n  downLabel = \"Thumbs down\",\n  ...props\n}: ThumbsProps) {\n  const [current, setCurrent] = useControllableState<ThumbsValue>({\n    value,\n    defaultValue: defaultValue ?? null,\n    onChange: onValueChange,\n  })\n\n  const thumbs = [\n    { key: \"up\", icon: <ThumbsUpIcon />, label: upLabel },\n    { key: \"down\", icon: <ThumbsDownIcon />, label: downLabel },\n  ] as const\n\n  return (\n    <div\n      role=\"group\"\n      data-slot=\"thumbs\"\n      data-size={size}\n      data-value={current ?? undefined}\n      className={cn(\"inline-flex items-center gap-1\", className)}\n      {...props}\n    >\n      {thumbs.map(({ key, icon, label }) => {\n        const pressed = current === key\n        const count = counts?.[key]\n        return (\n          <button\n            key={key}\n            type=\"button\"\n            data-slot={`thumbs-${key}`}\n            aria-label={label}\n            aria-pressed={pressed}\n            disabled={disabled}\n            className={cn(\n              thumbsButtonVariants({ size }),\n              pressed && ACTIVE_CLASSES[key]\n            )}\n            onClick={() => setCurrent(pressed ? null : key)}\n          >\n            {icon}\n            {count != null ? <span>{count}</span> : null}\n          </button>\n        )\n      })}\n    </div>\n  )\n}\n\nexport { Thumbs, thumbsButtonVariants }\nexport type { ThumbsProps, ThumbsSize, ThumbsValue }\n",
+      "type": "registry:ui",
+      "target": "components/standard/thumbs.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

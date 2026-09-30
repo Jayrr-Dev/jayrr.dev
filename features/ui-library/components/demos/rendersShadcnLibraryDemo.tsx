@@ -880,7 +880,7 @@ function libraryDemo(pieceName: string) {
     )
   }
 
-  if (pieceName === "Sonner") {
+  if (pieceName === "Toast") {
     return (
       <div className="flex flex-wrap gap-2">
         <Button

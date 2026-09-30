@@ -16,6 +16,7 @@ import {
   type GridFormatRule,
 } from "@/components/standard/data-grid"
 import { Progress } from "@/components/standard/progress"
+import { Switch } from "@/components/standard/switch"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const STATUS_OPTIONS = [
@@ -293,6 +294,49 @@ function RendersTrackerDemo() {
   )
 }
 
+const PLAIN = createGridData({ columns: 5, rows: 8 })
+
+/** Toggle the Name Box bar and header strips off for a bare cell sheet. */
+function RendersHeadersDemo() {
+  const [nameBox, setNameBox] = useState(false)
+  const [columnHeaders, setColumnHeaders] = useState(false)
+  const [rowHeaders, setRowHeaders] = useState(false)
+
+  return (
+    <div className="flex w-full flex-col gap-3">
+      <div className="flex flex-wrap gap-4">
+        <Switch
+          size="sm"
+          label="Name Box"
+          checked={nameBox}
+          onCheckedChange={setNameBox}
+        />
+        <Switch
+          size="sm"
+          label="Column headers"
+          checked={columnHeaders}
+          onCheckedChange={setColumnHeaders}
+        />
+        <Switch
+          size="sm"
+          label="Row headers"
+          checked={rowHeaders}
+          onCheckedChange={setRowHeaders}
+        />
+      </div>
+      <DataGrid
+        defaultValue={PLAIN}
+        showNameBox={nameBox}
+        showColumnHeaders={columnHeaders}
+        showRowHeaders={rowHeaders}
+        height={260}
+        className="w-full"
+        label="Grid without headers"
+      />
+    </div>
+  )
+}
+
 export function RendersStandardDataGridDemo() {
   return (
     <>
@@ -312,6 +356,9 @@ export function RendersStandardDataGridDemo() {
           className="w-full"
           label="Large grid"
         />
+      </RendersDemoCard>
+      <RendersDemoCard label="showNameBox · showColumnHeaders · showRowHeaders" fill>
+        <RendersHeadersDemo />
       </RendersDemoCard>
       <RendersDemoCard label="saved to localStorage via an adapter" fill>
         <DataGrid

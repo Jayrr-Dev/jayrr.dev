@@ -22,19 +22,19 @@ import {
   type StandardTableViewProps,
 } from "@/components/standard/standard-table"
 
-export type StandardListView = "table" | "grid"
+export type TableListView = "table" | "grid"
 
 /**
- * Props for <StandardList>. The shared chrome props (search, filters, title
+ * Props for <TableList>. The shared chrome props (search, filters, title
  * bar, paging) are `StandardListProps` in standard-list-chrome.
  */
-export type StandardListComponentProps<T extends object> = StandardListProps<T> &
+export type TableListProps<T extends object> = StandardListProps<T> &
   StandardTableViewProps<T> &
   Omit<StandardGridViewProps<T>, "getItemKey" | "columns"> & {
     /** Controlled view. */
-    view?: StandardListView
-    defaultView?: StandardListView
-    onViewChange?: (view: StandardListView) => void
+    view?: TableListView
+    defaultView?: TableListView
+    onViewChange?: (view: TableListView) => void
     /** Adds a table / grid toggle to the title bar. */
     viewSwitcher?: boolean
     /** Grid columns per breakpoint (`columns` holds the table columns). */
@@ -48,12 +48,12 @@ const VIEW_OPTIONS = [
   { value: "grid", label: "Grid view", icon: LayoutGridIcon },
 ] as const
 
-function RendersStandardListViewSwitcher({
+function RendersTableListViewSwitcher({
   view,
   onViewChange,
 }: {
-  view: StandardListView
-  onViewChange: (view: StandardListView) => void
+  view: TableListView
+  onViewChange: (view: TableListView) => void
 }) {
   return (
     <div
@@ -92,7 +92,7 @@ function RendersStandardListViewSwitcher({
  * StandardGrid behind shared chrome, so search, filters, sort order and page
  * survive a switch between views.
  */
-function StandardList<T extends object>({
+function TableList<T extends object>({
   data,
   className,
   emptyMessage = "No Data",
@@ -125,8 +125,8 @@ function StandardList<T extends object>({
   gridColumns,
   gap = "md",
   skipCardWrapper = false,
-}: StandardListComponentProps<T>) {
-  const [view, setView] = useControllableState<StandardListView>({
+}: TableListProps<T>) {
+  const [view, setView] = useControllableState<TableListView>({
     value: viewProp,
     defaultValue: defaultView,
     onChange: onViewChange,
@@ -151,7 +151,7 @@ function StandardList<T extends object>({
 
   return (
     <div
-      data-slot="standard-list"
+      data-slot="table-list"
       data-view={view}
       className={cn(
         "flex w-full flex-col overflow-hidden rounded-lg border border-foreground",
@@ -162,7 +162,7 @@ function StandardList<T extends object>({
         titleBar={titleBar}
         titleBarTrailing={
           viewSwitcher ? (
-            <RendersStandardListViewSwitcher
+            <RendersTableListViewSwitcher
               view={view}
               onViewChange={setView}
             />
@@ -211,4 +211,4 @@ function StandardList<T extends object>({
   )
 }
 
-export { StandardList }
+export { TableList }

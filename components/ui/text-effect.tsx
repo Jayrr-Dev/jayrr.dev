@@ -96,6 +96,60 @@ function TextPop({ className, ...props }: React.ComponentProps<"span">) {
 }
 
 /**
+ * Fades text in slowly, one word after another. `by="text"` fades the
+ * whole string at once instead.
+ */
+function TextFade({
+  children,
+  by = "word",
+  durationMs = 1200,
+  staggerMs = 120,
+  delayMs = 0,
+  className,
+  ...props
+}: Omit<React.ComponentProps<"span">, "children"> & {
+  children: string
+  by?: "word" | "text"
+  durationMs?: number
+  staggerMs?: number
+  delayMs?: number
+}) {
+  const fade = (order: number): React.CSSProperties => ({
+    animationDuration: `${durationMs}ms`,
+    animationDelay: `${delayMs + order * staggerMs}ms`,
+  })
+  const piece = "inline-block animate-text-fade motion-reduce:animate-none"
+
+  if (by === "text") {
+    return (
+      <span
+        data-slot="text-fade"
+        className={cn(piece, className)}
+        style={fade(0)}
+        {...props}
+      >
+        {children}
+      </span>
+    )
+  }
+
+  let order = 0
+  return (
+    <span data-slot="text-fade" className={className} {...props}>
+      {children.split(/(\s+)/).map((chunk, index) =>
+        !chunk || /^\s+$/.test(chunk) ? (
+          chunk
+        ) : (
+          <span key={index} className={piece} style={fade(order++)}>
+            {chunk}
+          </span>
+        )
+      )}
+    </span>
+  )
+}
+
+/**
  * Types `text` out. Pass an array to cycle: type, hold, delete, next.
  * A single string types once unless `loop` is set.
  */
@@ -269,6 +323,7 @@ function TextReveal({
 export {
   TextCaret,
   TextDots,
+  TextFade,
   TextPop,
   TextReveal,
   TextTypewriter,

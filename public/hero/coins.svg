@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 400" fill="none" font-family="Inter, Arial, sans-serif" font-weight="800">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#f5c542"/><stop offset="1" stop-color="#b7791f"/>
+    </linearGradient>
+    <linearGradient id="goldEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8a5a12"/><stop offset=".5" stop-color="#d69e2e"/><stop offset="1" stop-color="#7a4d0e"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#c3cad9"/><stop offset="1" stop-color="#6b7488"/>
+    </linearGradient>
+    <linearGradient id="silverEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4b5263"/><stop offset=".5" stop-color="#a0a8ba"/><stop offset="1" stop-color="#3f4554"/>
+    </linearGradient>
+    <linearGradient id="rose" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd6c9"/><stop offset=".5" stop-color="#f28b6b"/><stop offset="1" stop-color="#a3402a"/>
+    </linearGradient>
+    <linearGradient id="roseEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c2d1c"/><stop offset=".5" stop-color="#d0664a"/><stop offset="1" stop-color="#6b2517"/>
+    </linearGradient>
+    <filter id="drop" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <g filter="url(#drop)" transform="rotate(-18 150 250)">
+    <circle cx="150" cy="262" r="92" fill="url(#silverEdge)"/>
+    <circle cx="140" cy="250" r="92" fill="url(#silver)"/>
+    <circle cx="140" cy="250" r="72" stroke="#fff" stroke-opacity=".6" stroke-width="3"/>
+    <text x="140" y="280" text-anchor="middle" font-size="86" fill="#4b5263">&#8364;</text>
+  </g>
+  <g filter="url(#drop)" transform="rotate(14 350 230)">
+    <circle cx="362" cy="242" r="86" fill="url(#roseEdge)"/>
+    <circle cx="352" cy="230" r="86" fill="url(#rose)"/>
+    <circle cx="352" cy="230" r="66" stroke="#fff" stroke-opacity=".55" stroke-width="3"/>
+    <text x="352" y="258" text-anchor="middle" font-size="78" fill="#7c2d1c">&#163;</text>
+  </g>
+  <g filter="url(#drop)" transform="rotate(-6 245 150)">
+    <circle cx="258" cy="164" r="108" fill="url(#goldEdge)"/>
+    <circle cx="245" cy="150" r="108" fill="url(#gold)"/>
+    <circle cx="245" cy="150" r="86" stroke="#fff" stroke-opacity=".6" stroke-width="3"/>
+    <text x="245" y="186" text-anchor="middle" font-size="104" fill="#8a5a12">$</text>
+    <ellipse cx="205" cy="92" rx="36" ry="14" fill="#fff" opacity=".55" transform="rotate(-35 205 92)"/>
+  </g>
+</svg>

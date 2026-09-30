@@ -1,5 +1,6 @@
 import componentPool from "@/features/ui-library/domain/catalog/galleryComponents.json"
 import typeTree from "@/features/ui-library/domain/catalog/galleryTypes.json"
+import shortDescriptions from "@/features/ui-library/domain/catalog/shortDescriptions.json"
 
 /**
  * A node in galleryTypes.json. Depth 0 is a bucket (Content, Structure),
@@ -12,6 +13,8 @@ import typeTree from "@/features/ui-library/domain/catalog/galleryTypes.json"
 export type GalleryTypeNode = {
   id: string
   label: string
+  /** One line shown under the heading, e.g. what a tier means. */
+  description?: string
   groupBy?: GalleryGroupBy
   children?: GalleryTypeNode[]
 }
@@ -48,7 +51,8 @@ export type GalleryComponent = {
   preview_mode?: string | null
   needs_mock_data?: boolean
   mock_data_key?: string | null
-  description?: string | null
+  /** One line from shortDescriptions.json, the only source of descriptions. */
+  description?: string
 }
 
 export type GalleryCard = GalleryComponent
@@ -56,6 +60,7 @@ export type GalleryCard = GalleryComponent
 export type GalleryCategory = {
   id: string
   name: string
+  description?: string
   cards: GalleryCard[]
   /**
    * Set on Tier categories only: the same cards split by use, one group per
@@ -72,7 +77,19 @@ export type GalleryBucket = {
 }
 
 export const galleryTypes = typeTree as GalleryTypeNode[]
-export const galleryComponents = componentPool as GalleryComponent[]
+/** Short descriptions keyed by tier, then piece name. */
+const descriptionsByTier = shortDescriptions as Record<
+  GalleryTier,
+  Record<string, string>
+>
+
+/** Pool entries with their description filled from shortDescriptions.json. */
+export const galleryComponents: GalleryComponent[] = (
+  componentPool as GalleryComponent[]
+).map((component) => ({
+  ...component,
+  description: descriptionsByTier[component.tier]?.[component.name],
+}))
 
 /** Buckets that re-sort the whole pool by a component field. */
 const regroupingBuckets = galleryTypes.flatMap((bucket) =>
@@ -147,6 +164,9 @@ function buildsGalleryBuckets(): GalleryBucket[] {
           return {
             id: category.id,
             name: category.label,
+            ...(category.description
+              ? { description: category.description }
+              : {}),
             cards,
             ...(bucket.groupBy === "tier"
               ? { groups: groupsCardsByUse(cards) }

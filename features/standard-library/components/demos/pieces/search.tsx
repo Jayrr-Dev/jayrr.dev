@@ -6,6 +6,30 @@ import { Search } from "@/components/standard/search"
 import { Select } from "@/components/standard/select"
 import { TextField } from "@/components/standard/text-field"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+import { completeFrom } from "@/hooks/use-inline-completion"
+
+const completePieces = completeFrom([
+  "Accordion",
+  "Autocomplete Input",
+  "Avatar",
+  "Badge",
+  "Button",
+  "Button Array",
+  "Calendar Heatmap",
+  "Carousel",
+  "Checkbox",
+  "Color Picker",
+  "Data Grid",
+  "Date Picker",
+  "Dialog",
+  "Search",
+  "Select",
+  "Stepper",
+  "Switch",
+  "Text Field",
+  "Toast",
+  "Tooltip",
+])
 
 export function RendersSearchDemo() {
   return (
@@ -15,6 +39,13 @@ export function RendersSearchDemo() {
       </RendersDemoCard>
       <RendersDemoCard label="clearable">
         <Search placeholder="Search pieces" defaultValue="button" clearable />
+      </RendersDemoCard>
+      <RendersDemoCard label="completion (Tab to accept)">
+        <Search
+          placeholder="Search pieces"
+          completion={completePieces}
+          clearable
+        />
       </RendersDemoCard>
       <RendersDemoCard label="TextField type search">
         <TextField

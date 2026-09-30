@@ -87,6 +87,11 @@ Every entry in `features/ui-library/domain/catalog/galleryComponents.json`
 keeps a valid `type`, `canonical` and `tier`, each resolving to a category in
 `galleryTypes.json`. Names are unique.
 
+Descriptions live only in `shortDescriptions.json`, one line per piece under
+its tier (`primitive`, `component`, `block`). Catalog entries carry no
+`description` of their own; `definesGalleryCatalog.ts` fills it in. Longer
+install notes belong in the item's `description` in `components/*/registry.json`.
+
 An entry with `"standard"` in `demos` has a demo in
 `features/standard-library/components/demos/pieces/<slug>.tsx`, registered by
 piece name in `definesStandardPieceDemos.ts`. A piece demo takes no hooks at

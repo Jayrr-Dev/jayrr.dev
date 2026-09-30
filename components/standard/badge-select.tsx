@@ -384,7 +384,8 @@ function rendersOptionLabel(
       <span className="flex w-full min-w-0 items-stretch gap-0">
         <span className="min-w-0 flex-1 py-0.5 break-words">{labelText}</span>
         <Divider orientation="vertical" className="mx-1 h-auto bg-current/30" />
-        <span className="flex shrink-0 items-center px-1 tabular-nums">
+        {/* Fixed minimum width so dividers line up across rows (up to 3 digits). */}
+        <span className="flex min-w-[calc(3ch+0.5rem)] shrink-0 items-center justify-end px-1 tabular-nums">
           {option.notificationCount}
         </span>
       </span>

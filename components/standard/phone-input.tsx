@@ -32,7 +32,15 @@ const TRIGGER_SIZE_CLASSES: Record<PhoneInputSize, string> = {
 
 type PhoneInputProps = Omit<
   React.ComponentProps<typeof TextField>,
-  "value" | "defaultValue" | "onChange" | "type" | "size" | "ref"
+  | "value"
+  | "defaultValue"
+  | "onChange"
+  | "type"
+  | "size"
+  | "ref"
+  | "completion"
+  | "completionKeys"
+  | "ghost"
 > & {
   /** E.164 number, e.g. "+12125551234". Empty is undefined. */
   value?: RPNInput.Value
@@ -156,8 +164,8 @@ function PhoneCountrySelect({
           aria-label={selected ? `Country: ${selected.label}` : "Country"}
           disabled={disabled || readOnly}
           className={cn(
-            "flex shrink-0 items-center gap-1 rounded-s-lg border border-e-0 border-input bg-transparent outline-none transition-colors hover:bg-muted/60 focus-visible:z-10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:hover:bg-transparent dark:bg-input/30",
-            "group-has-[input[aria-invalid=true]]/phone:border-destructive group-has-[input:disabled]/phone:opacity-50",
+            "flex shrink-0 items-center gap-1 rounded-s-lg border border-e-0 border-input bg-transparent transition-colors outline-none hover:bg-muted/60 focus-visible:z-10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:hover:bg-transparent dark:bg-input/30",
+            "group-has-[input:disabled]/phone:opacity-50 group-has-[input[aria-invalid=true]]/phone:border-destructive",
             TRIGGER_SIZE_CLASSES[size],
             pill && "rounded-s-full ps-3"
           )}

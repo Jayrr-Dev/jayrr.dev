@@ -30,6 +30,18 @@ export function RendersSwitchDemo() {
       <RendersDemoCard label="size sm">
         <Switch size="sm" label="Compact rows" defaultChecked />
       </RendersDemoCard>
+      <RendersDemoCard label="variant flip">
+        <Switch variant="flip" flipLabels={["AM", "PM"]} aria-label="AM or PM" />
+      </RendersDemoCard>
+      <RendersDemoCard label="variant flip · size sm">
+        <Switch
+          variant="flip"
+          size="sm"
+          flipLabels={["Metric", "US"]}
+          aria-label="Units"
+          defaultChecked
+        />
+      </RendersDemoCard>
       <RendersDemoCard label="invalid">
         <Switch label="Accept the terms" invalid />
       </RendersDemoCard>

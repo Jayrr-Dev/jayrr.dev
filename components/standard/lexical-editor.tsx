@@ -119,18 +119,12 @@ const TRANSFORMERS: Transformer[] = [
   INLINE_CODE,
 ]
 
+// Block styles come from typeset.css on the content area, so the editor
+// matches MarkdownDisplay and Article. The theme only covers what Lexical
+// marks up its own way.
 const THEME: EditorThemeClasses = {
-  paragraph: "my-1",
-  heading: {
-    h1: "mt-3 mb-2 text-2xl font-semibold tracking-tight first:mt-0",
-    h2: "mt-3 mb-2 text-xl font-semibold tracking-tight first:mt-0",
-    h3: "mt-2 mb-1 text-lg font-semibold first:mt-0",
-  },
-  quote: "my-2 border-l-2 border-border pl-3 text-muted-foreground",
   list: {
-    ul: "my-1 list-disc pl-6",
-    ol: "my-1 list-decimal pl-6",
-    listitem: "my-0.5",
+    // Lexical nests a list inside its own item; hide that item's marker.
     nested: { listitem: "list-none" },
   },
   text: {
@@ -139,7 +133,6 @@ const THEME: EditorThemeClasses = {
     underline: "underline",
     strikethrough: "line-through",
     underlineStrikethrough: "[text-decoration:underline_line-through]",
-    code: "rounded bg-muted px-1 py-0.5 font-mono text-[0.85em]",
   },
 }
 
@@ -496,7 +489,7 @@ function LexicalEditor({
                   </div>
                 }
                 className={cn(
-                  "min-h-40 px-3 py-2 leading-relaxed outline-none",
+                  "typeset typeset-editor min-h-40 px-3 py-2 outline-none",
                   contentClassName
                 )}
               />

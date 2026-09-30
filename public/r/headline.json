@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "headline",
+  "title": "Headline",
+  "description": "A landing-page section: a display Heading, one paragraph, one call to action and one image. `align` stacks it centred or puts the media beside the copy.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@jayrr/heading",
+    "@jayrr/paragraph"
+  ],
+  "files": [
+    {
+      "path": "components/standard/headline.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Heading } from \"@/components/standard/heading\"\nimport { Paragraph } from \"@/components/standard/paragraph\"\n\nconst headlineVariants = cva(\"flex w-full flex-col gap-10\", {\n  variants: {\n    align: {\n      // Stacked and centred; the trailing media sits below the copy.\n      center: \"items-center text-center\",\n      // Copy on the left, trailing media beside it from md.\n      start: \"items-start text-start md:grid md:grid-cols-2 md:items-center\",\n    },\n  },\n  defaultVariants: {\n    align: \"center\",\n  },\n})\n\n/**\n * One section of a landing page: one headline, one paragraph, one call to\n * action and one piece of media. The headline uses Heading's display style.\n */\nfunction Headline({\n  className,\n  title,\n  description,\n  action,\n  leading,\n  trailing,\n  level = 1,\n  align = \"center\",\n  ...props\n}: Omit<React.ComponentProps<\"section\">, \"title\"> &\n  VariantProps<typeof headlineVariants> & {\n    /** The headline. Keep it to one idea and two lines (~70 characters). */\n    title: React.ReactNode\n    /** One supporting paragraph. */\n    description?: React.ReactNode\n    /** One call to action, usually a Button. */\n    action?: React.ReactNode\n    /** Above the headline: an eyebrow, badge or social proof. */\n    leading?: React.ReactNode\n    /** After the copy: one image, video or demo. */\n    trailing?: React.ReactNode\n    /** 1 for the page hero, 2 for every section after it. */\n    level?: 1 | 2\n  }) {\n  const centered = align !== \"start\"\n\n  return (\n    <section\n      data-slot=\"headline\"\n      data-align={align}\n      className={cn(headlineVariants({ align }), className)}\n      {...props}\n    >\n      <div\n        data-slot=\"headline-copy\"\n        className={cn(\n          \"flex flex-col gap-5\",\n          centered ? \"items-center\" : \"items-start\"\n        )}\n      >\n        {leading ? <div data-slot=\"headline-leading\">{leading}</div> : null}\n        <Heading level={level} display>\n          {title}\n        </Heading>\n        {description ? (\n          <Paragraph\n            tone=\"muted\"\n            className=\"max-w-xl text-lg leading-relaxed\"\n          >\n            {description}\n          </Paragraph>\n        ) : null}\n        {action ? (\n          <div\n            data-slot=\"headline-action\"\n            className={cn(\n              \"flex flex-wrap gap-3 pt-2\",\n              centered && \"justify-center\"\n            )}\n          >\n            {action}\n          </div>\n        ) : null}\n      </div>\n      {trailing ? (\n        <div data-slot=\"headline-trailing\" className=\"w-full\">\n          {trailing}\n        </div>\n      ) : null}\n    </section>\n  )\n}\n\nexport { Headline, headlineVariants }\n",
+      "type": "registry:ui",
+      "target": "components/standard/headline.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

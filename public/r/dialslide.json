@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dialslide",
   "title": "Dialslide",
-  "description": "Dialslide from the Standard library.",
+  "description": "Horizontal slider for any row, with a calendar variant: scroll buttons, drag, keyboard and edge fades.",
   "dependencies": [
     "cn",
     "date-fns"

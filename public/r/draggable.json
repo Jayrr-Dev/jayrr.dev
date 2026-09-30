@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "draggable",
   "title": "Draggable",
-  "description": "Draggable from the Standard library.",
+  "description": "Sortable list: drag rows, grid chips or a horizontal strip by pointer or keyboard, whole item or grip, and move items between lists.",
   "dependencies": [
     "cn",
     "lucide-react"

@@ -6,15 +6,18 @@
     "children": [
       {
         "id": "primitive",
-        "label": "Primitives"
+        "label": "Primitives",
+        "description": "A single element with one job. It can't be broken down into smaller pieces that are useful on their own."
       },
       {
         "id": "component",
-        "label": "Components"
+        "label": "Components",
+        "description": "Several parts working as one unit with shared state and behavior. It does one task and sits inside a larger layout."
       },
       {
         "id": "block",
-        "label": "Blocks"
+        "label": "Blocks",
+        "description": "A complete section of a page. It covers a whole region or workflow and works on its own."
       }
     ]
   },
@@ -122,6 +125,10 @@
       {
         "id": "media",
         "label": "Media"
+      },
+      {
+        "id": "displays",
+        "label": "Displays"
       },
       {
         "id": "charts",

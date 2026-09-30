@@ -56,56 +56,94 @@ export function BucketGallery() {
   const [selectedBucket, setSelectedBucket] = useState(ALL_BUCKETS)
   const [query, setQuery] = useState("")
 
-  const [openPiece, setOpenPiece] = useState<OpenPiece | null>(null)
-  const [pieceDialogOpen, setPieceDialogOpen] = useState(false)
+  // Every open piece gets its own dialog, so minimized ones stack in the dock.
+  const [openPieces, setOpenPieces] = useState<(OpenPiece & { key: number })[]>(
+    []
+  )
 
-  const filteredBuckets = useMemo(() => {
+  const opensPiece = (piece: OpenPiece) => {
+    // Reopening a piece that is already open (say, minimized) remounts it
+    // fresh in front instead of adding a duplicate.
+    setOpenPieces((current) => [
+      ...current.filter((open) => open.name !== piece.name),
+      { ...piece, key: Date.now() },
+    ])
+  }
+
+  const closesPiece = (key: number) => {
+    setOpenPieces((current) => current.filter((open) => open.key !== key))
+  }
+
+  const { filteredBuckets, widened } = useMemo(() => {
     // "All" shows the functional buckets only; Tier and Canonical re-sort
     // the same pool, so including them would list every piece again.
+    const allBuckets = galleryBuckets.filter(
+      (bucket) => bucket.groupBy === "type"
+    )
     const buckets =
       selectedBucket === ALL_BUCKETS
-        ? galleryBuckets.filter((bucket) => bucket.groupBy === "type")
+        ? allBuckets
         : galleryBuckets.filter((bucket) => bucket.id === selectedBucket)
 
     const needle = query.trim().toLowerCase()
     if (!needle) {
-      return buckets
+      return { filteredBuckets: buckets, widened: false }
     }
 
-    return buckets
-      .map((bucket) => {
-        const bucketMatch = bucket.name.toLowerCase().includes(needle)
-        const categories = bucket.categories
-          .map((category) => filtersCategory(category, needle, bucketMatch))
-          .filter((category) => category !== null)
+    const search = (pool: typeof buckets) =>
+      pool
+        .map((bucket) => {
+          const bucketMatch = bucket.name.toLowerCase().includes(needle)
+          const categories = bucket.categories
+            .map((category) => filtersCategory(category, needle, bucketMatch))
+            .filter((category) => category !== null)
 
-        if (categories.length === 0) {
-          return null
-        }
+          if (categories.length === 0) {
+            return null
+          }
 
-        return { ...bucket, categories }
-      })
-      .filter((bucket) => bucket !== null)
+          return { ...bucket, categories }
+        })
+        .filter((bucket) => bucket !== null)
+
+    const found = search(buckets)
+    if (found.length > 0 || selectedBucket === ALL_BUCKETS) {
+      return { filteredBuckets: found, widened: false }
+    }
+
+    // Nothing in the chosen bucket: fall back to searching everything.
+    const fallback = search(allBuckets)
+    return { filteredBuckets: fallback, widened: fallback.length > 0 }
   }, [query, selectedBucket])
 
   function renderCards(
     cards: GalleryCategory["cards"],
     bucketName: string,
-    categoryName: string
+    categoryName: string,
+    fill = false
   ) {
+    // Tier groups fill their column in an even three-up grid; the other
+    // buckets keep fixed-size tiles that wrap.
     return (
-      <ul className="flex flex-wrap gap-2">
+      <ul className={fill ? "grid grid-cols-3 gap-2" : "flex flex-wrap gap-2"}>
         {cards.map((card) => (
           <li key={card.name}>
             <button
               type="button"
               onClick={() => {
-                setOpenPiece({ name: card.name, bucketName, categoryName })
-                setPieceDialogOpen(true)
+                opensPiece({ name: card.name, bucketName, categoryName })
               }}
-              className="flex w-24 cursor-pointer flex-col gap-2 rounded-lg text-left outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring"
+              className={cn(
+                "flex cursor-pointer flex-col gap-1.5 rounded-lg text-left outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring",
+                fill ? "w-full" : "w-20"
+              )}
             >
-              <div className="flex size-24 items-center justify-center rounded-lg border bg-card p-2">
+              <div
+                className={cn(
+                  "flex items-center justify-center rounded-lg border bg-card",
+                  fill ? "aspect-square w-full" : "size-20"
+                )}
+              >
                 <GalleryIcon name={card.name} />
               </div>
               <span className="text-center text-xs leading-tight">
@@ -118,10 +156,20 @@ export function BucketGallery() {
     )
   }
 
-  const bucketOptions = [
+  // Sort views (Tier, Canonical) sit together ahead of a separator, then the
+  // functional buckets.
+  const toOption = (bucket: (typeof galleryBuckets)[number]) => ({
+    id: bucket.id,
+    name: bucket.name,
+  })
+  const sortOptions = [
     { id: ALL_BUCKETS, name: "All" },
-    ...galleryBuckets.map((bucket) => ({ id: bucket.id, name: bucket.name })),
+    ...galleryBuckets.filter((b) => b.groupBy === "tier").map(toOption),
+    ...galleryBuckets.filter((b) => b.groupBy === "canonical").map(toOption),
   ]
+  const typeOptions = galleryBuckets
+    .filter((b) => b.groupBy === "type")
+    .map(toOption)
 
   return (
     <section className="flex flex-col gap-8">
@@ -139,8 +187,17 @@ export function BucketGallery() {
             aria-label="Search pieces"
           />
         </div>
-        <div className="flex flex-wrap gap-2">
-          {bucketOptions.map((entry) => {
+        <div className="flex flex-wrap items-center gap-2">
+          {[...sortOptions, null, ...typeOptions].map((entry) => {
+            if (entry === null) {
+              return (
+                <span
+                  key="separator"
+                  aria-hidden
+                  className="mx-1 h-5 w-px self-center bg-border"
+                />
+              )
+            }
             const isSelected = entry.id === selectedBucket
 
             return (
@@ -169,6 +226,11 @@ export function BucketGallery() {
             No pieces match “{query.trim()}”.
           </p>
         ) : null}
+        {widened ? (
+          <p className="text-sm text-muted-foreground">
+            No matches in this bucket. Showing results from all buckets.
+          </p>
+        ) : null}
         {filteredBuckets.map((bucket) => (
           <div
             key={bucket.id}
@@ -179,13 +241,24 @@ export function BucketGallery() {
               <div className="flex flex-col gap-8">
                 {bucket.categories.map((tier) => (
                   <div key={tier.id} className="flex flex-col gap-3">
-                    <h4 className="flex items-baseline gap-2 text-sm font-medium">
-                      {tier.name}
-                      <span className="font-mono text-[11px] text-muted-foreground">
-                        {tier.cards.length}
-                      </span>
-                    </h4>
-                    <Masonry minColumnWidth={232} className="gap-4">
+                    <div className="flex flex-col gap-1">
+                      <h4 className="flex items-baseline gap-2 text-sm font-medium">
+                        {tier.name}
+                        <span className="font-mono text-[11px] text-muted-foreground">
+                          {tier.cards.length}
+                        </span>
+                      </h4>
+                      {tier.description ? (
+                        <p className="text-xs text-muted-foreground">
+                          {tier.description}
+                        </p>
+                      ) : null}
+                    </div>
+                    <Masonry
+                      minColumnWidth={272}
+                      maxColumns={3}
+                      className="gap-4"
+                    >
                       {(tier.groups ?? []).map((group) => (
                         <div
                           key={group.id}
@@ -194,7 +267,7 @@ export function BucketGallery() {
                           <h5 className="font-mono text-[11px] tracking-wide text-muted-foreground uppercase">
                             {group.name}
                           </h5>
-                          {renderCards(group.cards, bucket.name, tier.name)}
+                          {renderCards(group.cards, bucket.name, tier.name, true)}
                         </div>
                       ))}
                     </Masonry>
@@ -220,13 +293,18 @@ export function BucketGallery() {
         ))}
       </div>
 
-      <OpensPieceCollectionsDialog
-        pieceName={openPiece ? openPiece.name : null}
-        bucketName={openPiece ? openPiece.bucketName : ""}
-        categoryName={openPiece ? openPiece.categoryName : ""}
-        open={pieceDialogOpen}
-        onOpenChange={setPieceDialogOpen}
-      />
+      {openPieces.map((piece) => (
+        <OpensPieceCollectionsDialog
+          key={piece.key}
+          pieceName={piece.name}
+          bucketName={piece.bucketName}
+          categoryName={piece.categoryName}
+          open
+          onOpenChange={(open) => {
+            if (!open) closesPiece(piece.key)
+          }}
+        />
+      ))}
     </section>
   )
 }

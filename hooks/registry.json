@@ -14,6 +14,30 @@
       ]
     },
     {
+      "name": "use-field-validation",
+      "type": "registry:hook",
+      "title": "Use Field Validation",
+      "description": "Use Field Validation from the Standard library.",
+      "files": [
+        {
+          "path": "use-field-validation.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-inline-completion",
+      "type": "registry:hook",
+      "title": "Use Inline Completion",
+      "description": "Use Inline Completion from the Standard library.",
+      "files": [
+        {
+          "path": "use-inline-completion.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "use-mobile",
       "type": "registry:hook",
       "title": "Use Mobile",

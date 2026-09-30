@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "notification-badge",
   "title": "Notification Badge",
-  "description": "Notification Badge from the Standard library.",
+  "description": "Unread marker pinned to an icon: dot, count, or capped count (999+). Red alert tone by default, with brand and neutral tones for non-urgent counts.",
   "dependencies": [
     "class-variance-authority",
     "cn"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import {
   CameraIcon,
   FileTextIcon,
@@ -16,6 +16,7 @@ import {
   FabMenu,
   FabStack,
   useFabScroll,
+  type FabPosition,
   type FabTone,
 } from "@/components/standard/fab"
 import { Stack } from "@/components/standard/stack"
@@ -59,6 +60,28 @@ function RendersFabMenuDemo() {
     >
       <RendersFabScreen className="h-96">
         <FabStack anchor="container">
+          <FabMenu label="Create" icon={<PlusIcon />} items={MENU_ITEMS} />
+        </FabStack>
+      </RendersFabScreen>
+    </RendersDemoCard>
+  )
+}
+
+function RendersFabDraggableDemo() {
+  const [position, setPosition] = useState<FabPosition>("bottom-end")
+
+  return (
+    <RendersDemoCard
+      label={`draggable · 8 positions · ${position}`}
+      className="w-full max-w-md"
+    >
+      <RendersFabScreen className="h-96">
+        <FabStack
+          anchor="container"
+          draggable
+          position={position}
+          onPositionChange={setPosition}
+        >
           <FabMenu label="Create" icon={<PlusIcon />} items={MENU_ITEMS} />
         </FabStack>
       </RendersFabScreen>
@@ -195,6 +218,7 @@ export function RendersStandardFabDemo() {
         </Stack>
       </RendersDemoCard>
       <RendersFabMenuDemo />
+      <RendersFabDraggableDemo />
       <RendersFabScrollDemo />
       <RendersUtilitekChromeDemo />
     </>

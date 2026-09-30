@@ -2,7 +2,7 @@
 
 import { Caption } from "@/components/standard/caption"
 import { Code } from "@/components/standard/code"
-import { Heading } from "@/components/standard/heading"
+import { Heading, HeadingHighlight } from "@/components/standard/heading"
 import { Paragraph } from "@/components/standard/paragraph"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
 
@@ -36,6 +36,17 @@ export function RendersContentDemo({
         </RendersDemoCard>
         <RendersDemoCard>
           <Heading level={3}>The Joke Tax</Heading>
+        </RendersDemoCard>
+        <RendersDemoCard label="display · level 1" className="w-full">
+          <Heading level={1} display>
+            Ship your side project in{" "}
+            <HeadingHighlight>7 days</HeadingHighlight>, not 7 months
+          </Heading>
+        </RendersDemoCard>
+        <RendersDemoCard label="display · level 2" className="w-full">
+          <Heading level={2} display>
+            Everything you need, nothing you don&apos;t
+          </Heading>
         </RendersDemoCard>
         <RendersDemoCard label="tone muted">
           <Heading level={3} tone="muted">

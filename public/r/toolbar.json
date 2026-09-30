@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toolbar",
   "title": "Toolbar",
-  "description": "Toolbar from the Standard library.",
+  "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select, plus a Material 3 docked variant (standard or vibrant) for the bottom edge of a screen.",
   "dependencies": [
     "cn"
   ],

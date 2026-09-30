@@ -14,6 +14,13 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+// Headline font: only Heading's `display` style (Headline, Hero Card) uses it.
+// Swap Geist for any next/font/google or next/font/local font; keep the variable.
+const fontDisplay = Geist({
+  subsets: ["latin"],
+  variable: "--font-display-family",
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,7 +30,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("dark antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn("antialiased", fontMono.variable, fontDisplay.variable, "font-sans", geist.variable)}
     >
       <body>
         <ConvexClientProvider>

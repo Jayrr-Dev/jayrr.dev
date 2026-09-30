@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "wizard",
   "title": "Wizard",
-  "description": "Wizard from the Standard library.",
+  "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue.",
   "dependencies": [
     "cn",
     "lucide-react",

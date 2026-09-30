@@ -28,7 +28,7 @@ export type StandardListTitleBar = {
   actions?: { id: string; label: string; onSelect?: () => void }[]
 }
 
-/** Chrome and paging props shared by StandardTable, StandardGrid and StandardList. */
+/** Chrome and paging props shared by StandardTable, StandardGrid and TableList. */
 export type StandardListProps<T extends object> = {
   data: T[]
   className?: string

@@ -24,6 +24,7 @@ import { Badge } from "@/components/ui/badge"
 import { Bubble, BubbleContent } from "@/components/ui/bubble"
 import {
   TextDots,
+  TextFade,
   TextPop,
   TextReveal,
   TextTypewriter,
@@ -774,6 +775,9 @@ export function RendersTypePropCards({
         </TypeCard>
         <TypeCard label="pop">
           <TextPop>Saved!</TextPop>
+        </TypeCard>
+        <TypeCard label="fade">
+          <TextFade>Words drift in, one by one.</TextFade>
         </TypeCard>
         <TypeCard label="reveal">
           <TextReveal text="Streamed text is paced to a steady read speed, no matter how it arrives." />

@@ -35,6 +35,45 @@ function ProgressRingLiveDemo() {
   )
 }
 
+function ProgressRingHealthDemo() {
+  const [hp, setHp] = useState(100)
+  const color =
+    hp > 50
+      ? "[--progress-ring-color:var(--color-emerald-500)]"
+      : hp > 25
+        ? "[--progress-ring-color:var(--color-amber-500)]"
+        : "[--progress-ring-color:var(--color-destructive)]"
+
+  return (
+    <div className="flex items-center gap-4">
+      <ProgressRing
+        value={hp}
+        aria-label="Health"
+        below="HP"
+        className={color}
+      >
+        {hp}
+      </ProgressRing>
+      <div className="flex flex-col gap-2">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => setHp((v) => Math.max(v - 20, 0))}
+        >
+          Hit
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => setHp((v) => Math.min(v + 20, 100))}
+        >
+          Heal
+        </Button>
+      </div>
+    </div>
+  )
+}
+
 export function RendersIndicatorDemo({
   pieceName,
 }: {
@@ -135,6 +174,9 @@ export function RendersIndicatorDemo({
         </RendersDemoCard>
         <RendersDemoCard label="live">
           <ProgressRingLiveDemo />
+        </RendersDemoCard>
+        <RendersDemoCard label="health">
+          <ProgressRingHealthDemo />
         </RendersDemoCard>
       </>
     )

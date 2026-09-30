@@ -970,17 +970,66 @@ export function fillRange(
     }
   }
 
+  const sourceHeight = source.bottom - source.top + 1
+  const sourceWidth = source.right - source.left + 1
   const entries: { row: number; col: number; value: CellValue }[] = []
   eachCell(target, (row, col) => {
     if (!rangeContains(source, row, col)) {
+      // A formula is copied with its relative references moved along, as in a spreadsheet.
+      const fromRow = source.top + mod(row - source.top, sourceHeight)
+      const fromCol = source.left + mod(col - source.left, sourceWidth)
+      const from = readCell(data, fromRow, fromCol)
       entries.push({
         row,
         col,
-        value: grid[row - target.top][col - target.left],
+        value: isFormulaText(from)
+          ? shiftFormulaReferences(from, row - fromRow, col - fromCol)
+          : grid[row - target.top][col - target.left],
       })
     }
   })
   return setCellValues(data, entries)
+}
+
+/** Text starting with "=", which a spreadsheet treats as a formula. */
+export function isFormulaText(value: CellValue | undefined): value is string {
+  return typeof value === "string" && value.trimStart().startsWith("=")
+}
+
+const FORMULA_REFERENCE =
+  /(?<![\p{L}\p{N}_.$])(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?![\p{L}\p{N}_.(])/gu
+
+/**
+ * Moves the relative A1 references in a formula by `rows` and `cols`:
+ * `=B2*$C$1` filled one row down becomes `=B3*$C$1`. Text in quotes is left
+ * alone, and a reference pushed off the sheet becomes #REF!.
+ */
+export function shiftFormulaReferences(
+  formula: string,
+  rows: number,
+  cols: number
+): string {
+  if (rows === 0 && cols === 0) {
+    return formula
+  }
+  return formula
+    .split(/("(?:[^"]|"")*"?)/)
+    .map((part, index) =>
+      index % 2 === 1
+        ? part
+        : part.replace(
+            FORMULA_REFERENCE,
+            (_, colPin: string, letters: string, rowPin: string, digits: string) => {
+              const col = colPin ? columnIndex(letters) : columnIndex(letters) + cols
+              const row = rowPin ? Number(digits) - 1 : Number(digits) - 1 + rows
+              if (col < 0 || row < 0) {
+                return "#REF!"
+              }
+              return `${colPin}${colPin ? letters : columnLetter(col)}${rowPin}${row + 1}`
+            }
+          )
+    )
+    .join("")
 }
 
 function previousVisible(shown: (index: number) => boolean, index: number) {
@@ -1144,7 +1193,7 @@ export function createFillSeries(
   if (
     count === 0 ||
     mode === "copy" ||
-    values.some((value) => isEmptyValue(value))
+    values.some((value) => isEmptyValue(value) || isFormulaText(value))
   ) {
     return repeat
   }

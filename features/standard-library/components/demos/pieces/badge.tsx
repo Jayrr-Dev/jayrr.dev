@@ -1,6 +1,12 @@
 "use client"
 
-import { CheckIcon, ChevronDownIcon, ClockIcon } from "lucide-react"
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ClockIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+} from "lucide-react"
 
 import { Badge } from "@/components/standard/badge"
 import { Stack } from "@/components/standard/stack"
@@ -74,6 +80,28 @@ export function RendersBadgeDemo() {
           <Badge leading={<CheckIcon />}>Saved</Badge>
           <Badge appearance="soft" tone="info" leading={<ClockIcon />}>
             Scheduled
+          </Badge>
+        </Stack>
+      </RendersDemoCard>
+      <RendersDemoCard label="thumbs up, thumbs down">
+        <Stack direction="row" align="center" className="flex-wrap">
+          <Badge appearance="soft" tone="success" leading={<ThumbsUpIcon />}>
+            Helpful
+          </Badge>
+          <Badge appearance="soft" tone="danger" leading={<ThumbsDownIcon />}>
+            Not helpful
+          </Badge>
+          <Badge tone="success" leading={<ThumbsUpIcon />}>
+            128
+          </Badge>
+          <Badge tone="danger" leading={<ThumbsDownIcon />}>
+            7
+          </Badge>
+          <Badge appearance="outline" tone="quiet" leading={<ThumbsUpIcon />}>
+            Liked
+          </Badge>
+          <Badge appearance="outline" tone="quiet" leading={<ThumbsDownIcon />}>
+            Disliked
           </Badge>
         </Stack>
       </RendersDemoCard>

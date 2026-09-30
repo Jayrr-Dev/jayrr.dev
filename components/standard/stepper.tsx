@@ -1,10 +1,19 @@
 "use client"
 
 import * as React from "react"
-import { CheckIcon, LoaderCircleIcon, XIcon } from "lucide-react"
 import { cn } from "cn"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
+import {
+  Step,
+  StepDescription,
+  StepIndicator,
+  Steps,
+  StepSeparator,
+  StepTitle,
+  StepTrigger,
+  type StepState,
+} from "@/components/standard/step"
 
 type StepperStep = {
   id: string
@@ -26,7 +35,7 @@ type StepperStep = {
   ariaLabel?: string
 }
 
-type StepperState = "complete" | "active" | "upcoming" | "error" | "loading"
+type StepperState = StepState
 
 /**
  * steps: indicators joined by connectors. dots: small dots, the current one
@@ -62,12 +71,6 @@ type StepperProps = Omit<
   disabled?: boolean
 }
 
-function statesStep(step: StepperStep, index: number, value: number): StepperState {
-  if (step.status) return step.status
-  if (index < value) return "complete"
-  return index === value ? "active" : "upcoming"
-}
-
 function namesStep(step: StepperStep, index: number) {
   if (step.ariaLabel) return step.ariaLabel
   return typeof step.title === "string" && step.title.trim()
@@ -76,8 +79,10 @@ function namesStep(step: StepperStep, index: number) {
 }
 
 /**
- * Shows where someone is in a multi-step flow. Pair it with your own content
- * and buttons, or let `Wizard` drive it.
+ * Shows where someone is in a multi-step flow from a list of steps. A preset
+ * of the Steps primitive in three looks; compose `Steps` directly for any
+ * other layout. Pair it with your own content and buttons, or let `Wizard`
+ * drive it.
  */
 function Stepper({
   steps,
@@ -110,50 +115,16 @@ function Stepper({
   const small = size === "sm"
   const current = steps[value]
 
-  function selects(index: number) {
-    if (!interactive || disabled || steps[index]?.disabled) return
-    setValue(index)
+  // Shared by every Steps list, so responsive layouts stay in sync.
+  const stepsProps = { value, onValueChange: setValue, interactive, disabled }
+
+  function stepProps(step: StepperStep, index: number) {
+    return { index, status: step.status, disabled: step.disabled }
   }
 
-  // Buttons when steps can be picked, plain elements otherwise.
-  function rendersTarget(
-    step: StepperStep,
-    index: number,
-    className: string,
-    children: React.ReactNode
-  ) {
-    const label = namesStep(step, index)
-    const shared = {
-      "data-slot": "stepper-trigger",
-      "data-state": statesStep(step, index, value),
-      "aria-current": index === value ? ("step" as const) : undefined,
-      className,
-    }
-
-    if (!interactive) {
-      return (
-        <div {...shared} aria-label={label}>
-          {children}
-        </div>
-      )
-    }
-
-    return (
-      <button
-        {...shared}
-        type="button"
-        aria-label={label}
-        title={label}
-        disabled={disabled || step.disabled}
-        onClick={() => selects(index)}
-      >
-        {children}
-      </button>
-    )
+  function triggerProps(step: StepperStep, index: number) {
+    return { "aria-label": namesStep(step, index) }
   }
-
-  const focusRing =
-    "outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-60"
 
   if (variant === "dots") {
     return (
@@ -164,13 +135,13 @@ function Stepper({
         className={cn("flex items-center justify-center", className)}
         {...props}
       >
-        <ol className="flex items-center gap-1.5">
+        <Steps {...stepsProps} className="gap-1.5">
           {steps.map((step, index) => (
-            <li key={step.id} className="flex">
-              {rendersTarget(
-                step,
-                index,
-                cn("group flex h-4 items-center rounded-full", focusRing),
+            <Step key={step.id} {...stepProps(step, index)} className="flex">
+              <StepTrigger
+                {...triggerProps(step, index)}
+                className="group flex h-4 items-center rounded-full"
+              >
                 <span
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-200",
@@ -182,10 +153,10 @@ function Stepper({
                     step.status === "error" && "bg-destructive"
                   )}
                 />
-              )}
-            </li>
+              </StepTrigger>
+            </Step>
           ))}
-        </ol>
+        </Steps>
       </nav>
     )
   }
@@ -207,13 +178,17 @@ function Stepper({
             <span className="truncate font-medium">{current?.title}</span>
           )}
         </div>
-        <ol className="flex gap-1">
+        <Steps {...stepsProps} className="gap-1">
           {steps.map((step, index) => (
-            <li key={step.id} className="flex flex-1">
-              {rendersTarget(
-                step,
-                index,
-                cn("flex h-3 flex-1 items-center rounded-full", focusRing),
+            <Step
+              key={step.id}
+              {...stepProps(step, index)}
+              className="flex flex-1"
+            >
+              <StepTrigger
+                {...triggerProps(step, index)}
+                className="flex h-3 flex-1 items-center rounded-full"
+              >
                 <span
                   className={cn(
                     "h-1 w-full rounded-full transition-colors duration-200",
@@ -224,60 +199,36 @@ function Stepper({
                         : "bg-muted"
                   )}
                 />
-              )}
-            </li>
+              </StepTrigger>
+            </Step>
           ))}
-        </ol>
+        </Steps>
       </nav>
     )
   }
 
-  const indicatorSize = small ? "size-6 text-xs" : "size-8 text-sm"
   const iconSize = small ? "size-3" : "size-4"
   // Half the indicator plus a little air, so connectors stop short of it.
   const connectorInset = small ? "calc(0.75rem + 0.5rem)" : "calc(1rem + 0.5rem)"
 
-  function rendersIndicator(step: StepperStep, index: number) {
-    const state = statesStep(step, index, value)
+  function rendersIndicator(step: StepperStep) {
     const StepIcon = step.icon
 
     return (
-      <span
-        data-slot="stepper-indicator"
-        className={cn(
-          "relative z-10 flex shrink-0 items-center justify-center font-medium transition-colors",
-          indicatorSize,
-          shape === "square" ? "rounded-md" : "rounded-full",
-          state === "complete" && "bg-primary text-primary-foreground",
-          state === "active" &&
-            "bg-primary text-primary-foreground ring-2 ring-primary/25 ring-offset-2 ring-offset-background",
-          state === "upcoming" && "bg-muted text-muted-foreground",
-          state === "loading" && "bg-muted text-foreground",
-          state === "error" && "bg-destructive text-white"
-        )}
-      >
-        {state === "complete" ? (
-          <CheckIcon aria-hidden className={iconSize} />
-        ) : state === "error" ? (
-          <XIcon aria-hidden className={iconSize} />
-        ) : state === "loading" ? (
-          <LoaderCircleIcon aria-hidden className={cn(iconSize, "animate-spin")} />
-        ) : StepIcon ? (
+      <StepIndicator size={size} shape={shape}>
+        {StepIcon ? (
           <StepIcon className={iconSize} />
-        ) : showNumbers ? (
-          index + 1
-        ) : (
+        ) : showNumbers ? undefined : (
           <span
             className={cn("rounded-full bg-current", small ? "size-1.5" : "size-2")}
           />
         )}
-      </span>
+      </StepIndicator>
     )
   }
 
-  function rendersLabel(step: StepperStep, index: number) {
+  function rendersLabel(step: StepperStep) {
     if (hideTitles || (!step.title && !step.description)) return null
-    const state = statesStep(step, index, value)
 
     return (
       <span
@@ -290,15 +241,7 @@ function Stepper({
         )}
       >
         {step.title ? (
-          <span
-            data-slot="stepper-title"
-            className={cn(
-              "font-medium whitespace-nowrap",
-              small ? "text-xs" : "text-sm",
-              state === "upcoming" && "text-muted-foreground",
-              state === "error" && "text-destructive"
-            )}
-          >
+          <StepTitle className={small ? "text-xs" : undefined}>
             {step.title}
             {step.required ? (
               <span aria-hidden className="text-destructive">
@@ -306,162 +249,126 @@ function Stepper({
                 *
               </span>
             ) : null}
-          </span>
+          </StepTitle>
         ) : null}
         {step.description ? (
-          <span
-            data-slot="stepper-description"
-            className={cn(
-              "text-muted-foreground",
-              small ? "text-[0.6875rem]" : "text-xs"
-            )}
-          >
+          <StepDescription className={small ? "text-[0.6875rem]" : undefined}>
             {step.description}
-          </span>
+          </StepDescription>
         ) : null}
       </span>
     )
   }
 
-  function connectorColor(index: number) {
-    return index < value ? "bg-primary" : "bg-border"
-  }
-
   // Vertical: indicator column with a line running down to the next step.
   const verticalList = (
-    <ol
-      className={cn("flex flex-col", responsive && "sm:hidden")}
-      data-orientation="vertical"
+    <Steps
+      {...stepsProps}
+      orientation="vertical"
+      className={cn(responsive && "sm:hidden")}
     >
       {steps.map((step, index) => {
         const last = index === steps.length - 1
 
         return (
-          <li key={step.id} data-slot="stepper-item" className="flex">
-            {rendersTarget(
-              step,
-              index,
-              cn(
-                "group flex flex-1 gap-3 rounded-md text-start",
-                focusRing
-              ),
-              <>
-                <span className="flex flex-col items-center">
-                  {rendersIndicator(step, index)}
-                  {!last && !hideConnectors ? (
-                    <span
-                      aria-hidden
-                      data-slot="stepper-connector"
-                      className={cn(
-                        "my-1.5 w-px flex-1 transition-colors",
-                        small ? "min-h-4" : "min-h-6",
-                        connectorColor(index)
-                      )}
-                    />
-                  ) : null}
-                </span>
-                <span
-                  className={cn(
-                    "flex min-w-0 flex-col",
-                    small ? "pt-0.5" : "pt-1.5",
-                    !last && (small ? "pb-4" : "pb-6")
-                  )}
-                >
-                  {rendersLabel(step, index)}
-                </span>
-              </>
-            )}
-          </li>
+          <Step key={step.id} {...stepProps(step, index)} className="flex">
+            <StepTrigger
+              {...triggerProps(step, index)}
+              className="group flex flex-1 gap-3 text-start"
+            >
+              <span className="flex flex-col items-center">
+                {rendersIndicator(step)}
+                {!last && !hideConnectors ? (
+                  <StepSeparator
+                    className={cn("my-1.5", small ? "min-h-4" : "min-h-6")}
+                  />
+                ) : null}
+              </span>
+              <span
+                className={cn(
+                  "flex min-w-0 flex-col",
+                  small ? "pt-0.5" : "pt-1.5",
+                  !last && (small ? "pb-4" : "pb-6")
+                )}
+              >
+                {rendersLabel(step)}
+              </span>
+            </StepTrigger>
+          </Step>
         )
       })}
-    </ol>
+    </Steps>
   )
 
   // Horizontal, labels under: equal columns, connectors bridge the centres.
   const bottomList = (
-    <ol
-      className={cn("flex w-full", responsive && "max-sm:hidden")}
-      data-orientation="horizontal"
+    <Steps
+      {...stepsProps}
+      className={cn("w-full items-stretch", responsive && "max-sm:hidden")}
     >
       {steps.map((step, index) => (
-        <li
+        <Step
           key={step.id}
-          data-slot="stepper-item"
+          {...stepProps(step, index)}
           className="relative flex min-w-0 flex-1 justify-center"
         >
           {index < steps.length - 1 && !hideConnectors ? (
-            <span
-              aria-hidden
-              data-slot="stepper-connector"
+            <StepSeparator
               style={{
                 left: `calc(50% + ${connectorInset})`,
                 right: `calc(-50% + ${connectorInset})`,
               }}
-              className={cn(
-                "absolute h-px transition-colors",
-                small ? "top-3" : "top-4",
-                connectorColor(index)
-              )}
+              className={cn("absolute min-w-0", small ? "top-3" : "top-4")}
             />
           ) : null}
-          {rendersTarget(
-            step,
-            index,
-            cn(
-              "group flex min-w-0 flex-col items-center gap-1.5 rounded-md px-1",
-              focusRing
-            ),
-            <>
-              {rendersIndicator(step, index)}
-              {rendersLabel(step, index)}
-            </>
-          )}
-        </li>
+          <StepTrigger
+            {...triggerProps(step, index)}
+            className="group flex min-w-0 flex-col items-center gap-1.5 px-1"
+          >
+            {rendersIndicator(step)}
+            {rendersLabel(step)}
+          </StepTrigger>
+        </Step>
       ))}
-    </ol>
+    </Steps>
   )
 
-  // Horizontal, labels beside: items in a row, connectors stretch between.
+  // Horizontal, labels beside: each step stretches its connector to the next.
   const endList = (
-    <ol
+    <Steps
+      {...stepsProps}
       className={cn(
         // Scrolls sideways rather than squeezing labels when space runs out.
-        "flex w-full items-center overflow-x-auto p-1 [scrollbar-width:none]",
+        "w-full overflow-x-auto p-1 [scrollbar-width:none]",
         responsive && "max-sm:hidden"
       )}
-      data-orientation="horizontal"
     >
-      {steps.map((step, index) => (
-        <React.Fragment key={step.id}>
-          {index > 0 && !hideConnectors ? (
-            <li
-              aria-hidden
-              data-slot="stepper-connector"
+      {steps.map((step, index) => {
+        const connects = index < steps.length - 1 && !hideConnectors
+
+        return (
+          <Step
+            key={step.id}
+            {...stepProps(step, index)}
+            className={cn("flex items-center", connects ? "flex-1" : "shrink-0")}
+          >
+            <StepTrigger
+              {...triggerProps(step, index)}
               className={cn(
-                "h-px flex-1 transition-colors",
-                small ? "mx-1 min-w-3" : "mx-2 min-w-4",
-                connectorColor(index - 1)
+                "group flex shrink-0 items-center",
+                small ? "gap-1.5 p-1" : "gap-2 p-1.5"
               )}
-            />
-          ) : null}
-          <li data-slot="stepper-item" className="flex shrink-0">
-            {rendersTarget(
-              step,
-              index,
-              cn(
-                "group flex items-center rounded-md",
-                small ? "gap-1.5 p-1" : "gap-2 p-1.5",
-                focusRing
-              ),
-              <>
-                {rendersIndicator(step, index)}
-                {rendersLabel(step, index)}
-              </>
-            )}
-          </li>
-        </React.Fragment>
-      ))}
-    </ol>
+            >
+              {rendersIndicator(step)}
+              {rendersLabel(step)}
+            </StepTrigger>
+            {connects ? (
+              <StepSeparator className={small ? "mx-1 min-w-3" : "mx-2"} />
+            ) : null}
+          </Step>
+        )
+      })}
+    </Steps>
   )
 
   return (

@@ -5,6 +5,7 @@ import { CircleCheckIcon } from "lucide-react"
 import { cn } from "cn"
 
 import { FieldLabel } from "@/components/standard/field-label"
+import { FieldMessageContext } from "@/hooks/use-field-validation"
 
 type ControlProps = {
   id?: string
@@ -16,7 +17,8 @@ type ControlProps = {
 /**
  * Wraps one control with a label, helper text and an error or success
  * message, and wires id, aria-describedby, aria-invalid and aria-required
- * onto the control for you.
+ * onto the control for you. Fields with built-in validation (TextField,
+ * Textarea) show their errors here instead of under themselves.
  */
 function FormField({
   className,
@@ -32,7 +34,7 @@ function FormField({
   required?: boolean
   /** Guidance shown under the control. Hidden while an error shows. */
   helper?: React.ReactNode
-  /** Error message. Also switches the control to its invalid style. */
+  /** Error message. Also switches the control to its invalid style. Wins over the control's own validation message. */
   error?: React.ReactNode
   /** Confirmation shown when the value is valid. Ignored while an error shows. */
   success?: React.ReactNode
@@ -42,7 +44,9 @@ function FormField({
   const controlId = children.props.id ?? `${autoId}-control`
   const helperId = `${autoId}-helper`
   const messageId = `${autoId}-message`
-  const hasError = Boolean(error)
+  const [reported, setReported] = React.useState<React.ReactNode>(null)
+  const shownError = error || reported
+  const hasError = Boolean(shownError)
   const showSuccess = !hasError && Boolean(success)
   const showHelper = !hasError && Boolean(helper)
 
@@ -61,6 +65,11 @@ function FormField({
     "aria-invalid": hasError || children.props["aria-invalid"] || undefined,
     "aria-required": required || children.props["aria-required"] || undefined,
   })
+  const field = (
+    <FieldMessageContext.Provider value={setReported}>
+      {control}
+    </FieldMessageContext.Provider>
+  )
 
   return (
     <div
@@ -73,7 +82,7 @@ function FormField({
           {label}
         </FieldLabel>
       ) : null}
-      {control}
+      {field}
       {showHelper ? (
         <p id={helperId} className="text-xs text-muted-foreground">
           {helper}
@@ -81,7 +90,7 @@ function FormField({
       ) : null}
       {hasError ? (
         <p id={messageId} role="alert" className="text-xs text-destructive">
-          {error}
+          {shownError}
         </p>
       ) : null}
       {showSuccess ? (

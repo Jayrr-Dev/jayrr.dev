@@ -50,6 +50,10 @@ type SwitchProps = Omit<React.ComponentProps<"button">, "onChange"> &
     labelPosition?: "start" | "end"
     /** Shows the error style. Same as passing aria-invalid. */
     invalid?: boolean
+    /** flip: a two-option segmented pill with a sliding thumb, like AM / PM. */
+    variant?: "default" | "flip"
+    /** Labels for the flip variant, [unchecked, checked]. */
+    flipLabels?: [React.ReactNode, React.ReactNode]
   }
 
 function Switch({
@@ -63,6 +67,8 @@ function Switch({
   description,
   labelPosition = "end",
   invalid,
+  variant = "default",
+  flipLabels = ["Off", "On"],
   id,
   ...props
 }: SwitchProps) {
@@ -102,11 +108,50 @@ function Switch({
       className={cn(
         "group/switch",
         switchVariants({ size }),
+        variant === "flip" &&
+          "grid h-8 w-auto min-w-24 items-stretch p-0 data-[checked=true]:bg-muted",
+        variant === "flip" && size === "sm" && "h-6 min-w-20",
         !hasLabel && className
       )}
       onClick={toggle}
     >
-      <span className={switchThumbVariants({ size })} />
+      {variant === "flip" ? (
+        <>
+          <span
+            aria-hidden
+            className={cn(
+              "absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full bg-background shadow-sm ring-1 ring-black/5 transition-transform dark:ring-white/10",
+              isOn && "translate-x-full"
+            )}
+          />
+          <span
+            className={cn(
+              "relative z-10 grid h-full grid-cols-2 items-center font-medium transition-colors",
+              size === "sm" ? "text-[10px]" : "text-xs"
+            )}
+          >
+            {[flipLabels[0], flipLabels[1]].map((text, index) => (
+              <span
+                key={index}
+                className={cn(
+                  "grid justify-items-center px-3",
+                  (index === 1) === isOn
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                {/* Both labels stacked (one hidden) so each half is as wide as the longest. */}
+                <span className="col-start-1 row-start-1">{text}</span>
+                <span aria-hidden className="invisible col-start-1 row-start-1">
+                  {flipLabels[index === 0 ? 1 : 0]}
+                </span>
+              </span>
+            ))}
+          </span>
+        </>
+      ) : (
+        <span className={switchThumbVariants({ size })} />
+      )}
     </button>
   )
 

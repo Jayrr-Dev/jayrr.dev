@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "action-wheel",
   "title": "Action Wheel",
-  "description": "Action Wheel from the Standard library.",
+  "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the center, a ring of solid circular actions, and a label card pushed outward from each one. Opens at the cursor on right-click via ActionWheelContextMenu. Actions with nested items open a submenu on an outer arc, and variant=\"arc\" drops the ring for a launcher that fans actions toward a direction. Labels always, on hover, or off (tooltips), full ring or arc via startAngle and sweep, solid, violet, primary, secondary, and surface tones, compact, default, medium, and large sizes, and arrow-key navigation.",
   "dependencies": [
     "cn",
     "lucide-react"

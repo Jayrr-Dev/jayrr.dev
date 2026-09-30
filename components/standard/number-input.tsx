@@ -26,7 +26,14 @@ function formatsNumber(value: number, digits?: number) {
 
 type NumberInputProps = Omit<
   React.ComponentProps<typeof TextField>,
-  "value" | "defaultValue" | "onChange" | "type" | "size"
+  | "value"
+  | "defaultValue"
+  | "onChange"
+  | "type"
+  | "size"
+  | "completion"
+  | "completionKeys"
+  | "ghost"
 > & {
   value: number | null | undefined
   /** Fires on blur and Enter with the clamped, rounded number. */

@@ -147,6 +147,6 @@ function RendersToolbarCountDemos() {
   )
 }
 
-export function RendersStandardToolbarCountDemo() {
+export function RendersToolbarCountDemo() {
   return <RendersToolbarCountDemos />
 }

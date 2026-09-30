@@ -5,15 +5,28 @@ import { createPortal } from "react-dom"
 import { cn } from "cn"
 
 import { TextField } from "@/components/standard/text-field"
+import { useInlineCompletion } from "@/hooks/use-inline-completion"
 
 type AutocompleteInputProps = Omit<
   React.ComponentProps<typeof TextField>,
-  "value" | "defaultValue" | "onChange" | "role"
+  // inlineCompletion below drives the ghost text from the highlighted option.
+  | "value"
+  | "defaultValue"
+  | "onChange"
+  | "role"
+  | "completion"
+  | "completionKeys"
+  | "ghost"
 > & {
   options: string[]
   value?: string
   defaultValue?: string
   onValueChange?: (value: string) => void
+  /**
+   * Shows the rest of the highlighted option as ghost text, accepted with Tab
+   * or ArrowRight. Options that start with the query sort first.
+   */
+  inlineCompletion?: boolean
 }
 
 function AutocompleteInput({
@@ -22,6 +35,7 @@ function AutocompleteInput({
   value,
   defaultValue = "",
   onValueChange,
+  inlineCompletion = false,
   disabled,
   id,
   ...props
@@ -41,11 +55,26 @@ function AutocompleteInput({
     left: number
     width: number
   } | null>(null)
-  const matches = options.filter((option) =>
-    option.toLowerCase().includes(query.trim().toLowerCase())
+  const needle = query.trim().toLowerCase()
+  const filtered = options.filter((option) =>
+    option.toLowerCase().includes(needle)
   )
+  const matches = inlineCompletion
+    ? [
+        ...filtered.filter((option) => option.toLowerCase().startsWith(needle)),
+        ...filtered.filter(
+          (option) => !option.toLowerCase().startsWith(needle)
+        ),
+      ]
+    : filtered
   const showList = open && !disabled && matches.length > 0
   const activeId = showList ? `${listId}-${active}` : undefined
+  const { suffix, getInputProps } = useInlineCompletion({
+    value: query,
+    completion: showList ? matches[active] : null,
+    disabled: !inlineCompletion || disabled,
+    onAccept: choose,
+  })
 
   function setQuery(next: string) {
     if (value === undefined) {
@@ -142,26 +171,29 @@ function AutocompleteInput({
         {...props}
         id={inputId}
         role="combobox"
-        aria-autocomplete="list"
         aria-expanded={showList}
         aria-controls={listId}
         aria-activedescendant={activeId}
         disabled={disabled}
         value={query}
-        onChange={(event) => {
-          setQuery(event.target.value)
-          setOpen(true)
-          setActive(0)
-        }}
-        onFocus={(event) => {
-          setOpen(true)
-          props.onFocus?.(event)
-        }}
-        onBlur={(event) => {
-          setOpen(false)
-          props.onBlur?.(event)
-        }}
-        onKeyDown={onKeyDown}
+        ghost={inlineCompletion ? suffix : undefined}
+        {...getInputProps({
+          "aria-autocomplete": inlineCompletion ? "both" : "list",
+          onChange(event: React.ChangeEvent<HTMLInputElement>) {
+            setQuery(event.target.value)
+            setOpen(true)
+            setActive(0)
+          },
+          onFocus(event: React.FocusEvent<HTMLInputElement>) {
+            setOpen(true)
+            props.onFocus?.(event)
+          },
+          onBlur(event: React.FocusEvent<HTMLInputElement>) {
+            setOpen(false)
+            props.onBlur?.(event)
+          },
+          onKeyDown,
+        })}
       />
       {mounted && showList && coords
         ? createPortal(
@@ -170,7 +202,11 @@ function AutocompleteInput({
               id={listId}
               role="listbox"
               aria-labelledby={props["aria-labelledby"]}
-              aria-label={props["aria-labelledby"] ? undefined : props["aria-label"] ?? props.placeholder}
+              aria-label={
+                props["aria-labelledby"]
+                  ? undefined
+                  : (props["aria-label"] ?? props.placeholder)
+              }
               data-slot="autocomplete-input-list"
               style={{
                 top: coords.top,

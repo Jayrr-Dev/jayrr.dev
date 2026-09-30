@@ -110,7 +110,14 @@ type InputFillDetails = {
 
 type InputFillProps = Omit<
   React.ComponentProps<typeof TextField>,
-  "value" | "defaultValue" | "onChange" | "type"
+  // The template fill already draws after the caret, so no ghost completion.
+  | "value"
+  | "defaultValue"
+  | "onChange"
+  | "type"
+  | "completion"
+  | "completionKeys"
+  | "ghost"
 > & {
   /** 9 = digit, a = letter, A = letter (uppercased), * = letter or digit. Anything else is a literal; escape a token with \\. */
   mask: string

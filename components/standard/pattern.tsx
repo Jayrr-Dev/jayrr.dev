@@ -432,7 +432,7 @@ function maskedTile(svg: string, color: string, width: number, height: number) {
   }
 }
 
-function patternBackground(
+function kindBackground(
   kind: PatternKind,
   size: number,
   thickness: number,
@@ -582,6 +582,22 @@ function patternBackground(
   }
 }
 
+type PatternLook = Pick<PatternProps, "kind" | "size" | "thickness" | "color">
+
+/**
+ * Background for a pattern look, for merging into a Surface's backgrounds.
+ * Tile kinds paint through a mask, so they come back with `maskImage` and
+ * can't be merged.
+ */
+function patternBackground({
+  kind = "dots",
+  size,
+  thickness = 1,
+  color = "color-mix(in oklch, var(--foreground) 18%, transparent)",
+}: PatternLook): React.CSSProperties {
+  return kindBackground(kind, size ?? defaultPatternSizes[kind], thickness, color)
+}
+
 /**
  * Repeating shapes. Basic: dots, grid, lines, diagonal, checker. Graphic:
  * waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and
@@ -590,13 +606,7 @@ function patternBackground(
  * sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard,
  * blueprint, fold.
  */
-function Pattern({
-  kind = "dots",
-  size,
-  thickness = 1,
-  color = "color-mix(in oklch, var(--foreground) 18%, transparent)",
-  ...layer
-}: PatternProps) {
+function Pattern({ kind = "dots", size, thickness, color, ...layer }: PatternProps) {
   const props = layerProps(layer, "pattern")
 
   return (
@@ -604,7 +614,7 @@ function Pattern({
       {...props}
       data-kind={kind}
       style={{
-        ...patternBackground(kind, size ?? defaultPatternSizes[kind], thickness, color),
+        ...patternBackground({ kind, size, thickness, color }),
         ...props.style,
       }}
     />
@@ -613,6 +623,7 @@ function Pattern({
 
 export {
   Pattern,
+  patternBackground,
   decorativePatternKinds,
   basicPatternKinds,
   graphicPatternKinds,

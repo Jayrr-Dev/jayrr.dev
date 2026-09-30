@@ -23,6 +23,15 @@ export function RendersDialogDemo() {
           controlsPlacement="gutter"
         />
       </RendersDemoCard>
+      <RendersDemoCard label="modal={false}">
+        <Dialog
+          modal={false}
+          title="Non-modal dialog"
+          description="No overlay. The page behind stays scrollable and clickable."
+          trigger="Open non-modal"
+          controls={["minimize", "maximize", "close"]}
+        />
+      </RendersDemoCard>
       <RendersDemoCard label="size sm">
         <Dialog
           size="sm"

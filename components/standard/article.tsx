@@ -115,20 +115,12 @@ function ArticleMeta({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-// Plain markup (no class) gets reading styles, so Markdown/CMS output looks
-// right. Anything with its own classes is left alone.
-const proseStyles = [
-  "[&_h2:not([class])]:mt-6 [&_h2:not([class])]:scroll-m-20 [&_h2:not([class])]:text-2xl [&_h2:not([class])]:font-semibold [&_h2:not([class])]:tracking-tight",
-  "[&_h3:not([class])]:mt-3 [&_h3:not([class])]:scroll-m-20 [&_h3:not([class])]:text-xl [&_h3:not([class])]:font-semibold",
-  "[&_p:not([class])]:leading-7 [&_p:not([class])]:text-pretty",
-  "[&_ul:not([class])]:list-disc [&_ul:not([class])]:space-y-2 [&_ul:not([class])]:pl-6",
-  "[&_ol:not([class])]:list-decimal [&_ol:not([class])]:space-y-2 [&_ol:not([class])]:pl-6",
-  "[&_li:not([class])]:leading-7 [&_li:not([class])]:marker:text-muted-foreground",
-  "[&_blockquote:not([class])]:border-l-2 [&_blockquote:not([class])]:pl-6 [&_blockquote:not([class])]:text-lg [&_blockquote:not([class])]:italic",
-  "[&_a:not([class])]:font-medium [&_a:not([class])]:underline [&_a:not([class])]:underline-offset-4",
-  "[&_code:not([class])]:rounded-md [&_code:not([class])]:bg-muted [&_code:not([class])]:px-1.5 [&_code:not([class])]:py-0.5 [&_code:not([class])]:font-mono [&_code:not([class])]:text-[0.875em]",
-  "[&_hr:not([class])]:my-4 [&_hr:not([class])]:border-border",
-].join(" ")
+// Reading styles come from typeset.css. The grid gap already spaces direct
+// children, so their typeset top margin is dropped, except headings, which
+// keep extra room above. Embedded components opt out with data-not-typeset.
+const gridFlow =
+  "[&>*]:mt-0 [&>h2]:mt-6 [&>h3]:mt-3 [&>[data-slot=article-section-title]]:mt-6"
+const proseStyles = `typeset typeset-article ${gridFlow}`
 
 // Named lines let any direct child pick a width through --article-col:
 // full | wide | content (default).
@@ -141,7 +133,7 @@ function ArticleContent({
   prose = true,
   ...props
 }: React.ComponentProps<"div"> & {
-  /** Style unclassed headings, paragraphs, lists, quotes, links and code. */
+  /** Apply typeset reading styles to headings, paragraphs, lists, quotes, links and code. */
   prose?: boolean
 }) {
   return (
@@ -166,7 +158,7 @@ const bleedColumn = {
 
 type ArticleBleed = keyof typeof bleedColumn
 
-const articleSectionVariants = cva("min-w-0", {
+const articleSectionVariants = cva(`min-w-0 ${gridFlow}`, {
   variants: {
     layout: {
       // Spans the full content grid as a subgrid, so its children can still
@@ -229,7 +221,7 @@ function ArticleSectionTitle({
 }
 
 const articleFigureVariants = cva(
-  "flex flex-col gap-3 [&_img]:w-full [&_img]:object-cover [&_video]:w-full",
+  "flex flex-col gap-3 [&_img]:mt-0 [&_img]:w-full [&_img]:object-cover [&_video]:mt-0 [&_video]:w-full",
   {
     variants: {
       bleed: {
@@ -267,7 +259,7 @@ function ArticleFigureCaption({
     <figcaption
       data-slot="article-figure-caption"
       className={cn(
-        "text-sm text-pretty text-muted-foreground [[data-bleed=full]_&]:px-4",
+        "mt-0 text-start text-sm text-pretty text-muted-foreground [[data-bleed=full]_&]:px-4",
         className
       )}
       {...props}

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import { BucketGallery } from "@/components/bucket-gallery"
+import { ModeToggle } from "@/components/standard/mode-toggle"
 
 export const metadata: Metadata = {
   title: "Gallery · jayrr.dev",
@@ -19,7 +20,10 @@ export default function GalleryPage() {
           >
             jayrr.dev
           </Link>
-          <h1 className="text-3xl font-medium tracking-tight">Gallery</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-medium tracking-tight">Gallery</h1>
+            <ModeToggle variant="toggle" tone="ghost" />
+          </div>
         </div>
 
         <BucketGallery />

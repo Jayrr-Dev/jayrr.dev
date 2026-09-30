@@ -1074,7 +1074,8 @@
           "animate-text-bang": "text-bang 1.5s ease-in-out infinite",
           "animate-text-ask": "text-ask 1.8s ease-in-out infinite",
           "animate-text-dots": "text-dots 1.2s steps(4, jump-none) infinite",
-          "animate-text-pop": "text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both"
+          "animate-text-pop": "text-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          "animate-text-fade": "text-fade 1.2s ease-out both"
         }
       },
       "css": {
@@ -1124,6 +1125,16 @@
           "to": {
             "transform": "translateY(0) scale(1)",
             "opacity": "1"
+          }
+        },
+        "@keyframes text-fade": {
+          "from": {
+            "opacity": "0",
+            "filter": "blur(4px)"
+          },
+          "to": {
+            "opacity": "1",
+            "filter": "blur(0)"
           }
         }
       },

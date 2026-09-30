@@ -19,6 +19,15 @@
     ]
   },
   {
+    "name": "Headline",
+    "type": "structure/layout",
+    "canonical": "text",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ]
+  },
+  {
     "name": "Caption",
     "type": "content/text",
     "canonical": "text",
@@ -51,8 +60,7 @@
     "import_path": "@/components/ui/kbd",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Text Effect",
@@ -78,8 +86,24 @@
     "import_path": "@/components/ui/math",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
+  },
+  {
+    "name": "Mood Text",
+    "type": "content/text",
+    "canonical": "text",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "mood-text",
+    "family_key": "mood-text",
+    "file_path": "components/standard/mood-text.tsx",
+    "import_path": "@/components/standard/mood-text",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Symbol",
@@ -115,7 +139,7 @@
     "name": "Info Icon",
     "type": "content/icon",
     "canonical": "icons",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -125,8 +149,7 @@
     "import_path": "@/components/ui/info-icon",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Image",
@@ -175,8 +198,7 @@
     "import_path": "@/components/ui/carousel",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Chart",
@@ -194,8 +216,7 @@
     "import_path": "@/components/ui/chart",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "chart-series",
-    "description": null
+    "mock_data_key": "chart-series"
   },
   {
     "name": "Table",
@@ -213,11 +234,10 @@
     "import_path": "@/components/ui/table",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
+    "mock_data_key": "table-rows"
   },
   {
-    "name": "Standard Grid",
+    "name": "Table Grid",
     "type": "content/data",
     "canonical": "tables",
     "tier": "block",
@@ -230,25 +250,23 @@
     "import_path": "@/components/ui/standard-grid",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
+    "mock_data_key": "table-rows"
   },
   {
-    "name": "Standard List",
+    "name": "Table List",
     "type": "content/data",
     "canonical": "tables",
-    "tier": "component",
+    "tier": "block",
     "demos": [
       "standard"
     ],
-    "key": "standard-list",
+    "key": "table-list",
     "family_key": "standard",
-    "file_path": "components/standard/standard-list.tsx",
-    "import_path": "@/components/standard/standard-list",
+    "file_path": "components/standard/table-list.tsx",
+    "import_path": "@/components/standard/table-list",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
+    "mock_data_key": "table-rows"
   },
   {
     "name": "Standard Table",
@@ -264,8 +282,7 @@
     "import_path": "@/components/ui/standard-table",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
+    "mock_data_key": "table-rows"
   },
   {
     "name": "Data Grid",
@@ -281,8 +298,23 @@
     "import_path": "@/components/standard/data-grid",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Excel-style spreadsheet grid with A1 coordinates and a Name Box, letter and number headers with optional labels, range selection, and keyboard navigation. Drag the fill handle down, right, or diagonally to continue number, date, weekday, and Item 1 series, or press Ctrl+D to copy the cell above. Insert, delete, duplicate, hide, and freeze rows and columns from the right-click menu or the + between headers. Opt-in sorting by header click, per-column filter buttons with value lists and conditions, and declarative JSON formatting rules that style cells, rows, or columns (background, text color, weight, decoration, alignment, borders, any CSS) when values match. Cells render components by type (text, number, checkbox, select, date, or your own), rows and columns are virtualized for 10,000+ rows, and every edit is a change list with undo and redo that onChanges or an adapter can sync to a database."
+    "mock_data_key": null
+  },
+  {
+    "name": "Spreadsheet",
+    "type": "content/data",
+    "canonical": "tables",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "key": "spreadsheet",
+    "family_key": "standard",
+    "file_path": "components/standard/spreadsheet.tsx",
+    "import_path": "@/components/standard/spreadsheet",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Data Table",
@@ -298,8 +330,7 @@
     "import_path": "@/components/standard/data-table",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "TanStack Table v9 data table. Sort by header click, search every column, filter by text or by a column's distinct values, and page through rows. Select rows with a checkbox column and run bulk actions on the selection. Resize, drag to reorder, pin to either edge, and hide columns; switch between compact, default and comfortable density. Show nested rows as an expandable tree with getSubRows, edit cells in place, and export the filtered rows as CSV or JSON."
+    "mock_data_key": null
   },
   {
     "name": "Button",
@@ -317,8 +348,7 @@
     "import_path": "@/components/ui/button",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Button Group",
@@ -335,8 +365,7 @@
     "import_path": "@/components/ui/button-group",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Button Array",
@@ -352,14 +381,13 @@
     "import_path": "@/components/ui/button-array",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Refresh Button",
     "type": "interaction/action",
     "canonical": "buttons",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -369,8 +397,7 @@
     "import_path": "@/components/ui/refresh-button",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Floating Action Button",
@@ -386,8 +413,7 @@
     "import_path": "@/components/standard/fab",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Material 3 FAB in FAB, medium, and large sizes with primary, secondary, and surface tones, extended labels, and the expressive FAB menu, plus utilitek's 32px compact chrome that grows into a pill on hover, a corner-pinned FabStack, and scroll collapse/hide."
+    "mock_data_key": null
   },
   {
     "name": "Action Wheel",
@@ -403,8 +429,7 @@
     "import_path": "@/components/standard/action-wheel",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the center, a ring of solid circular actions, and a label card pushed outward from each one. Opens at the cursor on right-click via ActionWheelContextMenu. Actions with nested items open a submenu on an outer arc, and variant=\"arc\" drops the ring for a launcher that fans actions toward a direction. Labels always, on hover, or off (tooltips), full ring or arc via startAngle and sweep, solid, violet, primary, secondary, and surface tones, compact, default, medium, and large sizes, and arrow-key navigation."
+    "mock_data_key": null
   },
   {
     "name": "Toolbar",
@@ -420,8 +445,7 @@
     "import_path": "@/components/standard/toolbar",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select, plus a Material 3 docked variant (standard or vibrant) for the bottom edge of a screen."
+    "mock_data_key": null
   },
   {
     "name": "Cursor",
@@ -437,8 +461,23 @@
     "import_path": "@/components/standard/cursor",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Replaces the native cursor. Variants: dot, ring, dot-ring, crosshair, spotlight, blend, arrow, trail. Scoped to children or global."
+    "mock_data_key": null
+  },
+  {
+    "name": "Cursor Label",
+    "type": "interaction/action",
+    "canonical": "cursor",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "cursor-label",
+    "family_key": "cursor",
+    "file_path": "components/standard/cursor-label.tsx",
+    "import_path": "@/components/standard/cursor-label",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Link",
@@ -463,7 +502,7 @@
     "name": "Navigation Menu",
     "type": "interaction/navigation",
     "canonical": "navigation",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "classic"
     ],
@@ -474,14 +513,13 @@
     "import_path": "@/components/ui/navigation-menu",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
   },
   {
     "name": "Pagination",
     "type": "interaction/navigation",
     "canonical": "navigation",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "classic"
     ],
@@ -491,7 +529,7 @@
     "name": "Menubar",
     "type": "interaction/navigation",
     "canonical": "menus",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "classic"
     ],
@@ -523,8 +561,23 @@
     "import_path": "@/components/ui/tabs",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
+  },
+  {
+    "name": "Dynamic Tabs",
+    "type": "interaction/navigation",
+    "canonical": "tabs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "dynamic-tabs",
+    "family_key": "tabs",
+    "file_path": "components/standard/dynamic-tabs.tsx",
+    "import_path": "@/components/standard/dynamic-tabs",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "App Bar",
@@ -540,8 +593,7 @@
     "import_path": "@/components/standard/app-bar",
     "preview_mode": "dialog",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Material 3 top app bar: Small, Medium and Large flexible (big title that collapses on scroll), and Search, with leading nav, trailing actions and a fill on scroll."
+    "mock_data_key": null
   },
   {
     "name": "Control Bar",
@@ -557,8 +609,7 @@
     "import_path": "@/components/ui/control-bar",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
   },
   {
     "name": "Navigation Bar",
@@ -574,8 +625,7 @@
     "import_path": "@/components/standard/navigation",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
   },
   {
     "name": "Navigation Drawer",
@@ -591,8 +641,7 @@
     "import_path": "@/components/standard/navigation",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
   },
   {
     "name": "Navigation Rail",
@@ -608,8 +657,7 @@
     "import_path": "@/components/standard/navigation",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
   },
   {
     "name": "Text field",
@@ -636,7 +684,8 @@
     "canonical": "inputs",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ],
     "installed": true,
     "key": "input",
@@ -645,8 +694,7 @@
     "import_path": "@/components/ui/input",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Textarea",
@@ -664,8 +712,7 @@
     "import_path": "@/components/ui/textarea",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Input OTP",
@@ -683,8 +730,7 @@
     "import_path": "@/components/ui/input-otp",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Input Group",
@@ -712,8 +758,7 @@
     "import_path": "@/components/ui/select",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
+    "mock_data_key": "pickers"
   },
   {
     "name": "Native Select",
@@ -751,8 +796,7 @@
     "import_path": "@/components/ui/command",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Field",
@@ -770,8 +814,7 @@
     "import_path": "@/components/ui/field",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Slider",
@@ -798,8 +841,7 @@
     "import_path": "@/components/ui/calendar",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "calendar",
-    "description": null
+    "mock_data_key": "calendar"
   },
   {
     "name": "Autocomplete Input",
@@ -815,14 +857,13 @@
     "import_path": "@/components/ui/autocomplete-input",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Form",
     "type": "interaction/input",
     "canonical": "forms",
-    "tier": "block",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -832,8 +873,7 @@
     "import_path": "@/components/ui/form",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Image Upload",
@@ -849,8 +889,7 @@
     "import_path": "@/components/ui/image-upload",
     "preview_mode": "dialog",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Number Input",
@@ -866,8 +905,7 @@
     "import_path": "@/components/standard/number-input",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Text box for numbers: digits only, clamps to min/max and rounds on blur, Enter jumps to the next field."
+    "mock_data_key": null
   },
   {
     "name": "Phone Input",
@@ -883,8 +921,7 @@
     "import_path": "@/components/standard/phone-input",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Phone number field with a searchable country picker: formats as you type and reports E.164."
+    "mock_data_key": null
   },
   {
     "name": "Rater",
@@ -900,8 +937,23 @@
     "import_path": "@/components/standard/rater",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Star rating: pick a score with pointer or arrow keys, in whole or half steps, with any icon or one per position."
+    "mock_data_key": null
+  },
+  {
+    "name": "Thumbs",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "thumbs",
+    "family_key": "thumbs",
+    "file_path": "components/standard/thumbs.tsx",
+    "import_path": "@/components/standard/thumbs",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Input Fill",
@@ -917,14 +969,29 @@
     "import_path": "@/components/standard/input-fill",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Masked text field for phones, dates, cards and codes: inserts literals as you type and keeps the rest of the template visible as a faint fill."
+    "mock_data_key": null
+  },
+  {
+    "name": "Input Calculator",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "input-calculator",
+    "family_key": "input",
+    "file_path": "components/standard/input-calculator.tsx",
+    "import_path": "@/components/standard/input-calculator",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Lexical Editor",
     "type": "interaction/input",
     "canonical": "inputs",
-    "tier": "block",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -934,8 +1001,7 @@
     "import_path": "@/components/standard/lexical-editor",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Rich text editor built on Lexical with the Standard Toolbar: block types, history, text formats, alignment, and Markdown shortcuts."
+    "mock_data_key": null
   },
   {
     "name": "Date Picker",
@@ -951,8 +1017,7 @@
     "import_path": "@/components/ui/date-picker",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "calendar",
-    "description": null
+    "mock_data_key": "calendar"
   },
   {
     "name": "Time Picker",
@@ -968,8 +1033,7 @@
     "import_path": "@/components/standard/time-picker",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Material 3 time picker: drag the clock dial or type the time, AM/PM or 24-hour, Cancel/OK in a popover."
+    "mock_data_key": null
   },
   {
     "name": "Filter Select",
@@ -985,8 +1049,7 @@
     "import_path": "@/components/ui/filter-select",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
+    "mock_data_key": "pickers"
   },
   {
     "name": "Miller Select",
@@ -1002,8 +1065,7 @@
     "import_path": "@/components/standard/miller-select",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": "Miller-column picker from the utilitek timesheet Work Performed field: sections as tabs, then group, header, and checkbox columns side by side, with a search that lists matches from every group. Popover on desktop, stacked bottom sheet on mobile."
+    "mock_data_key": "pickers"
   },
   {
     "name": "Dialslide",
@@ -1019,8 +1081,7 @@
     "import_path": "@/components/standard/dialslide",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Horizontal slider for any row, with a calendar variant: scroll buttons, drag, keyboard and edge fades."
+    "mock_data_key": null
   },
   {
     "name": "Checkbox",
@@ -1038,8 +1099,7 @@
     "import_path": "@/components/ui/checkbox",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Radio Group",
@@ -1057,8 +1117,7 @@
     "import_path": "@/components/ui/radio-group",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Toggle",
@@ -1070,6 +1129,23 @@
       "standard"
     ],
     "installed": true
+  },
+  {
+    "name": "Mode Toggle",
+    "type": "interaction/selection",
+    "canonical": "toggles",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "mode-toggle",
+    "family_key": "mode-toggle",
+    "file_path": "components/standard/mode-toggle.tsx",
+    "import_path": "@/components/standard/mode-toggle",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Toggle Group",
@@ -1097,8 +1173,7 @@
     "import_path": "@/components/ui/switch",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Badge Select",
@@ -1114,8 +1189,7 @@
     "import_path": "@/components/ui/badge-select",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
+    "mock_data_key": "pickers"
   },
   {
     "name": "Label",
@@ -1133,8 +1207,7 @@
     "import_path": "@/components/ui/label",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Badge",
@@ -1152,8 +1225,7 @@
     "import_path": "@/components/ui/badge",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Item",
@@ -1179,8 +1251,7 @@
     "import_path": "@/components/standard/pill",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Split badge with a muted label on the left and a contrasting value on the right, in four corner radii."
+    "mock_data_key": null
   },
   {
     "name": "Chip",
@@ -1196,8 +1267,7 @@
     "import_path": "@/components/standard/chip",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Pressable tag: filter/selection chips with a check when on, action chips with an icon, and removable filter chips. Looks interactive so it is never mistaken for a Badge."
+    "mock_data_key": null
   },
   {
     "name": "Spinner",
@@ -1215,8 +1285,7 @@
     "import_path": "@/components/ui/spinner",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "signals-loading",
-    "description": null
+    "mock_data_key": "signals-loading"
   },
   {
     "name": "Progress",
@@ -1234,8 +1303,7 @@
     "import_path": "@/components/ui/progress",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "chart-series",
-    "description": null
+    "mock_data_key": "chart-series"
   },
   {
     "name": "Progress Ring",
@@ -1263,8 +1331,7 @@
     "import_path": "@/components/ui/skeleton",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "signals-loading",
-    "description": null
+    "mock_data_key": "signals-loading"
   },
   {
     "name": "Empty",
@@ -1290,8 +1357,7 @@
     "import_path": "@/components/standard/notification-badge",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Unread marker pinned to an icon: dot, count, or capped count (999+). Red alert tone by default, with brand and neutral tones for non-urgent counts."
+    "mock_data_key": null
   },
   {
     "name": "Indicator",
@@ -1307,25 +1373,23 @@
     "import_path": "@/components/standard/indicator",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Presence dot for avatars and people lists: online, away, busy, offline. Its own colour set, so busy red never reads as unread."
+    "mock_data_key": null
   },
   {
-    "name": "Standard Toolbar Count",
+    "name": "Toolbar Count",
     "type": "meaning/indicator",
     "canonical": "badges",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "standard"
     ],
-    "key": "standard-toolbar-count",
+    "key": "toolbar-count",
     "family_key": "standard",
     "file_path": "components/standard/toolbar-count.tsx",
     "import_path": "@/components/standard/toolbar-count",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Toolbar counts: result text, filtered-of-total, pill, corner badge on a button, and a selection chip with clear."
+    "mock_data_key": null
   },
   {
     "name": "Loading State",
@@ -1341,18 +1405,7 @@
     "import_path": "@/components/ui/loading-state",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "signals-loading",
-    "description": null
-  },
-  {
-    "name": "Sonner",
-    "type": "meaning/feedback",
-    "canonical": "notifications",
-    "tier": "primitive",
-    "demos": [
-      "classic"
-    ],
-    "installed": true
+    "mock_data_key": "signals-loading"
   },
   {
     "name": "Alert",
@@ -1370,8 +1423,7 @@
     "import_path": "@/components/ui/alert",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
+    "mock_data_key": "signals-alert"
   },
   {
     "name": "Banner",
@@ -1388,8 +1440,7 @@
     "import_path": "@/components/standard/banner",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Announcement bar, inline or floating on any edge, static or scrolling like a stock ticker."
+    "mock_data_key": null
   },
   {
     "name": "Toast",
@@ -1397,16 +1448,17 @@
     "canonical": "notifications",
     "tier": "primitive",
     "demos": [
+      "classic",
       "standard"
     ],
+    "installed": true,
     "key": "toast",
     "family_key": "alert",
-    "file_path": "utils/toast-logger.ts",
-    "import_path": "@/utils/toast-logger",
+    "file_path": "components/standard/toast.tsx",
+    "import_path": "@/components/standard/toast",
     "preview_mode": "dialog",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Card",
@@ -1424,8 +1476,7 @@
     "import_path": "@/components/ui/card",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
+    "mock_data_key": "table-rows"
   },
   {
     "name": "Accordion",
@@ -1443,8 +1494,7 @@
     "import_path": "@/components/ui/accordion",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Collapsible",
@@ -1497,6 +1547,23 @@
     "installed": true
   },
   {
+    "name": "List",
+    "type": "structure/surface",
+    "canonical": "cards",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "list",
+    "family_key": "bar",
+    "file_path": "components/standard/list.tsx",
+    "import_path": "@/components/standard/list",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Card Bar",
     "type": "structure/surface",
     "canonical": "cards",
@@ -1510,8 +1577,7 @@
     "import_path": "@/components/ui/card-bar",
     "preview_mode": "inline",
     "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
+    "mock_data_key": "table-rows"
   },
   {
     "name": "Dialog",
@@ -1529,8 +1595,7 @@
     "import_path": "@/components/ui/dialog",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Alert Dialog",
@@ -1547,8 +1612,7 @@
     "import_path": "@/components/ui/alert-dialog",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Sheet",
@@ -1566,8 +1630,7 @@
     "import_path": "@/components/ui/sheet",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Drawer",
@@ -1595,8 +1658,24 @@
     "import_path": "@/components/ui/popover",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
+  },
+  {
+    "name": "Floating Window",
+    "type": "structure/overlay",
+    "canonical": "popovers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "floating-window",
+    "family_key": "floating-window",
+    "file_path": "components/standard/floating-window.tsx",
+    "import_path": "@/components/standard/floating-window",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Hover Card",
@@ -1624,8 +1703,23 @@
     "import_path": "@/components/ui/tooltip",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
+  },
+  {
+    "name": "Responsive Tooltip",
+    "type": "structure/overlay",
+    "canonical": "popovers",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "responsive-tooltip",
+    "family_key": "popover",
+    "file_path": "components/standard/responsive-tooltip.tsx",
+    "import_path": "@/components/standard/responsive-tooltip",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Dropdown Menu",
@@ -1643,8 +1737,7 @@
     "import_path": "@/components/ui/dropdown-menu",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Context Menu",
@@ -1662,8 +1755,7 @@
     "import_path": "@/components/ui/context-menu",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Confirm Dialog",
@@ -1679,25 +1771,40 @@
     "import_path": "@/components/ui/confirm-dialog",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
   },
   {
     "name": "Tabbed Dialog",
     "type": "structure/overlay",
     "canonical": "dialogs",
-    "tier": "block",
+    "tier": "component",
     "demos": [
       "standard"
     ],
     "key": "tabbed-dialog",
     "family_key": "dialog",
-    "file_path": "components/ui/tabbed-dialog.tsx",
-    "import_path": "@/components/ui/tabbed-dialog",
+    "file_path": "components/standard/tabbed-dialog.tsx",
+    "import_path": "@/components/standard/tabbed-dialog",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "mock_data_key": "overlay-body"
+  },
+  {
+    "name": "Arrangeable Grid",
+    "type": "interaction/action",
+    "canonical": "layout",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "arrangeable-grid",
+    "family_key": "arrangeable-grid",
+    "file_path": "components/standard/arrangeable-grid.tsx",
+    "import_path": "@/components/standard/arrangeable-grid",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Draggable",
@@ -1714,8 +1821,24 @@
     "import_path": "@/components/standard/draggable",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Sortable list: drag rows, grid chips or a horizontal strip by pointer or keyboard, whole item or grip, and move items between lists."
+    "mock_data_key": null
+  },
+  {
+    "name": "Gantt",
+    "type": "content/data",
+    "canonical": "charts",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "gantt",
+    "family_key": "gantt",
+    "file_path": "components/standard/gantt.tsx",
+    "import_path": "@/components/standard/gantt",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Kanban",
@@ -1732,14 +1855,30 @@
     "import_path": "@/components/standard/kanban",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Board of columns with cards that drag between them, column counts and limits, and an Add card button."
+    "mock_data_key": null
+  },
+  {
+    "name": "Steps",
+    "type": "meaning/indicator",
+    "canonical": "loading",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "steps",
+    "family_key": "nav",
+    "file_path": "components/standard/step.tsx",
+    "import_path": "@/components/standard/step",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Stepper",
     "type": "meaning/indicator",
     "canonical": "loading",
-    "tier": "primitive",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -1750,8 +1889,7 @@
     "import_path": "@/components/standard/stepper",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Step progress for multi-step flows: numbers, icons or dots, labels beside or under, horizontal, vertical or responsive."
+    "mock_data_key": null
   },
   {
     "name": "Wizard",
@@ -1767,14 +1905,13 @@
     "import_path": "@/components/standard/wizard",
     "preview_mode": "dialog",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue."
+    "mock_data_key": null
   },
   {
     "name": "Popover Wizard",
     "type": "structure/overlay",
     "canonical": "popovers",
-    "tier": "block",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -1784,8 +1921,7 @@
     "import_path": "@/components/standard/popover-wizard",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Small multi-step panel anchored to its trigger: header dots, Back and Next, for tours and quick setup."
+    "mock_data_key": null
   },
   {
     "name": "Separator",
@@ -1803,8 +1939,7 @@
     "import_path": "@/components/ui/separator",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Stack",
@@ -1826,6 +1961,57 @@
     "installed": true
   },
   {
+    "name": "Array",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "array",
+    "family_key": "array",
+    "file_path": "components/standard/array.tsx",
+    "import_path": "@/components/standard/array",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Bar",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "bar",
+    "family_key": "bar",
+    "file_path": "components/standard/bar.tsx",
+    "import_path": "@/components/standard/bar",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Increment",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "increment",
+    "family_key": "input",
+    "file_path": "components/standard/increment.tsx",
+    "import_path": "@/components/standard/increment",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Resizable",
     "type": "structure/layout",
     "canonical": "layout",
@@ -1840,8 +2026,7 @@
     "import_path": "@/components/ui/resizable",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Scroll Area",
@@ -1859,8 +2044,7 @@
     "import_path": "@/components/ui/scroll-area",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Direction",
@@ -1876,11 +2060,13 @@
     "name": "Message Scroller",
     "type": "structure/layout",
     "canonical": "chat",
-    "tier": "block",
+    "tier": "component",
     "demos": [
       "classic"
     ],
-    "installed": true
+    "installed": true,
+    "file_path": "components/ui/message-scroller.tsx",
+    "import_path": "@/components/ui/message-scroller"
   },
   {
     "name": "Scroll Horizontal Button",
@@ -1896,8 +2082,7 @@
     "import_path": "@/components/ui/scroll-horizontal-button",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
   },
   {
     "name": "Article",
@@ -1913,14 +2098,22 @@
     "import_path": "@/components/standard/article",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
+  },
+  {
+    "name": "Hero Card",
+    "type": "structure/layout",
+    "canonical": "text",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ]
   },
   {
     "name": "Bento Grid",
     "type": "structure/layout",
     "canonical": "layout",
-    "tier": "block",
+    "tier": "primitive",
     "demos": [
       "standard"
     ],
@@ -1930,14 +2123,61 @@
     "import_path": "@/components/standard/bento-grid",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
+    "mock_data_key": null
+  },
+  {
+    "name": "Card Grid",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "card-grid",
+    "family_key": "grid",
+    "file_path": "components/standard/card-grid.tsx",
+    "import_path": "@/components/standard/card-grid",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Infinite Scroll",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "infinite-scroll",
+    "family_key": "grid",
+    "file_path": "components/standard/infinite-scroll.tsx",
+    "import_path": "@/components/standard/infinite-scroll",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Parallax",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "key": "parallax",
+    "family_key": "parallax",
+    "file_path": "components/standard/parallax.tsx",
+    "import_path": "@/components/standard/parallax",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "App Grid",
     "type": "structure/layout",
     "canonical": "layout",
-    "tier": "block",
+    "tier": "component",
     "demos": [
       "standard"
     ],
@@ -1947,8 +2187,24 @@
     "import_path": "@/components/standard/app-grid",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Launcher grid of folders; the fourth slot shows a mini cluster that opens the full folder."
+    "mock_data_key": null
+  },
+  {
+    "name": "Infinite Canvas",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "infinite-canvas",
+    "family_key": "infinite-canvas",
+    "file_path": "components/standard/infinite-canvas.tsx",
+    "import_path": "@/components/standard/infinite-canvas",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Page Header",
@@ -1964,8 +2220,7 @@
     "import_path": "@/components/ui/page-header",
     "preview_mode": "dialog",
     "needs_mock_data": true,
-    "mock_data_key": "nav-items",
-    "description": null
+    "mock_data_key": "nav-items"
   },
   {
     "name": "Gradient",
@@ -1982,8 +2237,7 @@
     "import_path": "@/components/standard/gradient",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Color transition layer: linear, radial, conic or mesh. Behind or over any relative isolate box."
+    "mock_data_key": null
   },
   {
     "name": "Noise",
@@ -2000,8 +2254,7 @@
     "import_path": "@/components/standard/noise",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Random texture layer: grain, paper fibers or clouds, from SVG turbulence. Optional film jitter."
+    "mock_data_key": null
   },
   {
     "name": "Pattern",
@@ -2018,8 +2271,7 @@
     "import_path": "@/components/standard/pattern",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Repeating shape layer. Basic: dots, grid, lines, diagonal, checker. Graphic: waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and dashed diagonals, band. Decorative: speed lines, motion lines, sunburst, seigaiha, asanoha, kikko, shippo, sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard, blueprint, fold."
+    "mock_data_key": null
   },
   {
     "name": "Screentone",
@@ -2036,8 +2288,7 @@
     "import_path": "@/components/standard/screentone",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Manga halftone tone: dots, lines, crosshatch, diamonds, rings or noise that grow with a graded tone (top, bottom, center, edges, corner) or an organic one (clouds, folds, marble, streaks). Optional rough printed edges."
+    "mock_data_key": null
   },
   {
     "name": "Shader",
@@ -2055,8 +2306,7 @@
     "import_path": "@/components/standard/shader",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "WebGL shader layer from Paper Shaders. Color: mesh, static mesh, static radial, grain, color panels. Noise: perlin, simplex, neuro, voronoi, warp, swirl, spiral, waves. Dots: dot orbit, dot grid, dithering, metaballs. Light: spotlight, stage beams, shine sweep, bokeh, god rays, smoke ring, pulsing border, aurora. Fractal: mandelbrot dive, julia, burning ship, newton, sierpinski carpet, apollonian gasket. Retro: hypno, plasma, tunnel, kaleidoscope, starfield. Code: matrix rain, hacker terminal, synthwave. Each with presets."
+    "mock_data_key": null
   },
   {
     "name": "Image Shader",
@@ -2074,8 +2324,7 @@
     "import_path": "@/components/standard/image-shader",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "WebGL image effect layer from Paper Shaders. Filter: paper texture, fluted glass, water, dithering, halftone dots, halftone CMYK, lens distortion. Logo: heatmap, liquid metal, gem smoke. Takes a same-origin or CORS image src, with Paper's presets."
+    "mock_data_key": null
   },
   {
     "name": "Color Grade",
@@ -2092,8 +2341,24 @@
     "import_path": "@/components/standard/color-grade",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Color treatment: sepia, black and white, noir, vivid, muted, vintage, warm, cool, duotone. Wraps content or grades the backdrop."
+    "mock_data_key": null
+  },
+  {
+    "name": "Color Picker",
+    "type": "interaction/input",
+    "canonical": "inputs",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "color-picker",
+    "family_key": "color-picker",
+    "file_path": "components/standard/color-picker.tsx",
+    "import_path": "@/components/standard/color-picker",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Distort",
@@ -2110,8 +2375,7 @@
     "import_path": "@/components/standard/distort",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Spatial effect: waves, ripple, warp or blur, optionally animated. Wraps content or distorts the backdrop."
+    "mock_data_key": null
   },
   {
     "name": "Mask",
@@ -2128,14 +2392,47 @@
     "import_path": "@/components/standard/mask",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Soft alpha cutout: fade, edges, vignette or spotlight. Wraps content or groups other layers."
+    "mock_data_key": null
+  },
+  {
+    "name": "Surface",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "surface",
+    "family_key": "layer",
+    "file_path": "components/standard/surface.tsx",
+    "import_path": "@/components/standard/surface",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Art",
+    "type": "structure/layer",
+    "canonical": "layers",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "art",
+    "family_key": "layer",
+    "file_path": "components/standard/art.tsx",
+    "import_path": "@/components/standard/art",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Flip-Dots",
     "type": "content/media",
     "canonical": "media",
-    "tier": "block",
+    "tier": "primitive",
     "demos": [
       "standard"
     ],
@@ -2146,8 +2443,7 @@
     "import_path": "@/components/standard/flip-dots",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Electromechanical flip-dot board: discs flip edge-on in a column sweep. Marquee, clock, Life, rain and more patterns, or paint dots by hand."
+    "mock_data_key": null
   },
   {
     "name": "Cell Grid",
@@ -2164,8 +2460,7 @@
     "import_path": "@/components/standard/cell-grid",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Grid of equal cells on a color ramp, filled by row or by column, with per-cell colors, marks and keyboard selection. The base of heatmaps, timelines and seat maps."
+    "mock_data_key": null
   },
   {
     "name": "Heatmap",
@@ -2182,8 +2477,7 @@
     "import_path": "@/components/standard/heatmap",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Matrix of values shaded on a ramp, with row and column labels, a Less-More legend and a readout of the hovered cell."
+    "mock_data_key": null
   },
   {
     "name": "Calendar Heatmap",
@@ -2200,8 +2494,7 @@
     "import_path": "@/components/standard/calendar-heatmap",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Contribution graph: a cell per day, a column per week, month and weekday labels, today marked."
+    "mock_data_key": null
   },
   {
     "name": "Activity Overview",
@@ -2218,14 +2511,81 @@
     "import_path": "@/components/standard/activity-overview",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "A year of activity: headline total, streak stats, a contribution graph and a panel for the picked day."
+    "mock_data_key": null
+  },
+  {
+    "name": "Timeline",
+    "type": "content/data",
+    "canonical": "layout",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "timeline",
+    "family_key": "timeline",
+    "file_path": "components/standard/timeline.tsx",
+    "import_path": "@/components/standard/timeline",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Comments",
+    "type": "structure/surface",
+    "canonical": "forms",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "comments",
+    "family_key": "comments",
+    "file_path": "components/standard/comments.tsx",
+    "import_path": "@/components/standard/comments",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Chat Card",
+    "type": "structure/surface",
+    "canonical": "chat",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "chat",
+    "family_key": "chat",
+    "file_path": "components/standard/chat.tsx",
+    "import_path": "@/components/standard/chat",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Character Chat",
+    "type": "structure/surface",
+    "canonical": "chat",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "character-chat",
+    "family_key": "character-chat",
+    "file_path": "components/standard/character-chat.tsx",
+    "import_path": "@/components/standard/character-chat",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   },
   {
     "name": "Digital Clock",
     "type": "content/data",
     "canonical": "calendar",
-    "tier": "block",
+    "tier": "primitive",
     "demos": [
       "standard"
     ],
@@ -2236,7 +2596,346 @@
     "import_path": "@/components/standard/digital-clock",
     "preview_mode": "inline",
     "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Seven-segment LED clock: slanted bevelled digits, blinking colon and faint unlit segments. 12/24-hour, seconds, time zones, optional housing."
+    "mock_data_key": null
+  },
+  {
+    "name": "PDF Display",
+    "type": "content/media",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "pdf-display",
+    "family_key": "pdf-display",
+    "file_path": "components/standard/pdf-display.tsx",
+    "import_path": "@/components/standard/pdf-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Markdown Display",
+    "type": "content/text",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "markdown-display",
+    "family_key": "markdown-display",
+    "file_path": "components/standard/markdown-display.tsx",
+    "import_path": "@/components/standard/markdown-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "SVG Display",
+    "type": "content/media",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "svg-display",
+    "family_key": "svg-display",
+    "file_path": "components/standard/svg-display.tsx",
+    "import_path": "@/components/standard/svg-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Video Display",
+    "type": "content/media",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "video-display",
+    "family_key": "video-display",
+    "file_path": "components/standard/video-display.tsx",
+    "import_path": "@/components/standard/video-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Audio Display",
+    "type": "content/media",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "audio-display",
+    "family_key": "audio-display",
+    "file_path": "components/standard/audio-display.tsx",
+    "import_path": "@/components/standard/audio-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "JSON Display",
+    "type": "content/data",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "json-display",
+    "family_key": "json-display",
+    "file_path": "components/standard/json-display.tsx",
+    "import_path": "@/components/standard/json-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "JSON Viewer",
+    "type": "content/data",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "json-viewer",
+    "family_key": "json-viewer",
+    "file_path": "components/standard/json-viewer.tsx",
+    "import_path": "@/components/standard/json-viewer",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Draw Display",
+    "type": "content/media",
+    "canonical": "displays",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "draw-display",
+    "family_key": "draw-display",
+    "file_path": "components/standard/draw-display.tsx",
+    "import_path": "@/components/standard/draw-display",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Social Media Buttons",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "social-media-buttons",
+    "family_key": "social-media-buttons",
+    "file_path": "components/standard/social-media-buttons.tsx",
+    "import_path": "@/components/standard/social-media-buttons",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Share Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "share-button",
+    "family_key": "share-button",
+    "file_path": "components/standard/share-button.tsx",
+    "import_path": "@/components/standard/share-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Print Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "print-button",
+    "family_key": "print-button",
+    "file_path": "components/standard/print-button.tsx",
+    "import_path": "@/components/standard/print-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Excel Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "excel-button",
+    "family_key": "excel-button",
+    "file_path": "components/standard/excel-button.tsx",
+    "import_path": "@/components/standard/excel-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "CSV Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "csv-button",
+    "family_key": "csv-button",
+    "file_path": "components/standard/csv-button.tsx",
+    "import_path": "@/components/standard/csv-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Download Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "download-button",
+    "family_key": "download-button",
+    "file_path": "components/standard/download-button.tsx",
+    "import_path": "@/components/standard/download-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Upload Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "upload-button",
+    "family_key": "upload-button",
+    "file_path": "components/standard/upload-button.tsx",
+    "import_path": "@/components/standard/upload-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Webcam Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "webcam-button",
+    "family_key": "webcam-button",
+    "file_path": "components/standard/webcam-button.tsx",
+    "import_path": "@/components/standard/webcam-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Mic Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "mic-button",
+    "family_key": "mic-button",
+    "file_path": "components/standard/mic-button.tsx",
+    "import_path": "@/components/standard/mic-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Volume Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "volume-button",
+    "family_key": "volume-button",
+    "file_path": "components/standard/volume-button.tsx",
+    "import_path": "@/components/standard/volume-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Email Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "email-button",
+    "family_key": "email-button",
+    "file_path": "components/standard/email-button.tsx",
+    "import_path": "@/components/standard/email-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Copy Button",
+    "type": "interaction/action",
+    "canonical": "buttons",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "copy-button",
+    "family_key": "copy-button",
+    "file_path": "components/standard/copy-button.tsx",
+    "import_path": "@/components/standard/copy-button",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   }
 ]

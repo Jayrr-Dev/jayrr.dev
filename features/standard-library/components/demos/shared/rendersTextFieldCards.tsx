@@ -4,6 +4,41 @@ import { AtSignIcon, CircleCheckIcon, SearchIcon } from "lucide-react"
 
 import { TextField } from "@/components/standard/text-field"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+import {
+  completeFrom,
+  type CompletionSource,
+} from "@/hooks/use-inline-completion"
+
+const EMAIL_DOMAINS = ["gmail.com", "hotmail.com", "icloud.com", "outlook.com"]
+
+/** Completes the part after "@" against common mail domains. */
+export const completeEmail: CompletionSource = (value) => {
+  const at = value.lastIndexOf("@")
+  if (at < 1) {
+    return null
+  }
+  const typed = value.slice(at + 1).toLowerCase()
+  const domain = EMAIL_DOMAINS.find(
+    (option) => option.startsWith(typed) && option.length > typed.length
+  )
+  return domain ? value.slice(0, at + 1) + domain : null
+}
+
+export const completeCity = completeFrom([
+  "Amsterdam",
+  "Barcelona",
+  "Berlin",
+  "Lisbon",
+  "London",
+  "Los Angeles",
+  "Manila",
+  "Melbourne",
+  "New York",
+  "San Francisco",
+  "Seoul",
+  "Singapore",
+  "Tokyo",
+])
 
 /**
  * The TextField cards shared by Text field and Field. Hook-free: call it as a
@@ -138,6 +173,17 @@ export function RendersTextFieldCards() {
       </RendersDemoCard>
       <RendersDemoCard label="outlined · type search">
         <TextField variant="outlined" label="Search" type="search" />
+      </RendersDemoCard>
+      <RendersDemoCard label="completion (Tab to accept)">
+        <TextField
+          aria-label="Email"
+          placeholder="you@gmail.com"
+          leading={<AtSignIcon />}
+          completion={completeEmail}
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="outlined · completion">
+        <TextField variant="outlined" label="City" completion={completeCity} />
       </RendersDemoCard>
     </>
   )

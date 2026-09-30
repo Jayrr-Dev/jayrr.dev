@@ -1,43 +1,67 @@
 "use client"
 
-import { ToastButton } from "@/components/standard/toast"
+import { Button } from "@/components/standard/button"
+import { toast } from "@/components/standard/toast"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersToastDemo() {
   return (
     <>
       <RendersDemoCard label="Toast">
-        <ToastButton message="Saved timesheet.">Show toast</ToastButton>
+        <Button tone="outline" size="sm" onClick={() => toast("Saved timesheet.")}>
+          Show toast
+        </Button>
       </RendersDemoCard>
       <RendersDemoCard label="Toast · danger">
-        <ToastButton message="Could not post hours." tone="danger">
+        <Button
+          tone="outline"
+          size="sm"
+          onClick={() => toast("Could not post hours.", { tone: "danger" })}
+        >
           Show error
-        </ToastButton>
+        </Button>
       </RendersDemoCard>
       <RendersDemoCard label="Snackbar">
-        <ToastButton variant="snackbar" message="Timesheet archived.">
+        <Button
+          tone="outline"
+          size="sm"
+          onClick={() => toast("Timesheet archived.", { variant: "snackbar" })}
+        >
           Show snackbar
-        </ToastButton>
+        </Button>
       </RendersDemoCard>
       <RendersDemoCard label="Snackbar · action">
-        <ToastButton
-          variant="snackbar"
-          message="Timesheet archived."
-          action={{ label: "Undo" }}
-          dismissible
+        <Button
+          tone="outline"
+          size="sm"
+          onClick={() =>
+            toast("Timesheet archived.", {
+              variant: "snackbar",
+              action: { label: "Undo" },
+              dismissible: true,
+            })
+          }
         >
           Show with action
-        </ToastButton>
+        </Button>
       </RendersDemoCard>
       <RendersDemoCard label="Snackbar · stacked">
-        <ToastButton
-          variant="snackbar"
-          message="Hours could not sync. Your changes are saved on this device and will retry when you're back online."
-          action={{ label: "Retry now" }}
-          stackAction
+        <Button
+          tone="outline"
+          size="sm"
+          onClick={() =>
+            toast(
+              "Hours could not sync. Your changes are saved on this device and will retry when you're back online.",
+              {
+                variant: "snackbar",
+                action: { label: "Retry now" },
+                stackAction: true,
+              }
+            )
+          }
         >
           Show stacked
-        </ToastButton>
+        </Button>
       </RendersDemoCard>
     </>
   )
