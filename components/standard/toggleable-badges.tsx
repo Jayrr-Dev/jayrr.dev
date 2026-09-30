@@ -1,15 +1,15 @@
 "use client"
 
-import * as React from "react"
 import { cn } from "cn"
 
-import { Badge } from "@/components/standard/badge"
+import { ButtonArray } from "@/components/standard/button-array"
 
 export type ToggleableBadgeItem = {
   id: string
   label: string
 }
 
+/** @deprecated Use <ButtonArray appearance="badge"> (with type="multiple" for multiple) */
 function ToggleableBadges({
   className,
   items,
@@ -29,55 +29,20 @@ function ToggleableBadges({
   values?: string[]
   onValuesChange?: (ids: string[]) => void
 }) {
-  const [uncontrolled, setUncontrolled] = React.useState(
-    defaultValue ?? items[0]?.id
-  )
-  const [uncontrolledMany, setUncontrolledMany] = React.useState<string[]>([])
-  const selected = value ?? uncontrolled
-  const selectedMany = values ?? uncontrolledMany
-
-  function select(id: string) {
-    if (multiple) {
-      const exists = selectedMany.includes(id)
-      const next = exists
-        ? selectedMany.filter((item) => item !== id)
-        : [...selectedMany, id]
-      if (values === undefined) {
-        setUncontrolledMany(next)
-      }
-      onValuesChange?.(next)
-      return
-    }
-    if (value === undefined) {
-      setUncontrolled(id)
-    }
-    onValueChange?.(id)
-  }
-
   return (
-    <div
+    <ButtonArray
       data-slot="toggleable-badges"
-      className={cn("flex flex-wrap gap-1.5", className)}
-    >
-      {items.map((item) => {
-        const isOn = multiple
-          ? selectedMany.includes(item.id)
-          : item.id === selected
-        const tone = isOn ? "default" : "outline"
-
-        return (
-          <button
-            key={item.id}
-            type="button"
-            aria-pressed={isOn}
-            onClick={() => select(item.id)}
-            className="rounded-full"
-          >
-            <Badge tone={tone}>{item.label}</Badge>
-          </button>
-        )
-      })}
-    </div>
+      appearance="badge"
+      size="sm"
+      type={multiple ? "multiple" : "single"}
+      items={items}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      values={values}
+      onValuesChange={onValuesChange}
+      className={cn("flex gap-1.5", className)}
+    />
   )
 }
 

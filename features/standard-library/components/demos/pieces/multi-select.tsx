@@ -1,6 +1,6 @@
 "use client"
 
-import { MultiSelect } from "@/components/standard/select"
+import { MultiSelect, Select } from "@/components/standard/select"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersMultiSelectDemo() {
@@ -25,6 +25,18 @@ export function RendersMultiSelectDemo() {
             { value: "charlie", label: "Charlie" },
           ]}
           defaultValues={["alpha", "charlie"]}
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="Select multiple (replacement)">
+        <Select
+          multiple
+          maxTags={2}
+          options={[
+            { value: "alpha", label: "Alpha" },
+            { value: "bravo", label: "Bravo" },
+            { value: "charlie", label: "Charlie" },
+          ]}
+          defaultValues={["alpha", "bravo"]}
         />
       </RendersDemoCard>
     </>
