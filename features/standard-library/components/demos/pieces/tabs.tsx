@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 
-import { TabNavigation } from "@/components/standard/tab-navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
@@ -18,11 +17,15 @@ function RendersLiveTabs() {
   return (
     <>
       <RendersDemoCard className="w-full max-w-xl">
-        <TabNavigation
-          items={NAV_ITEMS}
-          value={value}
-          onValueChange={setValue}
-        />
+        <Tabs value={value} onValueChange={setValue}>
+          <TabsList variant="line">
+            {NAV_ITEMS.map((item) => (
+              <TabsTrigger key={item.id} value={item.id}>
+                {item.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
       </RendersDemoCard>
       <RendersDemoCard label="selected">
         <span className="text-sm">{value}</span>
@@ -35,7 +38,7 @@ export function RendersTabsDemo() {
   return (
     <>
       <RendersLiveTabs />
-      <RendersDemoCard label="TabsList variant line (replaces TabNavigation)">
+      <RendersDemoCard label="TabsList variant line · TabsContent">
         <Tabs defaultValue="events" className="w-full">
           <TabsList variant="line">
             {NAV_ITEMS.map((item) => (

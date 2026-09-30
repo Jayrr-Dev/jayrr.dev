@@ -3,8 +3,7 @@
 import { CheckIcon, ChevronDownIcon, ClockIcon } from "lucide-react"
 
 import { Badge } from "@/components/standard/badge"
-import { BadgeIcon, BadgePill } from "@/components/standard/badge-pill"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersBadgeDemo() {
@@ -22,43 +21,22 @@ export function RendersBadgeDemo() {
       <RendersDemoCard label="tone danger">
         <Badge tone="danger">Danger</Badge>
       </RendersDemoCard>
-      <RendersDemoCard label="pill">
-        <BadgePill>Ready</BadgePill>
-      </RendersDemoCard>
-      <RendersDemoCard label="pill · tone outline">
-        <BadgePill tone="outline">Draft</BadgePill>
-      </RendersDemoCard>
-      <RendersDemoCard label="pill · tone danger">
-        <BadgePill tone="danger">Hold</BadgePill>
-      </RendersDemoCard>
-      <RendersDemoCard label="with icon">
-        <BadgeIcon>
-          <CheckIcon className="size-3" />
-          Saved
-        </BadgeIcon>
-      </RendersDemoCard>
-      <RendersDemoCard label="with icon · tone outline">
-        <BadgeIcon tone="outline">
-          <CheckIcon className="size-3" />
-          Draft
-        </BadgeIcon>
-      </RendersDemoCard>
       <RendersDemoCard label="size sm, default, lg">
-        <Row>
+        <Stack direction="row" align="center">
           <Badge size="sm">Small</Badge>
           <Badge>Default</Badge>
           <Badge size="lg">Large</Badge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="tone success, warning, info">
-        <Row>
+        <Stack direction="row" align="center">
           <Badge tone="success">Live</Badge>
           <Badge tone="warning">Pending</Badge>
           <Badge tone="info">Beta</Badge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="appearance soft">
-        <Row className="flex-wrap">
+        <Stack direction="row" align="center" className="flex-wrap">
           <Badge appearance="soft">Default</Badge>
           <Badge appearance="soft" tone="quiet">
             Quiet
@@ -75,10 +53,10 @@ export function RendersBadgeDemo() {
           <Badge appearance="soft" tone="danger">
             Danger
           </Badge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="appearance outline">
-        <Row>
+        <Stack direction="row" align="center">
           <Badge appearance="outline">Default</Badge>
           <Badge appearance="outline" tone="success">
             Success
@@ -89,15 +67,15 @@ export function RendersBadgeDemo() {
           <Badge appearance="outline" tone="danger">
             Danger
           </Badge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="leading icon">
-        <Row>
+        <Stack direction="row" align="center">
           <Badge leading={<CheckIcon />}>Saved</Badge>
           <Badge appearance="soft" tone="info" leading={<ClockIcon />}>
             Scheduled
           </Badge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="trailing">
         <Badge tone="outline" trailing={<ChevronDownIcon />}>
@@ -105,7 +83,7 @@ export function RendersBadgeDemo() {
         </Badge>
       </RendersDemoCard>
       <RendersDemoCard label="dot">
-        <Row>
+        <Stack direction="row" align="center">
           <Badge appearance="soft" tone="success" dot>
             Online
           </Badge>
@@ -115,10 +93,10 @@ export function RendersBadgeDemo() {
           <Badge appearance="outline" tone="danger" dot>
             Down
           </Badge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="shape circle">
-        <Row>
+        <Stack direction="row" align="center">
           <Badge shape="circle">4</Badge>
           <Badge shape="circle" tone="danger">
             12
@@ -126,7 +104,7 @@ export function RendersBadgeDemo() {
           <span className="inline-flex items-center gap-1 text-lg">
             Inbox <Badge shape="circle">128</Badge>
           </span>
-        </Row>
+        </Stack>
       </RendersDemoCard>
     </>
   )

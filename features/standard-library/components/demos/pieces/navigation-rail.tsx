@@ -4,7 +4,6 @@ import { useState } from "react"
 import { MenuIcon, PencilIcon } from "lucide-react"
 
 import { Button } from "@/components/standard/button"
-import { ButtonIcon } from "@/components/standard/button-icon"
 import { NavigationRail } from "@/components/standard/navigation"
 import { DESTINATIONS } from "@/features/standard-library/components/demos/shared/definesNavigationDestinations"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
@@ -25,13 +24,14 @@ function RendersLiveNavigationRail() {
             expanded={expanded}
             header={
               <>
-                <ButtonIcon
-                  label={expanded ? "Collapse" : "Expand"}
+                <Button
+                  iconOnly
+                  aria-label={expanded ? "Collapse" : "Expand"}
                   tone="ghost"
                   onClick={() => setExpanded(!expanded)}
                 >
                   <MenuIcon className="size-4" />
-                </ButtonIcon>
+                </Button>
                 <Button size="sm" className="[&_svg]:size-4">
                   <PencilIcon />
                   {expanded ? "New job" : null}

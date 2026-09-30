@@ -2,29 +2,29 @@
 
 import { Checkbox } from "@/components/standard/checkbox"
 import { FieldLabel } from "@/components/standard/field-label"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersCheckboxDemo() {
   return (
     <>
       <RendersDemoCard>
-        <Row>
+        <Stack direction="row" align="center">
           <Checkbox id="terms" defaultChecked />
           <FieldLabel htmlFor="terms">Accept terms</FieldLabel>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="unchecked">
-        <Row>
+        <Stack direction="row" align="center">
           <Checkbox id="alerts" />
           <FieldLabel htmlFor="alerts">Alerts</FieldLabel>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="disabled">
-        <Row>
+        <Stack direction="row" align="center">
           <Checkbox id="locked" disabled defaultChecked />
           <FieldLabel htmlFor="locked">Locked</FieldLabel>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="label prop">
         <Checkbox

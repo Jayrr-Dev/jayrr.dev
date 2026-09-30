@@ -19,7 +19,7 @@ export function RendersTextFieldCards() {
         <TextField
           aria-label="Filter"
           placeholder="Filter jobs"
-          leadingIcon={<SearchIcon />}
+          leading={<SearchIcon />}
           defaultValue="Main st"
           clearable
         />
@@ -43,7 +43,7 @@ export function RendersTextFieldCards() {
           variant="filled"
           label="Filter"
           placeholder="Street, customer…"
-          leadingIcon={<SearchIcon />}
+          leading={<SearchIcon />}
           defaultValue="Main st"
           clearable
         />

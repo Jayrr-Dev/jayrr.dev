@@ -9,10 +9,8 @@ import {
   Trash2Icon,
 } from "lucide-react"
 
-import { CircleBadge } from "@/components/standard/badge-pill"
 import { Button } from "@/components/standard/button"
-import { ButtonIcon } from "@/components/standard/button-icon"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import {
   Toolbar,
   ToolbarButton,
@@ -33,7 +31,7 @@ function RendersLiveSelectionCount() {
 
   return (
     <RendersDemoCard label="Selection with clear">
-      <Row>
+      <Stack direction="row" align="center">
         {selected > 0 ? (
           <ToolbarSelectionCount
             count={selected}
@@ -44,7 +42,7 @@ function RendersLiveSelectionCount() {
             Select 3 rows
           </Button>
         )}
-      </Row>
+      </Stack>
     </RendersDemoCard>
   )
 }
@@ -102,7 +100,7 @@ function RendersToolbarCountDemos() {
         <ToolbarCount count={3} total={TOTAL_JOBS} noun="job" />
       </RendersDemoCard>
       <RendersDemoCard label="Pill">
-        <Row>
+        <Stack direction="row" align="center">
           <ToolbarCount variant="pill" count={1} noun="report" />
           <ToolbarCount
             variant="pill"
@@ -110,35 +108,38 @@ function RendersToolbarCountDemos() {
             noun="entry"
             plural="entries"
           />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="Empty">
         <ToolbarCount count={0} noun="result" />
       </RendersDemoCard>
       <RendersDemoCard label="Corner badge">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <ToolbarCountBadge count={5}>
-            <ButtonIcon label="Notifications" tone="outline">
+            <Button iconOnly aria-label="Notifications" tone="outline">
               <BellIcon className="size-4" />
-            </ButtonIcon>
+            </Button>
           </ToolbarCountBadge>
           <ToolbarCountBadge count={128} tone="danger">
-            <ButtonIcon label="Inbox" tone="outline">
+            <Button iconOnly aria-label="Inbox" tone="outline">
               <InboxIcon className="size-4" />
-            </ButtonIcon>
+            </Button>
           </ToolbarCountBadge>
           <ToolbarCountBadge count={0}>
-            <ButtonIcon label="Filters" tone="outline">
+            <Button iconOnly aria-label="Filters" tone="outline">
               <ListFilterIcon className="size-4" />
-            </ButtonIcon>
+            </Button>
           </ToolbarCountBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="Inline on a button">
-        <Button tone="outline" size="sm">
-          <ListFilterIcon className="size-3.5" />
+        <Button
+          tone="outline"
+          size="sm"
+          leading={<ListFilterIcon className="size-3.5" />}
+          count={3}
+        >
           Filters
-          <CircleBadge>3</CircleBadge>
         </Button>
       </RendersDemoCard>
       <RendersLiveSelectionCount />

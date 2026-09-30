@@ -7,18 +7,12 @@ import { RendersAppBarDemo } from "./pieces/app-bar"
 import { RendersAppGridDemo } from "./pieces/app-grid"
 import { RendersArticleDemo } from "./pieces/article"
 import { RendersAutocompleteInputDemo } from "./pieces/autocomplete-input"
+import { RendersAvatarDemo } from "./pieces/avatar"
 import { RendersBadgeDemo } from "./pieces/badge"
 import { RendersBadgeSelectDemo } from "./pieces/badge-select"
-import { RendersBarStackDemo } from "./pieces/bar-stack"
 import { RendersBentoGridDemo } from "./pieces/bento-grid"
-import { RendersBroadcastBannerDemo } from "./pieces/broadcast-banner"
-import { RendersBroadcastBannerContainerDemo } from "./pieces/broadcast-banner-container"
 import { RendersButtonDemo } from "./pieces/button"
 import { RendersButtonArrayDemo } from "./pieces/button-array"
-import { RendersButtonBackDemo } from "./pieces/button-back"
-import { RendersButtonIconDemo } from "./pieces/button-icon"
-import { RendersButtonLinkDemo } from "./pieces/button-link"
-import { RendersCaptionButtonDemo } from "./pieces/caption-button"
 import { RendersCardDemo } from "./pieces/card"
 import { RendersCardBarDemo } from "./pieces/card-bar"
 import { RendersCarouselDemo } from "./pieces/carousel"
@@ -39,23 +33,23 @@ import { RendersFieldDemo } from "./pieces/field"
 import { RendersFilterSelectDemo } from "./pieces/filter-select"
 import { RendersFloatingActionButtonDemo } from "./pieces/floating-action-button"
 import { RendersFormDemo } from "./pieces/form"
+import { RendersImageDemo } from "./pieces/image"
 import { RendersImageUploadDemo } from "./pieces/image-upload"
 import { RendersIndicatorDemo } from "./pieces/indicator"
 import { RendersInfoIconDemo } from "./pieces/info-icon"
 import { RendersInputOtpDemo } from "./pieces/input-otp"
 import { RendersLabelDemo } from "./pieces/label"
-import { RendersLabelledSwitchDemo } from "./pieces/labelled-switch"
 import { RendersLexicalEditorDemo } from "./pieces/lexical-editor"
 import { RendersLoadingStateDemo } from "./pieces/loading-state"
 import { RendersMathDemo } from "./pieces/math"
 import { RendersMillerSelectDemo } from "./pieces/miller-select"
-import { RendersMultiSelectDemo } from "./pieces/multi-select"
 import { RendersNavigationBarDemo } from "./pieces/navigation-bar"
 import { RendersNavigationDrawerDemo } from "./pieces/navigation-drawer"
 import { RendersNavigationRailDemo } from "./pieces/navigation-rail"
 import { RendersNotificationBadgeDemo } from "./pieces/notification-badge"
 import { RendersNumberInputDemo } from "./pieces/number-input"
 import { RendersPageHeaderDemo } from "./pieces/page-header"
+import { RendersParagraphDemo } from "./pieces/paragraph"
 import { RendersPillDemo } from "./pieces/pill"
 import { RendersPopoverDemo } from "./pieces/popover"
 import { RendersPopoverWizardDemo } from "./pieces/popover-wizard"
@@ -70,10 +64,9 @@ import { RendersSeparatorDemo } from "./pieces/separator"
 import { RendersSheetDemo } from "./pieces/sheet"
 import { RendersSkeletonDemo } from "./pieces/skeleton"
 import { RendersSpinnerDemo } from "./pieces/spinner"
-import { RendersStandardCardDemo } from "./pieces/standard-card"
 import { RendersStandardGridDemo } from "./pieces/standard-grid"
+import { RendersStandardListDemo } from "./pieces/standard-list"
 import { RendersStandardTableDemo } from "./pieces/standard-table"
-import { RendersStandardTextDemo } from "./pieces/standard-text"
 import { RendersStandardToolbarCountDemo } from "./pieces/standard-toolbar-count"
 import { RendersSwitchDemo } from "./pieces/switch"
 import { RendersSymbolDemo } from "./pieces/symbol"
@@ -82,11 +75,9 @@ import { RendersTableDemo } from "./pieces/table"
 import { RendersTabsDemo } from "./pieces/tabs"
 import { RendersTextFieldDemo } from "./pieces/text-field"
 import { RendersTextareaDemo } from "./pieces/textarea"
-import { RendersThinScrollbarDemo } from "./pieces/thin-scrollbar"
 import { RendersTimePickerDemo } from "./pieces/time-picker"
 import { RendersToastDemo } from "./pieces/toast"
-import { RendersToggleRowDemo } from "./pieces/toggle-row"
-import { RendersToggleableBadgesDemo } from "./pieces/toggleable-badges"
+import { RendersToggleDemo } from "./pieces/toggle"
 import { RendersToolbarDemo } from "./pieces/toolbar"
 import { RendersTooltipDemo } from "./pieces/tooltip"
 import { RendersWizardDemo } from "./pieces/wizard"
@@ -109,18 +100,12 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "App Grid": RendersAppGridDemo,
   "Article": RendersArticleDemo,
   "Autocomplete Input": RendersAutocompleteInputDemo,
+  "Avatar": RendersAvatarDemo,
   "Badge": RendersBadgeDemo,
   "Badge Select": RendersBadgeSelectDemo,
-  "Bar Stack": RendersBarStackDemo,
   "Bento Grid": RendersBentoGridDemo,
-  "Broadcast Banner": RendersBroadcastBannerDemo,
-  "Broadcast Banner Container": RendersBroadcastBannerContainerDemo,
   "Button": RendersButtonDemo,
   "Button Array": RendersButtonArrayDemo,
-  "Button Back": RendersButtonBackDemo,
-  "Button Icon": RendersButtonIconDemo,
-  "Button Link": RendersButtonLinkDemo,
-  "Caption Button": RendersCaptionButtonDemo,
   "Card": RendersCardDemo,
   "Card Bar": RendersCardBarDemo,
   "Carousel": RendersCarouselDemo,
@@ -141,23 +126,23 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Filter Select": RendersFilterSelectDemo,
   "Floating Action Button": RendersFloatingActionButtonDemo,
   "Form": RendersFormDemo,
+  "Image": RendersImageDemo,
   "Image Upload": RendersImageUploadDemo,
   "Indicator": RendersIndicatorDemo,
   "Info Icon": RendersInfoIconDemo,
   "Input OTP": RendersInputOtpDemo,
   "Label": RendersLabelDemo,
-  "Labelled Switch": RendersLabelledSwitchDemo,
   "Lexical Editor": RendersLexicalEditorDemo,
   "Loading State": RendersLoadingStateDemo,
   "Math": RendersMathDemo,
   "Miller Select": RendersMillerSelectDemo,
-  "Multi Select": RendersMultiSelectDemo,
   "Navigation Bar": RendersNavigationBarDemo,
   "Navigation Drawer": RendersNavigationDrawerDemo,
   "Navigation Rail": RendersNavigationRailDemo,
   "Notification Badge": RendersNotificationBadgeDemo,
   "Number Input": RendersNumberInputDemo,
   "Page Header": RendersPageHeaderDemo,
+  "Paragraph": RendersParagraphDemo,
   "Pill": RendersPillDemo,
   "Popover": RendersPopoverDemo,
   "Popover Wizard": RendersPopoverWizardDemo,
@@ -172,10 +157,9 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Sheet": RendersSheetDemo,
   "Skeleton": RendersSkeletonDemo,
   "Spinner": RendersSpinnerDemo,
-  "Standard Card": RendersStandardCardDemo,
   "Standard Grid": RendersStandardGridDemo,
+  "Standard List": RendersStandardListDemo,
   "Standard Table": RendersStandardTableDemo,
-  "Standard Text": RendersStandardTextDemo,
   "Standard Toolbar Count": RendersStandardToolbarCountDemo,
   "Switch": RendersSwitchDemo,
   "Symbol": RendersSymbolDemo,
@@ -184,11 +168,9 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Tabs": RendersTabsDemo,
   "Text field": RendersTextFieldDemo,
   "Textarea": RendersTextareaDemo,
-  "Thin Scrollbar": RendersThinScrollbarDemo,
   "Time Picker": RendersTimePickerDemo,
   "Toast": RendersToastDemo,
-  "Toggle Row": RendersToggleRowDemo,
-  "Toggleable Badges": RendersToggleableBadgesDemo,
+  "Toggle": RendersToggleDemo,
   "Toolbar": RendersToolbarDemo,
   "Tooltip": RendersTooltipDemo,
   "Wizard": RendersWizardDemo,

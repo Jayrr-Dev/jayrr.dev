@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Row } from "@/components/standard/row"
 import { Stack } from "@/components/standard/stack"
 
 import { RendersDemoCard } from "./rendersDemoCard"
@@ -44,11 +43,11 @@ export function RendersStructureDemo({
           </Stack>
         </RendersDemoCard>
         <RendersDemoCard label="row">
-          <Row className="w-full">
+          <Stack direction="row" align="center" className="w-full">
             <Button variant="outline">One</Button>
             <Button variant="outline">Two</Button>
             <Button>Go</Button>
-          </Row>
+          </Stack>
         </RendersDemoCard>
         <RendersDemoCard label="direction row">
           <Stack direction="row">

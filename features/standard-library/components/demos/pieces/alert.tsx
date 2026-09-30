@@ -53,9 +53,30 @@ export function RendersAlertDemo() {
           ))}
         </div>
       </RendersDemoCard>
-      <RendersDemoCard label="layout banner" className="w-full max-w-xl">
+      <RendersDemoCard label="tone broadcast · layout banner" className="w-full max-w-xl">
         <Alert tone="broadcast" layout="banner" title="Office closed Friday">
           Submit hours by Thursday.
+        </Alert>
+      </RendersDemoCard>
+      <RendersDemoCard
+        label="tone broadcast · layout banner · dismissible"
+        className="w-full max-w-xl"
+      >
+        <Alert tone="broadcast" layout="banner" title="New rate card" dismissible>
+          Starts next period.
+        </Alert>
+      </RendersDemoCard>
+      <RendersDemoCard
+        label="tone broadcast · layout banner · appearance solid"
+        className="w-full max-w-xl"
+      >
+        <Alert
+          tone="broadcast"
+          layout="banner"
+          appearance="solid"
+          title="Maintenance tonight"
+        >
+          The board is read-only from 10pm.
         </Alert>
       </RendersDemoCard>
       <RendersDemoCard label="icon" className="w-full max-w-xl">

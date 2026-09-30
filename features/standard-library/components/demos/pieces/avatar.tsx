@@ -3,7 +3,7 @@
 import { UserIcon } from "lucide-react"
 
 import { Avatar, AvatarGroup } from "@/components/standard/avatar"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 // Inline image so the demo makes no network request.
@@ -20,40 +20,40 @@ export function RendersAvatarDemo() {
         <Avatar>JR</Avatar>
       </RendersDemoCard>
       <RendersDemoCard label="src">
-        <Row className="gap-3">
+        <Stack direction="row" align="center" className="gap-3">
           <Avatar src={PORTRAIT_SRC} alt="Jordan Reyes" fallback="JR" />
           <Avatar src="/missing-avatar.png" alt="Broken image" fallback="BI" />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="fallback">
-        <Row className="gap-3">
+        <Stack direction="row" align="center" className="gap-3">
           <Avatar fallback="AK" />
           <Avatar fallback={<UserIcon className="size-1/2" />} />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="size xs, sm, default, lg, xl">
-        <Row className="gap-3">
+        <Stack direction="row" align="center" className="gap-3">
           <Avatar size="xs">XS</Avatar>
           <Avatar size="sm">SM</Avatar>
           <Avatar>MD</Avatar>
           <Avatar size="lg">LG</Avatar>
           <Avatar size="xl" src={PORTRAIT_SRC} fallback="XL" />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="shape square">
-        <Row className="gap-3">
+        <Stack direction="row" align="center" className="gap-3">
           <Avatar shape="square">AC</Avatar>
           <Avatar shape="square" size="lg" src={PORTRAIT_SRC} fallback="AC" />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="status">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <Avatar status="online">AK</Avatar>
           <Avatar status="away">MR</Avatar>
           <Avatar status="busy">JL</Avatar>
           <Avatar status="offline">SO</Avatar>
           <Avatar status="online" size="xl" src={PORTRAIT_SRC} fallback="JR" />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="AvatarGroup max 3">
         <AvatarGroup max={3}>

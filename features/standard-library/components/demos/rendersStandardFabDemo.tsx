@@ -18,7 +18,7 @@ import {
   useFabScroll,
   type FabTone,
 } from "@/components/standard/fab"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const MENU_ITEMS = [
@@ -138,15 +138,15 @@ export function RendersStandardFabDemo() {
   return (
     <>
       <RendersDemoCard label="sizes · compact, FAB, medium, large">
-        <Row className="items-end gap-4">
+        <Stack direction="row" align="center" className="items-end gap-4">
           <Fab size="compact" label="Add" icon={<PlusIcon />} />
           <Fab label="Add" icon={<PlusIcon />} />
           <Fab size="medium" label="Add" icon={<PlusIcon />} />
           <Fab size="large" label="Add" icon={<PlusIcon />} />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="tones">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           {FAB_TONES.map((tone) => (
             <Fab
               key={tone}
@@ -155,7 +155,7 @@ export function RendersStandardFabDemo() {
               icon={<PencilIcon />}
             />
           ))}
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="extended">
         <div className="flex flex-col items-start gap-3">
@@ -177,7 +177,7 @@ export function RendersStandardFabDemo() {
         </div>
       </RendersDemoCard>
       <RendersDemoCard label="extended on hover">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <Fab extended="hover" label="New task" icon={<ListTodoIcon />} />
           <Fab
             extended="hover"
@@ -186,13 +186,13 @@ export function RendersStandardFabDemo() {
             label="New task"
             icon={<ListTodoIcon />}
           />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="badge · disabled">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <Fab label="Tasks" icon={<ListTodoIcon />} badge={12} />
           <Fab label="Add" icon={<PlusIcon />} disabled />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersFabMenuDemo />
       <RendersFabScrollDemo />

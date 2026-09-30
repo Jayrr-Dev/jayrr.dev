@@ -1,17 +1,17 @@
 "use client"
 
 import { InfoIcon, QuestionIcon } from "@/components/standard/info-icon"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersInfoIconDemo() {
   return (
     <>
       <RendersDemoCard>
-        <Row>
+        <Stack direction="row" align="center">
           <span className="text-sm font-medium">Hours</span>
           <InfoIcon label="Hours help" body="Billable hours for this week." />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="tone alert">
         <InfoIcon
@@ -24,10 +24,10 @@ export function RendersInfoIconDemo() {
         <QuestionIcon label="What is this?" body="Short help for this field." />
       </RendersDemoCard>
       <RendersDemoCard label="tone help · next to title">
-        <Row>
+        <Stack direction="row" align="center">
           <span className="text-sm font-medium">Cost</span>
           <QuestionIcon label="Cost help" body="Labor plus equipment." />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="type tooltip">
         <InfoIcon

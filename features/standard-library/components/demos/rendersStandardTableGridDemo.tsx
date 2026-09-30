@@ -4,12 +4,12 @@ import { useState } from "react"
 import { EyeIcon, PencilIcon, Trash2Icon } from "lucide-react"
 
 import { Badge } from "@/components/standard/badge"
+import { ButtonArray } from "@/components/standard/button-array"
+import { Card } from "@/components/standard/card"
 import { InfoIcon } from "@/components/standard/info-icon"
-import { StandardCard } from "@/components/standard/standard-card"
 import { StandardGrid } from "@/components/standard/standard-grid"
 import { StandardList } from "@/components/standard/standard-list"
 import { StandardTable, type StandardTableColumn } from "@/components/standard/standard-table"
-import { ToggleableBadges } from "@/components/standard/toggleable-badges"
 import {
   STANDARD_MOCK_DEPARTMENTS,
   STANDARD_MOCK_STATUSES,
@@ -78,9 +78,10 @@ const COLUMNS: StandardTableColumn<StandardMockRow>[] = [
 
 function renderingGetsGridCard(row: StandardMockRow) {
   return (
-    <StandardCard
+    <Card
       title={row.name}
       meta={`${row.status} · ${row.department}`}
+      padding="sm"
     >
       <div className="flex items-start justify-between gap-2">
         <span className="text-xs text-muted-foreground">
@@ -91,7 +92,7 @@ function renderingGetsGridCard(row: StandardMockRow) {
           body={`${row.status} · ${row.department}. Updated ${row.updated_at}.`}
         />
       </div>
-    </StandardCard>
+    </Card>
   )
 }
 
@@ -140,7 +141,9 @@ export function RendersStandardTableDemo() {
   return (
     <RendersDemoCard className="w-full max-w-2xl" label={label}>
       <div className="flex w-full flex-col gap-3">
-        <ToggleableBadges
+        <ButtonArray
+          appearance="badge"
+          size="sm"
           items={TABLE_PANELS}
           value={panel}
           onValueChange={setPanel}
@@ -248,7 +251,9 @@ export function RendersStandardGridDemo() {
   return (
     <RendersDemoCard className="w-full max-w-2xl" label={label}>
       <div className="flex w-full flex-col gap-3">
-        <ToggleableBadges
+        <ButtonArray
+          appearance="badge"
+          size="sm"
           items={GRID_PANELS}
           value={panel}
           onValueChange={setPanel}
@@ -314,9 +319,4 @@ export function RendersStandardListDemo() {
       />
     </RendersDemoCard>
   )
-}
-
-/** @deprecated Use RendersStandardListDemo; the table / grid toggle now lives in StandardList. */
-export function RendersStandardHybridDemo() {
-  return <RendersStandardListDemo />
 }

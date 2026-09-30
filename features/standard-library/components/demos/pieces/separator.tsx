@@ -1,9 +1,8 @@
 "use client"
 
 import { Divider } from "@/components/standard/divider"
-import { Row } from "@/components/standard/row"
+import { Paragraph } from "@/components/standard/paragraph"
 import { Stack } from "@/components/standard/stack"
-import { StandardText } from "@/components/standard/standard-text"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersSeparatorDemo() {
@@ -11,17 +10,17 @@ export function RendersSeparatorDemo() {
     <>
       <RendersDemoCard>
         <Stack className="w-full">
-          <StandardText>Above</StandardText>
+          <Paragraph size="sm">Above</Paragraph>
           <Divider />
-          <StandardText>Below</StandardText>
+          <Paragraph size="sm">Below</Paragraph>
         </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="orientation vertical">
-        <Row className="h-8">
-          <StandardText>Left</StandardText>
+        <Stack direction="row" align="center" className="h-8">
+          <Paragraph size="sm">Left</Paragraph>
           <Divider orientation="vertical" />
-          <StandardText>Right</StandardText>
-        </Row>
+          <Paragraph size="sm">Right</Paragraph>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="label">
         <Divider label="or" />

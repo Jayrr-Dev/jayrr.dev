@@ -3,14 +3,15 @@
 import {
   ArrowRightIcon,
   CheckIcon,
+  ChevronLeftIcon,
   ExternalLinkIcon,
   InboxIcon,
   PlusIcon,
   RefreshCwIcon,
   StarIcon,
+  Trash2Icon,
 } from "lucide-react"
 
-import { CircleBadge } from "@/components/standard/badge-pill"
 import { Button } from "@/components/standard/button"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
@@ -37,21 +38,6 @@ export function RendersButtonDemo() {
       </RendersDemoCard>
       <RendersDemoCard label="loading">
         <Button loading>Saving</Button>
-      </RendersDemoCard>
-      <RendersDemoCard label="with count">
-        <Button>
-          <StarIcon className="size-3.5" />
-          Inbox
-          <CircleBadge className="bg-primary-foreground text-primary">
-            3
-          </CircleBadge>
-        </Button>
-      </RendersDemoCard>
-      <RendersDemoCard label="with count · tone outline">
-        <Button tone="outline">
-          Reports
-          <CircleBadge className="bg-destructive text-white">2</CircleBadge>
-        </Button>
       </RendersDemoCard>
       <RendersDemoCard label="leading icon">
         <Button leading={<PlusIcon className="size-4" />}>New item</Button>
@@ -84,6 +70,16 @@ export function RendersButtonDemo() {
           </Button>
         </div>
       </RendersDemoCard>
+      <RendersDemoCard label="iconOnly · tone danger · loading">
+        <div className="flex flex-wrap items-center gap-2">
+          <Button iconOnly tone="danger" aria-label="Delete">
+            <Trash2Icon className="size-4" />
+          </Button>
+          <Button iconOnly tone="outline" aria-label="Saving" loading>
+            <StarIcon className="size-4" />
+          </Button>
+        </div>
+      </RendersDemoCard>
       <RendersDemoCard label="iconOnly shape circle">
         <Button iconOnly shape="circle" tone="outline" aria-label="Star">
           <StarIcon className="size-4" />
@@ -101,6 +97,20 @@ export function RendersButtonDemo() {
           trailing={<ExternalLinkIcon className="size-3.5" />}
         >
           Open gallery
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="href · leading (back link)">
+        <Button
+          href="#back"
+          tone="ghost"
+          leading={<ChevronLeftIcon aria-hidden className="size-4" />}
+        >
+          Back
+        </Button>
+      </RendersDemoCard>
+      <RendersDemoCard label="href · tone link">
+        <Button href="#docs" tone="link">
+          Read docs
         </Button>
       </RendersDemoCard>
       <RendersDemoCard label="tone quiet">

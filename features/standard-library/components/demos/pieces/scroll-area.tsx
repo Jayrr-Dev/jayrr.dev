@@ -35,6 +35,13 @@ export function RendersScrollAreaDemo() {
           ))}
         </ScrollArea>
       </RendersDemoCard>
+      <RendersDemoCard className="w-full max-w-xl" label="class scrollbar-thin">
+        <div className="scrollbar-thin h-28 w-full overflow-auto rounded-lg border border-border p-2 text-sm">
+          {weeks.map((week) => (
+            <p key={week}>{week}</p>
+          ))}
+        </div>
+      </RendersDemoCard>
       <RendersDemoCard className="w-full max-w-xl" label="scrollbar hidden">
         <ScrollArea scrollbar="hidden">
           {weeks.map((week) => (

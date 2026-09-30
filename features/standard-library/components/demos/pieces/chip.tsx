@@ -6,8 +6,8 @@ import { CalendarIcon, MapPinIcon, PlusIcon } from "lucide-react"
 import { Badge } from "@/components/standard/badge"
 import { Button } from "@/components/standard/button"
 import { Chip, ChipGroup, FilterChip } from "@/components/standard/chip"
-import { Row } from "@/components/standard/row"
-import { StandardText } from "@/components/standard/standard-text"
+import { Paragraph } from "@/components/standard/paragraph"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const JOB_FILTERS = ["Remote", "Full-time", "Contract", "Senior"]
@@ -54,7 +54,7 @@ function RendersLiveFilterChips() {
             </Button>
           </ChipGroup>
         ) : (
-          <StandardText>No filters. Pick some above.</StandardText>
+          <Paragraph size="sm">No filters. Pick some above.</Paragraph>
         )}
       </RendersDemoCard>
     </>
@@ -100,12 +100,12 @@ function RendersChipDemos() {
         </ChipGroup>
       </RendersDemoCard>
       <RendersDemoCard label="Chip vs Badge">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <Badge tone="quiet">Draft</Badge>
           <span className="text-xs text-muted-foreground">static</span>
           <Chip defaultSelected={false}>Draft</Chip>
           <span className="text-xs text-muted-foreground">pressable</span>
-        </Row>
+        </Stack>
       </RendersDemoCard>
     </>
   )

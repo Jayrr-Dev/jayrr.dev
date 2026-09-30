@@ -75,7 +75,7 @@ export function RendersStandardArticleDemo() {
               <li>Conflicts show up before Monday, not during it.</li>
             </ul>
             <ArticleFigure bleed="full">
-              <Image ratio="wide" className="aspect-[21/9]">
+              <Image ratio={21 / 9}>
                 <RendersSwatch className="bg-linear-to-r from-amber-300 via-rose-400 to-fuchsia-600" />
               </Image>
               <ArticleFigureCaption>

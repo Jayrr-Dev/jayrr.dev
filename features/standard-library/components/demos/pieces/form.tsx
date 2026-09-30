@@ -40,7 +40,7 @@ function RendersFormCards() {
             type="email"
             inputMode="email"
             autoComplete="email"
-            leadingIcon={<MailIcon />}
+            leading={<MailIcon />}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/standard/button"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { Tooltip } from "@/components/standard/tooltip"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
@@ -10,12 +10,12 @@ export function RendersTooltipDemo() {
   return (
     <>
       <RendersDemoCard label="Tooltip">
-        <Tooltip label="Hover me" body="This shows on hover, not on click." />
+        <Tooltip label="Hover me" content="This shows on hover, not on click." />
       </RendersDemoCard>
       <RendersDemoCard label="Tooltip · danger">
         <Tooltip
           label="Job number"
-          body="Job number is required."
+          content="Job number is required."
           tone="danger"
         />
       </RendersDemoCard>
@@ -30,7 +30,7 @@ export function RendersTooltipDemo() {
         />
       </RendersDemoCard>
       <RendersDemoCard label="side, align">
-        <Row>
+        <Stack direction="row" align="center">
           <Tooltip side="right" label="Right" content="side right" />
           <Tooltip
             side="bottom"
@@ -39,10 +39,10 @@ export function RendersTooltipDemo() {
             content="side bottom, align start"
           />
           <Tooltip side="left" label="Left" content="side left" />
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="shortcut">
-        <Row>
+        <Stack direction="row" align="center">
           <Tooltip content="Search" shortcut="/">
             <Button tone="outline" size="sm">
               Search
@@ -61,7 +61,7 @@ export function RendersTooltipDemo() {
               Save
             </Button>
           </Tooltip>
-        </Row>
+        </Stack>
       </RendersDemoCard>
     </>
   )

@@ -2,8 +2,8 @@
 
 import { ControlBar } from "@/components/standard/control-bar"
 import { RefreshButton } from "@/components/standard/refresh-button"
-import { Search } from "@/components/standard/search"
 import { Select } from "@/components/standard/select"
+import { TextField } from "@/components/standard/text-field"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersControlBarDemo() {
@@ -11,7 +11,13 @@ export function RendersControlBarDemo() {
     <>
       <RendersDemoCard className="w-full max-w-xl">
         <ControlBar>
-          <Search size="sm" placeholder="Filter" />
+          <TextField
+            type="search"
+            size="sm"
+            clearable={false}
+            aria-label="Filter"
+            placeholder="Filter"
+          />
           <Select
             placeholder="Owner"
             options={[

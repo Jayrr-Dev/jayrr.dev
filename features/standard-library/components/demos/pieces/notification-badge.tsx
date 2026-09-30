@@ -6,17 +6,14 @@ import {
   InboxIcon,
   MailIcon,
   MessageSquareIcon,
-  ShoppingCartIcon,
   SquarePlayIcon,
   TriangleIcon,
   UsersIcon,
 } from "lucide-react"
 
-import { CircleBadge } from "@/components/standard/badge-pill"
 import { Button } from "@/components/standard/button"
-import { ButtonIcon } from "@/components/standard/button-icon"
 import { NotificationBadge } from "@/components/standard/notification-badge"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const NAV_ITEMS: {
@@ -86,7 +83,7 @@ function RendersNotificationBadgeDemos() {
     <>
       <RendersLiveNavBadges />
       <RendersDemoCard label="Dot, count, max">
-        <Row className="gap-10">
+        <Stack direction="row" align="center" className="gap-10">
           <NotificationBadge>
             <TriangleIcon className="size-5" />
           </NotificationBadge>
@@ -96,26 +93,7 @@ function RendersNotificationBadgeDemos() {
           <NotificationBadge count={1500} max={999}>
             <TriangleIcon className="size-5" />
           </NotificationBadge>
-        </Row>
-      </RendersDemoCard>
-      <RendersDemoCard label="tone alert, brand, neutral">
-        <Row className="gap-6">
-          <NotificationBadge count={4}>
-            <ButtonIcon label="Notifications, 4 unread" tone="outline">
-              <BellIcon className="size-4" />
-            </ButtonIcon>
-          </NotificationBadge>
-          <NotificationBadge count={5} tone="brand">
-            <ButtonIcon label="Cart, 5 items" tone="outline">
-              <ShoppingCartIcon className="size-4" />
-            </ButtonIcon>
-          </NotificationBadge>
-          <NotificationBadge count={12} tone="neutral">
-            <ButtonIcon label="Inbox, 12 unread" tone="outline">
-              <InboxIcon className="size-4" />
-            </ButtonIcon>
-          </NotificationBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="Inline in a list">
         <div className="flex w-56 flex-col gap-1 text-sm">
@@ -134,14 +112,14 @@ function RendersNotificationBadgeDemos() {
         </div>
       </RendersDemoCard>
       <RendersDemoCard label="Zero: hidden vs showZero">
-        <Row className="gap-6">
+        <Stack direction="row" align="center" className="gap-6">
           <NotificationBadge count={0}>
             <BellIcon className="size-5" />
           </NotificationBadge>
-          <NotificationBadge count={0} showZero tone="neutral">
+          <NotificationBadge count={0} showZero tone="quiet">
             <BellIcon className="size-5" />
           </NotificationBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
     </>
   )
@@ -152,7 +130,7 @@ export function RendersNotificationBadgeDemo() {
     <>
       <RendersNotificationBadgeDemos />
       <RendersDemoCard label="tone danger, default, quiet">
-        <Row className="gap-6">
+        <Stack direction="row" align="center" className="gap-6">
           <NotificationBadge count={3} tone="danger">
             <BellIcon className="size-5" />
           </NotificationBadge>
@@ -162,10 +140,10 @@ export function RendersNotificationBadgeDemo() {
           <NotificationBadge count={3} tone="quiet">
             <BellIcon className="size-5" />
           </NotificationBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="size inline">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <Button tone="outline" size="sm">
             Inbox
             <NotificationBadge size="inline" count={8} />
@@ -178,20 +156,20 @@ export function RendersNotificationBadgeDemo() {
             Updates
             <NotificationBadge size="inline" dot />
           </span>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="size sm">
-        <Row className="gap-6">
+        <Stack direction="row" align="center" className="gap-6">
           <NotificationBadge size="sm" count={7}>
             <MailIcon className="size-4" />
           </NotificationBadge>
           <NotificationBadge size="sm">
             <MailIcon className="size-4" />
           </NotificationBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="placement top-start, bottom-end, bottom-start">
-        <Row className="gap-8">
+        <Stack direction="row" align="center" className="gap-8">
           <NotificationBadge count={2} placement="top-start">
             <InboxIcon className="size-5" />
           </NotificationBadge>
@@ -204,37 +182,31 @@ export function RendersNotificationBadgeDemo() {
           <NotificationBadge placement="bottom-start">
             <InboxIcon className="size-5" />
           </NotificationBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="pulse">
-        <Row className="gap-6">
+        <Stack direction="row" align="center" className="gap-6">
           <NotificationBadge pulse>
             <BellIcon className="size-5" />
           </NotificationBadge>
           <NotificationBadge pulse count={1}>
             <MessageSquareIcon className="size-5" />
           </NotificationBadge>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="ring off">
-        <Row className="gap-6">
+        <Stack direction="row" align="center" className="gap-6">
           <NotificationBadge count={4} ring={false}>
-            <ButtonIcon label="Notifications, 4 unread" tone="outline">
+            <Button iconOnly aria-label="Notifications, 4 unread" tone="outline">
               <BellIcon className="size-4" />
-            </ButtonIcon>
+            </Button>
           </NotificationBadge>
           <NotificationBadge count={4}>
-            <ButtonIcon label="Notifications, 4 unread" tone="outline">
+            <Button iconOnly aria-label="Notifications, 4 unread" tone="outline">
               <BellIcon className="size-4" />
-            </ButtonIcon>
+            </Button>
           </NotificationBadge>
-        </Row>
-      </RendersDemoCard>
-      <RendersDemoCard label="circle badge">
-        <CircleBadge>4</CircleBadge>
-      </RendersDemoCard>
-      <RendersDemoCard label="circle badge · count 12">
-        <CircleBadge>12</CircleBadge>
+        </Stack>
       </RendersDemoCard>
     </>
   )

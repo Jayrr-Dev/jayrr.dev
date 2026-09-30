@@ -2,7 +2,7 @@
 
 import { FieldLabel } from "@/components/standard/field-label"
 import { Radio, RadioGroup } from "@/components/standard/radio"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersRadioGroupDemo() {
@@ -10,22 +10,22 @@ export function RendersRadioGroupDemo() {
     <>
       <RendersDemoCard>
         <RadioGroup>
-          <Row>
+          <Stack direction="row" align="center">
             <Radio id="classic" name="style" defaultChecked />
             <FieldLabel htmlFor="classic">Classic</FieldLabel>
-          </Row>
-          <Row>
+          </Stack>
+          <Stack direction="row" align="center">
             <Radio id="standard" name="style" />
             <FieldLabel htmlFor="standard">Standard</FieldLabel>
-          </Row>
+          </Stack>
         </RadioGroup>
       </RendersDemoCard>
       <RendersDemoCard label="disabled">
         <RadioGroup>
-          <Row>
+          <Stack direction="row" align="center">
             <Radio id="locked-classic" name="locked-style" disabled defaultChecked />
             <FieldLabel htmlFor="locked-classic">Classic</FieldLabel>
-          </Row>
+          </Stack>
         </RadioGroup>
       </RendersDemoCard>
       <RendersDemoCard label="legend · label prop">

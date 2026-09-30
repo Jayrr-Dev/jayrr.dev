@@ -10,7 +10,7 @@ import {
 } from "lucide-react"
 
 import { AppBar, AppBarSearch } from "@/components/standard/app-bar"
-import { ButtonIcon } from "@/components/standard/button-icon"
+import { Button } from "@/components/standard/button"
 import { Select } from "@/components/standard/select"
 import { Skeleton } from "@/components/standard/skeleton"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
@@ -18,12 +18,12 @@ import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersD
 function RendersAppBarActions() {
   return (
     <>
-      <ButtonIcon label="Edit" tone="ghost">
+      <Button iconOnly aria-label="Edit" tone="ghost">
         <PencilIcon className="size-4" />
-      </ButtonIcon>
-      <ButtonIcon label="More" tone="ghost">
+      </Button>
+      <Button iconOnly aria-label="More" tone="ghost">
         <MoreVerticalIcon className="size-4" />
-      </ButtonIcon>
+      </Button>
     </>
   )
 }
@@ -53,9 +53,9 @@ function RendersLiveAppBar() {
             subtitle="12 open this week"
             scrollRef={scrollRef}
             leading={
-              <ButtonIcon label="Back" tone="ghost">
+              <Button iconOnly aria-label="Back" tone="ghost">
                 <ArrowLeftIcon className="size-4" />
-              </ButtonIcon>
+              </Button>
             }
             actions={<RendersAppBarActions />}
           />
@@ -74,9 +74,9 @@ function RendersLiveAppBar() {
             className="rounded-xl border border-border"
             title="Schedule"
             leading={
-              <ButtonIcon label="Menu" tone="ghost">
+              <Button iconOnly aria-label="Menu" tone="ghost">
                 <MenuIcon className="size-4" />
-              </ButtonIcon>
+              </Button>
             }
             actions={<RendersAppBarActions />}
           />
@@ -87,9 +87,9 @@ function RendersLiveAppBar() {
             subtitle="Week 40"
             scrolled
             leading={
-              <ButtonIcon label="Back" tone="ghost">
+              <Button iconOnly aria-label="Back" tone="ghost">
                 <ArrowLeftIcon className="size-4" />
-              </ButtonIcon>
+              </Button>
             }
             actions={<RendersAppBarActions />}
           />
@@ -100,21 +100,22 @@ function RendersLiveAppBar() {
           className="rounded-xl border border-border"
           variant="search"
           leading={
-            <ButtonIcon label="Menu" tone="ghost">
+            <Button iconOnly aria-label="Menu" tone="ghost">
               <MenuIcon className="size-4" />
-            </ButtonIcon>
+            </Button>
           }
           search={
             <AppBarSearch
               placeholder="Search jobs"
               trailing={
-                <ButtonIcon
-                  label="Voice search"
+                <Button
+                  iconOnly
+                  aria-label="Voice search"
                   tone="ghost"
                   className="rounded-full"
                 >
                   <MicIcon className="size-4" />
-                </ButtonIcon>
+                </Button>
               }
             />
           }

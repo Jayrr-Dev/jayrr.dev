@@ -2,7 +2,7 @@
 
 import { Avatar } from "@/components/standard/avatar"
 import { Indicator } from "@/components/standard/indicator"
-import { Row } from "@/components/standard/row"
+import { Stack } from "@/components/standard/stack"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const PEOPLE = [
@@ -16,13 +16,13 @@ function RendersIndicatorDemos() {
   return (
     <>
       <RendersDemoCard label="On an avatar">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           {PEOPLE.map((person) => (
             <Indicator key={person.initials} status={person.status}>
               <Avatar>{person.initials}</Avatar>
             </Indicator>
           ))}
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="Inline with label">
         <div className="flex flex-col gap-2">
@@ -32,7 +32,7 @@ function RendersIndicatorDemos() {
         </div>
       </RendersDemoCard>
       <RendersDemoCard label="size sm, default, lg">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           <Indicator size="sm">
             <Avatar size="sm">AK</Avatar>
           </Indicator>
@@ -42,19 +42,19 @@ function RendersIndicatorDemos() {
           <Indicator size="lg">
             <Avatar size="lg">AK</Avatar>
           </Indicator>
-        </Row>
+        </Stack>
       </RendersDemoCard>
       <RendersDemoCard label="Custom label">
         <Indicator status="busy" label="In a meeting" showLabel />
       </RendersDemoCard>
       <RendersDemoCard label="via Avatar status">
-        <Row className="gap-4">
+        <Stack direction="row" align="center" className="gap-4">
           {PEOPLE.map((person) => (
             <Avatar key={person.initials} status={person.status}>
               {person.initials}
             </Avatar>
           ))}
-        </Row>
+        </Stack>
       </RendersDemoCard>
     </>
   )

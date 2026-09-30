@@ -4,7 +4,7 @@ import { useState } from "react"
 import { LayoutGridIcon, ListIcon, TableIcon } from "lucide-react"
 
 import { ButtonArray } from "@/components/standard/button-array"
-import { StandardText } from "@/components/standard/standard-text"
+import { Paragraph } from "@/components/standard/paragraph"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const SECTION_ITEMS = [
@@ -41,18 +41,18 @@ function RendersLiveButtonArray() {
         />
       </RendersDemoCard>
       <RendersDemoCard label="selected">
-        <StandardText>{value}</StandardText>
+        <Paragraph size="sm">{value}</Paragraph>
       </RendersDemoCard>
       <RendersDemoCard label="variant slider">
         <ButtonArray
-          variant="slider"
+          appearance="slider"
           items={SECTION_ITEMS}
           defaultValue="crew"
         />
       </RendersDemoCard>
       <RendersDemoCard label="variant underlined">
         <ButtonArray
-          variant="underlined"
+          appearance="underlined"
           items={SECTION_ITEMS}
           defaultValue="reports"
         />
@@ -64,7 +64,7 @@ function RendersLiveButtonArray() {
           values={values}
           onValuesChange={setValues}
         />
-        <StandardText>{values.join(", ") || "none"}</StandardText>
+        <Paragraph size="sm">{values.join(", ") || "none"}</Paragraph>
       </RendersDemoCard>
       <RendersDemoCard label="appearance segmented">
         <ButtonArray

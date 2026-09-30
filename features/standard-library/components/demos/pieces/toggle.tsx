@@ -4,6 +4,8 @@ import {
   BoldIcon,
   ItalicIcon,
   PinIcon,
+  RefreshCwIcon,
+  SearchIcon,
   StarIcon,
   UnderlineIcon,
 } from "lucide-react"
@@ -45,6 +47,19 @@ export function RendersToggleDemo() {
         <Toggle iconOnly shape="square" aria-label="Pin">
           <PinIcon className="size-4" />
         </Toggle>
+      </RendersDemoCard>
+      <RendersDemoCard label="iconOnly · size sm · default · lg">
+        <div className="flex flex-wrap items-center gap-1">
+          <Toggle iconOnly size="sm" aria-label="Refresh">
+            <RefreshCwIcon className="size-3" />
+          </Toggle>
+          <Toggle iconOnly aria-label="Favorite" defaultPressed>
+            <StarIcon className="size-4" />
+          </Toggle>
+          <Toggle iconOnly size="lg" aria-label="Search">
+            <SearchIcon className="size-5" />
+          </Toggle>
+        </div>
       </RendersDemoCard>
       <RendersDemoCard label="size sm">
         <Toggle size="sm">Small</Toggle>

@@ -22,7 +22,6 @@ import {
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
-  ToolbarSelect,
   ToolbarSeparator,
   ToolbarToggle,
   type ToolbarTone,
@@ -44,8 +43,11 @@ function RendersToolbarGroupsDemo() {
         aria-label="Board actions"
         className="w-full rounded-lg border border-border"
       >
-        <ToolbarSelect
-          label="View"
+        <Select
+          appearance="toolbar"
+          size="default"
+          aria-label="View"
+          placeholder="View"
           options={VIEW_OPTIONS}
           value={view}
           onValueChange={setView}

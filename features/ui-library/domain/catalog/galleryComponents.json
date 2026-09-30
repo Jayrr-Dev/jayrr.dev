@@ -14,7 +14,8 @@
     "canonical": "text",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ]
   },
   {
@@ -81,23 +82,6 @@
     "description": null
   },
   {
-    "name": "Standard Text",
-    "type": "content/text",
-    "canonical": "text",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "key": "standard-text",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-text.tsx",
-    "import_path": "@/components/ui/standard-text",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Symbol",
     "type": "content/icon",
     "canonical": "icons",
@@ -150,7 +134,8 @@
     "canonical": "media",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ]
   },
   {
@@ -159,7 +144,8 @@
     "canonical": "media",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ],
     "installed": true
   },
@@ -248,6 +234,23 @@
     "description": null
   },
   {
+    "name": "Standard List",
+    "type": "content/data",
+    "canonical": "tables",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "key": "standard-list",
+    "family_key": "standard",
+    "file_path": "components/standard/standard-list.tsx",
+    "import_path": "@/components/standard/standard-list",
+    "preview_mode": "inline",
+    "needs_mock_data": true,
+    "mock_data_key": "table-rows",
+    "description": null
+  },
+  {
     "name": "Standard Table",
     "type": "content/data",
     "canonical": "tables",
@@ -280,23 +283,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": "Excel-style spreadsheet grid with A1 coordinates and a Name Box, letter and number headers with optional labels, range selection, and keyboard navigation. Drag the fill handle down, right, or diagonally to continue number, date, weekday, and Item 1 series, or press Ctrl+D to copy the cell above. Insert, delete, duplicate, hide, and freeze rows and columns from the right-click menu or the + between headers. Opt-in sorting by header click, per-column filter buttons with value lists and conditions, and declarative JSON formatting rules that style cells, rows, or columns (background, text color, weight, decoration, alignment, borders, any CSS) when values match. Cells render components by type (text, number, checkbox, select, date, or your own), rows and columns are virtualized for 10,000+ rows, and every edit is a change list with undo and redo that onChanges or an adapter can sync to a database."
-  },
-  {
-    "name": "Bar Stack",
-    "type": "content/data",
-    "canonical": "charts",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "bar-stack",
-    "family_key": "chart",
-    "file_path": "components/ui/bar-stack.tsx",
-    "import_path": "@/components/ui/bar-stack",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "chart-series",
-    "description": null
   },
   {
     "name": "Button",
@@ -347,40 +333,6 @@
     "family_key": "array",
     "file_path": "src/components/ui/button-array.tsx",
     "import_path": "@/components/ui/button-array",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Button Back",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "key": "button-back",
-    "family_key": "base",
-    "file_path": "components/standard/button-link.tsx",
-    "import_path": "@/components/ui/button-back",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Button Link",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "key": "button-link",
-    "family_key": "base",
-    "file_path": "components/ui/button-link.tsx",
-    "import_path": "@/components/ui/button-link",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
@@ -470,40 +422,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": "Replaces the native cursor. Variants: dot, ring, dot-ring, crosshair, spotlight, blend, arrow, trail. Scoped to children or global."
-  },
-  {
-    "name": "Button Icon",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "key": "button-icon",
-    "family_key": "icon",
-    "file_path": "components/ui/button-icon.tsx",
-    "import_path": "@/components/ui/button-icon",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Caption Button",
-    "type": "interaction/action",
-    "canonical": "buttons",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "caption-button",
-    "family_key": "icon",
-    "file_path": "components/ui/caption-button.tsx",
-    "import_path": "@/components/ui/caption-button",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
   },
   {
     "name": "Link",
@@ -1020,23 +938,6 @@
     "description": "Miller-column picker from the utilitek timesheet Work Performed field: sections as tabs, then group, header, and checkbox columns side by side, with a search that lists matches from every group. Popover on desktop, stacked bottom sheet on mobile."
   },
   {
-    "name": "Multi Select",
-    "type": "interaction/input",
-    "canonical": "selects",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "multi-select",
-    "family_key": "select",
-    "file_path": "components/ui/multi-select.tsx",
-    "import_path": "@/components/ui/multi-select",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "pickers",
-    "description": null
-  },
-  {
     "name": "Dialslide",
     "type": "interaction/input",
     "canonical": "scroll",
@@ -1097,7 +998,8 @@
     "canonical": "toggles",
     "tier": "primitive",
     "demos": [
-      "classic"
+      "classic",
+      "standard"
     ],
     "installed": true
   },
@@ -1131,40 +1033,6 @@
     "description": null
   },
   {
-    "name": "Labelled Switch",
-    "type": "interaction/selection",
-    "canonical": "toggles",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "labelled-switch",
-    "family_key": "input",
-    "file_path": "components/ui/labelled-switch.tsx",
-    "import_path": "@/components/ui/labelled-switch",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "name": "Toggle Row",
-    "type": "interaction/selection",
-    "canonical": "toggles",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "toggle-row",
-    "family_key": "switch",
-    "file_path": "components/ui/toggle-row.tsx",
-    "import_path": "@/components/ui/toggle-row",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "name": "Badge Select",
     "type": "interaction/selection",
     "canonical": "selects",
@@ -1179,23 +1047,6 @@
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "pickers",
-    "description": null
-  },
-  {
-    "name": "Toggleable Badges",
-    "type": "interaction/selection",
-    "canonical": "toggles",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "toggleable-badges",
-    "family_key": "array",
-    "file_path": "components/ui/toggleable-badges.tsx",
-    "import_path": "@/components/ui/toggleable-badges",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "nav-items",
     "description": null
   },
   {
@@ -1455,40 +1306,6 @@
     "description": null
   },
   {
-    "name": "Broadcast Banner",
-    "type": "meaning/feedback",
-    "canonical": "alerts",
-    "tier": "component",
-    "demos": [
-      "standard"
-    ],
-    "key": "broadcast-banner",
-    "family_key": "alert",
-    "file_path": "components/ui/BroadcastBanner.tsx",
-    "import_path": "@/components/ui/BroadcastBanner",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
-    "name": "Broadcast Banner Container",
-    "type": "meaning/feedback",
-    "canonical": "alerts",
-    "tier": "block",
-    "demos": [
-      "standard"
-    ],
-    "key": "broadcast-banner-container",
-    "family_key": "alert",
-    "file_path": "components/ui/BroadcastBannerContainer.tsx",
-    "import_path": "@/components/ui/BroadcastBannerContainer",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
     "name": "Toast",
     "type": "meaning/feedback",
     "canonical": "notifications",
@@ -1605,23 +1422,6 @@
     "family_key": "card",
     "file_path": "components/ui/card-bar.tsx",
     "import_path": "@/components/ui/card-bar",
-    "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
-    "description": null
-  },
-  {
-    "name": "Standard Card",
-    "type": "structure/surface",
-    "canonical": "cards",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "key": "standard-card",
-    "family_key": "standard",
-    "file_path": "components/ui/standard-card.tsx",
-    "import_path": "@/components/ui/standard-card",
     "preview_mode": "inline",
     "needs_mock_data": true,
     "mock_data_key": "table-rows",
@@ -1958,23 +1758,6 @@
     "needs_mock_data": false,
     "mock_data_key": null,
     "description": null
-  },
-  {
-    "name": "Thin Scrollbar",
-    "type": "structure/layout",
-    "canonical": "scroll",
-    "tier": "primitive",
-    "demos": [
-      "standard"
-    ],
-    "key": "thin-scrollbar",
-    "family_key": "scroll",
-    "file_path": "components/standard/scrollbar.tsx",
-    "import_path": "@/components/standard/scrollbar",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": "Excalidraw-style thin native scrollbar (4px). Use ThinScrollbar or class scrollbar-thin."
   },
   {
     "name": "Article",
