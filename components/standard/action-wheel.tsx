@@ -7,38 +7,72 @@ import { cn } from "cn"
 import { Tooltip } from "@/components/standard/tooltip"
 
 export type ActionWheelSize = "compact" | "default" | "large"
-export type ActionWheelTone = "inverse" | "surface" | "secondary"
+export type ActionWheelTone =
+  "solid" | "violet" | "primary" | "secondary" | "surface"
+/** `always` pins a card beside every action, `hover` reveals it on hover or focus. */
+export type ActionWheelLabels = "always" | "hover" | "none"
 
 export type ActionWheelItem = {
   label: string
   icon: React.ReactNode
-  /** Tooltip body. Defaults to the label. */
+  /** Tooltip body when labels are off. Defaults to the label. */
   hint?: string
   onSelect?: () => void
   disabled?: boolean
+  /** Per-action override, e.g. a muted color for a pinned smart action. */
+  className?: string
 }
 
 /** Trigger, action, and ring radius in px for each size. */
 const WHEEL_METRICS: Record<
   ActionWheelSize,
-  { trigger: number; item: number; radius: number; icon: string }
+  { trigger: number; item: number; radius: number; icon: string; text: string }
 > = {
-  compact: { trigger: 28, item: 40, radius: 68, icon: "[&_svg]:size-4" },
-  default: { trigger: 32, item: 48, radius: 84, icon: "[&_svg]:size-5" },
-  large: { trigger: 40, item: 56, radius: 100, icon: "[&_svg]:size-6" },
+  compact: {
+    trigger: 24,
+    item: 40,
+    radius: 68,
+    icon: "[&_svg]:size-4",
+    text: "text-xs",
+  },
+  default: {
+    trigger: 30,
+    item: 52,
+    radius: 92,
+    icon: "[&_svg]:size-5",
+    text: "text-sm",
+  },
+  large: {
+    trigger: 36,
+    item: 64,
+    radius: 116,
+    icon: "[&_svg]:size-6",
+    text: "text-base",
+  },
 }
 
 const WHEEL_TONES: Record<ActionWheelTone, string> = {
-  inverse: "bg-foreground/90 text-background",
-  surface: "border border-border/80 bg-card text-foreground",
+  solid: "bg-foreground text-background",
+  violet: "bg-indigo-900 text-white",
+  primary: "bg-primary text-primary-foreground",
   secondary: "bg-secondary text-secondary-foreground",
+  surface: "border border-border/80 bg-card text-foreground",
+}
+
+// Space between an action's edge and its label card.
+const LABEL_GAP = 12
+
+/** Trig output as a fixed string, so server and client styles match. */
+function fixed(value: number) {
+  return value.toFixed(2)
 }
 
 /**
- * Radial action menu in the logictek style: a small center trigger that turns
- * into a red close button while a ring of circular actions fans out around it.
- * `startAngle` is in degrees clockwise from 12 o'clock and `sweep` below 360
- * spreads the actions over an arc, e.g. `sweep={90}` for a corner wheel.
+ * Radial action menu modeled on the Logi Options+ Actions Ring: a small gray
+ * close button in the middle, a ring of solid circular actions around it,
+ * and a label card pushed outward from each one. Hovering an action raises a
+ * notch on its outer edge. `startAngle` is in degrees clockwise from
+ * 12 o'clock, and `sweep` below 360 spreads the actions over an arc.
  * Arrow keys walk the ring, Escape or a click outside closes it.
  */
 function ActionWheel({
@@ -47,7 +81,8 @@ function ActionWheel({
   icon = <PlusIcon />,
   items,
   size = "default",
-  tone = "inverse",
+  tone = "solid",
+  labels = "always",
   radius: radiusProp,
   startAngle = 0,
   sweep = 360,
@@ -62,6 +97,7 @@ function ActionWheel({
   items: ActionWheelItem[]
   size?: ActionWheelSize
   tone?: ActionWheelTone
+  labels?: ActionWheelLabels
   /** Distance in px from the center to each action's center. */
   radius?: number
   startAngle?: number
@@ -146,6 +182,7 @@ function ActionWheel({
   // A full ring spaces every action evenly; an arc pins both ends.
   const fullRing = sweep >= 360
   const gaps = fullRing ? items.length : Math.max(items.length - 1, 1)
+  const reach = metrics.item / 2 + LABEL_GAP
 
   return (
     <div
@@ -163,53 +200,106 @@ function ActionWheel({
         role="group"
         aria-label={label}
         inert={!open}
-        className="pointer-events-none absolute inset-0 [&>*]:pointer-events-auto"
+        className="absolute inset-0"
       >
         {items.map((item, index) => {
-          const angle =
-            ((startAngle + (index * Math.min(sweep, 360)) / gaps) * Math.PI) /
-            180
-          const x = Math.sin(angle) * radius
-          const y = -Math.cos(angle) * radius
+          const degrees = startAngle + (index * Math.min(sweep, 360)) / gaps
+          const angle = (degrees * Math.PI) / 180
+          const sin = Math.sin(angle)
+          const cos = Math.cos(angle)
           const delay = (open ? index : items.length - 1 - index) * 25
 
-          return (
-            <Tooltip
-              key={item.label}
-              label={item.label}
-              body={item.hint ?? item.label}
+          const button = (
+            <button
+              data-slot="action-wheel-item"
+              type="button"
+              aria-label={item.label}
+              disabled={item.disabled}
+              style={{
+                width: metrics.item,
+                height: metrics.item,
+                left: -metrics.item / 2,
+                top: -metrics.item / 2,
+              }}
+              className={cn(
+                "pointer-events-auto absolute isolate inline-flex items-center justify-center rounded-full shadow-md transition-[scale,box-shadow] duration-200 ease-out outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50",
+                "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-current before:opacity-0 before:transition-opacity hover:scale-105 hover:shadow-lg hover:before:opacity-[0.08] focus-visible:before:opacity-10 active:scale-95 active:before:opacity-10",
+                metrics.icon,
+                WHEEL_TONES[tone],
+                item.className
+              )}
+              onClick={() => {
+                item.onSelect?.()
+                setOpen(false)
+                triggerRef.current?.focus()
+              }}
             >
-              <button
-                data-slot="action-wheel-item"
-                type="button"
-                aria-label={item.label}
-                disabled={item.disabled}
-                style={{
-                  width: metrics.item,
-                  height: metrics.item,
-                  marginLeft: -metrics.item / 2,
-                  marginTop: -metrics.item / 2,
-                  transitionDelay: `${delay}ms`,
-                  translate: open ? `${x}px ${y}px` : "0 0",
-                }}
-                className={cn(
-                  "absolute top-1/2 left-1/2 isolate inline-flex items-center justify-center overflow-hidden rounded-full shadow-md transition-[translate,scale,opacity,box-shadow] duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50",
-                  "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:bg-current before:opacity-0 before:transition-opacity hover:scale-110 hover:shadow-lg hover:before:opacity-[0.08] focus-visible:before:opacity-10 active:scale-95 active:before:opacity-10",
-                  metrics.icon,
-                  WHEEL_TONES[tone],
-                  !open && "scale-50 opacity-0"
-                )}
-                onClick={() => {
-                  item.onSelect?.()
-                  setOpen(false)
-                  triggerRef.current?.focus()
-                }}
+              {/* Hover notch on the edge facing away from the center. */}
+              <span
+                aria-hidden
+                style={{ rotate: `${degrees}deg` }}
+                className="pointer-events-none absolute inset-0"
               >
-                <span aria-hidden className="flex">
-                  {item.icon}
+                <span
+                  className={cn(
+                    "absolute top-0 left-1/2 flex size-[34%] -translate-x-1/2 -translate-y-[30%] scale-0 items-center justify-center rounded-full border-0 transition-[scale] duration-200 ease-out group-focus-within/wheel-item:scale-100 group-hover/wheel-item:scale-100",
+                    WHEEL_TONES[tone],
+                    item.className
+                  )}
+                >
+                  <span className="h-0.5 w-1/2 rounded-full bg-current" />
                 </span>
-              </button>
-            </Tooltip>
+              </span>
+              <span aria-hidden className="relative flex">
+                {item.icon}
+              </span>
+            </button>
+          )
+
+          return (
+            <div
+              key={item.label}
+              data-slot="action-wheel-slot"
+              style={{
+                transitionDelay: `${delay}ms`,
+                translate: open
+                  ? `${fixed(sin * radius)}px ${fixed(-cos * radius)}px`
+                  : "0 0",
+              }}
+              className={cn(
+                "group/wheel-item absolute top-1/2 left-1/2 size-0 transition-[translate,scale,opacity] duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                !open && "scale-50 opacity-0"
+              )}
+            >
+              {labels === "none" ? (
+                <Tooltip label={item.label} body={item.hint ?? item.label}>
+                  {button}
+                </Tooltip>
+              ) : (
+                button
+              )}
+              {labels === "none" ? null : (
+                <span
+                  aria-hidden
+                  data-slot="action-wheel-label"
+                  style={{
+                    left: `${fixed(sin * reach)}px`,
+                    top: `${fixed(-cos * reach)}px`,
+                    // Push the card outward so its near edge faces the action.
+                    transform: `translate(${fixed(-50 + 50 * sin)}%, ${fixed(-50 - 50 * cos)}%)`,
+                  }}
+                  className={cn(
+                    "pointer-events-none absolute max-w-44 truncate rounded-md border border-border/60 bg-card px-3 py-1.5 font-medium whitespace-nowrap text-card-foreground shadow-md transition-[opacity,box-shadow] duration-200",
+                    metrics.text,
+                    labels === "hover"
+                      ? "opacity-0 group-focus-within/wheel-item:opacity-100 group-hover/wheel-item:opacity-100"
+                      : "group-hover/wheel-item:shadow-lg"
+                  )}
+                >
+                  {item.label}
+                </span>
+              )}
+            </div>
           )
         })}
       </div>
@@ -221,14 +311,16 @@ function ActionWheel({
         aria-expanded={open}
         aria-controls={ringId}
         style={{
-          width: metrics.trigger,
-          height: metrics.trigger,
-          marginLeft: -metrics.trigger / 2,
-          marginTop: -metrics.trigger / 2,
+          width: open ? metrics.trigger : metrics.item,
+          height: open ? metrics.trigger : metrics.item,
+          marginLeft: -(open ? metrics.trigger : metrics.item) / 2,
+          marginTop: -(open ? metrics.trigger : metrics.item) / 2,
         }}
         className={cn(
-          "pointer-events-auto absolute top-1/2 left-1/2 z-10 inline-flex items-center justify-center rounded-full shadow-md transition-[background-color,color,scale] duration-200 ease-out outline-none hover:scale-105 focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-95 [&_svg]:size-3.5",
-          open ? "bg-destructive text-white" : WHEEL_TONES[tone]
+          "pointer-events-auto absolute top-1/2 left-1/2 z-10 inline-flex items-center justify-center rounded-full transition-[width,height,margin,background-color,color,box-shadow,scale] duration-300 ease-out outline-none hover:scale-105 focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-95",
+          open
+            ? "bg-muted text-muted-foreground hover:text-foreground [&_svg]:size-3.5"
+            : cn("shadow-md", metrics.icon, WHEEL_TONES[tone])
         )}
         onClick={() => setOpen(!open)}
       >

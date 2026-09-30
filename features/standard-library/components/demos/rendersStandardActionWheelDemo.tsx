@@ -2,70 +2,98 @@
 
 import {
   AppWindowIcon,
+  ContrastIcon,
+  DropletIcon,
   FolderOpenIcon,
   MonitorCogIcon,
   NotebookPenIcon,
   PlayIcon,
-  ScanFaceIcon,
+  RefreshCwIcon,
+  ScanIcon,
   SmileIcon,
   SparklesIcon,
+  SunIcon,
+  SunMediumIcon,
+  SunsetIcon,
+  SunDimIcon,
 } from "lucide-react"
 
 import { ActionWheel } from "@/components/standard/action-wheel"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const WHEEL_ITEMS = [
-  { label: "Play", icon: <PlayIcon /> },
-  { label: "Notes", icon: <NotebookPenIcon /> },
-  { label: "Enhance", icon: <SparklesIcon /> },
-  { label: "Remote desktop", icon: <MonitorCogIcon /> },
-  { label: "Apps", icon: <AppWindowIcon /> },
-  { label: "Capture", icon: <ScanFaceIcon /> },
-  { label: "Reactions", icon: <SmileIcon /> },
-  { label: "Files", icon: <FolderOpenIcon /> },
+  { label: "Play/Pause", icon: <PlayIcon /> },
+  { label: "New note", icon: <NotebookPenIcon /> },
+  { label: "Explore AI", icon: <SparklesIcon /> },
+  { label: "Lock workstation", icon: <MonitorCogIcon /> },
+  { label: "Logi Options+", icon: <AppWindowIcon /> },
+  { label: "Screenshot", icon: <ScanIcon /> },
+  { label: "Emoji", icon: <SmileIcon /> },
+  { label: "Finder", icon: <FolderOpenIcon /> },
 ]
+
+const PHOTO_ITEMS = [
+  {
+    label: "Easy Speed Change (Premiere Pro)",
+    icon: <RefreshCwIcon />,
+    className: "bg-neutral-700 text-white",
+  },
+  { label: "Tint", icon: <DropletIcon /> },
+  { label: "Exposure", icon: <SunIcon /> },
+  { label: "Contrast", icon: <ContrastIcon /> },
+  { label: "Highlights", icon: <SunMediumIcon /> },
+  { label: "Saturation", icon: <SunsetIcon /> },
+  { label: "Whites", icon: <SunDimIcon /> },
+  { label: "Blacks", icon: <ContrastIcon className="rotate-180" /> },
+]
+
+function RendersWheelStage({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex w-full justify-center overflow-hidden rounded-xl bg-muted/40 px-36 py-16">
+      {children}
+    </div>
+  )
+}
 
 export function RendersStandardActionWheelDemo() {
   return (
     <>
-      <RendersDemoCard label="full ring · logictek" className="w-full max-w-md">
-        <div className="flex w-full justify-center rounded-xl bg-neutral-950 py-6">
+      <RendersDemoCard label="actions ring · logi options+" className="w-full">
+        <RendersWheelStage>
           <ActionWheel label="Actions" items={WHEEL_ITEMS} defaultOpen />
-        </div>
+        </RendersWheelStage>
       </RendersDemoCard>
-      <RendersDemoCard label="tones · surface, secondary">
-        <div className="flex flex-wrap justify-center gap-4">
+      <RendersDemoCard label="violet tone · smart action" className="w-full">
+        <RendersWheelStage>
           <ActionWheel
-            label="Actions"
-            tone="surface"
-            items={WHEEL_ITEMS.slice(0, 6)}
+            label="Photo actions"
+            tone="violet"
+            items={PHOTO_ITEMS}
+            defaultOpen
           />
-          <ActionWheel
-            label="Actions"
-            tone="secondary"
-            items={WHEEL_ITEMS.slice(0, 6)}
-          />
-        </div>
+        </RendersWheelStage>
       </RendersDemoCard>
-      <RendersDemoCard label="sizes · compact, large">
-        <div className="flex flex-wrap items-center justify-center gap-4">
+      <RendersDemoCard label="labels on hover · compact" className="w-full">
+        <RendersWheelStage>
           <ActionWheel
             label="Actions"
             size="compact"
-            items={WHEEL_ITEMS.slice(0, 5)}
+            labels="hover"
+            items={WHEEL_ITEMS.slice(0, 6)}
           />
-          <ActionWheel label="Actions" size="large" items={WHEEL_ITEMS} />
-        </div>
+        </RendersWheelStage>
       </RendersDemoCard>
-      <RendersDemoCard label="arc · sweep 180" className="w-full max-w-md">
-        <div className="flex w-full justify-center">
+      <RendersDemoCard label="no labels · arc sweep 180" className="w-full">
+        <RendersWheelStage>
           <ActionWheel
             label="Actions"
+            labels="none"
+            tone="surface"
             items={WHEEL_ITEMS.slice(0, 5)}
             startAngle={-90}
             sweep={180}
           />
-        </div>
+        </RendersWheelStage>
       </RendersDemoCard>
     </>
   )
