@@ -2,50 +2,49 @@
 
 import * as React from "react"
 
-import { Button } from "@/components/standard/button"
 import { Dialog } from "@/components/standard/dialog"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
 
+// Arrow keys move between tabs (roving focus) and each panel is linked to
+// its tab, so the dialog reads as one tablist to screen readers.
 function TabbedDialog({
   title,
   tabs,
   trigger = "Open tabs",
 }: {
   title: string
-  tabs: { id: string; label: string; body: string }[]
-  trigger?: string
+  tabs: { id: string; label: string; body: React.ReactNode }[]
+  trigger?: React.ReactNode
 }) {
-  const [active, setActive] = React.useState(tabs[0]?.id)
-
   return (
     <Dialog title={title} trigger={trigger}>
-      <div data-slot="tabbed-dialog" className="flex flex-col gap-2">
-        <div className="flex gap-1">
-          {tabs.map((tab) => {
-            const tone = tab.id === active ? "default" : "outline"
-
-            return (
-              <Button
-                key={tab.id}
-                size="sm"
-                tone={tone}
-                onClick={() => setActive(tab.id)}
-              >
-                {tab.label}
-              </Button>
-            )
-          })}
-        </div>
-        {tabs.map((tab) => {
-          if (tab.id !== active) {
-            return null
-          }
-          return (
-            <p key={tab.id} className="text-sm text-muted-foreground">
-              {tab.body}
-            </p>
-          )
-        })}
-      </div>
+      <Tabs
+        data-slot="tabbed-dialog"
+        defaultValue={tabs[0]?.id}
+        className="gap-2"
+      >
+        <TabsList>
+          {tabs.map((tab) => (
+            <TabsTrigger key={tab.id} value={tab.id}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {tabs.map((tab) => (
+          <TabsContent
+            key={tab.id}
+            value={tab.id}
+            className="text-muted-foreground"
+          >
+            {tab.body}
+          </TabsContent>
+        ))}
+      </Tabs>
     </Dialog>
   )
 }

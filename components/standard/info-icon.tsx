@@ -14,7 +14,20 @@ import {
 } from "@/components/standard/popover"
 import { Tooltip } from "@/components/standard/tooltip"
 
-function readingInfoGlyph(tone: "info" | "help" | "alert") {
+type InfoIconTone = "info" | "help" | "alert"
+
+type InfoIconProps = {
+  className?: string
+  /** Accessible name of the icon button, and the popover's title. */
+  label: string
+  body: string
+  /** Picks the glyph: info (i), help (?), alert (!). Alert tooltips turn red. */
+  tone?: InfoIconTone
+  /** `popover` opens a titled note on click; `tooltip` shows the body on hover. */
+  type?: "popover" | "tooltip"
+}
+
+function readingInfoGlyph(tone: InfoIconTone) {
   if (tone === "help") {
     return <CircleHelpIcon className="size-4" />
   }
@@ -30,20 +43,15 @@ function InfoIcon({
   body,
   tone = "info",
   type = "popover",
-}: {
-  className?: string
-  label: string
-  body: string
-  tone?: "info" | "help" | "alert"
-  type?: "popover" | "tooltip"
-}) {
+}: InfoIconProps) {
   const glyph = (
     <button
       type="button"
       data-slot="info-icon"
+      data-tone={tone}
       aria-label={label}
       className={cn(
-        "inline-flex shrink-0 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground",
+        "inline-flex shrink-0 rounded-full p-1 text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
         className
       )}
     >
@@ -54,7 +62,7 @@ function InfoIcon({
   if (type === "tooltip") {
     const tooltipTone = tone === "alert" ? "danger" : "default"
     return (
-      <Tooltip label={label} body={body} tone={tooltipTone}>
+      <Tooltip content={body} tone={tooltipTone}>
         {glyph}
       </Tooltip>
     )
@@ -73,18 +81,14 @@ function InfoIcon({
   )
 }
 
-function QuestionIcon({
-  className,
-  label,
-  body,
-}: {
-  className?: string
-  label: string
-  body: string
-}) {
-  return (
-    <InfoIcon className={className} label={label} body={body} tone="help" />
-  )
+/**
+ * Preset of InfoIcon with the help (?) glyph, for "what is this?" notes next
+ * to a field or title. Same as `<InfoIcon tone="help">`; takes every other
+ * InfoIcon prop, including `type`.
+ */
+function QuestionIcon(props: Omit<InfoIconProps, "tone">) {
+  return <InfoIcon {...props} tone="help" />
 }
 
 export { InfoIcon, QuestionIcon }
+export type { InfoIconProps, InfoIconTone }

@@ -4,6 +4,21 @@ import { cn } from "cn"
 
 const cardVariants = cva("", {
   variants: {
+    appearance: {
+      default: "border-border bg-card",
+      // Border only: sits on any background.
+      outline: "border-border bg-transparent",
+      // Filled with the muted surface, no border line.
+      muted: "border-transparent bg-muted",
+      // Raised with a shadow instead of a border line.
+      elevated: "border-transparent bg-card shadow-md",
+    },
+    padding: {
+      none: "[--card-padding:0px]",
+      sm: "[--card-padding:--spacing(3)]",
+      default: "[--card-padding:--spacing(4)]",
+      lg: "[--card-padding:--spacing(6)]",
+    },
     effect: {
       none: "",
       lift: "transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
@@ -13,32 +28,78 @@ const cardVariants = cva("", {
       // Gradient border fades in on hover with a colored shadow.
       glow: "transition-[border-color,box-shadow] duration-300 hover:border-transparent hover:shadow-[0_8px_32px_-8px_var(--card-glow-shadow)] hover:[background:linear-gradient(var(--color-card),var(--color-card))_padding-box,var(--card-glow)_border-box]",
     },
+    // The whole card is one link or button.
+    interactive: {
+      true: "cursor-pointer text-left transition-[background-color,border-color,box-shadow] outline-none hover:border-foreground/20 hover:bg-muted/40 focus-visible:ring-3 focus-visible:ring-ring/50 active:bg-muted/60",
+      false: "",
+    },
   },
   defaultVariants: {
+    appearance: "default",
+    padding: "default",
     effect: "none",
+    interactive: false,
   },
 })
 
+type CardProps = Omit<React.ComponentProps<"article">, "title"> &
+  VariantProps<typeof cardVariants> & {
+    /** Shorthand: renders a CardHeader with a CardTitle before the children. */
+    title?: React.ReactNode
+    /** Shorthand: a muted line under the title, inside the header. */
+    meta?: React.ReactNode
+    /** With `interactive`, renders the card as a link to this URL. */
+    href?: string
+    target?: string
+    rel?: string
+  }
+
 function Card({
   className,
+  appearance = "default",
+  padding = "default",
   effect = "none",
+  interactive = false,
+  title,
+  meta,
+  href,
+  children,
   ...props
-}: React.ComponentProps<"article"> & VariantProps<typeof cardVariants>) {
+}: CardProps) {
+  // Interactive cards are a link when they have an href, a button otherwise.
+  const Comp = (
+    interactive ? (href ? "a" : "button") : "article"
+  ) as React.ElementType
+  const hasHeader = title != null || meta != null
+
   return (
-    <article
+    <Comp
       data-slot="card"
+      data-appearance={appearance}
+      data-padding={padding}
       data-effect={effect}
+      data-interactive={interactive || undefined}
+      href={interactive ? href : undefined}
+      type={interactive && !href ? "button" : undefined}
       className={cn(
-        "group/card flex w-full flex-col gap-3 rounded-xl border border-border bg-card p-(--card-padding) text-card-foreground [--card-glow-shadow:oklch(0.65_0.2_300/0.45)] [--card-glow:linear-gradient(135deg,oklch(0.7_0.2_300),oklch(0.8_0.15_200))] [--card-padding:--spacing(4)]",
+        "group/card flex w-full flex-col gap-3 rounded-xl border p-(--card-padding) text-card-foreground [--card-glow-shadow:oklch(0.65_0.2_300/0.45)] [--card-glow:linear-gradient(135deg,oklch(0.7_0.2_300),oklch(0.8_0.15_200))]",
         // Left/right panels and side media run full height; content goes in CardMain.
         "has-[>[data-slot=card-left],>[data-slot=card-right],>[data-slot=card-media]]:overflow-hidden has-[>[data-slot=card-left],>[data-slot=card-right],>[data-slot=card-media][data-position=left],>[data-slot=card-media][data-position=right]]:flex-row has-[>[data-slot=card-left],>[data-slot=card-right],>[data-slot=card-media][data-position=left],>[data-slot=card-media][data-position=right]]:gap-0 has-[>[data-slot=card-left],>[data-slot=card-right],>[data-slot=card-media][data-position=left],>[data-slot=card-media][data-position=right]]:p-0",
         // A thumbnail sits beside the content inside the card padding.
         "has-[>[data-slot=card-thumbnail]]:flex-row has-[>[data-slot=card-thumbnail]]:items-start has-[>[data-slot=card-thumbnail]]:*:data-[slot=card-main]:p-0",
-        cardVariants({ effect }),
+        cardVariants({ appearance, padding, effect, interactive }),
         className
       )}
       {...props}
-    />
+    >
+      {hasHeader ? (
+        <CardHeader>
+          {title != null ? <CardTitle>{title}</CardTitle> : null}
+          {meta != null ? <CardMeta>{meta}</CardMeta> : null}
+        </CardHeader>
+      ) : null}
+      {children}
+    </Comp>
   )
 }
 
@@ -57,6 +118,16 @@ function CardTitle({ className, ...props }: React.ComponentProps<"h3">) {
     <h3
       data-slot="card-title"
       className={cn("text-base font-semibold", className)}
+      {...props}
+    />
+  )
+}
+
+function CardMeta({ className, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p
+      data-slot="card-meta"
+      className={cn("text-xs text-muted-foreground", className)}
       {...props}
     />
   )
@@ -318,6 +389,7 @@ export {
   CardMain,
   CardMedia,
   CardMediaOverlay,
+  CardMeta,
   CardRight,
   CardThumbnail,
   CardTitle,

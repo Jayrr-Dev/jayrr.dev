@@ -25,6 +25,17 @@ export function RendersTabbedDialogDemo() {
           ]}
         />
       </RendersDemoCard>
+      <RendersDemoCard label="Tabbed dialog · three tabs">
+        <TabbedDialog
+          title="Job"
+          trigger="Open job"
+          tabs={[
+            { id: "details", label: "Details", body: "Site and client." },
+            { id: "crew", label: "Crew", body: "Who is assigned." },
+            { id: "notes", label: "Notes", body: "Arrow keys move tabs." },
+          ]}
+        />
+      </RendersDemoCard>
     </>
   )
 }

@@ -29,6 +29,28 @@ export function RendersInfoIconDemo() {
           <QuestionIcon label="Cost help" body="Labor plus equipment." />
         </Row>
       </RendersDemoCard>
+      <RendersDemoCard label="type tooltip">
+        <InfoIcon
+          type="tooltip"
+          label="Rate help"
+          body="Hover or focus the i to read this."
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="type tooltip · tone alert">
+        <InfoIcon
+          type="tooltip"
+          tone="alert"
+          label="Overdue"
+          body="Invoice is 14 days late."
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="QuestionIcon preset · type tooltip">
+        <QuestionIcon
+          type="tooltip"
+          label="What is this?"
+          body="QuestionIcon is InfoIcon with tone help."
+        />
+      </RendersDemoCard>
       <RendersDemoCard label="type popover">
         <InfoIcon
           type="popover"

@@ -14,6 +14,17 @@ type DialogControl = "minimize" | "maximize" | "close"
 // card's corner padding so the title keeps its full width.
 type DialogControlsPlacement = "inline" | "gutter"
 
+type DialogSize = "sm" | "md" | "lg" | "xl" | "full"
+
+const DIALOG_SIZE_CLASS: Record<DialogSize, string> = {
+  sm: "w-[min(100%,20rem)]",
+  md: "w-[min(100%,24rem)]",
+  lg: "w-[min(100%,32rem)]",
+  xl: "w-[min(100%,42rem)]",
+  // Fills the viewport less a margin; maximize still goes edge to edge.
+  full: "h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-none",
+}
+
 const DIALOG_DOCK_ID = "standard-dialog-dock"
 
 const DIALOG_DOCK_CLASS =
@@ -31,25 +42,16 @@ const DIALOG_CONTROLS_PLACEMENT_CLASS: Record<DialogControlsPlacement, string> =
   }
 
 // One shared corner dock, so minimized dialogs stack without a provider.
-function useDialogDock(active: boolean) {
-  const [dock, setDock] = React.useState<HTMLElement | null>(null)
-
-  React.useEffect(() => {
-    if (!active) {
-      setDock(null)
-      return
-    }
-    let node = document.getElementById(DIALOG_DOCK_ID)
-    if (!node) {
-      node = document.createElement("div")
-      node.id = DIALOG_DOCK_ID
-      node.className = DIALOG_DOCK_CLASS
-      document.body.appendChild(node)
-    }
-    setDock(node)
-  }, [active])
-
-  return dock
+// Created on the first minimize (an event, so never during render or SSR).
+function ensuresDialogDock() {
+  let node = document.getElementById(DIALOG_DOCK_ID)
+  if (!node) {
+    node = document.createElement("div")
+    node.id = DIALOG_DOCK_ID
+    node.className = DIALOG_DOCK_CLASS
+    document.body.appendChild(node)
+  }
+  return node
 }
 
 function Dialog({
@@ -63,6 +65,7 @@ function Dialog({
   controls = [],
   defaultMaximized = false,
   controlsPlacement = "inline",
+  size = "md",
 }: {
   className?: string
   title: string
@@ -74,10 +77,14 @@ function Dialog({
   controls?: DialogControl[]
   defaultMaximized?: boolean
   controlsPlacement?: DialogControlsPlacement
+  /** Width of the card. `full` fills the viewport less a margin. */
+  size?: DialogSize
 }) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false)
   const [isMinimized, setIsMinimized] = React.useState(false)
   const [isMaximized, setIsMaximized] = React.useState(defaultMaximized)
+  const [dock, setDock] = React.useState<HTMLElement | null>(null)
+  const [previousOpen, setPreviousOpen] = React.useState(open)
 
   const isOpen = open ?? uncontrolledOpen
   const canMinimize = controls.includes("minimize")
@@ -85,7 +92,6 @@ function Dialog({
   const canClose = controls.includes("close")
   const hasControls = canMinimize || canMaximize || canClose
   const isMinimizedActive = isOpen && isMinimized
-  const dock = useDialogDock(isMinimizedActive)
 
   const setOpen = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -98,16 +104,19 @@ function Dialog({
     onOpenChange?.(nextOpen)
   }
 
-  React.useEffect(() => {
+  // A parent closing a controlled dialog also clears the minimized state.
+  if (open !== previousOpen) {
+    setPreviousOpen(open)
     if (open === false) {
       setIsMinimized(false)
     }
-  }, [open])
+  }
 
   const minimize = () => {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur()
     }
+    setDock(ensuresDialogDock())
     setIsMinimized(true)
   }
 
@@ -137,12 +146,14 @@ function Dialog({
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/40" />
         <DialogPrimitive.Content
           inert={isMinimizedActive || undefined}
+          data-size={size}
           data-maximized={isMaximized ? "" : undefined}
           data-minimized={isMinimizedActive ? "" : undefined}
           onEscapeKeyDown={blockWhileMinimized}
           onInteractOutside={blockWhileMinimized}
           className={cn(
-            "fixed top-1/2 left-1/2 z-50 max-h-[calc(100dvh-2rem)] w-[min(100%,24rem)] min-w-72 -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-border bg-background p-4 text-foreground shadow-lg",
+            "fixed top-1/2 left-1/2 z-50 max-h-[calc(100dvh-2rem)] min-w-72 -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-border bg-background p-4 text-foreground shadow-lg",
+            DIALOG_SIZE_CLASS[size],
             className,
             isMaximized &&
               "top-0 left-0 h-dvh max-h-none w-screen max-w-none translate-x-0 translate-y-0 rounded-none border-0",
@@ -256,4 +267,4 @@ function Dialog({
 }
 
 export { Dialog }
-export type { DialogControl, DialogControlsPlacement }
+export type { DialogControl, DialogControlsPlacement, DialogSize }

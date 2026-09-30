@@ -185,6 +185,42 @@ export function RendersCardDemo() {
           </CardBody>
         </Card>
       </RendersDemoCard>
+      <RendersDemoCard label="title, meta">
+        <Card title="Contract 1001" meta="Client #708 · 3 open items">
+          <CardBody>Shorthand props render the header for you.</CardBody>
+        </Card>
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance outline">
+        <Card appearance="outline" title="Outline" meta="Border only" />
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance muted">
+        <Card appearance="muted" title="Muted" meta="Filled, no border" />
+      </RendersDemoCard>
+      <RendersDemoCard label="appearance elevated">
+        <Card appearance="elevated" title="Elevated" meta="Shadow, no border" />
+      </RendersDemoCard>
+      <RendersDemoCard label="padding none">
+        <Card padding="none" title="No padding">
+          <CardBody>Content touches the border.</CardBody>
+        </Card>
+      </RendersDemoCard>
+      <RendersDemoCard label="padding sm">
+        <Card padding="sm" title="Small padding" meta="12px all round" />
+      </RendersDemoCard>
+      <RendersDemoCard label="padding lg">
+        <Card padding="lg" title="Large padding" meta="24px all round" />
+      </RendersDemoCard>
+      <RendersDemoCard label="interactive">
+        <Card interactive title="Open job 1002" meta="Renders as a button" />
+      </RendersDemoCard>
+      <RendersDemoCard label="interactive href">
+        <Card
+          interactive
+          href="#card"
+          title="Go to reports"
+          meta="Renders as a link"
+        />
+      </RendersDemoCard>
       <RendersDemoCard label="thumbnail">
         <Card>
           <CardThumbnail>

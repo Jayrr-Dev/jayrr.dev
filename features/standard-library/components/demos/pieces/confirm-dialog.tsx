@@ -13,6 +13,9 @@ function RendersLiveConfirmDialog({
   confirmLabel,
   result,
   showsResult = true,
+  tone,
+  requireText,
+  waitMs,
 }: {
   label: string
   title: string
@@ -21,6 +24,10 @@ function RendersLiveConfirmDialog({
   confirmLabel: string
   result: string
   showsResult?: boolean
+  tone?: "default" | "danger"
+  requireText?: string
+  /** Makes onConfirm async: resolves after this many ms. */
+  waitMs?: number
 }) {
   const [held, setHeld] = useState("")
 
@@ -31,7 +38,20 @@ function RendersLiveConfirmDialog({
         description={description}
         trigger={trigger}
         confirmLabel={confirmLabel}
-        onConfirm={() => setHeld(result)}
+        tone={tone}
+        requireText={requireText}
+        onConfirm={() => {
+          if (waitMs == null) {
+            setHeld(result)
+            return
+          }
+          return new Promise<void>((resolve) => {
+            window.setTimeout(() => {
+              setHeld(result)
+              resolve()
+            }, waitMs)
+          })
+        }}
       />
       {showsResult && held ? <span className="text-xs">{held}</span> : null}
     </RendersDemoCard>
@@ -65,6 +85,42 @@ export function RendersConfirmDialogDemo() {
         confirmLabel="Leave"
         result="Left"
         showsResult={false}
+      />
+      <RendersLiveConfirmDialog
+        label="tone default"
+        title="Publish this piece?"
+        description="A neutral action gets the primary button."
+        trigger="Publish"
+        confirmLabel="Publish"
+        result="Published"
+        tone="default"
+      />
+      <RendersLiveConfirmDialog
+        label="tone danger"
+        title="Delete this job?"
+        description="The job and its timesheets go away."
+        trigger="Delete job"
+        confirmLabel="Delete"
+        result="Deleted"
+        tone="danger"
+      />
+      <RendersLiveConfirmDialog
+        label="async onConfirm"
+        title="Archive 12 jobs?"
+        description="Confirm shows a spinner until the save finishes, then closes."
+        trigger="Archive"
+        confirmLabel="Archive"
+        result="Archived"
+        waitMs={1500}
+      />
+      <RendersLiveConfirmDialog
+        label="requireText"
+        title="Delete the project?"
+        description="This cannot be undone."
+        trigger="Delete project"
+        confirmLabel="Delete project"
+        result="Project deleted"
+        requireText="delete"
       />
     </>
   )
