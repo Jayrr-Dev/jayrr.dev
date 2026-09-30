@@ -1,7 +1,13 @@
 "use client"
 
 import * as React from "react"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  MenuIcon,
+  MousePointerClickIcon,
+} from "lucide-react"
+import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
 import { cn } from "cn"
 
 import {
@@ -20,6 +26,65 @@ export type StandardTableColumn<T> = {
   sortFunction?: (a: T, b: T) => number
   renderCell?: (item: T, index: number) => React.ReactNode
   filter?: StandardListFilter
+}
+
+export type StandardTableAction = {
+  id: string
+  label: string
+  onSelect: () => void
+  disabled?: boolean
+  tone?: "default" | "danger"
+}
+
+function RendersTableActionsMenu({
+  label,
+  actions,
+  icon,
+  disabled = false,
+}: {
+  label: string
+  actions: StandardTableAction[]
+  icon: React.ReactNode
+  disabled?: boolean
+}) {
+  return (
+    <DropdownMenuPrimitive.Root modal={false}>
+      <DropdownMenuPrimitive.Trigger
+        aria-label={label}
+        title={label}
+        disabled={disabled || actions.length === 0}
+        className="inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-40 max-md:size-11"
+        onClick={(event) => event.stopPropagation()}
+        onPointerDown={(event) => event.stopPropagation()}
+      >
+        {icon}
+      </DropdownMenuPrimitive.Trigger>
+      <DropdownMenuPrimitive.Portal>
+        <DropdownMenuPrimitive.Content
+          align="start"
+          sideOffset={4}
+          className="z-50 min-w-36 rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10"
+        >
+          {actions.map((action) => (
+            <DropdownMenuPrimitive.Item
+              key={action.id}
+              disabled={action.disabled}
+              className={cn(
+                "cursor-pointer rounded-md px-2 py-1.5 text-sm outline-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-muted max-md:min-h-11",
+                action.tone === "danger" ? "text-destructive" : undefined
+              )}
+              onSelect={() => {
+                // Let the menu close before the action opens a dialog.
+                window.setTimeout(() => action.onSelect(), 0)
+              }}
+            >
+              {action.label}
+            </DropdownMenuPrimitive.Item>
+          ))}
+        </DropdownMenuPrimitive.Content>
+      </DropdownMenuPrimitive.Portal>
+    </DropdownMenuPrimitive.Root>
+  )
 }
 
 export type StandardTableProps<T extends object> = {
@@ -41,7 +106,11 @@ export type StandardTableProps<T extends object> = {
   initialPageSize?: number
   emptyMessage?: string
   stickyFirstColumn?: boolean
-  renderRowActions?: (item: T, index: number) => React.ReactNode
+  /** Per-row menu in a trailing actions column. */
+  rowActions?: (item: T, index: number) => StandardTableAction[]
+  /** Header menu for the actions column; receives the currently visible (filtered + paged) rows. */
+  bulkActions?: (visibleRows: T[]) => StandardTableAction[]
+  getRowLabel?: (item: T, index: number) => string
 }
 
 function StandardTable<T extends object>({
@@ -63,8 +132,11 @@ function StandardTable<T extends object>({
   initialPageSize = 10,
   emptyMessage = "No Data",
   stickyFirstColumn = false,
-  renderRowActions,
+  rowActions,
+  bulkActions,
+  getRowLabel,
 }: StandardTableProps<T>) {
+  const hasActions = Boolean(rowActions || bulkActions)
   const [query, setQuery] = React.useState("")
   const [sortKey, setSortKey] = React.useState<string | null>(null)
   const [sortDir, setSortDir] = React.useState<"asc" | "desc">("asc")
@@ -217,14 +289,25 @@ function StandardTable<T extends object>({
                   </th>
                 )
               })}
-              {renderRowActions ? (
+              {hasActions ? (
                 <th
                   className={cn(
-                    "border-b border-foreground text-center text-xs font-semibold",
+                    "w-10 border-b border-foreground text-center",
                     headPad
                   )}
                 >
-                  Actions
+                  {bulkActions ? (
+                    <RendersTableActionsMenu
+                      label="Actions for visible rows"
+                      actions={bulkActions(paged)}
+                      disabled={paged.length === 0}
+                      icon={
+                        <MousePointerClickIcon aria-hidden className="size-4" />
+                      }
+                    />
+                  ) : (
+                    <span className="sr-only">Actions</span>
+                  )}
                 </th>
               ) : null}
             </tr>
@@ -233,9 +316,7 @@ function StandardTable<T extends object>({
             {paged.length === 0 ? (
               <tr>
                 <td
-                  colSpan={
-                    renderRowActions ? columns.length + 1 : columns.length
-                  }
+                  colSpan={hasActions ? columns.length + 1 : columns.length}
                   className="py-12 text-center text-sm text-muted-foreground"
                 >
                   {emptyMessage}
@@ -262,8 +343,20 @@ function StandardTable<T extends object>({
                         : readingListCell(row, column.key)}
                     </td>
                   ))}
-                  {renderRowActions ? (
-                    <td className={cellPad}>{renderRowActions(row, index)}</td>
+                  {hasActions ? (
+                    <td className={cn("w-10", cellPad)}>
+                      {rowActions ? (
+                        <RendersTableActionsMenu
+                          label={`Actions for ${
+                            getRowLabel
+                              ? getRowLabel(row, index)
+                              : `row ${index + 1}`
+                          }`}
+                          actions={rowActions(row, index)}
+                          icon={<MenuIcon aria-hidden className="size-5" />}
+                        />
+                      ) : null}
+                    </td>
                   ) : null}
                 </tr>
               ))

@@ -7,13 +7,14 @@
     "cn"
   ],
   "registryDependencies": [
-    "badge"
+    "@jayrr/standard-badge"
   ],
   "files": [
     {
       "path": "components/standard/badge-pill.tsx",
       "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Badge } from \"@/components/standard/badge\"\r\n\r\nfunction BadgePill({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<typeof Badge>) {\r\n  return (\r\n    <Badge\r\n      data-slot=\"badge-pill\"\r\n      className={cn(\"rounded-full px-3\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nfunction CircleBadge({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"span\">) {\r\n  return (\r\n    <span\r\n      data-slot=\"circle-badge\"\r\n      className={cn(\r\n        \"inline-grid h-[1.5em] min-w-[1.5em] shrink-0 place-items-center rounded-full bg-primary px-[0.25em] text-[0.75em] font-semibold leading-none text-primary-foreground tabular-nums\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nfunction BadgeIcon({\r\n  className,\r\n  children,\r\n  ...props\r\n}: React.ComponentProps<typeof Badge>) {\r\n  return (\r\n    <Badge\r\n      data-slot=\"badge-icon\"\r\n      className={cn(\"gap-1\", className)}\r\n      {...props}\r\n    >\r\n      {children}\r\n    </Badge>\r\n  )\r\n}\r\n\r\nexport { BadgeIcon, BadgePill, CircleBadge }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/badge-pill.tsx"
     }
   ],
   "type": "registry:ui"

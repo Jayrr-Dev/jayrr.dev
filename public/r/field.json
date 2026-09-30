@@ -8,8 +8,8 @@
     "cn"
   ],
   "registryDependencies": [
-    "label",
-    "separator"
+    "@jayrr/label",
+    "@jayrr/separator"
   ],
   "files": [
     {

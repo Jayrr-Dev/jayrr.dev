@@ -78,6 +78,19 @@
     "description": null
   },
   {
+    "component_key": "app-bar",
+    "component_name": "App Bar",
+    "section_key": "signals",
+    "category_key": "nav",
+    "family_key": "nav",
+    "file_path": "components/standard/app-bar.tsx",
+    "import_path": "@/components/standard/app-bar",
+    "preview_mode": "dialog",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Material 3 top app bar: Small, Medium and Large flexible (big title that collapses on scroll), and Search, with leading nav, trailing actions and a fill on scroll."
+  },
+  {
     "component_key": "autocomplete-input",
     "component_name": "Autocomplete Input",
     "section_key": "controls",
@@ -117,17 +130,17 @@
     "description": null
   },
   {
-    "component_key": "badge-pill",
-    "component_name": "Badge Pill",
+    "component_key": "pill",
+    "component_name": "Pill",
     "section_key": "controls",
     "category_key": "badges",
     "family_key": "badge",
-    "file_path": "components/ui/badge-pill.tsx",
-    "import_path": "@/components/ui/badge-pill",
+    "file_path": "components/standard/pill.tsx",
+    "import_path": "@/components/standard/pill",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": null
+    "description": "Split badge with a muted label on the left and a contrasting value on the right, in four corner radii."
   },
   {
     "component_key": "badge-select",
@@ -156,16 +169,29 @@
     "description": null
   },
   {
+    "component_key": "article",
+    "component_name": "Article",
+    "section_key": "content",
+    "category_key": "layout",
+    "family_key": "article",
+    "file_path": "components/standard/article.tsx",
+    "import_path": "@/components/standard/article",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": null
+  },
+  {
     "component_key": "bento-grid",
     "component_name": "Bento Grid",
     "section_key": "content",
-    "category_key": "cards",
-    "family_key": "card",
-    "file_path": "components/ui/bento-grid.tsx",
-    "import_path": "@/components/ui/bento-grid",
+    "category_key": "layout",
+    "family_key": "grid",
+    "file_path": "components/standard/bento-grid.tsx",
+    "import_path": "@/components/standard/bento-grid",
     "preview_mode": "inline",
-    "needs_mock_data": true,
-    "mock_data_key": "table-rows",
+    "needs_mock_data": false,
+    "mock_data_key": null,
     "description": null
   },
   {
@@ -338,45 +364,6 @@
     "description": null
   },
   {
-    "component_key": "calendar-slider",
-    "component_name": "Calendar Slider",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/calendar-slider.tsx",
-    "import_path": "@/components/ui/calendar-slider",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "component_key": "calendar-slider-day-popover",
-    "component_name": "Calendar Slider Day Popover",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/calendar-slider-day-popover.tsx",
-    "import_path": "@/components/ui/calendar-slider-day-popover",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
-    "component_key": "calendar-slider-footer-list",
-    "component_name": "Calendar Slider Footer List",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/calendar-slider-footer-list.tsx",
-    "import_path": "@/components/ui/calendar-slider-footer-list",
-    "preview_mode": "inline",
-    "needs_mock_data": false,
-    "mock_data_key": null,
-    "description": null
-  },
-  {
     "component_key": "caption-button",
     "component_name": "Caption Button",
     "section_key": "controls",
@@ -533,6 +520,45 @@
     "description": null
   },
   {
+    "component_key": "chip",
+    "component_name": "Chip",
+    "section_key": "controls",
+    "category_key": "badges",
+    "family_key": "badge",
+    "file_path": "components/standard/chip.tsx",
+    "import_path": "@/components/standard/chip",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Pressable tag: filter/selection chips with a check when on, action chips with an icon, and removable filter chips. Looks interactive so it is never mistaken for a Badge."
+  },
+  {
+    "component_key": "notification-badge",
+    "component_name": "Notification Badge",
+    "section_key": "content",
+    "category_key": "badges",
+    "family_key": "badge",
+    "file_path": "components/standard/notification-badge.tsx",
+    "import_path": "@/components/standard/notification-badge",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Unread marker pinned to an icon: dot, count, or capped count (999+). Red alert tone by default, with brand and neutral tones for non-urgent counts."
+  },
+  {
+    "component_key": "indicator",
+    "component_name": "Indicator",
+    "section_key": "content",
+    "category_key": "badges",
+    "family_key": "badge",
+    "file_path": "components/standard/indicator.tsx",
+    "import_path": "@/components/standard/indicator",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Presence dot for avatars and people lists: online, away, busy, offline. Its own colour set, so busy red never reads as unread."
+  },
+  {
     "component_key": "command",
     "component_name": "Command",
     "section_key": "overlays",
@@ -598,6 +624,19 @@
     "description": null
   },
   {
+    "component_key": "cursor",
+    "component_name": "Cursor",
+    "section_key": "controls",
+    "category_key": "cursor",
+    "family_key": "cursor",
+    "file_path": "components/standard/cursor.tsx",
+    "import_path": "@/components/standard/cursor",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Replaces the native cursor. Variants: dot, ring, dot-ring, crosshair, spotlight, blend, arrow, trail. Scoped to children or global."
+  },
+  {
     "component_key": "data-filters",
     "component_name": "Data Filters",
     "section_key": "controls",
@@ -622,6 +661,19 @@
     "needs_mock_data": true,
     "mock_data_key": "calendar",
     "description": null
+  },
+  {
+    "component_key": "time-picker",
+    "component_name": "Time Picker",
+    "section_key": "controls",
+    "category_key": "pickers",
+    "family_key": "time",
+    "file_path": "components/standard/time-picker.tsx",
+    "import_path": "@/components/standard/time-picker",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Material 3 time picker: drag the clock dial or type the time, AM/PM or 24-hour, Cancel/OK in a popover."
   },
   {
     "component_key": "department-select",
@@ -884,6 +936,19 @@
     "description": null
   },
   {
+    "component_key": "number-input",
+    "component_name": "Number Input",
+    "section_key": "controls",
+    "category_key": "fields",
+    "family_key": "input",
+    "file_path": "components/standard/number-input.tsx",
+    "import_path": "@/components/standard/number-input",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Text box for numbers: digits only, clamps to min/max and rounds on blur, Enter jumps to the next field."
+  },
+  {
     "component_key": "job-costing-skeleton",
     "component_name": "Job Costing Skeleton",
     "section_key": "signals",
@@ -1027,6 +1092,32 @@
     "description": null
   },
   {
+    "component_key": "navigation-bar",
+    "component_name": "Navigation Bar",
+    "section_key": "signals",
+    "category_key": "nav",
+    "family_key": "nav",
+    "file_path": "components/standard/navigation.tsx",
+    "import_path": "@/components/standard/navigation",
+    "preview_mode": "dialog",
+    "needs_mock_data": true,
+    "mock_data_key": "nav-items",
+    "description": null
+  },
+  {
+    "component_key": "navigation-drawer",
+    "component_name": "Navigation Drawer",
+    "section_key": "signals",
+    "category_key": "nav",
+    "family_key": "nav",
+    "file_path": "components/standard/navigation.tsx",
+    "import_path": "@/components/standard/navigation",
+    "preview_mode": "dialog",
+    "needs_mock_data": true,
+    "mock_data_key": "nav-items",
+    "description": null
+  },
+  {
     "component_key": "navigation-menu",
     "component_name": "Navigation Menu",
     "section_key": "signals",
@@ -1034,6 +1125,19 @@
     "family_key": "nav",
     "file_path": "components/ui/navigation-menu.tsx",
     "import_path": "@/components/ui/navigation-menu",
+    "preview_mode": "dialog",
+    "needs_mock_data": true,
+    "mock_data_key": "nav-items",
+    "description": null
+  },
+  {
+    "component_key": "navigation-rail",
+    "component_name": "Navigation Rail",
+    "section_key": "signals",
+    "category_key": "nav",
+    "family_key": "nav",
+    "file_path": "components/standard/navigation.tsx",
+    "import_path": "@/components/standard/navigation",
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "nav-items",
@@ -1110,12 +1214,12 @@
     "section_key": "overlays",
     "category_key": "popovers",
     "family_key": "popover",
-    "file_path": "components/ui/popover-wizard.tsx",
-    "import_path": "@/components/ui/popover-wizard",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "file_path": "components/standard/popover-wizard.tsx",
+    "import_path": "@/components/standard/popover-wizard",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Small multi-step panel anchored to its trigger: header dots, Back and Next, for tours and quick setup."
   },
   {
     "component_key": "popup-notification-container",
@@ -1141,19 +1245,6 @@
     "preview_mode": "dialog",
     "needs_mock_data": true,
     "mock_data_key": "signals-alert",
-    "description": null
-  },
-  {
-    "component_key": "privacy-calendar",
-    "component_name": "Privacy Calendar",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/privacy-calendar.tsx",
-    "import_path": "@/components/ui/privacy-calendar",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "calendar",
     "description": null
   },
   {
@@ -1222,19 +1313,6 @@
     "description": null
   },
   {
-    "component_key": "render-calendar-grid",
-    "component_name": "Render Calendar Grid",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/renderCalendarGrid.tsx",
-    "import_path": "@/components/ui/renderCalendarGrid",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "calendar",
-    "description": null
-  },
-  {
     "component_key": "rendering-standard-toolbar-filter-select",
     "component_name": "Rendering Standard Toolbar Filter Select",
     "section_key": "controls",
@@ -1245,32 +1323,6 @@
     "preview_mode": "none",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": null
-  },
-  {
-    "component_key": "renders-defines-calendar-legend-footer",
-    "component_name": "Renders Defines Calendar Legend Footer",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/rendersDefinesCalendarLegendFooter.tsx",
-    "import_path": "@/components/ui/rendersDefinesCalendarLegendFooter",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "calendar",
-    "description": null
-  },
-  {
-    "component_key": "renders-defines-calendar-legend-popover-content",
-    "component_name": "Renders Defines Calendar Legend Popover Content",
-    "section_key": "controls",
-    "category_key": "pickers",
-    "family_key": "date",
-    "file_path": "components/ui/rendersDefinesCalendarLegendPopoverContent.tsx",
-    "import_path": "@/components/ui/rendersDefinesCalendarLegendPopoverContent",
-    "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "calendar",
     "description": null
   },
   {
@@ -1365,17 +1417,17 @@
     "description": null
   },
   {
-    "component_key": "slider",
-    "component_name": "Slider",
+    "component_key": "dialslide",
+    "component_name": "Dialslide",
     "section_key": "controls",
     "category_key": "scroll",
     "family_key": "scroll",
-    "file_path": "components/standard/slider.tsx",
-    "import_path": "@/components/standard/slider",
+    "file_path": "components/standard/dialslide.tsx",
+    "import_path": "@/components/standard/dialslide",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": "Horizontal slider with scroll buttons, drag, keyboard and edge fades."
+    "description": "Horizontal slider for any row, with a calendar variant: scroll buttons, drag, keyboard and edge fades."
   },
   {
     "component_key": "scroll-horizontal-button",
@@ -1872,6 +1924,19 @@
     "description": null
   },
   {
+    "component_key": "fab",
+    "component_name": "Floating Action Button",
+    "section_key": "controls",
+    "category_key": "buttons",
+    "family_key": "button",
+    "file_path": "components/standard/fab.tsx",
+    "import_path": "@/components/standard/fab",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Material 3 FAB in FAB, medium, and large sizes with primary, secondary, and surface tones, extended labels, and the expressive FAB menu, plus utilitek's 32px compact chrome that grows into a pill on hover, a corner-pinned FabStack, and scroll collapse/hide."
+  },
+  {
     "component_key": "toolbar",
     "component_name": "Toolbar",
     "section_key": "controls",
@@ -1882,7 +1947,7 @@
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null,
-    "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select."
+    "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select, plus a Material 3 docked variant (standard or vibrant) for the bottom edge of a screen."
   },
   {
     "component_key": "toggle-row",
@@ -1968,11 +2033,11 @@
     "section_key": "overlays",
     "category_key": "dialogs",
     "family_key": "dialog",
-    "file_path": "components/ui/wizard.tsx",
-    "import_path": "@/components/ui/wizard",
+    "file_path": "components/standard/wizard.tsx",
+    "import_path": "@/components/standard/wizard",
     "preview_mode": "dialog",
-    "needs_mock_data": true,
-    "mock_data_key": "overlay-body",
-    "description": null
+    "needs_mock_data": false,
+    "mock_data_key": null,
+    "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue."
   }
 ]

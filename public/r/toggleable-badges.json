@@ -7,13 +7,14 @@
     "cn"
   ],
   "registryDependencies": [
-    "badge"
+    "@jayrr/standard-badge"
   ],
   "files": [
     {
       "path": "components/standard/toggleable-badges.tsx",
       "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Badge } from \"@/components/standard/badge\"\r\n\r\nexport type ToggleableBadgeItem = {\r\n  id: string\r\n  label: string\r\n}\r\n\r\nfunction ToggleableBadges({\r\n  className,\r\n  items,\r\n  value,\r\n  defaultValue,\r\n  onValueChange,\r\n  multiple = false,\r\n  values,\r\n  onValuesChange,\r\n}: {\r\n  className?: string\r\n  items: ToggleableBadgeItem[]\r\n  value?: string\r\n  defaultValue?: string\r\n  onValueChange?: (id: string) => void\r\n  multiple?: boolean\r\n  values?: string[]\r\n  onValuesChange?: (ids: string[]) => void\r\n}) {\r\n  const [uncontrolled, setUncontrolled] = React.useState(\r\n    defaultValue ?? items[0]?.id\r\n  )\r\n  const [uncontrolledMany, setUncontrolledMany] = React.useState<string[]>([])\r\n  const selected = value ?? uncontrolled\r\n  const selectedMany = values ?? uncontrolledMany\r\n\r\n  function select(id: string) {\r\n    if (multiple) {\r\n      const exists = selectedMany.includes(id)\r\n      const next = exists\r\n        ? selectedMany.filter((item) => item !== id)\r\n        : [...selectedMany, id]\r\n      if (values === undefined) {\r\n        setUncontrolledMany(next)\r\n      }\r\n      onValuesChange?.(next)\r\n      return\r\n    }\r\n    if (value === undefined) {\r\n      setUncontrolled(id)\r\n    }\r\n    onValueChange?.(id)\r\n  }\r\n\r\n  return (\r\n    <div\r\n      data-slot=\"toggleable-badges\"\r\n      className={cn(\"flex flex-wrap gap-1.5\", className)}\r\n    >\r\n      {items.map((item) => {\r\n        const isOn = multiple\r\n          ? selectedMany.includes(item.id)\r\n          : item.id === selected\r\n        const tone = isOn ? \"default\" : \"outline\"\r\n\r\n        return (\r\n          <button\r\n            key={item.id}\r\n            type=\"button\"\r\n            aria-pressed={isOn}\r\n            onClick={() => select(item.id)}\r\n            className=\"rounded-full\"\r\n          >\r\n            <Badge tone={tone}>{item.label}</Badge>\r\n          </button>\r\n        )\r\n      })}\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { ToggleableBadges }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/toggleable-badges.tsx"
     }
   ],
   "type": "registry:ui"

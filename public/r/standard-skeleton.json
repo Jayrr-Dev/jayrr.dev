@@ -10,7 +10,8 @@
     {
       "path": "components/standard/skeleton.tsx",
       "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Skeleton({ className, ...props }: React.ComponentProps<\"div\">) {\r\n  return (\r\n    <div\r\n      data-slot=\"skeleton\"\r\n      className={cn(\"animate-pulse rounded-md bg-muted\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Skeleton }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/skeleton.tsx"
     }
   ],
   "type": "registry:ui"

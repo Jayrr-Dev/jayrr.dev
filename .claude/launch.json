@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "jayrr-dev", "runtimeExecutable": "npx", "runtimeArgs": ["next", "dev"], "port": 3107, "autoPort": true }
+  ]
+}

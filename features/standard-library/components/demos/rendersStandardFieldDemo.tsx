@@ -5,10 +5,11 @@ import { MailIcon, SearchIcon } from "lucide-react"
 
 import { AutocompleteInput } from "@/components/standard/autocomplete-input"
 import { FieldLabel } from "@/components/standard/field-label"
-import { FilterSelect } from "@/components/standard/filter-select"
+import { Select } from "@/components/standard/select"
 import { FormField } from "@/components/standard/form-field"
 import { ImageUpload } from "@/components/standard/image-upload"
 import { InputOtp } from "@/components/standard/input-otp"
+import { NumberInput } from "@/components/standard/number-input"
 import { Search } from "@/components/standard/search"
 import { Stack } from "@/components/standard/stack"
 import { LexicalEditor } from "@/components/standard/lexical-editor"
@@ -54,14 +55,121 @@ function RendersUploadProgressDemo() {
   )
 }
 
+function RendersNumberInputDemo() {
+  const [hours, setHours] = useState<number>(8)
+  const [rate, setRate] = useState<number>(42.5)
+  const [offset, setOffset] = useState<number>(-3)
+  const [qty, setQty] = useState<number>(0)
+
+  return (
+    <RendersDemoCard label="Number input · commits on blur">
+      <div className="grid w-full grid-cols-2 gap-3">
+        <NumberInput
+          label="Hours (0–24)"
+          value={hours}
+          onChange={setHours}
+          min={0}
+          max={24}
+        />
+        <NumberInput
+          label="Rate · 2 places"
+          value={rate}
+          onChange={setRate}
+          fractionDigits={2}
+        />
+        <NumberInput
+          label="Offset · negative"
+          value={offset}
+          onChange={setOffset}
+          allowNegative
+        />
+        <NumberInput
+          label="Qty · compact"
+          value={qty}
+          onChange={setQty}
+          placeholder="0"
+          inputMode="numeric"
+          compact
+        />
+      </div>
+    </RendersDemoCard>
+  )
+}
+
+function RendersNumberLiveDemo() {
+  const [feet, setFeet] = useState<number>(150)
+  const [live, setLive] = useState<number>(150)
+
+  return (
+    <RendersDemoCard label="live while typing · seamless">
+      <p className="text-sm">
+        Run is
+        <NumberInput
+          aria-label="Run length in feet"
+          value={feet}
+          onChange={(next) => {
+            setFeet(next)
+            setLive(next)
+          }}
+          onChangeImmediate={setLive}
+          min={1}
+          max={5000}
+          seamless
+          className="mx-1 inline-block w-16 ring-1 ring-border focus-visible:ring-ring"
+        />
+        ft, about {(live * 0.3048).toFixed(1)} m.
+      </p>
+    </RendersDemoCard>
+  )
+}
+
+function RendersNumberGroupDemo() {
+  const [values, setValues] = useState({ poles: 3, span: 120, sag: 1.25 })
+
+  return (
+    <RendersDemoCard label="Enter jumps to the next field">
+      <div data-focus-group className="grid w-full grid-cols-3 gap-2">
+        <NumberInput
+          label="Poles"
+          value={values.poles}
+          onChange={(poles) => setValues((current) => ({ ...current, poles }))}
+          min={1}
+          inputMode="numeric"
+          compact
+        />
+        <NumberInput
+          label="Span ft"
+          value={values.span}
+          onChange={(span) => setValues((current) => ({ ...current, span }))}
+          compact
+        />
+        <NumberInput
+          label="Sag ft"
+          value={values.sag}
+          onChange={(sag) => setValues((current) => ({ ...current, sag }))}
+          fractionDigits={3}
+          compact
+        />
+      </div>
+    </RendersDemoCard>
+  )
+}
+
 function RendersFormDemo() {
   const [email, setEmail] = useState("sam@")
   const emailValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)
 
   return (
     <>
-      <RendersDemoCard className="w-full max-w-sm" label="Label, helper, required">
-        <FormField label="Job number" required helper="Found on the work order.">
+      <RendersDemoCard
+        className="w-full max-w-sm"
+        label="Label, helper, required"
+      >
+        <FormField
+          label="Job number"
+          required
+          helper="Found on the work order."
+        >
           <TextField placeholder="1001" inputMode="numeric" />
         </FormField>
       </RendersDemoCard>
@@ -69,7 +177,9 @@ function RendersFormDemo() {
         <FormField
           label="Email"
           required
-          error={emailValid ? undefined : "Enter an email like name@company.com."}
+          error={
+            emailValid ? undefined : "Enter an email like name@company.com."
+          }
           success={emailValid ? "Looks good." : undefined}
         >
           <TextField
@@ -90,7 +200,7 @@ function RendersFormDemo() {
       <RendersDemoCard className="w-full max-w-sm" label="Select + textarea">
         <div className="flex w-full flex-col gap-4">
           <FormField label="Status" error="Pick a status.">
-            <FilterSelect
+            <Select
               placeholder="Status"
               options={[
                 { value: "open", label: "Open" },
@@ -133,6 +243,16 @@ export function RendersStandardFieldDemo({ pieceName }: { pieceName: string }) {
             contentClassName="min-h-0"
           />
         </RendersDemoCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Number Input") {
+    return (
+      <>
+        <RendersNumberInputDemo />
+        <RendersNumberLiveDemo />
+        <RendersNumberGroupDemo />
       </>
     )
   }
@@ -241,7 +361,7 @@ export function RendersStandardFieldDemo({ pieceName }: { pieceName: string }) {
   if (pieceName === "Input Select") {
     return (
       <RendersDemoCard label="Filter select">
-        <FilterSelect
+        <Select
           placeholder="Status"
           options={[
             { value: "open", label: "Open" },
@@ -276,6 +396,32 @@ export function RendersStandardFieldDemo({ pieceName }: { pieceName: string }) {
       </RendersDemoCard>
       <RendersDemoCard label="invalid">
         <TextField aria-label="Job number" defaultValue="10O1" invalid />
+      </RendersDemoCard>
+      <RendersDemoCard label="filled">
+        <TextField variant="filled" label="Job number" />
+      </RendersDemoCard>
+      <RendersDemoCard label="filled · leading icon · clearable">
+        <TextField
+          variant="filled"
+          label="Filter"
+          placeholder="Street, customer…"
+          leadingIcon={<SearchIcon />}
+          defaultValue="Main st"
+          clearable
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="outlined">
+        <TextField variant="outlined" label="Job number" />
+      </RendersDemoCard>
+      <RendersDemoCard label="outlined · password · invalid">
+        <TextField
+          variant="outlined"
+          label="Password"
+          type="password"
+          defaultValue="hunter22"
+          revealable
+          invalid
+        />
       </RendersDemoCard>
     </>
   )

@@ -3,6 +3,29 @@ import path from "path"
 
 const skipPkgs = new Set(["react", "react-dom"])
 
+const uiFiles = fs
+  .readdirSync("components/ui")
+  .filter((file) => file.endsWith(".tsx"))
+  .sort()
+
+const uiNames = new Set(uiFiles.map((file) => file.replace(/\.tsx$/, "")))
+
+// Standard files that share a name with a Classic file publish as standard-<name>.
+function standardNameFor(base) {
+  return uiNames.has(base) ? `standard-${base}` : base
+}
+
+// Hand-written fields (descriptions, css, cssVars) survive a rebuild.
+function readsEntries(file) {
+  if (!fs.existsSync(file)) {
+    return new Map()
+  }
+
+  const { items } = JSON.parse(fs.readFileSync(file, "utf8"))
+
+  return new Map(items.map((entry) => [entry.name, entry]))
+}
+
 function titleFrom(name) {
   return name
     .split("-")
@@ -23,7 +46,7 @@ function analyze(filePath) {
     if (spec.startsWith("@/components/ui/") || spec.startsWith("@/hooks/")) {
       registry.add(path.basename(spec).replace(/\.(tsx|ts)$/, ""))
     } else if (spec.startsWith("@/components/standard/")) {
-      registry.add(path.basename(spec).replace(/\.(tsx|ts)$/, ""))
+      registry.add(standardNameFor(path.basename(spec).replace(/\.(tsx|ts)$/, "")))
     } else if (
       !spec.startsWith(".") &&
       !spec.startsWith("@/") &&
@@ -43,19 +66,34 @@ function analyze(filePath) {
 
   return {
     dependencies: [...deps].sort(),
-    registryDependencies: [...registry].sort(),
+    // Bare names resolve against ui.shadcn.com, so point at this registry explicitly.
+    registryDependencies: [...registry].sort().map((name) => `@jayrr/${name}`),
   }
 }
 
-function item(name, file, type, libraryName, title) {
+function item(name, file, type, libraryName, title, options = {}) {
   const found = analyze(file)
   const displayTitle = title ?? titleFrom(name)
+  const registryFile = { path: path.basename(file), type }
+
+  // Standard installs beside its imports, so it never overwrites Classic in components/ui.
+  if (options.target) {
+    registryFile.target = options.target
+  }
+
+  const {
+    dependencies: _dependencies,
+    registryDependencies: _registryDependencies,
+    ...kept
+  } = options.existing?.get(name) ?? {}
+
   const entry = {
     name,
     type,
     title: displayTitle,
     description: `${displayTitle} from the ${libraryName} library.`,
-    files: [{ path: path.basename(file), type }],
+    ...kept,
+    files: [registryFile],
   }
 
   if (found.dependencies.length > 0) {
@@ -83,13 +121,17 @@ function writeItems(file, items) {
   )
 }
 
-const uiFiles = fs
-  .readdirSync("components/ui")
-  .filter((file) => file.endsWith(".tsx"))
-  .sort()
+const uiEntries = readsEntries("components/ui/registry.json")
 
 const uiItems = uiFiles.map((file) =>
-  item(file.replace(/\.tsx$/, ""), path.join("components/ui", file), "registry:ui", "Classic")
+  item(
+    file.replace(/\.tsx$/, ""),
+    path.join("components/ui", file),
+    "registry:ui",
+    "Classic",
+    undefined,
+    { existing: uiEntries }
+  )
 )
 
 const standardFiles = fs
@@ -97,25 +139,27 @@ const standardFiles = fs
   .filter((file) => file.endsWith(".tsx") && file !== "index.tsx")
   .sort()
 
-const uiNames = new Set(uiItems.map((entry) => entry.name))
+const standardEntries = readsEntries("components/standard/registry.json")
 
 const standardItems = standardFiles.map((file) => {
   const base = file.replace(/\.tsx$/, "")
-  const name = uiNames.has(base) ? `standard-${base}` : base
 
   return item(
-    name,
+    standardNameFor(base),
     path.join("components/standard", file),
     "registry:ui",
     "Standard",
-    titleFrom(base)
+    titleFrom(base),
+    { existing: standardEntries, target: `components/standard/${file}` }
   )
 })
 
 writeItems("components/ui/registry.json", uiItems)
 writeItems("components/standard/registry.json", standardItems)
 writeItems("hooks/registry.json", [
-  item("use-mobile", "hooks/use-mobile.ts", "registry:hook", "Classic"),
+  item("use-mobile", "hooks/use-mobile.ts", "registry:hook", "Classic", undefined, {
+    existing: readsEntries("hooks/registry.json"),
+  }),
 ])
 
 fs.writeFileSync(

@@ -14,6 +14,7 @@ const CATEGORY_ORDER: Record<string, { id: string; label: string }[]> = {
     { id: "pickers", label: "Pickers" },
     { id: "toggles", label: "Toggles" },
     { id: "scroll", label: "Scroll" },
+    { id: "cursor", label: "Cursor" },
     { id: "badges", label: "Badges" },
     { id: "icons", label: "Icons" },
   ],

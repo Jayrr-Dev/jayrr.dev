@@ -11,7 +11,8 @@
     {
       "path": "components/standard/paragraph.tsx",
       "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst paragraphVariants = cva(\"text-pretty\", {\r\n  variants: {\r\n    size: {\r\n      default: \"leading-7\",\r\n      lead: \"text-xl text-muted-foreground\",\r\n      muted: \"text-sm text-muted-foreground\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: \"default\",\r\n  },\r\n})\r\n\r\nfunction Paragraph({\r\n  className,\r\n  size = \"default\",\r\n  ...props\r\n}: React.ComponentProps<\"p\"> & VariantProps<typeof paragraphVariants>) {\r\n  return (\r\n    <p\r\n      data-slot=\"paragraph\"\r\n      data-size={size}\r\n      className={cn(paragraphVariants({ size }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Paragraph, paragraphVariants }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/paragraph.tsx"
     }
   ],
   "type": "registry:ui"

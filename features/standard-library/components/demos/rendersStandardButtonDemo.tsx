@@ -2,10 +2,14 @@
 
 import { useState } from "react"
 import {
+  ArchiveIcon,
   LayoutGridIcon,
   ListIcon,
+  MailIcon,
+  PlusIcon,
   RefreshCwIcon,
   SearchIcon,
+  ShareIcon,
   StarIcon,
   Trash2Icon,
 } from "lucide-react"
@@ -29,8 +33,10 @@ import {
   ToolbarSelect,
   ToolbarSeparator,
   ToolbarToggle,
+  type ToolbarTone,
 } from "@/components/standard/toolbar"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+import { RendersStandardFabDemo } from "./rendersStandardFabDemo"
 
 const SECTION_ITEMS = [
   { id: "events", label: "Events" },
@@ -83,6 +89,43 @@ function RendersToolbarDemo() {
           <Trash2Icon />
         </ToolbarButton>
       </Toolbar>
+    </RendersDemoCard>
+  )
+}
+
+function RendersDockedToolbarDemo({ tone }: { tone: ToolbarTone }) {
+  const [starred, setStarred] = useState(tone === "vibrant")
+
+  return (
+    <RendersDemoCard label={`docked · ${tone}`}>
+      <div className="flex h-40 w-full flex-col justify-end overflow-hidden rounded-xl border border-border bg-background">
+        <div className="flex flex-1 flex-col gap-2 p-4">
+          <div className="h-3 w-2/3 rounded-full bg-muted" />
+          <div className="h-3 w-1/2 rounded-full bg-muted" />
+        </div>
+        <Toolbar variant="docked" tone={tone} aria-label="Message actions">
+          <ToolbarButton label="Archive" hint="Archive">
+            <ArchiveIcon />
+          </ToolbarButton>
+          <ToolbarButton label="Mark unread" hint="Mark unread">
+            <MailIcon />
+          </ToolbarButton>
+          <ToolbarToggle
+            label="Star"
+            hint="Star"
+            pressed={starred}
+            onPressedChange={setStarred}
+          >
+            <StarIcon />
+          </ToolbarToggle>
+          <ToolbarButton label="Share" hint="Share">
+            <ShareIcon />
+          </ToolbarButton>
+          <ToolbarButton label="New message" hint="New message">
+            <PlusIcon />
+          </ToolbarButton>
+        </Toolbar>
+      </div>
     </RendersDemoCard>
   )
 }
@@ -224,7 +267,17 @@ export function RendersStandardButtonDemo({
   }
 
   if (pieceName === "Toolbar") {
-    return <RendersToolbarDemo />
+    return (
+      <>
+        <RendersToolbarDemo />
+        <RendersDockedToolbarDemo tone="standard" />
+        <RendersDockedToolbarDemo tone="vibrant" />
+      </>
+    )
+  }
+
+  if (pieceName === "Floating Action Button") {
+    return <RendersStandardFabDemo />
   }
 
   if (pieceName === "Button Link") {

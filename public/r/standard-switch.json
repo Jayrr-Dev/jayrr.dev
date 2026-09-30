@@ -7,14 +7,15 @@
     "cn"
   ],
   "registryDependencies": [
-    "field-label",
-    "row"
+    "@jayrr/field-label",
+    "@jayrr/row"
   ],
   "files": [
     {
       "path": "components/standard/switch.tsx",
       "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\n\nimport { FieldLabel } from \"@/components/standard/field-label\"\nimport { Row } from \"@/components/standard/row\"\n\nfunction Switch({\n  className,\n  checked,\n  defaultChecked,\n  onCheckedChange,\n  onClick,\n  ...props\n}: Omit<React.ComponentProps<\"button\">, \"onChange\"> & {\n  checked?: boolean\n  defaultChecked?: boolean\n  onCheckedChange?: (checked: boolean) => void\n}) {\n  const [uncontrolled, setUncontrolled] = React.useState(defaultChecked ?? false)\n  const isOn = checked ?? uncontrolled\n\n  function toggle(event: React.MouseEvent<HTMLButtonElement>) {\n    onClick?.(event)\n    if (event.defaultPrevented) {\n      return\n    }\n    const next = !isOn\n    if (checked === undefined) {\n      setUncontrolled(next)\n    }\n    onCheckedChange?.(next)\n  }\n\n  return (\n    <button\n      data-slot=\"switch\"\n      data-checked={isOn}\n      type=\"button\"\n      role=\"switch\"\n      {...props}\n      aria-checked={isOn}\n      className={cn(\n        \"relative h-5 w-8 shrink-0 rounded-full bg-muted transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[checked=true]:bg-primary\",\n        className\n      )}\n      onClick={toggle}\n    >\n      <span\n        className={cn(\n          \"absolute top-0.5 left-0.5 size-4 rounded-full bg-background transition-transform\",\n          isOn ? \"translate-x-3\" : \"translate-x-0\"\n        )}\n      />\n    </button>\n  )\n}\n\nfunction LabelledSwitch({\n  className,\n  label,\n  id,\n  ...props\n}: React.ComponentProps<typeof Switch> & { label: string }) {\n  const autoId = React.useId()\n  const switchId = id ?? autoId\n\n  return (\n    <Row data-slot=\"labelled-switch\" className={className}>\n      <Switch id={switchId} {...props} />\n      <FieldLabel\n        htmlFor={switchId}\n        className={cn(\n          \"cursor-pointer\",\n          props.disabled && \"cursor-not-allowed opacity-50\"\n        )}\n      >\n        {label}\n      </FieldLabel>\n    </Row>\n  )\n}\n\nexport { LabelledSwitch, Switch }\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/switch.tsx"
     }
   ],
   "type": "registry:ui"

@@ -4,7 +4,6 @@ import { useState } from "react"
 
 import { Badge } from "@/components/standard/badge"
 import { InfoIcon } from "@/components/standard/info-icon"
-import { DropdownMenu } from "@/components/standard/menu"
 import { StandardCard } from "@/components/standard/card-bar"
 import { StandardGrid } from "@/components/standard/standard-grid"
 import { StandardTable, type StandardTableColumn } from "@/components/standard/standard-table"
@@ -164,17 +163,36 @@ export function RendersStandardTableDemo({
           pagination={panel === "paging" || mode === "actions"}
           initialPageSize={panel === "paging" || mode === "actions" ? 3 : 10}
           stickyFirstColumn={mode === "sticky"}
-          renderRowActions={
+          getRowLabel={(row) => row.name}
+          rowActions={
             mode === "actions"
-              ? (row) => (
-                  <DropdownMenu
-                    label="Row"
-                    items={[
-                      { id: "open", label: `Open ${row.name}` },
-                      { id: "hold", label: "Hold", tone: "danger" },
-                    ]}
-                  />
-                )
+              ? () => [
+                  { id: "open", label: "Open", onSelect: () => undefined },
+                  { id: "edit", label: "Edit", onSelect: () => undefined },
+                  {
+                    id: "delete",
+                    label: "Delete",
+                    tone: "danger",
+                    onSelect: () => undefined,
+                  },
+                ]
+              : undefined
+          }
+          bulkActions={
+            mode === "actions"
+              ? (visible) => [
+                  {
+                    id: "archive",
+                    label: `Archive ${visible.length} visible`,
+                    onSelect: () => undefined,
+                  },
+                  {
+                    id: "delete",
+                    label: "Delete visible",
+                    tone: "danger",
+                    onSelect: () => undefined,
+                  },
+                ]
               : undefined
           }
           emptyMessage="No projects match your filters."

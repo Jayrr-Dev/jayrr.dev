@@ -15,13 +15,40 @@ import {
 import { Toggle } from "@/components/standard/toggle"
 import { Tooltip } from "@/components/standard/tooltip"
 
-function Toolbar({ className, ...props }: React.ComponentProps<"div">) {
+export type ToolbarVariant = "default" | "docked"
+export type ToolbarTone = "standard" | "vibrant"
+
+/**
+ * `docked` follows the Material 3 docked toolbar: a full-width 64px bar with
+ * square corners and evenly spaced 40px actions, meant to sit on the bottom
+ * edge of a screen or pane (position it with `sticky bottom-0` or `fixed`).
+ * `tone="vibrant"` swaps the surface for the primary color.
+ */
+function Toolbar({
+  className,
+  variant = "default",
+  tone = "standard",
+  ...props
+}: React.ComponentProps<"div"> & {
+  variant?: ToolbarVariant
+  tone?: ToolbarTone
+}) {
   return (
     <div
       data-slot="toolbar"
+      data-variant={variant}
+      data-tone={tone}
       role="toolbar"
       className={cn(
-        "flex flex-wrap items-center gap-1 border-b border-border bg-muted/30 p-1",
+        "group/toolbar flex items-center",
+        variant === "docked"
+          ? "h-16 w-full justify-evenly gap-2 border-t px-4"
+          : "flex-wrap gap-1 border-b p-1",
+        tone === "vibrant"
+          ? "border-transparent bg-primary text-primary-foreground"
+          : variant === "docked"
+            ? "border-border bg-muted"
+            : "border-border bg-muted/30",
         className
       )}
       {...props}
@@ -34,7 +61,10 @@ function ToolbarGroup({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="toolbar-group"
       role="group"
-      className={cn("flex items-center gap-0.5", className)}
+      className={cn(
+        "flex items-center gap-0.5 group-data-[variant=docked]/toolbar:gap-2",
+        className
+      )}
       {...props}
     />
   )
@@ -45,10 +75,17 @@ function ToolbarSeparator({ className }: { className?: string }) {
     <Divider
       data-slot="toolbar-separator"
       orientation="vertical"
-      className={cn("mx-1 h-5 self-center", className)}
+      className={cn(
+        "mx-1 h-5 self-center group-data-[tone=vibrant]/toolbar:bg-primary-foreground/25 group-data-[variant=docked]/toolbar:h-6",
+        className
+      )}
     />
   )
 }
+
+// Docked actions grow to the M3 40px target; vibrant actions invert on press.
+const TOOLBAR_ITEM_CLASS =
+  "group-data-[variant=docked]/toolbar:size-10 group-data-[variant=docked]/toolbar:rounded-full group-data-[variant=docked]/toolbar:[&_svg]:size-5 group-data-[tone=vibrant]/toolbar:text-primary-foreground group-data-[tone=vibrant]/toolbar:hover:bg-primary-foreground/10 group-data-[tone=vibrant]/toolbar:hover:text-primary-foreground"
 
 function withHint(
   hint: string | undefined,
@@ -79,7 +116,7 @@ function ToolbarButton({
       data-slot="toolbar-button"
       tone="ghost"
       label={label}
-      className={cn("[&_svg]:size-4", className)}
+      className={cn("[&_svg]:size-4", TOOLBAR_ITEM_CLASS, className)}
       {...props}
     />
   )
@@ -99,6 +136,8 @@ function ToolbarToggle({
       aria-label={label}
       className={cn(
         "size-8 border-transparent px-0 text-muted-foreground hover:text-foreground data-[pressed=true]:bg-muted data-[pressed=true]:text-foreground [&_svg]:size-4",
+        TOOLBAR_ITEM_CLASS,
+        "group-data-[variant=docked]/toolbar:data-[pressed=true]:bg-background group-data-[tone=vibrant]/toolbar:data-[pressed=true]:bg-primary-foreground group-data-[tone=vibrant]/toolbar:data-[pressed=true]:text-primary",
         className
       )}
       {...props}
@@ -140,7 +179,7 @@ function ToolbarSelect({
           aria-label={label}
           disabled={disabled}
           className={cn(
-            "h-8 min-w-32 justify-between text-foreground [&_svg]:size-3.5",
+            "h-8 min-w-32 justify-between text-foreground group-data-[variant=docked]/toolbar:h-10 group-data-[variant=docked]/toolbar:rounded-full group-data-[tone=vibrant]/toolbar:text-primary-foreground group-data-[tone=vibrant]/toolbar:hover:bg-primary-foreground/10 [&_svg]:size-3.5",
             className
           )}
         >
@@ -148,7 +187,7 @@ function ToolbarSelect({
             {current?.icon}
             {current?.label ?? label}
           </span>
-          <ChevronDownIcon className="text-muted-foreground" />
+          <ChevronDownIcon className="text-muted-foreground group-data-[tone=vibrant]/toolbar:text-primary-foreground/70" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-48 gap-0 p-1">

@@ -11,7 +11,8 @@
     {
       "path": "components/standard/caption.tsx",
       "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst captionVariants = cva(\"text-muted-foreground\", {\r\n  variants: {\r\n    tone: {\r\n      default: \"text-sm\",\r\n      uppercase: \"text-xs tracking-wide uppercase\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    tone: \"default\",\r\n  },\r\n})\r\n\r\nfunction Caption({\r\n  className,\r\n  tone = \"default\",\r\n  ...props\r\n}: React.ComponentProps<\"p\"> & VariantProps<typeof captionVariants>) {\r\n  return (\r\n    <p\r\n      data-slot=\"caption\"\r\n      data-tone={tone}\r\n      className={cn(captionVariants({ tone }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Caption, captionVariants }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/caption.tsx"
     }
   ],
   "type": "registry:ui"

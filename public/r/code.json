@@ -10,7 +10,8 @@
     {
       "path": "components/standard/code.tsx",
       "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Code({ className, ...props }: React.ComponentProps<\"code\">) {\r\n  return (\r\n    <code\r\n      data-slot=\"code\"\r\n      className={cn(\r\n        \"relative rounded bg-muted px-2 py-1 font-mono text-sm\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Code }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/code.tsx"
     }
   ],
   "type": "registry:ui"

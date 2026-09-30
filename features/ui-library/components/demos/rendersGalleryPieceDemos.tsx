@@ -40,7 +40,7 @@ export function RendersGalleryPieceDemos({
     // min-w-0: the dialog body is a grid, and wide scrollers would otherwise
     // stretch its column to their full content width.
     return (
-      <div className="w-full max-w-xl min-w-0 has-data-fill:max-w-none">
+      <div className="flex w-full max-w-xl min-w-0 flex-col gap-3 has-data-fill:max-w-none">
         {cards}
       </div>
     )

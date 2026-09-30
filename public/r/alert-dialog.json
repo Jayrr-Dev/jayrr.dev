@@ -8,7 +8,7 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "button"
+    "@jayrr/button"
   ],
   "files": [
     {

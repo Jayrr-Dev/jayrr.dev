@@ -7,13 +7,14 @@
     "cn"
   ],
   "registryDependencies": [
-    "button"
+    "@jayrr/standard-button"
   ],
   "files": [
     {
       "path": "components/standard/button-icon.tsx",
       "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction ButtonIcon({\r\n  className,\r\n  label,\r\n  children,\r\n  ...props\r\n}: React.ComponentProps<typeof Button> & { label: string }) {\r\n  return (\r\n    <Button\r\n      data-slot=\"button-icon\"\r\n      aria-label={label}\r\n      size=\"sm\"\r\n      className={cn(\"size-8 px-0\", className)}\r\n      {...props}\r\n    >\r\n      {children}\r\n    </Button>\r\n  )\r\n}\r\n\r\nexport { ButtonIcon }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/button-icon.tsx"
     }
   ],
   "type": "registry:ui"

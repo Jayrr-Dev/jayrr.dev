@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { CircleBadge } from "@/components/standard/badge-pill"
 import { Button } from "@/components/standard/button"
-import { FilterSelect } from "@/components/standard/filter-select"
+import { Select } from "@/components/standard/select"
 import { RefreshButton } from "@/components/standard/refresh-button"
 import { Search } from "@/components/standard/search"
 
@@ -152,7 +152,7 @@ export function RendersStandardListChrome({
           ) : null}
           {filterSelect
             ? selectFilters.map((filter) => (
-                <FilterSelect
+                <Select
                   key={filter.key}
                   placeholder={filter.label}
                   value={selectedFilters[filter.key] ?? ""}
@@ -218,7 +218,7 @@ export function RendersStandardListPager({
         Showing {start} to {end} of {total}
       </span>
       <div className="flex items-center gap-2">
-        <FilterSelect
+        <Select
           value={String(pageSize)}
           placeholder="Page size"
           onValueChange={(next) => onPageSizeChange(Number(next))}

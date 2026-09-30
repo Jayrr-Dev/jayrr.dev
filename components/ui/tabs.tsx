@@ -30,6 +30,11 @@ const tabsListVariants = cva(
       variant: {
         default: "bg-muted",
         line: "gap-1 bg-transparent",
+        // Material 3 primary / secondary tabs: full-width row on a divider.
+        primary:
+          "w-full gap-0 rounded-none border-b border-border bg-transparent p-0 group-data-horizontal/tabs:h-auto",
+        secondary:
+          "w-full gap-0 rounded-none border-b border-border bg-transparent p-0 group-data-horizontal/tabs:h-auto",
       },
     },
     defaultVariants: {
@@ -38,6 +43,12 @@ const tabsListVariants = cva(
   }
 )
 
+type TabsListVariant = NonNullable<
+  VariantProps<typeof tabsListVariants>["variant"]
+>
+
+const TabsListVariantContext = React.createContext<TabsListVariant>("default")
+
 function TabsList({
   className,
   variant = "default",
@@ -45,19 +56,65 @@ function TabsList({
 }: React.ComponentProps<typeof TabsPrimitive.List> &
   VariantProps<typeof tabsListVariants>) {
   return (
-    <TabsPrimitive.List
-      data-slot="tabs-list"
-      data-variant={variant}
-      className={cn(tabsListVariants({ variant }), className)}
-      {...props}
-    />
+    <TabsListVariantContext.Provider value={variant ?? "default"}>
+      <TabsPrimitive.List
+        data-slot="tabs-list"
+        data-variant={variant}
+        className={cn(tabsListVariants({ variant }), className)}
+        {...props}
+      />
+    </TabsListVariantContext.Provider>
   )
 }
 
+// Shared Material 3 tab: 48px row (64px with a stacked icon), hover/press
+// state layer, and a focus ring drawn inside so neighbours don't clip it.
+const materialTriggerBase =
+  "group/tabs-trigger relative inline-flex h-12 flex-1 items-center justify-center px-4 text-sm font-medium whitespace-nowrap text-muted-foreground outline-none select-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50 before:pointer-events-none before:absolute before:inset-0 before:bg-current before:opacity-0 before:transition-opacity hover:before:opacity-[0.08] active:before:opacity-[0.12] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6"
+
 function TabsTrigger({
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+  const variant = React.useContext(TabsListVariantContext)
+
+  // Primary: icon over label, 3px rounded indicator as wide as the content.
+  if (variant === "primary") {
+    return (
+      <TabsPrimitive.Trigger
+        data-slot="tabs-trigger"
+        className={cn(
+          materialTriggerBase,
+          "has-[svg]:h-16 data-active:text-primary",
+          className
+        )}
+        {...props}
+      >
+        <span className="relative inline-flex h-full min-w-6 flex-col items-center justify-center gap-0.5 after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-t-[3px] after:bg-primary after:opacity-0 after:transition-opacity group-data-active/tabs-trigger:after:opacity-100">
+          {children}
+        </span>
+      </TabsPrimitive.Trigger>
+    )
+  }
+
+  // Secondary: inline icon, 2px indicator across the whole tab.
+  if (variant === "secondary") {
+    return (
+      <TabsPrimitive.Trigger
+        data-slot="tabs-trigger"
+        className={cn(
+          materialTriggerBase,
+          "gap-2 data-active:text-foreground [&_svg:not([class*='size-'])]:size-5 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-primary after:opacity-0 after:transition-opacity data-active:after:opacity-100",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </TabsPrimitive.Trigger>
+    )
+  }
+
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
@@ -69,7 +126,9 @@ function TabsTrigger({
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </TabsPrimitive.Trigger>
   )
 }
 

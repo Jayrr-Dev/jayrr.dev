@@ -8,9 +8,9 @@
     "cn"
   ],
   "registryDependencies": [
-    "button",
-    "input",
-    "textarea"
+    "@jayrr/button",
+    "@jayrr/input",
+    "@jayrr/textarea"
   ],
   "files": [
     {

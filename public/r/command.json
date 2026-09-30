@@ -9,8 +9,8 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "dialog",
-    "input-group"
+    "@jayrr/dialog",
+    "@jayrr/input-group"
   ],
   "files": [
     {

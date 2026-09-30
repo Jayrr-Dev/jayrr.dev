@@ -8,13 +8,14 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "link"
+    "@jayrr/link"
   ],
   "files": [
     {
       "path": "components/standard/button-link.tsx",
       "content": "import * as React from \"react\"\r\nimport { ChevronLeftIcon } from \"lucide-react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Link } from \"@/components/standard/link\"\r\n\r\nfunction ButtonLink({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<typeof Link>) {\r\n  return (\r\n    <Link\r\n      data-slot=\"button-link\"\r\n      className={cn(\r\n        \"inline-flex h-8 items-center rounded-lg border border-input px-3 text-sm no-underline hover:bg-muted\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\ntype ButtonBackVariant = \"text\" | \"icon\" | \"icon-text\"\r\n\r\nfunction ButtonBack({\r\n  className,\r\n  href = \"#back\",\r\n  variant = \"text\",\r\n  children = \"Back\",\r\n  ...props\r\n}: React.ComponentProps<typeof ButtonLink> & {\r\n  variant?: ButtonBackVariant\r\n}) {\r\n  const showIcon = variant !== \"text\"\r\n  const showLabel = variant !== \"icon\"\r\n\r\n  return (\r\n    <ButtonLink\r\n      data-slot=\"button-back\"\r\n      data-variant={variant}\r\n      href={href}\r\n      aria-label={showLabel ? undefined : typeof children === \"string\" ? children : \"Back\"}\r\n      className={cn(\r\n        \"gap-1\",\r\n        variant === \"icon\" && \"w-8 justify-center px-0\",\r\n        variant === \"icon-text\" && \"pl-2\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {showIcon ? <ChevronLeftIcon aria-hidden className=\"size-4 shrink-0\" /> : null}\r\n      {showLabel ? children : null}\r\n    </ButtonLink>\r\n  )\r\n}\r\n\r\nexport { ButtonBack, ButtonLink }\r\nexport type { ButtonBackVariant }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/button-link.tsx"
     }
   ],
   "type": "registry:ui"

@@ -10,7 +10,8 @@
     {
       "path": "components/standard/link.tsx",
       "content": "import * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nfunction Link({ className, ...props }: React.ComponentProps<\"a\">) {\r\n  return (\r\n    <a\r\n      data-slot=\"link\"\r\n      className={cn(\r\n        \"text-sm font-medium text-primary underline-offset-4 hover:underline\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Link }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/link.tsx"
     }
   ],
   "type": "registry:ui"

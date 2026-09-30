@@ -8,13 +8,14 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "button"
+    "@jayrr/standard-button"
   ],
   "files": [
     {
       "path": "components/standard/sheet.tsx",
       "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { Dialog as DialogPrimitive } from \"radix-ui\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nfunction Sheet({\r\n  className,\r\n  title,\r\n  trigger = \"Open sheet\",\r\n  children,\r\n}: {\r\n  className?: string\r\n  title: string\r\n  trigger?: string\r\n  children?: React.ReactNode\r\n}) {\r\n  return (\r\n    <DialogPrimitive.Root>\r\n      <DialogPrimitive.Trigger asChild>\r\n        <Button tone=\"outline\">{trigger}</Button>\r\n      </DialogPrimitive.Trigger>\r\n      <DialogPrimitive.Portal>\r\n        <DialogPrimitive.Overlay className=\"fixed inset-0 z-50 bg-black/40\" />\r\n        <DialogPrimitive.Content\r\n          className={cn(\r\n            \"fixed top-0 right-0 z-50 flex h-full w-72 flex-col gap-3 border-l border-border bg-background p-4 shadow-lg\",\r\n            className\r\n          )}\r\n        >\r\n          <DialogPrimitive.Title className=\"text-sm font-semibold\">\r\n            {title}\r\n          </DialogPrimitive.Title>\r\n          <DialogPrimitive.Description className=\"sr-only\">\r\n            {title}\r\n          </DialogPrimitive.Description>\r\n          <div className=\"min-h-0 flex-1\">{children}</div>\r\n          <DialogPrimitive.Close asChild>\r\n            <Button tone=\"outline\">Close</Button>\r\n          </DialogPrimitive.Close>\r\n        </DialogPrimitive.Content>\r\n      </DialogPrimitive.Portal>\r\n    </DialogPrimitive.Root>\r\n  )\r\n}\r\n\r\nexport { Sheet }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/sheet.tsx"
     }
   ],
   "type": "registry:ui"

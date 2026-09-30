@@ -1,7 +1,14 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { ChevronRightIcon, FileTextIcon } from "lucide-react"
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  FileTextIcon,
+  ImageIcon,
+  MusicIcon,
+  VideoIcon,
+} from "lucide-react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
@@ -33,6 +40,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   Drawer,
   DrawerContent,
@@ -391,12 +404,46 @@ export function RendersTypePropCards({
 
   if (pieceName === "Button Group") {
     return (
-      <TypeCard label="orientation vertical">
-        <ButtonGroup orientation="vertical">
-          <Button variant="outline">Top</Button>
-          <Button variant="outline">Bottom</Button>
-        </ButtonGroup>
-      </TypeCard>
+      <>
+        <TypeCard label="orientation vertical">
+          <ButtonGroup orientation="vertical">
+            <Button variant="outline">Top</Button>
+            <Button variant="outline">Bottom</Button>
+          </ButtonGroup>
+        </TypeCard>
+        <TypeCard label="variant pill">
+          <ButtonGroup variant="pill">
+            <Button>Publish</Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" aria-label="More publish options">
+                  <ChevronDownIcon className="transition-transform group-aria-expanded/button:rotate-180" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Schedule</DropdownMenuItem>
+                <DropdownMenuItem>Save draft</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ButtonGroup>
+        </TypeCard>
+        <TypeCard label="variant pill outline">
+          <ButtonGroup variant="pill">
+            <Button variant="outline">Export</Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" aria-label="More export options">
+                  <ChevronDownIcon className="transition-transform group-aria-expanded/button:rotate-180" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>PDF</DropdownMenuItem>
+                <DropdownMenuItem>CSV</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ButtonGroup>
+        </TypeCard>
+      </>
     )
   }
 
@@ -668,6 +715,33 @@ export function RendersTypePropCards({
             <TabsList variant="line">
               <TabsTrigger value="one">One</TabsTrigger>
               <TabsTrigger value="two">Two</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </TypeCard>
+        <TypeCard label="variant primary">
+          <Tabs defaultValue="photos" className="w-full">
+            <TabsList variant="primary">
+              <TabsTrigger value="photos">
+                <ImageIcon />
+                Photos
+              </TabsTrigger>
+              <TabsTrigger value="videos">
+                <VideoIcon />
+                Videos
+              </TabsTrigger>
+              <TabsTrigger value="audio">
+                <MusicIcon />
+                Audio
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </TypeCard>
+        <TypeCard label="variant secondary">
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList variant="secondary">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="specs">Specs</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews</TabsTrigger>
             </TabsList>
           </Tabs>
         </TypeCard>

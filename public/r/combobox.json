@@ -9,8 +9,8 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "button",
-    "input-group"
+    "@jayrr/button",
+    "@jayrr/input-group"
   ],
   "files": [
     {

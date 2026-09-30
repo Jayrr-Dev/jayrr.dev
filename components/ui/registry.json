@@ -34,7 +34,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -85,7 +85,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -172,7 +172,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "separator"
+        "@jayrr/separator"
       ]
     },
     {
@@ -209,7 +209,7 @@
         "react-day-picker"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -244,7 +244,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -312,8 +312,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button",
-        "input-group"
+        "@jayrr/button",
+        "@jayrr/input-group"
       ]
     },
     {
@@ -333,8 +333,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "dialog",
-        "input-group"
+        "@jayrr/dialog",
+        "@jayrr/input-group"
       ]
     },
     {
@@ -371,7 +371,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -454,8 +454,8 @@
         "cn"
       ],
       "registryDependencies": [
-        "label",
-        "separator"
+        "@jayrr/label",
+        "@jayrr/separator"
       ]
     },
     {
@@ -490,9 +490,9 @@
         "cn"
       ],
       "registryDependencies": [
-        "button",
-        "input",
-        "textarea"
+        "@jayrr/button",
+        "@jayrr/input",
+        "@jayrr/textarea"
       ]
     },
     {
@@ -544,7 +544,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "separator"
+        "@jayrr/separator"
       ]
     },
     {
@@ -644,7 +644,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -712,7 +712,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -723,22 +723,6 @@
       "files": [
         {
           "path": "popover.tsx",
-          "type": "registry:ui"
-        }
-      ],
-      "dependencies": [
-        "cn",
-        "radix-ui"
-      ]
-    },
-    {
-      "name": "progress",
-      "type": "registry:ui",
-      "title": "Progress",
-      "description": "Progress from the Classic library.",
-      "files": [
-        {
-          "path": "progress.tsx",
           "type": "registry:ui"
         }
       ],
@@ -764,6 +748,22 @@
       ]
     },
     {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Progress from the Classic library.",
+      "files": [
+        {
+          "path": "progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ]
+    },
+    {
       "name": "questionnaire",
       "type": "registry:ui",
       "title": "Questionnaire",
@@ -780,7 +780,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -881,7 +881,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button"
+        "@jayrr/button"
       ]
     },
     {
@@ -902,14 +902,14 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "button",
-        "collapsible",
-        "input",
-        "separator",
-        "sheet",
-        "skeleton",
-        "tooltip",
-        "use-mobile"
+        "@jayrr/button",
+        "@jayrr/collapsible",
+        "@jayrr/input",
+        "@jayrr/separator",
+        "@jayrr/sheet",
+        "@jayrr/skeleton",
+        "@jayrr/tooltip",
+        "@jayrr/use-mobile"
       ]
     },
     {
@@ -1052,9 +1052,6 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
-      ],
       "cssVars": {
         "theme": {
           "animate-text-caret": "text-caret 1s steps(1) infinite",
@@ -1113,7 +1110,10 @@
             "opacity": "1"
           }
         }
-      }
+      },
+      "dependencies": [
+        "cn"
+      ]
     },
     {
       "name": "textarea",
@@ -1147,7 +1147,7 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "toggle"
+        "@jayrr/toggle"
       ]
     },
     {

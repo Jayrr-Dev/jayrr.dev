@@ -10,7 +10,8 @@
     {
       "path": "components/standard/checkbox.tsx",
       "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Checkbox({\n  className,\n  label,\n  description,\n  invalid,\n  ...props\n}: Omit<React.ComponentProps<\"input\">, \"type\"> & {\n  /** Renders a clickable label next to the box. */\n  label?: React.ReactNode\n  description?: React.ReactNode\n  /** Shows the error style. Same as passing aria-invalid. */\n  invalid?: boolean\n}) {\n  const box = (\n    <input\n      data-slot=\"checkbox\"\n      type=\"checkbox\"\n      className={cn(\n        \"size-4 shrink-0 rounded-sm border border-input accent-primary outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 aria-invalid:ring-destructive/40\",\n        label ? \"mt-0.5\" : className\n      )}\n      {...props}\n      aria-invalid={invalid || props[\"aria-invalid\"] || undefined}\n    />\n  )\n\n  if (!label) {\n    return box\n  }\n\n  return (\n    <label\n      data-slot=\"checkbox-label\"\n      className={cn(\n        \"-mx-2 flex cursor-pointer items-start gap-2 rounded-md px-2 py-1.5 text-sm has-disabled:cursor-not-allowed has-disabled:opacity-50\",\n        className\n      )}\n    >\n      {box}\n      <span className=\"flex flex-col gap-0.5 leading-snug\">\n        <span>{label}</span>\n        {description ? (\n          <span className=\"text-xs text-muted-foreground\">{description}</span>\n        ) : null}\n      </span>\n    </label>\n  )\n}\n\nexport { Checkbox }\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/checkbox.tsx"
     }
   ],
   "type": "registry:ui"

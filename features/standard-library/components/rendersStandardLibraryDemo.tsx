@@ -7,6 +7,7 @@ import { findStandardCatalogEntry } from "@/features/standard-library/domain/cat
 import { RendersStandardBadgeDemo } from "./demos/rendersStandardBadgeDemo"
 import { RendersStandardButtonDemo } from "./demos/rendersStandardButtonDemo"
 import { RendersStandardContentDemo } from "./demos/rendersStandardContentDemo"
+import { RendersStandardCursorDemo } from "./demos/rendersStandardCursorDemo"
 import { RendersStandardFieldDemo } from "./demos/rendersStandardFieldDemo"
 import { RendersStandardOverlayDemo } from "./demos/rendersStandardOverlayDemo"
 import { RendersStandardPickerDemo } from "./demos/rendersStandardPickerDemo"
@@ -54,6 +55,10 @@ export function resolvesStandardDemo(pieceName: string): StandardDemo {
 
   if (category === "pickers" || category === "scroll") {
     return RendersStandardPickerDemo
+  }
+
+  if (category === "cursor") {
+    return RendersStandardCursorDemo
   }
 
   if (category === "toggles") {

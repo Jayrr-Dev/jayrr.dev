@@ -10,14 +10,14 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "button",
-    "collapsible",
-    "input",
-    "separator",
-    "sheet",
-    "skeleton",
-    "tooltip",
-    "use-mobile"
+    "@jayrr/button",
+    "@jayrr/collapsible",
+    "@jayrr/input",
+    "@jayrr/separator",
+    "@jayrr/sheet",
+    "@jayrr/skeleton",
+    "@jayrr/tooltip",
+    "@jayrr/use-mobile"
   ],
   "files": [
     {

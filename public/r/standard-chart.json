@@ -10,7 +10,8 @@
     {
       "path": "components/standard/chart.tsx",
       "content": "\"use client\"\r\n\r\nimport { Bar, BarChart, XAxis } from \"recharts\"\r\n\r\nfunction Chart({\r\n  data,\r\n}: {\r\n  data: { name: string; value: number }[]\r\n}) {\r\n  return (\r\n    <div data-slot=\"chart\" className=\"h-32 w-full text-primary\">\r\n      <BarChart width={280} height={128} data={data}>\r\n        <XAxis dataKey=\"name\" tick={{ fontSize: 10 }} />\r\n        <Bar dataKey=\"value\" fill=\"currentColor\" radius={4} />\r\n      </BarChart>\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { Chart }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/chart.tsx"
     }
   ],
   "type": "registry:ui"

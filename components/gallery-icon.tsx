@@ -434,6 +434,15 @@ const icons = {
       <path d="M16 32h16" />
     </>
   ),
+  "Number Input": (
+    <>
+      <rect x="8" y="20" width="48" height="24" rx="4" opacity=".5" />
+      <path d="m15 27 3-2v14" />
+      <path d="M23 28a3.5 3.5 0 0 1 7 0c0 3-7 6-7 11h7" />
+      <path d="M35 25h7l-4 5.5a4.2 4.2 0 1 1-3.5 7" />
+      <path d="M49 26v12" opacity=".45" />
+    </>
+  ),
   Textarea: (
     <>
       <rect x="10" y="12" width="44" height="40" rx="4" />
@@ -459,6 +468,14 @@ const icons = {
     <>
       <rect x="8" y="22" width="48" height="20" rx="4" />
       <path d="M16 32h16m10-4 4 4-4 4" />
+    </>
+  ),
+  "Filter Select": (
+    <>
+      <rect x="8" y="22" width="48" height="20" rx="4" opacity=".5" />
+      <path d="M14 27h10l-4 5v5l-2-1v-4Z" />
+      <path d="M29 32h8" opacity=".5" />
+      <path d="m44 30 3 3 3-3" />
     </>
   ),
   "Native Select": (
@@ -783,6 +800,13 @@ const icons = {
       <path d="M16 32h16" />
     </>
   ),
+  "Time Picker": (
+    <>
+      <circle cx="32" cy="32" r="22" />
+      <path d="M32 18v14l9 6" />
+      <circle cx="41" cy="38" r="3" opacity=".5" />
+    </>
+  ),
   "Multi Select": (
     <>
       <rect x="8" y="12" width="48" height="40" rx="4" />
@@ -795,14 +819,6 @@ const icons = {
       <rect x="8" y="22" width="20" height="20" rx="4" />
       <rect x="36" y="22" width="20" height="20" rx="4" />
       <path d="M30 32h4" />
-    </>
-  ),
-  "Privacy Calendar": (
-    <>
-      <rect x="10" y="16" width="44" height="36" rx="4" />
-      <path d="M10 26h44M22 12v8m20-8v8" />
-      <rect x="26" y="32" width="12" height="10" rx="2" />
-      <path d="M29 32v-3a3 3 0 0 1 6 0v3" />
     </>
   ),
   "Searchable Project Select": (
@@ -836,25 +852,36 @@ const icons = {
       <path d="M38 20h16M38 28h16M38 36h16M38 44h10" />
     </>
   ),
-  "Calendar Slider": (
+  Dialslide: (
     <>
-      <path d="m14 32-6-6m6 6-6 6M50 32l6-6m-6 6 6 6" />
-      <rect x="18" y="16" width="28" height="32" rx="3" />
-      <path d="M18 26h28M26 12v8m12-8v8" />
+      <path d="m10 22-5 6 5 6m44-12 5 6-5 6" />
+      <rect x="14" y="20" width="10" height="16" rx="3" opacity=".45" />
+      <rect
+        x="27"
+        y="20"
+        width="10"
+        height="16"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".2"
+      />
+      <rect x="40" y="20" width="10" height="16" rx="3" opacity=".45" />
+      <path
+        d="M16 44v4m4-4v4m4-4v4m4-4v4m8-4v4m4-4v4m4-4v4m4-4v4"
+        opacity=".45"
+      />
+      <path d="M32 42v8" />
     </>
   ),
-  "Badge Pill": (
+  Pill: (
     <>
-      <rect
-        x="8"
-        y="22"
-        width="48"
-        height="20"
-        rx="10"
+      <rect x="8" y="22" width="48" height="20" rx="10" />
+      <path
+        d="M32 22h14a10 10 0 0 1 0 20H32z"
         fill="currentColor"
-        fillOpacity=".1"
+        fillOpacity=".25"
       />
-      <path d="M22 32h20" />
+      <path d="M16 32h8m14 0h8" />
     </>
   ),
   "Badge Select": (
@@ -867,6 +894,37 @@ const icons = {
     <>
       <circle cx="32" cy="32" r="16" />
       <path d="M32 24v16M24 32h16" />
+    </>
+  ),
+  Chip: (
+    <>
+      <rect
+        x="6"
+        y="22"
+        width="26"
+        height="20"
+        rx="10"
+        fill="currentColor"
+        fillOpacity=".16"
+      />
+      <path d="m12 32 3 3 6-6" />
+      <rect x="36" y="22" width="22" height="20" rx="10" opacity=".45" />
+    </>
+  ),
+  "Notification Badge": (
+    <>
+      <path d="M20 42V30a12 12 0 0 1 24 0v12H16h32" opacity=".45" />
+      <path d="M28 48h8" opacity=".45" />
+      <circle cx="44" cy="20" r="8" fill="currentColor" fillOpacity=".16" />
+      <path d="M44 16v8" />
+    </>
+  ),
+  Indicator: (
+    <>
+      <circle cx="30" cy="30" r="18" opacity=".45" />
+      <circle cx="30" cy="25" r="6" opacity=".45" />
+      <path d="M19 42a13 13 0 0 1 22 0" opacity=".45" />
+      <circle cx="44" cy="44" r="6" fill="currentColor" stroke="none" />
     </>
   ),
   "Standard Toolbar Count": (
@@ -901,6 +959,22 @@ const icons = {
       />
       <rect x="24" y="22" width="16" height="20" rx="10" />
       <rect x="42" y="22" width="16" height="20" rx="10" opacity=".4" />
+    </>
+  ),
+  "Floating Action Button": (
+    <>
+      <rect x="8" y="10" width="48" height="44" rx="6" opacity=".4" />
+      <path d="M16 20h20M16 26h14" opacity=".4" />
+      <rect
+        x="34"
+        y="32"
+        width="16"
+        height="16"
+        rx="5"
+        fill="currentColor"
+        fillOpacity=".16"
+      />
+      <path d="M42 36v8M38 40h8" />
     </>
   ),
   Toolbar: (
@@ -1193,6 +1267,12 @@ const icons = {
       <path d="M22 36h20" opacity=".4" />
     </>
   ),
+  Cursor: (
+    <>
+      <path d="M20 12 44 30l-10 3-5 11z" />
+      <circle cx="22" cy="14" r="12" opacity=".35" />
+    </>
+  ),
   "Control Bar": (
     <>
       <rect x="6" y="22" width="28" height="20" rx="10" />
@@ -1206,6 +1286,41 @@ const icons = {
       <path d="M10 28h18" opacity=".45" />
       <rect x="42" y="14" width="14" height="10" rx="4" />
       <path d="M10 44h44" opacity=".25" />
+    </>
+  ),
+  "App Bar": (
+    <>
+      <path d="M6 24h52" opacity=".3" />
+      <path d="M10 14h8M10 17h8" />
+      <path d="M24 16h16" />
+      <circle cx="48" cy="16" r="2" fill="currentColor" stroke="none" />
+      <circle cx="54" cy="16" r="2" fill="currentColor" stroke="none" />
+      <path d="M10 36h26" strokeWidth="5" />
+      <path d="M10 46h18" opacity=".4" />
+    </>
+  ),
+  "Navigation Bar": (
+    <>
+      <path d="M6 42h52" opacity=".3" />
+      <rect x="10" y="46" width="14" height="8" rx="4" fill="currentColor" stroke="none" />
+      <circle cx="32" cy="50" r="3" />
+      <circle cx="47" cy="50" r="3" />
+    </>
+  ),
+  "Navigation Rail": (
+    <>
+      <path d="M22 8v48" opacity=".3" />
+      <rect x="7" y="16" width="10" height="8" rx="4" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="34" r="3" />
+      <circle cx="12" cy="46" r="3" />
+      <path d="M30 18h24M30 28h16" opacity=".4" />
+    </>
+  ),
+  "Navigation Drawer": (
+    <>
+      <path d="M10 14h20" opacity=".4" />
+      <rect x="8" y="22" width="40" height="10" rx="5" fill="currentColor" stroke="none" />
+      <path d="M13 42h30M13 52h24" />
     </>
   ),
   "App Badge Notification": (
@@ -1298,7 +1413,7 @@ const aliases: Record<string, GalleryIconName> = {
   "Standard Search": "Search",
   "Standard Badge": "Badge",
   "Displays Defines New Badge": "Badge",
-  "Filter Category Badge": "Badge Pill",
+  "Filter Category Badge": "Pill",
   "Standard Card": "Card",
   "Standard Table": "Table",
   "Standard Text": "Paragraph",
@@ -1315,14 +1430,8 @@ const aliases: Record<string, GalleryIconName> = {
   "Validation Tooltip": "Tooltip",
   "Department Select": "Select",
   "Month Select": "Select",
-  "Filter Select": "Select",
   "Category Filtered Select": "Select",
-  "Rendering Standard Toolbar Filter Select": "Select",
-  "Calendar Slider Day Popover": "Calendar Slider",
-  "Calendar Slider Footer List": "Calendar Slider",
-  "Render Calendar Grid": "Calendar",
-  "Renders Defines Calendar Legend Footer": "Calendar",
-  "Renders Defines Calendar Legend Popover Content": "Calendar",
+  "Rendering Standard Toolbar Filter Select": "Filter Select",
   "Job Costing Skeleton": "Skeleton",
   "Page Skeletons": "Skeleton",
 }

@@ -9,14 +9,45 @@ const buttonGroupVariants = cva(
   {
     variants: {
       orientation: {
-        horizontal:
-          "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-lg!",
-        vertical:
-          "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-lg!",
+        horizontal: "",
+        vertical: "flex-col",
+      },
+      variant: {
+        default: "",
+        // Split button: detached segments, pill-shaped outer corners, tight
+        // inner corners. An open trailing trigger rounds into a full circle.
+        pill: "gap-0.5 *:rounded-sm!",
       },
     },
+    compoundVariants: [
+      {
+        variant: "default",
+        orientation: "horizontal",
+        className:
+          "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-lg!",
+      },
+      {
+        variant: "default",
+        orientation: "vertical",
+        className:
+          "[&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-lg!",
+      },
+      {
+        variant: "pill",
+        orientation: "horizontal",
+        className:
+          "[&>*:first-child]:rounded-l-full! [&>*:last-child]:rounded-r-full! [&>[aria-expanded=true]:last-child]:rounded-full!",
+      },
+      {
+        variant: "pill",
+        orientation: "vertical",
+        className:
+          "[&>*:first-child]:rounded-t-full! [&>*:last-child]:rounded-b-full! [&>[aria-expanded=true]:last-child]:rounded-full!",
+      },
+    ],
     defaultVariants: {
       orientation: "horizontal",
+      variant: "default",
     },
   }
 )
@@ -24,6 +55,7 @@ const buttonGroupVariants = cva(
 function ButtonGroup({
   className,
   orientation,
+  variant,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>) {
   return (
@@ -31,7 +63,8 @@ function ButtonGroup({
       role="group"
       data-slot="button-group"
       data-orientation={orientation}
-      className={cn(buttonGroupVariants({ orientation }), className)}
+      data-variant={variant}
+      className={cn(buttonGroupVariants({ orientation, variant }), className)}
       {...props}
     />
   )

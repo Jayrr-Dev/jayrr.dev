@@ -1,22 +1,96 @@
 "use client"
 
 import { useState } from "react"
+import {
+  BriefcaseIcon,
+  ClockIcon,
+  NotebookPenIcon,
+  SaveIcon,
+} from "lucide-react"
 
 import { Button } from "@/components/standard/button"
-import { ConfirmDialog, TabbedDialog } from "@/components/standard/confirm-dialog"
+import {
+  ConfirmDialog,
+  TabbedDialog,
+} from "@/components/standard/confirm-dialog"
 import { Dialog } from "@/components/standard/dialog"
-import { FilterSelect } from "@/components/standard/filter-select"
+import { Select } from "@/components/standard/select"
 import { InfoIcon } from "@/components/standard/info-icon"
-import { CommandMenu, ContextMenu, DropdownMenu } from "@/components/standard/menu"
+import {
+  CommandMenu,
+  ContextMenu,
+  DropdownMenu,
+} from "@/components/standard/menu"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/standard/popover"
+import { PopoverWizard } from "@/components/standard/popover-wizard"
 import { Search } from "@/components/standard/search"
 import { Sheet } from "@/components/standard/sheet"
+import { TextField } from "@/components/standard/text-field"
 import { Tooltip } from "@/components/standard/tooltip"
+import { Wizard } from "@/components/standard/wizard"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
+
+function rendersStepText(text: string) {
+  return <p className="text-sm text-muted-foreground">{text}</p>
+}
+
+const SIMPLE_STEPS = [
+  { id: "job", title: "Job", content: rendersStepText("Pick a job.") },
+  { id: "hours", title: "Hours", content: rendersStepText("Enter hours.") },
+  { id: "save", title: "Save", content: rendersStepText("Check and save.") },
+]
+
+const ICON_STEPS = [
+  {
+    id: "job",
+    title: "Job",
+    icon: BriefcaseIcon,
+    content: rendersStepText("Pick a job."),
+  },
+  {
+    id: "hours",
+    title: "Hours",
+    icon: ClockIcon,
+    content: rendersStepText("Enter hours."),
+  },
+  {
+    id: "notes",
+    title: "Notes",
+    icon: NotebookPenIcon,
+    content: rendersStepText("Add a note."),
+  },
+  {
+    id: "save",
+    title: "Save",
+    icon: SaveIcon,
+    content: rendersStepText("Check and save."),
+  },
+]
+
+const TOUR_STEPS = [
+  {
+    id: "search",
+    title: "Search",
+    subtitle: "Find any piece by name.",
+    content: "Type in the box at the top. Results filter as you type.",
+  },
+  {
+    id: "open",
+    title: "Open a piece",
+    subtitle: "Every card opens its demos.",
+    content: "Click a card to see each variant side by side.",
+  },
+  {
+    id: "copy",
+    title: "Copy it",
+    subtitle: "Install from the registry.",
+    content: "Each piece has a shadcn add command you can paste.",
+  },
+]
 
 const MENU_ITEMS = [
   { id: "archive", label: "Archive" },
@@ -32,13 +106,25 @@ export function RendersStandardOverlayDemo({
 
   if (pieceName === "Dialog") {
     return (
-      <RendersDemoCard label="Dialog">
-        <Dialog
-          title="Share this piece"
-          description="The dialog sits over the gallery."
-          trigger="Open dialog"
-        />
-      </RendersDemoCard>
+      <>
+        <RendersDemoCard label="Dialog">
+          <Dialog
+            title="Share this piece"
+            description="Minimize it to the corner, maximize it, or close it."
+            trigger="Open dialog"
+            controls={["minimize", "maximize", "close"]}
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Dialog · gutter controls">
+          <Dialog
+            title="Share this piece"
+            description="Controls sit in the corner gutter, clear of the title."
+            trigger="Open dialog"
+            controls={["minimize", "maximize", "close"]}
+            controlsPlacement="gutter"
+          />
+        </RendersDemoCard>
+      </>
     )
   }
 
@@ -125,19 +211,97 @@ export function RendersStandardOverlayDemo({
     )
   }
 
-  if (pieceName === "Wizard" || pieceName === "Popover Wizard") {
+  if (pieceName === "Wizard") {
     return (
-      <RendersDemoCard label="Tabbed dialog · steps">
-        <TabbedDialog
-          title="Wizard"
-          trigger="Start"
-          tabs={[
-            { id: "one", label: "1", body: "Pick a job." },
-            { id: "two", label: "2", body: "Enter hours." },
-            { id: "three", label: "3", body: "Save." },
-          ]}
-        />
-      </RendersDemoCard>
+      <>
+        <RendersWizardDemo />
+        <RendersDemoCard label="Wizard · dots · no lines">
+          <Wizard
+            title="Welcome"
+            trigger="Dots"
+            steps={SIMPLE_STEPS}
+            indicator="dots"
+            divided={false}
+            maxWidth="sm"
+            nextLabel={["Next", "Next", "Done"]}
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Wizard · bar">
+          <Wizard
+            title="New job"
+            trigger="Bar"
+            steps={SIMPLE_STEPS}
+            indicator="bar"
+            maxWidth="sm"
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Wizard · numbers only">
+          <Wizard
+            title="New job"
+            trigger="Numbers"
+            steps={SIMPLE_STEPS}
+            hideStepTitles
+            hideConnectors
+            divided={false}
+            maxWidth="sm"
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Wizard · icons · compact">
+          <Wizard
+            title="New job"
+            trigger="Icons"
+            steps={ICON_STEPS}
+            compact
+            maxWidth="lg"
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Wizard · no progress">
+          <Wizard
+            title="Confirm export"
+            trigger="Plain"
+            steps={SIMPLE_STEPS}
+            indicator="none"
+            divided={false}
+            maxWidth="sm"
+          />
+        </RendersDemoCard>
+      </>
+    )
+  }
+
+  if (pieceName === "Popover Wizard") {
+    return (
+      <>
+        <RendersDemoCard label="Popover wizard · tour">
+          <PopoverWizard trigger="Take the tour" steps={TOUR_STEPS} />
+        </RendersDemoCard>
+        <RendersDemoCard label="Popover wizard · jump from dots">
+          <PopoverWizard
+            trigger="Quick setup"
+            steps={TOUR_STEPS}
+            jumpFromDots
+            width="sm"
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Popover wizard · count · custom labels">
+          <PopoverWizard
+            trigger="Walkthrough"
+            steps={TOUR_STEPS}
+            dots={false}
+            showCount
+            nextLabel={["Next", "Next", "Finish"]}
+          />
+        </RendersDemoCard>
+        <RendersDemoCard label="Popover wizard · side right">
+          <PopoverWizard
+            trigger="Open to the side"
+            steps={TOUR_STEPS}
+            side="right"
+            align="center"
+            width="sm"
+          />
+        </RendersDemoCard>
+      </>
     )
   }
 
@@ -145,7 +309,7 @@ export function RendersStandardOverlayDemo({
     return (
       <RendersDemoCard label="Sheet">
         <Sheet title="Filters">
-          <FilterSelect
+          <Select
             placeholder="Status"
             options={[
               { value: "open", label: "Open" },
@@ -241,7 +405,85 @@ export function RendersStandardOverlayDemo({
 
   return (
     <RendersDemoCard label="Not built">
-      <span className="text-xs text-muted-foreground">{pieceName} is not built yet.</span>
+      <span className="text-xs text-muted-foreground">
+        {pieceName} is not built yet.
+      </span>
+    </RendersDemoCard>
+  )
+}
+
+/** Three-step job entry: the job is required, hours must be a number. */
+function RendersWizardDemo() {
+  const [open, setOpen] = useState(false)
+  const [job, setJob] = useState("")
+  const [hours, setHours] = useState("")
+  const [saved, setSaved] = useState("")
+  const hoursValue = Number(hours)
+
+  return (
+    <RendersDemoCard label="Wizard">
+      <Wizard
+        title="Log hours"
+        trigger="Start"
+        open={open}
+        onOpenChange={setOpen}
+        maxWidth="md"
+        steps={[
+          {
+            id: "job",
+            title: "Job",
+            required: true,
+            canProceed: () => job.trim().length > 0,
+            content: (
+              <label className="flex flex-col gap-1.5 text-sm">
+                Job number
+                <TextField
+                  value={job}
+                  placeholder="J-1024"
+                  onChange={(event) => setJob(event.target.value)}
+                />
+              </label>
+            ),
+          },
+          {
+            id: "hours",
+            title: "Hours",
+            required: true,
+            canProceed: () => hoursValue > 0 && hoursValue <= 24,
+            content: (
+              <label className="flex flex-col gap-1.5 text-sm">
+                Hours worked
+                <TextField
+                  value={hours}
+                  inputMode="decimal"
+                  placeholder="8"
+                  onChange={(event) => setHours(event.target.value)}
+                />
+              </label>
+            ),
+          },
+          {
+            id: "review",
+            title: "Review",
+            content: (
+              <p className="text-sm text-muted-foreground">
+                {hoursValue} h on {job}. Complete saves the entry.
+              </p>
+            ),
+          },
+        ]}
+        onBeforeNext={(stepIndex) =>
+          stepIndex === 2
+            ? new Promise((resolve) => setTimeout(resolve, 600))
+            : undefined
+        }
+        nextLabel={["Enter hours", "Review", "Save entry"]}
+        onComplete={() => {
+          setSaved(`Saved ${hoursValue} h on ${job}`)
+          setOpen(false)
+        }}
+      />
+      {saved ? <span className="text-xs">{saved}</span> : null}
     </RendersDemoCard>
   )
 }

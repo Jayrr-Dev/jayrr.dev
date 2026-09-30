@@ -7,13 +7,14 @@
     "cn"
   ],
   "registryDependencies": [
-    "button"
+    "@jayrr/standard-button"
   ],
   "files": [
     {
       "path": "components/standard/button-array.tsx",
       "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { cn } from \"cn\"\r\n\r\nimport { Button } from \"@/components/standard/button\"\r\n\r\nexport type ButtonArrayItem = {\r\n  id: string\r\n  label: string\r\n}\r\n\r\nfunction ButtonArray({\r\n  className,\r\n  items,\r\n  value,\r\n  defaultValue,\r\n  onValueChange,\r\n  variant = \"badge\",\r\n}: {\r\n  className?: string\r\n  items: ButtonArrayItem[]\r\n  value?: string\r\n  defaultValue?: string\r\n  onValueChange?: (id: string) => void\r\n  variant?: \"badge\" | \"underlined\" | \"slider\"\r\n}) {\r\n  const [uncontrolled, setUncontrolled] = React.useState(\r\n    defaultValue ?? items[0]?.id\r\n  )\r\n  const selected = value ?? uncontrolled\r\n\r\n  function select(id: string) {\r\n    if (value === undefined) {\r\n      setUncontrolled(id)\r\n    }\r\n    onValueChange?.(id)\r\n  }\r\n\r\n  return (\r\n    <div\r\n      data-slot=\"button-array\"\r\n      data-variant={variant}\r\n      role=\"tablist\"\r\n      className={cn(\r\n        \"inline-flex flex-wrap gap-1\",\r\n        variant === \"slider\" ? \"rounded-full bg-muted p-1\" : undefined,\r\n        className\r\n      )}\r\n    >\r\n      {items.map((item) => {\r\n        const isOn = item.id === selected\r\n\r\n        if (variant === \"underlined\" || variant === \"slider\") {\r\n          return (\r\n            <button\r\n              key={item.id}\r\n              type=\"button\"\r\n              role=\"tab\"\r\n              aria-selected={isOn}\r\n              className={cn(\r\n                variant === \"slider\"\r\n                  ? cn(\r\n                      \"rounded-full px-3 py-1 text-xs\",\r\n                      isOn ? \"bg-background text-foreground shadow-sm\" : \"text-muted-foreground\"\r\n                    )\r\n                  : cn(\r\n                      \"border-b-2 px-2 pb-1 text-sm\",\r\n                      isOn\r\n                        ? \"border-foreground text-foreground\"\r\n                        : \"border-transparent text-muted-foreground\"\r\n                    )\r\n              )}\r\n              onClick={() => select(item.id)}\r\n            >\r\n              {item.label}\r\n            </button>\r\n          )\r\n        }\r\n\r\n        const tone = isOn ? \"default\" : \"outline\"\r\n\r\n        return (\r\n          <Button\r\n            key={item.id}\r\n            role=\"tab\"\r\n            aria-selected={isOn}\r\n            tone={tone}\r\n            size=\"sm\"\r\n            onClick={() => select(item.id)}\r\n          >\r\n            {item.label}\r\n          </Button>\r\n        )\r\n      })}\r\n    </div>\r\n  )\r\n}\r\n\r\nexport { ButtonArray }\r\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/standard/button-array.tsx"
     }
   ],
   "type": "registry:ui"
