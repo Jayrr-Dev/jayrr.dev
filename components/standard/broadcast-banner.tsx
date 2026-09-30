@@ -1,22 +1,20 @@
 import * as React from "react"
-import { cn } from "cn"
 
+import { Alert } from "@/components/standard/alert"
+
+/** @deprecated Use <Alert tone="broadcast" layout="banner"> */
 function BroadcastBanner({
-  className,
   title,
-  children,
-}: React.ComponentProps<"div"> & { title: string }) {
+  ...props
+}: Omit<React.ComponentProps<typeof Alert>, "title"> & { title: string }) {
   return (
-    <div
+    <Alert
       data-slot="broadcast-banner"
-      className={cn(
-        "w-full rounded-lg border border-border bg-primary/10 px-3 py-2 text-sm",
-        className
-      )}
-    >
-      <p className="font-medium">{title}</p>
-      {children}
-    </div>
+      tone="broadcast"
+      layout="banner"
+      title={title}
+      {...props}
+    />
   )
 }
 

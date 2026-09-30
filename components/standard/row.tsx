@@ -1,7 +1,9 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cva } from "class-variance-authority"
 
+import { Stack } from "@/components/standard/stack"
+
+/** @deprecated Use stackVariants({ direction: "row", align: "center" }) */
 const rowVariants = cva("flex items-center", {
   variants: {
     gap: {
@@ -15,18 +17,13 @@ const rowVariants = cva("flex items-center", {
   },
 })
 
+/** @deprecated Use <Stack direction="row" align="center"> */
 function Row({
-  className,
   gap = "default",
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof rowVariants>) {
+}: Omit<React.ComponentProps<typeof Stack>, "direction">) {
   return (
-    <div
-      data-slot="row"
-      data-gap={gap}
-      className={cn(rowVariants({ gap }), className)}
-      {...props}
-    />
+    <Stack data-slot="row" direction="row" align="center" gap={gap} {...props} />
   )
 }
 

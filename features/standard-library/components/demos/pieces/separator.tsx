@@ -23,6 +23,17 @@ export function RendersSeparatorDemo() {
           <StandardText>Right</StandardText>
         </Row>
       </RendersDemoCard>
+      <RendersDemoCard label="label">
+        <Divider label="or" />
+      </RendersDemoCard>
+      <RendersDemoCard label="tone">
+        <Stack gap="lg" className="w-full">
+          <Divider tone="default" />
+          <Divider tone="dashed" />
+          <Divider tone="strong" />
+          <Divider tone="dashed" label="dashed with label" />
+        </Stack>
+      </RendersDemoCard>
     </>
   )
 }

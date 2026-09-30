@@ -1,6 +1,7 @@
 "use client"
 
 import { BarStack } from "@/components/standard/bar-stack"
+import { Progress } from "@/components/standard/progress"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 export function RendersBarStackDemo() {
@@ -22,6 +23,17 @@ export function RendersBarStackDemo() {
           segments={[
             { id: "billable", value: 8, className: "bg-primary" },
             { id: "other", value: 2, className: "bg-muted-foreground/40" },
+          ]}
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="Progress segments">
+        <Progress
+          size="lg"
+          max={80}
+          segments={[
+            { id: "a", value: 40 },
+            { id: "b", value: 25, className: "bg-muted-foreground/50" },
+            { id: "c", value: 15, tone: "danger" },
           ]}
         />
       </RendersDemoCard>

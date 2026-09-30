@@ -20,6 +20,16 @@ export function RendersSkeletonDemo() {
       <RendersDemoCard label="block">
         <Skeleton className="h-16 w-full" />
       </RendersDemoCard>
+      <RendersDemoCard label="shape">
+        <Stack direction="row" align="center" gap="lg" className="w-full">
+          <Skeleton shape="circle" />
+          <Skeleton shape="text" className="w-24" />
+          <Skeleton shape="rect" className="h-12 w-24" />
+        </Stack>
+      </RendersDemoCard>
+      <RendersDemoCard label="lines 3">
+        <Skeleton lines={3} />
+      </RendersDemoCard>
     </>
   )
 }

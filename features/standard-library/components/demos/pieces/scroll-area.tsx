@@ -3,6 +3,8 @@
 import { ScrollArea } from "@/components/standard/scroll-area"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
+const weeks = Array.from({ length: 10 }, (_, index) => `Week ${index + 1} hours`)
+
 export function RendersScrollAreaDemo() {
   return (
     <>
@@ -24,6 +26,34 @@ export function RendersScrollAreaDemo() {
           <p>Week 6 hours</p>
           <p>Week 7 hours</p>
           <p>Week 8 hours</p>
+        </ScrollArea>
+      </RendersDemoCard>
+      <RendersDemoCard className="w-full max-w-xl" label="scrollbar thin">
+        <ScrollArea scrollbar="thin">
+          {weeks.map((week) => (
+            <p key={week}>{week}</p>
+          ))}
+        </ScrollArea>
+      </RendersDemoCard>
+      <RendersDemoCard className="w-full max-w-xl" label="scrollbar hidden">
+        <ScrollArea scrollbar="hidden">
+          {weeks.map((week) => (
+            <p key={week}>{week}</p>
+          ))}
+        </ScrollArea>
+      </RendersDemoCard>
+      <RendersDemoCard className="w-full max-w-xl" label="fade">
+        <ScrollArea fade className="h-28">
+          {weeks.map((week) => (
+            <p key={week}>{week}</p>
+          ))}
+        </ScrollArea>
+      </RendersDemoCard>
+      <RendersDemoCard className="w-full max-w-xl" label="maxHeight 160">
+        <ScrollArea maxHeight={160} scrollbar="thin">
+          {weeks.map((week) => (
+            <p key={week}>{week}</p>
+          ))}
         </ScrollArea>
       </RendersDemoCard>
     </>
