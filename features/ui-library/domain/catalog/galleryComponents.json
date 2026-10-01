@@ -22,7 +22,7 @@
     "name": "Headline",
     "type": "structure/layout",
     "canonical": "text",
-    "tier": "component",
+    "tier": "block",
     "demos": [
       "standard"
     ]
@@ -144,7 +144,7 @@
   },
   {
     "name": "Status",
-    "type": "content/icon",
+    "type": "meaning/indicator",
     "canonical": "badges",
     "tier": "primitive",
     "demos": [
@@ -218,8 +218,8 @@
   },
   {
     "name": "Aspect Ratio",
-    "type": "content/media",
-    "canonical": "media",
+    "type": "structure/layout",
+    "canonical": "layout",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -658,9 +658,9 @@
   },
   {
     "name": "Control Bar",
-    "type": "interaction/navigation",
-    "canonical": "navigation",
-    "tier": "component",
+    "type": "structure/layout",
+    "canonical": "layout",
+    "tier": "primitive",
     "demos": [
       "standard"
     ],
@@ -1019,7 +1019,7 @@
   {
     "name": "Heart",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "toggles",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -1227,7 +1227,7 @@
   {
     "name": "Dialslide",
     "type": "interaction/input",
-    "canonical": "scroll",
+    "canonical": "selects",
     "tier": "component",
     "demos": [
       "standard"
@@ -1344,7 +1344,7 @@
   },
   {
     "name": "Badge Select",
-    "type": "interaction/selection",
+    "type": "interaction/input",
     "canonical": "selects",
     "tier": "component",
     "demos": [
@@ -2181,7 +2181,7 @@
   {
     "name": "Bar",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "menus",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2345,7 +2345,7 @@
   {
     "name": "Infinite Scroll",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "scroll",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2393,7 +2393,7 @@
   {
     "name": "Scroll Mask",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "scroll",
     "tier": "component",
     "demos": [
       "standard"
@@ -2409,7 +2409,7 @@
   {
     "name": "Scroll Track",
     "type": "meaning/indicator",
-    "canonical": "loading",
+    "canonical": "scroll",
     "tier": "component",
     "demos": [
       "standard"
@@ -2696,8 +2696,8 @@
   },
   {
     "name": "Atom Grid",
-    "type": "content/media",
-    "canonical": "media",
+    "type": "meaning/indicator",
+    "canonical": "loading",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2748,7 +2748,7 @@
   {
     "name": "Calendar Heatmap",
     "type": "content/data",
-    "canonical": "calendar",
+    "canonical": "charts",
     "tier": "component",
     "demos": [
       "standard"
@@ -2799,7 +2799,7 @@
   {
     "name": "Comments",
     "type": "structure/surface",
-    "canonical": "forms",
+    "canonical": "chat",
     "tier": "block",
     "demos": [
       "standard"
@@ -2985,7 +2985,7 @@
   },
   {
     "name": "Draw Display",
-    "type": "content/media",
+    "type": "interaction/input",
     "canonical": "displays",
     "tier": "primitive",
     "demos": [
@@ -3206,7 +3206,7 @@
   },
   {
     "name": "Chatroom",
-    "type": "structure/layout",
+    "type": "structure/surface",
     "canonical": "chat",
     "tier": "block",
     "demos": [

@@ -106,7 +106,8 @@
     "Audio Display": "An audio player with cover art and a waveform.",
     "JSON Display": "Collapsible, color-coded JSON tree.",
     "JSON Viewer": "An interactive grid-based JSON explorer.",
-    "Draw Display": "A touch-friendly sketch pad with SVG and PNG export."
+    "Draw Display": "A touch-friendly sketch pad with SVG and PNG export.",
+    "Control Bar": "A muted, bordered row that wraps toolbar controls with even spacing."
   },
   "component": {
     "Planetary": "Rings of items orbiting a centre, each ring spinning its own way.",
@@ -143,7 +144,6 @@
     "Copy Button": "Copies text to the clipboard and confirms with a check.",
     "Navigation Menu": "Top-level site navigation with dropdown panels.",
     "Pagination": "Moves between pages of results.",
-    "Control Bar": "A bar of playback or editing controls.",
     "Menubar": "A desktop-style bar of menus.",
     "Command": "A searchable command palette.",
     "Search": "A search field with suggestions and recent queries.",
@@ -171,7 +171,7 @@
     "Date Picker": "Picks a date or range from a popover calendar.",
     "Time Picker": "Picks a time on a clock dial or by typing.",
     "Calendar Heatmap": "A contribution graph with one cell per day.",
-    "Dialslide": "A horizontal slider row with scroll buttons.",
+    "Dialslide": "A horizontal picker of steps, cards or dates, with snap, drag and arrow buttons.",
     "Scroll Horizontal Button": "Buttons that scroll a row left and right.",
     "Radio Group": "Picks exactly one option from a set.",
     "Toggle Group": "A set of toggles for one or many choices.",
@@ -186,7 +186,6 @@
     "Confirm Dialog": "A dialog that confirms an action before it runs.",
     "Tabbed Dialog": "A dialog with tabs for grouped settings.",
     "App Grid": "A launcher grid of apps and folders.",
-    "Headline": "One landing-page section: a display headline, one paragraph, one call to action and one image.",
     "Infinite Canvas": "A pan-and-zoom surface with draggable items, a grid and a minimap."
   },
   "block": {
@@ -212,6 +211,7 @@
     "Chat Card": "A chat window with a streaming-friendly thread, attachments and a composer.",
     "Character Chat": "A visual-novel dialogue box: a speaker's name, a typed-out line and a portrait, clicked through one line at a time.",
     "Hero Card": "A layered hero card with the headline, subheading and calls to action placed anywhere on a 3×3 grid.",
-    "Chatroom": "A group chat room with members, grouped messages, typing indicator and a composer."
+    "Chatroom": "A group chat room with members, grouped messages, typing indicator and a composer.",
+    "Headline": "One landing-page section: a display headline, one paragraph, one call to action and one image."
   }
 }
