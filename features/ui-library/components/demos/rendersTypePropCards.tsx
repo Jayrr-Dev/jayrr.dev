@@ -2,11 +2,29 @@
 
 import { useEffect, useState, type ReactNode } from "react"
 import {
+  AlignCenterIcon,
+  AlignJustifyIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
+  ArchiveIcon,
+  BoldIcon,
   ChevronDownIcon,
   ChevronRightIcon,
   FileTextIcon,
   ImageIcon,
+  InboxIcon,
+  ItalicIcon,
+  KanbanIcon,
+  LayoutGridIcon,
+  ListIcon,
+  LoaderIcon,
   MusicIcon,
+  PencilIcon,
+  PinIcon,
+  StarIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
+  UserPlusIcon,
   VideoIcon,
 } from "lucide-react"
 
@@ -78,7 +96,7 @@ import {
 import { Item, ItemContent, ItemTitle } from "@/components/ui/item"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import { Label } from "@/components/ui/label"
-import { Marker, MarkerContent } from "@/components/ui/marker"
+import { Marker, MarkerContent, MarkerIcon } from "@/components/ui/marker"
 import { Message, MessageContent } from "@/components/ui/message"
 import {
   Popover,
@@ -129,6 +147,79 @@ function FlipTicker() {
   }, [])
 
   return <NumberFlip value={value} from={4270} stepMs={110} />
+}
+
+const WEEKDAYS = [
+  { value: "mon", label: "M", name: "Monday" },
+  { value: "tue", label: "T", name: "Tuesday" },
+  { value: "wed", label: "W", name: "Wednesday" },
+  { value: "thu", label: "T", name: "Thursday" },
+  { value: "fri", label: "F", name: "Friday" },
+  { value: "sat", label: "S", name: "Saturday" },
+  { value: "sun", label: "S", name: "Sunday" },
+]
+
+/** Single choice that can't be cleared: clicking the pressed item keeps it. */
+function RendersAlignmentToggleGroup() {
+  const [align, setAlign] = useState("left")
+
+  return (
+    <TypeCard label="single · icons · attached (spacing 0)">
+      <ToggleGroup
+        type="single"
+        variant="outline"
+        spacing={0}
+        value={align}
+        onValueChange={(next) => next && setAlign(next)}
+        aria-label="Text alignment"
+      >
+        <ToggleGroupItem value="left" aria-label="Align left">
+          <AlignLeftIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="center" aria-label="Align center">
+          <AlignCenterIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="right" aria-label="Align right">
+          <AlignRightIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="justify" aria-label="Justify">
+          <AlignJustifyIcon />
+        </ToggleGroupItem>
+      </ToggleGroup>
+    </TypeCard>
+  )
+}
+
+function RendersRepeatDaysToggleGroup() {
+  const [days, setDays] = useState(["mon", "wed", "fri"])
+
+  return (
+    <TypeCard label="multiple · repeat on days">
+      <ToggleGroup
+        type="multiple"
+        variant="outline"
+        size="sm"
+        value={days}
+        onValueChange={setDays}
+        aria-label="Repeat on"
+      >
+        {WEEKDAYS.map((day) => (
+          <ToggleGroupItem
+            key={day.value}
+            value={day.value}
+            aria-label={day.name}
+          >
+            {day.label}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+      <span className="text-xs text-muted-foreground">
+        {days.length === 0
+          ? "Never repeats"
+          : `Repeats ${days.length} ${days.length === 1 ? "day" : "days"} a week`}
+      </span>
+    </TypeCard>
+  )
 }
 
 function TypeCard({
@@ -189,7 +280,6 @@ const bubbleVariants = [
 const buttonVariants = ["secondary", "ghost", "link"] as const
 const buttonSizes = ["xs", "sm", "lg"] as const
 const attachmentStates = ["idle", "uploading", "processing", "error"] as const
-const markerVariants = ["separator", "border"] as const
 const itemVariants = ["outline", "muted"] as const
 const sheetSides = ["top", "left", "bottom"] as const
 const drawerDirections = ["top", "left", "right"] as const
@@ -328,13 +418,50 @@ export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
   if (pieceName === "Marker") {
     return (
       <>
-        {markerVariants.map((variant) => (
-          <TypeCard key={variant} label={`variant ${variant}`}>
-            <Marker variant={variant} className="w-full">
-              <MarkerContent>{variant}</MarkerContent>
-            </Marker>
-          </TypeCard>
-        ))}
+        <TypeCard label="system note">
+          <Marker>
+            <MarkerIcon>
+              <UserPlusIcon />
+            </MarkerIcon>
+            <MarkerContent>Maya joined the channel</MarkerContent>
+          </Marker>
+        </TypeCard>
+        <TypeCard label="variant separator · date break">
+          <Marker variant="separator">
+            <MarkerContent>Today</MarkerContent>
+          </Marker>
+        </TypeCard>
+        <TypeCard label="status line">
+          <Marker role="status">
+            <MarkerIcon>
+              <LoaderIcon className="size-4 animate-spin" />
+            </MarkerIcon>
+            <MarkerContent>Generating response…</MarkerContent>
+          </Marker>
+        </TypeCard>
+        <TypeCard label="variant border · section heading">
+          <Marker variant="border">
+            <MarkerIcon>
+              <PinIcon />
+            </MarkerIcon>
+            <MarkerContent>Pinned messages</MarkerContent>
+          </Marker>
+        </TypeCard>
+        <TypeCard label="with a link">
+          <Marker>
+            <MarkerIcon>
+              <PencilIcon />
+            </MarkerIcon>
+            <MarkerContent>
+              Edited 2 minutes ago · <a href="#history">View history</a>
+            </MarkerContent>
+          </Marker>
+        </TypeCard>
+        <TypeCard label="variant separator · end of list">
+          <Marker variant="separator">
+            <MarkerContent>No older messages</MarkerContent>
+          </Marker>
+        </TypeCard>
       </>
     )
   }
@@ -538,10 +665,20 @@ export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
           <Slider orientation="vertical" defaultValue={[60]} className="h-24" />
         </TypeCard>
         <TypeCard label="variant ticks">
-          <Slider variant="ticks" step={10} defaultValue={[40]} className="w-full" />
+          <Slider
+            variant="ticks"
+            step={10}
+            defaultValue={[40]}
+            className="w-full"
+          />
         </TypeCard>
         <TypeCard label="variant segments">
-          <Slider variant="segments" step={10} defaultValue={[40]} className="w-full" />
+          <Slider
+            variant="segments"
+            step={10}
+            defaultValue={[40]}
+            className="w-full"
+          />
         </TypeCard>
         <TypeCard label="segments range">
           <Slider
@@ -560,6 +697,22 @@ export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
             className="h-24"
           />
         </TypeCard>
+        {(["square", "diamond", "ring", "bar", "pill"] as const).map(
+          (thumb) => (
+            <TypeCard key={thumb} label={`thumb ${thumb}`}>
+              <Slider thumb={thumb} defaultValue={[40]} className="w-full" />
+            </TypeCard>
+          )
+        )}
+        <TypeCard label="bar segments range">
+          <Slider
+            variant="segments"
+            thumb="bar"
+            step={10}
+            defaultValue={[20, 70]}
+            className="w-full"
+          />
+        </TypeCard>
       </>
     )
   }
@@ -567,22 +720,97 @@ export function RendersTypePropCards({ pieceName }: { pieceName: string }) {
   if (pieceName === "Toggle Group") {
     return (
       <>
-        <TypeCard label="type multiple">
-          <ToggleGroup type="multiple" defaultValue={["left"]}>
-            <ToggleGroupItem value="left">Left</ToggleGroupItem>
-            <ToggleGroupItem value="right">Right</ToggleGroupItem>
+        <TypeCard label="multiple · text formatting">
+          <ToggleGroup
+            type="multiple"
+            defaultValue={["bold"]}
+            aria-label="Text formatting"
+          >
+            <ToggleGroupItem value="bold" aria-label="Bold">
+              <BoldIcon />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="italic" aria-label="Italic">
+              <ItalicIcon />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="underline" aria-label="Underline">
+              <UnderlineIcon />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="strike" aria-label="Strikethrough">
+              <StrikethroughIcon />
+            </ToggleGroupItem>
           </ToggleGroup>
         </TypeCard>
-        <TypeCard label="variant outline">
-          <ToggleGroup type="single" variant="outline" defaultValue="one">
-            <ToggleGroupItem value="one">One</ToggleGroupItem>
-            <ToggleGroupItem value="two">Two</ToggleGroupItem>
+        <RendersAlignmentToggleGroup />
+        <TypeCard label="single · icon and label · view switcher">
+          <ToggleGroup
+            type="single"
+            variant="outline"
+            defaultValue="board"
+            aria-label="View"
+          >
+            <ToggleGroupItem value="grid">
+              <LayoutGridIcon data-icon="inline-start" />
+              Grid
+            </ToggleGroupItem>
+            <ToggleGroupItem value="list">
+              <ListIcon data-icon="inline-start" />
+              List
+            </ToggleGroupItem>
+            <ToggleGroupItem value="board">
+              <KanbanIcon data-icon="inline-start" />
+              Board
+            </ToggleGroupItem>
           </ToggleGroup>
         </TypeCard>
-        <TypeCard label="orientation vertical">
-          <ToggleGroup type="single" orientation="vertical" defaultValue="one">
-            <ToggleGroupItem value="one">One</ToggleGroupItem>
-            <ToggleGroupItem value="two">Two</ToggleGroupItem>
+        <TypeCard label="size sm · segmented timeframe">
+          <ToggleGroup
+            type="single"
+            variant="outline"
+            size="sm"
+            spacing={0}
+            defaultValue="week"
+            aria-label="Timeframe"
+          >
+            <ToggleGroupItem value="day">Day</ToggleGroupItem>
+            <ToggleGroupItem value="week">Week</ToggleGroupItem>
+            <ToggleGroupItem value="month">Month</ToggleGroupItem>
+            <ToggleGroupItem value="year">Year</ToggleGroupItem>
+          </ToggleGroup>
+        </TypeCard>
+        <RendersRepeatDaysToggleGroup />
+        <TypeCard label="orientation vertical · folders">
+          <ToggleGroup
+            type="single"
+            orientation="vertical"
+            defaultValue="inbox"
+            aria-label="Folder"
+          >
+            <ToggleGroupItem value="inbox">
+              <InboxIcon data-icon="inline-start" />
+              Inbox
+            </ToggleGroupItem>
+            <ToggleGroupItem value="starred">
+              <StarIcon data-icon="inline-start" />
+              Starred
+            </ToggleGroupItem>
+            <ToggleGroupItem value="archive">
+              <ArchiveIcon data-icon="inline-start" />
+              Archive
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </TypeCard>
+        <TypeCard label="disabled item">
+          <ToggleGroup
+            type="single"
+            variant="outline"
+            defaultValue="free"
+            aria-label="Plan"
+          >
+            <ToggleGroupItem value="free">Free</ToggleGroupItem>
+            <ToggleGroupItem value="pro">Pro</ToggleGroupItem>
+            <ToggleGroupItem value="team" disabled>
+              Team
+            </ToggleGroupItem>
           </ToggleGroup>
         </TypeCard>
       </>

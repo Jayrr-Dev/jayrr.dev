@@ -47,6 +47,8 @@ import { RendersFieldDemo } from "./pieces/field"
 import { RendersFilterSelectDemo } from "./pieces/filter-select"
 import { RendersArrayDemo } from "./pieces/array"
 import { RendersPlanetaryDemo } from "./pieces/planetary"
+import { RendersWheelOfFortuneDemo } from "./pieces/wheel-of-fortune"
+import { RendersDiceDemo } from "./pieces/dice"
 import { RendersCardCorridorDemo } from "./pieces/card-corridor"
 import { RendersBarDemo } from "./pieces/bar"
 import { RendersIncrementDemo } from "./pieces/increment"
@@ -67,6 +69,11 @@ import { RendersVideoDisplayDemo } from "./pieces/video-display"
 import { RendersFlipDotsDemo } from "./pieces/flip-dots"
 import { RendersReelDemo } from "./pieces/reel"
 import { RendersAtomGridDemo } from "./pieces/atom-grid"
+import { RendersWaveformDemo } from "./pieces/waveform"
+import { RendersSineWaveDemo } from "./pieces/sine-wave"
+import { RendersCircleWaveDemo } from "./pieces/circle-wave"
+import { RendersRingWaveDemo } from "./pieces/ring-wave"
+import { RendersBlobDemo } from "./pieces/blob"
 import { RendersInfiniteCanvasDemo } from "./pieces/infinite-canvas"
 import { RendersFloatingActionButtonDemo } from "./pieces/floating-action-button"
 import { RendersFormDemo } from "./pieces/form"
@@ -197,9 +204,16 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   "Flip-Dots": RendersFlipDotsDemo,
   Reel: RendersReelDemo,
   "Atom Grid": RendersAtomGridDemo,
+  Waveform: RendersWaveformDemo,
+  "Sine Wave": RendersSineWaveDemo,
+  "Circle Wave": RendersCircleWaveDemo,
+  "Ring Wave": RendersRingWaveDemo,
+  Blob: RendersBlobDemo,
   "Infinite Canvas": RendersInfiniteCanvasDemo,
   Array: RendersArrayDemo,
   Planetary: RendersPlanetaryDemo,
+  "Wheel of Fortune": RendersWheelOfFortuneDemo,
+  Dice: RendersDiceDemo,
   "Card Corridor": RendersCardCorridorDemo,
   Bar: RendersBarDemo,
   Increment: RendersIncrementDemo,
@@ -324,7 +338,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Toast: RendersToastDemo,
   Toggle: RendersToggleDemo,
   "Mode Toggle": RendersModeToggleDemo,
-  Theme: RendersThemeDemo,
+  Minimalist: RendersThemeDemo,
   Toolbar: RendersToolbarDemo,
   Tooltip: RendersTooltipDemo,
   "Responsive Tooltip": RendersResponsiveTooltipDemo,

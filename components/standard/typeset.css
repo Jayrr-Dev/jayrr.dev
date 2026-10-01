@@ -554,7 +554,12 @@
     font-weight: 500;
   }
 
-  /* One line, so a long placeholder can't overflow a short editor. */
+  /* One line, so a long placeholder can't overflow a short editor. The
+     node is the containing block, so 100% is its width, not the frame's. */
+  .prosekit-placeholder {
+    position: relative;
+  }
+
   .prosekit-placeholder::before {
     color: var(--typeset-muted);
     opacity: 1;

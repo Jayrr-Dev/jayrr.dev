@@ -30,6 +30,62 @@ const DRAG_THRESHOLD_PX = 5
 
 const DEFAULT_STEP_PX = 320
 
+/** Only pointer samples this recent count toward the release velocity. */
+const MOMENTUM_SAMPLE_MS = 80
+
+/** Release speed (px/ms) below which a drag just stops. */
+const MOMENTUM_MIN_VELOCITY = 0.05
+
+/** Share of velocity kept per 16ms frame while gliding. */
+const MOMENTUM_FRICTION = 0.95
+
+/** How far a glide would carry, as ms of release velocity (16 / (1 - friction)). */
+const MOMENTUM_PROJECTION_MS = 16 / (1 - MOMENTUM_FRICTION)
+
+/** Detent hop length at the start and end of a dial spin. */
+const DETENT_FAST_HOP_MS = 60
+const DETENT_SLOW_HOP_MS = 340
+
+/** Share of each hop spent moving; the rest rests on the item. */
+const DETENT_MOVE_SHARE = 0.6
+
+/** Children narrower than this (week dividers) are not detent stops. */
+const DETENT_MIN_ITEM_PX = 8
+
+/** Release velocity (px/ms) from the pointer samples just before release. */
+function releaseVelocity(
+  samples: { x: number; time: number }[],
+  releasedAt: number
+) {
+  const recent = samples.filter(
+    (sample) => releasedAt - sample.time <= MOMENTUM_SAMPLE_MS
+  )
+  const first = recent[0]
+  const last = recent.at(-1)
+  if (!first || !last || last.time <= first.time) {
+    return 0
+  }
+  return (last.x - first.x) / (last.time - first.time)
+}
+
+/** Scroll positions that center each item, in order, merged where the edges clamp. */
+function readsDetentStops(viewport: HTMLElement) {
+  const maxLeft = viewport.scrollWidth - viewport.clientWidth
+  const stops: number[] = []
+  for (const child of Array.from(viewport.children)) {
+    if (!(child instanceof HTMLElement) || child.offsetWidth < DETENT_MIN_ITEM_PX) {
+      continue
+    }
+    const centered = child.offsetLeft + child.offsetWidth / 2 - viewport.clientWidth / 2
+    const stop = Math.min(maxLeft, Math.max(0, centered))
+    const previous = stops.at(-1)
+    if (previous === undefined || stop - previous > 1) {
+      stops.push(stop)
+    }
+  }
+  return stops
+}
+
 /** Targets that keep their own pointer behavior instead of starting a drag. */
 const NO_DRAG_SELECTOR =
   'input, textarea, select, [contenteditable="true"], [data-no-drag-scroll]'
@@ -107,15 +163,126 @@ function useDialslideOverflow(
  */
 function useDialslideDrag(
   viewportRef: React.RefObject<HTMLElement | null>,
-  enabled: boolean
+  enabled: boolean,
+  momentum: boolean,
+  detents: boolean
 ) {
   const sessionRef = React.useRef<{
     pointerId: number
     originX: number
     startScrollLeft: number
+    samples: { x: number; time: number }[]
   } | null>(null)
   const didDragRef = React.useRef(false)
+  const glideFrameRef = React.useRef<number | null>(null)
   const [dragging, setDragging] = React.useState(false)
+  const [gliding, setGliding] = React.useState(false)
+
+  function stopGlide() {
+    if (glideFrameRef.current !== null) {
+      cancelAnimationFrame(glideFrameRef.current)
+      glideFrameRef.current = null
+      setGliding(false)
+    }
+  }
+
+  /** Coasts the row at `velocity` (px/ms), easing out until it stops or hits an edge. */
+  function startGlide(velocity: number) {
+    const viewport = viewportRef.current
+    if (!viewport) {
+      return
+    }
+    let speed = velocity
+    let last = performance.now()
+    setGliding(true)
+    const step = (now: number) => {
+      const elapsed = Math.min(now - last, 32)
+      last = now
+      const before = viewport.scrollLeft
+      viewport.scrollLeft = before - speed * elapsed
+      speed *= Math.pow(MOMENTUM_FRICTION, elapsed / 16)
+      const blocked = elapsed > 0 && Math.abs(viewport.scrollLeft - before) < 0.5
+      if (Math.abs(speed) < MOMENTUM_MIN_VELOCITY / 2 || blocked) {
+        glideFrameRef.current = null
+        setGliding(false)
+        return
+      }
+      glideFrameRef.current = requestAnimationFrame(step)
+    }
+    glideFrameRef.current = requestAnimationFrame(step)
+  }
+
+  /**
+   * Ticks item to item like a spun dial: each hop eases into the next item
+   * and rests on it, and the hops slow down until the row stops on one.
+   */
+  function startDetentGlide(velocity: number, instant: boolean) {
+    const viewport = viewportRef.current
+    if (!viewport) {
+      return
+    }
+    const stops = readsDetentStops(viewport)
+    if (stops.length === 0) {
+      return
+    }
+    const from = viewport.scrollLeft
+    const projected = from - velocity * MOMENTUM_PROJECTION_MS
+    const target = stops.reduce((best, stop) =>
+      Math.abs(stop - projected) < Math.abs(best - projected) ? stop : best
+    )
+    if (instant) {
+      viewport.scrollLeft = target
+      return
+    }
+    const path =
+      target > from
+        ? stops.filter((stop) => stop > from + 1 && stop <= target)
+        : [...stops].reverse().filter((stop) => stop < from - 1 && stop >= target)
+    if (path.length === 0) {
+      path.push(target)
+    }
+
+    let index = 0
+    let hopFrom = from
+    let hopStart = performance.now()
+    setGliding(true)
+    const step = (now: number) => {
+      const slowdown = path.length > 1 ? index / (path.length - 1) : 1
+      const hopMs =
+        DETENT_FAST_HOP_MS + (DETENT_SLOW_HOP_MS - DETENT_FAST_HOP_MS) * slowdown ** 2
+      const moved = Math.min(1, (now - hopStart) / (hopMs * DETENT_MOVE_SHARE))
+      viewport.scrollLeft = hopFrom + (path[index] - hopFrom) * (1 - (1 - moved) ** 3)
+      if (now - hopStart >= hopMs || (moved === 1 && index === path.length - 1)) {
+        hopFrom = path[index]
+        hopStart = now
+        index += 1
+        if (index >= path.length) {
+          glideFrameRef.current = null
+          setGliding(false)
+          return
+        }
+      }
+      glideFrameRef.current = requestAnimationFrame(step)
+    }
+    glideFrameRef.current = requestAnimationFrame(step)
+  }
+
+  // Wheel, touch or keys take over from a glide in progress.
+  React.useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport || (!momentum && !detents)) {
+      return
+    }
+    const interrupt = () => stopGlide()
+    const userEvents = ["wheel", "touchstart", "keydown"]
+    userEvents.forEach((type) =>
+      viewport.addEventListener(type, interrupt, { passive: true })
+    )
+    return () => {
+      userEvents.forEach((type) => viewport.removeEventListener(type, interrupt))
+      stopGlide()
+    }
+  }, [viewportRef, momentum, detents])
 
   React.useEffect(() => {
     const viewport = viewportRef.current
@@ -148,6 +315,20 @@ function useDialslideDrag(
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId)
     }
+    if (!didDragRef.current || event.type !== "pointerup") {
+      return
+    }
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches
+    const velocity =
+      momentum && !reducedMotion ? releaseVelocity(session.samples, event.timeStamp) : 0
+    const flicked = Math.abs(velocity) >= MOMENTUM_MIN_VELOCITY
+    if (detents) {
+      startDetentGlide(flicked ? velocity : 0, reducedMotion)
+    } else if (flicked) {
+      startGlide(velocity)
+    }
   }
 
   const handlers = {
@@ -165,11 +346,13 @@ function useDialslideDrag(
       if ((event.target as HTMLElement).closest(NO_DRAG_SELECTOR)) {
         return
       }
+      stopGlide()
       didDragRef.current = false
       sessionRef.current = {
         pointerId: event.pointerId,
         originX: event.clientX,
         startScrollLeft: viewport.scrollLeft,
+        samples: [{ x: event.clientX, time: event.timeStamp }],
       }
     },
     onPointerMove(event: React.PointerEvent<HTMLElement>) {
@@ -188,12 +371,130 @@ function useDialslideDrag(
       if (didDragRef.current) {
         viewport.scrollLeft = session.startScrollLeft - deltaX
       }
+      session.samples.push({ x: event.clientX, time: event.timeStamp })
+      if (session.samples.length > 8) {
+        session.samples.shift()
+      }
     },
     onPointerUp: endSession,
     onPointerCancel: endSession,
   }
 
-  return { dragging, handlers }
+  return { dragging, gliding, handlers }
+}
+
+type DialslideCenterFocus = boolean | "strong"
+
+/**
+ * How far items shrink, fade and blur at the edge of a center-focused row,
+ * and how far from the center (share of half the row) the falloff reaches.
+ */
+const CENTER_FOCUS_LOOKS = {
+  default: { minScale: 0.82, minOpacity: 0.35, maxBlurPx: 0, reach: 1 },
+  strong: { minScale: 0.55, minOpacity: 0.08, maxBlurPx: 3, reach: 0.55 },
+}
+
+/**
+ * Center focus: the item under the middle of the row is full size and the
+ * rest shrink and fade with distance, like the window on a picker wheel.
+ * Pads the row so the first and last items can reach the center too.
+ */
+function useDialslideCenterFocus(
+  viewportRef: React.RefObject<HTMLElement | null>,
+  centerFocus: DialslideCenterFocus
+) {
+  React.useLayoutEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport || !centerFocus) {
+      return
+    }
+    const look = CENTER_FOCUS_LOOKS[centerFocus === "strong" ? "strong" : "default"]
+
+    let frame: number | null = null
+
+    function items(el: HTMLElement) {
+      return Array.from(el.children).filter(
+        (child): child is HTMLElement =>
+          child instanceof HTMLElement && child.offsetWidth >= DETENT_MIN_ITEM_PX
+      )
+    }
+
+    function pad(el: HTMLElement) {
+      const list = items(el)
+      const first = list[0]
+      const last = list.at(-1)
+      el.style.paddingLeft = first ? `${el.clientWidth / 2 - first.offsetWidth / 2}px` : ""
+      el.style.paddingRight = last ? `${el.clientWidth / 2 - last.offsetWidth / 2}px` : ""
+    }
+
+    function focus() {
+      frame = null
+      const el = viewportRef.current
+      if (!el) {
+        return
+      }
+      const center = el.scrollLeft + el.clientWidth / 2
+      const reach = (el.clientWidth / 2) * look.reach
+      let nearest: HTMLElement | undefined
+      let nearestDistance = Infinity
+      for (const item of items(el)) {
+        const distance = Math.abs(item.offsetLeft + item.offsetWidth / 2 - center)
+        const amount = Math.max(0, 1 - distance / reach)
+        item.style.transform = `scale(${look.minScale + (1 - look.minScale) * amount})`
+        item.style.opacity = String(
+          look.minOpacity + (1 - look.minOpacity) * amount
+        )
+        item.style.filter =
+          look.maxBlurPx > 0 && amount < 1
+            ? `blur(${look.maxBlurPx * (1 - amount)}px)`
+            : ""
+        item.removeAttribute("data-centered")
+        if (distance < nearestDistance) {
+          nearest = item
+          nearestDistance = distance
+        }
+      }
+      nearest?.setAttribute("data-centered", "")
+    }
+
+    function schedule() {
+      if (frame === null) {
+        frame = requestAnimationFrame(focus)
+      }
+    }
+
+    function relayout() {
+      if (viewport) {
+        pad(viewport)
+      }
+      schedule()
+    }
+
+    relayout()
+    focus()
+    viewport.addEventListener("scroll", schedule, { passive: true })
+    const resizeObserver = new ResizeObserver(relayout)
+    resizeObserver.observe(viewport)
+    const mutationObserver = new MutationObserver(relayout)
+    mutationObserver.observe(viewport, { childList: true })
+
+    return () => {
+      viewport.removeEventListener("scroll", schedule)
+      resizeObserver.disconnect()
+      mutationObserver.disconnect()
+      if (frame !== null) {
+        cancelAnimationFrame(frame)
+      }
+      viewport.style.paddingLeft = ""
+      viewport.style.paddingRight = ""
+      for (const item of items(viewport)) {
+        item.style.transform = ""
+        item.style.opacity = ""
+        item.style.filter = ""
+        item.removeAttribute("data-centered")
+      }
+    }
+  }, [viewportRef, centerFocus])
 }
 
 /** Centers `item` inside the horizontal `viewport`. */
@@ -221,6 +522,17 @@ type DialslideTrackProps = {
   arrows?: boolean
   /** Enable click-and-drag scrolling. */
   drag?: boolean
+  /** Keep gliding after a quick drag is released, easing to a stop. */
+  momentum?: boolean
+  /** Settle on whole items after a drag, ticking item to item like a spun dial. */
+  detents?: boolean
+  /**
+   * Keep the middle item full size and shrink and fade the rest by distance.
+   * Pads the row so every item can reach the center; the centered item gets
+   * `data-centered`. `"strong"` shrinks, fades and blurs the neighbors much
+   * harder so only the middle item reads.
+   */
+  centerFocus?: DialslideCenterFocus
   /** Fade the edges that have more content past them. */
   fade?: boolean
   /** Snap items to the start edge (give items `snap-start`). */
@@ -248,6 +560,9 @@ function DialslideTrack({
   stepPx = DEFAULT_STEP_PX,
   arrows = true,
   drag = true,
+  momentum = false,
+  detents = false,
+  centerFocus = false,
   fade = true,
   snap = false,
   overlay,
@@ -257,7 +572,13 @@ function DialslideTrack({
 }: DialslideTrackProps) {
   const viewportRef = React.useRef<HTMLDivElement | null>(null)
   const { canScrollLeft, canScrollRight } = useDialslideOverflow(viewportRef)
-  const { dragging, handlers } = useDialslideDrag(viewportRef, drag)
+  const { dragging, gliding, handlers } = useDialslideDrag(
+    viewportRef,
+    drag,
+    momentum,
+    detents
+  )
+  useDialslideCenterFocus(viewportRef, centerFocus)
   const canScroll = canScrollLeft || canScrollRight
 
   const setViewportRef = React.useCallback(
@@ -366,7 +687,7 @@ function DialslideTrack({
             // relative: items measure offsetLeft in scroll-content coordinates.
             "relative flex touch-pan-x gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain py-2 [scrollbar-width:none] focus-visible:rounded-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none [&::-webkit-scrollbar]:hidden",
             arrows && "px-10",
-            snap && !dragging && "snap-x snap-mandatory",
+            snap && !dragging && !gliding && "snap-x snap-mandatory",
             drag && canScroll && (dragging ? "cursor-grabbing select-none" : "cursor-grab"),
             viewportClassName
           )}
@@ -485,6 +806,12 @@ type DialslideCalendarProps = {
   showFooter?: boolean
   hideCounts?: boolean
   layout?: "strip" | "grid"
+  /** Keep gliding after a quick drag is released, easing to a stop. */
+  momentum?: boolean
+  /** Settle on whole items after a drag, ticking item to item like a spun dial. */
+  detents?: boolean
+  /** Keep the middle day full size and shrink and fade the rest by distance. */
+  centerFocus?: DialslideCenterFocus
 }
 
 /**
@@ -506,6 +833,9 @@ function DialslideCalendar({
   showFooter = false,
   hideCounts = false,
   layout = "strip",
+  momentum = false,
+  detents = false,
+  centerFocus = false,
 }: DialslideCalendarProps) {
   const today = todayProp ?? todayIso()
   const start =
@@ -808,6 +1138,9 @@ function DialslideCalendar({
           viewportRef={viewportRef}
           viewportClassName="gap-6 py-2"
           snap
+          momentum={momentum}
+          detents={detents}
+          centerFocus={centerFocus}
           overlay={<span key={monthLabel} className="animate-in fade-in duration-200">{monthLabel}</span>}
           onScroll={handleScroll}
           onJumpToNearest={(direction) => flipsMonth(direction)}
@@ -873,6 +1206,9 @@ function DialslideCalendar({
         viewportRef={viewportRef}
         viewportClassName="gap-2 py-3"
         stepPx={7 * 88}
+        momentum={momentum}
+        detents={detents}
+        centerFocus={centerFocus}
         overlay={<span key={monthLabel} className="animate-in fade-in duration-200">{monthLabel}</span>}
         onScroll={handleScroll}
         onJumpToNearest={eventIsos.length > 0 ? jumpsToNearestEvent : undefined}

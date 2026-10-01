@@ -85,8 +85,100 @@ export function RendersDialslideDemo() {
           ))}
         </Dialslide>
       </RendersDemoCard>
-      <RendersDemoCard label="variant calendar · arrows hop between events">
-        <Dialslide variant="calendar" events={CALENDAR_EVENTS} />
+      <RendersDemoCard label="momentum · flick to glide">
+        <Dialslide aria-label="Jobs, flick to glide" momentum>
+          {DIALSLIDE_CHIPS.map((label) => (
+            <span
+              key={label}
+              className="shrink-0 rounded-full border border-border bg-muted/30 px-3 py-1.5 text-xs font-medium"
+            >
+              {label}
+            </span>
+          ))}
+        </Dialslide>
+      </RendersDemoCard>
+      <RendersDemoCard label="momentum · detents · spins like a dial">
+        <Dialslide
+          aria-label="Sites, spin to pick"
+          momentum
+          detents
+          viewportClassName="gap-3"
+        >
+          {DIALSLIDE_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="flex size-36 shrink-0 flex-col justify-end rounded-xl border border-border bg-muted/30 p-3"
+            >
+              <span className="text-sm font-semibold">{card.title}</span>
+              <span className="text-xs text-muted-foreground">
+                {card.meta}
+              </span>
+            </div>
+          ))}
+        </Dialslide>
+      </RendersDemoCard>
+      <RendersDemoCard label="center focus · momentum · detents">
+        <Dialslide
+          aria-label="Sites, centered picker"
+          centerFocus
+          momentum
+          detents
+          viewportClassName="gap-3"
+        >
+          {DIALSLIDE_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="flex size-36 shrink-0 flex-col justify-end rounded-xl border border-border bg-muted/30 p-3"
+            >
+              <span className="text-sm font-semibold">{card.title}</span>
+              <span className="text-xs text-muted-foreground">
+                {card.meta}
+              </span>
+            </div>
+          ))}
+        </Dialslide>
+      </RendersDemoCard>
+      <RendersDemoCard label="strong center focus · momentum · detents">
+        <Dialslide
+          aria-label="Sites, strong centered picker"
+          centerFocus="strong"
+          momentum
+          detents
+          viewportClassName="gap-3"
+        >
+          {DIALSLIDE_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="flex size-36 shrink-0 flex-col justify-end rounded-xl border border-border bg-muted/30 p-3"
+            >
+              <span className="text-sm font-semibold">{card.title}</span>
+              <span className="text-xs text-muted-foreground">
+                {card.meta}
+              </span>
+            </div>
+          ))}
+        </Dialslide>
+      </RendersDemoCard>
+      <RendersDemoCard label="calendar · strong center focus">
+        <Dialslide
+          variant="calendar"
+          events={CALENDAR_EVENTS}
+          centerFocus="strong"
+          momentum
+          detents
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="calendar · center focus">
+        <Dialslide
+          variant="calendar"
+          events={CALENDAR_EVENTS}
+          centerFocus
+          momentum
+          detents
+        />
+      </RendersDemoCard>
+      <RendersDemoCard label="variant calendar · arrows hop between events · momentum · detents">
+        <Dialslide variant="calendar" events={CALENDAR_EVENTS} momentum detents />
       </RendersDemoCard>
       <RendersDemoCard label="calendar · day popover · footer">
         <Dialslide

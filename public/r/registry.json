@@ -6,7 +6,7 @@
     {
       "name": "accordion",
       "title": "Accordion",
-      "description": "Accordion from the Classic library.",
+      "description": "Vertically stacked sections that expand and collapse, built on Radix Accordion with chevron indicators.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -23,7 +23,7 @@
     {
       "name": "alert-dialog",
       "title": "Alert Dialog",
-      "description": "Alert Dialog from the Classic library.",
+      "description": "Modal confirmation dialog that interrupts the user, with media slot and action and cancel buttons.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -42,7 +42,7 @@
     {
       "name": "alert",
       "title": "Alert",
-      "description": "Alert from the Classic library.",
+      "description": "Inline callout for important messages with title, description, action slot and a destructive variant.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -58,7 +58,7 @@
     {
       "name": "aspect-ratio",
       "title": "Aspect Ratio",
-      "description": "Aspect Ratio from the Classic library.",
+      "description": "Keeps content such as images or video at a fixed width-to-height ratio, built on Radix.",
       "dependencies": [
         "radix-ui"
       ],
@@ -73,7 +73,7 @@
     {
       "name": "attachment",
       "title": "Attachment",
-      "description": "Attachment from the Classic library.",
+      "description": "File attachment tile with media, title and actions, plus upload states, sizes and vertical layout.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -93,7 +93,7 @@
     {
       "name": "avatar",
       "title": "Avatar",
-      "description": "Avatar from the Classic library.",
+      "description": "User image with fallback initials, status badge and stacked groups with an overflow count.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -109,7 +109,7 @@
     {
       "name": "badge",
       "title": "Badge",
-      "description": "Badge from the Classic library.",
+      "description": "Small pill label for tags and counts, with default, secondary, destructive, outline and ghost variants.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -126,7 +126,7 @@
     {
       "name": "breadcrumb",
       "title": "Breadcrumb",
-      "description": "Breadcrumb from the Classic library.",
+      "description": "Navigation trail showing the current page's location, with separators and a collapsed ellipsis item.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -143,7 +143,7 @@
     {
       "name": "bubble",
       "title": "Bubble",
-      "description": "Bubble from the Classic library.",
+      "description": "Chat message bubble with primary, muted, tinted, outline, ghost and speech variants plus reactions.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -160,7 +160,7 @@
     {
       "name": "button-group",
       "title": "Button Group",
-      "description": "Button Group from the Classic library.",
+      "description": "Joins related buttons into one horizontal or vertical control, including a split pill style.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -180,7 +180,7 @@
     {
       "name": "button",
       "title": "Button",
-      "description": "Button from the Classic library.",
+      "description": "Clickable button with default, outline, secondary, ghost, destructive and link variants in several sizes.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -197,7 +197,7 @@
     {
       "name": "calendar",
       "title": "Calendar",
-      "description": "Calendar from the Classic library.",
+      "description": "Date grid for picking single days or ranges, with month navigation and dropdown captions.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -217,7 +217,7 @@
     {
       "name": "card",
       "title": "Card",
-      "description": "Card from the Classic library.",
+      "description": "Bordered container with header, content and footer slots, a compact size and side-by-side layout.",
       "dependencies": [
         "cn"
       ],
@@ -232,7 +232,7 @@
     {
       "name": "carousel",
       "title": "Carousel",
-      "description": "Carousel from the Classic library.",
+      "description": "Swipeable Embla-powered slider with previous and next controls, dot indicators and vertical orientation.",
       "dependencies": [
         "cn",
         "embla-carousel-react",
@@ -252,7 +252,7 @@
     {
       "name": "chart",
       "title": "Chart",
-      "description": "Chart from the Classic library.",
+      "description": "Recharts wrapper with theme-aware color config, styled tooltip and legend content.",
       "dependencies": [
         "cn",
         "recharts"
@@ -268,7 +268,7 @@
     {
       "name": "checkbox",
       "title": "Checkbox",
-      "description": "Checkbox from the Classic library.",
+      "description": "Accessible checkbox with a check indicator, built on Radix Checkbox.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -285,7 +285,7 @@
     {
       "name": "collapsible",
       "title": "Collapsible",
-      "description": "Collapsible from the Classic library.",
+      "description": "Show-and-hide panel toggled by a trigger, built on Radix Collapsible.",
       "dependencies": [
         "radix-ui"
       ],
@@ -300,7 +300,7 @@
     {
       "name": "combobox",
       "title": "Combobox",
-      "description": "Combobox from the Classic library.",
+      "description": "Searchable select with filtering, clearable input and multi-select chips, built on Base UI.",
       "dependencies": [
         "@base-ui/react",
         "cn",
@@ -321,7 +321,7 @@
     {
       "name": "command",
       "title": "Command",
-      "description": "Command from the Classic library.",
+      "description": "Keyboard-driven command palette with search, grouped items and shortcuts, built on cmdk.",
       "dependencies": [
         "cmdk",
         "cn",
@@ -342,7 +342,7 @@
     {
       "name": "context-menu",
       "title": "Context Menu",
-      "description": "Context Menu from the Classic library.",
+      "description": "Right-click menu with submenus, checkbox and radio items, labels and shortcuts, built on Radix.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -359,7 +359,7 @@
     {
       "name": "dialog",
       "title": "Dialog",
-      "description": "Dialog from the Classic library.",
+      "description": "Modal window over an overlay with header, footer and optional close button, built on Radix Dialog.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -379,7 +379,7 @@
     {
       "name": "direction",
       "title": "Direction",
-      "description": "Direction from the Classic library.",
+      "description": "Provider and hook that set left-to-right or right-to-left direction for Radix components.",
       "dependencies": [
         "radix-ui"
       ],
@@ -394,7 +394,7 @@
     {
       "name": "drawer",
       "title": "Drawer",
-      "description": "Drawer from the Classic library.",
+      "description": "Panel that slides in from any screen edge with drag-to-dismiss, built on Vaul.",
       "dependencies": [
         "cn",
         "vaul"
@@ -410,7 +410,7 @@
     {
       "name": "dropdown-menu",
       "title": "Dropdown Menu",
-      "description": "Dropdown Menu from the Classic library.",
+      "description": "Menu opened from a trigger with submenus, checkbox and radio items and shortcuts, built on Radix.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -427,7 +427,7 @@
     {
       "name": "empty",
       "title": "Empty",
-      "description": "Empty from the Classic library.",
+      "description": "Placeholder layout for empty states with icon or media, title, description and actions.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -443,7 +443,7 @@
     {
       "name": "field",
       "title": "Field",
-      "description": "Field from the Classic library.",
+      "description": "Form field layout with labels, descriptions, errors, fieldsets and vertical or horizontal orientation.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -463,7 +463,7 @@
     {
       "name": "hover-card",
       "title": "Hover Card",
-      "description": "Hover Card from the Classic library.",
+      "description": "Floating preview card shown when hovering a link or trigger, built on Radix Hover Card.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -479,7 +479,7 @@
     {
       "name": "input-group",
       "title": "Input Group",
-      "description": "Input Group from the Classic library.",
+      "description": "Wraps an input or textarea with inline addons such as icons, text and buttons.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -500,7 +500,7 @@
     {
       "name": "input-otp",
       "title": "Input Otp",
-      "description": "Input Otp from the Classic library.",
+      "description": "One-time passcode input split into individual character slots with optional separators.",
       "dependencies": [
         "cn",
         "input-otp",
@@ -517,7 +517,7 @@
     {
       "name": "input",
       "title": "Input",
-      "description": "Input from the Classic library.",
+      "description": "Styled single-line text input with focus, disabled and invalid states.",
       "dependencies": [
         "cn"
       ],
@@ -532,7 +532,7 @@
     {
       "name": "item",
       "title": "Item",
-      "description": "Item from the Classic library.",
+      "description": "Flexible list row with media, title, description and actions, in outline and muted variants.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -552,7 +552,7 @@
     {
       "name": "kbd",
       "title": "Kbd",
-      "description": "Kbd from the Classic library.",
+      "description": "Displays keyboard keys and key combinations as styled inline caps.",
       "dependencies": [
         "cn"
       ],
@@ -567,7 +567,7 @@
     {
       "name": "label",
       "title": "Label",
-      "description": "Label from the Classic library.",
+      "description": "Accessible form label that pairs with inputs, built on Radix Label.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -583,7 +583,7 @@
     {
       "name": "marker",
       "title": "Marker",
-      "description": "Marker from the Classic library.",
+      "description": "Small inline annotation with an icon, optionally drawn as a centered divider or bordered heading.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -600,7 +600,7 @@
     {
       "name": "masonry",
       "title": "Masonry",
-      "description": "Masonry from the Classic library.",
+      "description": "Round-robin masonry grid with fixed column count or responsive columns from a minimum width.",
       "dependencies": [
         "cn"
       ],
@@ -631,7 +631,7 @@
     {
       "name": "menubar",
       "title": "Menubar",
-      "description": "Menubar from the Classic library.",
+      "description": "Desktop-style horizontal menu bar with nested submenus, checkbox and radio items, built on Radix.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -648,7 +648,7 @@
     {
       "name": "message-scroller",
       "title": "Message Scroller",
-      "description": "Message Scroller from the Classic library.",
+      "description": "Chat scroll container that auto-follows new messages and shows a scroll-to-bottom button.",
       "dependencies": [
         "@shadcn/react",
         "cn",
@@ -668,7 +668,7 @@
     {
       "name": "message",
       "title": "Message",
-      "description": "Message from the Classic library.",
+      "description": "Chat message layout with avatar, header, content and footer, aligned to either side.",
       "dependencies": [
         "cn"
       ],
@@ -683,7 +683,7 @@
     {
       "name": "native-select",
       "title": "Native Select",
-      "description": "Native Select from the Classic library.",
+      "description": "Styled native HTML select with option groups and a chevron indicator.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -699,7 +699,7 @@
     {
       "name": "navigation-menu",
       "title": "Navigation Menu",
-      "description": "Navigation Menu from the Classic library.",
+      "description": "Site navigation with dropdown content panels, animated viewport and active indicator, built on Radix.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -732,7 +732,7 @@
     {
       "name": "pagination",
       "title": "Pagination",
-      "description": "Pagination from the Classic library.",
+      "description": "Page navigation with previous and next links, numbered pages and ellipsis gaps.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -751,7 +751,7 @@
     {
       "name": "popover",
       "title": "Popover",
-      "description": "Popover from the Classic library.",
+      "description": "Floating content panel anchored to a trigger, with header, title and description slots.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -767,7 +767,7 @@
     {
       "name": "progress-ring",
       "title": "Progress Ring",
-      "description": "Progress Ring from the Classic library.",
+      "description": "Circular progress indicator with centered content, labels above or below and an indeterminate spin.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -783,7 +783,7 @@
     {
       "name": "progress",
       "title": "Progress",
-      "description": "Progress from the Classic library.",
+      "description": "Horizontal bar showing task completion percentage, built on Radix Progress.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -799,7 +799,7 @@
     {
       "name": "questionnaire",
       "title": "Questionnaire",
-      "description": "Questionnaire from the Classic library.",
+      "description": "Step-by-step question flow with progress, choices, text input, validation and navigation buttons.",
       "dependencies": [
         "@shadcn/react",
         "cn",
@@ -819,7 +819,7 @@
     {
       "name": "radio-group",
       "title": "Radio Group",
-      "description": "Radio Group from the Classic library.",
+      "description": "Set of mutually exclusive radio options, built on Radix Radio Group.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -835,7 +835,7 @@
     {
       "name": "resizable",
       "title": "Resizable",
-      "description": "Resizable from the Classic library.",
+      "description": "Panel groups separated by draggable handles for resizing, built on react-resizable-panels.",
       "dependencies": [
         "cn",
         "react-resizable-panels"
@@ -851,7 +851,7 @@
     {
       "name": "scroll-area",
       "title": "Scroll Area",
-      "description": "Scroll Area from the Classic library.",
+      "description": "Scrollable region with custom styled scrollbars, built on Radix Scroll Area.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -867,7 +867,7 @@
     {
       "name": "select",
       "title": "Select",
-      "description": "Select from the Classic library.",
+      "description": "Dropdown for choosing one option with groups, labels and scroll buttons, built on Radix Select.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -884,7 +884,7 @@
     {
       "name": "separator",
       "title": "Separator",
-      "description": "Separator from the Classic library.",
+      "description": "Thin horizontal or vertical line that divides content, built on Radix Separator.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -900,7 +900,7 @@
     {
       "name": "sheet",
       "title": "Sheet",
-      "description": "Sheet from the Classic library.",
+      "description": "Dialog panel that slides in from the top, right, bottom or left edge of the screen.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -920,7 +920,7 @@
     {
       "name": "sidebar",
       "title": "Sidebar",
-      "description": "Sidebar from the Classic library.",
+      "description": "Collapsible app sidebar with menus, groups, search and icon, floating or inset modes, mobile-aware.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -948,7 +948,7 @@
     {
       "name": "skeleton",
       "title": "Skeleton",
-      "description": "Skeleton from the Classic library.",
+      "description": "Pulsing placeholder block shown while content is loading.",
       "dependencies": [
         "cn"
       ],
@@ -963,7 +963,7 @@
     {
       "name": "slider",
       "title": "Slider",
-      "description": "Slider from the Classic library.",
+      "description": "Draggable range input supporting single or multiple thumbs, built on Radix Slider.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -979,7 +979,7 @@
     {
       "name": "sonner",
       "title": "Sonner",
-      "description": "Sonner from the Classic library.",
+      "description": "Theme-aware toast notifications with status icons, built on Sonner.",
       "dependencies": [
         "lucide-react",
         "next-themes",
@@ -996,7 +996,7 @@
     {
       "name": "spinner",
       "title": "Spinner",
-      "description": "Spinner from the Classic library.",
+      "description": "Loading indicator with ring, orbit, dots, bars, pulse, burst, grid and triangle animations.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -1012,7 +1012,7 @@
     {
       "name": "status",
       "title": "Status",
-      "description": "Status from the Classic library.",
+      "description": "Pill with a state icon and tint for loading, success, error and custom states.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1029,7 +1029,7 @@
     {
       "name": "switch",
       "title": "Switch",
-      "description": "Switch from the Classic library.",
+      "description": "Toggle switch for on and off settings, built on Radix Switch.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -1045,7 +1045,7 @@
     {
       "name": "table",
       "title": "Table",
-      "description": "Table from the Classic library.",
+      "description": "Semantic data table with header, body, footer, rows, cells and caption styling.",
       "dependencies": [
         "cn"
       ],
@@ -1060,7 +1060,7 @@
     {
       "name": "tabs",
       "title": "Tabs",
-      "description": "Tabs from the Classic library.",
+      "description": "Tabbed panels with default, line and full-width primary and secondary styles, built on Radix Tabs.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1077,7 +1077,7 @@
     {
       "name": "text-effect",
       "title": "Text Effect",
-      "description": "Text Effect from the Classic library.",
+      "description": "Animated text helpers including typewriter, streamed reveal with caret, pop, wiggle and loading dots.",
       "dependencies": [
         "cn"
       ],
@@ -1162,7 +1162,7 @@
     {
       "name": "textarea",
       "title": "Textarea",
-      "description": "Textarea from the Classic library.",
+      "description": "Styled multi-line text input that grows with its content.",
       "dependencies": [
         "cn"
       ],
@@ -1177,7 +1177,7 @@
     {
       "name": "toggle-group",
       "title": "Toggle Group",
-      "description": "Toggle Group from the Classic library.",
+      "description": "Set of toggle buttons allowing single or multiple selection, built on Radix Toggle Group.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1197,7 +1197,7 @@
     {
       "name": "toggle",
       "title": "Toggle",
-      "description": "Toggle from the Classic library.",
+      "description": "Two-state pressable button with default and outline variants in three sizes.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1214,7 +1214,7 @@
     {
       "name": "tooltip",
       "title": "Tooltip",
-      "description": "Tooltip from the Classic library.",
+      "description": "Small hint shown on hover or focus of an element, built on Radix Tooltip.",
       "dependencies": [
         "cn",
         "radix-ui"
@@ -1288,7 +1288,7 @@
     {
       "name": "standard-alert",
       "title": "Alert",
-      "description": "Alert from the Standard library.",
+      "description": "Status message with icon, title, trailing actions and optional close, in soft, solid or outline tones.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1457,7 +1457,7 @@
     {
       "name": "autocomplete-input",
       "title": "Autocomplete Input",
-      "description": "Autocomplete Input from the Standard library.",
+      "description": "Text field that suggests matching options in a portaled dropdown as you type, with keyboard selection.",
       "dependencies": [
         "cn"
       ],
@@ -1477,7 +1477,7 @@
     {
       "name": "standard-avatar",
       "title": "Avatar",
-      "description": "Avatar from the Standard library.",
+      "description": "Profile picture with initials fallback, presence dot and an overlapping group that collapses extras into +N.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1498,7 +1498,7 @@
     {
       "name": "badge-select",
       "title": "Badge Select",
-      "description": "Badge Select from the Standard library.",
+      "description": "Single or multi select that shows options as badges in a searchable popover grid, with grouping and several trigger styles.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -1524,7 +1524,7 @@
     {
       "name": "standard-badge",
       "title": "Badge",
-      "description": "Badge from the Standard library.",
+      "description": "Short label or count in solid, soft or outline tones, with leading or trailing content, status dot and circle shape.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1646,7 +1646,7 @@
     {
       "name": "button-array",
       "title": "Button Array",
-      "description": "Button Array from the Standard library.",
+      "description": "Row of single- or multi-select buttons styled as badges, segments, underlined tabs or a slider.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1667,7 +1667,7 @@
     {
       "name": "standard-button",
       "title": "Button",
-      "description": "Button from the Standard library.",
+      "description": "Button with tones, sizes, icon slots, inline count badge, loading spinner and an anchor mode for links.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -1706,7 +1706,7 @@
     {
       "name": "caption",
       "title": "Caption",
-      "description": "Caption from the Standard library.",
+      "description": "Small muted paragraph for supporting text, with danger and uppercase tones.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1723,7 +1723,7 @@
     {
       "name": "card-bar",
       "title": "Card Bar",
-      "description": "Card Bar from the Standard library.",
+      "description": "Full-width pressable row with title, description and leading or trailing slots, plus a selected state.",
       "dependencies": [
         "cn"
       ],
@@ -1772,7 +1772,7 @@
     {
       "name": "standard-card",
       "title": "Card",
-      "description": "Card from the Standard library.",
+      "description": "Content card with outline, muted and elevated looks, lift or gradient-glow effects, media slots and interactive link mode.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1789,7 +1789,7 @@
     {
       "name": "standard-carousel",
       "title": "Carousel",
-      "description": "Carousel from the Standard library.",
+      "description": "Image or label carousel with a single-slide mode and a Material-style multi-browse layout that morphs items as they scroll.",
       "dependencies": [
         "cn",
         "embla-carousel-react"
@@ -1847,7 +1847,7 @@
     {
       "name": "standard-chart",
       "title": "Chart",
-      "description": "Chart from the Standard library.",
+      "description": "Compact Recharts bar chart that plots name and value pairs in the primary color.",
       "dependencies": [
         "recharts"
       ],
@@ -1892,9 +1892,30 @@
       "type": "registry:ui"
     },
     {
+      "name": "chatroom",
+      "title": "Chatroom",
+      "description": "Group chat room: member header, grouped messages, day dividers, typing indicator, jump-to-latest and a composer, in bubbles, channel or terminal layouts. Controlled or uncontrolled.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-avatar",
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/chatroom.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/chatroom.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-checkbox",
       "title": "Checkbox",
-      "description": "Checkbox from the Standard library.",
+      "description": "Checkbox with optional label and description, indeterminate and error states, and a bordered card appearance.",
       "dependencies": [
         "cn"
       ],
@@ -1931,7 +1952,7 @@
     {
       "name": "choice-label",
       "title": "Choice Label",
-      "description": "Choice Label from the Standard library.",
+      "description": "Internal clickable label and description wrapper shared by Checkbox and Radio, with a bordered card appearance.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1948,7 +1969,7 @@
     {
       "name": "code",
       "title": "Code",
-      "description": "Code from the Standard library.",
+      "description": "Inline code span or scrollable multi-line block with an optional copy button.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -2080,7 +2101,7 @@
     {
       "name": "confirm-dialog",
       "title": "Confirm Dialog",
-      "description": "Confirm Dialog from the Standard library.",
+      "description": "Alert dialog for destructive actions, with type-to-confirm text and a spinner that waits on an async confirm.",
       "registryDependencies": [
         "@jayrr/alert-dialog",
         "@jayrr/input",
@@ -2099,7 +2120,7 @@
     {
       "name": "control-bar",
       "title": "Control Bar",
-      "description": "Control Bar from the Standard library.",
+      "description": "Muted, bordered toolbar row that wraps its controls with even spacing.",
       "dependencies": [
         "cn"
       ],
@@ -2287,7 +2308,7 @@
     {
       "name": "date-picker",
       "title": "Date Picker",
-      "description": "Date Picker from the Standard library.",
+      "description": "Native date input styled to match the other form fields, with an error state.",
       "dependencies": [
         "cn"
       ],
@@ -2303,7 +2324,7 @@
     {
       "name": "standard-dialog",
       "title": "Dialog",
-      "description": "Dialog from the Standard library.",
+      "description": "Modal dialog in several widths with optional minimize, maximize and close controls and a shared dock for minimized windows.",
       "dependencies": [
         "cn",
         "lucide-react",
@@ -2340,6 +2361,26 @@
           "path": "components/standard/dialslide.tsx",
           "type": "registry:ui",
           "target": "components/standard/dialslide.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "dice",
+      "title": "Dice",
+      "description": "Real polyhedral dice. variant=\"tray\" is a felt dice tray: grab a die, drag it and throw it; dice slide with friction, bounce off the walls and each other, and settle on whichever face ends up on top (a Throw button tosses them all). The default row variant hops, tumbles in 3D and settles with the rolled face up. Solids: d4 tetrahedron, d6 cube with pips, d8 octahedron, d10 pentagonal trapezohedron (0 to 9), d12 dodecahedron and d20 icosahedron, lit from the top left, with opposite faces adding up like real dice. d100 is a percentile pair (tens and ones). Mix kinds and colours per die (dice={[20, { sides: 6, color }]}), add a modifier to the total, hold dice between rolls, control values and held dice, roll from a button or by clicking a die, three sizes, two tones and a screen-reader announcement. Values are picked before the roll, so onRoll always matches what lands. Honours reduced motion.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/dice.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/dice.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2404,7 +2445,7 @@
     {
       "name": "divider",
       "title": "Divider",
-      "description": "Divider from the Standard library.",
+      "description": "Horizontal or vertical separator in default, strong or dashed tones, with an optional centered label.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -2572,7 +2613,7 @@
     {
       "name": "field-label",
       "title": "Field Label",
-      "description": "Field Label from the Standard library.",
+      "description": "Form label with an optional required asterisk that screen readers announce as required.",
       "dependencies": [
         "cn"
       ],
@@ -2588,7 +2629,7 @@
     {
       "name": "filter-select",
       "title": "Filter Select",
-      "description": "Filter Select from the Standard library.",
+      "description": "Two-step filter popover: pick a category, then toggle its badge options, with active count and clear all.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -2646,7 +2687,7 @@
     {
       "name": "form-field",
       "title": "Form Field",
-      "description": "Form Field from the Standard library.",
+      "description": "Wraps a control with label, helper, error and success text, wiring its id and aria attributes automatically.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -2749,6 +2790,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "heart",
+      "title": "Heart",
+      "description": "Like toggle whose heart fills with a burst, pop, heartbeat, floating hearts or liquid fill effect, and can break, deflate, drop or drain the heart on unlike. Optional count and sizes; honours reduced motion.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/standard/heart.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/heart.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "heatmap",
       "title": "Heatmap",
       "description": "Matrix of values shaded on a ramp, with row and column labels, a Less-More legend and a readout of the hovered cell.",
@@ -2814,7 +2876,7 @@
     {
       "name": "image-upload",
       "title": "Image Upload",
-      "description": "Image Upload from the Standard library.",
+      "description": "Image picker as a dropzone or avatar, with preview, size limit and an upload progress bar.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -2831,7 +2893,7 @@
     {
       "name": "image",
       "title": "Image",
-      "description": "Image from the Standard library.",
+      "description": "Aspect-ratio image with ratio presets, an alt-text placeholder and hover shine or grayscale effects.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -2934,7 +2996,7 @@
     {
       "name": "info-icon",
       "title": "Info Icon",
-      "description": "Info Icon from the Standard library.",
+      "description": "Small info, help or alert icon that reveals a note in a popover or tooltip.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3031,7 +3093,7 @@
     {
       "name": "standard-input-otp",
       "title": "Input Otp",
-      "description": "Input Otp from the Standard library.",
+      "description": "One-time code input with a slot per character and an error state.",
       "dependencies": [
         "cn",
         "input-otp"
@@ -3110,7 +3172,7 @@
     {
       "name": "standard-kbd",
       "title": "Kbd",
-      "description": "Kbd from the Standard library.",
+      "description": "Keyboard key and key group re-exported from the base UI primitive.",
       "registryDependencies": [
         "@jayrr/kbd"
       ],
@@ -3155,7 +3217,7 @@
     {
       "name": "link",
       "title": "Link",
-      "description": "Link from the Standard library.",
+      "description": "Inline text link in the primary color with an underline on hover.",
       "dependencies": [
         "cn"
       ],
@@ -3193,7 +3255,7 @@
     {
       "name": "loading-state",
       "title": "Loading State",
-      "description": "Loading State from the Standard library.",
+      "description": "Spinner with a label that sits inline, centers in a block, or covers its parent with a blurred overlay, then shows a done check.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -3340,7 +3402,7 @@
     {
       "name": "menu",
       "title": "Menu",
-      "description": "Menu from the Standard library.",
+      "description": "Dropdown menu of items, separators, and labelled groups, with icons, shortcut hints, danger items, and a custom trigger.",
       "dependencies": [
         "cmdk",
         "cn",
@@ -3447,7 +3509,7 @@
     {
       "name": "navigation",
       "title": "Navigation",
-      "description": "Navigation from the Standard library.",
+      "description": "Material 3 navigation bar, rail, and drawer sharing one item shape, with active icons, badges, and grouped sections.",
       "dependencies": [
         "cn"
       ],
@@ -3524,7 +3586,7 @@
     {
       "name": "page-header",
       "title": "Page Header",
-      "description": "Page Header from the Standard library.",
+      "description": "Page title row with an optional back button, info tooltip, and trailing actions.",
       "dependencies": [
         "cn"
       ],
@@ -3544,7 +3606,7 @@
     {
       "name": "paragraph",
       "title": "Paragraph",
-      "description": "Paragraph from the Standard library.",
+      "description": "Body text with default, small, lead, and muted sizes, a muted tone, and line-clamp or single-line truncation.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -3695,7 +3757,7 @@
     {
       "name": "standard-popover",
       "title": "Popover",
-      "description": "Popover from the Standard library.",
+      "description": "Floating panel anchored to a trigger, with default, arrow, and tooltip-style content variants.",
       "registryDependencies": [
         "@jayrr/popover"
       ],
@@ -3735,7 +3797,7 @@
     {
       "name": "standard-progress",
       "title": "Progress",
-      "description": "Progress from the Standard library.",
+      "description": "Progress bar with sizes and tones, stacked colored segments, an indeterminate sweep, and an animated percentage label.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -3757,7 +3819,7 @@
     {
       "name": "radio",
       "title": "Radio",
-      "description": "Radio from the Standard library.",
+      "description": "Radio group with a legend, per-option labels and descriptions, error styling, and a bordered card appearance.",
       "dependencies": [
         "cn"
       ],
@@ -3776,7 +3838,7 @@
     {
       "name": "rater",
       "title": "Rater",
-      "description": "Star rating input with half steps, tones, sizes and custom icons.",
+      "description": "Star rating input with half steps, tones, sizes, custom icons and optional click effects: pop, bounce, wiggle, spin, jelly, flip, drop, heartbeat, tada, glow, burst, ripple, sparkle, cascade and wave.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -3818,7 +3880,7 @@
     {
       "name": "refresh-button",
       "title": "Refresh Button",
-      "description": "Refresh Button from the Standard library.",
+      "description": "Outline refresh button whose icon spins while refreshing, with an icon-only option.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3838,7 +3900,7 @@
     {
       "name": "standard-resizable",
       "title": "Resizable",
-      "description": "Resizable from the Standard library.",
+      "description": "Two side-by-side panels separated by a draggable divider for resizing.",
       "dependencies": [
         "react-resizable-panels"
       ],
@@ -3908,7 +3970,7 @@
     {
       "name": "standard-scroll-area",
       "title": "Scroll Area",
-      "description": "Scroll Area from the Standard library.",
+      "description": "Scroll container with thin or hidden scrollbars, edge fades, optional arrow buttons, and a grow-to max height.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3925,7 +3987,7 @@
     {
       "name": "scroll-horizontal-button",
       "title": "Scroll Horizontal Button",
-      "description": "Scroll Horizontal Button from the Standard library.",
+      "description": "Floating arrow button that scrolls a container sideways by step, press-and-hold, or double-click jump to edge.",
       "dependencies": [
         "cn",
         "lucide-react"
@@ -3980,7 +4042,7 @@
     {
       "name": "search",
       "title": "Search",
-      "description": "Search from the Standard library.",
+      "description": "Search text field with a leading search icon, sizes, and an optional clear button.",
       "registryDependencies": [
         "@jayrr/text-field",
         "@jayrr/use-field-validation"
@@ -3997,7 +4059,7 @@
     {
       "name": "standard-select",
       "title": "Select",
-      "description": "Select from the Standard library.",
+      "description": "Select dropdown with icons, grouped options, optional search, loading and error states, and filled or outlined variants.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -4065,7 +4127,7 @@
     {
       "name": "standard-sheet",
       "title": "Sheet",
-      "description": "Sheet from the Standard library.",
+      "description": "Slide-in panel from any side with sizes, title and description, a trigger, and a pinned footer.",
       "dependencies": [
         "cn"
       ],
@@ -4085,7 +4147,7 @@
     {
       "name": "standard-skeleton",
       "title": "Skeleton",
-      "description": "Skeleton from the Standard library.",
+      "description": "Loading placeholder shaped as text lines, a circle, or a block, with multi-line paragraph mode.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -4128,7 +4190,6 @@
         "cn"
       ],
       "registryDependencies": [
-        "@jayrr/cursor-label",
         "@jayrr/data-grid"
       ],
       "files": [
@@ -4148,7 +4209,7 @@
     {
       "name": "stack",
       "title": "Stack",
-      "description": "Stack from the Standard library.",
+      "description": "Flex layout wrapper with direction, gap, alignment, justification, wrapping, and optional dividers between children.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -4168,7 +4229,7 @@
     {
       "name": "standard-grid",
       "title": "Standard Grid",
-      "description": "Standard Grid from the Standard library.",
+      "description": "Responsive card grid with per-breakpoint columns, gap sizes, and an empty state, sharing the list search and filter chrome.",
       "dependencies": [
         "cn"
       ],
@@ -4187,7 +4248,7 @@
     {
       "name": "standard-list-chrome",
       "title": "Standard List Chrome",
-      "description": "Standard List Chrome from the Standard library.",
+      "description": "Shared search, filter, sort, and pagination state and toolbar chrome used by the standard table, grid, and list.",
       "registryDependencies": [
         "@jayrr/refresh-button",
         "@jayrr/standard-badge",
@@ -4207,7 +4268,7 @@
     {
       "name": "standard-table",
       "title": "Standard Table",
-      "description": "Standard Table from the Standard library.",
+      "description": "Data table with sortable and filterable columns, density options, row action menus, sticky header and first column, and paging.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -4318,7 +4379,7 @@
     {
       "name": "standard-switch",
       "title": "Switch",
-      "description": "Switch from the Standard library.",
+      "description": "Toggle switch in two sizes with a clickable label, description, label placement, and error styling.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -4339,7 +4400,7 @@
     {
       "name": "symbol",
       "title": "Symbol",
-      "description": "Symbol from the Standard library.",
+      "description": "Fixed-size icon wrapper in small, default, and large sizes.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -4356,7 +4417,7 @@
     {
       "name": "tabbed-dialog",
       "title": "Tabbed Dialog",
-      "description": "Tabbed Dialog from the Standard library.",
+      "description": "Modal dialog whose body is split into keyboard-navigable tabs.",
       "registryDependencies": [
         "@jayrr/standard-dialog",
         "@jayrr/tabs"
@@ -4396,7 +4457,7 @@
     {
       "name": "standard-simple-table",
       "title": "Table",
-      "description": "Table from the Standard library.",
+      "description": "Plain table rendered from an array of header strings and rows of string cells.",
       "dependencies": [
         "cn"
       ],
@@ -4412,7 +4473,7 @@
     {
       "name": "text-field",
       "title": "Text Field",
-      "description": "Text Field from the Standard library.",
+      "description": "Text input with default, Material filled, and outlined variants, floating label, leading/trailing content, and prefixes.",
       "dependencies": [
         "class-variance-authority",
         "cn",
@@ -4452,7 +4513,7 @@
     {
       "name": "standard-textarea",
       "title": "Textarea",
-      "description": "Textarea from the Standard library.",
+      "description": "Multi-line text input with focus ring and an invalid error state.",
       "dependencies": [
         "cn"
       ],
@@ -4487,27 +4548,6 @@
           "path": "components/standard/thumbs.tsx",
           "type": "registry:ui",
           "target": "components/standard/thumbs.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "name": "heart",
-      "title": "Heart",
-      "description": "Like toggle whose heart fills with a burst, pop, heartbeat, floating hearts or liquid fill effect, and can break, deflate, drop or drain the heart on unlike. Optional count and sizes; honours reduced motion.",
-      "dependencies": [
-        "class-variance-authority",
-        "cn",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "@jayrr/use-controllable-state"
-      ],
-      "files": [
-        {
-          "path": "components/standard/heart.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/heart.tsx"
         }
       ],
       "type": "registry:ui"
@@ -4570,7 +4610,7 @@
     {
       "name": "standard-toggle",
       "title": "Toggle",
-      "description": "Toggle from the Standard library.",
+      "description": "Two-state pressable button in outline or ghost tones, several sizes and shapes, with an icon-only mode.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -4634,7 +4674,7 @@
     {
       "name": "standard-tooltip",
       "title": "Tooltip",
-      "description": "Tooltip from the Standard library.",
+      "description": "Tooltip with hover or click-to-toggle triggers, keyboard shortcut display, danger tone, and placement options.",
       "dependencies": [
         "cn"
       ],
@@ -4743,6 +4783,26 @@
       "type": "registry:ui"
     },
     {
+      "name": "wheel-of-fortune",
+      "title": "Wheel of Fortune",
+      "description": "Prize wheel that spins and eases to a stop under a pin pointer. The winner is chosen before the spin (weighted random, or your own pick), so it always lands on the slice it reports. variant=\"drag\" lets people grab and fling the wheel: a faster fling spins longer, in the direction it was thrown. The spin button sits in the centre, under the wheel or nowhere (drag only). A prize window opens over the wheel on landing, with the slice description and Spin again. Marquee rim lights chase while spinning, theme-token fills by default, custom slice and label colours, labels that never read upside down, and a screen-reader announcement. Honours reduced motion.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/wheel-of-fortune.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/wheel-of-fortune.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "wizard",
       "title": "Wizard",
       "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue.",
@@ -4814,7 +4874,7 @@
     {
       "name": "use-controllable-state",
       "title": "Use Controllable State",
-      "description": "Use Controllable State from the Standard library.",
+      "description": "Hook for state that works controlled or uncontrolled, firing onChange on every change.",
       "files": [
         {
           "path": "hooks/use-controllable-state.ts",
@@ -4850,7 +4910,7 @@
     {
       "name": "use-mobile",
       "title": "Use Mobile",
-      "description": "Use Mobile from the Classic library.",
+      "description": "Hook that reports whether the viewport is narrower than the 768px mobile breakpoint.",
       "files": [
         {
           "path": "hooks/use-mobile.ts",

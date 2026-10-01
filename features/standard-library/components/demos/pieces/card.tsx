@@ -22,7 +22,7 @@ import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersD
 export function RendersCardDemo() {
   return (
     <>
-      <RendersDemoCard>
+      <RendersDemoCard label="header, body, footer">
         <Card>
           <CardHeader>
             <CardTitle>Registry item</CardTitle>

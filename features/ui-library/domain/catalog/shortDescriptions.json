@@ -11,7 +11,7 @@
     "Mood Text": "Expressive text styled word by word with motion, font and glow presets.",
     "Text Highlight": "Marker-pen highlights on key phrases, drawn or swept in as the text blurs into view.",
     "Symbol": "Icon glyphs sized and colored to match the text around them.",
-    "Marker": "A small shape or dot that marks a point, status or list item.",
+    "Marker": "An inline note for system messages, date breaks and status lines, plain, as a centered divider or as a bordered heading.",
     "Status": "A colored dot and label for a state like active, pending or failed.",
     "Badge": "A small label for tags, counts and categories.",
     "Pill": "A split badge with a muted label and a contrasting value.",
@@ -24,6 +24,11 @@
     "Aspect Ratio": "Keeps content locked to a fixed width-to-height ratio.",
     "Flip-Dots": "An animated flip-dot board for text, clocks and patterns.",
     "Atom Grid": "A tiny dot-matrix loader with orbit, ripple, snake and rain patterns.",
+    "Waveform": "A canvas of packed vertical bars that trace moving waves.",
+    "Sine Wave": "An oscilloscope trace that swells from a flat line, with stacked echoes.",
+    "Circle Wave": "A waveform wrapped around a ring, as radial bars, meter segments, lines or a fill.",
+    "Ring Wave": "Concentric arcs that grow, shrink and turn, in solid, segmented and tick rings.",
+    "Blob": "Flat organic SVG blobs that wobble, drift and melt together where they meet.",
     "Table": "A plain semantic table for rows and columns of data.",
     "Button": "Triggers an action, in several variants and sizes.",
     "Bar": "A single-line row with leading, label and trailing slots.",
@@ -46,7 +51,7 @@
     "Checkbox": "Turns an option on or off, with an indeterminate state.",
     "Toggle": "A button that stays pressed or unpressed.",
     "Mode Toggle": "Switches between light, dark and system themes.",
-    "Theme": "The current colour, radius and font tokens in light and dark.",
+    "Minimalist": "The Minimalist theme: neutral grays with no hue, a red destructive and a 0.625rem radius, in light and dark.",
     "Switch": "An on/off switch for settings.",
     "Label": "An accessible label for form controls.",
     "Item": "A list row with media, title, description and actions.",
@@ -107,7 +112,9 @@
     "JSON Display": "Collapsible, color-coded JSON tree.",
     "JSON Viewer": "An interactive grid-based JSON explorer.",
     "Draw Display": "A touch-friendly sketch pad with SVG and PNG export.",
-    "Control Bar": "A muted, bordered row that wraps toolbar controls with even spacing."
+    "Control Bar": "A muted, bordered row that wraps toolbar controls with even spacing.",
+    "Reel": "Items that loop left, right, up or down, or ride along a path you can draw.",
+    "Loading State": "Loading, error and empty states for async content."
   },
   "component": {
     "Planetary": "Rings of items orbiting a centre, each ring spinning its own way.",
@@ -120,7 +127,6 @@
     "Dynamic Tabs": "Browser-style tabs the user can add, close and rename.",
     "Info Icon": "An info icon that shows help text on hover or tap.",
     "Carousel": "Slides you swipe or step through.",
-    "Reel": "Items that loop left, right, up or down, or ride along a path you can draw.",
     "Chart": "Line, bar, area and pie charts with themed colors.",
     "Heatmap": "A matrix of values shaded on a color ramp.",
     "Standard Table": "A table with a toolbar for search, sorting and paging.",
@@ -175,7 +181,6 @@
     "Scroll Horizontal Button": "Buttons that scroll a row left and right.",
     "Radio Group": "Picks exactly one option from a set.",
     "Toggle Group": "A set of toggles for one or many choices.",
-    "Loading State": "Loading, error and empty states for async content.",
     "Stepper": "Ready-made progress for multi-step flows: numbered steps, dots or a bar.",
     "Message": "A chat message with avatar, name and timestamp.",
     "Attachment": "A file chip with icon, name and size.",
@@ -186,7 +191,9 @@
     "Confirm Dialog": "A dialog that confirms an action before it runs.",
     "Tabbed Dialog": "A dialog with tabs for grouped settings.",
     "App Grid": "A launcher grid of apps and folders.",
-    "Infinite Canvas": "A pan-and-zoom surface with draggable items, a grid and a minimap."
+    "Infinite Canvas": "A pan-and-zoom surface with draggable items, a grid and a minimap.",
+    "Wheel of Fortune": "A prize wheel you spin, easing to a stop on a random or weighted slice.",
+    "Dice": "3D dice that tumble and land on the rolled face, one or many, with a total and holding."
   },
   "block": {
     "Table List": "A searchable, filterable, paged list that switches between table and card grid views.",

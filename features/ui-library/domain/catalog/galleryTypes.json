@@ -96,10 +96,6 @@
         "label": "Overlay"
       },
       {
-        "id": "separator",
-        "label": "Separator"
-      },
-      {
         "id": "layout",
         "label": "Layout"
       },
@@ -117,6 +113,10 @@
       {
         "id": "text",
         "label": "Text"
+      },
+      {
+        "id": "sections",
+        "label": "Sections"
       },
       {
         "id": "icons",
@@ -147,12 +147,16 @@
         "label": "Buttons"
       },
       {
+        "id": "actions",
+        "label": "Actions"
+      },
+      {
         "id": "inputs",
         "label": "Inputs"
       },
       {
-        "id": "search",
-        "label": "Search"
+        "id": "editors",
+        "label": "Editors"
       },
       {
         "id": "selects",
@@ -160,11 +164,7 @@
       },
       {
         "id": "calendar",
-        "label": "Calendar"
-      },
-      {
-        "id": "toggles",
-        "label": "Toggles"
+        "label": "Date & time"
       },
       {
         "id": "forms",
@@ -176,23 +176,19 @@
       },
       {
         "id": "loading",
-        "label": "Loading"
+        "label": "States"
+      },
+      {
+        "id": "analog",
+        "label": "Analog"
       },
       {
         "id": "alerts",
-        "label": "Alerts"
-      },
-      {
-        "id": "notifications",
-        "label": "Notifications"
+        "label": "Alerts & notifications"
       },
       {
         "id": "dialogs",
-        "label": "Dialogs"
-      },
-      {
-        "id": "sheets",
-        "label": "Sheets"
+        "label": "Dialogs & sheets"
       },
       {
         "id": "popovers",
@@ -207,10 +203,6 @@
         "label": "Navigation"
       },
       {
-        "id": "tabs",
-        "label": "Tabs"
-      },
-      {
         "id": "scroll",
         "label": "Scroll"
       },
@@ -219,12 +211,12 @@
         "label": "Accordions"
       },
       {
-        "id": "dividers",
-        "label": "Dividers"
-      },
-      {
         "id": "layout",
         "label": "Layout"
+      },
+      {
+        "id": "motion",
+        "label": "Motion"
       },
       {
         "id": "chat",

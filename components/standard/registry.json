@@ -373,6 +373,22 @@
       ]
     },
     {
+      "name": "blob",
+      "type": "registry:ui",
+      "title": "Blob",
+      "description": "Flat organic SVG blobs that wobble and change shape as they move, melting into one shape through a goo filter where they meet. Lava lamp motion (heat at the bottom, rise, cool, sink) or a free drift; optional merging that joins blobs for good and splits big ones apart; circle, capsule or rect vessels; heat or per-blob tints with ready-made palettes; a liquid fill and a pointer blob that stirs and fuses with the rest.",
+      "files": [
+        {
+          "path": "blob.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/blob.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "block-editor",
       "type": "registry:ui",
       "title": "Block Editor",
@@ -666,6 +682,27 @@
       ]
     },
     {
+      "name": "chatroom",
+      "type": "registry:ui",
+      "title": "Chatroom",
+      "description": "Group chat room: member header, grouped messages, day dividers, typing indicator, jump-to-latest and a composer, in bubbles, channel or terminal layouts. Controlled or uncontrolled.",
+      "files": [
+        {
+          "path": "chatroom.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/chatroom.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-avatar",
+        "@jayrr/standard-button"
+      ]
+    },
+    {
       "name": "standard-checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
@@ -716,6 +753,22 @@
       ],
       "dependencies": [
         "class-variance-authority",
+        "cn"
+      ]
+    },
+    {
+      "name": "circle-wave",
+      "type": "registry:ui",
+      "title": "Circle Wave",
+      "description": "A waveform wrapped around a ring on canvas, seamless all the way round. Radial bars, stacked meter segments, layered echo lines or a solid fill, growing out, in or both ways. Bloom, interference, spectrum, voice, blob and pulse patterns, a custom wave(angle, t) or a controlled value; sweep, tip or level gradients with ready-made palettes; glow, spin, a hover bump and centered children.",
+      "files": [
+        {
+          "path": "circle-wave.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/circle-wave.tsx"
+        }
+      ],
+      "dependencies": [
         "cn"
       ]
     },
@@ -1116,6 +1169,26 @@
         "@jayrr/scroll-horizontal-button",
         "@jayrr/standard-popover",
         "@jayrr/standard-tokens"
+      ]
+    },
+    {
+      "name": "dice",
+      "type": "registry:ui",
+      "title": "Dice",
+      "description": "Real polyhedral dice. variant=\"tray\" is a felt dice tray: grab a die, drag it and throw it; dice slide with friction, bounce off the walls and each other, and settle on whichever face ends up on top (a Throw button tosses them all). The default row variant hops, tumbles in 3D and settles with the rolled face up. Solids: d4 tetrahedron, d6 cube with pips, d8 octahedron, d10 pentagonal trapezohedron (0 to 9), d12 dodecahedron and d20 icosahedron, lit from the top left, with opposite faces adding up like real dice. d100 is a percentile pair (tens and ones). Mix kinds and colours per die (dice={[20, { sides: 6, color }]}), add a modifier to the total, hold dice between rolls, control values and held dice, roll from a button or by clicking a die, three sizes, two tones and a screen-reader announcement. Values are picked before the roll, so onRoll always matches what lands. Honours reduced motion.",
+      "files": [
+        {
+          "path": "dice.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/dice.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
       ]
     },
     {
@@ -1520,6 +1593,27 @@
       "registryDependencies": [
         "@jayrr/heading",
         "@jayrr/paragraph"
+      ]
+    },
+    {
+      "name": "heart",
+      "type": "registry:ui",
+      "title": "Heart",
+      "description": "Like toggle whose heart fills with a burst, pop, heartbeat, floating hearts or liquid fill effect, and can break, deflate, drop or drain the heart on unlike. Optional count and sizes; honours reduced motion.",
+      "files": [
+        {
+          "path": "heart.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/heart.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/use-controllable-state"
       ]
     },
     {
@@ -2551,7 +2645,7 @@
       "name": "rater",
       "type": "registry:ui",
       "title": "Rater",
-      "description": "Star rating input with half steps, tones, sizes and custom icons.",
+      "description": "Star rating input with half steps, tones, sizes, custom icons and optional click effects: pop, bounce, wiggle, spin, jelly, flip, drop, heartbeat, tada, glow, burst, ripple, sparkle, cascade and wave.",
       "files": [
         {
           "path": "rater.tsx",
@@ -2656,6 +2750,22 @@
           "type": "registry:ui",
           "target": "components/standard/reveal.tsx"
         }
+      ]
+    },
+    {
+      "name": "ring-wave",
+      "type": "registry:ui",
+      "title": "Ring Wave",
+      "description": "Concentric rings of arcs on canvas, like a sci-fi readout. Each arc's sweep rises and falls and each ring turns at its own speed; rings mix solid, segmented and tick kinds at different thicknesses, picked by a seed or set with a layout. Grow, cascade, spectrum and orbit patterns or a controlled value; per-ring or sweep gradients with palettes, glow, faint tracks, an intro where arcs grow from a point, and centered children.",
+      "files": [
+        {
+          "path": "ring-wave.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/ring-wave.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -2854,6 +2964,22 @@
       "registryDependencies": [
         "@jayrr/sheet",
         "@jayrr/standard-button"
+      ]
+    },
+    {
+      "name": "sine-wave",
+      "type": "registry:ui",
+      "title": "Sine Wave",
+      "description": "An oscilloscope trace on canvas that drifts across the field and swells from a flat line on start. Sine, triangle, square or sawtooth shapes; amplitude, frequency, speed and phase; stacked echo lines with a phase spread; optional glow, graph-paper grid and dashed center axis.",
+      "files": [
+        {
+          "path": "sine-wave.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/sine-wave.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
       ]
     },
     {
@@ -3265,27 +3391,6 @@
       ]
     },
     {
-      "name": "heart",
-      "type": "registry:ui",
-      "title": "Heart",
-      "description": "Like toggle whose heart fills with a burst, pop, heartbeat, floating hearts or liquid fill effect, and can break, deflate, drop or drain the heart on unlike. Optional count and sizes; honours reduced motion.",
-      "files": [
-        {
-          "path": "heart.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/heart.tsx"
-        }
-      ],
-      "dependencies": [
-        "class-variance-authority",
-        "cn",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "@jayrr/use-controllable-state"
-      ]
-    },
-    {
       "name": "time-picker",
       "type": "registry:ui",
       "title": "Time Picker",
@@ -3492,6 +3597,22 @@
       ]
     },
     {
+      "name": "waveform",
+      "type": "registry:ui",
+      "title": "Waveform",
+      "description": "A canvas of bars packed edge to edge (or spaced with gap) whose lengths trace a moving wave, horizontal or vertical. Built-in sine, interference, ripple, packet, terrain, spectrum, voice, heartbeat and breathe patterns, a custom wave(x, t) function, or a controlled value. Bottom, top or mirrored center anchors; sunset, aurora, ocean, ember, candy and neon palettes or custom colors, with tip, span or level gradients and tip or edge fades; a hover bump.",
+      "files": [
+        {
+          "path": "waveform.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/waveform.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn"
+      ]
+    },
+    {
       "name": "webcam-button",
       "type": "registry:ui",
       "title": "Webcam Button",
@@ -3509,6 +3630,26 @@
         }
       ],
       "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-button"
+      ]
+    },
+    {
+      "name": "wheel-of-fortune",
+      "type": "registry:ui",
+      "title": "Wheel of Fortune",
+      "description": "Prize wheel that spins and eases to a stop under a pin pointer. The winner is chosen before the spin (weighted random, or your own pick), so it always lands on the slice it reports. variant=\"drag\" lets people grab and fling the wheel: a faster fling spins longer, in the direction it was thrown. The spin button sits in the centre, under the wheel or nowhere (drag only). A prize window opens over the wheel on landing, with the slice description and Spin again. Marquee rim lights chase while spinning, theme-token fills by default, custom slice and label colours, labels that never read upside down, and a screen-reader announcement. Honours reduced motion.",
+      "files": [
+        {
+          "path": "wheel-of-fortune.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/wheel-of-fortune.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
@@ -3583,27 +3724,6 @@
           "info-foreground": "oklch(0.205 0 0)"
         }
       }
-    },
-    {
-      "name": "chatroom",
-      "type": "registry:ui",
-      "title": "Chatroom",
-      "description": "Group chat room: member header, grouped messages, day dividers, typing indicator, jump-to-latest and a composer, in bubbles, channel or terminal layouts. Controlled or uncontrolled.",
-      "files": [
-        {
-          "path": "chatroom.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/chatroom.tsx"
-        }
-      ],
-      "dependencies": [
-        "cn",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "@jayrr/standard-avatar",
-        "@jayrr/standard-button"
-      ]
     }
   ]
 }

@@ -32,7 +32,7 @@ function RendersScrollStrip() {
       className="w-full max-w-xl"
       label="click · hold · double-click"
     >
-      <div className="relative w-full overflow-hidden rounded-md border border-border px-10 py-3">
+      <div className="relative w-full overflow-hidden rounded-md border border-border py-3">
         <div className="absolute top-1/2 left-1 z-20 -translate-y-1/2">
           <ScrollHorizontalButton
             direction="left"
@@ -51,7 +51,7 @@ function RendersScrollStrip() {
         </div>
         <div
           ref={scrollContainerRef}
-          className="flex scrollbar-thin gap-2 overflow-x-auto overflow-y-hidden py-1"
+          className="flex mask-x-from-85% mask-x-to-100% scrollbar-none gap-2 overflow-x-auto overflow-y-hidden px-3 py-1"
         >
           {SCROLL_STRIP_ITEMS.map((label) => (
             <div

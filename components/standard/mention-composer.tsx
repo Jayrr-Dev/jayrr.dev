@@ -214,8 +214,8 @@ function MentionComposer(props: MentionComposerProps) {
     return (
       <EditorShell
         slot="mention-composer"
-        className={cn("p-1", props.className)}
-        contentClassName="min-h-7 py-1"
+        className={cn("flex-row p-1", props.className)}
+        contentClassName="min-h-7 min-w-40 flex-1 py-1"
       />
     )
   }
@@ -277,10 +277,17 @@ function MentionComposerClient({
         data-disabled={disabled}
         className={cn(
           EDITOR_FRAME_CLASS,
-          "flex-row items-end gap-1 p-1",
+          "cursor-text flex-row items-end gap-1 p-1",
           disabled && "pointer-events-none opacity-50",
           className
         )}
+        // The whole field reads as a text box, so a click on its padding types too.
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) {
+            event.preventDefault()
+            editor.focus()
+          }
+        }}
       >
         {leading ? (
           <div className="flex shrink-0 items-center">{leading}</div>
@@ -288,7 +295,7 @@ function MentionComposerClient({
         <EditorContent
           editor={editor}
           aria-label={ariaLabel}
-          className="max-h-48 min-h-0 min-w-0 flex-1 overflow-y-auto px-2 py-1"
+          className="max-h-48 min-h-0 min-w-40 flex-1 overflow-y-auto px-2 py-1"
         />
         <div className="flex shrink-0 items-center gap-1">
           {trailing}

@@ -3,6 +3,9 @@
 import Link from "next/link"
 import { useState } from "react"
 import {
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   BookOpenIcon,
   ChevronRightIcon,
   FileTextIcon,
@@ -11,6 +14,7 @@ import {
   InboxIcon,
   LayersIcon,
   SettingsIcon,
+  UserPlusIcon,
   XIcon,
 } from "lucide-react"
 import { toast } from "sonner"
@@ -133,7 +137,7 @@ import { Kbd } from "@/components/ui/kbd"
 import { TextTypewriter } from "@/components/ui/text-effect"
 import { NumberCountUp } from "@/components/ui/number-effect"
 import { Label } from "@/components/ui/label"
-import { Marker, MarkerContent } from "@/components/ui/marker"
+import { Marker, MarkerContent, MarkerIcon } from "@/components/ui/marker"
 import {
   Menubar,
   MenubarContent,
@@ -448,9 +452,17 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Marker") {
     return (
-      <Marker>
-        <MarkerContent>New</MarkerContent>
-      </Marker>
+      <div className="flex w-full flex-col gap-3">
+        <Marker variant="separator">
+          <MarkerContent>Today</MarkerContent>
+        </Marker>
+        <Marker>
+          <MarkerIcon>
+            <UserPlusIcon />
+          </MarkerIcon>
+          <MarkerContent>Maya joined the channel</MarkerContent>
+        </Marker>
+      </div>
     )
   }
 
@@ -520,53 +532,57 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Navigation Menu") {
     return (
-      <NavigationMenu>
-        <NavigationMenuList className="gap-1">
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-64 gap-1">
-                <li>
-                  <NavigationMenuLink href="/gallery">
-                    <LayersIcon />
-                    <div className="flex flex-col">
-                      <span className="font-medium">Gallery</span>
-                      <span className="text-xs text-muted-foreground">
-                        Browse every piece.
-                      </span>
-                    </div>
-                  </NavigationMenuLink>
-                </li>
-                <li>
-                  <NavigationMenuLink href="/gallery">
-                    <BookOpenIcon />
-                    <div className="flex flex-col">
-                      <span className="font-medium">Docs</span>
-                      <span className="text-xs text-muted-foreground">
-                        Props and usage notes.
-                      </span>
-                    </div>
-                  </NavigationMenuLink>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild data-active>
-              <Link href="/gallery" className={navigationMenuTriggerStyle()}>
-                Registry
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <Link href="/gallery" className={navigationMenuTriggerStyle()}>
-                About
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+      // Room below the bar for the open panel, which is absolutely
+      // positioned and would otherwise be clipped by a scrolling dialog.
+      <div className="flex min-h-48 w-full items-start">
+        <NavigationMenu>
+          <NavigationMenuList className="gap-1">
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-64 gap-1">
+                  <li>
+                    <NavigationMenuLink href="/gallery">
+                      <LayersIcon />
+                      <div className="flex flex-col">
+                        <span className="font-medium">Gallery</span>
+                        <span className="text-xs text-muted-foreground">
+                          Browse every piece.
+                        </span>
+                      </div>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink href="/gallery">
+                      <BookOpenIcon />
+                      <div className="flex flex-col">
+                        <span className="font-medium">Docs</span>
+                        <span className="text-xs text-muted-foreground">
+                          Props and usage notes.
+                        </span>
+                      </div>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild data-active>
+                <Link href="/gallery" className={navigationMenuTriggerStyle()}>
+                  Registry
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/gallery" className={navigationMenuTriggerStyle()}>
+                  About
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
     )
   }
 
@@ -879,9 +895,21 @@ function libraryDemo(pieceName: string) {
 
   if (pieceName === "Toggle Group") {
     return (
-      <ToggleGroup type="single" defaultValue="left">
-        <ToggleGroupItem value="left">Left</ToggleGroupItem>
-        <ToggleGroupItem value="right">Right</ToggleGroupItem>
+      <ToggleGroup
+        type="single"
+        variant="outline"
+        defaultValue="left"
+        aria-label="Text alignment"
+      >
+        <ToggleGroupItem value="left" aria-label="Align left">
+          <AlignLeftIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="center" aria-label="Align center">
+          <AlignCenterIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="right" aria-label="Align right">
+          <AlignRightIcon />
+        </ToggleGroupItem>
       </ToggleGroup>
     )
   }

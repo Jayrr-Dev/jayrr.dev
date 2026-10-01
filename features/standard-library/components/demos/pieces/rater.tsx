@@ -4,11 +4,28 @@ import { useState } from "react"
 import { HeartIcon, SparkleIcon, ZapIcon } from "lucide-react"
 
 import { Button } from "@/components/standard/button"
-import { Rater } from "@/components/standard/rater"
+import { Rater, type RaterEffect } from "@/components/standard/rater"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const FACES = ["😡", "☹️", "😐", "🙂", "😍"]
 const FACE_NAMES = ["Awful", "Bad", "Okay", "Good", "Great"]
+const EFFECTS: RaterEffect[] = [
+  "pop",
+  "bounce",
+  "wiggle",
+  "spin",
+  "jelly",
+  "flip",
+  "drop",
+  "heartbeat",
+  "tada",
+  "glow",
+  "burst",
+  "ripple",
+  "sparkle",
+  "cascade",
+  "wave",
+]
 
 function RendersRaterControlledCard() {
   const [rating, setRating] = useState(3)
@@ -53,6 +70,7 @@ function RendersRaterFacesCard() {
         icon={(index) => FACES[index]}
         highlight="single"
         size="xl"
+        effect="bounce"
         value={mood}
         onValueChange={setMood}
         getValueText={(value) => FACE_NAMES[value - 1] ?? "Not rated"}
@@ -121,6 +139,19 @@ export function RendersRaterDemo() {
       </RendersDemoCard>
       <RendersRaterControlledCard />
       <RendersRaterFacesCard />
+      <RendersDemoCard label="effect · click to play">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+          {EFFECTS.map((effect) => (
+            <Rater
+              key={effect}
+              label={effect}
+              effect={effect}
+              tone="warning"
+              defaultValue={3}
+            />
+          ))}
+        </div>
+      </RendersDemoCard>
     </>
   )
 }

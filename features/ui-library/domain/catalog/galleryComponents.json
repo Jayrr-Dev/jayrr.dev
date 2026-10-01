@@ -21,7 +21,7 @@
   {
     "name": "Headline",
     "type": "structure/layout",
-    "canonical": "text",
+    "canonical": "sections",
     "tier": "block",
     "demos": [
       "standard"
@@ -154,8 +154,8 @@
   },
   {
     "name": "Marker",
-    "type": "content/icon",
-    "canonical": "icons",
+    "type": "content/text",
+    "canonical": "text",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -165,7 +165,7 @@
   {
     "name": "Info Icon",
     "type": "content/icon",
-    "canonical": "icons",
+    "canonical": "popovers",
     "tier": "component",
     "demos": [
       "standard"
@@ -229,7 +229,7 @@
   {
     "name": "Carousel",
     "type": "content/media",
-    "canonical": "media",
+    "canonical": "cards",
     "tier": "component",
     "demos": [
       "classic",
@@ -247,8 +247,8 @@
   {
     "name": "Reel",
     "type": "content/media",
-    "canonical": "media",
-    "tier": "component",
+    "canonical": "motion",
+    "tier": "primitive",
     "demos": [
       "standard"
     ],
@@ -282,7 +282,7 @@
   {
     "name": "Table",
     "type": "content/data",
-    "canonical": "tables",
+    "canonical": "cards",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -589,7 +589,7 @@
   {
     "name": "Menubar",
     "type": "interaction/navigation",
-    "canonical": "menus",
+    "canonical": "navigation",
     "tier": "component",
     "demos": [
       "classic"
@@ -609,7 +609,7 @@
   {
     "name": "Tabs",
     "type": "interaction/navigation",
-    "canonical": "tabs",
+    "canonical": "navigation",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -627,7 +627,7 @@
   {
     "name": "Dynamic Tabs",
     "type": "interaction/navigation",
-    "canonical": "tabs",
+    "canonical": "navigation",
     "tier": "component",
     "demos": [
       "standard"
@@ -732,7 +732,7 @@
   {
     "name": "Search",
     "type": "interaction/input",
-    "canonical": "search",
+    "canonical": "inputs",
     "tier": "component",
     "demos": [
       "classic",
@@ -844,7 +844,7 @@
   {
     "name": "Command",
     "type": "interaction/input",
-    "canonical": "menus",
+    "canonical": "inputs",
     "tier": "component",
     "demos": [
       "classic",
@@ -880,7 +880,7 @@
   {
     "name": "Slider",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "analog",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -987,7 +987,7 @@
   {
     "name": "Rater",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "icons",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -1003,7 +1003,7 @@
   {
     "name": "Thumbs",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "icons",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -1019,7 +1019,7 @@
   {
     "name": "Heart",
     "type": "interaction/input",
-    "canonical": "toggles",
+    "canonical": "icons",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -1067,7 +1067,7 @@
   {
     "name": "Lexical Editor",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "editors",
     "tier": "component",
     "demos": [
       "standard"
@@ -1083,7 +1083,7 @@
   {
     "name": "Block Editor",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "editors",
     "tier": "component",
     "demos": [
       "standard"
@@ -1099,7 +1099,7 @@
   {
     "name": "Inline Editor",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "editors",
     "tier": "component",
     "demos": [
       "standard"
@@ -1115,7 +1115,7 @@
   {
     "name": "Markdown Editor",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "editors",
     "tier": "component",
     "demos": [
       "standard"
@@ -1131,7 +1131,7 @@
   {
     "name": "Mention Composer",
     "type": "interaction/input",
-    "canonical": "inputs",
+    "canonical": "chat",
     "tier": "component",
     "demos": [
       "standard"
@@ -1243,7 +1243,7 @@
   {
     "name": "Checkbox",
     "type": "interaction/selection",
-    "canonical": "toggles",
+    "canonical": "buttons",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1261,7 +1261,7 @@
   {
     "name": "Radio Group",
     "type": "interaction/selection",
-    "canonical": "toggles",
+    "canonical": "buttons",
     "tier": "component",
     "demos": [
       "classic",
@@ -1279,7 +1279,7 @@
   {
     "name": "Toggle",
     "type": "interaction/selection",
-    "canonical": "toggles",
+    "canonical": "buttons",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1288,7 +1288,7 @@
     "installed": true
   },
   {
-    "name": "Theme",
+    "name": "Minimalist",
     "type": "structure/surface",
     "canonical": "theme",
     "tier": "primitive",
@@ -1300,7 +1300,7 @@
   {
     "name": "Mode Toggle",
     "type": "interaction/selection",
-    "canonical": "toggles",
+    "canonical": "buttons",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -1317,7 +1317,7 @@
   {
     "name": "Toggle Group",
     "type": "interaction/selection",
-    "canonical": "toggles",
+    "canonical": "buttons",
     "tier": "component",
     "demos": [
       "classic"
@@ -1327,7 +1327,7 @@
   {
     "name": "Switch",
     "type": "interaction/selection",
-    "canonical": "toggles",
+    "canonical": "buttons",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1361,7 +1361,7 @@
   {
     "name": "Label",
     "type": "meaning/label",
-    "canonical": "forms",
+    "canonical": "inputs",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1457,7 +1457,7 @@
   {
     "name": "Progress",
     "type": "meaning/indicator",
-    "canonical": "loading",
+    "canonical": "analog",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1475,7 +1475,7 @@
   {
     "name": "Progress Ring",
     "type": "meaning/indicator",
-    "canonical": "loading",
+    "canonical": "analog",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -1503,7 +1503,7 @@
   {
     "name": "Empty",
     "type": "meaning/indicator",
-    "canonical": "alerts",
+    "canonical": "loading",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -1545,7 +1545,7 @@
   {
     "name": "Toolbar Count",
     "type": "meaning/indicator",
-    "canonical": "badges",
+    "canonical": "tables",
     "tier": "component",
     "demos": [
       "standard"
@@ -1562,7 +1562,7 @@
     "name": "Loading State",
     "type": "meaning/indicator",
     "canonical": "loading",
-    "tier": "component",
+    "tier": "primitive",
     "demos": [
       "standard"
     ],
@@ -1612,7 +1612,7 @@
   {
     "name": "Toast",
     "type": "meaning/feedback",
-    "canonical": "notifications",
+    "canonical": "alerts",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1676,7 +1676,7 @@
   {
     "name": "Bubble",
     "type": "structure/surface",
-    "canonical": "chat",
+    "canonical": "cards",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -1784,7 +1784,7 @@
   {
     "name": "Sheet",
     "type": "structure/overlay",
-    "canonical": "sheets",
+    "canonical": "dialogs",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -1802,7 +1802,7 @@
   {
     "name": "Drawer",
     "type": "structure/overlay",
-    "canonical": "sheets",
+    "canonical": "dialogs",
     "tier": "primitive",
     "demos": [
       "classic"
@@ -1829,8 +1829,8 @@
   },
   {
     "name": "Floating Window",
-    "type": "structure/overlay",
-    "canonical": "popovers",
+    "type": "structure/layout",
+    "canonical": "layout",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2061,7 +2061,7 @@
   {
     "name": "Wizard",
     "type": "structure/overlay",
-    "canonical": "dialogs",
+    "canonical": "forms",
     "tier": "block",
     "demos": [
       "standard"
@@ -2092,8 +2092,8 @@
   },
   {
     "name": "Separator",
-    "type": "structure/separator",
-    "canonical": "dividers",
+    "type": "structure/layout",
+    "canonical": "layout",
     "tier": "primitive",
     "demos": [
       "classic",
@@ -2130,7 +2130,7 @@
   {
     "name": "Array",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "motion",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2147,7 +2147,7 @@
   {
     "name": "Planetary",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "motion",
     "tier": "component",
     "demos": [
       "standard"
@@ -2162,9 +2162,43 @@
     "mock_data_key": null
   },
   {
+    "name": "Wheel of Fortune",
+    "type": "interaction/action",
+    "canonical": "motion",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "wheel-of-fortune",
+    "family_key": "planetary",
+    "file_path": "components/standard/wheel-of-fortune.tsx",
+    "import_path": "@/components/standard/wheel-of-fortune",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Dice",
+    "type": "interaction/action",
+    "canonical": "motion",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "dice",
+    "family_key": "wheel-of-fortune",
+    "file_path": "components/standard/dice.tsx",
+    "import_path": "@/components/standard/dice",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Card Corridor",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "motion",
     "tier": "component",
     "demos": [
       "standard"
@@ -2288,7 +2322,7 @@
   {
     "name": "Article",
     "type": "structure/layout",
-    "canonical": "text",
+    "canonical": "sections",
     "tier": "block",
     "demos": [
       "standard"
@@ -2304,7 +2338,7 @@
   {
     "name": "Hero Card",
     "type": "structure/layout",
-    "canonical": "text",
+    "canonical": "sections",
     "tier": "block",
     "demos": [
       "standard"
@@ -2361,7 +2395,7 @@
   {
     "name": "Parallax",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "motion",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2377,7 +2411,7 @@
   {
     "name": "Reveal",
     "type": "structure/layout",
-    "canonical": "layout",
+    "canonical": "motion",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2458,7 +2492,7 @@
   {
     "name": "Page Header",
     "type": "structure/layout",
-    "canonical": "navigation",
+    "canonical": "sections",
     "tier": "block",
     "demos": [
       "standard"
@@ -2680,7 +2714,7 @@
   {
     "name": "Flip-Dots",
     "type": "content/media",
-    "canonical": "media",
+    "canonical": "motion",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2697,7 +2731,7 @@
   {
     "name": "Atom Grid",
     "type": "meaning/indicator",
-    "canonical": "loading",
+    "canonical": "motion",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2712,9 +2746,94 @@
     "mock_data_key": null
   },
   {
+    "name": "Waveform",
+    "type": "content/media",
+    "canonical": "motion",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "waveform",
+    "family_key": "waveform",
+    "file_path": "components/standard/waveform.tsx",
+    "import_path": "@/components/standard/waveform",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Sine Wave",
+    "type": "content/media",
+    "canonical": "motion",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "sine-wave",
+    "family_key": "sine-wave",
+    "file_path": "components/standard/sine-wave.tsx",
+    "import_path": "@/components/standard/sine-wave",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Circle Wave",
+    "type": "content/media",
+    "canonical": "motion",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "circle-wave",
+    "family_key": "circle-wave",
+    "file_path": "components/standard/circle-wave.tsx",
+    "import_path": "@/components/standard/circle-wave",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Ring Wave",
+    "type": "content/media",
+    "canonical": "motion",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "ring-wave",
+    "family_key": "ring-wave",
+    "file_path": "components/standard/ring-wave.tsx",
+    "import_path": "@/components/standard/ring-wave",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Blob",
+    "type": "content/media",
+    "canonical": "motion",
+    "tier": "primitive",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "blob",
+    "family_key": "blob",
+    "file_path": "components/standard/blob.tsx",
+    "import_path": "@/components/standard/blob",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Cell Grid",
     "type": "content/data",
-    "canonical": "charts",
+    "canonical": "displays",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -2782,7 +2901,7 @@
   {
     "name": "Timeline",
     "type": "content/data",
-    "canonical": "layout",
+    "canonical": "charts",
     "tier": "block",
     "demos": [
       "standard"
@@ -2850,7 +2969,7 @@
   {
     "name": "Digital Clock",
     "type": "content/data",
-    "canonical": "calendar",
+    "canonical": "displays",
     "tier": "primitive",
     "demos": [
       "standard"
@@ -3003,7 +3122,7 @@
   {
     "name": "Social Media Buttons",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3020,7 +3139,7 @@
   {
     "name": "Share Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3037,7 +3156,7 @@
   {
     "name": "Print Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3054,7 +3173,7 @@
   {
     "name": "Excel Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3071,7 +3190,7 @@
   {
     "name": "CSV Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3088,7 +3207,7 @@
   {
     "name": "Download Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3105,7 +3224,7 @@
   {
     "name": "Upload Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3122,7 +3241,7 @@
   {
     "name": "Webcam Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3139,7 +3258,7 @@
   {
     "name": "Mic Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3156,7 +3275,7 @@
   {
     "name": "Volume Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3173,7 +3292,7 @@
   {
     "name": "Email Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"
@@ -3190,7 +3309,7 @@
   {
     "name": "Copy Button",
     "type": "interaction/action",
-    "canonical": "buttons",
+    "canonical": "actions",
     "tier": "component",
     "demos": [
       "standard"

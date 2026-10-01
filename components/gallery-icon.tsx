@@ -190,7 +190,7 @@ const icons = {
       <circle cx="42" cy="32" r="7" fill="currentColor" stroke="none" />
     </>
   ),
-  Theme: (
+  Minimalist: (
     <>
       <rect
         x="10"
@@ -311,6 +311,49 @@ const icons = {
         <circle cx="16.4" cy="16.4" r="3.5" opacity=".8" />
         <circle cx="47.6" cy="47.6" r="3.5" />
       </g>
+    </>
+  ),
+  Dice: (
+    <>
+      <rect x="9" y="22" width="24" height="24" rx="5" />
+      <g fill="currentColor" stroke="none">
+        <circle cx="15.5" cy="28.5" r="2" />
+        <circle cx="21" cy="34" r="2" />
+        <circle cx="26.5" cy="39.5" r="2" />
+      </g>
+      <rect
+        x="33"
+        y="16"
+        width="22"
+        height="22"
+        rx="5"
+        transform="rotate(14 44 27)"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
+      <g fill="currentColor" stroke="none" transform="rotate(14 44 27)">
+        <circle cx="39" cy="21" r="1.8" />
+        <circle cx="49" cy="21" r="1.8" />
+        <circle cx="39" cy="33" r="1.8" />
+        <circle cx="49" cy="33" r="1.8" />
+      </g>
+    </>
+  ),
+  "Wheel of Fortune": (
+    <>
+      <circle cx="32" cy="35" r="20" />
+      <path
+        d="M32 35V15m0 20 17.3-10M32 35l17.3 10M32 35v20m0-20-17.3 10M32 35 14.7 25"
+        opacity=".45"
+      />
+      <path
+        d="M32 15a20 20 0 0 1 17.3 10L32 35Z"
+        fill="currentColor"
+        fillOpacity=".25"
+        stroke="none"
+      />
+      <circle cx="32" cy="35" r="4" fill="currentColor" stroke="none" />
+      <path d="M28 7h8l-4 6Z" fill="currentColor" />
     </>
   ),
   "Progress Ring": (
@@ -445,8 +488,19 @@ const icons = {
   ),
   Marker: (
     <>
-      <path d="M32 12c-8 0-14 6-14 14 0 10 14 26 14 26s14-16 14-26c0-8-6-14-14-14Z" />
-      <circle cx="32" cy="26" r="4" />
+      {/* A date break over a system note. */}
+      <path d="M8 24h14m20 0h14" opacity=".45" />
+      <rect
+        x="25"
+        y="20"
+        width="14"
+        height="8"
+        rx="4"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
+      <circle cx="13" cy="42" r="3" />
+      <path d="M21 42h28" opacity=".6" />
     </>
   ),
   "Aspect Ratio": (
@@ -1569,8 +1623,7 @@ const icons = {
         [0, 1, 2, 3, 4].map((row) => {
           const rim = col === 0 || row === 0 || col === 4 || row === 4
           // A comet running clockwise along the rim, brightest at the top right.
-          const lit =
-            row === 0 && col > 0 ? [0.3, 0.45, 0.7, 1][col - 1] : null
+          const lit = row === 0 && col > 0 ? [0.3, 0.45, 0.7, 1][col - 1] : null
           return (
             <circle
               key={`${col}-${row}`}
@@ -1584,6 +1637,69 @@ const icons = {
           )
         })
       )}
+    </>
+  ),
+  Waveform: (
+    <>
+      {Array.from({ length: 16 }, (_, index) => {
+        // Packed bars tracing one crest and trough of a sine.
+        const height = 6 + 13 * (1 + Math.sin((index / 15) * Math.PI * 2))
+        return (
+          <rect
+            key={index}
+            x={10 + index * 2.75}
+            y={50 - height}
+            width="2.75"
+            height={height}
+            fill="currentColor"
+            stroke="none"
+          />
+        )
+      })}
+    </>
+  ),
+  "Sine Wave": (
+    <>
+      <path d="M8 32h48" opacity=".35" strokeDasharray="2 2" />
+      <path d="M8 32c4-14 8-14 12 0s8 14 12 0 8-14 12 0 8 14 12 0" />
+    </>
+  ),
+  "Circle Wave": (
+    <>
+      {Array.from({ length: 24 }, (_, index) => {
+        // Spokes round a ring, longer where a three-lobed wave peaks.
+        const angle = (index / 24) * Math.PI * 2
+        const reach = 15 + 7 * (0.5 + 0.5 * Math.sin(angle * 3))
+        const dx = Math.sin(angle)
+        const dy = -Math.cos(angle)
+        return (
+          <path
+            key={index}
+            d={`M${32 + dx * 12} ${32 + dy * 12}L${32 + dx * reach} ${32 + dy * reach}`}
+            strokeWidth="2"
+          />
+        )
+      })}
+    </>
+  ),
+  Blob: (
+    <>
+      <circle cx="32" cy="32" r="22" opacity=".35" />
+      {/* Two blobs fusing through a waist, one rising free above them. */}
+      <path
+        d="M22 41a6 6 0 1 1 7.5-5.8c1.2 1.6 3.8 1.6 5 0A6.5 6.5 0 1 1 36 44c-2-1.2-4.5-1.2-6.5 0A6 6 0 0 1 22 41z"
+        fill="currentColor"
+        stroke="none"
+      />
+      <circle cx="35" cy="21" r="4.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  "Ring Wave": (
+    <>
+      <circle cx="32" cy="32" r="22" opacity=".2" />
+      <path d="M32 10a22 22 0 0 1 22 22" strokeWidth="3" />
+      <path d="M32 16a16 16 0 1 1-16 16" strokeDasharray="4 3" />
+      <path d="M32 22a10 10 0 0 1 0 20" strokeWidth="3.5" />
     </>
   ),
   Timeline: (
@@ -1919,10 +2035,7 @@ const icons = {
         fillOpacity=".1"
         strokeOpacity=".4"
       />
-      <path
-        d="M26 20v24l6.5-6.5 4.5 10 4-1.8-4.5-10H45Z"
-        fill="var(--card)"
-      />
+      <path d="M26 20v24l6.5-6.5 4.5 10 4-1.8-4.5-10H45Z" fill="var(--card)" />
     </>
   ),
   "Cursor Label": (
