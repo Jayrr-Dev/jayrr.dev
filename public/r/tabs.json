@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tabs",
   "title": "Tabs",
-  "description": "Tabs from the Classic library.",
+  "description": "Tabbed panels with default, line and full-width primary and secondary styles, built on Radix Tabs.",
   "dependencies": [
     "class-variance-authority",
     "cn",

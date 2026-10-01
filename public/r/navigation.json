@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "navigation",
   "title": "Navigation",
-  "description": "Navigation from the Standard library.",
+  "description": "Material 3 navigation bar, rail, and drawer sharing one item shape, with active icons, badges, and grouped sections.",
   "dependencies": [
     "cn"
   ],

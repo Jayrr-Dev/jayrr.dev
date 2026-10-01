@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-dialog",
   "title": "Dialog",
-  "description": "Dialog from the Standard library.",
+  "description": "Modal dialog in several widths with optional minimize, maximize and close controls and a shared dock for minimized windows.",
   "dependencies": [
     "cn",
     "lucide-react",

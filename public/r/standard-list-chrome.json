@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-list-chrome",
   "title": "Standard List Chrome",
-  "description": "Standard List Chrome from the Standard library.",
+  "description": "Shared search, filter, sort, and pagination state and toolbar chrome used by the standard table, grid, and list.",
   "registryDependencies": [
     "@jayrr/refresh-button",
     "@jayrr/standard-badge",

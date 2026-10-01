@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "stack",
   "title": "Stack",
-  "description": "Stack from the Standard library.",
+  "description": "Flex layout wrapper with direction, gap, alignment, justification, wrapping, and optional dividers between children.",
   "dependencies": [
     "class-variance-authority",
     "cn"

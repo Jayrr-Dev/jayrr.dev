@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button-array",
   "title": "Button Array",
-  "description": "Button Array from the Standard library.",
+  "description": "Row of single- or multi-select buttons styled as badges, segments, underlined tabs or a slider.",
   "dependencies": [
     "class-variance-authority",
     "cn"

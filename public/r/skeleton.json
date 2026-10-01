@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "skeleton",
   "title": "Skeleton",
-  "description": "Skeleton from the Classic library.",
+  "description": "Pulsing placeholder block shown while content is loading.",
   "dependencies": [
     "cn"
   ],

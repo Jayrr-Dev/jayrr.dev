@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-badge",
   "title": "Badge",
-  "description": "Badge from the Standard library.",
+  "description": "Short label or count in solid, soft or outline tones, with leading or trailing content, status dot and circle shape.",
   "dependencies": [
     "class-variance-authority",
     "cn"

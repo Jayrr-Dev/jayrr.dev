@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text-field",
   "title": "Text Field",
-  "description": "Text Field from the Standard library.",
+  "description": "Text input with default, Material filled, and outlined variants, floating label, leading/trailing content, and prefixes.",
   "dependencies": [
     "class-variance-authority",
     "cn",

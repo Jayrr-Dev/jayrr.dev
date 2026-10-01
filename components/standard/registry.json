@@ -63,7 +63,7 @@
       "name": "standard-alert",
       "type": "registry:ui",
       "title": "Alert",
-      "description": "Alert from the Standard library.",
+      "description": "Status message with icon, title, trailing actions and optional close, in soft, solid or outline tones.",
       "files": [
         {
           "path": "alert.tsx",
@@ -232,7 +232,7 @@
       "name": "autocomplete-input",
       "type": "registry:ui",
       "title": "Autocomplete Input",
-      "description": "Autocomplete Input from the Standard library.",
+      "description": "Text field that suggests matching options in a portaled dropdown as you type, with keyboard selection.",
       "files": [
         {
           "path": "autocomplete-input.tsx",
@@ -252,7 +252,7 @@
       "name": "standard-avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "Avatar from the Standard library.",
+      "description": "Profile picture with initials fallback, presence dot and an overlapping group that collapses extras into +N.",
       "files": [
         {
           "path": "avatar.tsx",
@@ -273,7 +273,7 @@
       "name": "badge-select",
       "type": "registry:ui",
       "title": "Badge Select",
-      "description": "Badge Select from the Standard library.",
+      "description": "Single or multi select that shows options as badges in a searchable popover grid, with grouping and several trigger styles.",
       "files": [
         {
           "path": "badge-select.tsx",
@@ -299,7 +299,7 @@
       "name": "standard-badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "Badge from the Standard library.",
+      "description": "Short label or count in solid, soft or outline tones, with leading or trailing content, status dot and circle shape.",
       "files": [
         {
           "path": "badge.tsx",
@@ -421,7 +421,7 @@
       "name": "button-array",
       "type": "registry:ui",
       "title": "Button Array",
-      "description": "Button Array from the Standard library.",
+      "description": "Row of single- or multi-select buttons styled as badges, segments, underlined tabs or a slider.",
       "files": [
         {
           "path": "button-array.tsx",
@@ -442,7 +442,7 @@
       "name": "standard-button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "Button from the Standard library.",
+      "description": "Button with tones, sizes, icon slots, inline count badge, loading spinner and an anchor mode for links.",
       "files": [
         {
           "path": "button.tsx",
@@ -481,7 +481,7 @@
       "name": "caption",
       "type": "registry:ui",
       "title": "Caption",
-      "description": "Caption from the Standard library.",
+      "description": "Small muted paragraph for supporting text, with danger and uppercase tones.",
       "files": [
         {
           "path": "caption.tsx",
@@ -498,7 +498,7 @@
       "name": "card-bar",
       "type": "registry:ui",
       "title": "Card Bar",
-      "description": "Card Bar from the Standard library.",
+      "description": "Full-width pressable row with title, description and leading or trailing slots, plus a selected state.",
       "files": [
         {
           "path": "card-bar.tsx",
@@ -547,7 +547,7 @@
       "name": "standard-card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "Card from the Standard library.",
+      "description": "Content card with outline, muted and elevated looks, lift or gradient-glow effects, media slots and interactive link mode.",
       "files": [
         {
           "path": "card.tsx",
@@ -564,7 +564,7 @@
       "name": "standard-carousel",
       "type": "registry:ui",
       "title": "Carousel",
-      "description": "Carousel from the Standard library.",
+      "description": "Image or label carousel with a single-slide mode and a Material-style multi-browse layout that morphs items as they scroll.",
       "files": [
         {
           "path": "carousel.tsx",
@@ -622,7 +622,7 @@
       "name": "standard-chart",
       "type": "registry:ui",
       "title": "Chart",
-      "description": "Chart from the Standard library.",
+      "description": "Compact Recharts bar chart that plots name and value pairs in the primary color.",
       "files": [
         {
           "path": "chart.tsx",
@@ -669,7 +669,7 @@
       "name": "standard-checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "Checkbox from the Standard library.",
+      "description": "Checkbox with optional label and description, indeterminate and error states, and a bordered card appearance.",
       "files": [
         {
           "path": "checkbox.tsx",
@@ -706,7 +706,7 @@
       "name": "choice-label",
       "type": "registry:ui",
       "title": "Choice Label",
-      "description": "Choice Label from the Standard library.",
+      "description": "Internal clickable label and description wrapper shared by Checkbox and Radio, with a bordered card appearance.",
       "files": [
         {
           "path": "choice-label.tsx",
@@ -723,7 +723,7 @@
       "name": "code",
       "type": "registry:ui",
       "title": "Code",
-      "description": "Code from the Standard library.",
+      "description": "Inline code span or scrollable multi-line block with an optional copy button.",
       "files": [
         {
           "path": "code.tsx",
@@ -855,7 +855,7 @@
       "name": "confirm-dialog",
       "type": "registry:ui",
       "title": "Confirm Dialog",
-      "description": "Confirm Dialog from the Standard library.",
+      "description": "Alert dialog for destructive actions, with type-to-confirm text and a spinner that waits on an async confirm.",
       "files": [
         {
           "path": "confirm-dialog.tsx",
@@ -874,7 +874,7 @@
       "name": "control-bar",
       "type": "registry:ui",
       "title": "Control Bar",
-      "description": "Control Bar from the Standard library.",
+      "description": "Muted, bordered toolbar row that wraps its controls with even spacing.",
       "files": [
         {
           "path": "control-bar.tsx",
@@ -1062,7 +1062,7 @@
       "name": "date-picker",
       "type": "registry:ui",
       "title": "Date Picker",
-      "description": "Date Picker from the Standard library.",
+      "description": "Native date input styled to match the other form fields, with an error state.",
       "files": [
         {
           "path": "date-picker.tsx",
@@ -1078,7 +1078,7 @@
       "name": "standard-dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "Dialog from the Standard library.",
+      "description": "Modal dialog in several widths with optional minimize, maximize and close controls and a shared dock for minimized windows.",
       "files": [
         {
           "path": "dialog.tsx",
@@ -1179,7 +1179,7 @@
       "name": "divider",
       "type": "registry:ui",
       "title": "Divider",
-      "description": "Divider from the Standard library.",
+      "description": "Horizontal or vertical separator in default, strong or dashed tones, with an optional centered label.",
       "files": [
         {
           "path": "divider.tsx",
@@ -1347,7 +1347,7 @@
       "name": "field-label",
       "type": "registry:ui",
       "title": "Field Label",
-      "description": "Field Label from the Standard library.",
+      "description": "Form label with an optional required asterisk that screen readers announce as required.",
       "files": [
         {
           "path": "field-label.tsx",
@@ -1363,7 +1363,7 @@
       "name": "filter-select",
       "type": "registry:ui",
       "title": "Filter Select",
-      "description": "Filter Select from the Standard library.",
+      "description": "Two-step filter popover: pick a category, then toggle its badge options, with active count and clear all.",
       "files": [
         {
           "path": "filter-select.tsx",
@@ -1421,7 +1421,7 @@
       "name": "form-field",
       "type": "registry:ui",
       "title": "Form Field",
-      "description": "Form Field from the Standard library.",
+      "description": "Wraps a control with label, helper, error and success text, wiring its id and aria attributes automatically.",
       "files": [
         {
           "path": "form-field.tsx",
@@ -1589,7 +1589,7 @@
       "name": "image-upload",
       "type": "registry:ui",
       "title": "Image Upload",
-      "description": "Image Upload from the Standard library.",
+      "description": "Image picker as a dropzone or avatar, with preview, size limit and an upload progress bar.",
       "files": [
         {
           "path": "image-upload.tsx",
@@ -1606,7 +1606,7 @@
       "name": "image",
       "type": "registry:ui",
       "title": "Image",
-      "description": "Image from the Standard library.",
+      "description": "Aspect-ratio image with ratio presets, an alt-text placeholder and hover shine or grayscale effects.",
       "files": [
         {
           "path": "image.tsx",
@@ -1709,7 +1709,7 @@
       "name": "info-icon",
       "type": "registry:ui",
       "title": "Info Icon",
-      "description": "Info Icon from the Standard library.",
+      "description": "Small info, help or alert icon that reveals a note in a popover or tooltip.",
       "files": [
         {
           "path": "info-icon.tsx",
@@ -1806,7 +1806,7 @@
       "name": "standard-input-otp",
       "type": "registry:ui",
       "title": "Input Otp",
-      "description": "Input Otp from the Standard library.",
+      "description": "One-time code input with a slot per character and an error state.",
       "files": [
         {
           "path": "input-otp.tsx",
@@ -1885,7 +1885,7 @@
       "name": "standard-kbd",
       "type": "registry:ui",
       "title": "Kbd",
-      "description": "Kbd from the Standard library.",
+      "description": "Keyboard key and key group re-exported from the base UI primitive.",
       "files": [
         {
           "path": "kbd.tsx",
@@ -1930,7 +1930,7 @@
       "name": "link",
       "type": "registry:ui",
       "title": "Link",
-      "description": "Link from the Standard library.",
+      "description": "Inline text link in the primary color with an underline on hover.",
       "files": [
         {
           "path": "link.tsx",
@@ -1968,7 +1968,7 @@
       "name": "loading-state",
       "type": "registry:ui",
       "title": "Loading State",
-      "description": "Loading State from the Standard library.",
+      "description": "Spinner with a label that sits inline, centers in a block, or covers its parent with a blurred overlay, then shows a done check.",
       "files": [
         {
           "path": "loading-state.tsx",
@@ -2115,7 +2115,7 @@
       "name": "menu",
       "type": "registry:ui",
       "title": "Menu",
-      "description": "Menu from the Standard library.",
+      "description": "Dropdown menu of items, separators, and labelled groups, with icons, shortcut hints, danger items, and a custom trigger.",
       "files": [
         {
           "path": "menu.tsx",
@@ -2222,7 +2222,7 @@
       "name": "navigation",
       "type": "registry:ui",
       "title": "Navigation",
-      "description": "Navigation from the Standard library.",
+      "description": "Material 3 navigation bar, rail, and drawer sharing one item shape, with active icons, badges, and grouped sections.",
       "files": [
         {
           "path": "navigation.tsx",
@@ -2299,7 +2299,7 @@
       "name": "page-header",
       "type": "registry:ui",
       "title": "Page Header",
-      "description": "Page Header from the Standard library.",
+      "description": "Page title row with an optional back button, info tooltip, and trailing actions.",
       "files": [
         {
           "path": "page-header.tsx",
@@ -2319,7 +2319,7 @@
       "name": "paragraph",
       "type": "registry:ui",
       "title": "Paragraph",
-      "description": "Paragraph from the Standard library.",
+      "description": "Body text with default, small, lead, and muted sizes, a muted tone, and line-clamp or single-line truncation.",
       "files": [
         {
           "path": "paragraph.tsx",
@@ -2470,7 +2470,7 @@
       "name": "standard-popover",
       "type": "registry:ui",
       "title": "Popover",
-      "description": "Popover from the Standard library.",
+      "description": "Floating panel anchored to a trigger, with default, arrow, and tooltip-style content variants.",
       "files": [
         {
           "path": "popover.tsx",
@@ -2510,7 +2510,7 @@
       "name": "standard-progress",
       "type": "registry:ui",
       "title": "Progress",
-      "description": "Progress from the Standard library.",
+      "description": "Progress bar with sizes and tones, stacked colored segments, an indeterminate sweep, and an animated percentage label.",
       "files": [
         {
           "path": "progress.tsx",
@@ -2532,7 +2532,7 @@
       "name": "radio",
       "type": "registry:ui",
       "title": "Radio",
-      "description": "Radio from the Standard library.",
+      "description": "Radio group with a legend, per-option labels and descriptions, error styling, and a bordered card appearance.",
       "files": [
         {
           "path": "radio.tsx",
@@ -2593,7 +2593,7 @@
       "name": "refresh-button",
       "type": "registry:ui",
       "title": "Refresh Button",
-      "description": "Refresh Button from the Standard library.",
+      "description": "Outline refresh button whose icon spins while refreshing, with an icon-only option.",
       "files": [
         {
           "path": "refresh-button.tsx",
@@ -2613,7 +2613,7 @@
       "name": "standard-resizable",
       "type": "registry:ui",
       "title": "Resizable",
-      "description": "Resizable from the Standard library.",
+      "description": "Two side-by-side panels separated by a draggable divider for resizing.",
       "files": [
         {
           "path": "resizable.tsx",
@@ -2683,7 +2683,7 @@
       "name": "standard-scroll-area",
       "type": "registry:ui",
       "title": "Scroll Area",
-      "description": "Scroll Area from the Standard library.",
+      "description": "Scroll container with thin or hidden scrollbars, edge fades, optional arrow buttons, and a grow-to max height.",
       "files": [
         {
           "path": "scroll-area.tsx",
@@ -2700,7 +2700,7 @@
       "name": "scroll-horizontal-button",
       "type": "registry:ui",
       "title": "Scroll Horizontal Button",
-      "description": "Scroll Horizontal Button from the Standard library.",
+      "description": "Floating arrow button that scrolls a container sideways by step, press-and-hold, or double-click jump to edge.",
       "files": [
         {
           "path": "scroll-horizontal-button.tsx",
@@ -2755,7 +2755,7 @@
       "name": "search",
       "type": "registry:ui",
       "title": "Search",
-      "description": "Search from the Standard library.",
+      "description": "Search text field with a leading search icon, sizes, and an optional clear button.",
       "files": [
         {
           "path": "search.tsx",
@@ -2772,7 +2772,7 @@
       "name": "standard-select",
       "type": "registry:ui",
       "title": "Select",
-      "description": "Select from the Standard library.",
+      "description": "Select dropdown with icons, grouped options, optional search, loading and error states, and filled or outlined variants.",
       "files": [
         {
           "path": "select.tsx",
@@ -2840,7 +2840,7 @@
       "name": "standard-sheet",
       "type": "registry:ui",
       "title": "Sheet",
-      "description": "Sheet from the Standard library.",
+      "description": "Slide-in panel from any side with sizes, title and description, a trigger, and a pinned footer.",
       "files": [
         {
           "path": "sheet.tsx",
@@ -2860,7 +2860,7 @@
       "name": "standard-skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
-      "description": "Skeleton from the Standard library.",
+      "description": "Loading placeholder shaped as text lines, a circle, or a block, with multi-line paragraph mode.",
       "files": [
         {
           "path": "skeleton.tsx",
@@ -2915,7 +2915,6 @@
         "cn"
       ],
       "registryDependencies": [
-        "@jayrr/cursor-label",
         "@jayrr/data-grid"
       ]
     },
@@ -2923,7 +2922,7 @@
       "name": "stack",
       "type": "registry:ui",
       "title": "Stack",
-      "description": "Stack from the Standard library.",
+      "description": "Flex layout wrapper with direction, gap, alignment, justification, wrapping, and optional dividers between children.",
       "files": [
         {
           "path": "stack.tsx",
@@ -2943,7 +2942,7 @@
       "name": "standard-grid",
       "type": "registry:ui",
       "title": "Standard Grid",
-      "description": "Standard Grid from the Standard library.",
+      "description": "Responsive card grid with per-breakpoint columns, gap sizes, and an empty state, sharing the list search and filter chrome.",
       "files": [
         {
           "path": "standard-grid.tsx",
@@ -2962,7 +2961,7 @@
       "name": "standard-list-chrome",
       "type": "registry:ui",
       "title": "Standard List Chrome",
-      "description": "Standard List Chrome from the Standard library.",
+      "description": "Shared search, filter, sort, and pagination state and toolbar chrome used by the standard table, grid, and list.",
       "files": [
         {
           "path": "standard-list-chrome.tsx",
@@ -2982,7 +2981,7 @@
       "name": "standard-table",
       "type": "registry:ui",
       "title": "Standard Table",
-      "description": "Standard Table from the Standard library.",
+      "description": "Data table with sortable and filterable columns, density options, row action menus, sticky header and first column, and paging.",
       "files": [
         {
           "path": "standard-table.tsx",
@@ -3093,7 +3092,7 @@
       "name": "standard-switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "Switch from the Standard library.",
+      "description": "Toggle switch in two sizes with a clickable label, description, label placement, and error styling.",
       "files": [
         {
           "path": "switch.tsx",
@@ -3114,7 +3113,7 @@
       "name": "symbol",
       "type": "registry:ui",
       "title": "Symbol",
-      "description": "Symbol from the Standard library.",
+      "description": "Fixed-size icon wrapper in small, default, and large sizes.",
       "files": [
         {
           "path": "symbol.tsx",
@@ -3131,7 +3130,7 @@
       "name": "tabbed-dialog",
       "type": "registry:ui",
       "title": "Tabbed Dialog",
-      "description": "Tabbed Dialog from the Standard library.",
+      "description": "Modal dialog whose body is split into keyboard-navigable tabs.",
       "files": [
         {
           "path": "tabbed-dialog.tsx",
@@ -3171,7 +3170,7 @@
       "name": "standard-simple-table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "Table from the Standard library.",
+      "description": "Plain table rendered from an array of header strings and rows of string cells.",
       "files": [
         {
           "path": "table.tsx",
@@ -3187,7 +3186,7 @@
       "name": "text-field",
       "type": "registry:ui",
       "title": "Text Field",
-      "description": "Text Field from the Standard library.",
+      "description": "Text input with default, Material filled, and outlined variants, floating label, leading/trailing content, and prefixes.",
       "files": [
         {
           "path": "text-field.tsx",
@@ -3227,7 +3226,7 @@
       "name": "standard-textarea",
       "type": "registry:ui",
       "title": "Textarea",
-      "description": "Textarea from the Standard library.",
+      "description": "Multi-line text input with focus ring and an invalid error state.",
       "files": [
         {
           "path": "textarea.tsx",
@@ -3345,7 +3344,7 @@
       "name": "standard-toggle",
       "type": "registry:ui",
       "title": "Toggle",
-      "description": "Toggle from the Standard library.",
+      "description": "Two-state pressable button in outline or ghost tones, several sizes and shapes, with an icon-only mode.",
       "files": [
         {
           "path": "toggle.tsx",
@@ -3409,7 +3408,7 @@
       "name": "standard-tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
-      "description": "Tooltip from the Standard library.",
+      "description": "Tooltip with hover or click-to-toggle triggers, keyboard shortcut display, danger tone, and placement options.",
       "files": [
         {
           "path": "tooltip.tsx",
@@ -3584,6 +3583,27 @@
           "info-foreground": "oklch(0.205 0 0)"
         }
       }
+    },
+    {
+      "name": "chatroom",
+      "type": "registry:ui",
+      "title": "Chatroom",
+      "description": "Group chat room: member header, grouped messages, day dividers, typing indicator, jump-to-latest and a composer, in bubbles, channel or terminal layouts. Controlled or uncontrolled.",
+      "files": [
+        {
+          "path": "chatroom.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/chatroom.tsx"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@jayrr/standard-avatar",
+        "@jayrr/standard-button"
+      ]
     }
   ]
 }

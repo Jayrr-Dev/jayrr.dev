@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "breadcrumb",
   "title": "Breadcrumb",
-  "description": "Breadcrumb from the Classic library.",
+  "description": "Navigation trail showing the current page's location, with separators and a collapsed ellipsis item.",
   "dependencies": [
     "cn",
     "lucide-react",

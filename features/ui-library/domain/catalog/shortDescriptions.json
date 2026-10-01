@@ -211,6 +211,7 @@
     "Comments": "A comment section with a sort select, a reply box and a login prompt.",
     "Chat Card": "A chat window with a streaming-friendly thread, attachments and a composer.",
     "Character Chat": "A visual-novel dialogue box: a speaker's name, a typed-out line and a portrait, clicked through one line at a time.",
-    "Hero Card": "A layered hero card with the headline, subheading and calls to action placed anywhere on a 3×3 grid."
+    "Hero Card": "A layered hero card with the headline, subheading and calls to action placed anywhere on a 3×3 grid.",
+    "Chatroom": "A group chat room with members, grouped messages, typing indicator and a composer."
   }
 }

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "status",
   "title": "Status",
-  "description": "Status from the Classic library.",
+  "description": "Pill with a state icon and tint for loading, success, error and custom states.",
   "dependencies": [
     "class-variance-authority",
     "cn",

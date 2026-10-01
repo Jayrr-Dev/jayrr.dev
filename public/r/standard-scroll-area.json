@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-scroll-area",
   "title": "Scroll Area",
-  "description": "Scroll Area from the Standard library.",
+  "description": "Scroll container with thin or hidden scrollbars, edge fades, optional arrow buttons, and a grow-to max height.",
   "dependencies": [
     "cn",
     "lucide-react"

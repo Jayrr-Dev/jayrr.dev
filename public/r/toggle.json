@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toggle",
   "title": "Toggle",
-  "description": "Toggle from the Classic library.",
+  "description": "Two-state pressable button with default and outline variants in three sizes.",
   "dependencies": [
     "class-variance-authority",
     "cn",

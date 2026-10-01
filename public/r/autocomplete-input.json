@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "autocomplete-input",
   "title": "Autocomplete Input",
-  "description": "Autocomplete Input from the Standard library.",
+  "description": "Text field that suggests matching options in a portaled dropdown as you type, with keyboard selection.",
   "dependencies": [
     "cn"
   ],

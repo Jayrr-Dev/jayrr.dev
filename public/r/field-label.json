@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "field-label",
   "title": "Field Label",
-  "description": "Field Label from the Standard library.",
+  "description": "Form label with an optional required asterisk that screen readers announce as required.",
   "dependencies": [
     "cn"
   ],

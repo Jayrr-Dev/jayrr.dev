@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-avatar",
   "title": "Avatar",
-  "description": "Avatar from the Standard library.",
+  "description": "Profile picture with initials fallback, presence dot and an overlapping group that collapses extras into +N.",
   "dependencies": [
     "class-variance-authority",
     "cn"

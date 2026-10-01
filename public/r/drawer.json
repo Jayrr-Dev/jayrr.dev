@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "drawer",
   "title": "Drawer",
-  "description": "Drawer from the Classic library.",
+  "description": "Panel that slides in from any screen edge with drag-to-dismiss, built on Vaul.",
   "dependencies": [
     "cn",
     "vaul"

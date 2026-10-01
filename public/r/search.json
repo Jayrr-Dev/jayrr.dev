@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "search",
   "title": "Search",
-  "description": "Search from the Standard library.",
+  "description": "Search text field with a leading search icon, sizes, and an optional clear button.",
   "registryDependencies": [
     "@jayrr/text-field",
     "@jayrr/use-field-validation"

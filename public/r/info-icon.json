@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "info-icon",
   "title": "Info Icon",
-  "description": "Info Icon from the Standard library.",
+  "description": "Small info, help or alert icon that reveals a note in a popover or tooltip.",
   "dependencies": [
     "cn",
     "lucide-react"

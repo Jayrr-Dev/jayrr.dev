@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "menubar",
   "title": "Menubar",
-  "description": "Menubar from the Classic library.",
+  "description": "Desktop-style horizontal menu bar with nested submenus, checkbox and radio items, built on Radix.",
   "dependencies": [
     "cn",
     "lucide-react",

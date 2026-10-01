@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "label",
   "title": "Label",
-  "description": "Label from the Classic library.",
+  "description": "Accessible form label that pairs with inputs, built on Radix Label.",
   "dependencies": [
     "cn",
     "radix-ui"

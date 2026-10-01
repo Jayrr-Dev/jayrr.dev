@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input-otp",
   "title": "Input Otp",
-  "description": "Input Otp from the Classic library.",
+  "description": "One-time passcode input split into individual character slots with optional separators.",
   "dependencies": [
     "cn",
     "input-otp",

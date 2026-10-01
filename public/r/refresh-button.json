@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "refresh-button",
   "title": "Refresh Button",
-  "description": "Refresh Button from the Standard library.",
+  "description": "Outline refresh button whose icon spins while refreshing, with an icon-only option.",
   "dependencies": [
     "cn",
     "lucide-react"

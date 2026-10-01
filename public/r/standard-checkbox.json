@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-checkbox",
   "title": "Checkbox",
-  "description": "Checkbox from the Standard library.",
+  "description": "Checkbox with optional label and description, indeterminate and error states, and a bordered card appearance.",
   "dependencies": [
     "cn"
   ],

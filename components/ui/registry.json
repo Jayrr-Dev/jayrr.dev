@@ -5,7 +5,7 @@
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "Accordion from the Classic library.",
+      "description": "Vertically stacked sections that expand and collapse, built on Radix Accordion with chevron indicators.",
       "files": [
         {
           "path": "accordion.tsx",
@@ -22,7 +22,7 @@
       "name": "alert-dialog",
       "type": "registry:ui",
       "title": "Alert Dialog",
-      "description": "Alert Dialog from the Classic library.",
+      "description": "Modal confirmation dialog that interrupts the user, with media slot and action and cancel buttons.",
       "files": [
         {
           "path": "alert-dialog.tsx",
@@ -41,7 +41,7 @@
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
-      "description": "Alert from the Classic library.",
+      "description": "Inline callout for important messages with title, description, action slot and a destructive variant.",
       "files": [
         {
           "path": "alert.tsx",
@@ -57,7 +57,7 @@
       "name": "aspect-ratio",
       "type": "registry:ui",
       "title": "Aspect Ratio",
-      "description": "Aspect Ratio from the Classic library.",
+      "description": "Keeps content such as images or video at a fixed width-to-height ratio, built on Radix.",
       "files": [
         {
           "path": "aspect-ratio.tsx",
@@ -72,7 +72,7 @@
       "name": "attachment",
       "type": "registry:ui",
       "title": "Attachment",
-      "description": "Attachment from the Classic library.",
+      "description": "File attachment tile with media, title and actions, plus upload states, sizes and vertical layout.",
       "files": [
         {
           "path": "attachment.tsx",
@@ -92,7 +92,7 @@
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "Avatar from the Classic library.",
+      "description": "User image with fallback initials, status badge and stacked groups with an overflow count.",
       "files": [
         {
           "path": "avatar.tsx",
@@ -108,7 +108,7 @@
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "Badge from the Classic library.",
+      "description": "Small pill label for tags and counts, with default, secondary, destructive, outline and ghost variants.",
       "files": [
         {
           "path": "badge.tsx",
@@ -125,7 +125,7 @@
       "name": "breadcrumb",
       "type": "registry:ui",
       "title": "Breadcrumb",
-      "description": "Breadcrumb from the Classic library.",
+      "description": "Navigation trail showing the current page's location, with separators and a collapsed ellipsis item.",
       "files": [
         {
           "path": "breadcrumb.tsx",
@@ -142,7 +142,7 @@
       "name": "bubble",
       "type": "registry:ui",
       "title": "Bubble",
-      "description": "Bubble from the Classic library.",
+      "description": "Chat message bubble with primary, muted, tinted, outline, ghost and speech variants plus reactions.",
       "files": [
         {
           "path": "bubble.tsx",
@@ -159,7 +159,7 @@
       "name": "button-group",
       "type": "registry:ui",
       "title": "Button Group",
-      "description": "Button Group from the Classic library.",
+      "description": "Joins related buttons into one horizontal or vertical control, including a split pill style.",
       "files": [
         {
           "path": "button-group.tsx",
@@ -179,7 +179,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "Button from the Classic library.",
+      "description": "Clickable button with default, outline, secondary, ghost, destructive and link variants in several sizes.",
       "files": [
         {
           "path": "button.tsx",
@@ -196,7 +196,7 @@
       "name": "calendar",
       "type": "registry:ui",
       "title": "Calendar",
-      "description": "Calendar from the Classic library.",
+      "description": "Date grid for picking single days or ranges, with month navigation and dropdown captions.",
       "files": [
         {
           "path": "calendar.tsx",
@@ -216,7 +216,7 @@
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "Card from the Classic library.",
+      "description": "Bordered container with header, content and footer slots, a compact size and side-by-side layout.",
       "files": [
         {
           "path": "card.tsx",
@@ -231,7 +231,7 @@
       "name": "carousel",
       "type": "registry:ui",
       "title": "Carousel",
-      "description": "Carousel from the Classic library.",
+      "description": "Swipeable Embla-powered slider with previous and next controls, dot indicators and vertical orientation.",
       "files": [
         {
           "path": "carousel.tsx",
@@ -251,7 +251,7 @@
       "name": "chart",
       "type": "registry:ui",
       "title": "Chart",
-      "description": "Chart from the Classic library.",
+      "description": "Recharts wrapper with theme-aware color config, styled tooltip and legend content.",
       "files": [
         {
           "path": "chart.tsx",
@@ -267,7 +267,7 @@
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "Checkbox from the Classic library.",
+      "description": "Accessible checkbox with a check indicator, built on Radix Checkbox.",
       "files": [
         {
           "path": "checkbox.tsx",
@@ -284,7 +284,7 @@
       "name": "collapsible",
       "type": "registry:ui",
       "title": "Collapsible",
-      "description": "Collapsible from the Classic library.",
+      "description": "Show-and-hide panel toggled by a trigger, built on Radix Collapsible.",
       "files": [
         {
           "path": "collapsible.tsx",
@@ -299,7 +299,7 @@
       "name": "combobox",
       "type": "registry:ui",
       "title": "Combobox",
-      "description": "Combobox from the Classic library.",
+      "description": "Searchable select with filtering, clearable input and multi-select chips, built on Base UI.",
       "files": [
         {
           "path": "combobox.tsx",
@@ -320,7 +320,7 @@
       "name": "command",
       "type": "registry:ui",
       "title": "Command",
-      "description": "Command from the Classic library.",
+      "description": "Keyboard-driven command palette with search, grouped items and shortcuts, built on cmdk.",
       "files": [
         {
           "path": "command.tsx",
@@ -341,7 +341,7 @@
       "name": "context-menu",
       "type": "registry:ui",
       "title": "Context Menu",
-      "description": "Context Menu from the Classic library.",
+      "description": "Right-click menu with submenus, checkbox and radio items, labels and shortcuts, built on Radix.",
       "files": [
         {
           "path": "context-menu.tsx",
@@ -358,7 +358,7 @@
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "Dialog from the Classic library.",
+      "description": "Modal window over an overlay with header, footer and optional close button, built on Radix Dialog.",
       "files": [
         {
           "path": "dialog.tsx",
@@ -378,7 +378,7 @@
       "name": "direction",
       "type": "registry:ui",
       "title": "Direction",
-      "description": "Direction from the Classic library.",
+      "description": "Provider and hook that set left-to-right or right-to-left direction for Radix components.",
       "files": [
         {
           "path": "direction.tsx",
@@ -393,7 +393,7 @@
       "name": "drawer",
       "type": "registry:ui",
       "title": "Drawer",
-      "description": "Drawer from the Classic library.",
+      "description": "Panel that slides in from any screen edge with drag-to-dismiss, built on Vaul.",
       "files": [
         {
           "path": "drawer.tsx",
@@ -409,7 +409,7 @@
       "name": "dropdown-menu",
       "type": "registry:ui",
       "title": "Dropdown Menu",
-      "description": "Dropdown Menu from the Classic library.",
+      "description": "Menu opened from a trigger with submenus, checkbox and radio items and shortcuts, built on Radix.",
       "files": [
         {
           "path": "dropdown-menu.tsx",
@@ -426,7 +426,7 @@
       "name": "empty",
       "type": "registry:ui",
       "title": "Empty",
-      "description": "Empty from the Classic library.",
+      "description": "Placeholder layout for empty states with icon or media, title, description and actions.",
       "files": [
         {
           "path": "empty.tsx",
@@ -442,7 +442,7 @@
       "name": "field",
       "type": "registry:ui",
       "title": "Field",
-      "description": "Field from the Classic library.",
+      "description": "Form field layout with labels, descriptions, errors, fieldsets and vertical or horizontal orientation.",
       "files": [
         {
           "path": "field.tsx",
@@ -462,7 +462,7 @@
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
-      "description": "Hover Card from the Classic library.",
+      "description": "Floating preview card shown when hovering a link or trigger, built on Radix Hover Card.",
       "files": [
         {
           "path": "hover-card.tsx",
@@ -478,7 +478,7 @@
       "name": "input-group",
       "type": "registry:ui",
       "title": "Input Group",
-      "description": "Input Group from the Classic library.",
+      "description": "Wraps an input or textarea with inline addons such as icons, text and buttons.",
       "files": [
         {
           "path": "input-group.tsx",
@@ -499,7 +499,7 @@
       "name": "input-otp",
       "type": "registry:ui",
       "title": "Input Otp",
-      "description": "Input Otp from the Classic library.",
+      "description": "One-time passcode input split into individual character slots with optional separators.",
       "files": [
         {
           "path": "input-otp.tsx",
@@ -516,7 +516,7 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "Input from the Classic library.",
+      "description": "Styled single-line text input with focus, disabled and invalid states.",
       "files": [
         {
           "path": "input.tsx",
@@ -531,7 +531,7 @@
       "name": "item",
       "type": "registry:ui",
       "title": "Item",
-      "description": "Item from the Classic library.",
+      "description": "Flexible list row with media, title, description and actions, in outline and muted variants.",
       "files": [
         {
           "path": "item.tsx",
@@ -551,7 +551,7 @@
       "name": "kbd",
       "type": "registry:ui",
       "title": "Kbd",
-      "description": "Kbd from the Classic library.",
+      "description": "Displays keyboard keys and key combinations as styled inline caps.",
       "files": [
         {
           "path": "kbd.tsx",
@@ -566,7 +566,7 @@
       "name": "label",
       "type": "registry:ui",
       "title": "Label",
-      "description": "Label from the Classic library.",
+      "description": "Accessible form label that pairs with inputs, built on Radix Label.",
       "files": [
         {
           "path": "label.tsx",
@@ -582,7 +582,7 @@
       "name": "marker",
       "type": "registry:ui",
       "title": "Marker",
-      "description": "Marker from the Classic library.",
+      "description": "Small inline annotation with an icon, optionally drawn as a centered divider or bordered heading.",
       "files": [
         {
           "path": "marker.tsx",
@@ -599,7 +599,7 @@
       "name": "masonry",
       "type": "registry:ui",
       "title": "Masonry",
-      "description": "Masonry from the Classic library.",
+      "description": "Round-robin masonry grid with fixed column count or responsive columns from a minimum width.",
       "files": [
         {
           "path": "masonry.tsx",
@@ -630,7 +630,7 @@
       "name": "menubar",
       "type": "registry:ui",
       "title": "Menubar",
-      "description": "Menubar from the Classic library.",
+      "description": "Desktop-style horizontal menu bar with nested submenus, checkbox and radio items, built on Radix.",
       "files": [
         {
           "path": "menubar.tsx",
@@ -647,7 +647,7 @@
       "name": "message-scroller",
       "type": "registry:ui",
       "title": "Message Scroller",
-      "description": "Message Scroller from the Classic library.",
+      "description": "Chat scroll container that auto-follows new messages and shows a scroll-to-bottom button.",
       "files": [
         {
           "path": "message-scroller.tsx",
@@ -667,7 +667,7 @@
       "name": "message",
       "type": "registry:ui",
       "title": "Message",
-      "description": "Message from the Classic library.",
+      "description": "Chat message layout with avatar, header, content and footer, aligned to either side.",
       "files": [
         {
           "path": "message.tsx",
@@ -682,7 +682,7 @@
       "name": "native-select",
       "type": "registry:ui",
       "title": "Native Select",
-      "description": "Native Select from the Classic library.",
+      "description": "Styled native HTML select with option groups and a chevron indicator.",
       "files": [
         {
           "path": "native-select.tsx",
@@ -698,7 +698,7 @@
       "name": "navigation-menu",
       "type": "registry:ui",
       "title": "Navigation Menu",
-      "description": "Navigation Menu from the Classic library.",
+      "description": "Site navigation with dropdown content panels, animated viewport and active indicator, built on Radix.",
       "files": [
         {
           "path": "navigation-menu.tsx",
@@ -731,7 +731,7 @@
       "name": "pagination",
       "type": "registry:ui",
       "title": "Pagination",
-      "description": "Pagination from the Classic library.",
+      "description": "Page navigation with previous and next links, numbered pages and ellipsis gaps.",
       "files": [
         {
           "path": "pagination.tsx",
@@ -750,7 +750,7 @@
       "name": "popover",
       "type": "registry:ui",
       "title": "Popover",
-      "description": "Popover from the Classic library.",
+      "description": "Floating content panel anchored to a trigger, with header, title and description slots.",
       "files": [
         {
           "path": "popover.tsx",
@@ -766,7 +766,7 @@
       "name": "progress-ring",
       "type": "registry:ui",
       "title": "Progress Ring",
-      "description": "Progress Ring from the Classic library.",
+      "description": "Circular progress indicator with centered content, labels above or below and an indeterminate spin.",
       "files": [
         {
           "path": "progress-ring.tsx",
@@ -782,7 +782,7 @@
       "name": "progress",
       "type": "registry:ui",
       "title": "Progress",
-      "description": "Progress from the Classic library.",
+      "description": "Horizontal bar showing task completion percentage, built on Radix Progress.",
       "files": [
         {
           "path": "progress.tsx",
@@ -798,7 +798,7 @@
       "name": "questionnaire",
       "type": "registry:ui",
       "title": "Questionnaire",
-      "description": "Questionnaire from the Classic library.",
+      "description": "Step-by-step question flow with progress, choices, text input, validation and navigation buttons.",
       "files": [
         {
           "path": "questionnaire.tsx",
@@ -818,7 +818,7 @@
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
-      "description": "Radio Group from the Classic library.",
+      "description": "Set of mutually exclusive radio options, built on Radix Radio Group.",
       "files": [
         {
           "path": "radio-group.tsx",
@@ -834,7 +834,7 @@
       "name": "resizable",
       "type": "registry:ui",
       "title": "Resizable",
-      "description": "Resizable from the Classic library.",
+      "description": "Panel groups separated by draggable handles for resizing, built on react-resizable-panels.",
       "files": [
         {
           "path": "resizable.tsx",
@@ -850,7 +850,7 @@
       "name": "scroll-area",
       "type": "registry:ui",
       "title": "Scroll Area",
-      "description": "Scroll Area from the Classic library.",
+      "description": "Scrollable region with custom styled scrollbars, built on Radix Scroll Area.",
       "files": [
         {
           "path": "scroll-area.tsx",
@@ -866,7 +866,7 @@
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
-      "description": "Select from the Classic library.",
+      "description": "Dropdown for choosing one option with groups, labels and scroll buttons, built on Radix Select.",
       "files": [
         {
           "path": "select.tsx",
@@ -883,7 +883,7 @@
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",
-      "description": "Separator from the Classic library.",
+      "description": "Thin horizontal or vertical line that divides content, built on Radix Separator.",
       "files": [
         {
           "path": "separator.tsx",
@@ -899,7 +899,7 @@
       "name": "sheet",
       "type": "registry:ui",
       "title": "Sheet",
-      "description": "Sheet from the Classic library.",
+      "description": "Dialog panel that slides in from the top, right, bottom or left edge of the screen.",
       "files": [
         {
           "path": "sheet.tsx",
@@ -919,7 +919,7 @@
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",
-      "description": "Sidebar from the Classic library.",
+      "description": "Collapsible app sidebar with menus, groups, search and icon, floating or inset modes, mobile-aware.",
       "files": [
         {
           "path": "sidebar.tsx",
@@ -947,7 +947,7 @@
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
-      "description": "Skeleton from the Classic library.",
+      "description": "Pulsing placeholder block shown while content is loading.",
       "files": [
         {
           "path": "skeleton.tsx",
@@ -962,7 +962,7 @@
       "name": "slider",
       "type": "registry:ui",
       "title": "Slider",
-      "description": "Slider from the Classic library.",
+      "description": "Draggable range input supporting single or multiple thumbs, built on Radix Slider.",
       "files": [
         {
           "path": "slider.tsx",
@@ -978,7 +978,7 @@
       "name": "sonner",
       "type": "registry:ui",
       "title": "Sonner",
-      "description": "Sonner from the Classic library.",
+      "description": "Theme-aware toast notifications with status icons, built on Sonner.",
       "files": [
         {
           "path": "sonner.tsx",
@@ -995,7 +995,7 @@
       "name": "spinner",
       "type": "registry:ui",
       "title": "Spinner",
-      "description": "Spinner from the Classic library.",
+      "description": "Loading indicator with ring, orbit, dots, bars, pulse, burst, grid and triangle animations.",
       "files": [
         {
           "path": "spinner.tsx",
@@ -1011,7 +1011,7 @@
       "name": "status",
       "type": "registry:ui",
       "title": "Status",
-      "description": "Status from the Classic library.",
+      "description": "Pill with a state icon and tint for loading, success, error and custom states.",
       "files": [
         {
           "path": "status.tsx",
@@ -1028,7 +1028,7 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "Switch from the Classic library.",
+      "description": "Toggle switch for on and off settings, built on Radix Switch.",
       "files": [
         {
           "path": "switch.tsx",
@@ -1044,7 +1044,7 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "Table from the Classic library.",
+      "description": "Semantic data table with header, body, footer, rows, cells and caption styling.",
       "files": [
         {
           "path": "table.tsx",
@@ -1059,7 +1059,7 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
-      "description": "Tabs from the Classic library.",
+      "description": "Tabbed panels with default, line and full-width primary and secondary styles, built on Radix Tabs.",
       "files": [
         {
           "path": "tabs.tsx",
@@ -1076,7 +1076,7 @@
       "name": "text-effect",
       "type": "registry:ui",
       "title": "Text Effect",
-      "description": "Text Effect from the Classic library.",
+      "description": "Animated text helpers including typewriter, streamed reveal with caret, pop, wiggle and loading dots.",
       "files": [
         {
           "path": "text-effect.tsx",
@@ -1161,7 +1161,7 @@
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
-      "description": "Textarea from the Classic library.",
+      "description": "Styled multi-line text input that grows with its content.",
       "files": [
         {
           "path": "textarea.tsx",
@@ -1176,7 +1176,7 @@
       "name": "toggle-group",
       "type": "registry:ui",
       "title": "Toggle Group",
-      "description": "Toggle Group from the Classic library.",
+      "description": "Set of toggle buttons allowing single or multiple selection, built on Radix Toggle Group.",
       "files": [
         {
           "path": "toggle-group.tsx",
@@ -1196,7 +1196,7 @@
       "name": "toggle",
       "type": "registry:ui",
       "title": "Toggle",
-      "description": "Toggle from the Classic library.",
+      "description": "Two-state pressable button with default and outline variants in three sizes.",
       "files": [
         {
           "path": "toggle.tsx",
@@ -1213,7 +1213,7 @@
       "name": "tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
-      "description": "Tooltip from the Classic library.",
+      "description": "Small hint shown on hover or focus of an element, built on Radix Tooltip.",
       "files": [
         {
           "path": "tooltip.tsx",

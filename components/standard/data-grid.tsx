@@ -287,6 +287,8 @@ export type DataGridProps = Omit<
   maxFitWidth?: number
   /** Extra controls at the right of the Name Box bar. */
   toolbar?: React.ReactNode
+  /** A status bar under the grid, such as a selection summary. */
+  footer?: React.ReactNode
   /** Clicking a column header sorts by it (A → Z, then Z → A). Columns can override with `sortable`. */
   sortable?: boolean
   /**
@@ -366,6 +368,7 @@ export function DataGrid({
   readOnly = false,
   showNameBox = true,
   toolbar,
+  footer,
   autoFitButton = false,
   confirmDelete = true,
   maxFitWidth = 480,
@@ -2423,7 +2426,7 @@ export function DataGrid({
             aria-activedescendant={
               activeRendered && !editing ? `${gridId}-active` : undefined
             }
-            className="relative overflow-auto overscroll-contain outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-inset"
+            className="relative overflow-auto overscroll-contain outline-none"
             style={{ height }}
             onKeyDown={handlers.keyDown}
             onCopy={handlers.copy}
@@ -2577,6 +2580,15 @@ export function DataGrid({
           </ContextMenuPrimitive.Content>
         </ContextMenuPrimitive.Portal>
       </ContextMenuPrimitive.Root>
+
+      {footer ? (
+        <div
+          data-slot="data-grid-footer"
+          className="flex min-h-8 min-w-0 items-center gap-4 border-t border-border px-3 text-xs text-muted-foreground"
+        >
+          {footer}
+        </div>
+      ) : null}
 
       <AlertDialogPrimitive.Root
         open={pendingDelete !== null}

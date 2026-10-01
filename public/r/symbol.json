@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "symbol",
   "title": "Symbol",
-  "description": "Symbol from the Standard library.",
+  "description": "Fixed-size icon wrapper in small, default, and large sizes.",
   "dependencies": [
     "class-variance-authority",
     "cn"

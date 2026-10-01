@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scroll-horizontal-button",
   "title": "Scroll Horizontal Button",
-  "description": "Scroll Horizontal Button from the Standard library.",
+  "description": "Floating arrow button that scrolls a container sideways by step, press-and-hold, or double-click jump to edge.",
   "dependencies": [
     "cn",
     "lucide-react"

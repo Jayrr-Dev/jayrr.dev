@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "direction",
   "title": "Direction",
-  "description": "Direction from the Classic library.",
+  "description": "Provider and hook that set left-to-right or right-to-left direction for Radix components.",
   "dependencies": [
     "radix-ui"
   ],

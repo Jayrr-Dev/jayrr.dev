@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "filter-select",
   "title": "Filter Select",
-  "description": "Filter Select from the Standard library.",
+  "description": "Two-step filter popover: pick a category, then toggle its badge options, with active count and clear all.",
   "dependencies": [
     "cn",
     "lucide-react"

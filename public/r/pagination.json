@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pagination",
   "title": "Pagination",
-  "description": "Pagination from the Classic library.",
+  "description": "Page navigation with previous and next links, numbered pages and ellipsis gaps.",
   "dependencies": [
     "cn",
     "lucide-react"

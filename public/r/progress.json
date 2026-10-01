@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "progress",
   "title": "Progress",
-  "description": "Progress from the Classic library.",
+  "description": "Horizontal bar showing task completion percentage, built on Radix Progress.",
   "dependencies": [
     "cn",
     "radix-ui"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-picker",
   "title": "Date Picker",
-  "description": "Date Picker from the Standard library.",
+  "description": "Native date input styled to match the other form fields, with an error state.",
   "dependencies": [
     "cn"
   ],

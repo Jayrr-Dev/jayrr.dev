@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "carousel",
   "title": "Carousel",
-  "description": "Carousel from the Classic library.",
+  "description": "Swipeable Embla-powered slider with previous and next controls, dot indicators and vertical orientation.",
   "dependencies": [
     "cn",
     "embla-carousel-react",

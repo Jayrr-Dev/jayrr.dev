@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "calendar",
   "title": "Calendar",
-  "description": "Calendar from the Classic library.",
+  "description": "Date grid for picking single days or ranges, with month navigation and dropdown captions.",
   "dependencies": [
     "cn",
     "lucide-react",

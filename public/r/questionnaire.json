@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "questionnaire",
   "title": "Questionnaire",
-  "description": "Questionnaire from the Classic library.",
+  "description": "Step-by-step question flow with progress, choices, text input, validation and navigation buttons.",
   "dependencies": [
     "@shadcn/react",
     "cn",

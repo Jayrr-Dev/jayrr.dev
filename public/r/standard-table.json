@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-table",
   "title": "Standard Table",
-  "description": "Standard Table from the Standard library.",
+  "description": "Data table with sortable and filterable columns, density options, row action menus, sticky header and first column, and paging.",
   "dependencies": [
     "class-variance-authority",
     "cn",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-textarea",
   "title": "Textarea",
-  "description": "Textarea from the Standard library.",
+  "description": "Multi-line text input with focus ring and an invalid error state.",
   "dependencies": [
     "cn"
   ],

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "checkbox",
   "title": "Checkbox",
-  "description": "Checkbox from the Classic library.",
+  "description": "Accessible checkbox with a check indicator, built on Radix Checkbox.",
   "dependencies": [
     "cn",
     "lucide-react",

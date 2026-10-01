@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "progress-ring",
   "title": "Progress Ring",
-  "description": "Progress Ring from the Classic library.",
+  "description": "Circular progress indicator with centered content, labels above or below and an indeterminate spin.",
   "dependencies": [
     "cn",
     "radix-ui"

@@ -3203,5 +3203,22 @@
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null
+  },
+  {
+    "name": "Chatroom",
+    "type": "structure/layout",
+    "canonical": "chat",
+    "tier": "block",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "chatroom",
+    "family_key": "chat",
+    "file_path": "components/standard/chatroom.tsx",
+    "import_path": "@/components/standard/chatroom",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
   }
 ]

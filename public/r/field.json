@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "field",
   "title": "Field",
-  "description": "Field from the Classic library.",
+  "description": "Form field layout with labels, descriptions, errors, fieldsets and vertical or horizontal orientation.",
   "dependencies": [
     "class-variance-authority",
     "cn"

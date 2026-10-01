@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-chart",
   "title": "Chart",
-  "description": "Chart from the Standard library.",
+  "description": "Compact Recharts bar chart that plots name and value pairs in the primary color.",
   "dependencies": [
     "recharts"
   ],

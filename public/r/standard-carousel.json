@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-carousel",
   "title": "Carousel",
-  "description": "Carousel from the Standard library.",
+  "description": "Image or label carousel with a single-slide mode and a Material-style multi-browse layout that morphs items as they scroll.",
   "dependencies": [
     "cn",
     "embla-carousel-react"

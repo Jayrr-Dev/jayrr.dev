@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "kbd",
   "title": "Kbd",
-  "description": "Kbd from the Classic library.",
+  "description": "Displays keyboard keys and key combinations as styled inline caps.",
   "dependencies": [
     "cn"
   ],

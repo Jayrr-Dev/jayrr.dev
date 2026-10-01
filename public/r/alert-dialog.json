@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert-dialog",
   "title": "Alert Dialog",
-  "description": "Alert Dialog from the Classic library.",
+  "description": "Modal confirmation dialog that interrupts the user, with media slot and action and cancel buttons.",
   "dependencies": [
     "cn",
     "radix-ui"

@@ -27,6 +27,7 @@ import { RendersListDemo } from "./pieces/list"
 import { RendersCardGridDemo } from "./pieces/card-grid"
 import { RendersCarouselDemo } from "./pieces/carousel"
 import { RendersChartDemo } from "./pieces/chart"
+import { RendersChatroomDemo } from "./pieces/chatroom"
 import { RendersCheckboxDemo } from "./pieces/checkbox"
 import { RendersChipDemo } from "./pieces/chip"
 import { RendersCommandDemo } from "./pieces/command"
@@ -232,6 +233,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   List: RendersListDemo,
   Carousel: RendersCarouselDemo,
   Chart: RendersChartDemo,
+  Chatroom: RendersChatroomDemo,
   Checkbox: RendersCheckboxDemo,
   Chip: RendersChipDemo,
   Command: RendersCommandDemo,

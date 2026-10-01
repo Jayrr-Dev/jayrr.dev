@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card-bar",
   "title": "Card Bar",
-  "description": "Card Bar from the Standard library.",
+  "description": "Full-width pressable row with title, description and leading or trailing slots, plus a selected state.",
   "dependencies": [
     "cn"
   ],

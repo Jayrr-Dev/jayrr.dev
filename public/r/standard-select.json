@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-select",
   "title": "Select",
-  "description": "Select from the Standard library.",
+  "description": "Select dropdown with icons, grouped options, optional search, loading and error states, and filled or outlined variants.",
   "dependencies": [
     "class-variance-authority",
     "cn",

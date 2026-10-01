@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-input-otp",
   "title": "Input Otp",
-  "description": "Input Otp from the Standard library.",
+  "description": "One-time code input with a slot per character and an error state.",
   "dependencies": [
     "cn",
     "input-otp"

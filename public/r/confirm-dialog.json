@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "confirm-dialog",
   "title": "Confirm Dialog",
-  "description": "Confirm Dialog from the Standard library.",
+  "description": "Alert dialog for destructive actions, with type-to-confirm text and a spinner that waits on an async confirm.",
   "registryDependencies": [
     "@jayrr/alert-dialog",
     "@jayrr/input",

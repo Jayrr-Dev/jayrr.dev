@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "badge-select",
   "title": "Badge Select",
-  "description": "Badge Select from the Standard library.",
+  "description": "Single or multi select that shows options as badges in a searchable popover grid, with grouping and several trigger styles.",
   "dependencies": [
     "cn",
     "lucide-react",

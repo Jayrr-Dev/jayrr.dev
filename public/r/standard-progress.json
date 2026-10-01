@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-progress",
   "title": "Progress",
-  "description": "Progress from the Standard library.",
+  "description": "Progress bar with sizes and tones, stacked colored segments, an indeterminate sweep, and an animated percentage label.",
   "dependencies": [
     "class-variance-authority",
     "cn",

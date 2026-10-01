@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input",
   "title": "Input",
-  "description": "Input from the Classic library.",
+  "description": "Styled single-line text input with focus, disabled and invalid states.",
   "dependencies": [
     "cn"
   ],

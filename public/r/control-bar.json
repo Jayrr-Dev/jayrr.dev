@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "control-bar",
   "title": "Control Bar",
-  "description": "Control Bar from the Standard library.",
+  "description": "Muted, bordered toolbar row that wraps its controls with even spacing.",
   "dependencies": [
     "cn"
   ],

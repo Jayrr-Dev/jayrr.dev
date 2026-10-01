@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "caption",
   "title": "Caption",
-  "description": "Caption from the Standard library.",
+  "description": "Small muted paragraph for supporting text, with danger and uppercase tones.",
   "dependencies": [
     "class-variance-authority",
     "cn"

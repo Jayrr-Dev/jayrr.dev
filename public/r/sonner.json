@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sonner",
   "title": "Sonner",
-  "description": "Sonner from the Classic library.",
+  "description": "Theme-aware toast notifications with status icons, built on Sonner.",
   "dependencies": [
     "lucide-react",
     "next-themes",

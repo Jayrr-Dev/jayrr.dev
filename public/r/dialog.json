@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dialog",
   "title": "Dialog",
-  "description": "Dialog from the Classic library.",
+  "description": "Modal window over an overlay with header, footer and optional close button, built on Radix Dialog.",
   "dependencies": [
     "cn",
     "lucide-react",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "loading-state",
   "title": "Loading State",
-  "description": "Loading State from the Standard library.",
+  "description": "Spinner with a label that sits inline, centers in a block, or covers its parent with a blurred overlay, then shows a done check.",
   "dependencies": [
     "class-variance-authority",
     "cn",

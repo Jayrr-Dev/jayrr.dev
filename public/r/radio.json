@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "radio",
   "title": "Radio",
-  "description": "Radio from the Standard library.",
+  "description": "Radio group with a legend, per-option labels and descriptions, error styling, and a bordered card appearance.",
   "dependencies": [
     "cn"
   ],

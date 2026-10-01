@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "form-field",
   "title": "Form Field",
-  "description": "Form Field from the Standard library.",
+  "description": "Wraps a control with label, helper, error and success text, wiring its id and aria attributes automatically.",
   "dependencies": [
     "cn",
     "lucide-react"

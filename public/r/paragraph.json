@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "paragraph",
   "title": "Paragraph",
-  "description": "Paragraph from the Standard library.",
+  "description": "Body text with default, small, lead, and muted sizes, a muted tone, and line-clamp or single-line truncation.",
   "dependencies": [
     "class-variance-authority",
     "cn"

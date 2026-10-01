@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-grid",
   "title": "Standard Grid",
-  "description": "Standard Grid from the Standard library.",
+  "description": "Responsive card grid with per-breakpoint columns, gap sizes, and an empty state, sharing the list search and filter chrome.",
   "dependencies": [
     "cn"
   ],

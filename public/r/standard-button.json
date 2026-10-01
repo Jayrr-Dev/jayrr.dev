@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-button",
   "title": "Button",
-  "description": "Button from the Standard library.",
+  "description": "Button with tones, sizes, icon slots, inline count badge, loading spinner and an anchor mode for links.",
   "dependencies": [
     "class-variance-authority",
     "cn",

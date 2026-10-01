@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "select",
   "title": "Select",
-  "description": "Select from the Classic library.",
+  "description": "Dropdown for choosing one option with groups, labels and scroll buttons, built on Radix Select.",
   "dependencies": [
     "cn",
     "lucide-react",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert",
   "title": "Alert",
-  "description": "Alert from the Classic library.",
+  "description": "Inline callout for important messages with title, description, action slot and a destructive variant.",
   "dependencies": [
     "class-variance-authority",
     "cn"

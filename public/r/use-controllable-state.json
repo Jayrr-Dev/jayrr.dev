@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-controllable-state",
   "title": "Use Controllable State",
-  "description": "Use Controllable State from the Standard library.",
+  "description": "Hook for state that works controlled or uncontrolled, firing onChange on every change.",
   "files": [
     {
       "path": "hooks/use-controllable-state.ts",

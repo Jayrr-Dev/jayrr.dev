@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "radio-group",
   "title": "Radio Group",
-  "description": "Radio Group from the Classic library.",
+  "description": "Set of mutually exclusive radio options, built on Radix Radio Group.",
   "dependencies": [
     "cn",
     "radix-ui"

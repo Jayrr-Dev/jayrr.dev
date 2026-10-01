@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tooltip",
   "title": "Tooltip",
-  "description": "Tooltip from the Classic library.",
+  "description": "Small hint shown on hover or focus of an element, built on Radix Tooltip.",
   "dependencies": [
     "cn",
     "radix-ui"

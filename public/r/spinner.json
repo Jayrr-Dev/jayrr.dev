@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "spinner",
   "title": "Spinner",
-  "description": "Spinner from the Classic library.",
+  "description": "Loading indicator with ring, orbit, dots, bars, pulse, burst, grid and triangle animations.",
   "dependencies": [
     "cn",
     "lucide-react"

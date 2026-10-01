@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button-group",
   "title": "Button Group",
-  "description": "Button Group from the Classic library.",
+  "description": "Joins related buttons into one horizontal or vertical control, including a split pill style.",
   "dependencies": [
     "class-variance-authority",
     "cn",

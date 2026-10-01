@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-resizable",
   "title": "Resizable",
-  "description": "Resizable from the Standard library.",
+  "description": "Two side-by-side panels separated by a draggable divider for resizing.",
   "dependencies": [
     "react-resizable-panels"
   ],

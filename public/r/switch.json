@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "switch",
   "title": "Switch",
-  "description": "Switch from the Classic library.",
+  "description": "Toggle switch for on and off settings, built on Radix Switch.",
   "dependencies": [
     "cn",
     "radix-ui"

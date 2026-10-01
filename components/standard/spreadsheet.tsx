@@ -3,7 +3,6 @@
 import * as React from "react"
 import { cn } from "cn"
 
-import { CursorLabel } from "@/components/standard/cursor-label"
 import {
   createGridData,
   DataGrid,
@@ -57,7 +56,8 @@ function sheetVariablesOf(data: GridData, variables?: CalcVariables) {
     data.columns.forEach((column, colIndex) => {
       const value = cells[column.id]
       if (!isEmptyValue(value)) {
-        sheet[formatCellRef({ row: rowIndex, col: colIndex })] = value as CalcValue
+        sheet[formatCellRef({ row: rowIndex, col: colIndex })] =
+          value as CalcValue
       }
     })
   })
@@ -89,7 +89,10 @@ function formatsResult(value: CalcValue) {
     : formatsCalcValue(value)
 }
 
-function displayOf(result: CalcResult | undefined, format: (value: CalcValue) => string) {
+function displayOf(
+  result: CalcResult | undefined,
+  format: (value: CalcValue) => string
+) {
   if (!result || result.status === "empty") return ""
   return result.status === "ok" ? format(result.value) : result.error.code
 }
@@ -134,13 +137,34 @@ const TOKEN_CLASSES =
 
 /** Excel-style colours, one per distinct cell or range in the formula being edited. */
 const REFERENCE_COLORS = [
-  { text: "text-sky-600 dark:text-sky-400", box: "border-sky-500 bg-sky-500/10" },
-  { text: "text-rose-600 dark:text-rose-400", box: "border-rose-500 bg-rose-500/10" },
-  { text: "text-violet-600 dark:text-violet-400", box: "border-violet-500 bg-violet-500/10" },
-  { text: "text-emerald-600 dark:text-emerald-400", box: "border-emerald-500 bg-emerald-500/10" },
-  { text: "text-amber-600 dark:text-amber-400", box: "border-amber-500 bg-amber-500/10" },
-  { text: "text-pink-600 dark:text-pink-400", box: "border-pink-500 bg-pink-500/10" },
-  { text: "text-teal-600 dark:text-teal-400", box: "border-teal-500 bg-teal-500/10" },
+  {
+    text: "text-sky-600 dark:text-sky-400",
+    box: "border-sky-500 bg-sky-500/10",
+  },
+  {
+    text: "text-rose-600 dark:text-rose-400",
+    box: "border-rose-500 bg-rose-500/10",
+  },
+  {
+    text: "text-violet-600 dark:text-violet-400",
+    box: "border-violet-500 bg-violet-500/10",
+  },
+  {
+    text: "text-emerald-600 dark:text-emerald-400",
+    box: "border-emerald-500 bg-emerald-500/10",
+  },
+  {
+    text: "text-amber-600 dark:text-amber-400",
+    box: "border-amber-500 bg-amber-500/10",
+  },
+  {
+    text: "text-pink-600 dark:text-pink-400",
+    box: "border-pink-500 bg-pink-500/10",
+  },
+  {
+    text: "text-teal-600 dark:text-teal-400",
+    box: "border-teal-500 bg-teal-500/10",
+  },
 ]
 
 type FormulaReference = GridRange & {
@@ -165,7 +189,10 @@ function referencesIn(tokens: CalcToken[]): FormulaReference[] {
     const starts = [token.start]
     const colon = solid[index + 1]
     const end = solid[index + 2]
-    const endRef = colon?.type === "colon" && end?.type === "reference" ? parseCellRef(end.text) : null
+    const endRef =
+      colon?.type === "colon" && end?.type === "reference"
+        ? parseCellRef(end.text)
+        : null
     if (endRef) {
       to = endRef
       starts.push(colon.start, end.start)
@@ -215,10 +242,17 @@ function ReferenceOutline({
   row: number
   col: number
 }) {
-  const references = React.useSyncExternalStore(store.subscribe, store.get, () => NO_REFERENCES)
+  const references = React.useSyncExternalStore(
+    store.subscribe,
+    store.get,
+    () => NO_REFERENCES
+  )
   const hit = references.find(
     (range) =>
-      row >= range.top && row <= range.bottom && col >= range.left && col <= range.right
+      row >= range.top &&
+      row <= range.bottom &&
+      col >= range.left &&
+      col <= range.right
   )
   if (!hit) return null
 
@@ -290,7 +324,9 @@ function FormulaEditor({
   )
   const references = React.useMemo(() => referencesIn(tokens), [tokens])
   const colorAt = new Map(
-    references.flatMap((reference) => reference.tokens.map((start) => [start, reference.color]))
+    references.flatMap((reference) =>
+      reference.tokens.map((start) => [start, reference.color])
+    )
   )
 
   React.useEffect(() => store.set(references), [store, references])
@@ -313,7 +349,8 @@ function FormulaEditor({
                 key={token.start}
                 data-token={token.type}
                 className={cn(
-                  colorAt.has(token.start) && REFERENCE_COLORS[colorAt.get(token.start)!].text,
+                  colorAt.has(token.start) &&
+                    REFERENCE_COLORS[colorAt.get(token.start)!].text,
                   error &&
                     !error.incomplete &&
                     error.start !== undefined &&
@@ -341,7 +378,9 @@ function FormulaEditor({
           className={cn(
             "col-start-1 row-start-1 size-full min-w-0 bg-transparent px-2 text-sm outline-none",
             isFormula && "text-transparent caret-foreground",
-            !isFormula && context.column.type === "number" && "text-right tabular-nums"
+            !isFormula &&
+              context.column.type === "number" &&
+              "text-right tabular-nums"
           )}
           onChange={(event) => setDraft(event.target.value)}
           onScroll={(event) => {
@@ -392,7 +431,11 @@ export type SpreadsheetSelectionStats = {
 }
 
 /** Adds up the numbers in a range: typed numbers, numeric text, and formula results. */
-function statsOf(data: GridData, range: GridRange, results: SpreadsheetResults) {
+function statsOf(
+  data: GridData,
+  range: GridRange,
+  results: SpreadsheetResults
+) {
   let sum = 0
   let count = 0
   for (let row = range.top; row <= range.bottom; row += 1) {
@@ -410,7 +453,8 @@ function statsOf(data: GridData, range: GridRange, results: SpreadsheetResults) 
         const text: CellValue = value
         if (isFormulaText(text)) {
           const result = results[formatCellRef({ row, col })]
-          if (result?.status === "ok" && typeof result.value === "number") number = result.value
+          if (result?.status === "ok" && typeof result.value === "number")
+            number = result.value
         } else if (value.trim() !== "" && Number.isFinite(Number(value))) {
           number = Number(value)
         }
@@ -425,10 +469,16 @@ function statsOf(data: GridData, range: GridRange, results: SpreadsheetResults) 
 }
 
 function formatsSelectionStats(
-  { sum, average }: SpreadsheetSelectionStats,
+  { sum, average, count }: SpreadsheetSelectionStats,
   format: (value: CalcValue) => string
 ) {
-  return `Sum ${format(sum)} · Avg ${format(average)}`
+  return (
+    <>
+      <span>Avg {format(average)}</span>
+      <span>Count {count}</span>
+      <span>Sum {format(sum)}</span>
+    </>
+  )
 }
 
 // ---------------------------------------------------------------------------
@@ -441,11 +491,29 @@ export type SpreadsheetProps = DataGridProps &
     /** Every formula's result, after each change. */
     onResults?: (results: SpreadsheetResults) => void
     /**
-     * A label at the pointer that adds up the selection once it holds two or
-     * more numbers. Pass a function to write your own text, or `false` to hide it.
+     * Adds up the selection in the footer once it holds two or more numbers.
+     * Pass a function to write your own text, or `false` to hide it.
      */
-    selectionSummary?: boolean | ((stats: SpreadsheetSelectionStats) => React.ReactNode)
+    selectionSummary?:
+      boolean | ((stats: SpreadsheetSelectionStats) => React.ReactNode)
+    /**
+     * The bar under the grid that holds sheet tabs and the selection summary.
+     * Pass content to show it at the start of the bar, or `false` to hide the bar.
+     */
+    footer?: boolean | React.ReactNode
+    /** Sheets shown as tabs in the footer, like workbook tabs. Each sheet is its own grid. */
+    sheets?: SpreadsheetSheet[]
+    /** Starting sheets when `sheets` is not controlled. */
+    defaultSheets?: SpreadsheetSheet[]
+    onSheetsChange?: (sheets: SpreadsheetSheet[]) => void
+    /** Id of the sheet on screen. */
+    activeSheet?: string
+    defaultActiveSheet?: string
+    onActiveSheetChange?: (id: string) => void
   }
+
+/** One tab of a workbook. Formulas reference cells on their own sheet. */
+export type SpreadsheetSheet = { id: string; name: string; data: GridData }
 
 /**
  * A Data Grid whose cells take formulas: type `=SUM(B2:B9)` or `=B2 * $C$1`
@@ -455,6 +523,214 @@ export type SpreadsheetProps = DataGridProps &
  * Everything else (undo, copy and paste, sort, adapters) is the Data Grid.
  */
 export function Spreadsheet({
+  sheets,
+  defaultSheets,
+  onSheetsChange,
+  activeSheet,
+  defaultActiveSheet,
+  onActiveSheetChange,
+  ...props
+}: SpreadsheetProps) {
+  const [ownSheets, setOwnSheets] = React.useState(defaultSheets)
+  const workbook = sheets ?? ownSheets
+  const [ownActive, setOwnActive] = React.useState(
+    defaultActiveSheet ?? workbook?.[0]?.id
+  )
+
+  if (!workbook || workbook.length === 0) return <SpreadsheetGrid {...props} />
+
+  const activeId = activeSheet ?? ownActive
+  const active = workbook.find((sheet) => sheet.id === activeId) ?? workbook[0]
+
+  const changesSheets = (next: SpreadsheetSheet[]) => {
+    if (sheets === undefined) setOwnSheets(next)
+    onSheetsChange?.(next)
+  }
+  const selectsSheet = (id: string) => {
+    if (activeSheet === undefined) setOwnActive(id)
+    onActiveSheetChange?.(id)
+  }
+
+  const { onValueChange, onKeyDown, footer = true, ...gridProps } = props
+  const tabs = (
+    <SheetTabs
+      sheets={workbook}
+      activeId={active.id}
+      readOnly={props.readOnly}
+      onSelect={selectsSheet}
+      onChange={changesSheets}
+    />
+  )
+
+  return (
+    <SpreadsheetGrid
+      // Each sheet keeps its own selection, undo history and formula results.
+      key={active.id}
+      {...gridProps}
+      value={active.data}
+      defaultValue={undefined}
+      onValueChange={(next, changes) => {
+        changesSheets(
+          workbook.map((sheet) =>
+            sheet.id === active.id ? { ...sheet, data: next } : sheet
+          )
+        )
+        onValueChange?.(next, changes)
+      }}
+      onKeyDown={(event) => {
+        onKeyDown?.(event)
+        // Ctrl+PageUp / Ctrl+PageDown step through sheets, as in Excel.
+        if (
+          !event.ctrlKey ||
+          (event.key !== "PageUp" && event.key !== "PageDown")
+        )
+          return
+        event.preventDefault()
+        const index = workbook.indexOf(active)
+        const next = workbook[index + (event.key === "PageUp" ? -1 : 1)]
+        if (next) selectsSheet(next.id)
+      }}
+      footer={
+        footer === false ? (
+          false
+        ) : (
+          <>
+            {tabs}
+            {footer === true ? null : footer}
+          </>
+        )
+      }
+    />
+  )
+}
+
+function createsSheetId() {
+  return `sheet-${Math.random().toString(36).slice(2, 10)}`
+}
+
+function SheetTabs({
+  sheets,
+  activeId,
+  readOnly,
+  onSelect,
+  onChange,
+}: {
+  sheets: SpreadsheetSheet[]
+  activeId: string
+  readOnly?: boolean
+  onSelect: (id: string) => void
+  onChange: (sheets: SpreadsheetSheet[]) => void
+}) {
+  const [renaming, setRenaming] = React.useState<string | null>(null)
+
+  const addsSheet = () => {
+    const taken = new Set(sheets.map((sheet) => sheet.name))
+    let number = sheets.length + 1
+    while (taken.has(`Sheet${number}`)) number += 1
+    const sheet = {
+      id: createsSheetId(),
+      name: `Sheet${number}`,
+      data: createGridData({ columns: 8, rows: 40 }),
+    }
+    onChange([...sheets, sheet])
+    onSelect(sheet.id)
+  }
+
+  const removesSheet = (id: string) => {
+    const index = sheets.findIndex((sheet) => sheet.id === id)
+    const rest = sheets.filter((sheet) => sheet.id !== id)
+    onChange(rest)
+    if (id === activeId) onSelect(rest[Math.max(0, index - 1)].id)
+  }
+
+  const renamesSheet = (id: string, name: string) => {
+    setRenaming(null)
+    const trimmed = name.trim()
+    if (!trimmed) return
+    onChange(
+      sheets.map((sheet) =>
+        sheet.id === id ? { ...sheet, name: trimmed } : sheet
+      )
+    )
+  }
+
+  return (
+    <div
+      role="tablist"
+      aria-label="Sheets"
+      className="-ml-3 flex min-w-0 items-stretch self-stretch overflow-x-auto"
+    >
+      {sheets.map((sheet) => {
+        const selected = sheet.id === activeId
+        return (
+          <div
+            key={sheet.id}
+            className={cn(
+              "relative flex shrink-0 items-center border-r border-border",
+              selected
+                ? "bg-background text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-primary"
+                : "hover:bg-muted/50 hover:text-foreground"
+            )}
+          >
+            {renaming === sheet.id ? (
+              <input
+                autoFocus
+                aria-label="Sheet name"
+                defaultValue={sheet.name}
+                className="w-24 bg-transparent px-3 text-xs outline-none"
+                onFocus={(event) => event.currentTarget.select()}
+                onBlur={(event) =>
+                  renamesSheet(sheet.id, event.currentTarget.value)
+                }
+                onKeyDown={(event) => {
+                  event.stopPropagation()
+                  if (event.key === "Enter") event.currentTarget.blur()
+                  if (event.key === "Escape") setRenaming(null)
+                }}
+              />
+            ) : (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={selected}
+                className="h-full px-3 outline-none focus-visible:underline"
+                onClick={() => onSelect(sheet.id)}
+                onDoubleClick={() => {
+                  if (!readOnly) setRenaming(sheet.id)
+                }}
+              >
+                {sheet.name}
+              </button>
+            )}
+            {/* Only the active tab can close, so tabs never shift under the pointer. */}
+            {selected && !readOnly && sheets.length > 1 && renaming !== sheet.id ? (
+              <button
+                type="button"
+                aria-label={`Delete ${sheet.name}`}
+                className="mr-1.5 -ml-1.5 flex size-4 items-center justify-center rounded-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                onClick={() => removesSheet(sheet.id)}
+              >
+                ×
+              </button>
+            ) : null}
+          </div>
+        )
+      })}
+      {readOnly ? null : (
+        <button
+          type="button"
+          aria-label="Add sheet"
+          className="flex w-8 shrink-0 items-center justify-center text-sm hover:bg-muted/50 hover:text-foreground"
+          onClick={addsSheet}
+        >
+          +
+        </button>
+      )}
+    </div>
+  )
+}
+
+function SpreadsheetGrid({
   value,
   defaultValue,
   onValueChange,
@@ -464,10 +740,19 @@ export function Spreadsheet({
   formatResult = formatsResult,
   onResults,
   selectionSummary = true,
+  footer = true,
   onSelectionChange,
   label = "Spreadsheet",
   ...props
-}: SpreadsheetProps) {
+}: Omit<
+  SpreadsheetProps,
+  | "sheets"
+  | "defaultSheets"
+  | "onSheetsChange"
+  | "activeSheet"
+  | "defaultActiveSheet"
+  | "onActiveSheetChange"
+>) {
   // The grid owns editing; this mirror only feeds the formulas.
   const [initial] = React.useState(
     () => defaultValue ?? createGridData({ columns: 8, rows: 40 })
@@ -482,7 +767,12 @@ export function Spreadsheet({
     [data, variables]
   )
   const results = React.useMemo(
-    () => evaluatesVariables({ variables: sheetVariables, functions, references: true }),
+    () =>
+      evaluatesVariables({
+        variables: sheetVariables,
+        functions,
+        references: true,
+      }),
     [sheetVariables, functions]
   )
 
@@ -512,27 +802,43 @@ export function Spreadsheet({
     }
 
     const wrapped: Record<string, DataGridCellType> = {}
-    for (const [name, type] of Object.entries({ ...dataGridCellTypes, ...cellTypes })) {
+    for (const [name, type] of Object.entries({
+      ...dataGridCellTypes,
+      ...cellTypes,
+    })) {
       const plain = (value: CellValue, column: GridColumn) =>
-        type.format ? type.format(value, column) : value === null ? "" : String(value)
+        type.format
+          ? type.format(value, column)
+          : value === null
+            ? ""
+            : String(value)
       // Text-like types get the formula editor; select, date and custom editors keep theirs.
       const takesFormulas = type.edit === undefined || name === "number"
 
       wrapped[name] = {
         ...type,
         render: (context) => {
-          const ref = formatCellRef({ row: context.rowIndex, col: context.colIndex })
+          const ref = formatCellRef({
+            row: context.rowIndex,
+            col: context.colIndex,
+          })
           const content = isFormulaText(context.value) ? (
             <FormulaResult result={results[ref]} format={formatResult} />
           ) : type.render ? (
             type.render(context)
           ) : (
-            <span className="truncate">{plain(context.value, context.column)}</span>
+            <span className="truncate">
+              {plain(context.value, context.column)}
+            </span>
           )
           return (
             <>
               {content}
-              <ReferenceOutline store={references} row={context.rowIndex} col={context.colIndex} />
+              <ReferenceOutline
+                store={references}
+                row={context.rowIndex}
+                col={context.colIndex}
+              />
             </>
           )
         },
@@ -548,9 +854,15 @@ export function Spreadsheet({
           : type.edit,
         fitWidth: (context) => {
           if (isFormulaText(context.value)) {
-            return context.measure(displayByFormula.get(context.value) ?? context.text) + 17
+            return (
+              context.measure(
+                displayByFormula.get(context.value) ?? context.text
+              ) + 17
+            )
           }
-          return type.fitWidth ? type.fitWidth(context) : context.measure(context.text) + 17
+          return type.fitWidth
+            ? type.fitWidth(context)
+            : context.measure(context.text) + 17
         },
       }
     }
@@ -558,7 +870,8 @@ export function Spreadsheet({
   }, [cellTypes, results, formatResult, preview, references])
 
   const stats = React.useMemo(
-    () => (selectionSummary && selected ? statsOf(data, selected, results) : null),
+    () =>
+      selectionSummary && selected ? statsOf(data, selected, results) : null,
     [selectionSummary, selected, data, results]
   )
   const summary =
@@ -579,17 +892,29 @@ export function Spreadsheet({
   }
 
   return (
-    <CursorLabel content={summary} disabled={summary === null}>
-      <DataGrid
-        {...props}
-        data-slot="spreadsheet"
-        label={label}
-        value={value}
-        defaultValue={value === undefined ? initial : undefined}
-        onValueChange={handlesValueChange}
-        onSelectionChange={handlesSelectionChange}
-        cellTypes={types}
-      />
-    </CursorLabel>
+    <DataGrid
+      {...props}
+      data-slot="spreadsheet"
+      label={label}
+      value={value}
+      defaultValue={value === undefined ? initial : undefined}
+      onValueChange={handlesValueChange}
+      onSelectionChange={handlesSelectionChange}
+      cellTypes={types}
+      footer={
+        footer === false ? undefined : (
+          <>
+            {footer === true ? null : footer}
+            {/* Stays mounted while empty so the grid keeps its height as the selection changes. */}
+            <div
+              aria-live="polite"
+              className="ml-auto flex shrink-0 items-center gap-4 font-mono"
+            >
+              {selectionSummary ? summary : null}
+            </div>
+          </>
+        )
+      }
+    />
   )
 }

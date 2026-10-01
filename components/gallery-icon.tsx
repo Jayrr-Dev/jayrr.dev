@@ -396,9 +396,13 @@ const icons = {
   ),
   "Text Effect": (
     <>
-      <path d="M12 24h8m-4 0v16M24 32h8m-4-6v14" />
-      <path d="M38 26v14" opacity=".35" />
-      <path d="M46 22v12m0 5v1" />
+      <path d="M12 48 24 18l12 30M16 38h16" />
+      <path d="M46 12c0 5 2 7 7 7-5 0-7 2-7 7 0-5-2-7-7-7 5 0 7-2 7-7Z" />
+      <path
+        d="M50 34c0 2.5 1 3.5 3.5 3.5-2.5 0-3.5 1-3.5 3.5 0-2.5-1-3.5-3.5-3.5 2.5 0 3.5-1 3.5-3.5Z"
+        opacity=".5"
+      />
+      <path d="M10 54h30" opacity=".3" />
     </>
   ),
   "Number Effect": (
@@ -806,10 +810,46 @@ const icons = {
   ),
   Sonner: (
     <>
-      <rect x="14" y="16" width="36" height="16" rx="4" opacity=".35" />
-      <rect x="10" y="28" width="44" height="18" rx="4" />
-      <circle cx="20" cy="37" r="2" fill="currentColor" stroke="none" />
-      <path d="M26 37h18" />
+      <rect x="18" y="16" width="28" height="10" rx="3" opacity=".25" />
+      <rect
+        x="14"
+        y="22"
+        width="36"
+        height="12"
+        rx="3.5"
+        fill="var(--card)"
+        opacity=".55"
+      />
+      <rect x="10" y="30" width="44" height="18" rx="4" fill="var(--card)" />
+      <circle
+        cx="19"
+        cy="39"
+        r="4.5"
+        fill="currentColor"
+        fillOpacity=".16"
+        stroke="none"
+      />
+      <path d="m17 39 1.5 1.5 3-3" />
+      <path d="M28 36.5h18" />
+      <path d="M28 41.5h11" opacity=".45" />
+    </>
+  ),
+  Toast: (
+    <>
+      <rect x="6" y="10" width="52" height="44" rx="5" opacity=".3" />
+      <path d="M12 18h18M12 24h12" opacity=".25" />
+      <rect
+        x="24"
+        y="37"
+        width="28"
+        height="11"
+        rx="3"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
+      <circle cx="29.5" cy="42.5" r="1.5" fill="currentColor" stroke="none" />
+      <path d="M34 42.5h9" />
+      <path d="m46 41 3 3m0-3-3 3" opacity=".6" />
     </>
   ),
   Empty: (
@@ -967,9 +1007,12 @@ const icons = {
   ),
   Tabs: (
     <>
-      <path d="M10 26h18V16h16v10h10" />
-      <rect x="10" y="26" width="44" height="24" rx="3" />
-      <path d="M18 36h20" opacity=".5" />
+      <path d="M8 24h48" opacity=".3" />
+      <path d="M12 17h10" />
+      <path d="M29 17h10M46 17h8" opacity=".45" />
+      <path d="M10 24h14" strokeWidth="3" />
+      <rect x="8" y="30" width="48" height="24" rx="4" opacity=".45" />
+      <path d="M14 38h26M14 45h18" opacity=".6" />
     </>
   ),
   "Dynamic Tabs": (
@@ -1000,15 +1043,30 @@ const icons = {
   ),
   Message: (
     <>
-      <circle cx="16" cy="24" r="5" />
-      <rect x="26" y="16" width="26" height="16" rx="4" />
-      <path d="M26 40h18" opacity=".4" />
+      <circle cx="12" cy="22" r="4" opacity=".6" />
+      <rect x="20" y="14" width="26" height="14" rx="5" />
+      <path d="M25 21h16" opacity=".5" />
+      <rect
+        x="24"
+        y="34"
+        width="32"
+        height="14"
+        rx="5"
+        fill="currentColor"
+        fillOpacity=".16"
+      />
+      <path d="M29 41h20" />
     </>
   ),
   Attachment: (
     <>
-      <path d="M28 40V22a6 6 0 0 1 12 0v16a10 10 0 0 1-20 0V24" />
-      <rect x="36" y="14" width="14" height="18" rx="2" opacity=".35" />
+      <path
+        d="M20 12h16l10 10v28a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4Z"
+        opacity=".5"
+      />
+      <path d="M36 12v10h10" opacity=".5" />
+      <path d="M26 34h14M26 40h10" opacity=".4" />
+      <path d="M12 32V17a5 5 0 0 1 10 0v17a3 3 0 0 1-6 0V20" />
     </>
   ),
   Questionnaire: (
@@ -1053,11 +1111,34 @@ const icons = {
       <path d="m20 24-8 8 8 8m24-16 8 8-8 8" />
     </>
   ),
+  Chatroom: (
+    <>
+      <rect x="8" y="8" width="48" height="48" rx="6" opacity=".4" />
+      <path d="M8 18h48" opacity=".3" />
+      <path d="M14 13h12" />
+      <circle cx="44" cy="13" r="2" opacity=".5" />
+      <circle cx="50" cy="13" r="2" opacity=".5" />
+      <rect x="13" y="23" width="22" height="7" rx="3.5" />
+      <rect
+        x="27"
+        y="33"
+        width="24"
+        height="7"
+        rx="3.5"
+        fill="currentColor"
+        fillOpacity=".18"
+      />
+      <rect x="13" y="45" width="38" height="6" rx="3" opacity=".5" />
+      <circle cx="47" cy="48" r="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
   "Message Scroller": (
     <>
-      <rect x="16" y="10" width="28" height="10" rx="3" opacity=".3" />
-      <rect x="16" y="24" width="32" height="12" rx="3" />
-      <path d="M32 44v8m-4-4 4 4 4-4" />
+      <rect x="8" y="10" width="24" height="9" rx="4" opacity=".25" />
+      <rect x="26" y="22" width="30" height="9" rx="4" opacity=".55" />
+      <rect x="8" y="34" width="28" height="9" rx="4" />
+      <circle cx="46" cy="48" r="7" fill="currentColor" fillOpacity=".16" />
+      <path d="M46 44.5v7m-3-3 3 3 3-3" />
     </>
   ),
   "Autocomplete Input": (
@@ -1695,8 +1776,10 @@ const icons = {
   ),
   Math: (
     <>
-      <path d="M16 20h32M16 44h32" />
-      <path d="m22 28 8 8m0-8-8 8M38 28v16" />
+      <path d="M26 18H12l9 14-9 14h14" />
+      <path d="m36 18 8 8m0-8-8 8" />
+      <path d="M32 32h20" />
+      <path d="M37 38a3.5 3.5 0 0 1 7 0c0 3-7 6-7 10h7" opacity=".6" />
     </>
   ),
   "Social Media Buttons": (
@@ -1826,8 +1909,20 @@ const icons = {
   ),
   Cursor: (
     <>
-      <path d="M20 12 44 30l-10 3-5 11z" />
-      <circle cx="22" cy="14" r="12" opacity=".35" />
+      <circle cx="12" cy="10" r="1" opacity=".2" />
+      <circle cx="17" cy="14" r="1.5" opacity=".35" />
+      <circle
+        cx="26"
+        cy="20"
+        r="10"
+        fill="currentColor"
+        fillOpacity=".1"
+        strokeOpacity=".4"
+      />
+      <path
+        d="M26 20v24l6.5-6.5 4.5 10 4-1.8-4.5-10H45Z"
+        fill="var(--card)"
+      />
     </>
   ),
   "Cursor Label": (

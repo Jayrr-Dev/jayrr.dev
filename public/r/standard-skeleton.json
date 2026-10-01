@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-skeleton",
   "title": "Skeleton",
-  "description": "Skeleton from the Standard library.",
+  "description": "Loading placeholder shaped as text lines, a circle, or a block, with multi-line paragraph mode.",
   "dependencies": [
     "class-variance-authority",
     "cn"

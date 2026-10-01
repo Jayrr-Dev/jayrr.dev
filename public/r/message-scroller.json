@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "message-scroller",
   "title": "Message Scroller",
-  "description": "Message Scroller from the Classic library.",
+  "description": "Chat scroll container that auto-follows new messages and shows a scroll-to-bottom button.",
   "dependencies": [
     "@shadcn/react",
     "cn",

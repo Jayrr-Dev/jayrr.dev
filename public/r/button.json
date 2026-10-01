@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
   "title": "Button",
-  "description": "Button from the Classic library.",
+  "description": "Clickable button with default, outline, secondary, ghost, destructive and link variants in several sizes.",
   "dependencies": [
     "class-variance-authority",
     "cn",

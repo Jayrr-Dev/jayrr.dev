@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card",
   "title": "Card",
-  "description": "Card from the Classic library.",
+  "description": "Bordered container with header, content and footer slots, a compact size and side-by-side layout.",
   "dependencies": [
     "cn"
   ],

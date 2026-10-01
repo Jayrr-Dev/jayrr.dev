@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "link",
   "title": "Link",
-  "description": "Link from the Standard library.",
+  "description": "Inline text link in the primary color with an underline on hover.",
   "dependencies": [
     "cn"
   ],

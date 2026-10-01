@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tabbed-dialog",
   "title": "Tabbed Dialog",
-  "description": "Tabbed Dialog from the Standard library.",
+  "description": "Modal dialog whose body is split into keyboard-navigable tabs.",
   "registryDependencies": [
     "@jayrr/standard-dialog",
     "@jayrr/tabs"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "native-select",
   "title": "Native Select",
-  "description": "Native Select from the Classic library.",
+  "description": "Styled native HTML select with option groups and a chevron indicator.",
   "dependencies": [
     "cn",
     "lucide-react"

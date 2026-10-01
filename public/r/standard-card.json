@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-card",
   "title": "Card",
-  "description": "Card from the Standard library.",
+  "description": "Content card with outline, muted and elevated looks, lift or gradient-glow effects, media slots and interactive link mode.",
   "dependencies": [
     "class-variance-authority",
     "cn"

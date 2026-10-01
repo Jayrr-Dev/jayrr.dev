@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "navigation-menu",
   "title": "Navigation Menu",
-  "description": "Navigation Menu from the Classic library.",
+  "description": "Site navigation with dropdown content panels, animated viewport and active indicator, built on Radix.",
   "dependencies": [
     "class-variance-authority",
     "cn",

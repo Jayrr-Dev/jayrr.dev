@@ -5,7 +5,7 @@
       "name": "use-controllable-state",
       "type": "registry:hook",
       "title": "Use Controllable State",
-      "description": "Use Controllable State from the Standard library.",
+      "description": "Hook for state that works controlled or uncontrolled, firing onChange on every change.",
       "files": [
         {
           "path": "use-controllable-state.ts",
@@ -41,7 +41,7 @@
       "name": "use-mobile",
       "type": "registry:hook",
       "title": "Use Mobile",
-      "description": "Use Mobile from the Classic library.",
+      "description": "Hook that reports whether the viewport is narrower than the 768px mobile breakpoint.",
       "files": [
         {
           "path": "use-mobile.ts",

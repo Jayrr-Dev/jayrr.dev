@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "image",
   "title": "Image",
-  "description": "Image from the Standard library.",
+  "description": "Aspect-ratio image with ratio presets, an alt-text placeholder and hover shine or grayscale effects.",
   "dependencies": [
     "class-variance-authority",
     "cn",

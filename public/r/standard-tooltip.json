@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-tooltip",
   "title": "Tooltip",
-  "description": "Tooltip from the Standard library.",
+  "description": "Tooltip with hover or click-to-toggle triggers, keyboard shortcut display, danger tone, and placement options.",
   "dependencies": [
     "cn"
   ],

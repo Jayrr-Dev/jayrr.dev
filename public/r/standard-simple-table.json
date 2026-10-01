@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-simple-table",
   "title": "Table",
-  "description": "Table from the Standard library.",
+  "description": "Plain table rendered from an array of header strings and rows of string cells.",
   "dependencies": [
     "cn"
   ],

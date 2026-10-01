@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-popover",
   "title": "Popover",
-  "description": "Popover from the Standard library.",
+  "description": "Floating panel anchored to a trigger, with default, arrow, and tooltip-style content variants.",
   "registryDependencies": [
     "@jayrr/popover"
   ],

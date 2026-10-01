@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sidebar",
   "title": "Sidebar",
-  "description": "Sidebar from the Classic library.",
+  "description": "Collapsible app sidebar with menus, groups, search and icon, floating or inset modes, mobile-aware.",
   "dependencies": [
     "class-variance-authority",
     "cn",

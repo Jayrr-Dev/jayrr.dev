@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "page-header",
   "title": "Page Header",
-  "description": "Page Header from the Standard library.",
+  "description": "Page title row with an optional back button, info tooltip, and trailing actions.",
   "dependencies": [
     "cn"
   ],

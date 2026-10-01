@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "choice-label",
   "title": "Choice Label",
-  "description": "Choice Label from the Standard library.",
+  "description": "Internal clickable label and description wrapper shared by Checkbox and Radio, with a bordered card appearance.",
   "dependencies": [
     "class-variance-authority",
     "cn"

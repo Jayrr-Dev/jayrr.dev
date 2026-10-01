@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "menu",
   "title": "Menu",
-  "description": "Menu from the Standard library.",
+  "description": "Dropdown menu of items, separators, and labelled groups, with icons, shortcut hints, danger items, and a custom trigger.",
   "dependencies": [
     "cmdk",
     "cn",

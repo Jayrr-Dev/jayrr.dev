@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "masonry",
   "title": "Masonry",
-  "description": "Masonry from the Classic library.",
+  "description": "Round-robin masonry grid with fixed column count or responsive columns from a minimum width.",
   "dependencies": [
     "cn"
   ],

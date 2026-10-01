@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toggle-group",
   "title": "Toggle Group",
-  "description": "Toggle Group from the Classic library.",
+  "description": "Set of toggle buttons allowing single or multiple selection, built on Radix Toggle Group.",
   "dependencies": [
     "class-variance-authority",
     "cn",

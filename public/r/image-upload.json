@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "image-upload",
   "title": "Image Upload",
-  "description": "Image Upload from the Standard library.",
+  "description": "Image picker as a dropzone or avatar, with preview, size limit and an upload progress bar.",
   "dependencies": [
     "cn",
     "lucide-react"

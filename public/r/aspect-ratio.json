@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "aspect-ratio",
   "title": "Aspect Ratio",
-  "description": "Aspect Ratio from the Classic library.",
+  "description": "Keeps content such as images or video at a fixed width-to-height ratio, built on Radix.",
   "dependencies": [
     "radix-ui"
   ],

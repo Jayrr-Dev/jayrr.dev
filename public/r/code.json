@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "code",
   "title": "Code",
-  "description": "Code from the Standard library.",
+  "description": "Inline code span or scrollable multi-line block with an optional copy button.",
   "dependencies": [
     "class-variance-authority",
     "cn",

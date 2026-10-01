@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-sheet",
   "title": "Sheet",
-  "description": "Sheet from the Standard library.",
+  "description": "Slide-in panel from any side with sizes, title and description, a trigger, and a pinned footer.",
   "dependencies": [
     "cn"
   ],

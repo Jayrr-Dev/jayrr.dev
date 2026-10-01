@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-toggle",
   "title": "Toggle",
-  "description": "Toggle from the Standard library.",
+  "description": "Two-state pressable button in outline or ghost tones, several sizes and shapes, with an icon-only mode.",
   "dependencies": [
     "class-variance-authority",
     "cn"

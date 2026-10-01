@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slider",
   "title": "Slider",
-  "description": "Slider from the Classic library.",
+  "description": "Draggable range input supporting single or multiple thumbs, built on Radix Slider.",
   "dependencies": [
     "cn",
     "radix-ui"

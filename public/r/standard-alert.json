@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-alert",
   "title": "Alert",
-  "description": "Alert from the Standard library.",
+  "description": "Status message with icon, title, trailing actions and optional close, in soft, solid or outline tones.",
   "dependencies": [
     "class-variance-authority",
     "cn",

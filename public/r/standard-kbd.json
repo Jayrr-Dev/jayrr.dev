@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "standard-kbd",
   "title": "Kbd",
-  "description": "Kbd from the Standard library.",
+  "description": "Keyboard key and key group re-exported from the base UI primitive.",
   "registryDependencies": [
     "@jayrr/kbd"
   ],

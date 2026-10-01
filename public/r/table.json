@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "table",
   "title": "Table",
-  "description": "Table from the Classic library.",
+  "description": "Semantic data table with header, body, footer, rows, cells and caption styling.",
   "dependencies": [
     "cn"
   ],

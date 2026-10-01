@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-mobile",
   "title": "Use Mobile",
-  "description": "Use Mobile from the Classic library.",
+  "description": "Hook that reports whether the viewport is narrower than the 768px mobile breakpoint.",
   "files": [
     {
       "path": "hooks/use-mobile.ts",
