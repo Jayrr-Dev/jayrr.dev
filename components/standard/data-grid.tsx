@@ -50,6 +50,7 @@ import {
   type GridFilterMenu,
   type GridFormatRule,
   type GridRange,
+  type GridRow,
   type GridStyle,
   type SortDirection,
 } from "@/components/standard/data-grid-model"
@@ -236,6 +237,14 @@ export type DataGridHandle = {
 
 export type DataGridChangeSource = "edit" | "undo" | "redo"
 
+export type DataGridCellInfo = {
+  value: CellValue
+  row: GridRow
+  column: GridColumn
+  rowIndex: number
+  colIndex: number
+}
+
 export type DataGridProps = Omit<
   React.ComponentProps<"div">,
   "defaultValue" | "onChange" | "ref"
@@ -270,7 +279,13 @@ export type DataGridProps = Omit<
   showRowHeaders?: boolean
   /** Height of the scrolling area. */
   height?: number | string
+  /** Locks the whole grid. Lock a row or column with its own `readOnly`. */
   readOnly?: boolean
+  /**
+   * Locks single cells: return true and the cell won't edit, toggle, or take
+   * pasted, filled, or cleared values. Runs on top of row and column `readOnly`.
+   */
+  cellReadOnly?: (cell: DataGridCellInfo) => boolean
   /** Shows the Name Box and value bar above the grid. */
   showNameBox?: boolean
   /**
@@ -366,6 +381,7 @@ export function DataGrid({
   showRowHeaders = true,
   height = 420,
   readOnly = false,
+  cellReadOnly,
   showNameBox = true,
   toolbar,
   footer,
@@ -403,6 +419,22 @@ export function DataGrid({
   )
   const typeOf = (column: GridColumn) =>
     types[column.type ?? "text"] ?? types.text
+  const isLocked = (current: GridData, rowIndex: number, colIndex: number) => {
+    const row = current.rows[rowIndex]
+    const column = current.columns[colIndex]
+    if (readOnly || !row || !column || row.readOnly || column.readOnly) {
+      return true
+    }
+    return cellReadOnly
+      ? cellReadOnly({
+          value: current.cells[row.id]?.[column.id] ?? null,
+          row,
+          column,
+          rowIndex,
+          colIndex,
+        })
+      : false
+  }
 
   const [selection, setSelection] = React.useState<Selection>({
     anchor: { row: 0, col: 0 },
@@ -583,7 +615,40 @@ export function DataGrid({
       }
     },
 
-    commit(changes: GridChange[], nextSelection?: Selection) {
+    /** Drops writes to cells `cellReadOnly` locks. Row and column locks are already skipped by the model. */
+    dropLockedCells(changes: GridChange[]) {
+      if (!cellReadOnly) {
+        return changes
+      }
+      const current = dataRef.current
+      const rowAt = new Map(current.rows.map((row, index) => [row.id, index]))
+      const colAt = new Map(
+        current.columns.map((column, index) => [column.id, index])
+      )
+      return changes.flatMap((change): GridChange[] => {
+        if (change.type !== "setCells") {
+          return [change]
+        }
+        const cells = change.cells.filter((cell) => {
+          const row = rowAt.get(cell.rowId)
+          const col = colAt.get(cell.colId)
+          return (
+            row === undefined ||
+            col === undefined ||
+            !isLocked(current, row, col)
+          )
+        })
+        return cells.length > 0 ? [{ ...change, cells }] : []
+      })
+    },
+
+    /** A user edit. `trusted` skips the per-cell locks, for `ref.edit` calls from your code. */
+    commit(
+      requested: GridChange[],
+      nextSelection?: Selection,
+      trusted = false
+    ) {
+      const changes = trusted ? requested : handlers.dropLockedCells(requested)
       if (changes.length === 0) {
         return
       }
@@ -697,18 +762,12 @@ export function DataGrid({
     },
 
     startEdit(initialText: string | null) {
-      if (readOnly) {
+      if (isLocked(data, active.row, active.col)) {
         return false
       }
       const column = data.columns[active.col]
       const type = column ? typeOf(column) : undefined
-      if (
-        !column ||
-        column.readOnly ||
-        !type ||
-        type.edit === false ||
-        type.toggle
-      ) {
+      if (!column || !type || type.edit === false || type.toggle) {
         return false
       }
       handlers.scrollIntoView(active)
@@ -1734,7 +1793,7 @@ export function DataGrid({
       getData: () => dataRef.current,
       applyChanges: (changes) => handlers.applyRemote(changes),
       reset: (next) => handlers.reset(next),
-      edit: (changes) => handlers.commit(changes),
+      edit: (changes) => handlers.commit(changes, undefined, true),
       undo: () => handlers.undo(),
       redo: () => handlers.redo(),
       select: (next) => handlers.selectRange(next),
@@ -1852,7 +1911,7 @@ export function DataGrid({
         handle={showHandle && row === handleRow && col === handleCol}
         editing={isEditing}
         initialText={isEditing ? editing.initialText : null}
-        readOnly={readOnly || Boolean(column.readOnly)}
+        readOnly={isLocked(data, row, col)}
         ruleStyle={ruleStyle}
         actions={actions}
       />

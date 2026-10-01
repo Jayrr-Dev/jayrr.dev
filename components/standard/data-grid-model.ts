@@ -27,6 +27,7 @@ export type GridColumn = {
   hidden?: boolean
   /** Key into the grid's cell types: text, number, checkbox, select, date, or your own. */
   type?: string
+  /** Locks every cell in the column, e.g. values fed from a database. */
   readOnly?: boolean
   /** Choices for `type: "select"`. */
   options?: GridSelectOption[]
@@ -45,6 +46,8 @@ export type GridRow = {
   label?: string
   height?: number
   hidden?: boolean
+  /** Locks every cell in the row, e.g. a record fed from a database. */
+  readOnly?: boolean
 }
 
 export type GridCells = Record<RowId, Record<ColId, CellValue>>
@@ -887,16 +890,17 @@ function writableColumn(data: GridData, col: number) {
   return column && !column.readOnly ? column : null
 }
 
-/** Writes values into cells, skipping read-only columns and unchanged values. */
+/** Writes values into cells, skipping read-only rows and columns and unchanged values. */
 export function setCellValues(
   data: GridData,
   entries: { row: number; col: number; value: CellValue }[]
 ): GridChange[] {
   const cells: CellUpdate[] = []
   for (const { row, col, value } of entries) {
-    const rowId = data.rows[row]?.id
+    const rowData = data.rows[row]
+    const rowId = rowData?.id
     const column = writableColumn(data, col)
-    if (!rowId || !column) {
+    if (!rowId || !column || rowData.readOnly) {
       continue
     }
     const current = data.cells[rowId]?.[column.id] ?? null
