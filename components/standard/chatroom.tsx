@@ -141,7 +141,7 @@ function ChatroomDayDivider({
 }) {
   if (variant === "terminal") {
     return (
-      <div className="py-1 text-neutral-500" suppressHydrationWarning>
+      <div className="py-1 text-muted-foreground" suppressHydrationWarning>
         --- Day changed {dayFormat.format(date)} ---
       </div>
     )
@@ -178,7 +178,7 @@ function ChatroomSystemLine({
 }) {
   if (variant === "terminal") {
     return (
-      <div className="flex gap-2 text-neutral-500">
+      <div className="flex gap-2 text-muted-foreground">
         <span className="shrink-0" suppressHydrationWarning>
           [{clockFormat.format(row.date)}]
         </span>
@@ -330,7 +330,7 @@ function ChatroomTerminalRow({ row }: { row: ChatroomRow }) {
       data-own={row.own || undefined}
       className="flex gap-2"
     >
-      <span className="shrink-0 text-neutral-500" suppressHydrationWarning>
+      <span className="shrink-0 text-muted-foreground" suppressHydrationWarning>
         [{clockFormat.format(row.date)}]
       </span>
       <span
@@ -364,7 +364,7 @@ function ChatroomTyping({
 
   if (variant === "terminal") {
     return (
-      <div className="animate-pulse text-neutral-500">
+      <div className="animate-pulse text-muted-foreground">
         * {who} typing…
       </div>
     )
@@ -408,9 +408,9 @@ function ChatroomHeader({
 
   if (variant === "terminal") {
     return (
-      <div className="flex items-center justify-between gap-3 border-b border-neutral-800 px-3 py-2 text-neutral-400">
+      <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2 text-muted-foreground">
         <span className="truncate">
-          <span className="font-semibold text-neutral-100">{title}</span>
+          <span className="font-semibold text-foreground">{title}</span>
           {description ? <> · {description}</> : null}
         </span>
         <span className="shrink-0">[{users.length} users]</span>
@@ -473,13 +473,13 @@ function ChatroomComposer({
   if (variant === "terminal") {
     return (
       <form
-        className="flex items-center gap-2 border-t border-neutral-800 px-3 py-2"
+        className="flex items-center gap-2 border-t border-border px-3 py-2"
         onSubmit={(event) => {
           event.preventDefault()
           send()
         }}
       >
-        <span className="shrink-0 text-neutral-500">[{nick ?? "you"}]</span>
+        <span className="shrink-0 text-muted-foreground">[{nick ?? "you"}]</span>
         <textarea
           rows={1}
           value={draft}
@@ -488,7 +488,7 @@ function ChatroomComposer({
           onKeyDown={onKeyDown}
           aria-label={placeholder}
           placeholder={placeholder}
-          className="max-h-24 min-w-0 flex-1 resize-none bg-transparent text-neutral-100 caret-emerald-400 outline-none field-sizing-content placeholder:text-neutral-600"
+          className="max-h-24 min-w-0 flex-1 resize-none bg-transparent text-foreground caret-success outline-none field-sizing-content placeholder:text-muted-foreground"
         />
       </form>
     )
@@ -658,7 +658,7 @@ function Chatroom({
       className={cn(
         "flex h-96 min-h-0 w-full flex-col overflow-hidden rounded-xl border",
         terminal
-          ? "border-neutral-800 bg-neutral-950 font-mono text-xs text-neutral-200"
+          ? "dark border-border bg-background font-mono text-xs text-foreground"
           : "border-border bg-background text-foreground",
         className
       )}
@@ -719,8 +719,7 @@ function Chatroom({
             onClick={() => scrollToEnd("smooth")}
             className={cn(
               "absolute bottom-3 left-1/2 -translate-x-1/2 shadow-md",
-              !unseen && "bg-background",
-              terminal && !unseen && "border-neutral-700 bg-neutral-900 text-neutral-200"
+              !unseen && "bg-background"
             )}
           >
             {unseen ? `${unseen} new` : "Latest"}
