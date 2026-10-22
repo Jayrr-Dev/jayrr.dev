@@ -49,6 +49,7 @@ import { RendersArrayDemo } from "./pieces/array"
 import { RendersPlanetaryDemo } from "./pieces/planetary"
 import { RendersWheelOfFortuneDemo } from "./pieces/wheel-of-fortune"
 import { RendersDiceDemo } from "./pieces/dice"
+import { RendersOrbitRingDemo } from "./pieces/orbit-ring"
 import { RendersCardCorridorDemo } from "./pieces/card-corridor"
 import { RendersBarDemo } from "./pieces/bar"
 import { RendersIncrementDemo } from "./pieces/increment"
@@ -214,6 +215,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Planetary: RendersPlanetaryDemo,
   "Wheel of Fortune": RendersWheelOfFortuneDemo,
   Dice: RendersDiceDemo,
+  "Orbit Ring": RendersOrbitRingDemo,
   "Card Corridor": RendersCardCorridorDemo,
   Bar: RendersBarDemo,
   Increment: RendersIncrementDemo,

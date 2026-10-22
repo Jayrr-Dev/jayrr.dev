@@ -356,6 +356,21 @@ const icons = {
       <path d="M28 7h8l-4 6Z" fill="currentColor" />
     </>
   ),
+  "Orbit Ring": (
+    <>
+      <circle cx="32" cy="32" r="22" />
+      <circle cx="32" cy="32" r="15" opacity=".45" />
+      <path
+        d="M17 32a15 15 0 0 1 4.4-10.6L16.4 16.4A22 22 0 0 0 10 32Z"
+        fill="currentColor"
+        fillOpacity=".25"
+        stroke="none"
+      />
+      <rect x="24" y="24" width="12" height="5" rx="2.5" />
+      <rect x="30" y="33" width="10" height="5" rx="2.5" opacity=".6" />
+      <circle cx="32" cy="32" r="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
   "Progress Ring": (
     <>
       <circle cx="32" cy="32" r="16" strokeWidth="5" opacity=".3" />

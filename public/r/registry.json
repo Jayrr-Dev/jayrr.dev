@@ -1599,6 +1599,22 @@
       "type": "registry:ui"
     },
     {
+      "name": "blob",
+      "title": "Blob",
+      "description": "Flat organic SVG blobs that wobble and change shape as they move, melting into one shape through a goo filter where they meet. Lava lamp motion (heat at the bottom, rise, cool, sink) or a free drift; optional merging that joins blobs for good and splits big ones apart; circle, capsule or rect vessels; heat or per-blob tints with ready-made palettes; a liquid fill and a pointer blob that stirs and fuses with the rest.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/blob.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/blob.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "block-editor",
       "title": "Block Editor",
       "description": "Notion-style document editor built on ProseKit: the Standard Toolbar (block type, history, text formats, list indent, insert table and divider), a / command menu, a format menu with a link field over selections, drag handles to reorder blocks, task and toggle lists, tables with row and column menus, code blocks, and Markdown shortcuts. onChange gives JSON, HTML and plain text.",
@@ -1962,6 +1978,22 @@
           "path": "components/standard/choice-label.tsx",
           "type": "registry:ui",
           "target": "components/standard/choice-label.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "circle-wave",
+      "title": "Circle Wave",
+      "description": "A waveform wrapped around a ring on canvas, seamless all the way round. Radial bars, stacked meter segments, layered echo lines or a solid fill, growing out, in or both ways. Bloom, interference, spectrum, voice, blob and pulse patterns, a custom wave(angle, t) or a controlled value; sweep, tip or level gradients with ready-made palettes; glow, spin, a hover bump and centered children.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/circle-wave.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/circle-wave.tsx"
         }
       ],
       "type": "registry:ui"
@@ -2381,6 +2413,19 @@
           "path": "components/standard/dice.tsx",
           "type": "registry:ui",
           "target": "components/standard/dice.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "orbit-ring",
+      "title": "Orbit Ring",
+      "description": "Drag-to-answer test maker. Words, statements or images float in a circle and repel each other; drag one onto a score on the rim to answer it. Any number of scores, low on the left and high on the right, with the neutral middle at the bottom. An outer ring of flags (Skip, Confusing, Typo by default, or your own, or none) takes direct drops only. Click a slice to open it and move words between scores or back to the pool. maxVisible=\"auto\" measures each item and floats as many as fit; wrapLabels lets whole sentences wrap. Countdown, per-slice counts, results lists, confetti, grain, custom colours and labels, a settings popover with volume, and synthesized sounds. One file, no dependencies beyond React.",
+      "files": [
+        {
+          "path": "components/standard/orbit-ring.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/orbit-ring.tsx"
         }
       ],
       "type": "registry:ui"
@@ -3947,6 +3992,22 @@
       "type": "registry:ui"
     },
     {
+      "name": "ring-wave",
+      "title": "Ring Wave",
+      "description": "Concentric rings of arcs on canvas, like a sci-fi readout. Each arc's sweep rises and falls and each ring turns at its own speed; rings mix solid, segmented and tick kinds at different thicknesses, picked by a seed or set with a layout. Grow, cascade, spectrum and orbit patterns or a controlled value; per-ring or sweep gradients with palettes, glow, faint tracks, an intro where arcs grow from a point, and centered children.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/ring-wave.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/ring-wave.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "screentone",
       "title": "Screentone",
       "description": "Manga halftone tone: dots, lines, crosshatch, diamonds, rings or noise that grow with a graded tone (top, bottom, center, edges, corner) or an organic one (clouds, folds, marble, streaks). Optional rough printed edges.",
@@ -4140,6 +4201,22 @@
           "path": "components/standard/sheet.tsx",
           "type": "registry:ui",
           "target": "components/standard/sheet.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "sine-wave",
+      "title": "Sine Wave",
+      "description": "An oscilloscope trace on canvas that drifts across the field and swells from a flat line on start. Sine, triangle, square or sawtooth shapes; amplitude, frequency, speed and phase; stacked echo lines with a phase spread; optional glow, graph-paper grid and dashed center axis.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/sine-wave.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/sine-wave.tsx"
         }
       ],
       "type": "registry:ui"
@@ -4754,6 +4831,22 @@
           "path": "components/standard/volume-button.tsx",
           "type": "registry:ui",
           "target": "components/standard/volume-button.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "waveform",
+      "title": "Waveform",
+      "description": "A canvas of bars packed edge to edge (or spaced with gap) whose lengths trace a moving wave, horizontal or vertical. Built-in sine, interference, ripple, packet, terrain, spectrum, voice, heartbeat and breathe patterns, a custom wave(x, t) function, or a controlled value. Bottom, top or mirrored center anchors; sunset, aurora, ocean, ember, candy and neon palettes or custom colors, with tip, span or level gradients and tip or edge fades; a hover bump.",
+      "dependencies": [
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/standard/waveform.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/waveform.tsx"
         }
       ],
       "type": "registry:ui"

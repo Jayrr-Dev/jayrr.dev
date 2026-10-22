@@ -41,8 +41,12 @@ const eslintConfig = defineConfig([
       // fill-none is valid Tailwind that the rule reads as an undeclared color.
       "shadcn/no-raw-colors": ["error", { allow: ["fill-none"] }],
       "shadcn/no-arbitrary-values": "warn",
-      // mood-text styles its own mood-* hooks in a <style> element.
-      "shadcn/no-unknown-classes": ["error", { allow: ["mood-*"] }],
+      // mood-text and orbit-ring style their own mood-* / orbit-* hooks in a
+      // <style> element.
+      "shadcn/no-unknown-classes": [
+        "error",
+        { allow: ["mood-*", "orbit-*"] },
+      ],
     },
   },
   // Syntax-highlight palettes are a fixed code color scheme, not theme colors.

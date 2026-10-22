@@ -2196,6 +2196,23 @@
     "mock_data_key": null
   },
   {
+    "name": "Orbit Ring",
+    "type": "interaction/input",
+    "canonical": "motion",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "orbit-ring",
+    "family_key": "rater",
+    "file_path": "components/standard/orbit-ring.tsx",
+    "import_path": "@/components/standard/orbit-ring",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Card Corridor",
     "type": "structure/layout",
     "canonical": "motion",

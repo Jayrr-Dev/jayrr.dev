@@ -1192,6 +1192,19 @@
       ]
     },
     {
+      "name": "orbit-ring",
+      "type": "registry:ui",
+      "title": "Orbit Ring",
+      "description": "Drag-to-answer test maker. Words, statements or images float in a circle and repel each other; drag one onto a score on the rim to answer it. Any number of scores, low on the left and high on the right, with the neutral middle at the bottom. An outer ring of flags (Skip, Confusing, Typo by default, or your own, or none) takes direct drops only. Click a slice to open it and move words between scores or back to the pool. maxVisible=\"auto\" measures each item and floats as many as fit; wrapLabels lets whole sentences wrap. Countdown, per-slice counts, results lists, confetti, grain, custom colours and labels, a settings popover with volume, and synthesized sounds. One file, no dependencies beyond React.",
+      "files": [
+        {
+          "path": "orbit-ring.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/orbit-ring.tsx"
+        }
+      ]
+    },
+    {
       "name": "digital-clock",
       "type": "registry:ui",
       "title": "Digital Clock",
