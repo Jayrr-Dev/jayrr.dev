@@ -94,8 +94,58 @@ const MIN_PATH = 24
 /** Room the marquee and hover outline keep around the target, in px. */
 const OUTLINE_PAD = 6
 
-/** The target's box on screen, or null when it isn't there or isn't rendered. */
-function resolvesTargetRect(target: TutorialTarget): DOMRect | null {
+/** Ancestors that clip their content (scroll areas, dialogs), found once per element. */
+const clippingAncestors = new WeakMap<Element, Element[]>()
+
+function findsClippingAncestors(element: Element) {
+  let found = clippingAncestors.get(element)
+  if (found) return found
+  found = []
+  for (
+    let node = element.parentElement;
+    node && node !== document.body && node !== document.documentElement;
+    node = node.parentElement
+  ) {
+    const style = getComputedStyle(node)
+    if (style.overflowX !== "visible" || style.overflowY !== "visible")
+      found.push(node)
+  }
+  clippingAncestors.set(element, found)
+  return found
+}
+
+/**
+ * The part of the viewport the element can be seen through: the overlap of
+ * every ancestor that clips it, or null when nothing does.
+ */
+function measuresClip(element: Element): DOMRect | null {
+  let left = -Infinity
+  let top = -Infinity
+  let right = Infinity
+  let bottom = Infinity
+  for (const ancestor of findsClippingAncestors(element)) {
+    const box = ancestor.getBoundingClientRect()
+    left = Math.max(left, box.left)
+    top = Math.max(top, box.top)
+    right = Math.min(right, box.right)
+    bottom = Math.min(bottom, box.bottom)
+  }
+  if (left === -Infinity && top === -Infinity) return null
+  return new DOMRect(
+    left,
+    top,
+    Math.max(0, right - left),
+    Math.max(0, bottom - top)
+  )
+}
+
+type ResolvedTarget = { rect: DOMRect; clip: DOMRect | null }
+
+/**
+ * The target's box on screen and the area it's visible through, or null when
+ * it isn't there or isn't rendered.
+ */
+function resolvesTarget(target: TutorialTarget): ResolvedTarget | null {
   if (!target) return null
   const value =
     typeof target === "function"
@@ -104,13 +154,34 @@ function resolvesTargetRect(target: TutorialTarget): DOMRect | null {
         ? target.current
         : target
   if (!value) return null
-  if (value instanceof DOMRect) return value
+  if (value instanceof DOMRect) return { rect: value, clip: null }
   if (value instanceof Element) {
     const rect = value.getBoundingClientRect()
     // Hidden elements report an empty box at the top-left corner
-    return rect.width === 0 && rect.height === 0 ? null : rect
+    if (rect.width === 0 && rect.height === 0) return null
+    return { rect, clip: measuresClip(value) }
   }
-  return new DOMRect(value.x, value.y, 0, 0)
+  return { rect: new DOMRect(value.x, value.y, 0, 0), clip: null }
+}
+
+/** Both clips together; null (unclipped) wins, since one end of a drag is fully visible. */
+function joinsClips(a: DOMRect | null, b: DOMRect | null) {
+  if (!a || !b) return null
+  const left = Math.min(a.left, b.left)
+  const top = Math.min(a.top, b.top)
+  return new DOMRect(
+    left,
+    top,
+    Math.max(a.right, b.right) - left,
+    Math.max(a.bottom, b.bottom) - top
+  )
+}
+
+/** A clip-path keeping the guide inside `clip`, so it stays in the scroll area or dialog its target is in. */
+function buildsClipPath(clip: DOMRect | null) {
+  return clip
+    ? `inset(${clip.top.toFixed(1)}px ${(window.innerWidth - clip.right).toFixed(1)}px ${(window.innerHeight - clip.bottom).toFixed(1)}px ${clip.left.toFixed(1)}px)`
+    : ""
 }
 
 const middleOf = (rect: DOMRect): TutorialPoint => ({
@@ -633,6 +704,7 @@ function TutorialActions({
   hidden = false,
   className,
 }: TutorialActionsProps) {
+  const svgRef = React.useRef<SVGSVGElement>(null)
   const pointRef = React.useRef<SVGGElement>(null)
   const outlineRef = React.useRef<SVGRectElement>(null)
   const tooltipRef = React.useRef<SVGGElement>(null)
@@ -694,17 +766,28 @@ function TutorialActions({
       const display = on ? "" : "none"
       if (node.style.display !== display) node.style.display = display
     }
+    let clipPath = ""
+    const clips = (svg: SVGSVGElement, clip: DOMRect | null) => {
+      const value = buildsClipPath(clip)
+      if (value !== clipPath) {
+        clipPath = value
+        svg.style.clipPath = value
+      }
+    }
     const draw = (now: number) => {
       const { gesture, target, from, to, at, curl, cycle, land, hand } =
         latest.current
+      const svg = svgRef.current
       const point = pointRef.current
       const drag = dragRef.current
       const glider = gliderRef.current
       const carrier = carrierRef.current
-      if (!point || !drag || !glider || !carrier) return
+      if (!svg || !point || !drag || !glider || !carrier) return
 
-      const rect = gesture === "drag" ? null : resolvesTargetRect(target)
+      const resolved = gesture === "drag" ? null : resolvesTarget(target)
+      const rect = resolved?.rect
       shows(point, Boolean(rect))
+      if (resolved) clips(svg, resolved.clip)
       if (rect) {
         const outline = outlineRef.current
         const w = (rect.width + OUTLINE_PAD * 2).toFixed(1)
@@ -744,9 +827,13 @@ function TutorialActions({
         }
       }
 
-      const fromRect = gesture === "drag" ? resolvesTargetRect(from) : null
-      const toRect = gesture === "drag" ? resolvesTargetRect(to) : null
+      const fromResolved = gesture === "drag" ? resolvesTarget(from) : null
+      const toResolved = gesture === "drag" ? resolvesTarget(to) : null
+      const fromRect = fromResolved?.rect
+      const toRect = toResolved?.rect
       let arrow: ReturnType<typeof buildsCurlyArrow> | null = null
+      if (fromResolved && toResolved)
+        clips(svg, joinsClips(fromResolved.clip, toResolved.clip))
       if (fromRect && toRect) {
         const end =
           land === "edge"
@@ -1060,6 +1147,7 @@ function TutorialActions({
         {guideStyles}
       </style>
       <svg
+        ref={svgRef}
         aria-hidden="true"
         data-slot="tutorial-actions"
         data-gesture={gesture}
