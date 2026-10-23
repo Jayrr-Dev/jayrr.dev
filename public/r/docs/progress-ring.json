@@ -1,0 +1,72 @@
+{
+  "name": "progress-ring",
+  "components": [
+    {
+      "name": "ProgressRing",
+      "description": "A circular Progress. `children` sit in the center of the ring; `above` and `below` stack outside it. Leave `value` undefined for a spinning, indeterminate ring.\n\nRecolor the arc with `--progress-ring-color`: <ProgressRing value={70} className=\"[--progress-ring-color:var(--color-emerald-500)]\" />\n\n<ProgressRing value={64} above=\"Storage\" below=\"64 of 100 GB\">64%</ProgressRing>\n\nPass `segments` for a ring of ticks that light up whole: <ProgressRing value={80} segments={10}>80</ProgressRing>",
+      "props": [
+        {
+          "name": "value",
+          "type": "number"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": "100"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "default": "80",
+          "description": "Ring diameter in px."
+        },
+        {
+          "name": "thickness",
+          "type": "number",
+          "default": "8",
+          "description": "Stroke width in px."
+        },
+        {
+          "name": "segments",
+          "type": "number",
+          "description": "Splits the ring into this many ticks; each lights up whole."
+        },
+        {
+          "name": "segmentGap",
+          "type": "number",
+          "default": "4",
+          "description": "Space between ticks in px, measured along the ring."
+        },
+        {
+          "name": "above",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "below",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Progress Ring",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Button } from \"@/components/ui/button\"",
+        "import { ProgressRing } from \"@/components/ui/progress-ring\"",
+        "import { CheckIcon } from \"lucide-react\"",
+        "import { useState } from \"react\""
+      ],
+      "setup": "function ProgressRingLiveDemo() {\n  const [value, setValue] = useState(20)\n\n  return (\n    <div className=\"flex items-center gap-4\">\n      <ProgressRing value={value} aria-label=\"Live progress\">\n        {value}%\n      </ProgressRing>\n      <div className=\"flex flex-col gap-2\">\n        <Button\n          size=\"sm\"\n          variant=\"outline\"\n          onClick={() => setValue((v) => Math.min(v + 20, 100))}\n        >\n          +20\n        </Button>\n        <Button size=\"sm\" variant=\"ghost\" onClick={() => setValue(0)}>\n          Reset\n        </Button>\n      </div>\n    </div>\n  )\n}\n\nfunction ProgressRingHealthDemo({ segments }: { segments?: number }) {\n  const [hp, setHp] = useState(100)\n  const color =\n    hp > 50\n      ? \"[--progress-ring-color:var(--color-success)]\"\n      : hp > 25\n        ? \"[--progress-ring-color:var(--color-warning)]\"\n        : \"[--progress-ring-color:var(--color-destructive)]\"\n\n  return (\n    <div className=\"flex items-center gap-4\">\n      <ProgressRing\n        value={hp}\n        aria-label=\"Health\"\n        below=\"HP\"\n        segments={segments}\n        className={color}\n      >\n        {hp}\n      </ProgressRing>\n      <div className=\"flex flex-col gap-2\">\n        <Button\n          size=\"sm\"\n          variant=\"outline\"\n          onClick={() => setHp((v) => Math.max(v - 20, 0))}\n        >\n          Hit\n        </Button>\n        <Button\n          size=\"sm\"\n          variant=\"ghost\"\n          onClick={() => setHp((v) => Math.min(v + 20, 100))}\n        >\n          Heal\n        </Button>\n      </div>\n    </div>\n  )\n}",
+      "code": "<>\n  <RendersDemoCard label=\"center value\">\n    <ProgressRing value={64} aria-label=\"Upload\">\n      64%\n    </ProgressRing>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"above + below\">\n    <ProgressRing\n      value={42}\n      above=\"Storage\"\n      below=\"42 of 100 GB\"\n      aria-label=\"Storage used\"\n    >\n      42%\n    </ProgressRing>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"stacked center\">\n    <ProgressRing value={7} max={10} size={104} aria-label=\"Tasks done\">\n      <span className=\"text-xl font-semibold\">7/10</span>\n      <span className=\"text-xs font-normal text-muted-foreground\">\n        tasks\n      </span>\n    </ProgressRing>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"sizes + thickness\">\n    <div className=\"flex items-end gap-4\">\n      <ProgressRing value={30} size={32} thickness={4} />\n      <ProgressRing value={60} size={48} thickness={5} />\n      <ProgressRing value={90} size={64} thickness={10} />\n    </div>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"color\">\n    <div className=\"flex items-center gap-4\">\n      <ProgressRing\n        value={100}\n        size={56}\n        className=\"[--progress-ring-color:var(--color-success)]\"\n      >\n        <CheckIcon className=\"size-5 text-success\" />\n      </ProgressRing>\n      <ProgressRing\n        value={80}\n        size={56}\n        className=\"[--progress-ring-color:var(--color-warning)]\"\n      >\n        80\n      </ProgressRing>\n      <ProgressRing\n        value={95}\n        size={56}\n        className=\"[--progress-ring-color:var(--color-destructive)]\"\n      >\n        95\n      </ProgressRing>\n    </div>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"indeterminate\">\n    <ProgressRing size={48} thickness={5} below=\"Syncing\" />\n  </RendersDemoCard>\n  <RendersDemoCard label=\"live\">\n    <ProgressRingLiveDemo />\n  </RendersDemoCard>\n  <RendersDemoCard label=\"health\">\n    <ProgressRingHealthDemo />\n  </RendersDemoCard>\n  <RendersDemoCard label=\"health · segments\">\n    <ProgressRingHealthDemo segments={5} />\n  </RendersDemoCard>\n  <RendersDemoCard label=\"segments\">\n    <div className=\"flex items-center gap-4\">\n      <ProgressRing value={3} max={4} segments={4} size={56} segmentGap={6}>\n        3/4\n      </ProgressRing>\n      <ProgressRing value={60} segments={12} size={56} thickness={6}>\n        60\n      </ProgressRing>\n      <ProgressRing\n        value={70}\n        segments={24}\n        size={56}\n        thickness={10}\n        segmentGap={2}\n      >\n        70\n      </ProgressRing>\n    </div>\n  </RendersDemoCard>\n</>"
+    }
+  ]
+}

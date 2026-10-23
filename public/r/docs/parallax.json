@@ -1,0 +1,67 @@
+{
+  "name": "parallax",
+  "components": [
+    {
+      "name": "Parallax",
+      "props": [
+        {
+          "name": "layers",
+          "type": "ParallaxLayerEntry[]"
+        },
+        {
+          "name": "trigger",
+          "type": "ParallaxTrigger",
+          "default": "\"scroll\""
+        },
+        {
+          "name": "axis",
+          "type": "ParallaxAxis",
+          "default": "\"y\"",
+          "description": "Scroll axis to follow; pointer parallax moves on both."
+        },
+        {
+          "name": "range",
+          "type": "number",
+          "default": "120",
+          "description": "Travel (px) of a layer with `speed={1}`."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ParallaxLayer",
+      "props": [
+        {
+          "name": "speed",
+          "type": "number",
+          "default": "0",
+          "description": "Share of the frame's `range` this layer travels."
+        },
+        {
+          "name": "fill",
+          "type": "boolean",
+          "default": "false",
+          "description": "Covers the frame as an oversized background."
+        },
+        {
+          "name": "scale",
+          "type": "number",
+          "default": "0",
+          "description": "Extra scale at full progress, e.g. `0.2` zooms to 1.2×."
+        },
+        {
+          "name": "fade",
+          "type": "boolean",
+          "default": "false",
+          "description": "Fades the layer out as it moves away from center."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

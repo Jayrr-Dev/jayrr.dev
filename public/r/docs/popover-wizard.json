@@ -1,0 +1,165 @@
+{
+  "name": "popover-wizard",
+  "components": [
+    {
+      "name": "PopoverWizard",
+      "description": "Small multi-step panel anchored to its trigger. Use it for tours, quick setup and short forms that should not cover the page like a dialog.",
+      "props": [
+        {
+          "name": "steps",
+          "type": "PopoverWizardStep[]",
+          "required": true
+        },
+        {
+          "name": "trigger",
+          "type": "React.ReactNode",
+          "default": "\"Start\"",
+          "description": "The anchor. A string becomes an outline button."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Header title for steps that have none."
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "description": "Controlled step index."
+        },
+        {
+          "name": "onStepChange",
+          "type": "((step: number) => void)"
+        },
+        {
+          "name": "onBeforeNext",
+          "type": "((stepIndex: number) => void | boolean | Promise<void | boolean>)",
+          "description": "Runs before each advance. Return false to stay put."
+        },
+        {
+          "name": "onComplete",
+          "type": "(() => void)",
+          "description": "Runs when Next is pressed on the last step. The popover then closes."
+        },
+        {
+          "name": "nextLabel",
+          "type": "string | (string | undefined)[] | ((stepIndex: number) => string)",
+          "description": "One string, one per step as an array, or a function of the step index."
+        },
+        {
+          "name": "backLabel",
+          "type": "string",
+          "default": "\"Back\""
+        },
+        {
+          "name": "completeLabel",
+          "type": "string",
+          "default": "\"Got it\""
+        },
+        {
+          "name": "dots",
+          "type": "boolean",
+          "default": "true",
+          "description": "Step dots in the header."
+        },
+        {
+          "name": "jumpFromDots",
+          "type": "boolean",
+          "default": "false",
+          "description": "Lets a click on a dot jump to that step."
+        },
+        {
+          "name": "showCount",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows \"2 / 4\" between Back and Next."
+        },
+        {
+          "name": "headerTrailing",
+          "type": "React.ReactNode",
+          "description": "Sits at the end of the header row, before the close button."
+        },
+        {
+          "name": "width",
+          "type": "\"sm\" | \"lg\" | \"md\" | \"xl\" | \"trigger\"",
+          "default": "\"md\""
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"bottom\" | \"right\" | \"left\"",
+          "default": "\"bottom\""
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\"",
+          "default": "\"start\""
+        },
+        {
+          "name": "sideOffset",
+          "type": "number",
+          "default": "8"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Swaps the step body for a spinner."
+        },
+        {
+          "name": "renderFooter",
+          "type": "((props: PopoverWizardFooterProps) => React.ReactNode)"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Popover wizard · count · custom labels",
+      "imports": [
+        "import { PopoverWizard } from \"@/components/standard/popover-wizard\""
+      ],
+      "setup": "const TOUR_STEPS = [\n  {\n    id: \"search\",\n    title: \"Search\",\n    subtitle: \"Find any piece by name.\",\n    content: \"Type in the box at the top. Results filter as you type.\",\n  },\n  {\n    id: \"open\",\n    title: \"Open a piece\",\n    subtitle: \"Every card opens its demos.\",\n    content: \"Click a card to see each variant side by side.\",\n  },\n  {\n    id: \"copy\",\n    title: \"Copy it\",\n    subtitle: \"Install from the registry.\",\n    content: \"Each piece has a shadcn add command you can paste.\",\n  },\n]",
+      "code": "<PopoverWizard\n  trigger=\"Walkthrough\"\n  steps={TOUR_STEPS}\n  dots={false}\n  showCount\n  nextLabel={[\"Next\", \"Next\", \"Finish\"]}\n/>"
+    },
+    {
+      "title": "Popover wizard · side right",
+      "imports": [
+        "import { PopoverWizard } from \"@/components/standard/popover-wizard\""
+      ],
+      "setup": "const TOUR_STEPS = [\n  {\n    id: \"search\",\n    title: \"Search\",\n    subtitle: \"Find any piece by name.\",\n    content: \"Type in the box at the top. Results filter as you type.\",\n  },\n  {\n    id: \"open\",\n    title: \"Open a piece\",\n    subtitle: \"Every card opens its demos.\",\n    content: \"Click a card to see each variant side by side.\",\n  },\n  {\n    id: \"copy\",\n    title: \"Copy it\",\n    subtitle: \"Install from the registry.\",\n    content: \"Each piece has a shadcn add command you can paste.\",\n  },\n]",
+      "code": "<PopoverWizard\n  trigger=\"Open to the side\"\n  steps={TOUR_STEPS}\n  side=\"right\"\n  align=\"center\"\n  width=\"sm\"\n/>"
+    },
+    {
+      "title": "Popover wizard · jump from dots",
+      "imports": [
+        "import { PopoverWizard } from \"@/components/standard/popover-wizard\""
+      ],
+      "setup": "const TOUR_STEPS = [\n  {\n    id: \"search\",\n    title: \"Search\",\n    subtitle: \"Find any piece by name.\",\n    content: \"Type in the box at the top. Results filter as you type.\",\n  },\n  {\n    id: \"open\",\n    title: \"Open a piece\",\n    subtitle: \"Every card opens its demos.\",\n    content: \"Click a card to see each variant side by side.\",\n  },\n  {\n    id: \"copy\",\n    title: \"Copy it\",\n    subtitle: \"Install from the registry.\",\n    content: \"Each piece has a shadcn add command you can paste.\",\n  },\n]",
+      "code": "<PopoverWizard\n  trigger=\"Quick setup\"\n  steps={TOUR_STEPS}\n  jumpFromDots\n  width=\"sm\"\n/>"
+    },
+    {
+      "title": "Popover wizard · tour",
+      "imports": [
+        "import { PopoverWizard } from \"@/components/standard/popover-wizard\""
+      ],
+      "setup": "const TOUR_STEPS = [\n  {\n    id: \"search\",\n    title: \"Search\",\n    subtitle: \"Find any piece by name.\",\n    content: \"Type in the box at the top. Results filter as you type.\",\n  },\n  {\n    id: \"open\",\n    title: \"Open a piece\",\n    subtitle: \"Every card opens its demos.\",\n    content: \"Click a card to see each variant side by side.\",\n  },\n  {\n    id: \"copy\",\n    title: \"Copy it\",\n    subtitle: \"Install from the registry.\",\n    content: \"Each piece has a shadcn add command you can paste.\",\n  },\n]",
+      "code": "<PopoverWizard trigger=\"Take the tour\" steps={TOUR_STEPS} />"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "name": "reveal",
+  "components": [
+    {
+      "name": "Reveal",
+      "props": [
+        {
+          "name": "once",
+          "type": "boolean",
+          "description": "Keep the content shown after its first reveal. Default true."
+        },
+        {
+          "name": "threshold",
+          "type": "number",
+          "description": "Share of the element that must be visible, 0 to 1. Default 0.2."
+        },
+        {
+          "name": "rootMargin",
+          "type": "string",
+          "description": "Grows or shrinks the view, e.g. `\"0px 0px -10% 0px\"` to wait a little longer."
+        },
+        {
+          "name": "enter",
+          "type": "\"pop\" | \"fade\" | \"rise\" | \"drop\" | \"slide-start\" | \"slide-end\" | \"zoom\" | \"spin\" | \"blur\"",
+          "default": "\"rise\"",
+          "description": "How the content arrives. Default `rise`."
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "default": "0",
+          "description": "ms before it starts."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "700",
+          "description": "ms. Default 700."
+        },
+        {
+          "name": "distance",
+          "type": "number",
+          "default": "24",
+          "description": "px that `rise`, `drop` and the slides travel. Default 24."
+        },
+        {
+          "name": "stagger",
+          "type": "number",
+          "description": "ms between direct children; each child animates on its own."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

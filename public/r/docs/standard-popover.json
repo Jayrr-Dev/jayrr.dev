@@ -1,0 +1,95 @@
+{
+  "name": "standard-popover",
+  "components": [
+    {
+      "name": "Popover",
+      "props": [],
+      "inherits": [
+        "PopoverProps"
+      ]
+    },
+    {
+      "name": "PopoverAnchor",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PopperAnchorProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "PopoverContent",
+      "props": [
+        {
+          "name": "variant",
+          "type": "(\"tooltip\" | \"default\" | \"arrow\")",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "DismissableLayerProps",
+        "HTMLAttributes",
+        "PopoverContentImplProps",
+        "PopoverContentProps",
+        "PopperContentProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "PopoverDescription",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "PopoverHeader",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "PopoverTitle",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "PopoverTrigger",
+      "props": [],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "variant arrow",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from \"@/components/standard/popover\""
+      ],
+      "code": "<Popover>\n  <PopoverTrigger asChild>\n    <Button tone=\"outline\" size=\"sm\">\n      With arrow\n    </Button>\n  </PopoverTrigger>\n  <PopoverContent variant=\"arrow\" className=\"w-56\">\n    <PopoverHeader>\n      <PopoverTitle>Arrow</PopoverTitle>\n      <PopoverDescription>\n        A caret points at the trigger.\n      </PopoverDescription>\n    </PopoverHeader>\n  </PopoverContent>\n</Popover>"
+    },
+    {
+      "title": "variant tooltip",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Popover, PopoverContent, PopoverTrigger } from \"@/components/standard/popover\""
+      ],
+      "code": "<Popover>\n  <PopoverTrigger asChild>\n    <Button tone=\"outline\" size=\"sm\">\n      Callout\n    </Button>\n  </PopoverTrigger>\n  <PopoverContent variant=\"tooltip\">\n    Drawn like a tooltip, opened by click.\n  </PopoverContent>\n</Popover>"
+    },
+    {
+      "title": "Popover",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Popover, PopoverContent, PopoverTrigger } from \"@/components/standard/popover\""
+      ],
+      "code": "<Popover>\n  <PopoverTrigger asChild>\n    <Button tone=\"outline\" size=\"sm\">\n      Open popover\n    </Button>\n  </PopoverTrigger>\n  <PopoverContent className=\"w-48\">\n    <p className=\"text-xs font-medium\">Column</p>\n    <p className=\"text-xs text-muted-foreground\">\n      Click opens this panel. It is not a hover tip.\n    </p>\n  </PopoverContent>\n</Popover>"
+    }
+  ]
+}

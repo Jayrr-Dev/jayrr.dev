@@ -1,0 +1,103 @@
+{
+  "name": "standard-dialog",
+  "components": [
+    {
+      "name": "Dialog",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "titleAddon",
+          "type": "React.ReactNode",
+          "description": "Sits right after the title, e.g. a help icon. Not part of its accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "trigger",
+          "type": "React.ReactNode",
+          "default": "\"Open\"",
+          "description": "Pass `null` for a controlled dialog opened from elsewhere."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "controls",
+          "type": "DialogControl[]",
+          "default": "[]"
+        },
+        {
+          "name": "defaultMaximized",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "controlsPlacement",
+          "type": "DialogControlsPlacement",
+          "default": "\"inline\""
+        },
+        {
+          "name": "size",
+          "type": "DialogSize",
+          "default": "\"md\"",
+          "description": "Width of the card. `full` fills the viewport less a margin."
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "default": "true",
+          "description": "`false` leaves the page behind interactive: no overlay, no focus trap, and clicking outside keeps the dialog open."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Dialog · gutter controls",
+      "imports": [
+        "import { Dialog } from \"@/components/standard/dialog\""
+      ],
+      "code": "<Dialog\n  title=\"Share this piece\"\n  description=\"Controls sit in the corner gutter, clear of the title.\"\n  trigger=\"Open dialog\"\n  controls={[\"minimize\", \"maximize\", \"close\"]}\n  controlsPlacement=\"gutter\"\n/>"
+    },
+    {
+      "title": "size sm",
+      "imports": [
+        "import { Dialog } from \"@/components/standard/dialog\""
+      ],
+      "code": "<Dialog\n  size=\"sm\"\n  title=\"Small dialog\"\n  description=\"20rem wide.\"\n  trigger=\"Open sm\"\n/>"
+    },
+    {
+      "title": "modal={false}",
+      "imports": [
+        "import { Dialog } from \"@/components/standard/dialog\""
+      ],
+      "code": "<Dialog\n  modal={false}\n  title=\"Non-modal dialog\"\n  description=\"No overlay. The page behind stays scrollable and clickable.\"\n  trigger=\"Open non-modal\"\n  controls={[\"minimize\", \"maximize\", \"close\"]}\n/>"
+    },
+    {
+      "title": "size xl",
+      "imports": [
+        "import { Dialog } from \"@/components/standard/dialog\""
+      ],
+      "code": "<Dialog\n  size=\"xl\"\n  title=\"Extra large dialog\"\n  description=\"42rem wide.\"\n  trigger=\"Open xl\"\n/>"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "stack",
+  "components": [
+    {
+      "name": "Stack",
+      "props": [
+        {
+          "name": "direction",
+          "type": "\"row\" | \"column\"",
+          "default": "\"column\""
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\" | \"stretch\" | \"baseline\""
+        },
+        {
+          "name": "gap",
+          "type": "\"none\" | \"default\" | \"xs\" | \"sm\" | \"lg\" | \"md\" | \"xl\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "justify",
+          "type": "\"center\" | \"start\" | \"end\" | \"between\" | \"around\" | \"evenly\""
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "divider",
+          "type": "boolean",
+          "default": "false",
+          "description": "Draws a Divider between each child, across the stack direction."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "stack",
+      "imports": [
+        "import { CardBar } from \"@/components/standard/card-bar\"",
+        "import { Stack } from \"@/components/standard/stack\""
+      ],
+      "code": "<Stack className=\"w-full\">\n  <CardBar title=\"Jobs\" description=\"Open work\" />\n  <CardBar title=\"Crew\" description=\"Who is on site\" />\n</Stack>"
+    },
+    {
+      "title": "shape",
+      "imports": [
+        "import { Skeleton } from \"@/components/standard/skeleton\"",
+        "import { Stack } from \"@/components/standard/stack\""
+      ],
+      "code": "<Stack direction=\"row\" align=\"center\" gap=\"lg\" className=\"w-full\">\n  <Skeleton shape=\"circle\" />\n  <Skeleton shape=\"text\" className=\"w-24\" />\n  <Skeleton shape=\"rect\" className=\"h-12 w-24\" />\n</Stack>"
+    }
+  ]
+}

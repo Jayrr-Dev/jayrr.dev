@@ -1,0 +1,169 @@
+{
+  "name": "arrangeable-grid",
+  "components": [
+    {
+      "name": "ArrangeableGrid",
+      "description": "A fixed grid of slots, like an inventory: drag an item onto an empty slot to move it, onto a full one to swap (or stack, with `merge`). Link grids, drop targets and sources in an `ArrangeableGridRoot` to drag between them. Keyboard: arrows move focus, Enter or Space picks up and drops, Escape cancels, Delete removes when `removable`.",
+      "props": [
+        {
+          "name": "columns",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "type": "number"
+        },
+        {
+          "name": "value",
+          "type": "ArrangeableSlots<T>",
+          "description": "Slots in reading order. Shorter arrays are padded with empty slots."
+        },
+        {
+          "name": "defaultValue",
+          "type": "ArrangeableSlots<T>"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((slots: ArrangeableSlots<T>) => void)"
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: T, state: ArrangeableGridItemState) => React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "getId",
+          "type": "((item: T) => string)",
+          "description": "Stable key for an item, so its rendered state follows it between slots."
+        },
+        {
+          "name": "getItemLabel",
+          "type": "((item: T) => string)",
+          "description": "Screen reader name for an item. Defaults to \"item\"."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Screen reader name for the grid, e.g. \"Backpack\". Also names linked grids apart."
+        },
+        {
+          "name": "gridId",
+          "type": "string",
+          "description": "Needed to tell linked grids apart inside one `ArrangeableGridRoot`."
+        },
+        {
+          "name": "accept",
+          "type": "((item: T, index: number, from: ArrangeableGridLocation | null) => boolean)",
+          "description": "Whether `index` takes `item`. `from` is where it comes from, or null when it comes from an `ArrangeableGridSource`. Swaps check both sides."
+        },
+        {
+          "name": "merge",
+          "type": "((target: T, incoming: T) => T | null)",
+          "description": "Called when an item lands on an occupied slot. Return the combined item to stack them, e.g. adding counts; return null to swap instead."
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "description": "Dropping an item outside every grid and target, or pressing Delete on it, removes it."
+        },
+        {
+          "name": "onItemRemove",
+          "type": "((item: T, index: number) => void)",
+          "description": "Called when an item leaves this grid by removal or onto a target."
+        },
+        {
+          "name": "onDropData",
+          "type": "((data: DataTransfer, index: number) => T | T[] | null)",
+          "description": "Takes files or text dragged in from outside the page. Return the new item(s) to place from the slot they were dropped on, or null to refuse."
+        },
+        {
+          "name": "slotSize",
+          "type": "ArrangeableGridSlotSize"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "slotClassName",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ArrangeableGridRoot",
+      "description": "Links several `ArrangeableGrid`s, `ArrangeableGridTarget`s and `ArrangeableGridSource`s so items can be dragged between them. A grid used on its own makes its own root.",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "ArrangeableGridSource",
+      "description": "A palette entry that drags new items into any linked grid.",
+      "props": [
+        {
+          "name": "create",
+          "type": "() => T",
+          "required": true,
+          "description": "Makes a fresh item each time one is dragged out, e.g. with a new id."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Screen reader name, e.g. \"Add sword\". Enter adds one to the first open slot."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ArrangeableGridTarget",
+      "description": "A place to drop items that isn't a slot, such as a trash or sell button.",
+      "props": [
+        {
+          "name": "onItemDrop",
+          "type": "((item: T, from: ArrangeableGridLocation | null) => void)",
+          "description": "Called with the item dropped here and where it came from."
+        },
+        {
+          "name": "remove",
+          "type": "boolean",
+          "default": "true",
+          "description": "Takes the item out of its grid on drop. On by default, for trash-style targets."
+        },
+        {
+          "name": "accept",
+          "type": "((item: T, from: ArrangeableGridLocation | null) => boolean)"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode | ((state: ArrangeableGridTargetState) => React.ReactNode)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

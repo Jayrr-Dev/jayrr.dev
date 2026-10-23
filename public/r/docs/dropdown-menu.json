@@ -1,0 +1,178 @@
+{
+  "name": "dropdown-menu",
+  "components": [
+    {
+      "name": "DropdownMenu",
+      "props": [],
+      "inherits": [
+        "DropdownMenuProps"
+      ]
+    },
+    {
+      "name": "DropdownMenuPortal",
+      "props": [],
+      "inherits": [
+        "MenuPortalProps"
+      ]
+    },
+    {
+      "name": "DropdownMenuTrigger",
+      "props": [],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuContentImplProps",
+        "MenuContentProps",
+        "PopperContentProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuGroup",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuLabel",
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuItem",
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean"
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"destructive\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuItemImplProps",
+        "MenuItemProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuCheckboxItem",
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuCheckboxItemProps",
+        "MenuItemImplProps",
+        "MenuItemProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuRadioGroup",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuRadioGroupProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuRadioItem",
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuItemImplProps",
+        "MenuItemProps",
+        "MenuRadioItemProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuSeparator",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuShortcut",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "DropdownMenuSub",
+      "props": [],
+      "inherits": [
+        "DropdownMenuSubProps"
+      ]
+    },
+    {
+      "name": "DropdownMenuSubTrigger",
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuItemImplProps",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "DropdownMenuSubContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "MenuContentImplProps",
+        "MenuSubContentProps",
+        "PopperContentProps",
+        "PrimitivePropsWithRef"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Dropdown Menu",
+      "imports": [
+        "import { Button } from \"@/components/ui/button\"",
+        "import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from \"@/components/ui/dropdown-menu\""
+      ],
+      "code": "<DropdownMenu>\n  <DropdownMenuTrigger asChild>\n    <Button variant=\"outline\">Open menu</Button>\n  </DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuItem>Classic</DropdownMenuItem>\n    <DropdownMenuItem>Standard</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+    }
+  ]
+}

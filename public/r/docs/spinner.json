@@ -1,0 +1,27 @@
+{
+  "name": "spinner",
+  "components": [
+    {
+      "name": "Spinner",
+      "props": [
+        {
+          "name": "variant",
+          "type": "SpinnerVariant",
+          "default": "\"ring\""
+        }
+      ],
+      "inherits": [
+        "SVGAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Spinner",
+      "imports": [
+        "import { Spinner } from \"@/components/ui/spinner\""
+      ],
+      "code": "<div className=\"grid w-full grid-cols-4 gap-3\">\n  {(\n    [\n      \"ring\",\n      \"orbit\",\n      \"dots\",\n      \"bars\",\n      \"pulse\",\n      \"burst\",\n      \"grid\",\n      \"triangle\",\n    ] as const\n  ).map((variant) => (\n    <div key={variant} className=\"flex flex-col items-center gap-2\">\n      <Spinner variant={variant} className=\"size-6\" />\n      <span className=\"text-xs text-muted-foreground capitalize\">\n        {variant}\n      </span>\n    </div>\n  ))}\n</div>"
+    }
+  ]
+}

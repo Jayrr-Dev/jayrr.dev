@@ -1,0 +1,42 @@
+{
+  "name": "badge",
+  "components": [
+    {
+      "name": "Badge",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"link\" | \"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Badge",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Badge } from \"@/components/ui/badge\""
+      ],
+      "code": "<>\n  <RendersDemoCard>\n    <Badge>Default</Badge>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Badge variant=\"secondary\">Secondary</Badge>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Badge variant=\"outline\">Outline</Badge>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Badge variant=\"destructive\">Destructive</Badge>\n  </RendersDemoCard>\n</>"
+    },
+    {
+      "title": "Badge",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Badge } from \"@/components/ui/badge\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"variant ghost\">\n    <Badge variant=\"ghost\">Ghost</Badge>\n  </TypeCard>\n  <TypeCard label=\"variant link\">\n    <Badge variant=\"link\">Link</Badge>\n  </TypeCard>\n</>"
+    }
+  ]
+}

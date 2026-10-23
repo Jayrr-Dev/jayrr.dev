@@ -1,0 +1,58 @@
+{
+  "name": "gradient",
+  "components": [
+    {
+      "name": "Gradient",
+      "description": "Color transition layer: linear, radial, conic, mesh or a preset.",
+      "props": [
+        {
+          "name": "placement",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerPlacement"
+        },
+        {
+          "name": "blend",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerBlend"
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "description": "0–1."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "preset",
+          "type": "\"primary\" | \"fade\" | \"ocean\" | \"aurora\" | \"scrim\" | \"sunset\" | \"spotlight\" | \"vignette\" | \"peach\" | \"midnight\" | \"parchment\"",
+          "description": "A ready-made look. Overrides kind and colors."
+        },
+        {
+          "name": "kind",
+          "type": "\"linear\" | \"mesh\" | \"radial\" | \"conic\"",
+          "default": "\"linear\""
+        },
+        {
+          "name": "colors",
+          "type": "string[]",
+          "description": "Any CSS colors, including theme vars like `var(--primary)`."
+        },
+        {
+          "name": "angle",
+          "type": "number",
+          "description": "Degrees, for linear and conic."
+        },
+        {
+          "name": "at",
+          "type": "string",
+          "description": "Center for radial and conic, e.g. \"50% 0%\"."
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

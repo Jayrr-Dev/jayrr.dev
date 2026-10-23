@@ -1,0 +1,14 @@
+{
+  "name": "use-field-validation",
+  "components": [
+    {
+      "name": "FieldMessageContext",
+      "description": "Set by FormField. A field inside one hands its message up instead of drawing it, so the message lands in FormField's layout.",
+      "props": [],
+      "inherits": [
+        "ProviderProps"
+      ]
+    }
+  ],
+  "examples": []
+}

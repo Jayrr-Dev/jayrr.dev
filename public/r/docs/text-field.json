@@ -1,0 +1,187 @@
+{
+  "name": "text-field",
+  "components": [
+    {
+      "name": "GhostText",
+      "description": "Draws the suffix over an input or textarea, after an invisible copy of the value. It copies the field's box, padding and font so the suffix lands where the next typed letter would, and follows the field's scroll.",
+      "props": [
+        {
+          "name": "inputRef",
+          "type": "React.RefObject<TextInputElement | null>",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "multiline",
+          "type": "boolean",
+          "default": "false",
+          "description": "Wraps like a textarea instead of running on one line."
+        }
+      ]
+    },
+    {
+      "name": "TextField",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"filled\" | \"outlined\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "align",
+          "type": "\"start\" | \"end\"",
+          "default": "\"start\""
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "description": "Error to show under the field, e.g. from the server. Marks the field invalid and overrides the built-in checks while set."
+        },
+        {
+          "name": "validate",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").FieldValidator"
+        },
+        {
+          "name": "validateOn",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidateOn"
+        },
+        {
+          "name": "messages",
+          "type": "Partial<Record<import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidationRule, string>>"
+        },
+        {
+          "name": "onValidityChange",
+          "type": "((error: string | null) => void)",
+          "description": "Fires when the field's validity changes, whether or not the error is showing yet."
+        },
+        {
+          "name": "type",
+          "type": "TextFieldType",
+          "default": "\"text\"",
+          "description": "Defaults to \"text\". \"email\", \"url\" and \"number\" also get their built-in checks."
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Floating label. Used by the filled and outlined variants."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Decorative content before the text, usually an icon. Defaults to a search icon when type=\"search\"."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the text, usually an icon."
+        },
+        {
+          "name": "prefix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field before the value, e.g. \"$\" or \"https://\"."
+        },
+        {
+          "name": "suffix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field after the value, e.g. \"ft\" or \"%\"."
+        },
+        {
+          "name": "shortcut",
+          "type": "React.ReactNode",
+          "description": "Keyboard hint on the right, e.g. \"⌘K\"."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows a spinner in the trailing slot and marks the field busy."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "description": "Shows a clear button once the field has a value. Defaults to true when type=\"search\"."
+        },
+        {
+          "name": "revealable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds a show/hide toggle when type=\"password\"."
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "description": "Classes for the wrapper that holds the adornments. Falls back onto the input when there is no wrapper."
+        },
+        {
+          "name": "completion",
+          "type": "CompletionSource",
+          "description": "Suggests the rest of the value as ghost text, accepted with Tab or ArrowRight. Use completeFrom(list) for a fixed list; memoize async sources. Adding or removing it remounts the input, so keep it steady."
+        },
+        {
+          "name": "completionKeys",
+          "type": "InlineCompletionKey[]",
+          "description": "Keys that accept the suggestion. Defaults to Tab and ArrowRight."
+        },
+        {
+          "name": "ghost",
+          "type": "string",
+          "description": "Ghost text to draw after the value, for components that run useInlineCompletion themselves. Overrides `completion`. Pass \"\" while there's nothing to suggest; switching to undefined drops focus."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "minLength · maxLength",
+      "imports": [
+        "import { TextField } from \"@/components/standard/text-field\"",
+        "import { LockIcon } from \"lucide-react\""
+      ],
+      "code": "<TextField\n  type=\"password\"\n  aria-label=\"Password\"\n  placeholder=\"8 to 32 characters\"\n  leading={<LockIcon />}\n  minLength={8}\n  maxLength={32}\n  revealable\n  validateOn=\"change\"\n/>"
+    },
+    {
+      "title": "completion · outlined",
+      "imports": [
+        "import { TextField } from \"@/components/standard/text-field\""
+      ],
+      "code": "<TextField variant=\"outlined\" label=\"City\" completion={completeCity} />"
+    },
+    {
+      "title": "error · from the server",
+      "imports": [
+        "import { TextField } from \"@/components/standard/text-field\""
+      ],
+      "code": "<TextField\n  aria-label=\"Invite code\"\n  defaultValue=\"JAY-2024\"\n  error=\"This invite code has expired.\"\n/>"
+    },
+    {
+      "title": "pattern · custom message",
+      "imports": [
+        "import { TextField } from \"@/components/standard/text-field\""
+      ],
+      "code": "<TextField\n  aria-label=\"Job code\"\n  placeholder=\"AB-1234\"\n  pattern=\"[A-Z]{2}-[0-9]{4}\"\n  messages={{ pattern: \"Use two capitals, a dash, then four digits.\" }}\n  validateOn=\"change\"\n/>"
+    }
+  ]
+}

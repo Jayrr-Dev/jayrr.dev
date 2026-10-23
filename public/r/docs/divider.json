@@ -1,0 +1,49 @@
+{
+  "name": "divider",
+  "components": [
+    {
+      "name": "Divider",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "default": "\"horizontal\"",
+          "description": "Either `vertical` or `horizontal`. Defaults to `horizontal`."
+        },
+        {
+          "name": "tone",
+          "type": "\"strong\" | \"default\" | \"dashed\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Text centred in a horizontal line, e.g. \"or\"."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef",
+        "SeparatorProps"
+      ]
+    },
+    {
+      "name": "Separator",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef",
+        "SeparatorProps"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "label",
+      "imports": [
+        "import { Divider } from \"@/components/standard/divider\""
+      ],
+      "code": "<Divider label=\"or\" />"
+    }
+  ]
+}

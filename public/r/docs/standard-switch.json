@@ -1,0 +1,94 @@
+{
+  "name": "standard-switch",
+  "components": [
+    {
+      "name": "Switch",
+      "props": [
+        {
+          "name": "defaultChecked",
+          "type": "boolean"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "checked",
+          "type": "boolean"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "((checked: boolean) => void)"
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Visible label, clickable to toggle."
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Secondary text under the label."
+        },
+        {
+          "name": "labelPosition",
+          "type": "\"start\" | \"end\"",
+          "default": "\"end\"",
+          "description": "end: switch then label. start: label on the left, switch on the right, pushed apart."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"flip\"",
+          "default": "\"default\"",
+          "description": "flip: a two-option segmented pill with a sliding thumb, like AM / PM."
+        },
+        {
+          "name": "flipLabels",
+          "type": "[React.ReactNode, React.ReactNode]",
+          "default": "[\"Off\", \"On\"]",
+          "description": "Labels for the flip variant, [unchecked, checked]."
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "variant flip · size sm",
+      "imports": [
+        "import { Switch } from \"@/components/standard/switch\""
+      ],
+      "code": "<Switch\n  variant=\"flip\"\n  size=\"sm\"\n  flipLabels={[\"Metric\", \"US\"]}\n  aria-label=\"Units\"\n  defaultChecked\n/>"
+    },
+    {
+      "title": "labelPosition start",
+      "imports": [
+        "import { Switch } from \"@/components/standard/switch\""
+      ],
+      "code": "<Switch label=\"Dark mode\" labelPosition=\"start\" defaultChecked />"
+    },
+    {
+      "title": "invalid",
+      "imports": [
+        "import { Switch } from \"@/components/standard/switch\""
+      ],
+      "code": "<Switch label=\"Accept the terms\" invalid />"
+    },
+    {
+      "title": "disabled",
+      "imports": [
+        "import { Switch } from \"@/components/standard/switch\""
+      ],
+      "code": "<Switch aria-label=\"Notifications\" disabled defaultChecked />"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "math",
+  "components": [
+    {
+      "name": "Math",
+      "props": [
+        {
+          "name": "tex",
+          "type": "string",
+          "required": true,
+          "description": "LaTeX source, e.g. `\\frac{a}{b}`."
+        },
+        {
+          "name": "display",
+          "type": "boolean",
+          "default": "false",
+          "description": "Block (centered, full size) instead of inline with the surrounding text."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "display · quadratic formula",
+      "imports": [
+        "import { Math as MathFormula } from \"@/components/ui/math\""
+      ],
+      "code": "<MathFormula display tex={String.raw`x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}`} />"
+    },
+    {
+      "title": "display · gaussian integral",
+      "imports": [
+        "import { Math as MathFormula } from \"@/components/ui/math\""
+      ],
+      "code": "<MathFormula display tex={String.raw`\\int_0^{\\infty} e^{-x^2}\\,dx = \\frac{\\sqrt{\\pi}}{2}`} />"
+    },
+    {
+      "title": "display · series",
+      "imports": [
+        "import { Math as MathFormula } from \"@/components/ui/math\""
+      ],
+      "code": "<MathFormula display tex={String.raw`\\sum_{n=1}^{\\infty} \\frac{1}{n^2} = \\frac{\\pi^2}{6}`} />"
+    },
+    {
+      "title": "invalid tex · shown in red",
+      "imports": [
+        "import { Math as MathFormula } from \"@/components/ui/math\""
+      ],
+      "code": "<MathFormula display tex={String.raw`\\frac{1}{`} />"
+    }
+  ]
+}

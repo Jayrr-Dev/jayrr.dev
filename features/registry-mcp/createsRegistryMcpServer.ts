@@ -5,6 +5,7 @@ import {
   findsEntry,
   installCommandFor,
   readsConventions,
+  readsItemDocs,
   readsItemSource,
   registryEntries,
   searchesEntries,
@@ -118,15 +119,21 @@ export function createsRegistryMcpServer() {
     {
       title: "Get a registry item",
       description:
-        "Install command, dependencies, files and gallery link for one item by its exact name from registry_search (e.g. 'button', 'standard-badge'). " +
-        "Set include_source to also get the file contents, which can be long; skip it when the install command is enough.",
+        "How to install and use one item, by its exact name from registry_search (e.g. 'button', 'standard-badge'). " +
+        "Always returns the install command, dependencies, files and gallery link. " +
+        "By default it adds `props` (each exported component's own props with types, defaults and notes; `inherits` names pass-through groups like HTMLAttributes) " +
+        "and `examples` (gallery demos with their imports and any setup data). " +
+        "Add 'source' to `include` only when you need to read or change the implementation; it can be long.",
       inputSchema: {
         name: z.string().min(1).describe("Exact item name, e.g. 'text-field'."),
-        include_source: z.boolean().default(false),
+        include: z
+          .array(z.enum(["props", "examples", "source"]))
+          .default(["props", "examples"])
+          .describe("Extra sections. [] returns only the install details."),
       },
       annotations: READ_ONLY,
     },
-    async ({ name, include_source }) => {
+    async ({ name, include }) => {
       const entry = findsEntry(name)
 
       if (!entry) {
@@ -140,13 +147,24 @@ export function createsRegistryMcpServer() {
         )
       }
 
+      const docs =
+        include.includes("props") || include.includes("examples")
+          ? await readsItemDocs(entry)
+          : null
+
       return asText({
         ...summarizes(entry),
         install: installCommandFor(entry.name),
         dependencies: entry.dependencies,
         registryDependencies: entry.registryDependencies,
         gallery: entry.galleryUrl,
-        files: include_source ? await readsItemSource(entry) : entry.files,
+        ...(include.includes("props") &&
+          docs?.components.length && { props: docs.components }),
+        ...(include.includes("examples") &&
+          docs?.examples.length && { examples: docs.examples }),
+        files: include.includes("source")
+          ? await readsItemSource(entry)
+          : entry.files,
       })
     }
   )

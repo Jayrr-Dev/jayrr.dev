@@ -1,0 +1,98 @@
+{
+  "name": "button-array",
+  "components": [
+    {
+      "name": "ButtonArray",
+      "description": "A row of buttons where one (`type=\"single\"`) or several (`type=\"multiple\"`) are on. Semantics follow the look: single + underlined is a tablist, other single arrays are a radio group (arrow keys move the pick), and multiple arrays are aria-pressed toggle buttons.",
+      "props": [
+        {
+          "name": "items",
+          "type": "ButtonArrayItem[]",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "ButtonArrayType",
+          "default": "\"single\"",
+          "description": "`multiple` lets several items be on at once; state moves to `values`."
+        },
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((id: string) => void)"
+        },
+        {
+          "name": "values",
+          "type": "string[]"
+        },
+        {
+          "name": "defaultValues",
+          "type": "string[]"
+        },
+        {
+          "name": "onValuesChange",
+          "type": "((ids: string[]) => void)"
+        },
+        {
+          "name": "appearance",
+          "type": "ButtonArrayAppearance",
+          "default": "\"badge\""
+        },
+        {
+          "name": "size",
+          "type": "ButtonArraySize",
+          "default": "\"default\""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "default": "false",
+          "description": "Stretches the array to its container, sharing the width between items."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "block",
+      "imports": [
+        "import { ButtonArray } from \"@/components/standard/button-array\""
+      ],
+      "setup": "const SECTION_ITEMS = [\n  { id: \"events\", label: \"Events\" },\n  { id: \"reports\", label: \"Reports\" },\n  { id: \"crew\", label: \"Crew\" },\n]",
+      "code": "<ButtonArray\n  block\n  appearance=\"slider\"\n  items={SECTION_ITEMS}\n  defaultValue=\"events\"\n/>"
+    },
+    {
+      "imports": [
+        "import { ButtonArray } from \"@/components/standard/button-array\""
+      ],
+      "setup": "const SECTION_ITEMS = [\n  { id: \"events\", label: \"Events\" },\n  { id: \"reports\", label: \"Reports\" },\n  { id: \"crew\", label: \"Crew\" },\n]",
+      "code": "<ButtonArray\n  items={SECTION_ITEMS}\n  value={value}\n  onValueChange={setValue}\n/>"
+    },
+    {
+      "title": "appearance slider · type multiple",
+      "imports": [
+        "import { ButtonArray } from \"@/components/standard/button-array\""
+      ],
+      "setup": "const SECTION_ITEMS = [\n  { id: \"events\", label: \"Events\" },\n  { id: \"reports\", label: \"Reports\" },\n  { id: \"crew\", label: \"Crew\" },\n]",
+      "code": "<ButtonArray\n  type=\"multiple\"\n  appearance=\"slider\"\n  items={SECTION_ITEMS}\n  defaultValues={[\"events\", \"crew\"]}\n/>"
+    },
+    {
+      "title": "size sm",
+      "imports": [
+        "import { ButtonArray } from \"@/components/standard/button-array\""
+      ],
+      "setup": "const SECTION_ITEMS = [\n  { id: \"events\", label: \"Events\" },\n  { id: \"reports\", label: \"Reports\" },\n  { id: \"crew\", label: \"Crew\" },\n]",
+      "code": "<ButtonArray size=\"sm\" items={SECTION_ITEMS} defaultValue=\"crew\" />\n<ButtonArray\n  size=\"sm\"\n  appearance=\"segmented\"\n  items={SECTION_ITEMS}\n  defaultValue=\"crew\"\n/>"
+    }
+  ]
+}

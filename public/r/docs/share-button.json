@@ -1,0 +1,127 @@
+{
+  "name": "share-button",
+  "components": [
+    {
+      "name": "ShareButton",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Defaults to the page title."
+        },
+        {
+          "name": "rel",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "loading",
+          "type": "boolean | \"spin-icon\"",
+          "description": "Blocks clicks while an action runs. `true` shows a spinner before the label (in place of `leading`); `\"spin-icon\"` spins the `leading` icon."
+        },
+        {
+          "name": "target",
+          "type": "React.HTMLAttributeAnchorTarget"
+        },
+        {
+          "name": "download",
+          "type": "any"
+        },
+        {
+          "name": "tone",
+          "type": "\"link\" | \"default\" | \"outline\" | \"ghost\" | \"success\" | \"danger\" | \"quiet\" | \"inverse\" | \"inverse-outline\"",
+          "default": "\"outline\""
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Content before the label, usually an icon."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the label (and after `count`), usually an icon."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\" | \"pill\" | \"square\""
+        },
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Square button that holds only an icon (the children). Give it an `aria-label` for its accessible name."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches to the full width of its container."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number shown inline after the label as a notification badge."
+        },
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "description": "Defaults to the current page URL."
+        },
+        {
+          "name": "files",
+          "type": "File[]",
+          "description": "Files to attach, sent only where `navigator.canShare` accepts them."
+        },
+        {
+          "name": "copiedLabel",
+          "type": "React.ReactNode",
+          "default": "\"Link copied\"",
+          "description": "Label shown for a moment after the link is copied."
+        },
+        {
+          "name": "onShare",
+          "type": "((method: ShareMethod) => void)",
+          "description": "Runs after a share or copy succeeds (not when the sheet is dismissed)."
+        },
+        {
+          "name": "onShareError",
+          "type": "((error: unknown) => void)"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "icon only",
+      "imports": [
+        "import { ShareButton } from \"@/components/standard/share-button\""
+      ],
+      "code": "<div className=\"flex gap-2\">\n  <ShareButton iconOnly />\n  <ShareButton iconOnly shape=\"circle\" tone=\"quiet\" />\n  <ShareButton iconOnly shape=\"circle\" tone=\"ghost\" size=\"sm\" />\n</div>"
+    },
+    {
+      "title": "share this page",
+      "imports": [
+        "import { ShareButton } from \"@/components/standard/share-button\""
+      ],
+      "code": "<ShareButton />"
+    },
+    {
+      "title": "sizes",
+      "imports": [
+        "import { ShareButton } from \"@/components/standard/share-button\""
+      ],
+      "code": "<div className=\"flex flex-wrap items-center gap-2\">\n  <ShareButton size=\"xs\" />\n  <ShareButton size=\"sm\" />\n  <ShareButton />\n  <ShareButton size=\"lg\" shape=\"pill\">\n    Share article\n  </ShareButton>\n</div>"
+    }
+  ]
+}

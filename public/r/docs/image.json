@@ -1,0 +1,81 @@
+{
+  "name": "image",
+  "components": [
+    {
+      "name": "Image",
+      "props": [
+        {
+          "name": "hover",
+          "type": "\"color\" | \"none\" | \"zoom\" | \"sheen\"",
+          "default": "\"none\""
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "fit",
+          "type": "\"cover\" | \"contain\"",
+          "default": "\"cover\""
+        },
+        {
+          "name": "ratio",
+          "type": "number | \"square\" | \"wide\" | \"still\"",
+          "default": "\"wide\"",
+          "description": "Preset or width / height, e.g. 21 / 9."
+        },
+        {
+          "name": "src",
+          "type": "string"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "default": "\"\"",
+          "description": "Alt text; also shown in the placeholder when there is no `src`."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "fit contain",
+      "imports": [
+        "import { Image } from \"@/components/standard/image\""
+      ],
+      "setup": "const sampleSrc = `data:image/svg+xml;utf8,${encodeURIComponent(\n  '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 180\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#38bdf8\"/><stop offset=\"1\" stop-color=\"#4f46e5\"/></linearGradient></defs><rect width=\"320\" height=\"180\" fill=\"url(#g)\"/><circle cx=\"240\" cy=\"60\" r=\"28\" fill=\"#fde68a\"/><path d=\"M0 180 L90 90 L160 150 L220 110 L320 180 Z\" fill=\"#1e1b4b\" opacity=\"0.7\"/></svg>'\n)}`",
+      "code": "<div className=\"grid w-full grid-cols-2 gap-2\">\n  <Image src={sampleSrc} alt=\"cover\" ratio=\"square\" fit=\"cover\" />\n  <Image src={sampleSrc} alt=\"contain\" ratio=\"square\" fit=\"contain\" />\n</div>"
+    },
+    {
+      "title": "rounded false",
+      "imports": [
+        "import { Image } from \"@/components/standard/image\""
+      ],
+      "setup": "const sampleSrc = `data:image/svg+xml;utf8,${encodeURIComponent(\n  '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 180\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#38bdf8\"/><stop offset=\"1\" stop-color=\"#4f46e5\"/></linearGradient></defs><rect width=\"320\" height=\"180\" fill=\"url(#g)\"/><circle cx=\"240\" cy=\"60\" r=\"28\" fill=\"#fde68a\"/><path d=\"M0 180 L90 90 L160 150 L220 110 L320 180 Z\" fill=\"#1e1b4b\" opacity=\"0.7\"/></svg>'\n)}`",
+      "code": "<Image src={sampleSrc} alt=\"Square corners\" rounded={false} />"
+    },
+    {
+      "title": "placeholder (no src)",
+      "imports": [
+        "import { Image } from \"@/components/standard/image\""
+      ],
+      "code": "<Image alt=\"Site photo\" />"
+    },
+    {
+      "title": "hover",
+      "imports": [
+        "import { Image } from \"@/components/standard/image\""
+      ],
+      "setup": "const sampleSrc = `data:image/svg+xml;utf8,${encodeURIComponent(\n  '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 180\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#38bdf8\"/><stop offset=\"1\" stop-color=\"#4f46e5\"/></linearGradient></defs><rect width=\"320\" height=\"180\" fill=\"url(#g)\"/><circle cx=\"240\" cy=\"60\" r=\"28\" fill=\"#fde68a\"/><path d=\"M0 180 L90 90 L160 150 L220 110 L320 180 Z\" fill=\"#1e1b4b\" opacity=\"0.7\"/></svg>'\n)}`",
+      "code": "<div className=\"grid w-full grid-cols-3 gap-2\">\n  <Image src={sampleSrc} alt=\"zoom\" hover=\"zoom\" />\n  <Image src={sampleSrc} alt=\"sheen\" hover=\"sheen\" />\n  <Image src={sampleSrc} alt=\"color\" hover=\"color\" />\n</div>\n<p className=\"mt-2 text-xs text-muted-foreground\">\n  zoom · sheen · color — hover each image\n</p>"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "name": "number-input",
+  "components": [
+    {
+      "name": "NumberInput",
+      "description": "Text box for numbers. It only accepts digits, one dot and (optionally) a leading minus, and commits on blur or Enter, clamped to min/max and rounded to `fractionDigits`. Empty commits min, or 0. Enter also moves focus to the next field in the nearest [data-focus-group].",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | (React.ReactElement<unknown, string | React.JSXElementConstructor<any>> & string) | (Iterable<React.ReactNode> & string) | (React.ReactPortal & string) | (Promise<string | number | bigint | boolean | React.ReactPortal | React.Reac…",
+          "description": "Floating label. Used by the filled and outlined variants."
+        },
+        {
+          "name": "prefix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field before the value, e.g. \"$\" or \"https://\"."
+        },
+        {
+          "name": "inputMode",
+          "type": "\"numeric\" | \"decimal\"",
+          "default": "\"decimal\"",
+          "description": "Hints at the type of data that might be entered by the user while editing the element or its contents"
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"filled\" | \"outlined\""
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "description": "Error to show under the field, e.g. from the server. Marks the field invalid and overrides the built-in checks while set."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Shows a spinner in the trailing slot and marks the field busy."
+        },
+        {
+          "name": "max",
+          "type": "number"
+        },
+        {
+          "name": "min",
+          "type": "number"
+        },
+        {
+          "name": "align",
+          "type": "\"start\" | \"end\""
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "description": "Classes for the wrapper that holds the adornments. Falls back onto the input when there is no wrapper."
+        },
+        {
+          "name": "suffix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field after the value, e.g. \"ft\" or \"%\"."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Decorative content before the text, usually an icon. Defaults to a search icon when type=\"search\"."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the text, usually an icon."
+        },
+        {
+          "name": "shortcut",
+          "type": "React.ReactNode",
+          "description": "Keyboard hint on the right, e.g. \"⌘K\"."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "description": "Shows a clear button once the field has a value. Defaults to true when type=\"search\"."
+        },
+        {
+          "name": "revealable",
+          "type": "boolean",
+          "description": "Adds a show/hide toggle when type=\"password\"."
+        },
+        {
+          "name": "validate",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").FieldValidator"
+        },
+        {
+          "name": "validateOn",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidateOn"
+        },
+        {
+          "name": "messages",
+          "type": "Partial<Record<import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidationRule, string>>"
+        },
+        {
+          "name": "onValidityChange",
+          "type": "((error: string | null) => void)",
+          "description": "Fires when the field's validity changes, whether or not the error is showing yet."
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "onChange",
+          "type": "(value: number) => void",
+          "required": true,
+          "description": "Fires on blur and Enter with the clamped, rounded number."
+        },
+        {
+          "name": "onChangeImmediate",
+          "type": "((value: number) => void)",
+          "description": "Fires on each keystroke that parses, for live previews."
+        },
+        {
+          "name": "allowNegative",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "fractionDigits",
+          "type": "number",
+          "description": "Rounds to this many decimal places when the value is committed."
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "Lower height and smaller text."
+        },
+        {
+          "name": "seamless",
+          "type": "boolean",
+          "default": "false",
+          "description": "Borderless, sized to its text. For inline edits inside tables."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Number input · commits on blur",
+      "imports": [
+        "import { NumberInput } from \"@/components/standard/number-input\""
+      ],
+      "code": "<div className=\"grid w-full grid-cols-2 gap-3\">\n  <NumberInput\n    label=\"Hours (0–24)\"\n    value={hours}\n    onChange={setHours}\n    min={0}\n    max={24}\n  />\n  <NumberInput\n    label=\"Rate · 2 places\"\n    value={rate}\n    onChange={setRate}\n    fractionDigits={2}\n  />\n  <NumberInput\n    label=\"Offset · negative\"\n    value={offset}\n    onChange={setOffset}\n    allowNegative\n  />\n  <NumberInput\n    label=\"Qty · compact\"\n    value={qty}\n    onChange={setQty}\n    placeholder=\"0\"\n    inputMode=\"numeric\"\n    compact\n  />\n</div>"
+    },
+    {
+      "title": "live while typing · seamless",
+      "imports": [
+        "import { NumberInput } from \"@/components/standard/number-input\""
+      ],
+      "code": "<p className=\"text-sm\">\n  Run is\n  <span className=\"mx-1 inline-block rounded-sm ring-1 ring-border focus-within:ring-ring\">\n    <NumberInput\n      aria-label=\"Run length in feet\"\n      value={feet}\n      onChange={(next) => {\n        setFeet(next)\n        setLive(next)\n      }}\n      onChangeImmediate={setLive}\n      min={1}\n      max={5000}\n      seamless\n      className=\"inline-block w-16\"\n    />\n  </span>\n  ft, about {(live * 0.3048).toFixed(1)} m.\n</p>"
+    },
+    {
+      "title": "Enter jumps to the next field",
+      "imports": [
+        "import { NumberInput } from \"@/components/standard/number-input\""
+      ],
+      "code": "<div data-focus-group className=\"grid w-full grid-cols-3 gap-2\">\n  <NumberInput\n    label=\"Poles\"\n    value={values.poles}\n    onChange={(poles) => setValues((current) => ({ ...current, poles }))}\n    min={1}\n    inputMode=\"numeric\"\n    compact\n  />\n  <NumberInput\n    label=\"Span ft\"\n    value={values.span}\n    onChange={(span) => setValues((current) => ({ ...current, span }))}\n    compact\n  />\n  <NumberInput\n    label=\"Sag ft\"\n    value={values.sag}\n    onChange={(sag) => setValues((current) => ({ ...current, sag }))}\n    fractionDigits={3}\n    compact\n  />\n</div>"
+    }
+  ]
+}

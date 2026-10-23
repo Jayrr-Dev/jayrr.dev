@@ -1,0 +1,214 @@
+{
+  "name": "action-wheel",
+  "components": [
+    {
+      "name": "ActionWheel",
+      "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the middle, a ring of solid circular actions around it, and a label card pushed outward from each one. An action with `items` opens a submenu: its children fan out on an outer arc centered on it. `startAngle` is in degrees clockwise from 12 o'clock, and `sweep` below 360 spreads the actions over an arc. `variant=\"arc\"` drops the ring for a launcher that stays put and fans its actions out toward `direction`. Arrow keys walk the ring, Escape or a click outside closes it.",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the trigger and the action group."
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "default": "<PlusIcon />"
+        },
+        {
+          "name": "items",
+          "type": "ActionWheelItem[]",
+          "required": true
+        },
+        {
+          "name": "size",
+          "type": "ActionWheelSize",
+          "default": "\"default\""
+        },
+        {
+          "name": "tone",
+          "type": "ActionWheelTone",
+          "default": "\"solid\""
+        },
+        {
+          "name": "labels",
+          "type": "ActionWheelLabels",
+          "default": "\"hover\""
+        },
+        {
+          "name": "submenuTrigger",
+          "type": "ActionWheelSubmenuTrigger",
+          "default": "\"click\"",
+          "description": "How nested actions open. Touch and keyboard always open on click."
+        },
+        {
+          "name": "radius",
+          "type": "number",
+          "description": "Distance in px from the center to each action's center."
+        },
+        {
+          "name": "variant",
+          "type": "ActionWheelVariant",
+          "default": "\"wheel\""
+        },
+        {
+          "name": "direction",
+          "type": "ActionWheelDirection",
+          "default": "\"up\"",
+          "description": "Arc only: which way the fan opens from the launcher."
+        },
+        {
+          "name": "startAngle",
+          "type": "number",
+          "description": "Overrides the ring start. Arcs derive it from `direction`."
+        },
+        {
+          "name": "sweep",
+          "type": "number",
+          "description": "Degrees the actions span. Defaults to 360 for a wheel, 90 for an arc."
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "triggerless",
+          "type": "boolean",
+          "default": "false",
+          "description": "Hides the launcher while closed, for wheels opened some other way."
+        }
+      ]
+    },
+    {
+      "name": "ActionWheelContextMenu",
+      "description": "Opens an ActionWheel at the pointer on right-click, like the Logi Options+ ring on a mouse gesture. The wheel's center lands on the cursor and the gray close button sits under it. Inside a modal dialog the wheel portals into that dialog, so clicking an action does not count as outside it.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the trigger and the action group."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "variant",
+          "type": "ActionWheelVariant"
+        },
+        {
+          "name": "size",
+          "type": "ActionWheelSize"
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "direction",
+          "type": "ActionWheelDirection",
+          "description": "Arc only: which way the fan opens from the launcher."
+        },
+        {
+          "name": "radius",
+          "type": "number",
+          "description": "Distance in px from the center to each action's center."
+        },
+        {
+          "name": "items",
+          "type": "ActionWheelItem[]",
+          "required": true
+        },
+        {
+          "name": "tone",
+          "type": "ActionWheelTone"
+        },
+        {
+          "name": "labels",
+          "type": "ActionWheelLabels"
+        },
+        {
+          "name": "submenuTrigger",
+          "type": "ActionWheelSubmenuTrigger",
+          "description": "How nested actions open. Touch and keyboard always open on click."
+        },
+        {
+          "name": "startAngle",
+          "type": "number",
+          "description": "Overrides the ring start. Arcs derive it from `direction`."
+        },
+        {
+          "name": "sweep",
+          "type": "number",
+          "description": "Degrees the actions span. Defaults to 360 for a wheel, 90 for an arc."
+        },
+        {
+          "name": "triggerless",
+          "type": "boolean",
+          "description": "Hides the launcher while closed, for wheels opened some other way."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "no labels · arc sweep 180",
+      "imports": [
+        "import { ActionWheel } from \"@/components/standard/action-wheel\"",
+        "import { AppWindowIcon, FolderOpenIcon, MonitorCogIcon, NotebookPenIcon, PlayIcon, ScanIcon, SmileIcon, SparklesIcon } from \"lucide-react\""
+      ],
+      "setup": "export const WHEEL_ITEMS = [\n  { label: \"Play/Pause\", icon: <PlayIcon /> },\n  { label: \"New note\", icon: <NotebookPenIcon /> },\n  { label: \"Explore AI\", icon: <SparklesIcon /> },\n  { label: \"Lock workstation\", icon: <MonitorCogIcon /> },\n  { label: \"Logi Options+\", icon: <AppWindowIcon /> },\n  { label: \"Screenshot\", icon: <ScanIcon /> },\n  { label: \"Emoji\", icon: <SmileIcon /> },\n  { label: \"Finder\", icon: <FolderOpenIcon /> },\n]",
+      "code": "<RendersWheelStage>\n  <ActionWheel\n    label=\"Actions\"\n    labels=\"none\"\n    tone=\"surface\"\n    items={WHEEL_ITEMS.slice(0, 5)}\n    startAngle={-90}\n    sweep={180}\n  />\n</RendersWheelStage>"
+    },
+    {
+      "imports": [
+        "import { ActionWheel } from \"@/components/standard/action-wheel\"",
+        "import { AppWindowIcon, FolderOpenIcon, MonitorCogIcon, NotebookPenIcon, PlayIcon, ScanIcon, SmileIcon, SparklesIcon } from \"lucide-react\""
+      ],
+      "setup": "export const WHEEL_ITEMS = [\n  { label: \"Play/Pause\", icon: <PlayIcon /> },\n  { label: \"New note\", icon: <NotebookPenIcon /> },\n  { label: \"Explore AI\", icon: <SparklesIcon /> },\n  { label: \"Lock workstation\", icon: <MonitorCogIcon /> },\n  { label: \"Logi Options+\", icon: <AppWindowIcon /> },\n  { label: \"Screenshot\", icon: <ScanIcon /> },\n  { label: \"Emoji\", icon: <SmileIcon /> },\n  { label: \"Finder\", icon: <FolderOpenIcon /> },\n]",
+      "code": "<div\n  className={`flex w-full justify-center overflow-hidden rounded-xl bg-muted/40 ${stage}`}\n>\n  <ActionWheel\n    label=\"Actions\"\n    size={size}\n    items={WHEEL_ITEMS.slice(0, 6)}\n    defaultOpen\n  />\n</div>"
+    },
+    {
+      "title": "arc variant · launcher",
+      "imports": [
+        "import { ActionWheel } from \"@/components/standard/action-wheel\"",
+        "import { CameraIcon, PencilIcon, Share2Icon } from \"lucide-react\""
+      ],
+      "setup": "const ARC_ITEMS = [\n  { label: \"Photo\", icon: <CameraIcon /> },\n  { label: \"Note\", icon: <PencilIcon /> },\n  { label: \"Share\", icon: <Share2Icon /> },\n]",
+      "code": "<RendersArcStage>\n  <ActionWheel\n    label=\"Create\"\n    variant=\"arc\"\n    direction=\"up\"\n    sweep={120}\n    items={ARC_ITEMS}\n  />\n</RendersArcStage>"
+    },
+    {
+      "title": "nested · click Explore AI or Screenshot",
+      "imports": [
+        "import { ActionWheel } from \"@/components/standard/action-wheel\"",
+        "import { AppWindowIcon, FileTextIcon, FolderOpenIcon, LanguagesIcon, MessageCircleQuestionIcon, MonitorCogIcon, MonitorIcon, NotebookPenIcon, PlayIcon, ScanIcon, SmileIcon, SparklesIcon, SquareDashedIcon, WandSparklesIcon } from \"lucide-react\""
+      ],
+      "setup": "export const WHEEL_ITEMS = [\n  { label: \"Play/Pause\", icon: <PlayIcon /> },\n  { label: \"New note\", icon: <NotebookPenIcon /> },\n  { label: \"Explore AI\", icon: <SparklesIcon /> },\n  { label: \"Lock workstation\", icon: <MonitorCogIcon /> },\n  { label: \"Logi Options+\", icon: <AppWindowIcon /> },\n  { label: \"Screenshot\", icon: <ScanIcon /> },\n  { label: \"Emoji\", icon: <SmileIcon /> },\n  { label: \"Finder\", icon: <FolderOpenIcon /> },\n]\n\nconst NESTED_ITEMS = WHEEL_ITEMS.map((item) =>\n  item.label === \"Explore AI\"\n    ? {\n        ...item,\n        items: [\n          { label: \"Summarize\", icon: <FileTextIcon /> },\n          { label: \"Translate\", icon: <LanguagesIcon /> },\n          { label: \"Rewrite\", icon: <WandSparklesIcon /> },\n          { label: \"Ask\", icon: <MessageCircleQuestionIcon /> },\n        ],\n      }\n    : item.label === \"Screenshot\"\n      ? {\n          ...item,\n          items: [\n            { label: \"Region\", icon: <SquareDashedIcon /> },\n            { label: \"Window\", icon: <AppWindowIcon /> },\n            { label: \"Full screen\", icon: <MonitorIcon /> },\n          ],\n        }\n      : item\n)",
+      "code": "<div className=\"flex w-full justify-center overflow-hidden rounded-xl bg-muted/40 px-40 py-40\">\n  <ActionWheel label=\"Actions\" items={NESTED_ITEMS} defaultOpen />\n</div>"
+    }
+  ]
+}

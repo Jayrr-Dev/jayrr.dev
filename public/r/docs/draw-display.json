@@ -1,0 +1,81 @@
+{
+  "name": "draw-display",
+  "components": [
+    {
+      "name": "DrawDisplay",
+      "props": [
+        {
+          "name": "strokes",
+          "type": "DrawStroke[]",
+          "description": "Controlled strokes."
+        },
+        {
+          "name": "defaultStrokes",
+          "type": "DrawStroke[]",
+          "default": "[]"
+        },
+        {
+          "name": "onStrokesChange",
+          "type": "((strokes: DrawStroke[]) => void)"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "\"Drawing\""
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "default": "320",
+          "description": "CSS height of the canvas."
+        },
+        {
+          "name": "colors",
+          "type": "string[]",
+          "default": "DEFAULT_COLORS",
+          "description": "Swatches. \"currentColor\" follows the text color and exports as near-black."
+        },
+        {
+          "name": "sizes",
+          "type": "number[]",
+          "default": "DEFAULT_SIZES",
+          "description": "Stroke widths in pixels."
+        },
+        {
+          "name": "background",
+          "type": "DrawBackground",
+          "default": "\"paper\""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show the drawing without the tools."
+        },
+        {
+          "name": "bare",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "grid · custom colors and sizes",
+      "imports": [
+        "import { DrawDisplay } from \"@/components/standard/draw-display\""
+      ],
+      "code": "<DrawDisplay\n  title=\"Whiteboard\"\n  background=\"grid\"\n  colors={[\"currentColor\", \"#e11d48\", \"#0ea5e9\"]}\n  sizes={[3, 8]}\n  height={260}\n/>"
+    },
+    {
+      "imports": [
+        "import { DrawDisplay } from \"@/components/standard/draw-display\""
+      ],
+      "code": "<DrawDisplay title=\"Sketch\" />"
+    }
+  ]
+}

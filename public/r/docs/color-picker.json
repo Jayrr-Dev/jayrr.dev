@@ -1,0 +1,96 @@
+{
+  "name": "color-picker",
+  "components": [
+    {
+      "name": "ColorPicker",
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Id of the hex field, for a label's htmlFor."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "A hex color. Pass it to control the picker."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "default": "\"#6366f1\""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void)",
+          "description": "Fires with lowercase #rrggbb, continuously while dragging in the native picker."
+        },
+        {
+          "name": "swatches",
+          "type": "string[]",
+          "description": "Preset colors shown after the field."
+        },
+        {
+          "name": "showInput",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show the hex text field."
+        },
+        {
+          "name": "eyedropper",
+          "type": "boolean",
+          "default": "true",
+          "description": "Offer the eyedropper where the browser supports it."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Submits the hex value with a form."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "showInput false · eyedropper false",
+      "imports": [
+        "import { ColorPicker } from \"@/components/standard/color-picker\""
+      ],
+      "code": "<ColorPicker\n  defaultValue=\"#06b6d4\"\n  showInput={false}\n  eyedropper={false}\n/>"
+    },
+    {
+      "title": "controlled · swatches",
+      "imports": [
+        "import { ColorPicker } from \"@/components/standard/color-picker\""
+      ],
+      "setup": "const presets = [\n  \"#ef4444\",\n  \"#f59e0b\",\n  \"#22c55e\",\n  \"#06b6d4\",\n  \"#6366f1\",\n  \"#d946ef\",\n  \"#0a0a0a\",\n  \"#ffffff\",\n]",
+      "code": "<ColorPicker\n  value={color}\n  onValueChange={setColor}\n  swatches={presets}\n/>\n<div\n  className=\"mt-3 flex h-16 w-full items-center justify-center rounded-lg font-mono text-sm text-white transition-colors\"\n  style={{ backgroundColor: color }}\n>\n  <span className=\"rounded bg-black/40 px-2 py-0.5\">{color}</span>\n</div>"
+    },
+    {
+      "title": "disabled",
+      "imports": [
+        "import { ColorPicker } from \"@/components/standard/color-picker\""
+      ],
+      "code": "<ColorPicker defaultValue=\"#ef4444\" disabled />"
+    },
+    {
+      "title": "size",
+      "imports": [
+        "import { ColorPicker } from \"@/components/standard/color-picker\""
+      ],
+      "code": "<div className=\"flex flex-wrap items-center gap-3\">\n  <ColorPicker size=\"sm\" defaultValue=\"#f59e0b\" />\n  <ColorPicker defaultValue=\"#22c55e\" />\n  <ColorPicker size=\"lg\" defaultValue=\"#d946ef\" />\n</div>"
+    }
+  ]
+}

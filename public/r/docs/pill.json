@@ -1,0 +1,57 @@
+{
+  "name": "pill",
+  "components": [
+    {
+      "name": "Pill",
+      "props": [
+        {
+          "name": "radius",
+          "type": "\"none\" | \"sm\" | \"md\" | \"full\"",
+          "default": "\"full\""
+        },
+        {
+          "name": "tone",
+          "type": "\"default\" | \"outline\" | \"danger\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": true
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "tone outline",
+      "imports": [
+        "import { Pill } from \"@/components/standard/pill\""
+      ],
+      "code": "<Pill label=\"Build\" tone=\"outline\">\n  Draft\n</Pill>"
+    },
+    {
+      "title": "radius none",
+      "imports": [
+        "import { Pill } from \"@/components/standard/pill\""
+      ],
+      "code": "<Pill label=\"Version\" radius=\"none\">\n  v2.4\n</Pill>"
+    },
+    {
+      "imports": [
+        "import { Pill } from \"@/components/standard/pill\""
+      ],
+      "code": "<Pill label=\"Status\">Ready</Pill>"
+    },
+    {
+      "title": "radius sm",
+      "imports": [
+        "import { Pill } from \"@/components/standard/pill\""
+      ],
+      "code": "<Pill label=\"Region\" radius=\"sm\">\n  us-east\n</Pill>"
+    }
+  ]
+}

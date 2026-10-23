@@ -1,0 +1,168 @@
+{
+  "name": "reel",
+  "components": [
+    {
+      "name": "Reel",
+      "props": [
+        {
+          "name": "items",
+          "type": "React.ReactNode[]",
+          "description": "The items on the reel. Composed `children` work too."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "direction",
+          "type": "ReelDirection",
+          "default": "\"left\"",
+          "description": "Which way a straight reel moves. Ignored when there is a path."
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "default": "60",
+          "description": "Pixels per second."
+        },
+        {
+          "name": "hoverSpeed",
+          "type": "number",
+          "description": "Speed while the pointer is over the reel; `0` pauses it."
+        },
+        {
+          "name": "paused",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "playOnView",
+          "type": "boolean",
+          "default": "false",
+          "description": "Hold at the start until the reel scrolls into view, and replay each time it does."
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "default": "32",
+          "description": "Space between items, in pixels."
+        },
+        {
+          "name": "flow",
+          "type": "ReelFlow",
+          "default": "\"stream\"",
+          "description": "How items are sent down the course."
+        },
+        {
+          "name": "cycles",
+          "type": "number",
+          "description": "Passes through the items before resting. Unset runs forever."
+        },
+        {
+          "name": "rest",
+          "type": "number",
+          "default": "0",
+          "description": "Milliseconds to wait once the course clears, between groups and after `cycles`."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "default": "true",
+          "description": "Go again after `cycles`. `false` stops for good."
+        },
+        {
+          "name": "fade",
+          "type": "number | boolean",
+          "default": "false",
+          "description": "Fade items out at the edges: the ends of a straight reel, or the ends of an open path. `true` fades over 48px; a number sets the width."
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "description": "An SVG path `d` for the items to follow. Closed with `Z`, it loops."
+        },
+        {
+          "name": "defaultPath",
+          "type": "string"
+        },
+        {
+          "name": "onPathChange",
+          "type": "((path: string) => void)"
+        },
+        {
+          "name": "viewBox",
+          "type": "string",
+          "description": "The coordinate space of `path`, scaled to fit the reel. Without one the path is in the reel's own pixels."
+        },
+        {
+          "name": "reverse",
+          "type": "boolean",
+          "default": "false",
+          "description": "Travel a path from its end to its start."
+        },
+        {
+          "name": "orient",
+          "type": "ReelOrient",
+          "default": "\"none\"",
+          "description": "`auto` turns items to face along the path; `none` keeps them upright."
+        },
+        {
+          "name": "showPath",
+          "type": "boolean",
+          "default": "false",
+          "description": "Draw the path as a faint dashed line under the items."
+        },
+        {
+          "name": "drawable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Press and drag to draw a new path."
+        },
+        {
+          "name": "itemClassName",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "bullets · fired three at a time, then again",
+      "imports": [
+        "import { Reel } from \"@/components/standard/reel\""
+      ],
+      "setup": "const bullet = (\n  <span className=\"block h-1.5 w-8 rounded-full bg-linear-to-r from-transparent to-foreground\" />\n)",
+      "code": "<div className=\"flex w-full items-center\">\n  <span className=\"h-4 w-6 shrink-0 rounded-sm bg-foreground\" />\n  <Reel\n    items={[bullet]}\n    direction=\"right\"\n    flow={3}\n    gap={28}\n    rest={900}\n    speed={700}\n    className=\"h-8\"\n  />\n</div>"
+    },
+    {
+      "title": "a closed loop · upright, reversed",
+      "imports": [
+        "import { Badge } from \"@/components/standard/badge\"",
+        "import { Reel } from \"@/components/standard/reel\""
+      ],
+      "setup": "const words = [\"Ship\", \"Iterate\", \"Measure\", \"Learn\", \"Repeat\"].map((word) => (\n  <Badge key={word} tone=\"outline\" size=\"lg\">\n    {word}\n  </Badge>\n))\n\nconst LOOP = \"M110 30 H290 A70 70 0 0 1 290 170 H110 A70 70 0 0 1 110 30 Z\"",
+      "code": "<Reel\n  path={LOOP}\n  viewBox=\"0 0 400 200\"\n  showPath\n  reverse\n  hoverSpeed={15}\n  gap={12}\n  className=\"h-56\"\n>\n  {words}\n</Reel>"
+    },
+    {
+      "title": "along a path · turning with it",
+      "imports": [
+        "import { Reel } from \"@/components/standard/reel\"",
+        "import { AppleIcon, CherryIcon, CitrusIcon, LeafIcon, MoonIcon, SnowflakeIcon, SunIcon } from \"lucide-react\""
+      ],
+      "setup": "const stickers = [\n  AppleIcon,\n  CherryIcon,\n  CitrusIcon,\n  LeafIcon,\n  MoonIcon,\n  SnowflakeIcon,\n  SunIcon,\n].map((Icon, index) => (\n  <span\n    key={index}\n    className=\"flex size-10 items-center justify-center rounded-full border border-border bg-background shadow-sm\"\n  >\n    <Icon className=\"size-5\" />\n  </span>\n))\n\nconst WAVE = \"M0 80 C 60 0, 140 0, 200 80 S 340 160, 400 80\"",
+      "code": "<Reel\n  path={WAVE}\n  viewBox=\"0 0 400 160\"\n  orient=\"auto\"\n  showPath\n  fade\n  gap={20}\n  className=\"h-48\"\n>\n  {stickers}\n</Reel>"
+    },
+    {
+      "title": "two rows, opposite ways",
+      "imports": [
+        "import { Badge } from \"@/components/standard/badge\"",
+        "import { Reel } from \"@/components/standard/reel\""
+      ],
+      "setup": "const words = [\"Ship\", \"Iterate\", \"Measure\", \"Learn\", \"Repeat\"].map((word) => (\n  <Badge key={word} tone=\"outline\" size=\"lg\">\n    {word}\n  </Badge>\n))",
+      "code": "<div className=\"flex w-full flex-col gap-2\">\n  <Reel items={words} gap={12} speed={40} fade />\n  <Reel items={words} gap={12} speed={40} fade direction=\"right\" />\n</div>"
+    }
+  ]
+}

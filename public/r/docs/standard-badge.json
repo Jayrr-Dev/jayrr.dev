@@ -1,0 +1,79 @@
+{
+  "name": "standard-badge",
+  "components": [
+    {
+      "name": "Badge",
+      "description": "Short label or count. `leading` / `trailing` hold an icon or other content beside the text; `dot` adds a small status dot in the text colour. `shape=\"circle\"` makes a round count that scales with the text around it. `tone=\"inverse\"` takes its colour from the surrounding text, for badges over media or a coloured surface.",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "tone",
+          "type": "\"default\" | \"outline\" | \"success\" | \"warning\" | \"info\" | \"danger\" | \"quiet\" | \"inverse\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "appearance",
+          "type": "\"outline\" | \"solid\" | \"soft\"",
+          "default": "\"solid\""
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "default": "false",
+          "description": "Small leading status dot in the text colour."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "trailing",
+      "imports": [
+        "import { Badge } from \"@/components/standard/badge\"",
+        "import { ChevronDownIcon } from \"lucide-react\""
+      ],
+      "code": "<Badge tone=\"outline\" trailing={<ChevronDownIcon />}>\n  Status\n</Badge>"
+    },
+    {
+      "title": "tone quiet",
+      "imports": [
+        "import { Badge } from \"@/components/standard/badge\""
+      ],
+      "code": "<Badge tone=\"quiet\">Quiet</Badge>"
+    },
+    {
+      "title": "tone outline",
+      "imports": [
+        "import { Badge } from \"@/components/standard/badge\""
+      ],
+      "code": "<Badge tone=\"outline\">Outline</Badge>"
+    },
+    {
+      "title": "tone danger",
+      "imports": [
+        "import { Badge } from \"@/components/standard/badge\""
+      ],
+      "code": "<Badge tone=\"danger\">Danger</Badge>"
+    }
+  ]
+}

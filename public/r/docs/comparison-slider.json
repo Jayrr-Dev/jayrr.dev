@@ -1,0 +1,107 @@
+{
+  "name": "comparison-slider",
+  "components": [
+    {
+      "name": "ComparisonSlider",
+      "props": [
+        {
+          "name": "before",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Shown on the start side (left or top). A string is used as an image src."
+        },
+        {
+          "name": "after",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Shown on the end side (right or bottom). A string is used as an image src."
+        },
+        {
+          "name": "beforeLabel",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "afterLabel",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "mode",
+          "type": "ComparisonSliderMode",
+          "default": "\"drag\"",
+          "description": "`drag` follows a press and drag; `hover` follows the pointer."
+        },
+        {
+          "name": "orientation",
+          "type": "ComparisonSliderOrientation",
+          "default": "\"horizontal\""
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Divider position, 0 to 100."
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "default": "50"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: number) => void)"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "default": "1",
+          "description": "Arrow-key step; Shift multiplies it by 10."
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "handle",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show the round grip on the divider."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "orientation vertical",
+      "imports": [
+        "import { ComparisonSlider } from \"@/components/standard/comparison-slider\""
+      ],
+      "setup": "function computerScene(finish: \"light\" | \"dark\") {\n  const light = finish === \"light\"\n  const c = light\n    ? { bg: \"#efefef\", body: \"#e4e4e4\", edge: \"#cfcfcf\", bezel: \"#d6d6d6\", screen: \"#2b2b2b\", ink: \"#9a9a9a\", slot: \"#bdbdbd\", glow: \"#ffffff\" }\n    : { bg: \"#151515\", body: \"#242424\", edge: \"#0c0c0c\", bezel: \"#1b1b1b\", screen: \"#f2f2f2\", ink: \"#2a2a2a\", slot: \"#050505\", glow: \"#3a3a3a\" }\n\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 360\">\n  <defs>\n    <radialGradient id=\"l\" cx=\"0.5\" cy=\"0.35\" r=\"0.6\"><stop offset=\"0\" stop-color=\"${c.glow}\" stop-opacity=\"0.5\"/><stop offset=\"1\" stop-color=\"${c.bg}\" stop-opacity=\"0\"/></radialGradient>\n    <linearGradient id=\"b\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0\" stop-color=\"${c.edge}\"/><stop offset=\"0.15\" stop-color=\"${c.body}\"/><stop offset=\"0.85\" stop-color=\"${c.body}\"/><stop offset=\"1\" stop-color=\"${c.edge}\"/></linearGradient>\n  </defs>\n  <rect width=\"640\" height=\"360\" fill=\"${c.bg}\"/>\n  <rect width=\"640\" height=\"360\" fill=\"url(#l)\"/>\n  <rect x=\"232\" y=\"44\" width=\"176\" height=\"236\" rx=\"16\" fill=\"url(#b)\"/>\n  <rect x=\"236\" y=\"276\" width=\"168\" height=\"36\" rx=\"6\" fill=\"${c.edge}\"/>\n  <rect x=\"252\" y=\"62\" width=\"136\" height=\"112\" rx=\"10\" fill=\"${c.bezel}\"/>\n  <rect x=\"264\" y=\"72\" width=\"112\" height=\"90\" rx=\"6\" fill=\"${c.screen}\"/>\n  <text x=\"320\" y=\"128\" text-anchor=\"middle\" font-family=\"Brush Script MT, cursive\" font-style=\"italic\" font-size=\"34\" fill=\"${c.ink}\">hello.</text>\n  <rect x=\"264\" y=\"72\" width=\"112\" height=\"8\" fill=\"${c.ink}\" opacity=\"0.35\"/>\n  <rect x=\"326\" y=\"206\" width=\"56\" height=\"8\" rx=\"2\" fill=\"${c.slot}\"/>\n  <circle cx=\"254\" cy=\"254\" r=\"4\" fill=\"${c.ink}\"/>\n</svg>`\n\n  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`\n}\n\nconst lightSrc = computerScene(\"light\")\n\nconst darkSrc = computerScene(\"dark\")",
+      "code": "<ComparisonSlider\n  before={lightSrc}\n  after={darkSrc}\n  orientation=\"vertical\"\n  beforeLabel=\"Before\"\n  afterLabel=\"After\"\n  className=\"aspect-[4/3]\"\n/>"
+    },
+    {
+      "title": "any content",
+      "imports": [
+        "import { ComparisonSlider } from \"@/components/standard/comparison-slider\""
+      ],
+      "code": "<ComparisonSlider\n  before={\n    <div className=\"flex size-full items-center justify-center bg-muted font-mono text-sm text-muted-foreground\">\n      v1 · 1.8 MB\n    </div>\n  }\n  after={\n    <div className=\"flex size-full items-center justify-center bg-foreground font-mono text-sm text-background\">\n      v2 · 240 KB\n    </div>\n  }\n  handle={false}\n  className=\"aspect-[3/1]\"\n/>"
+    },
+    {
+      "title": "mode hover",
+      "imports": [
+        "import { ComparisonSlider } from \"@/components/standard/comparison-slider\""
+      ],
+      "setup": "function computerScene(finish: \"light\" | \"dark\") {\n  const light = finish === \"light\"\n  const c = light\n    ? { bg: \"#efefef\", body: \"#e4e4e4\", edge: \"#cfcfcf\", bezel: \"#d6d6d6\", screen: \"#2b2b2b\", ink: \"#9a9a9a\", slot: \"#bdbdbd\", glow: \"#ffffff\" }\n    : { bg: \"#151515\", body: \"#242424\", edge: \"#0c0c0c\", bezel: \"#1b1b1b\", screen: \"#f2f2f2\", ink: \"#2a2a2a\", slot: \"#050505\", glow: \"#3a3a3a\" }\n\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 360\">\n  <defs>\n    <radialGradient id=\"l\" cx=\"0.5\" cy=\"0.35\" r=\"0.6\"><stop offset=\"0\" stop-color=\"${c.glow}\" stop-opacity=\"0.5\"/><stop offset=\"1\" stop-color=\"${c.bg}\" stop-opacity=\"0\"/></radialGradient>\n    <linearGradient id=\"b\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0\" stop-color=\"${c.edge}\"/><stop offset=\"0.15\" stop-color=\"${c.body}\"/><stop offset=\"0.85\" stop-color=\"${c.body}\"/><stop offset=\"1\" stop-color=\"${c.edge}\"/></linearGradient>\n  </defs>\n  <rect width=\"640\" height=\"360\" fill=\"${c.bg}\"/>\n  <rect width=\"640\" height=\"360\" fill=\"url(#l)\"/>\n  <rect x=\"232\" y=\"44\" width=\"176\" height=\"236\" rx=\"16\" fill=\"url(#b)\"/>\n  <rect x=\"236\" y=\"276\" width=\"168\" height=\"36\" rx=\"6\" fill=\"${c.edge}\"/>\n  <rect x=\"252\" y=\"62\" width=\"136\" height=\"112\" rx=\"10\" fill=\"${c.bezel}\"/>\n  <rect x=\"264\" y=\"72\" width=\"112\" height=\"90\" rx=\"6\" fill=\"${c.screen}\"/>\n  <text x=\"320\" y=\"128\" text-anchor=\"middle\" font-family=\"Brush Script MT, cursive\" font-style=\"italic\" font-size=\"34\" fill=\"${c.ink}\">hello.</text>\n  <rect x=\"264\" y=\"72\" width=\"112\" height=\"8\" fill=\"${c.ink}\" opacity=\"0.35\"/>\n  <rect x=\"326\" y=\"206\" width=\"56\" height=\"8\" rx=\"2\" fill=\"${c.slot}\"/>\n  <circle cx=\"254\" cy=\"254\" r=\"4\" fill=\"${c.ink}\"/>\n</svg>`\n\n  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`\n}\n\nconst lightSrc = computerScene(\"light\")\n\nconst darkSrc = computerScene(\"dark\")",
+      "code": "<ComparisonSlider\n  before={lightSrc}\n  after={darkSrc}\n  mode=\"hover\"\n  beforeLabel=\"Light\"\n  afterLabel=\"Dark\"\n/>"
+    },
+    {
+      "imports": [
+        "import { ComparisonSlider } from \"@/components/standard/comparison-slider\""
+      ],
+      "setup": "function computerScene(finish: \"light\" | \"dark\") {\n  const light = finish === \"light\"\n  const c = light\n    ? { bg: \"#efefef\", body: \"#e4e4e4\", edge: \"#cfcfcf\", bezel: \"#d6d6d6\", screen: \"#2b2b2b\", ink: \"#9a9a9a\", slot: \"#bdbdbd\", glow: \"#ffffff\" }\n    : { bg: \"#151515\", body: \"#242424\", edge: \"#0c0c0c\", bezel: \"#1b1b1b\", screen: \"#f2f2f2\", ink: \"#2a2a2a\", slot: \"#050505\", glow: \"#3a3a3a\" }\n\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 360\">\n  <defs>\n    <radialGradient id=\"l\" cx=\"0.5\" cy=\"0.35\" r=\"0.6\"><stop offset=\"0\" stop-color=\"${c.glow}\" stop-opacity=\"0.5\"/><stop offset=\"1\" stop-color=\"${c.bg}\" stop-opacity=\"0\"/></radialGradient>\n    <linearGradient id=\"b\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0\" stop-color=\"${c.edge}\"/><stop offset=\"0.15\" stop-color=\"${c.body}\"/><stop offset=\"0.85\" stop-color=\"${c.body}\"/><stop offset=\"1\" stop-color=\"${c.edge}\"/></linearGradient>\n  </defs>\n  <rect width=\"640\" height=\"360\" fill=\"${c.bg}\"/>\n  <rect width=\"640\" height=\"360\" fill=\"url(#l)\"/>\n  <rect x=\"232\" y=\"44\" width=\"176\" height=\"236\" rx=\"16\" fill=\"url(#b)\"/>\n  <rect x=\"236\" y=\"276\" width=\"168\" height=\"36\" rx=\"6\" fill=\"${c.edge}\"/>\n  <rect x=\"252\" y=\"62\" width=\"136\" height=\"112\" rx=\"10\" fill=\"${c.bezel}\"/>\n  <rect x=\"264\" y=\"72\" width=\"112\" height=\"90\" rx=\"6\" fill=\"${c.screen}\"/>\n  <text x=\"320\" y=\"128\" text-anchor=\"middle\" font-family=\"Brush Script MT, cursive\" font-style=\"italic\" font-size=\"34\" fill=\"${c.ink}\">hello.</text>\n  <rect x=\"264\" y=\"72\" width=\"112\" height=\"8\" fill=\"${c.ink}\" opacity=\"0.35\"/>\n  <rect x=\"326\" y=\"206\" width=\"56\" height=\"8\" rx=\"2\" fill=\"${c.slot}\"/>\n  <circle cx=\"254\" cy=\"254\" r=\"4\" fill=\"${c.ink}\"/>\n</svg>`\n\n  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`\n}\n\nconst lightSrc = computerScene(\"light\")\n\nconst darkSrc = computerScene(\"dark\")",
+      "code": "<ComparisonSlider\n  before={lightSrc}\n  after={darkSrc}\n  className=\"aspect-[4/3]\"\n/>"
+    }
+  ]
+}

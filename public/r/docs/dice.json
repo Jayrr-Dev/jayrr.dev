@@ -1,0 +1,160 @@
+{
+  "name": "dice",
+  "components": [
+    {
+      "name": "Dice",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "default": "1",
+          "description": "How many dice. Ignored when `dice`, `values` or `defaultValues` is set."
+        },
+        {
+          "name": "sides",
+          "type": "DiceSides",
+          "default": "6",
+          "description": "Faces on every die. Use `dice` to mix kinds."
+        },
+        {
+          "name": "dice",
+          "type": "DieSpec[]",
+          "description": "One entry per die, e.g. [20, 6, 6], or objects with their own colours."
+        },
+        {
+          "name": "values",
+          "type": "number[]",
+          "description": "Controlled faces, 1 to the die's sides each."
+        },
+        {
+          "name": "defaultValues",
+          "type": "number[]"
+        },
+        {
+          "name": "onValuesChange",
+          "type": "((values: number[]) => void)"
+        },
+        {
+          "name": "modifier",
+          "type": "number",
+          "default": "0",
+          "description": "Added to the total, e.g. 3 for \"+3\"."
+        },
+        {
+          "name": "onRoll",
+          "type": "((values: number[], total: number) => void)",
+          "description": "Called when a roll lands, with every die's face and the total (with modifier)."
+        },
+        {
+          "name": "holdable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Click a die to hold it; held dice sit out the next roll."
+        },
+        {
+          "name": "held",
+          "type": "number[]",
+          "description": "Held dice, by index. Controlled."
+        },
+        {
+          "name": "onHeldChange",
+          "type": "((held: number[]) => void)"
+        },
+        {
+          "name": "rollButton",
+          "type": "\"none\" | \"below\"",
+          "default": "\"below\"",
+          "description": "Roll button under the dice, or none (roll by clicking a die)."
+        },
+        {
+          "name": "rollLabel",
+          "type": "React.ReactNode",
+          "default": "\"Roll\""
+        },
+        {
+          "name": "showTotal",
+          "type": "boolean",
+          "default": "true",
+          "description": "Shows the total when there is more than one die or a modifier."
+        },
+        {
+          "name": "showKind",
+          "type": "boolean",
+          "description": "Writes the kind (\"d20\") under each die. On by default for non-d6 dice."
+        },
+        {
+          "name": "size",
+          "type": "DiceSize",
+          "default": "\"default\""
+        },
+        {
+          "name": "tone",
+          "type": "DiceTone",
+          "default": "\"default\""
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "description": "Body colour for every die without its own."
+        },
+        {
+          "name": "ink",
+          "type": "string",
+          "description": "Number and pip colour for every die without its own."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "1.3",
+          "description": "Seconds a roll takes."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "variant",
+          "type": "\"row\" | \"tray\"",
+          "default": "\"row\"",
+          "description": "row: dice in a line that roll in place. tray: a felt tray where people grab, drag and throw dice that slide, bounce off each other and settle on whichever face ends up on top."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "holdable · five dice, three rolls",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Dice } from \"@/components/standard/dice\""
+      ],
+      "setup": "const ROLLS_PER_TURN = 3",
+      "code": "<div className=\"flex w-full flex-col items-center gap-2\">\n  <Dice\n    values={values}\n    onValuesChange={setValues}\n    held={held}\n    onHeldChange={setHeld}\n    holdable\n    size=\"sm\"\n    disabled={rollsLeft === 0}\n    rollLabel={`Roll (${rollsLeft} left)`}\n    onRoll={() => setRollsLeft((left) => left - 1)}\n  />\n  <RendersNote text={hand} />\n  <Button\n    tone=\"ghost\"\n    size=\"sm\"\n    onClick={() => {\n      setHeld([])\n      setRollsLeft(ROLLS_PER_TURN)\n    }}\n  >\n    New turn\n  </Button>\n</div>"
+    },
+    {
+      "title": "tone inverse · click a die to roll",
+      "imports": [
+        "import { Dice } from \"@/components/standard/dice\""
+      ],
+      "code": "<Dice\n  count={3}\n  tone=\"inverse\"\n  rollButton=\"none\"\n  defaultValues={[2, 5, 1]}\n/>"
+    },
+    {
+      "title": "mixed · 2d8 + 1d6 + 3 damage",
+      "imports": [
+        "import { Dice } from \"@/components/standard/dice\""
+      ],
+      "code": "<Dice dice={[8, 8, 6]} modifier={3} rollLabel=\"Roll damage\" />"
+    },
+    {
+      "title": "tone inverse · click the d20",
+      "imports": [
+        "import { Dice } from \"@/components/standard/dice\""
+      ],
+      "code": "<Dice\n  dice={[20]}\n  tone=\"inverse\"\n  size=\"lg\"\n  rollButton=\"none\"\n  showKind={false}\n/>"
+    }
+  ]
+}

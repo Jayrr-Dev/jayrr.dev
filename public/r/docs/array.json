@@ -1,0 +1,151 @@
+{
+  "name": "array",
+  "components": [
+    {
+      "name": "ArrayLayout",
+      "props": [
+        {
+          "name": "shape",
+          "type": "ArrayShape",
+          "default": "\"line\""
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Items to make with `renderItem`, when not passing children."
+        },
+        {
+          "name": "renderItem",
+          "type": "((index: number) => React.ReactNode)"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "default": "240",
+          "description": "Coordinate box the path is written in; the element keeps its ratio."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "default": "240"
+        },
+        {
+          "name": "radius",
+          "type": "number",
+          "description": "Circle and arc radius. Defaults to fit the box, less `inset`."
+        },
+        {
+          "name": "inset",
+          "type": "number",
+          "default": "20",
+          "description": "Room kept between a circle or arc and the box edge."
+        },
+        {
+          "name": "startAngle",
+          "type": "number",
+          "default": "-180",
+          "description": "Arc angles in degrees; 0 points right, -90 up."
+        },
+        {
+          "name": "endAngle",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "angle",
+          "type": "number",
+          "default": "0",
+          "description": "`shape=\"line\"` direction in degrees; 0 runs left to right."
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "description": "An SVG path `d`, for `shape=\"path\"`."
+        },
+        {
+          "name": "points",
+          "type": "ArrayPoint[]",
+          "description": "A polyline, for `shape=\"points\"`; `smooth` rounds its corners."
+        },
+        {
+          "name": "smooth",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "justify",
+          "type": "ArrayJustify",
+          "description": "Defaults to `between`, or `start` once a `gap` is set."
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "description": "Distance between items along the path, in box units, when packed."
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "default": "0",
+          "description": "Shifts every item along the path, as a share of its length (0 to 1)."
+        },
+        {
+          "name": "orient",
+          "type": "boolean",
+          "default": "false",
+          "description": "Turns each item to follow the path's direction."
+        },
+        {
+          "name": "showPath",
+          "type": "boolean",
+          "default": "false",
+          "description": "Draws the guide path under the items."
+        },
+        {
+          "name": "itemClassName",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "path · orient",
+      "imports": [
+        "import { ArrayLayout } from \"@/components/standard/array\""
+      ],
+      "setup": "function Arrow() {\n  return <span className=\"block h-1 w-4 rounded-full bg-foreground\" />\n}\n\nconst WAVE = \"M 10 120 C 60 20, 100 20, 120 120 S 180 220, 230 120\"",
+      "code": "<ArrayLayout\n  shape=\"path\"\n  path={WAVE}\n  showPath\n  orient\n  count={14}\n  renderItem={() => <Arrow />}\n/>"
+    },
+    {
+      "title": "arc",
+      "imports": [
+        "import { ArrayLayout } from \"@/components/standard/array\""
+      ],
+      "setup": "function Dot({ index }: { index: number }) {\n  return (\n    <span className=\"grid size-6 place-items-center rounded-full border bg-card text-xs font-medium tabular-nums\">\n      {index + 1}\n    </span>\n  )\n}",
+      "code": "<ArrayLayout\n  shape=\"arc\"\n  startAngle={-170}\n  endAngle={-10}\n  showPath\n  count={7}\n  renderItem={(index) => <Dot index={index} />}\n/>"
+    },
+    {
+      "title": "line",
+      "imports": [
+        "import { ArrayLayout } from \"@/components/standard/array\""
+      ],
+      "setup": "function Dot({ index }: { index: number }) {\n  return (\n    <span className=\"grid size-6 place-items-center rounded-full border bg-card text-xs font-medium tabular-nums\">\n      {index + 1}\n    </span>\n  )\n}",
+      "code": "<ArrayLayout\n  height={60}\n  count={6}\n  renderItem={(index) => <Dot index={index} />}\n/>"
+    },
+    {
+      "title": "any element",
+      "imports": [
+        "import { ArrayLayout } from \"@/components/standard/array\"",
+        "import { Button } from \"@/components/ui/button\""
+      ],
+      "code": "<ArrayLayout shape=\"circle\" inset={28}>\n  <Button size=\"sm\">One</Button>\n  <Button size=\"sm\" variant=\"outline\">Two</Button>\n  <Button size=\"sm\" variant=\"secondary\">Three</Button>\n  <Button size=\"sm\" variant=\"ghost\">Four</Button>\n  <span className=\"text-2xl\">★</span>\n</ArrayLayout>"
+    }
+  ]
+}

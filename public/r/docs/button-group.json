@@ -1,0 +1,65 @@
+{
+  "name": "button-group",
+  "components": [
+    {
+      "name": "ButtonGroup",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"pill\""
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ButtonGroupSeparator",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef",
+        "SeparatorProps"
+      ]
+    },
+    {
+      "name": "ButtonGroupText",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Button Group",
+      "imports": [
+        "import { Button } from \"@/components/ui/button\"",
+        "import { ButtonGroup } from \"@/components/ui/button-group\""
+      ],
+      "code": "<ButtonGroup>\n  <Button variant=\"outline\">Cut</Button>\n  <Button variant=\"outline\">Copy</Button>\n</ButtonGroup>"
+    },
+    {
+      "title": "Button Group",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Button } from \"@/components/ui/button\"",
+        "import { ButtonGroup } from \"@/components/ui/button-group\"",
+        "import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from \"@/components/ui/dropdown-menu\"",
+        "import { ChevronDownIcon } from \"lucide-react\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"orientation vertical\">\n    <ButtonGroup orientation=\"vertical\">\n      <Button variant=\"outline\">Top</Button>\n      <Button variant=\"outline\">Bottom</Button>\n    </ButtonGroup>\n  </TypeCard>\n  <TypeCard label=\"variant pill\">\n    <ButtonGroup variant=\"pill\">\n      <Button>Publish</Button>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button size=\"icon\" aria-label=\"More publish options\">\n            <ChevronDownIcon className=\"transition-transform group-aria-expanded/button:rotate-180\" />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Schedule</DropdownMenuItem>\n          <DropdownMenuItem>Save draft</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </ButtonGroup>\n  </TypeCard>\n  <TypeCard label=\"variant pill outline\">\n    <ButtonGroup variant=\"pill\">\n      <Button variant=\"outline\">Export</Button>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button\n            variant=\"outline\"\n            size=\"icon\"\n            aria-label=\"More export options\"\n          >\n            <ChevronDownIcon className=\"transition-transform group-aria-expanded/button:rotate-180\" />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>PDF</DropdownMenuItem>\n          <DropdownMenuItem>CSV</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </ButtonGroup>\n  </TypeCard>\n</>"
+    }
+  ]
+}

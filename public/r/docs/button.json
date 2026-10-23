@@ -1,0 +1,50 @@
+{
+  "name": "button",
+  "components": [
+    {
+      "name": "Button",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"link\" | \"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Button",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Button } from \"@/components/ui/button\"",
+        "import { ChevronRightIcon } from \"lucide-react\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}\n\nconst buttonVariants = [\"secondary\", \"ghost\", \"link\"] as const\n\nconst buttonSizes = [\"xs\", \"sm\", \"lg\"] as const",
+      "code": "<>\n  {buttonVariants.map((variant) => (\n    <TypeCard key={variant} label={`variant ${variant}`}>\n      <Button variant={variant}>Save</Button>\n    </TypeCard>\n  ))}\n  {buttonSizes.map((size) => (\n    <TypeCard key={size} label={`size ${size}`}>\n      <Button size={size}>Save</Button>\n    </TypeCard>\n  ))}\n  <TypeCard label=\"size icon\">\n    <Button size=\"icon\" aria-label=\"Next\">\n      <ChevronRightIcon />\n    </Button>\n  </TypeCard>\n</>"
+    },
+    {
+      "title": "Button",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Button } from \"@/components/ui/button\"",
+        "import { ButtonGroup, ButtonGroupSeparator } from \"@/components/ui/button-group\""
+      ],
+      "code": "<>\n  <RendersDemoCard>\n    <Button>Save</Button>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Button variant=\"outline\">Cancel</Button>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Button variant=\"destructive\">Delete</Button>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <ButtonGroup>\n      <Button variant=\"outline\">Left</Button>\n      <ButtonGroupSeparator />\n      <Button variant=\"outline\">Right</Button>\n    </ButtonGroup>\n  </RendersDemoCard>\n</>"
+    }
+  ]
+}

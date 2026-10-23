@@ -1,0 +1,85 @@
+{
+  "name": "column-filter",
+  "components": [
+    {
+      "name": "ColumnFilter",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "\"column\"",
+          "description": "The column's name, used in accessible labels."
+        },
+        {
+          "name": "options",
+          "type": "ColumnFilterOption[]",
+          "description": "The value list. Leave it out to hide the \"By values\" section."
+        },
+        {
+          "name": "conditions",
+          "type": "boolean | ColumnFilterOp[]",
+          "default": "true",
+          "description": "Operators to offer. `true` offers all; `false` or `[]` hides the section."
+        },
+        {
+          "name": "value",
+          "type": "ColumnFilterValue",
+          "description": "The applied filter, or null for none."
+        },
+        {
+          "name": "defaultValue",
+          "type": "ColumnFilterValue",
+          "default": "null"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: ColumnFilterValue | null) => void)"
+        },
+        {
+          "name": "sort",
+          "type": "ColumnFilterSort",
+          "default": "null",
+          "description": "The column's current sort."
+        },
+        {
+          "name": "onSortChange",
+          "type": "((sort: ColumnFilterSort | null) => void)",
+          "description": "Shows the sort buttons. Picking the current direction again passes null."
+        },
+        {
+          "name": "onDone",
+          "type": "(() => void)",
+          "description": "Runs after Sort, Apply, Clear or Cancel, e.g. to close a popover."
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean",
+          "default": "false",
+          "description": "Focuses the value search on mount."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Column filter · sort, condition, values",
+      "imports": [
+        "import { ColumnFilter } from \"@/components/standard/column-filter\""
+      ],
+      "setup": "const STATUS_OPTIONS = [\n  { key: \"Blocked\", label: \"Blocked\" },\n  { key: \"Done\", label: \"Done\" },\n  { key: \"In progress\", label: \"In progress\" },\n  { key: \"To do\", label: \"To do\" },\n  { key: \"\", label: \"(Blanks)\" },\n]\n\nfunction describesFilter(value: ColumnFilterValue | null) {\n  if (!value) {\n    return \"No filter\"\n  }\n  const parts = []\n  if (value.values) parts.push(`values: ${value.values.join(\", \") || \"none\"}`)\n  if (value.condition) {\n    const { op, value: first, value2 } = value.condition\n    parts.push([op, first, value2].filter((part) => part != null).join(\" \"))\n  }\n  return parts.join(\" · \")\n}",
+      "code": "<div className=\"flex flex-col gap-2\">\n  <div className=\"rounded-lg bg-popover shadow-md ring-1 ring-foreground/10\">\n    <ColumnFilter\n      name=\"Status\"\n      options={STATUS_OPTIONS}\n      value={value}\n      onValueChange={setValue}\n      sort={sort}\n      onSortChange={setSort}\n    />\n  </div>\n  <span className=\"text-xs text-muted-foreground\">\n    {describesFilter(value)} · sort: {sort ?? \"none\"}\n  </span>\n</div>"
+    },
+    {
+      "title": "Column filter · conditions only",
+      "imports": [
+        "import { ColumnFilter } from \"@/components/standard/column-filter\""
+      ],
+      "setup": "function describesFilter(value: ColumnFilterValue | null) {\n  if (!value) {\n    return \"No filter\"\n  }\n  const parts = []\n  if (value.values) parts.push(`values: ${value.values.join(\", \") || \"none\"}`)\n  if (value.condition) {\n    const { op, value: first, value2 } = value.condition\n    parts.push([op, first, value2].filter((part) => part != null).join(\" \"))\n  }\n  return parts.join(\" · \")\n}",
+      "code": "<div className=\"flex flex-col gap-2\">\n  <div className=\"rounded-lg bg-popover shadow-md ring-1 ring-foreground/10\">\n    <ColumnFilter\n      name=\"Progress\"\n      conditions={[\"gt\", \"gte\", \"lt\", \"lte\", \"between\", \"empty\"]}\n      value={value}\n      onValueChange={setValue}\n    />\n  </div>\n  <span className=\"text-xs text-muted-foreground\">\n    {describesFilter(value)}\n  </span>\n</div>"
+    }
+  ]
+}

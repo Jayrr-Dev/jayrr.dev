@@ -1,0 +1,24 @@
+{
+  "name": "standard-chart",
+  "components": [
+    {
+      "name": "Chart",
+      "props": [
+        {
+          "name": "data",
+          "type": "{ name: string; value: number; }[]",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Chart",
+      "imports": [
+        "import { Chart } from \"@/components/standard/chart\""
+      ],
+      "code": "<Chart\n  data={[\n    { name: \"Mon\", value: 8 },\n    { name: \"Tue\", value: 5 },\n    { name: \"Wed\", value: 6 },\n  ]}\n/>"
+    }
+  ]
+}

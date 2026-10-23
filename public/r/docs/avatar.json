@@ -1,0 +1,78 @@
+{
+  "name": "avatar",
+  "components": [
+    {
+      "name": "Avatar",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "AvatarImage",
+      "props": [],
+      "inherits": [
+        "AvatarImageProps",
+        "HTMLAttributes",
+        "ImgHTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "AvatarFallback",
+      "props": [],
+      "inherits": [
+        "AvatarFallbackProps",
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "AvatarGroup",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "AvatarGroupCount",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "AvatarBadge",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Avatar",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Avatar, AvatarFallback } from \"@/components/ui/avatar\""
+      ],
+      "code": "<>\n  <RendersDemoCard>\n    <Avatar>\n      <AvatarFallback>JR</AvatarFallback>\n    </Avatar>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Avatar className=\"size-12\">\n      <AvatarFallback>AL</AvatarFallback>\n    </Avatar>\n  </RendersDemoCard>\n</>"
+    },
+    {
+      "title": "Avatar",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Avatar, AvatarFallback } from \"@/components/ui/avatar\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"size sm\">\n    <Avatar size=\"sm\">\n      <AvatarFallback>JR</AvatarFallback>\n    </Avatar>\n  </TypeCard>\n  <TypeCard label=\"size lg\">\n    <Avatar size=\"lg\">\n      <AvatarFallback>JR</AvatarFallback>\n    </Avatar>\n  </TypeCard>\n</>"
+    }
+  ]
+}

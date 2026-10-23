@@ -1,0 +1,192 @@
+{
+  "name": "wizard",
+  "components": [
+    {
+      "name": "Wizard",
+      "description": "Multi-step form in a dialog. On phones it opens as a bottom sheet. Each step can block Continue with `canProceed`, and `onBeforeNext` can run async work (save, validate) before the wizard moves on.",
+      "props": [
+        {
+          "name": "steps",
+          "type": "WizardStep[]",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "default": "\"Wizard\""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Screen reader text for the dialog."
+        },
+        {
+          "name": "trigger",
+          "type": "React.ReactNode",
+          "default": "\"Start\"",
+          "description": "Button that opens the wizard. Pass null to open it only from `open`."
+        },
+        {
+          "name": "headerAccessory",
+          "type": "React.ReactNode",
+          "description": "Sits beside the title, like an info icon."
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "description": "Controlled step index."
+        },
+        {
+          "name": "onStepChange",
+          "type": "((step: number) => void)"
+        },
+        {
+          "name": "onBeforeNext",
+          "type": "((stepIndex: number) => void | boolean | Promise<void | boolean>)",
+          "description": "Runs before each advance. Return false to stay put."
+        },
+        {
+          "name": "onComplete",
+          "type": "(() => void)",
+          "description": "Runs when Continue is pressed on the last step."
+        },
+        {
+          "name": "nextLabel",
+          "type": "string | (string | undefined)[] | ((stepIndex: number) => string)",
+          "default": "\"Continue\"",
+          "description": "Next button text. Pass an array for one label per step, e.g. [\"Pick hours\", \"Review\", \"Save\"]. An entry for the last step replaces `completeLabel`; missing entries fall back to the defaults."
+        },
+        {
+          "name": "backLabel",
+          "type": "string",
+          "default": "\"Back\""
+        },
+        {
+          "name": "cancelLabel",
+          "type": "string",
+          "default": "\"Cancel\""
+        },
+        {
+          "name": "completeLabel",
+          "type": "string",
+          "default": "\"Complete\""
+        },
+        {
+          "name": "indicator",
+          "type": "WizardIndicator",
+          "default": "\"steps\""
+        },
+        {
+          "name": "divided",
+          "type": "boolean",
+          "default": "true",
+          "description": "Lines between the header, progress, body and footer. Off for a cleaner panel."
+        },
+        {
+          "name": "showStepNumbers",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "hideStepTitles",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "hideConnectors",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "Smaller strip for six or more steps."
+        },
+        {
+          "name": "allowStepClick",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "maxWidth",
+          "type": "\"sm\" | \"lg\" | \"md\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"5xl\" | ((stepIndex: number) => WizardMaxWidth)",
+          "default": "\"2xl\"",
+          "description": "Desktop width. Pass a function to widen one step."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "preventDismiss",
+          "type": "boolean | ((stepIndex: number) => boolean)",
+          "default": "false",
+          "description": "Blocks Escape, outside click and the close button on the given steps."
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Lets the desktop panel be dragged by its header."
+        },
+        {
+          "name": "renderFooter",
+          "type": "((props: WizardFooterProps) => React.ReactNode)"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "contentClassName",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Wizard · dots · no lines",
+      "imports": [
+        "import { Wizard } from \"@/components/standard/wizard\""
+      ],
+      "setup": "function rendersStepText(text: string) {\n  return <p className=\"text-sm text-muted-foreground\">{text}</p>\n}\n\nconst SIMPLE_STEPS = [\n  { id: \"job\", title: \"Job\", content: rendersStepText(\"Pick a job.\") },\n  { id: \"hours\", title: \"Hours\", content: rendersStepText(\"Enter hours.\") },\n  { id: \"save\", title: \"Save\", content: rendersStepText(\"Check and save.\") },\n]",
+      "code": "<Wizard\n  title=\"Welcome\"\n  trigger=\"Dots\"\n  steps={SIMPLE_STEPS}\n  indicator=\"dots\"\n  divided={false}\n  maxWidth=\"sm\"\n  nextLabel={[\"Next\", \"Next\", \"Done\"]}\n/>"
+    },
+    {
+      "title": "Wizard · numbers only",
+      "imports": [
+        "import { Wizard } from \"@/components/standard/wizard\""
+      ],
+      "setup": "function rendersStepText(text: string) {\n  return <p className=\"text-sm text-muted-foreground\">{text}</p>\n}\n\nconst SIMPLE_STEPS = [\n  { id: \"job\", title: \"Job\", content: rendersStepText(\"Pick a job.\") },\n  { id: \"hours\", title: \"Hours\", content: rendersStepText(\"Enter hours.\") },\n  { id: \"save\", title: \"Save\", content: rendersStepText(\"Check and save.\") },\n]",
+      "code": "<Wizard\n  title=\"New job\"\n  trigger=\"Numbers\"\n  steps={SIMPLE_STEPS}\n  hideStepTitles\n  hideConnectors\n  divided={false}\n  maxWidth=\"sm\"\n/>"
+    },
+    {
+      "title": "Wizard",
+      "imports": [
+        "import { TextField } from \"@/components/standard/text-field\"",
+        "import { Wizard } from \"@/components/standard/wizard\""
+      ],
+      "code": "<Wizard\n  title=\"Log hours\"\n  trigger=\"Start\"\n  open={open}\n  onOpenChange={setOpen}\n  maxWidth=\"md\"\n  steps={[\n    {\n      id: \"job\",\n      title: \"Job\",\n      required: true,\n      canProceed: () => job.trim().length > 0,\n      content: (\n        <label className=\"flex flex-col gap-1.5 text-sm\">\n          Job number\n          <TextField\n            value={job}\n            placeholder=\"J-1024\"\n            onChange={(event) => setJob(event.target.value)}\n          />\n        </label>\n      ),\n    },\n    {\n      id: \"hours\",\n      title: \"Hours\",\n      required: true,\n      canProceed: () => hoursValue > 0 && hoursValue <= 24,\n      content: (\n        <label className=\"flex flex-col gap-1.5 text-sm\">\n          Hours worked\n          <TextField\n            value={hours}\n            inputMode=\"decimal\"\n            placeholder=\"8\"\n            onChange={(event) => setHours(event.target.value)}\n          />\n        </label>\n      ),\n    },\n    {\n      id: \"review\",\n      title: \"Review\",\n      content: (\n        <p className=\"text-sm text-muted-foreground\">\n          {hoursValue} h on {job}. Complete saves the entry.\n        </p>\n      ),\n    },\n  ]}\n  onBeforeNext={(stepIndex) =>\n    stepIndex === 2\n      ? new Promise((resolve) => setTimeout(resolve, 600))\n      : undefined\n  }\n  nextLabel={[\"Enter hours\", \"Review\", \"Save entry\"]}\n  onComplete={() => {\n    setSaved(`Saved ${hoursValue} h on ${job}`)\n    setOpen(false)\n  }}\n/>\n{saved ? <span className=\"text-xs\">{saved}</span> : null}"
+    },
+    {
+      "title": "Wizard · icons · compact",
+      "imports": [
+        "import { Wizard } from \"@/components/standard/wizard\"",
+        "import { BriefcaseIcon, ClockIcon, NotebookPenIcon, SaveIcon } from \"lucide-react\""
+      ],
+      "setup": "function rendersStepText(text: string) {\n  return <p className=\"text-sm text-muted-foreground\">{text}</p>\n}\n\nconst ICON_STEPS = [\n  {\n    id: \"job\",\n    title: \"Job\",\n    icon: BriefcaseIcon,\n    content: rendersStepText(\"Pick a job.\"),\n  },\n  {\n    id: \"hours\",\n    title: \"Hours\",\n    icon: ClockIcon,\n    content: rendersStepText(\"Enter hours.\"),\n  },\n  {\n    id: \"notes\",\n    title: \"Notes\",\n    icon: NotebookPenIcon,\n    content: rendersStepText(\"Add a note.\"),\n  },\n  {\n    id: \"save\",\n    title: \"Save\",\n    icon: SaveIcon,\n    content: rendersStepText(\"Check and save.\"),\n  },\n]",
+      "code": "<Wizard\n  title=\"New job\"\n  trigger=\"Icons\"\n  steps={ICON_STEPS}\n  compact\n  maxWidth=\"lg\"\n/>"
+    }
+  ]
+}

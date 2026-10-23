@@ -1,0 +1,151 @@
+{
+  "name": "carousel",
+  "components": [
+    {
+      "name": "Carousel",
+      "props": [
+        {
+          "name": "opts",
+          "type": "Partial<import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/embla-carousel/esm/components/Options\").OptionsType>"
+        },
+        {
+          "name": "plugins",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/embla-carousel/esm/index\").CreatePluginType<import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/embla-carousel/esm/components/Plugins\").LoosePluginType, {}>[]"
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "default": "\"horizontal\""
+        },
+        {
+          "name": "setApi",
+          "type": "((api: CarouselApi) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "CarouselContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "CarouselItem",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "CarouselPrevious",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"link\" | \"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean"
+        },
+        {
+          "name": "position",
+          "type": "CarouselControlPosition"
+        },
+        {
+          "name": "appearance",
+          "type": "CarouselControlAppearance"
+        },
+        {
+          "name": "reveal",
+          "type": "CarouselControlReveal"
+        },
+        {
+          "name": "arrow",
+          "type": "boolean",
+          "description": "Show the chevron on a `gradient` control. Buttons always show it."
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "CarouselNext",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"link\" | \"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean"
+        },
+        {
+          "name": "position",
+          "type": "CarouselControlPosition"
+        },
+        {
+          "name": "appearance",
+          "type": "CarouselControlAppearance"
+        },
+        {
+          "name": "reveal",
+          "type": "CarouselControlReveal"
+        },
+        {
+          "name": "arrow",
+          "type": "boolean",
+          "description": "Show the chevron on a `gradient` control. Buttons always show it."
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "CarouselDots",
+      "props": [
+        {
+          "name": "position",
+          "type": "\"top\" | \"bottom\"",
+          "default": "\"bottom\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Carousel",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Carousel, CarouselContent, CarouselDots, CarouselItem, CarouselNext, CarouselPrevious } from \"@/components/ui/carousel\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}\n\nconst carouselDemoSlides = [\n  { value: \"1\", label: \"Plan\" },\n  { value: \"2\", label: \"Build\" },\n  { value: \"3\", label: \"Ship\" },\n]\n\nfunction CarouselDemoSlides({ className }: { className?: string }) {\n  return (\n    <CarouselContent className={className}>\n      {carouselDemoSlides.map((slide) => (\n        <CarouselItem key={slide.value}>\n          <div className=\"flex h-32 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40\">\n            <span className=\"text-2xl font-semibold tabular-nums\">\n              {slide.value}\n            </span>\n            <span className=\"text-xs text-muted-foreground\">{slide.label}</span>\n          </div>\n        </CarouselItem>\n      ))}\n    </CarouselContent>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"position inside\" wide>\n    <Carousel className=\"w-full\">\n      <CarouselDemoSlides />\n      <CarouselPrevious position=\"inside\" />\n      <CarouselNext position=\"inside\" />\n    </Carousel>\n  </TypeCard>\n  <TypeCard label=\"dots bottom\" wide>\n    <Carousel className=\"w-full\">\n      <CarouselDemoSlides />\n      <CarouselPrevious position=\"inside\" />\n      <CarouselNext position=\"inside\" />\n      <CarouselDots position=\"bottom\" />\n    </Carousel>\n  </TypeCard>\n  <TypeCard label=\"dots top\" wide>\n    <Carousel className=\"w-full\">\n      <CarouselDemoSlides />\n      <CarouselPrevious position=\"inside\" />\n      <CarouselNext position=\"inside\" />\n      <CarouselDots position=\"top\" />\n    </Carousel>\n  </TypeCard>\n  <TypeCard label=\"appearance gradient\" wide>\n    <Carousel className=\"w-full\">\n      <CarouselDemoSlides />\n      <CarouselPrevious appearance=\"gradient\" />\n      <CarouselNext appearance=\"gradient\" />\n      <CarouselDots />\n    </Carousel>\n  </TypeCard>\n  <TypeCard label=\"gradient + arrow\" wide>\n    <Carousel className=\"w-full\">\n      <CarouselDemoSlides />\n      <CarouselPrevious appearance=\"gradient\" arrow />\n      <CarouselNext appearance=\"gradient\" arrow />\n      <CarouselDots />\n    </Carousel>\n  </TypeCard>\n  <TypeCard label=\"reveal side\" wide>\n    <Carousel className=\"w-full\">\n      <CarouselDemoSlides />\n      <CarouselPrevious position=\"inside\" reveal=\"side\" />\n      <CarouselNext position=\"inside\" reveal=\"side\" />\n    </Carousel>\n  </TypeCard>\n  <TypeCard label=\"orientation vertical\" wide>\n    <div className=\"w-full py-10\">\n      <Carousel orientation=\"vertical\" className=\"w-full\">\n        <CarouselDemoSlides className=\"h-32\" />\n        <CarouselPrevious />\n        <CarouselNext />\n      </Carousel>\n    </div>\n  </TypeCard>\n</>"
+    },
+    {
+      "title": "Carousel",
+      "imports": [
+        "import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from \"@/components/ui/carousel\""
+      ],
+      "code": "<div className=\"w-full px-10\">\n  <Carousel className=\"w-full\">\n    <CarouselContent>\n      <CarouselItem>\n        <div className=\"flex h-24 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40\">\n          <span className=\"text-2xl font-semibold tabular-nums\">1</span>\n          <span className=\"text-xs text-muted-foreground\">Plan</span>\n        </div>\n      </CarouselItem>\n      <CarouselItem>\n        <div className=\"flex h-24 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40\">\n          <span className=\"text-2xl font-semibold tabular-nums\">2</span>\n          <span className=\"text-xs text-muted-foreground\">Build</span>\n        </div>\n      </CarouselItem>\n      <CarouselItem>\n        <div className=\"flex h-24 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-muted/40\">\n          <span className=\"text-2xl font-semibold tabular-nums\">3</span>\n          <span className=\"text-xs text-muted-foreground\">Ship</span>\n        </div>\n      </CarouselItem>\n    </CarouselContent>\n    <CarouselPrevious />\n    <CarouselNext />\n  </Carousel>\n</div>"
+    }
+  ]
+}

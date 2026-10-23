@@ -1,0 +1,126 @@
+{
+  "name": "toolbar-count",
+  "components": [
+    {
+      "name": "ToolbarCount",
+      "description": "Result count for a toolbar: \"24 jobs\", \"3 of 120 jobs\", or \"No jobs\".",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "total",
+          "type": "number"
+        },
+        {
+          "name": "noun",
+          "type": "string",
+          "default": "\"item\""
+        },
+        {
+          "name": "plural",
+          "type": "string"
+        },
+        {
+          "name": "variant",
+          "type": "\"text\" | \"pill\"",
+          "default": "\"text\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ToolbarCountBadge",
+      "description": "Count bubble pinned to the corner of a button. A NotificationBadge with toolbar defaults: brand tone and a \"N new\" label. Hidden at zero unless `showZero`.",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": "99"
+        },
+        {
+          "name": "tone",
+          "type": "\"default\" | \"danger\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "showZero",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "ToolbarSelectionCount",
+      "description": "\"3 selected\" chip with a clear button, shown while rows are selected.",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "onClear",
+          "type": "(() => void)"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "In a toolbar",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from \"@/components/standard/toolbar\"",
+        "import { ToolbarCount, ToolbarCountBadge, ToolbarSelectionCount } from \"@/components/standard/toolbar-count\"",
+        "import { ListFilterIcon, SearchIcon, Trash2Icon } from \"lucide-react\""
+      ],
+      "setup": "const TOTAL_JOBS = 120",
+      "code": "<Toolbar variant=\"floating\" aria-label=\"Jobs\">\n  <ToolbarGroup>\n    <ToolbarButton label=\"Search\" hint=\"Search\">\n      <SearchIcon />\n    </ToolbarButton>\n    <ToolbarCountBadge count={3}>\n      <ToolbarButton label=\"Filters\" hint=\"3 filters on\">\n        <ListFilterIcon />\n      </ToolbarButton>\n    </ToolbarCountBadge>\n  </ToolbarGroup>\n  <ToolbarSeparator />\n  {selected > 0 ? (\n    <>\n      <ToolbarSelectionCount\n        count={selected}\n        onClear={() => setSelected(0)}\n      />\n      <ToolbarButton label=\"Delete selected\" hint=\"Delete\">\n        <Trash2Icon />\n      </ToolbarButton>\n    </>\n  ) : (\n    <ToolbarCount count={shown} total={TOTAL_JOBS} noun=\"job\" />\n  )}\n  <span className=\"ml-auto\" />\n  {selected === 0 ? (\n    <Button tone=\"ghost\" size=\"sm\" onClick={() => setSelected(2)}>\n      Select 2\n    </Button>\n  ) : null}\n</Toolbar>"
+    },
+    {
+      "title": "Text",
+      "imports": [
+        "import { ToolbarCount } from \"@/components/standard/toolbar-count\""
+      ],
+      "code": "<ToolbarCount count={24} noun=\"job\" />"
+    },
+    {
+      "title": "Empty",
+      "imports": [
+        "import { ToolbarCount } from \"@/components/standard/toolbar-count\""
+      ],
+      "code": "<ToolbarCount count={0} noun=\"result\" />"
+    },
+    {
+      "title": "Pill",
+      "imports": [
+        "import { Stack } from \"@/components/standard/stack\"",
+        "import { ToolbarCount } from \"@/components/standard/toolbar-count\""
+      ],
+      "code": "<Stack direction=\"row\" align=\"center\">\n  <ToolbarCount variant=\"pill\" count={1} noun=\"report\" />\n  <ToolbarCount\n    variant=\"pill\"\n    count={1284}\n    noun=\"entry\"\n    plural=\"entries\"\n  />\n</Stack>"
+    }
+  ]
+}

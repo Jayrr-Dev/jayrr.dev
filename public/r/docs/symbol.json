@@ -1,0 +1,28 @@
+{
+  "name": "symbol",
+  "components": [
+    {
+      "name": "Symbol",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Symbol",
+      "imports": [
+        "import { Symbol } from \"@/components/standard/symbol\"",
+        "import { StarIcon } from \"lucide-react\""
+      ],
+      "code": "<Symbol>\n  <StarIcon />\n</Symbol>"
+    }
+  ]
+}

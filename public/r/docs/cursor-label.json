@@ -1,0 +1,59 @@
+{
+  "name": "cursor-label",
+  "components": [
+    {
+      "name": "CursorLabel",
+      "description": "A label that follows the pointer at a fixed side and gap. Scoped to its children by default; pass `global` for the whole page. Hidden on touch devices, and `aria-hidden`, so don't put anything only it can say.",
+      "props": [
+        {
+          "name": "content",
+          "type": "CursorLabelContent",
+          "required": true,
+          "description": "What follows the pointer: text, any element, or a function of the pointer position. Text gets the chip style; elements render as they are."
+        },
+        {
+          "name": "placement",
+          "type": "\"top\" | \"bottom\" | \"right\" | \"left\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\"",
+          "default": "\"bottom-right\"",
+          "description": "Which side of the pointer the label sits on."
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "default": "12",
+          "description": "Gap between the pointer and the label, in px."
+        },
+        {
+          "name": "flip",
+          "type": "boolean",
+          "default": "true",
+          "description": "Flip to the opposite side near an edge so the label is never cut off."
+        },
+        {
+          "name": "global",
+          "type": "boolean",
+          "default": "false",
+          "description": "Follow the pointer across the whole page instead of only inside `children`."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "description": "Classes for the label. `className` styles the scope wrapper."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

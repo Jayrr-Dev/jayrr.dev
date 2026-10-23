@@ -1,0 +1,33 @@
+{
+  "name": "progress",
+  "components": [
+    {
+      "name": "Progress",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef",
+        "ProgressProps"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Progress",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Progress } from \"@/components/ui/progress\""
+      ],
+      "code": "<>\n  <RendersDemoCard>\n    <Progress value={25} className=\"w-full\" />\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Progress value={70} className=\"w-full\" />\n  </RendersDemoCard>\n</>"
+    },
+    {
+      "title": "Progress",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Progress } from \"@/components/ui/progress\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"value 0\">\n    <Progress value={0} className=\"w-full\" />\n  </TypeCard>\n  <TypeCard label=\"value 100\">\n    <Progress value={100} className=\"w-full\" />\n  </TypeCard>\n</>"
+    }
+  ]
+}

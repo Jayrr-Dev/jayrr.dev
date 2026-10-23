@@ -1,0 +1,35 @@
+{
+  "name": "date-picker",
+  "components": [
+    {
+      "name": "DatePicker",
+      "props": [
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "invalid",
+      "imports": [
+        "import { DatePicker } from \"@/components/standard/date-picker\""
+      ],
+      "code": "<DatePicker aria-label=\"Date\" className=\"w-full\" invalid />"
+    },
+    {
+      "title": "Date picker",
+      "imports": [
+        "import { DatePicker } from \"@/components/standard/date-picker\""
+      ],
+      "code": "<DatePicker\n  aria-label=\"Date\"\n  defaultValue=\"2026-09-22\"\n  className=\"w-full\"\n/>"
+    }
+  ]
+}

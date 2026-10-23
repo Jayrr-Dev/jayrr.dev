@@ -1,0 +1,227 @@
+{
+  "name": "number-effect",
+  "components": [
+    {
+      "name": "NumberCountUp",
+      "description": "Counts from `from` to `to`, easing out as it lands. `direction=\"down\"` runs it the other way. Width is held for the longest value, so the text around it never shifts.",
+      "props": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "from",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "durationMs",
+          "type": "number",
+          "default": "2000"
+        },
+        {
+          "name": "decimals",
+          "type": "number",
+          "description": "Decimal places kept. Defaults to the most in `from` or the target."
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "separator",
+          "type": "string",
+          "description": "Replaces the locale's grouping mark. Pass \"\" to drop it."
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "startOnView",
+          "type": "boolean",
+          "default": "true",
+          "description": "Hold the run until the number scrolls into view."
+        },
+        {
+          "name": "to",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "direction",
+          "type": "\"up\" | \"down\"",
+          "default": "\"up\""
+        },
+        {
+          "name": "delayMs",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "onStart",
+          "type": "(() => void)"
+        },
+        {
+          "name": "onEnd",
+          "type": "(() => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "NumberFlip",
+      "description": "A split-flap board: each digit sits on its own card and rolls forward, flipping once per number, until it reaches `value`. Changing `value` rolls only the digits that differ.",
+      "props": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "separator",
+          "type": "string",
+          "description": "Replaces the locale's grouping mark. Pass \"\" to drop it."
+        },
+        {
+          "name": "from",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "decimals",
+          "type": "number",
+          "description": "Decimal places kept. Defaults to the most in `from` or the target."
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "startOnView",
+          "type": "boolean",
+          "default": "true",
+          "description": "Hold the run until the number scrolls into view."
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "stepMs",
+          "type": "number",
+          "default": "140",
+          "description": "How long each single flip takes."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "NumberSpeed",
+      "description": "Races a number up to `value`, smearing sideways and stretching while it moves fast, then snapping sharp as it lands.",
+      "props": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "from",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "durationMs",
+          "type": "number",
+          "default": "2200"
+        },
+        {
+          "name": "decimals",
+          "type": "number",
+          "description": "Decimal places kept. Defaults to the most in `from` or the target."
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "separator",
+          "type": "string",
+          "description": "Replaces the locale's grouping mark. Pass \"\" to drop it."
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "startOnView",
+          "type": "boolean",
+          "default": "true",
+          "description": "Hold the run until the number scrolls into view."
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "loopDelayMs",
+          "type": "number",
+          "default": "900"
+        },
+        {
+          "name": "blurStrength",
+          "type": "number",
+          "default": "1",
+          "description": "How readily speed turns into blur."
+        },
+        {
+          "name": "maxBlur",
+          "type": "number",
+          "default": "10",
+          "description": "Upper bound on the blur radius, in pixels."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Number Effect",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { NumberCountUp, NumberFlip, NumberSpeed } from \"@/components/ui/number-effect\"",
+        "import { useEffect, useState } from \"react\""
+      ],
+      "setup": "function FlipTicker() {\n  const [value, setValue] = useState(4270)\n\n  useEffect(() => {\n    const timer = window.setInterval(\n      () => setValue((v) => v + 1 + Math.floor(Math.random() * 12)),\n      2200\n    )\n    return () => window.clearInterval(timer)\n  }, [])\n\n  return <NumberFlip value={value} from={4270} stepMs={110} />\n}\n\nfunction TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"count up\">\n    <NumberCountUp to={100} />\n  </TypeCard>\n  <TypeCard label=\"count down\">\n    <NumberCountUp from={0} to={10} direction=\"down\" delayMs={400} />\n  </TypeCard>\n  <TypeCard label=\"separator\">\n    <NumberCountUp to={1234567} separator=\" \" />\n  </TypeCard>\n  <TypeCard label=\"decimals\">\n    <NumberCountUp to={98.6} suffix=\"°F\" />\n  </TypeCard>\n  <TypeCard label=\"speed\">\n    <NumberSpeed value={20000} prefix=\"$\" loop />\n  </TypeCard>\n  <TypeCard label=\"speed percent\">\n    <NumberSpeed value={99.9} suffix=\"%\" />\n  </TypeCard>\n  <TypeCard label=\"flip\">\n    <NumberFlip value={2048} />\n  </TypeCard>\n  <TypeCard label=\"flip price\">\n    <NumberFlip value={1299} prefix=\"$\" />\n  </TypeCard>\n  <TypeCard label=\"flip live\">\n    <FlipTicker />\n  </TypeCard>\n</>"
+    },
+    {
+      "title": "Number Effect",
+      "imports": [
+        "import { NumberCountUp } from \"@/components/ui/number-effect\""
+      ],
+      "code": "<p className=\"text-4xl font-semibold\">\n  <NumberCountUp to={12480} startOnView={false} />\n</p>"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "name": "autocomplete-input",
+  "components": [
+    {
+      "name": "AutocompleteInput",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Floating label. Used by the filled and outlined variants."
+        },
+        {
+          "name": "prefix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field before the value, e.g. \"$\" or \"https://\"."
+        },
+        {
+          "name": "type",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/text-field\").TextFieldType",
+          "description": "Defaults to \"text\". \"email\", \"url\" and \"number\" also get their built-in checks."
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"filled\" | \"outlined\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "description": "Error to show under the field, e.g. from the server. Marks the field invalid and overrides the built-in checks while set."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Shows a spinner in the trailing slot and marks the field busy."
+        },
+        {
+          "name": "align",
+          "type": "\"start\" | \"end\""
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "description": "Classes for the wrapper that holds the adornments. Falls back onto the input when there is no wrapper."
+        },
+        {
+          "name": "suffix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field after the value, e.g. \"ft\" or \"%\"."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Decorative content before the text, usually an icon. Defaults to a search icon when type=\"search\"."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the text, usually an icon."
+        },
+        {
+          "name": "shortcut",
+          "type": "React.ReactNode",
+          "description": "Keyboard hint on the right, e.g. \"⌘K\"."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "description": "Shows a clear button once the field has a value. Defaults to true when type=\"search\"."
+        },
+        {
+          "name": "revealable",
+          "type": "boolean",
+          "description": "Adds a show/hide toggle when type=\"password\"."
+        },
+        {
+          "name": "validate",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").FieldValidator"
+        },
+        {
+          "name": "validateOn",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidateOn"
+        },
+        {
+          "name": "messages",
+          "type": "Partial<Record<import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidationRule, string>>"
+        },
+        {
+          "name": "onValidityChange",
+          "type": "((error: string | null) => void)",
+          "description": "Fires when the field's validity changes, whether or not the error is showing yet."
+        },
+        {
+          "name": "options",
+          "type": "string[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void)"
+        },
+        {
+          "name": "inlineCompletion",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows the rest of the highlighted option as ghost text, accepted with Tab or ArrowRight. Options that start with the query sort first."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "inlineCompletion",
+      "imports": [
+        "import { AutocompleteInput } from \"@/components/standard/autocomplete-input\""
+      ],
+      "code": "<AutocompleteInput\n  aria-label=\"Project\"\n  placeholder=\"Project\"\n  options={[\"Alpha\", \"Alpine\", \"Bravo\", \"Charlie\", \"Chartreuse\"]}\n  inlineCompletion\n  clearable\n/>"
+    },
+    {
+      "title": "Autocomplete",
+      "imports": [
+        "import { AutocompleteInput } from \"@/components/standard/autocomplete-input\""
+      ],
+      "code": "<AutocompleteInput\n  aria-label=\"Project\"\n  placeholder=\"Project\"\n  options={[\"Alpha\", \"Bravo\", \"Charlie\"]}\n  clearable\n/>"
+    }
+  ]
+}

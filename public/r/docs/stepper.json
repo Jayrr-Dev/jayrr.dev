@@ -1,0 +1,120 @@
+{
+  "name": "stepper",
+  "components": [
+    {
+      "name": "Stepper",
+      "description": "Shows where someone is in a multi-step flow from a list of steps. A preset of the Steps primitive in three looks; compose `Steps` directly for any other layout. Pair it with your own content and buttons, or let `Wizard` drive it.",
+      "props": [
+        {
+          "name": "steps",
+          "type": "StepperStep[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Current step index."
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((index: number) => void)"
+        },
+        {
+          "name": "variant",
+          "type": "StepperVariant",
+          "default": "\"steps\""
+        },
+        {
+          "name": "orientation",
+          "type": "StepperOrientation",
+          "default": "\"horizontal\""
+        },
+        {
+          "name": "labelPlacement",
+          "type": "\"end\" | \"bottom\"",
+          "default": "\"end\"",
+          "description": "Horizontal steps only. `bottom` centres labels under each indicator."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "default": "\"md\""
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"square\"",
+          "default": "\"circle\""
+        },
+        {
+          "name": "showNumbers",
+          "type": "boolean",
+          "default": "true",
+          "description": "Numbers in the indicators. Off shows a small dot instead."
+        },
+        {
+          "name": "hideTitles",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "hideConnectors",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "default": "true",
+          "description": "Lets people pick a step from the strip."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Keeps the strip visible but blocks picking, e.g. while saving."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "size sm · no numbers",
+      "imports": [
+        "import { Stepper } from \"@/components/standard/stepper\""
+      ],
+      "setup": "const TITLED: StepperStep[] = [\n  { id: \"details\", title: \"Details\" },\n  { id: \"confirm\", title: \"Confirm\" },\n  { id: \"done\", title: \"Done\" },\n]",
+      "code": "<Stepper steps={TITLED} size=\"sm\" showNumbers={false} defaultValue={1} />"
+    },
+    {
+      "title": "status · loading and error",
+      "imports": [
+        "import { Stepper } from \"@/components/standard/stepper\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-6\">\n  <Stepper\n    steps={[\n      { id: \"upload\", title: \"Upload\" },\n      { id: \"process\", title: \"Process\", status: \"loading\" },\n      { id: \"publish\", title: \"Publish\" },\n    ]}\n    value={1}\n    interactive={false}\n  />\n  <Stepper\n    steps={[\n      { id: \"upload\", title: \"Upload\" },\n      { id: \"process\", title: \"Process\", status: \"error\" },\n      { id: \"publish\", title: \"Publish\" },\n    ]}\n    value={1}\n    interactive={false}\n  />\n</div>"
+    },
+    {
+      "title": "numbers · square",
+      "imports": [
+        "import { Stepper } from \"@/components/standard/stepper\""
+      ],
+      "setup": "const NUMBERED: StepperStep[] = [\n  { id: \"one\" },\n  { id: \"two\" },\n  { id: \"three\" },\n]",
+      "code": "<Stepper steps={NUMBERED} shape=\"square\" labelPlacement=\"bottom\" />"
+    },
+    {
+      "title": "variant dots / bar",
+      "imports": [
+        "import { Stepper } from \"@/components/standard/stepper\""
+      ],
+      "setup": "const DESCRIBED: StepperStep[] = [\n  { id: \"account\", title: \"Account\", description: \"Create an account\" },\n  { id: \"profile\", title: \"Profile\", description: \"Set up your profile\" },\n  { id: \"complete\", title: \"Complete\", description: \"Finish the setup\" },\n]",
+      "code": "<div className=\"flex w-full flex-col gap-6\">\n  <Stepper steps={DESCRIBED} variant=\"dots\" defaultValue={1} />\n  <Stepper steps={DESCRIBED} variant=\"bar\" defaultValue={1} />\n</div>"
+    }
+  ]
+}

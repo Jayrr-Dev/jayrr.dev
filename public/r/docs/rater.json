@@ -1,0 +1,124 @@
+{
+  "name": "rater",
+  "components": [
+    {
+      "name": "Rater",
+      "props": [
+        {
+          "name": "value",
+          "type": "number"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: number) => void)"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": "5",
+          "description": "Number of icons."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "default": "1",
+          "description": "Smallest change: 1 for whole icons, 0.5 for halves."
+        },
+        {
+          "name": "size",
+          "type": "RaterSize",
+          "default": "\"default\""
+        },
+        {
+          "name": "tone",
+          "type": "RaterTone",
+          "default": "\"default\""
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode | ((index: number) => React.ReactNode)",
+          "default": "<StarIcon />",
+          "description": "The icon to repeat, or one per position (0-based) for e.g. emoji faces."
+        },
+        {
+          "name": "effect",
+          "type": "RaterEffect",
+          "default": "\"none\"",
+          "description": "The animation played when a rating is chosen by click or keyboard. It never plays on mount or on outside value changes, and honours reduced motion. burst, ripple and sparkle draw in the tone colour around the icon; cascade pops each newly filled icon in turn and wave lifts them all."
+        },
+        {
+          "name": "highlight",
+          "type": "\"single\" | \"range\"",
+          "default": "\"range\"",
+          "description": "range: fill every icon up to the value. single: highlight only the chosen icon."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows the value without letting it change."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Visible label above the icons."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Submits the value with a form under this name."
+        },
+        {
+          "name": "getValueText",
+          "type": "((value: number, max: number) => string)",
+          "default": "defaultValueText",
+          "description": "Screen-reader text for a value. Defaults to \"3 out of 5\"."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "icon per position · highlight single",
+      "imports": [
+        "import { Rater } from \"@/components/standard/rater\""
+      ],
+      "setup": "const FACES = [\"😡\", \"☹️\", \"😐\", \"🙂\", \"😍\"]\n\nconst FACE_NAMES = [\"Awful\", \"Bad\", \"Okay\", \"Good\", \"Great\"]",
+      "code": "<Rater\n  label=\"How was your experience?\"\n  icon={(index) => FACES[index]}\n  highlight=\"single\"\n  size=\"xl\"\n  effect=\"bounce\"\n  value={mood}\n  onValueChange={setMood}\n  getValueText={(value) => FACE_NAMES[value - 1] ?? \"Not rated\"}\n/>"
+    },
+    {
+      "title": "icon",
+      "imports": [
+        "import { Rater } from \"@/components/standard/rater\"",
+        "import { HeartIcon, SparkleIcon, ZapIcon } from \"lucide-react\""
+      ],
+      "code": "<div className=\"grid grid-cols-2 gap-x-6 gap-y-3\">\n  <Rater\n    label=\"Heart\"\n    icon={<HeartIcon />}\n    tone=\"danger\"\n    defaultValue={3}\n  />\n  <Rater\n    label=\"Energy\"\n    icon={<ZapIcon />}\n    tone=\"warning\"\n    defaultValue={2}\n  />\n  <Rater label=\"Sparkle\" icon={<SparkleIcon />} defaultValue={4} />\n  <Rater\n    label=\"Ten points\"\n    max={10}\n    size=\"sm\"\n    defaultValue={7}\n    className=\"col-span-2\"\n  />\n</div>"
+    },
+    {
+      "title": "step 0.5",
+      "imports": [
+        "import { Rater } from \"@/components/standard/rater\""
+      ],
+      "code": "<Rater aria-label=\"Rating\" step={0.5} defaultValue={2.5} />"
+    },
+    {
+      "title": "disabled",
+      "imports": [
+        "import { Rater } from \"@/components/standard/rater\""
+      ],
+      "code": "<Rater aria-label=\"Rating\" disabled defaultValue={2} />"
+    }
+  ]
+}

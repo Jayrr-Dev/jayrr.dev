@@ -1,0 +1,53 @@
+{
+  "name": "pattern",
+  "components": [
+    {
+      "name": "Pattern",
+      "description": "Repeating shapes. Basic: dots, grid, lines, diagonal, checker. Graphic: waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and dashed diagonals, band. Decorative: speed lines, motion lines, sunburst, seigaiha, asanoha, kikko, shippo, sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard, blueprint, fold.",
+      "props": [
+        {
+          "name": "placement",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerPlacement"
+        },
+        {
+          "name": "blend",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerBlend"
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "description": "0–1."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "kind",
+          "type": "\"grid\" | \"dots\" | \"diagonal\" | \"checker\" | \"lines\" | \"waves\" | \"paper\" | \"pinstripe\" | \"barcode\" | \"polka\" | \"triangles\" | \"diamonds\" | \"dotted-diagonal\" | \"double-diagonal\" | \"dashed-diagonal\" | \"band\" | \"speed-lines\" | \"motion-lines\" | \"…",
+          "default": "\"dots\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "description": "Cell size in px. Defaults per kind."
+        },
+        {
+          "name": "thickness",
+          "type": "number",
+          "description": "Line width or dot radius in px."
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "description": "Any CSS color. Defaults to a faint foreground."
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

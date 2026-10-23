@@ -1,0 +1,164 @@
+{
+  "name": "phone-input",
+  "components": [
+    {
+      "name": "PhoneInput",
+      "description": "Phone number field with a searchable country picker. Formats as you type and reports the number in E.164 (\"+12125551234\"), or undefined when empty. Check it with isValidPhoneNumber, re-exported from here.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | (React.ReactElement<unknown, string | React.JSXElementConstructor<any>> & string) | (Iterable<React.ReactNode> & string) | (React.ReactPortal & string) | (Promise<string | number | bigint | boolean | React.ReactPortal | React.Reac…",
+          "description": "Floating label. Used by the filled and outlined variants."
+        },
+        {
+          "name": "prefix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field before the value, e.g. \"$\" or \"https://\"."
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"filled\" | \"outlined\""
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "description": "Error to show under the field, e.g. from the server. Marks the field invalid and overrides the built-in checks while set."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Shows a spinner in the trailing slot and marks the field busy."
+        },
+        {
+          "name": "align",
+          "type": "\"start\" | \"end\""
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "description": "Classes for the wrapper that holds the adornments. Falls back onto the input when there is no wrapper."
+        },
+        {
+          "name": "suffix",
+          "type": "React.ReactNode",
+          "description": "Text inside the field after the value, e.g. \"ft\" or \"%\"."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Decorative content before the text, usually an icon. Defaults to a search icon when type=\"search\"."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the text, usually an icon."
+        },
+        {
+          "name": "shortcut",
+          "type": "React.ReactNode",
+          "description": "Keyboard hint on the right, e.g. \"⌘K\"."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "description": "Shows a clear button once the field has a value. Defaults to true when type=\"search\"."
+        },
+        {
+          "name": "revealable",
+          "type": "boolean",
+          "description": "Adds a show/hide toggle when type=\"password\"."
+        },
+        {
+          "name": "validate",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").FieldValidator"
+        },
+        {
+          "name": "validateOn",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidateOn"
+        },
+        {
+          "name": "messages",
+          "type": "Partial<Record<import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidationRule, string>>"
+        },
+        {
+          "name": "onValidityChange",
+          "type": "((error: string | null) => void)",
+          "description": "Fires when the field's validity changes, whether or not the error is showing yet."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "E.164 number, e.g. \"+12125551234\". Empty is undefined."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: RPNInput.Value | undefined) => void)"
+        },
+        {
+          "name": "defaultCountry",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/libphonenumber-js/types\").CountryCode",
+          "description": "Country used until the number says otherwise."
+        },
+        {
+          "name": "countries",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/libphonenumber-js/types\").CountryCode[]",
+          "description": "Limits the picker to these countries."
+        },
+        {
+          "name": "onCountryChange",
+          "type": "((country: RPNInput.Country | undefined) => void)"
+        },
+        {
+          "name": "international",
+          "type": "boolean",
+          "default": "false",
+          "description": "Keeps the +code in the field. The placeholder then never shows."
+        },
+        {
+          "name": "size",
+          "type": "PhoneInputSize",
+          "default": "\"default\""
+        },
+        {
+          "name": "shape",
+          "type": "\"default\" | \"pill\"",
+          "default": "\"default\"",
+          "description": "Pill ends instead of rounded corners."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "sizes · pill",
+      "imports": [
+        "import { PhoneInput } from \"@/components/standard/phone-input\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <PhoneInput\n    size=\"sm\"\n    placeholder=\"Small\"\n    defaultCountry=\"US\"\n    value={small}\n    onChange={setSmall}\n  />\n  <PhoneInput\n    size=\"lg\"\n    placeholder=\"Large\"\n    defaultCountry=\"GB\"\n    value={large}\n    onChange={setLarge}\n  />\n  <PhoneInput\n    shape=\"pill\"\n    placeholder=\"Pill\"\n    defaultCountry=\"PH\"\n    value={pill}\n    onChange={setPill}\n  />\n</div>"
+    },
+    {
+      "title": "Phone input · E.164 out",
+      "imports": [
+        "import { PhoneInput } from \"@/components/standard/phone-input\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-2\">\n  <PhoneInput\n    label=\"Contact number\"\n    placeholder=\"Enter contact number\"\n    defaultCountry=\"US\"\n    value={phone}\n    onChange={setPhone}\n  />\n  <p className=\"text-xs text-muted-foreground tabular-nums\">\n    value: {phone ?? \"undefined\"}\n  </p>\n</div>"
+    },
+    {
+      "title": "validation · disabled · read-only",
+      "imports": [
+        "import { FormField } from \"@/components/standard/form-field\"",
+        "import { PhoneInput } from \"@/components/standard/phone-input\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <FormField\n    label=\"Mobile\"\n    helper=\"We'll never share your number.\"\n    error={error}\n    success={phone && !error ? \"Looks good.\" : undefined}\n  >\n    <PhoneInput defaultCountry=\"US\" value={phone} onChange={setPhone} />\n  </FormField>\n  <PhoneInput\n    label=\"Disabled\"\n    placeholder=\"Enter contact number\"\n    defaultCountry=\"US\"\n    disabled\n  />\n  <PhoneInput label=\"Read-only\" value=\"+12125551234\" readOnly />\n</div>"
+    }
+  ]
+}

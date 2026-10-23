@@ -1,0 +1,93 @@
+{
+  "name": "info-icon",
+  "components": [
+    {
+      "name": "InfoIcon",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the icon button, and the popover's title."
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "tone",
+          "type": "InfoIconTone",
+          "default": "\"info\"",
+          "description": "Picks the glyph: info (i), help (?), alert (!). Alert tooltips turn red."
+        },
+        {
+          "name": "type",
+          "type": "\"popover\" | \"tooltip\"",
+          "default": "\"popover\"",
+          "description": "`popover` opens a titled note on click; `tooltip` shows the body on hover."
+        }
+      ]
+    },
+    {
+      "name": "QuestionIcon",
+      "description": "Preset of InfoIcon with the help (?) glyph, for \"what is this?\" notes next to a field or title. Same as `<InfoIcon tone=\"help\">`; takes every other InfoIcon prop, including `type`.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the icon button, and the popover's title."
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "type": "\"popover\" | \"tooltip\"",
+          "description": "`popover` opens a titled note on click; `tooltip` shows the body on hover."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "type tooltip · tone alert",
+      "imports": [
+        "import { InfoIcon } from \"@/components/standard/info-icon\""
+      ],
+      "code": "<InfoIcon\n  type=\"tooltip\"\n  tone=\"alert\"\n  label=\"Overdue\"\n  body=\"Invoice is 14 days late.\"\n/>"
+    },
+    {
+      "title": "QuestionIcon preset · type tooltip",
+      "imports": [
+        "import { QuestionIcon } from \"@/components/standard/info-icon\""
+      ],
+      "code": "<QuestionIcon\n  type=\"tooltip\"\n  label=\"What is this?\"\n  body=\"QuestionIcon is InfoIcon with tone help.\"\n/>"
+    },
+    {
+      "title": "tone help",
+      "imports": [
+        "import { QuestionIcon } from \"@/components/standard/info-icon\""
+      ],
+      "code": "<QuestionIcon label=\"What is this?\" body=\"Short help for this field.\" />"
+    },
+    {
+      "title": "tone alert",
+      "imports": [
+        "import { InfoIcon } from \"@/components/standard/info-icon\""
+      ],
+      "code": "<InfoIcon\n  tone=\"alert\"\n  label=\"Hold help\"\n  body=\"This job is on hold until Friday.\"\n/>"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "name": "print-button",
+  "components": [
+    {
+      "name": "PrintButton",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Document title while printing, used by \"Save as PDF\" as the file name."
+        },
+        {
+          "name": "rel",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "loading",
+          "type": "boolean | \"spin-icon\"",
+          "description": "Blocks clicks while an action runs. `true` shows a spinner before the label (in place of `leading`); `\"spin-icon\"` spins the `leading` icon."
+        },
+        {
+          "name": "download",
+          "type": "any"
+        },
+        {
+          "name": "tone",
+          "type": "\"link\" | \"default\" | \"outline\" | \"ghost\" | \"success\" | \"danger\" | \"quiet\" | \"inverse\" | \"inverse-outline\"",
+          "default": "\"outline\""
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the label (and after `count`), usually an icon."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\" | \"pill\" | \"square\""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches to the full width of its container."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number shown inline after the label as a notification badge."
+        },
+        {
+          "name": "display",
+          "type": "FileActionDisplay",
+          "default": "\"icon-text\""
+        },
+        {
+          "name": "target",
+          "type": "React.RefObject<HTMLElement | null>",
+          "description": "Element to print on its own instead of the whole page."
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "iconed text · prints one element",
+      "imports": [
+        "import { PrintButton } from \"@/components/standard/print-button\""
+      ],
+      "code": "<div className=\"flex flex-wrap items-center gap-3\">\n  <div\n    ref={receipt}\n    className=\"rounded-md border border-border bg-background px-3 py-2 font-mono text-xs\"\n  >\n    Receipt #1042 · 3 items · $128.50\n  </div>\n  <PrintButton target={receipt} title=\"Receipt 1042\">\n    Print receipt\n  </PrintButton>\n</div>"
+    },
+    {
+      "title": "icon",
+      "imports": [
+        "import { PrintButton } from \"@/components/standard/print-button\""
+      ],
+      "code": "<PrintButton display=\"icon\" />"
+    },
+    {
+      "title": "text",
+      "imports": [
+        "import { PrintButton } from \"@/components/standard/print-button\""
+      ],
+      "code": "<PrintButton display=\"text\" />"
+    },
+    {
+      "title": "iconed text",
+      "imports": [
+        "import { PrintButton } from \"@/components/standard/print-button\""
+      ],
+      "code": "<PrintButton />"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "name": "standard-list-chrome",
+  "components": [
+    {
+      "name": "RendersStandardListChrome",
+      "props": [
+        {
+          "name": "titleBar",
+          "type": "StandardListTitleBar"
+        },
+        {
+          "name": "titleBarTrailing",
+          "type": "React.ReactNode",
+          "description": "Extra controls at the end of the title bar, e.g. a view switcher."
+        },
+        {
+          "name": "errorBar",
+          "type": "string"
+        },
+        {
+          "name": "showSearch",
+          "type": "boolean"
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string"
+        },
+        {
+          "name": "searchValue",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "onSearchChange",
+          "type": "(value: string) => void",
+          "required": true
+        },
+        {
+          "name": "showRefresh",
+          "type": "boolean"
+        },
+        {
+          "name": "onRefresh",
+          "type": "(() => void)"
+        },
+        {
+          "name": "filterBadge",
+          "type": "boolean"
+        },
+        {
+          "name": "filterSelect",
+          "type": "boolean"
+        },
+        {
+          "name": "filters",
+          "type": "StandardListFilter[]",
+          "required": true
+        },
+        {
+          "name": "selectedFilters",
+          "type": "Record<string, string>",
+          "required": true
+        },
+        {
+          "name": "onFilterChange",
+          "type": "(key: string, value: string) => void",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "RendersStandardListPager",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "total",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "onPageChange",
+          "type": "(page: number) => void",
+          "required": true
+        },
+        {
+          "name": "onPageSizeChange",
+          "type": "(pageSize: number) => void",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

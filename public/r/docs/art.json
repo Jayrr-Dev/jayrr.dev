@@ -1,0 +1,159 @@
+{
+  "name": "art",
+  "components": [
+    {
+      "name": "Art",
+      "description": "A layer of positioned art: cut-out images, SVGs or any element, each with its own place, size, depth, entrance and idle loop. Put it in any `relative isolate` parent (Hero Card, Surface, Card) like the other layers.",
+      "props": [
+        {
+          "name": "placement",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerPlacement"
+        },
+        {
+          "name": "blend",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerBlend"
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "description": "0–1."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "items",
+          "type": "ArtPieceProps[]",
+          "default": "[]",
+          "description": "Pieces as data. Children (ArtPiece) are rendered after them."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "trigger",
+          "type": "\"mount\" | \"visible\"",
+          "default": "\"visible\"",
+          "description": "Animate in on mount, or when the Art scrolls into view. Default `visible`."
+        },
+        {
+          "name": "stagger",
+          "type": "number",
+          "default": "120",
+          "description": "ms added per piece, in order, so they arrive one after another. Default 120."
+        },
+        {
+          "name": "parallax",
+          "type": "number",
+          "default": "0",
+          "description": "px each piece drifts with the pointer at depth 1. 0 turns it off."
+        }
+      ]
+    },
+    {
+      "name": "ArtPiece",
+      "description": "One piece of art inside Art. Also accepted as an item in `items`.",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "description": "Image URL. Leave out and pass children for inline SVG or any element."
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "x",
+          "type": "number",
+          "default": "50",
+          "description": "Centre of the piece, in % of the Art box from the left. Default 50."
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "default": "50",
+          "description": "Centre of the piece, in % of the Art box from the top. Default 50."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "default": "120",
+          "description": "px, or any CSS length such as \"30%\". Default 120."
+        },
+        {
+          "name": "rotate",
+          "type": "number",
+          "default": "0",
+          "description": "Degrees."
+        },
+        {
+          "name": "depth",
+          "type": "number",
+          "default": "1",
+          "description": "Stacking order and parallax strength. Pieces with more depth sit in front and move further with the pointer. Default 1."
+        },
+        {
+          "name": "enter",
+          "type": "\"pop\" | \"none\" | \"fade\" | \"rise\" | \"drop\" | \"slide-start\" | \"slide-end\" | \"zoom\" | \"spin\" | \"blur\"",
+          "default": "\"rise\"",
+          "description": "How the piece arrives. Default `rise`."
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "default": "0",
+          "description": "ms after the Art enters, on top of its stagger."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "900",
+          "description": "ms. Default 900."
+        },
+        {
+          "name": "idle",
+          "type": "\"none\" | \"pulse\" | \"spin\" | \"float\" | \"sway\"",
+          "default": "\"none\"",
+          "description": "Loop that runs once the piece has arrived. Default `none`."
+        },
+        {
+          "name": "idleDuration",
+          "type": "number",
+          "description": "Seconds per idle loop."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "scene · depth · parallax (move the pointer)",
+      "imports": [
+        "import { Art, ArtPiece } from \"@/components/standard/art\"",
+        "import { Gradient } from \"@/components/standard/gradient\"",
+        "import { Noise } from \"@/components/standard/noise\"",
+        "import { Surface } from \"@/components/standard/surface\""
+      ],
+      "code": "<Surface className=\"h-96 w-full overflow-hidden rounded-xl text-white\">\n  <Gradient preset=\"midnight\" />\n  <Gradient preset=\"primary\" blend=\"screen\" />\n  <Noise opacity={0.2} blend=\"overlay\" />\n  <Art parallax={24}>\n    <ArtPiece src=\"/hero/blob.svg\" x={78} y={60} width={260} depth={0.4} enter=\"blur\" idle=\"float\" idleDuration={6} />\n    <ArtPiece src=\"/hero/ring.svg\" x={20} y={70} width={160} depth={0.8} enter=\"zoom\" idle=\"spin\" idleDuration={30} />\n    <ArtPiece src=\"/hero/stat-card.svg\" x={62} y={42} width={300} depth={1.4} enter=\"rise\" />\n    <ArtPiece src=\"/hero/toast.svg\" x={30} y={24} width={240} depth={2} enter=\"slide-start\" idle=\"float\" idleDuration={3.5} />\n    <ArtPiece src=\"/hero/cursor.svg\" x={46} y={78} width={100} depth={3} enter=\"pop\" idle=\"float\" idleDuration={2.4} />\n    <ArtPiece src=\"/hero/sparkle.svg\" x={88} y={16} width={34} depth={3.5} enter=\"pop\" idle=\"pulse\" />\n    <ArtPiece src=\"/hero/sparkle.svg\" x={10} y={30} width={22} depth={3.5} enter=\"pop\" idle=\"pulse\" idleDuration={1.4} />\n  </Art>\n</Surface>"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "heading",
+  "components": [
+    {
+      "name": "Heading",
+      "props": [
+        {
+          "name": "display",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "tone",
+          "type": "\"default\" | \"muted\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "level",
+          "type": "1 | 2 | 3",
+          "default": "1"
+        },
+        {
+          "name": "lineClamp",
+          "type": "1 | 2 | 4 | 3"
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "HeadingHighlight",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Heading",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Heading, HeadingHighlight } from \"@/components/standard/heading\""
+      ],
+      "setup": "const longHeading =\n  \"The king's joke tax, and why the treasury stayed empty long after every jester had left town\"",
+      "code": "<>\n  <RendersDemoCard>\n    <Heading level={1}>Taxing Laughter</Heading>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Heading level={2}>The King&apos;s Plan</Heading>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Heading level={3}>The Joke Tax</Heading>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"display · level 1\" className=\"w-full\">\n    <Heading level={1} display>\n      Ship your side project in{\" \"}\n      <HeadingHighlight>7 days</HeadingHighlight>, not 7 months\n    </Heading>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"display · level 2\" className=\"w-full\">\n    <Heading level={2} display>\n      Everything you need, nothing you don&apos;t\n    </Heading>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"tone muted\">\n    <Heading level={3} tone=\"muted\">\n      The Joke Tax\n    </Heading>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"lineClamp 2\">\n    <Heading level={3} lineClamp={2}>\n      {longHeading}\n    </Heading>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"truncate\">\n    <Heading level={3} truncate className=\"w-full\">\n      {longHeading}\n    </Heading>\n  </RendersDemoCard>\n</>"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "hover-card",
+  "components": [
+    {
+      "name": "HoverCard",
+      "props": [],
+      "inherits": [
+        "HoverCardProps"
+      ]
+    },
+    {
+      "name": "HoverCardTrigger",
+      "props": [],
+      "inherits": [
+        "AnchorHTMLAttributes",
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    },
+    {
+      "name": "HoverCardContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "HoverCardContentImplProps",
+        "HoverCardContentProps",
+        "PopperContentProps",
+        "PrimitivePropsWithRef"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Hover Card",
+      "imports": [
+        "import { Button } from \"@/components/ui/button\"",
+        "import { HoverCard, HoverCardContent, HoverCardTrigger } from \"@/components/ui/hover-card\""
+      ],
+      "code": "<HoverCard>\n  <HoverCardTrigger asChild>\n    <Button variant=\"link\">Hover</Button>\n  </HoverCardTrigger>\n  <HoverCardContent>More about this piece.</HoverCardContent>\n</HoverCard>"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "separator",
+  "components": [
+    {
+      "name": "Separator",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef",
+        "SeparatorProps"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Separator",
+      "imports": [
+        "import { Separator } from \"@/components/ui/separator\""
+      ],
+      "code": "<Separator />"
+    },
+    {
+      "title": "Separator",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Separator } from \"@/components/ui/separator\""
+      ],
+      "code": "<>\n  <RendersDemoCard>\n    <div className=\"flex w-full flex-col gap-3\">\n      <p className=\"text-sm\">Above</p>\n      <Separator />\n      <p className=\"text-sm\">Below</p>\n    </div>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <div className=\"flex h-8 items-center gap-3 text-sm\">\n      <span>Left</span>\n      <Separator orientation=\"vertical\" />\n      <span>Right</span>\n    </div>\n  </RendersDemoCard>\n</>"
+    },
+    {
+      "title": "Separator",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Separator } from \"@/components/ui/separator\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<TypeCard label=\"orientation vertical\">\n  <div className=\"flex h-16 items-center gap-3\">\n    <span className=\"text-sm\">Left</span>\n    <Separator orientation=\"vertical\" />\n    <span className=\"text-sm\">Right</span>\n  </div>\n</TypeCard>"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "indicator",
+  "components": [
+    {
+      "name": "Indicator",
+      "description": "Presence dot. Wrap an avatar to pin it to the bottom-right corner, or render it alone to sit inline; `showLabel` prints the status beside the dot.",
+      "props": [
+        {
+          "name": "status",
+          "type": "\"online\" | \"away\" | \"busy\" | \"offline\"",
+          "default": "\"online\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Custom label",
+      "imports": [
+        "import { Indicator } from \"@/components/standard/indicator\""
+      ],
+      "code": "<Indicator status=\"busy\" label=\"In a meeting\" showLabel />"
+    },
+    {
+      "title": "Inline with label",
+      "imports": [
+        "import { Indicator } from \"@/components/standard/indicator\""
+      ],
+      "setup": "const PEOPLE = [\n  { initials: \"AK\", status: \"online\" as const },\n  { initials: \"MR\", status: \"away\" as const },\n  { initials: \"JL\", status: \"busy\" as const },\n  { initials: \"SO\", status: \"offline\" as const },\n]",
+      "code": "<div className=\"flex flex-col gap-2\">\n  {PEOPLE.map((person) => (\n    <Indicator key={person.initials} status={person.status} showLabel />\n  ))}\n</div>"
+    },
+    {
+      "title": "size sm, default, lg",
+      "imports": [
+        "import { Avatar } from \"@/components/standard/avatar\"",
+        "import { Indicator } from \"@/components/standard/indicator\"",
+        "import { Stack } from \"@/components/standard/stack\""
+      ],
+      "code": "<Stack direction=\"row\" align=\"center\" className=\"gap-4\">\n  <Indicator size=\"sm\">\n    <Avatar size=\"sm\">AK</Avatar>\n  </Indicator>\n  <Indicator>\n    <Avatar>AK</Avatar>\n  </Indicator>\n  <Indicator size=\"lg\">\n    <Avatar size=\"lg\">AK</Avatar>\n  </Indicator>\n</Stack>"
+    },
+    {
+      "title": "On an avatar",
+      "imports": [
+        "import { Avatar } from \"@/components/standard/avatar\"",
+        "import { Indicator } from \"@/components/standard/indicator\"",
+        "import { Stack } from \"@/components/standard/stack\""
+      ],
+      "setup": "const PEOPLE = [\n  { initials: \"AK\", status: \"online\" as const },\n  { initials: \"MR\", status: \"away\" as const },\n  { initials: \"JL\", status: \"busy\" as const },\n  { initials: \"SO\", status: \"offline\" as const },\n]",
+      "code": "<Stack direction=\"row\" align=\"center\" className=\"gap-4\">\n  {PEOPLE.map((person) => (\n    <Indicator key={person.initials} status={person.status}>\n      <Avatar>{person.initials}</Avatar>\n    </Indicator>\n  ))}\n</Stack>"
+    }
+  ]
+}

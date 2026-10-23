@@ -1,0 +1,144 @@
+{
+  "name": "navigation",
+  "components": [
+    {
+      "name": "NavigationBar",
+      "description": "Bottom navigation for compact screens: 3–5 destinations, icon over label. `layout=\"inline\"` puts the label beside the icon for wider bars.",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((id: string) => void)"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "items",
+          "type": "NavigationItem[]",
+          "required": true
+        },
+        {
+          "name": "layout",
+          "type": "\"inline\" | \"stacked\"",
+          "default": "\"stacked\""
+        },
+        {
+          "name": "hideLabels",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "NavigationDrawer",
+      "description": "Full side navigation for expanded screens: full-width pill rows with an optional trailing count, grouped into labelled sections. Put it inside a Sheet for the modal variant on smaller screens.",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((id: string) => void)"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "sections",
+          "type": "NavigationDrawerSection[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "NavigationRail",
+      "description": "Side navigation for medium screens. Collapsed shows icon over label in a narrow column; `expanded` widens it into drawer-style rows. Put a menu button or primary action in `header`.",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((id: string) => void)"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "items",
+          "type": "NavigationItem[]",
+          "required": true
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "header",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "inline",
+      "imports": [
+        "import { NavigationBar } from \"@/components/standard/navigation\""
+      ],
+      "code": "<div className=\"overflow-hidden rounded-b-xl\">\n  <NavigationBar\n    layout=\"inline\"\n    items={DESTINATIONS.slice(0, 3)}\n    value={value}\n    onValueChange={setValue}\n  />\n</div>"
+    },
+    {
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { NavigationRail } from \"@/components/standard/navigation\"",
+        "import { MenuIcon, PencilIcon } from \"lucide-react\""
+      ],
+      "code": "<div className=\"flex h-96 overflow-hidden rounded-xl\">\n  <NavigationRail\n    items={DESTINATIONS}\n    value={value}\n    onValueChange={setValue}\n    expanded={expanded}\n    header={\n      <>\n        <Button\n          iconOnly\n          aria-label={expanded ? \"Collapse\" : \"Expand\"}\n          tone=\"ghost\"\n          onClick={() => setExpanded(!expanded)}\n        >\n          <MenuIcon className=\"size-4\" />\n        </Button>\n        <Button size=\"sm\" className=\"[&_svg]:size-4\">\n          <PencilIcon />\n          {expanded ? \"New job\" : null}\n        </Button>\n      </>\n    }\n  />\n  <div className=\"flex-1 border-l border-border p-4 text-sm text-muted-foreground\">\n    {value}\n  </div>\n</div>"
+    },
+    {
+      "imports": [
+        "import { NavigationDrawer } from \"@/components/standard/navigation\"",
+        "import { BellIcon, InboxIcon, SendIcon, SettingsIcon, StarIcon } from \"lucide-react\""
+      ],
+      "setup": "const DRAWER_SECTIONS: NavigationDrawerSection[] = [\n  {\n    id: \"mail\",\n    items: [\n      { id: \"inbox\", label: \"Inbox\", icon: <InboxIcon />, badge: 24 },\n      { id: \"sent\", label: \"Sent\", icon: <SendIcon /> },\n      { id: \"starred\", label: \"Starred\", icon: <StarIcon /> },\n    ],\n  },\n  {\n    id: \"workspace\",\n    label: \"Workspace\",\n    items: [\n      { id: \"alerts\", label: \"Alerts\", icon: <BellIcon />, badge: true },\n      { id: \"settings\", label: \"Settings\", icon: <SettingsIcon /> },\n    ],\n  },\n]",
+      "code": "<div className=\"flex overflow-hidden rounded-xl\">\n  <NavigationDrawer\n    title=\"Mail\"\n    sections={DRAWER_SECTIONS}\n    value={value}\n    onValueChange={setValue}\n  />\n  <div className=\"flex-1 border-l border-border p-4 text-sm text-muted-foreground\">\n    {value}\n  </div>\n</div>"
+    },
+    {
+      "imports": [
+        "import { NavigationBar } from \"@/components/standard/navigation\""
+      ],
+      "code": "<div className=\"overflow-hidden rounded-b-xl\">\n  <NavigationBar\n    items={DESTINATIONS}\n    value={value}\n    onValueChange={setValue}\n  />\n</div>"
+    }
+  ]
+}

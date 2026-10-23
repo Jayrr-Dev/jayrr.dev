@@ -1,0 +1,77 @@
+{
+  "name": "card-corridor",
+  "components": [
+    {
+      "name": "CardCorridor",
+      "props": [
+        {
+          "name": "items",
+          "type": "React.ReactNode[]",
+          "required": true,
+          "description": "Card faces. A string is shown as an image URL."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Content over the corridor."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "default": "18",
+          "description": "Cards on each wall."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "30",
+          "description": "Seconds for one card to travel from the center to the edge."
+        },
+        {
+          "name": "direction",
+          "type": "\"in\" | \"out\"",
+          "default": "\"out\"",
+          "description": "`out` comes toward you from the center, `in` goes away into it."
+        },
+        {
+          "name": "spread",
+          "type": "number",
+          "default": "0.5",
+          "description": "Distance from the center to each wall, as a share of the width."
+        },
+        {
+          "name": "depth",
+          "type": "number",
+          "default": "2.2",
+          "description": "How far back the walls meet, in frame widths."
+        },
+        {
+          "name": "angle",
+          "type": "number",
+          "default": "65",
+          "description": "How far cards on the walls turn toward the middle, in degrees."
+        },
+        {
+          "name": "bend",
+          "type": "number",
+          "default": "0.65",
+          "description": "Share of the trip spent fanning out from the center to the wall."
+        },
+        {
+          "name": "pauseOnHover",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "cardClassName",
+          "type": "string",
+          "description": "Size and shape of every card."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

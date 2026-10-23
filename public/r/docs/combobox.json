@@ -1,0 +1,162 @@
+{
+  "name": "combobox",
+  "components": [
+    {
+      "name": "Combobox",
+      "props": [],
+      "inherits": [
+        "ComboboxRootProps"
+      ]
+    },
+    {
+      "name": "ComboboxInput",
+      "props": [
+        {
+          "name": "showTrigger",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "showClear",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxInputProps",
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxContent",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxPopupProps",
+        "HTMLAttributes",
+        "UseAnchorPositioningSharedParameters"
+      ]
+    },
+    {
+      "name": "ComboboxList",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxListProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxItem",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxItemProps",
+        "HTMLAttributes",
+        "NonNativeButtonProps"
+      ]
+    },
+    {
+      "name": "ComboboxGroup",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxGroupProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxLabel",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxCollection",
+      "props": [],
+      "inherits": [
+        "ComboboxCollectionProps"
+      ]
+    },
+    {
+      "name": "ComboboxEmpty",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxSeparator",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxSeparatorProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxChips",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxChip",
+      "props": [
+        {
+          "name": "showRemove",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "inherits": [
+        "BaseUIComponentProps",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxChipsInput",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ComboboxInputProps",
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    },
+    {
+      "name": "ComboboxTrigger",
+      "props": [],
+      "inherits": [
+        "BaseUIComponentProps",
+        "ButtonHTMLAttributes",
+        "ComboboxTriggerProps",
+        "HTMLAttributes",
+        "NativeButtonProps"
+      ]
+    },
+    {
+      "name": "ComboboxValue",
+      "props": [],
+      "inherits": [
+        "ComboboxValueProps"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Combobox",
+      "imports": [
+        "import { Combobox, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList } from \"@/components/ui/combobox\""
+      ],
+      "code": "<Combobox>\n  <ComboboxInput placeholder=\"Search styles\" />\n  <ComboboxContent>\n    <ComboboxList>\n      <ComboboxItem value=\"classic\">Classic</ComboboxItem>\n      <ComboboxItem value=\"standard\">Standard</ComboboxItem>\n    </ComboboxList>\n  </ComboboxContent>\n</Combobox>"
+    }
+  ]
+}

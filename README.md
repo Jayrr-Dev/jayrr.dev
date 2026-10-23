@@ -49,7 +49,7 @@ Or set this in `components.json`:
 | Tool | What it does |
 | --- | --- |
 | `registry_search` | Keyword search over names, titles and descriptions, filtered by `set` (classic, standard, hook, lib) and `tier`, paginated. |
-| `registry_get_item` | Install command, dependencies, files and gallery link for one item; `include_source` adds file contents. |
+| `registry_get_item` | Install command, dependencies, files and gallery link for one item, plus its props and gallery examples by default. `include` picks the sections: `props`, `examples`, `source`. |
 | `registry_get_conventions` | `docs/component-conventions.md`, also exposed as the resource `jayrr://docs/component-conventions`. |
 
 Add it to Claude Code:
@@ -67,6 +67,8 @@ Or in a project's `.mcp.json`:
   }
 }
 ```
+
+Props and examples come from `public/r/docs/<item>.json`, which `scripts/writesItemDocs.mjs` writes at the end of `registry:build`. Props are read from each exported component's TypeScript props (own props only; pass-through groups such as `HTMLAttributes` are listed under `inherits`). Examples are the gallery's demo cards: the item's own demos first, picked to cover the most props, with the imports and any data they use.
 
 It reads `public/r`, so run `npm run registry:build` before deploying for the server to see new pieces. Locally it runs at `http://localhost:<port>/mcp` under `npm run dev`.
 

@@ -1,0 +1,33 @@
+{
+  "name": "label",
+  "components": [
+    {
+      "name": "Label",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "LabelHTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Label",
+      "imports": [
+        "import { Label } from \"@/components/ui/label\""
+      ],
+      "code": "<Label>Display name</Label>"
+    },
+    {
+      "title": "Label",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Field, FieldDescription, FieldLabel } from \"@/components/ui/field\"",
+        "import { Input } from \"@/components/ui/input\"",
+        "import { Label } from \"@/components/ui/label\""
+      ],
+      "code": "<>\n  <RendersDemoCard>\n    <div className=\"flex w-full flex-col gap-2\">\n      <Label htmlFor=\"email\">Email</Label>\n      <Input id=\"email\" type=\"email\" placeholder=\"you@jayrr.dev\" />\n    </div>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <Field className=\"w-full\">\n      <FieldLabel htmlFor=\"display\">Display name</FieldLabel>\n      <Input id=\"display\" placeholder=\"Jayrr\" />\n      <FieldDescription>Shown on the gallery card.</FieldDescription>\n    </Field>\n  </RendersDemoCard>\n</>"
+    }
+  ]
+}
