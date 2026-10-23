@@ -42,6 +42,34 @@ Or set this in `components.json`:
 }
 ```
 
+## MCP server
+
+`https://jayrr.dev/mcp` is a read-only MCP server over the registry, so coding agents can find and install pieces without browsing the gallery. It speaks stateless Streamable HTTP and needs no auth. The route is `app/mcp/route.ts` and the tools live in `features/registry-mcp`.
+
+| Tool | What it does |
+| --- | --- |
+| `registry_search` | Keyword search over names, titles and descriptions, filtered by `set` (classic, standard, hook, lib) and `tier`, paginated. |
+| `registry_get_item` | Install command, dependencies, files and gallery link for one item; `include_source` adds file contents. |
+| `registry_get_conventions` | `docs/component-conventions.md`, also exposed as the resource `jayrr://docs/component-conventions`. |
+
+Add it to Claude Code:
+
+```bash
+claude mcp add --transport http jayrr https://jayrr.dev/mcp
+```
+
+Or in a project's `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "jayrr": { "type": "http", "url": "https://jayrr.dev/mcp" }
+  }
+}
+```
+
+It reads `public/r`, so run `npm run registry:build` before deploying for the server to see new pieces. Locally it runs at `http://localhost:<port>/mcp` under `npm run dev`.
+
 ## Convex
 
 Local backend:
