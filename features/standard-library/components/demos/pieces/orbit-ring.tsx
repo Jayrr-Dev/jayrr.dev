@@ -4,11 +4,14 @@ import { useState } from "react"
 
 import { Button } from "@/components/standard/button"
 import {
+  ORBIT_WELL_TONE,
   OrbitRing,
   type OrbitItem,
   type OrbitPlacement,
   type OrbitScore,
+  type OrbitTextSize,
 } from "@/components/standard/orbit-ring"
+import { Screentone } from "@/components/standard/screentone"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 const STATEMENTS: OrbitItem[] = [
@@ -80,6 +83,27 @@ const PRIORITY: OrbitScore[] = [
   { id: "soon", label: "Soon", color: "var(--warning)" },
   { id: "now", label: "Now", color: "var(--destructive)" },
 ]
+
+const SCENARIO_SETUP =
+  "An hour before your big presentation, your manager moves it to a room twice the size and invites the whole department."
+
+const SCENARIO_PROMPT = "How much is this you?"
+
+const REACTIONS: OrbitItem[] = [
+  "I rehearse the whole talk again",
+  "I message a friend to calm down",
+  "I picture it going brilliantly",
+  "I ask who exactly is coming",
+  "I quietly hope it gets cancelled",
+].map((label, index) => ({ id: `r${index}`, label }))
+
+/** Seven steps with a "Not sure" middle, as in the scenario test. */
+const SCENARIO_SCALE: OrbitScore[] = AGREE_SCALE.map((score) =>
+  score.id === "4" ? { ...score, label: "Not sure" } : score
+)
+
+/** One answer already given, as if restored after a reload. */
+const RESTORED: OrbitPlacement[] = [{ itemId: "r0", scoreId: "6" }]
 
 function RendersNote({ text }: { text: string }) {
   return <span className="text-sm text-muted-foreground">{text}</span>
@@ -195,9 +219,71 @@ function RendersTriage() {
   )
 }
 
+function RendersScenario() {
+  const [round, setRound] = useState(0)
+  const [autoSelectNext, setAutoSelectNext] = useState(false)
+  const [showCounts, setShowCounts] = useState(true)
+  const [curveLabels, setCurveLabels] = useState(true)
+  const [textSize, setTextSize] = useState<OrbitTextSize>("md")
+  const [done, setDone] = useState(false)
+
+  return (
+    <RendersDemoCard
+      label="scenario · prompt in the well, no flags, restored answer"
+      fill
+    >
+      <div className="flex w-full flex-col items-center gap-3">
+        <p className="max-w-prose text-center text-balance">{SCENARIO_SETUP}</p>
+        <OrbitRing
+          className="w-full"
+          key={round}
+          items={REACTIONS}
+          prompt={<h3>{SCENARIO_PROMPT}</h3>}
+          initialPlacements={RESTORED}
+          scores={SCENARIO_SCALE}
+          // Every reaction gets a rating; "Not sure" is the neutral way out
+          actions={[]}
+          maxVisible="auto"
+          autoCap={3}
+          // Few words per ring, so they rest closer in instead of out by the rim
+          settleRing={0.15}
+          wrapLabels
+          keyboardShortcuts
+          autoSelectNext={autoSelectNext}
+          onAutoSelectNextChange={setAutoSelectNext}
+          showCounts={showCounts}
+          onShowCountsChange={setShowCounts}
+          curveLabels={curveLabels}
+          onCurveLabelsChange={setCurveLabels}
+          textSize={textSize}
+          onTextSizeChange={setTextSize}
+          wellLayer={
+            <Screentone
+              tone="edges"
+              density={[0.8, 0]}
+              color={ORBIT_WELL_TONE}
+            />
+          }
+          onComplete={() => setDone(true)}
+        />
+        <RendersNote
+          text={done ? "Scenario answered" : "Rate every reaction to finish"}
+        />
+        <RendersAgain
+          onClick={() => {
+            setRound((r) => r + 1)
+            setDone(false)
+          }}
+        />
+      </div>
+    </RendersDemoCard>
+  )
+}
+
 export function RendersOrbitRingDemo() {
   return (
     <>
+      <RendersScenario />
       <RendersPersonalityTest />
       <RendersWordSort />
       <RendersTriage />
