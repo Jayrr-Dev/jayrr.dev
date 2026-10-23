@@ -5,7 +5,7 @@ import { ArchiveIcon, FileTextIcon, HeartIcon } from "lucide-react"
 
 import { Button } from "@/components/standard/button"
 import { TutorialFloat } from "@/components/standard/tutorial-float"
-import { TutorialIconGuide } from "@/components/standard/tutorial-icon-guide"
+import { TutorialActions } from "@/components/standard/tutorial-actions"
 import { RendersDemoCard } from "@/features/ui-library/components/demos/rendersDemoCard"
 
 type TourStep = "like" | "file" | "done" | "closed"
@@ -79,7 +79,7 @@ function RendersTour() {
   }[step]
 
   return (
-    <RendersDemoCard label="hands-on tour · with Tutorial Icon Guide" fill>
+    <RendersDemoCard label="hands-on tour · with Tutorial Actions" fill>
       <div className="flex w-full flex-col items-center gap-3">
         <div
           ref={stageRef}
@@ -149,7 +149,7 @@ function RendersTour() {
       >
         {copy.body}
       </TutorialFloat>
-      <TutorialIconGuide
+      <TutorialActions
         gesture={step === "file" ? "drag" : "tap"}
         target={heartRef}
         from={fileRef}

@@ -51,7 +51,7 @@ import { RendersWheelOfFortuneDemo } from "./pieces/wheel-of-fortune"
 import { RendersDiceDemo } from "./pieces/dice"
 import { RendersOrbitRingDemo } from "./pieces/orbit-ring"
 import { RendersTutorialFloatDemo } from "./pieces/tutorial-float"
-import { RendersTutorialIconGuideDemo } from "./pieces/tutorial-icon-guide"
+import { RendersTutorialActionsDemo } from "./pieces/tutorial-actions"
 import { RendersCardCorridorDemo } from "./pieces/card-corridor"
 import { RendersBarDemo } from "./pieces/bar"
 import { RendersIncrementDemo } from "./pieces/increment"
@@ -219,7 +219,7 @@ export const STANDARD_PIECE_DEMOS: Record<string, StandardPieceDemo> = {
   Dice: RendersDiceDemo,
   "Orbit Ring": RendersOrbitRingDemo,
   "Tutorial Float": RendersTutorialFloatDemo,
-  "Tutorial Icon Guide": RendersTutorialIconGuideDemo,
+  "Tutorial Actions": RendersTutorialActionsDemo,
   "Card Corridor": RendersCardCorridorDemo,
   Bar: RendersBarDemo,
   Increment: RendersIncrementDemo,

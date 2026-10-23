@@ -2584,7 +2584,7 @@
       "name": "tutorial-float",
       "type": "registry:ui",
       "title": "Tutorial Float",
-      "description": "Floating card for hands-on tutorials. Follows an anchor every frame: beside it when there's room, otherwise over the top of what it covers, kept inside an optional boundary, and slid aside from a point it shouldn't hide. Step counter and dots, Skip, a done card with its own button that fades out and closes itself, a slow bob, and reduced motion respected. Pair it with Tutorial Icon Guide.",
+      "description": "Floating card for hands-on tutorials. Follows an anchor every frame: beside it when there's room, otherwise over the top of what it covers, kept inside an optional boundary, and slid aside from a point it shouldn't hide. Step counter and dots, Skip, a done card with its own button that fades out and closes itself, a slow bob, and reduced motion respected. Pair it with Tutorial Actions.",
       "files": [
         {
           "path": "tutorial-float.tsx",
@@ -2598,15 +2598,15 @@
       ]
     },
     {
-      "name": "tutorial-icon-guide",
+      "name": "tutorial-actions",
       "type": "registry:ui",
-      "title": "Tutorial Icon Guide",
-      "description": "Coach-mark gestures drawn over the page, never in the way of input. tap: a mouse pointer or pointing finger (picked by the device, or forced) presses a target on repeat with a press ripple. drag: an arrowhead glides along a curved path from one target to another, trailing a fading smear, with optional marching dashes. Targets are refs, elements, points or functions, tracked every frame. Reduced motion holds the tap still and draws a plain arrow.",
+      "title": "Tutorial Actions",
+      "description": "Coach-mark gestures drawn over the page in one thin-line style, never in the way of input. Mobile: tap, double-tap, long-press, swipe in any direction, scroll with a moving scrollbar, pinch, spread, two-finger rotate, pull to refresh and drag. Desktop: click, double-click, click-and-hold, right-click with its menu, hover, scroll wheel, drag and drop, drag-to-select and keyboard shortcuts, plus modifier keys held over any press (Shift-click). A mouse pointer or finger is picked by the device or forced. Targets are refs, elements, points or functions, tracked every frame. Reduced motion holds every gesture in a still pose.",
       "files": [
         {
-          "path": "tutorial-icon-guide.tsx",
+          "path": "tutorial-actions.tsx",
           "type": "registry:ui",
-          "target": "components/standard/tutorial-icon-guide.tsx"
+          "target": "components/standard/tutorial-actions.tsx"
         }
       ],
       "registryDependencies": [

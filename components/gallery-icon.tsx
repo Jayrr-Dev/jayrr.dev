@@ -2342,7 +2342,7 @@ const icons = {
       <path d="M32 39v8" strokeDasharray="2 2" opacity=".6" />
     </>
   ),
-  "Tutorial Icon Guide": (
+  "Tutorial Actions": (
     <>
       <path d="M10 46Q20 22 40 22" strokeDasharray="2 2.5" opacity=".55" />
       <path d="M33 17l7 5-7 5" />

@@ -77,7 +77,7 @@ type TutorialFloatProps = Omit<
   cover?: React.RefObject<Element | null>
   /** Keeps the card inside this element instead of the window. */
   boundary?: React.RefObject<Element | null>
-  /** A point the card slides aside to keep clear, e.g. what a Tutorial Icon Guide presses. */
+  /** A point the card slides aside to keep clear, e.g. what Tutorial Actions presses. */
   avoid?: TutorialFloatTarget
   title: React.ReactNode
   /** The instruction under the title. */
@@ -114,7 +114,7 @@ type TutorialFloatProps = Omit<
  * A small floating card that says what to do next in a hands-on tutorial.
  * It follows its anchor every frame: beside it when there's room, otherwise
  * over the top of what it covers, always inside its boundary, and slid aside
- * from the point it should not hide. Pair it with Tutorial Icon Guide to
+ * from the point it should not hide. Pair it with Tutorial Actions to
  * point at the thing to press or drag.
  */
 function TutorialFloat({
