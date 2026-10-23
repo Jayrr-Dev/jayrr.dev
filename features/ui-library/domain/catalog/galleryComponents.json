@@ -2108,7 +2108,7 @@
     "mock_data_key": null
   },
   {
-    "name": "Tutorial Icon Guide",
+    "name": "Tutorial Actions",
     "type": "structure/overlay",
     "canonical": "popovers",
     "tier": "component",
@@ -2116,10 +2116,10 @@
       "standard"
     ],
     "installed": true,
-    "key": "tutorial-icon-guide",
+    "key": "tutorial-actions",
     "family_key": "tutorial-float",
-    "file_path": "components/standard/tutorial-icon-guide.tsx",
-    "import_path": "@/components/standard/tutorial-icon-guide",
+    "file_path": "components/standard/tutorial-actions.tsx",
+    "import_path": "@/components/standard/tutorial-actions",
     "preview_mode": "inline",
     "needs_mock_data": false,
     "mock_data_key": null
