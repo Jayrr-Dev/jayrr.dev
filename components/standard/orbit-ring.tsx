@@ -23,6 +23,7 @@ import {
   useState,
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
+  type ReactNode,
 } from "react"
 
 /** Spring-like settle for the countdown digits */
@@ -33,10 +34,11 @@ const COUNTER_EASE =
 const styles = {
   actionLabel: "orbit-action-label",
   actionRing: "orbit-action-ring",
-  bump: "orbit-bump",
   closeOpen: "orbit-close-open",
   coloredSlice: "orbit-colored-slice",
   counter: "orbit-counter",
+  centerX: "orbit-center-x",
+  swirl: "orbit-swirl",
   deadZone: "orbit-dead-zone",
   deadZoneHot: "orbit-dead-zone orbit-dead-zone-hot",
   deadZoneOpen: "orbit-dead-zone orbit-dead-zone-open",
@@ -49,9 +51,12 @@ const styles = {
   nodeDragging: "orbit-node-dragging",
   nodeSelected: "orbit-node-selected",
   releaseTip: "orbit-release-tip",
+  prompt: "orbit-prompt",
   results: "orbit-results",
   ring: "orbit-ring",
   scoreCount: "orbit-score-count",
+  scoreCountInline: "orbit-score-count-inline",
+  countBadge: "orbit-count-badge",
   scoreLabel: "orbit-score-label",
   segment: "orbit-segment",
   segmentHot: "orbit-segment-hot",
@@ -59,6 +64,8 @@ const styles = {
   stage: "orbit-stage",
   thumb: "orbit-thumb",
   well: "orbit-well",
+  wellHatch: "orbit-well-hatch",
+  wellLayer: "orbit-well-layer",
   wrap: "orbit-wrap",
   settings: "orbit-settings",
   muteButton: "orbit-mute-button",
@@ -70,6 +77,13 @@ const styles = {
   confetti: "orbit-confetti",
   settingsRow: "orbit-settings-row",
   settingsValue: "orbit-settings-value",
+  settingsToggles: "orbit-settings-toggles",
+  settingsToggle: "orbit-settings-toggle",
+  settingsSizes: "orbit-settings-sizes",
+  sizeButtons: "orbit-size-buttons",
+  sizeButton: "orbit-size-button",
+  settingsTutorial: "orbit-settings-tutorial",
+  check: "orbit-check",
   slider: "orbit-slider",
   roll: "orbit-roll",
   rollDigit: "orbit-roll-digit",
@@ -95,7 +109,29 @@ export interface OrbitScore {
    * Scores default to `color`; flags default to a pale tint of `color`.
    */
   hoverColor?: string
+  /** Second line of the hover tooltip. Scores default to how to answer with them. */
+  hint?: string
 }
+
+/** Text size the taker picks in the settings popover */
+export type OrbitTextSize = "xs" | "sm" | "md" | "lg"
+
+/** Each text size as a share of the normal (md) size of the words and prompt */
+const TEXT_SCALES: Record<OrbitTextSize, number> = {
+  xs: 0.7,
+  sm: 0.85,
+  md: 1,
+  lg: 1.15,
+}
+const TEXT_SIZES = Object.keys(TEXT_SCALES) as OrbitTextSize[]
+
+/** Faint ring ink, for a `wellLayer` texture that should stay behind the words */
+export const ORBIT_WELL_TONE =
+  "color-mix(in oklch, var(--orbit-ink) 22%, transparent)"
+
+/** For reading a saved text size back from storage */
+export const isOrbitTextSize = (value: unknown): value is OrbitTextSize =>
+  typeof value === "string" && value in TEXT_SCALES
 
 export interface OrbitPlacement {
   itemId: string
@@ -104,9 +140,24 @@ export interface OrbitPlacement {
 }
 
 export const DEFAULT_ORBIT_ACTIONS: OrbitScore[] = [
-  { id: "skip", label: "Skip", color: "#f4c430" },
-  { id: "confusing", label: "Confusing", color: "#e5484d" },
-  { id: "typo", label: "Typo", color: "#3e7bdc" },
+  {
+    id: "skip",
+    label: "Skip",
+    color: "#f4c430",
+    hint: "Drop a statement here to leave it unanswered.",
+  },
+  {
+    id: "confusing",
+    label: "Confusing",
+    color: "#e5484d",
+    hint: "Drop a statement here if it's unclear. It's skipped and flagged for review.",
+  },
+  {
+    id: "typo",
+    label: "Typo",
+    color: "#3e7bdc",
+    hint: "Drop a statement here if it has a mistake. It's skipped and flagged for a fix.",
+  },
 ]
 
 /** Every color the ring draws with. Each one is optional; leave it out to keep the default. */
@@ -145,6 +196,16 @@ export interface OrbitLabels {
   mute?: string
   /** Speaker button while muted. Default "Unmute" */
   unmute?: string
+  /** Switch in the settings popover that selects the next word after each placement. Default "Auto-select next" */
+  autoSelectNext?: string
+  /** Checkbox in the settings popover that shows how many words sit on each slice. Default "Show counts" */
+  showCounts?: string
+  /** Checkbox in the settings popover that bends score labels along the ring. Default "Word wrap" */
+  curveLabels?: string
+  /** Row of size buttons in the settings popover. Default "Text size" */
+  textSize?: string
+  /** Button at the foot of the settings popover that replays the tutorial. Default "Tutorial" */
+  tutorial?: string
   /** Screen reader text for the checkmark when every word is placed. Default "That's the set." */
   done?: string
   /** Screen reader text for the counter. Default "{n} left" */
@@ -167,11 +228,25 @@ export interface OrbitSound {
   return?: boolean
 }
 
+/**
+ * What the taker is doing with the ring, for guides such as a tutorial. `aim` fires as a dragged
+ * word lights a slice (null when it lights none), `open` as a slice opens or closes (null),
+ * `cancel` when a drag ends without placing anything, and `settings` as the center's popover
+ * opens or closes.
+ */
+export type OrbitInteraction =
+  | { type: "aim"; scoreId: string | null }
+  | { type: "open"; scoreId: string | null }
+  | { type: "cancel"; itemId: string }
+  | { type: "settings"; open: boolean }
+
 export interface OrbitRingProps {
   /* What to sort */
 
   /** Words or images to place */
   items: OrbitItem[]
+  /** Items already placed when the ring starts (e.g. answers restored after a reload). Read on reset. */
+  initialPlacements?: OrbitPlacement[]
   /**
    * Inner ring, low to high. Use any number of slices and any text.
    * The middle one is neutral and sits at the bottom; low is on the left, high on the right.
@@ -189,7 +264,11 @@ export interface OrbitRingProps {
    * other words, the center, and the rim. At least one always shows.
    */
   maxVisible?: number | "auto"
-  /** How many words show at once inside an opened slice. Default 3 × maxVisible (auto: what fits) */
+  /** Ceiling for auto mode. Default 12. The fit check still decides whether each word fits. */
+  autoCap?: number
+  /** Where floating words rest, as a share of the way from the dead zone to the rim. Default 0.62 */
+  settleRing?: number
+  /** How many words show at once inside an opened slice. Default 3 × maxVisible (auto: the auto cap) */
   maxVisibleOpen?: number
   /** Largest width of the ring, in px. Default 680 */
   maxWidth?: number
@@ -198,7 +277,7 @@ export interface OrbitRingProps {
 
   /* What to show */
 
-  /** Big countdown of words left, above the ring. Default true */
+  /** Countdown of words left in the center dead zone. Default true */
   showCounter?: boolean
   /** How many words sit on each slice. Default true */
   showCounts?: boolean
@@ -210,6 +289,24 @@ export interface OrbitRingProps {
   grain?: number
   /** Let long items (whole sentences) wrap onto a few lines in sentence case. Default false */
   wrapLabels?: boolean
+  /** Select a card, then press 1–9 to place it on a score in low-to-high order. Default false. */
+  keyboardShortcuts?: boolean
+  /** After each placement, select the next floating word so it can be answered at once. Default false */
+  autoSelectNext?: boolean
+  /** The taker flipped the auto-select switch in the settings popover */
+  onAutoSelectNextChange?: (on: boolean) => void
+  /** The taker flipped "Show counts" in the settings popover */
+  onShowCountsChange?: (show: boolean) => void
+  /** Score labels follow the ring, like the action labels, instead of standing upright. Default false */
+  curveLabels?: boolean
+  /** The taker flipped "Word wrap" in the settings popover */
+  onCurveLabelsChange?: (on: boolean) => void
+  /** Size of the floating words and the prompt; slice labels stay fixed. Default "md" */
+  textSize?: OrbitTextSize
+  /** The taker picked a text size in the settings popover */
+  onTextSizeChange?: (size: OrbitTextSize) => void
+  /** Shows a "Tutorial" button in the settings popover; it closes the popover and calls this */
+  onShowTutorial?: () => void
   /** A small confetti burst from the center when every word is placed. Default true */
   confetti?: boolean
   /** Delay before the center tooltip shows, in ms. Default 200 */
@@ -230,6 +327,15 @@ export interface OrbitRingProps {
   onReturn?: (itemId: string) => void
   /** Every word has a place */
   onComplete?: (placements: OrbitPlacement[]) => void
+  /** Drags, opened slices, cancels and the settings popover (see OrbitInteraction) */
+  onInteraction?: (interaction: OrbitInteraction) => void
+  /** Question shown near the top of the well; words steer around it. Hidden while a slice is open */
+  prompt?: ReactNode
+  /**
+   * Decoration for the well (a texture or tone), clipped to the circle and drawn over its fill,
+   * under the words and prompt. It takes no pointer input. Fill the box, e.g. `absolute inset-0`
+   */
+  wellLayer?: ReactNode
   className?: string
 }
 
@@ -240,6 +346,11 @@ const DEFAULT_LABELS: Required<OrbitLabels> = {
   volume: "Sound",
   mute: "Mute",
   unmute: "Unmute",
+  autoSelectNext: "Auto-select next",
+  showCounts: "Show counts",
+  curveLabels: "Word wrap",
+  textSize: "Text size",
+  tutorial: "Tutorial",
   done: "That's the set.",
   remaining: (count) => `${count} left`,
 }
@@ -268,6 +379,8 @@ const COLOR_VARS: Record<keyof OrbitColors, string> = {
 
 /** Inner well, as a fraction of the stage. The score band (WELL to RIM) is kept slim so words get room. */
 const WELL = 0.337
+/** Inner well when score labels follow the ring ("Word wrap"): one curved line needs a thinner band. */
+const CURVED_WELL = 0.395
 /** Outer edge of the score ring, as a fraction of the stage. */
 const RIM = 0.4525
 /** Outer edge of the action ring, as a fraction of the stage. */
@@ -286,12 +399,14 @@ const CENTER = 0.045
 /** Words drift toward this share of the way from the dead zone to the rim */
 const SETTLE_RING = 0.62
 /** Open slice's close button: just inside the well facing the slice, in ring units (% of stage) */
-const CLOSE_REACH = WELL * 100 - 3.8
+const CLOSE_INSET = 3.8
 /** Room words keep around the close button: its 30px plus a margin */
 const CLOSE_CLEARANCE = 40
+/** Room words keep around the prompt label, in px on each side */
+const PROMPT_CLEARANCE = 10
 /** Clear space kept between any word and the dead zone, in px */
 const DEAD_ZONE_GAP = 18
-/** Share of the center's full zone (dead zone + gap) that words actually collide with */
+/** Share of the center's full zone used for spawn clearance */
 const CENTER_COLLISION = 0.25
 const DAMPING = 0.45
 const MAX_SPEED = 22
@@ -317,6 +432,8 @@ const CROWD_GRACE_MS = 150
 const CROWD_FADE_MS = 180
 /** A selected word deselects itself after this long with no slice picked and no pointer movement, in ms */
 const SELECT_TIMEOUT_MS = 2000
+/** Pressing a word this long without moving it selects it, in ms */
+const SELECT_HOLD_MS = 350
 /** A word held down without moving is let go after this long, in ms */
 const HOLD_TIMEOUT_MS = 3000
 /** Pointer movement under this, in px, counts as holding still */
@@ -359,9 +476,8 @@ const OPEN_FACTOR = 3
 const DROP_DISTANCE = 6
 /** The latest pull must cover this many px before it sets the aim; shorter pulls use the whole drag. */
 const AIM_MIN_STROKE = 3
-const FLIGHT_MS = 220
-/** Fade after a word stops on its slice */
-const FADE_MS = 220
+/** A dropped word shrinks and fades as it flies, vanishing as it reaches its slice */
+const FLIGHT_MS = 320
 /** Delay between words popping out of a slice that opens */
 const OPEN_STAGGER_MS = 45
 /** The aim follows the pull over this recent stretch, so it tracks turns at once. */
@@ -402,6 +518,8 @@ interface Drag {
   holdY: number
   /** Held still past HOLD_TIMEOUT_MS: letting go now cancels instead of placing */
   held: boolean
+  /** Pressed without moving long enough to select; letting go keeps it selected */
+  holdSelected: boolean
 }
 
 interface Flight {
@@ -441,6 +559,14 @@ function labelArc(radius: number, start: number, end: number) {
     return `M ${at(end)} A ${radius} ${radius} 0 ${large} 0 ${at(start)}`
   }
   return `M ${at(start)} A ${radius} ${radius} 0 ${large} 1 ${at(end)}`
+}
+
+/** "Strongly agree" â†’ "Strongly Agree" */
+function titleCase(text: string) {
+  return text.replace(
+    /(^|\s)(\p{Ll})/gu,
+    (_, space: string, letter: string) => space + letter.toUpperCase()
+  )
 }
 
 /** Middle of a scale: 3 of 1–5, 4 of 1–7. Even counts have none. */
@@ -489,7 +615,8 @@ function aimIndex(
   ax: number,
   ay: number,
   size: number,
-  count: number
+  count: number,
+  well = WELL
 ) {
   if (count === 0) return null
   const length = Math.hypot(ax, ay)
@@ -498,7 +625,7 @@ function aimIndex(
   const dy = ay / length
   const distance = Math.hypot(x, y)
   const along = x * dx + y * dy
-  const radius = (size * (WELL + RIM)) / 2
+  const radius = (size * (well + RIM)) / 2
   const disc = along * along - (distance * distance - radius * radius)
   if (disc < 0) return null
   const t = -along + Math.sqrt(disc)
@@ -515,7 +642,7 @@ function segmentCenter(
   return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius }
 }
 
-const easeOut = (t: number) => 1 - (1 - t) ** 3
+const easeOut = (t: number) => 1 - (1 - t) ** 5
 
 let audio: AudioContext | null = null
 
@@ -648,7 +775,8 @@ function stepBodies(
   bodies: Body[],
   radius: number,
   deadRadius: number,
-  dt: number
+  dt: number,
+  settleShare = SETTLE_RING
 ) {
   for (let i = 0; i < bodies.length; i++) {
     for (let j = i + 1; j < bodies.length; j++) {
@@ -680,11 +808,23 @@ function stepBodies(
   for (const body of bodies) {
     if (body.pin) continue
     // Pull toward a ring partway out, not the center, so words spread around the dead zone
-    const distance = Math.hypot(body.x, body.y) || 1
-    const settle = deadRadius + (radius - deadRadius) * SETTLE_RING
+    const distance = Math.hypot(body.x, body.y)
+    // A soft outward force replaces the center wall. Include the card's edges so
+    // large cards steer away too, and give a card at the exact center a direction.
+    const nx = distance > 0 ? body.x / distance : 1
+    const ny = distance > 0 ? body.y / distance : 0
+    const clearance = nearPoint(body.x, body.y, body.w, body.h)
+    const repelReach = deadRadius + DEAD_ZONE_GAP
+    const repel = Math.min(9, Math.max(0, repelReach - clearance) * 0.12) * dt
+    // Rest far enough out that the card's nearest edge clears the center, so big text (or a
+    // low settleShare) doesn't park cards over the counter. Moving out raises clearance ~1:1
+    const settle = Math.max(
+      deadRadius + (radius - deadRadius) * settleShare,
+      distance - clearance + repelReach
+    )
     const pull = (distance - settle) * CENTER * dt
-    body.vx -= (body.x / distance) * pull
-    body.vy -= (body.y / distance) * pull
+    body.vx += nx * (repel - pull)
+    body.vy += ny * (repel - pull)
     const damp = Math.pow(DAMPING, dt)
     body.vx *= damp
     body.vy *= damp
@@ -703,7 +843,7 @@ function stepBodies(
       for (let j = i + 1; j < bodies.length; j++) separate(bodies[i], bodies[j])
     }
     for (const body of bodies) {
-      if (!body.pin) confine(body, radius, deadRadius)
+      if (!body.pin) confine(body, radius)
     }
   }
 
@@ -723,9 +863,8 @@ function stepBodies(
 }
 
 /**
- * How close a word's nearest edge may come to the ring's center, in px. Words collide with a zone
- * CENTER_COLLISION of the drawn dead zone plus its gap, so they may tuck over the dark circle's
- * edge. The circle itself, and dropping on it, are unchanged.
+ * Preferred center clearance for spawning and fitting cards. Moving cards use
+ * soft repulsion instead of a hard center boundary.
  */
 const centerClearance = (deadRadius: number) =>
   (deadRadius + DEAD_ZONE_GAP) * CENTER_COLLISION
@@ -772,11 +911,10 @@ function radialLimits(
 }
 
 /**
- * Keeps a box inside the well and clear of the dead zone, with the same exact box geometry the
- * spawn check uses: corners inside the rim, nearest edge outside the center. If a box is too big
- * for both in its direction, staying inside the rim wins.
+ * Keeps a box's corners inside the outer rim. The center only repels cards;
+ * passing over it never clamps their position.
  */
-function confine(body: Body, radius: number, deadRadius: number) {
+function confine(body: Body, radius: number) {
   let distance = Math.hypot(body.x, body.y)
   if (distance < 1) {
     const angle = Math.random() * Math.PI * 2
@@ -786,8 +924,8 @@ function confine(body: Body, radius: number, deadRadius: number) {
   }
   const nx = body.x / distance
   const ny = body.y / distance
-  const { min, max } = radialLimits(nx, ny, body.w, body.h, radius, deadRadius)
-  const target = Math.min(Math.max(distance, min), max)
+  const { max } = radialLimits(nx, ny, body.w, body.h, radius, 0)
+  const target = Math.min(distance, max)
   if (target === distance) return
   body.x = nx * target
   body.y = ny * target
@@ -799,33 +937,111 @@ function confine(body: Body, radius: number, deadRadius: number) {
   }
 }
 
-function paintNode(node: HTMLElement, body: Body) {
+function paintNode(node: HTMLElement, body: Body, bounds?: DOMRect) {
   // `translate` applies after `scale`, so pop, hover, and fade scale around the word itself.
   // Placed from the stage's top-left in whole pixels, centering included:
   // text drawn at half-pixel offsets looks blurry.
   // The stage itself can sit on a half pixel (centered in an odd-width page), so cancel that too.
   const stage = node.parentElement
-  const box = stage?.getBoundingClientRect()
+  const box = bounds ?? stage?.getBoundingClientRect()
   const offsetX = box ? box.left - Math.round(box.left) : 0
   const offsetY = box ? box.top - Math.round(box.top) : 0
-  const x =
-    Math.round((stage?.clientWidth ?? 0) / 2 + body.x - node.offsetWidth / 2) -
-    offsetX
-  const y =
-    Math.round(
-      (stage?.clientHeight ?? 0) / 2 + body.y - node.offsetHeight / 2
-    ) - offsetY
-  node.style.translate = `${x}px ${y}px`
+  const x = Math.round((box?.width ?? 0) / 2 + body.x - body.w / 2) - offsetX
+  const y = Math.round((box?.height ?? 0) / 2 + body.y - body.h / 2) - offsetY
+  const translate = `${x}px ${y}px`
+  if (node.style.translate !== translate) node.style.translate = translate
 }
 
-/**
- * Floating items in a score ring. Place every item to finish the round.
- */
+/** Black or white, whichever reads better on a #rrggbb fill */
+function readableOn(hex: string) {
+  const match = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(hex)
+  if (!match) return "#000"
+  const [r, g, b] = match.slice(1).map((part) => {
+    const c = parseInt(part, 16) / 255
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
+  })
+  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+  // Contrast against black beats contrast against white above ~0.18 luminance
+  return luminance > 0.179 ? "#000" : "#fff"
+}
+
+/** Centers each curved count's circle on its digits, which only the browser can measure. */
+function placeCountBadges(stage: HTMLElement) {
+  stage
+    .querySelectorAll<SVGCircleElement>("[data-orbit-count-badge]")
+    .forEach((badge) => {
+      const text = badge.parentElement?.querySelector("text")
+      const digits = Number(badge.dataset.orbitCountBadge)
+      if (!text || !digits) return
+      const total = text.getNumberOfChars()
+      if (total < digits) return
+      const first = text.getExtentOfChar(total - digits)
+      const last = text.getExtentOfChar(total - 1)
+      badge.setAttribute("cx", String((first.x + last.x + last.width) / 2))
+      badge.setAttribute(
+        "cy",
+        String((first.y + first.height / 2 + last.y + last.height / 2) / 2)
+      )
+      // Sized by digit count: a tilted digit's box overstates its width
+      badge.setAttribute("r", String(1.25 + (digits - 1) * 0.45))
+      badge.removeAttribute("visibility")
+    })
+}
+
+/** Keep upright score labels within the curved boundaries as the ring resizes. */
+function fitScoreLabels(stage: HTMLElement) {
+  placeCountBadges(stage)
+  stage
+    .querySelectorAll<SVGGElement>("[data-orbit-score-label]")
+    .forEach((label) => {
+      const segment = label.parentElement?.querySelector("path")
+      if (!(segment instanceof SVGGeometryElement)) return
+      const box = label.getBBox()
+      const cx = box.x + box.width / 2
+      const cy = box.y + box.height / 2
+      // Check corners and edge midpoints against the curved segment boundary.
+      const points = [
+        [box.x, box.y],
+        [cx, box.y],
+        [box.x + box.width, box.y],
+        [box.x, cy],
+        [box.x + box.width, cy],
+        [box.x, box.y + box.height],
+        [cx, box.y + box.height],
+        [box.x + box.width, box.y + box.height],
+      ]
+      // Some browsers only accept an SVGPoint here, not a DOMPoint
+      const point = segment.ownerSVGElement?.createSVGPoint()
+      if (!point) return
+      const inside = (x: number, y: number) => {
+        point.x = x
+        point.y = y
+        return segment.isPointInFill(point)
+      }
+      let scale = 1
+      while (
+        scale > 0.45 &&
+        !points.every(([x, y]) =>
+          inside(cx + (x - cx) * scale, cy + (y - cy) * scale)
+        )
+      )
+        scale -= 0.025
+      label.setAttribute(
+        "transform",
+        `translate(${cx} ${cy}) scale(${scale}) translate(${-cx} ${-cy})`
+      )
+    })
+}
+
+/** Floating items in a score ring. Place every item to finish the round. */
 export function OrbitRing({
   items,
+  initialPlacements,
   scores,
   actions = DEFAULT_ORBIT_ACTIONS,
   maxVisible = 6,
+  autoCap = AUTO_CAP,
+  settleRing = SETTLE_RING,
   maxVisibleOpen,
   maxWidth = 680,
   deadZoneSize = 0.06,
@@ -836,13 +1052,25 @@ export function OrbitRing({
   grain = 0.28,
   confetti = true,
   wrapLabels = false,
+  keyboardShortcuts = false,
   tooltipDelay = 200,
   colors,
   labels: labelsProp,
   sound = true,
+  autoSelectNext = false,
+  onAutoSelectNextChange,
+  onShowCountsChange,
+  curveLabels = false,
+  onCurveLabelsChange,
+  textSize = "md",
+  onTextSizeChange,
+  onShowTutorial,
   onPlace,
   onReturn,
   onComplete,
+  onInteraction,
+  prompt,
+  wellLayer,
   className,
 }: OrbitRingProps) {
   const labels = { ...DEFAULT_LABELS, ...labelsProp }
@@ -859,9 +1087,9 @@ export function OrbitRing({
   }
   const auto = maxVisible === "auto"
   /** Most words floating at once; auto relies on the fit check and only uses this as a ceiling */
-  const visibleCap = auto ? AUTO_CAP : maxVisible
+  const visibleCap = auto ? autoCap : maxVisible
   const openLimit =
-    maxVisibleOpen ?? (auto ? AUTO_CAP : maxVisible * OPEN_FACTOR)
+    maxVisibleOpen ?? (auto ? autoCap : maxVisible * OPEN_FACTOR)
   /** Hidden copy of a word, for measuring items before they're shown (auto mode) */
   const measureRef = useRef<HTMLSpanElement>(null)
   /** Auto mode's per-word text size, width, and scroll height */
@@ -884,6 +1112,8 @@ export function OrbitRing({
   const labelId = useId()
   /** useId can return characters that break `url(#…)` references */
   const grainId = `${labelId.replace(/[^\w-]/g, "")}-grain`
+  const hatchId = `${labelId.replace(/[^\w-]/g, "")}-hatch`
+  const centerClipId = `${labelId.replace(/[^\w-]/g, "")}-center-clip`
   /**
    * Scores in ring order. Slices run clockwise from the top, so reversing puts the
    * low end on the left and the high end on the right, with neutral at the bottom.
@@ -894,13 +1124,23 @@ export function OrbitRing({
   const scoresKey = scores.map((score) => score.id).join("\u0001")
   const actionsKey = actions.map((action) => action.id).join("\u0001")
   const stageRef = useRef<HTMLDivElement>(null)
+  /** The prompt label, which words steer around like the close button */
+  const promptRef = useRef<HTMLDivElement>(null)
+  const keyboardHelpRef = useRef<HTMLParagraphElement>(null)
   const nodesRef = useRef(new Map<string, HTMLButtonElement>())
+  const nodeObserverRef = useRef<ResizeObserver | null>(null)
   const bodiesRef = useRef(new Map<string, Body>())
   const queueRef = useRef<string[]>([])
   const dragRef = useRef<Drag | null>(null)
   const flightsRef = useRef(new Map<string, Flight>())
   const selectedRef = useRef<string | null>(null)
   const sizeRef = useRef(640)
+  /** Inner well in use: thinner score band while labels are curved */
+  const wellRef = useRef(WELL)
+  /** Re-fits the floating words to the well; set by the physics effect */
+  const remeasureRef = useRef<() => void>(() => {})
+  /** Text size in use, so the physics effect re-fits words when it changes */
+  const textScaleRef = useRef(1)
   const reduceMotionRef = useRef(false)
   const finishedRef = useRef(false)
   const placementsRef = useRef<OrbitPlacement[]>([])
@@ -910,6 +1150,8 @@ export function OrbitRing({
   /** Lets go of a word held still too long; set by the main effect */
   const releaseHoldRef = useRef<() => void>(() => {})
   const holdTimerRef = useRef(0)
+  /** Countdown from a press to selecting the pressed word (SELECT_HOLD_MS) */
+  const selectHoldTimerRef = useRef(0)
   /** Floating items set aside while a score is open */
   const poolRef = useRef<Map<string, Body> | null>(null)
   const openRef = useRef<string | null>(null)
@@ -921,11 +1163,14 @@ export function OrbitRing({
   const onPlaceRef = useRef(onPlace)
   const onCompleteRef = useRef(onComplete)
   const itemsRef = useRef(items)
+  const initialPlacementsRef = useRef(initialPlacements)
   const scoresRef = useRef(ring)
   const actionsRef = useRef(actions)
   const soundRef = useRef(soundOptions)
   const onReturnRef = useRef(onReturn)
+  const onInteractionRef = useRef(onInteraction)
   const deadZoneRef = useRef(deadZoneSize)
+  const settleRef = useRef(settleRing)
   const tooltipDelayRef = useRef(tooltipDelay)
 
   const [present, setPresent] = useState<string[]>([])
@@ -934,6 +1179,29 @@ export function OrbitRing({
     leavingRef.current = leaving
   }, [present, leaving])
   const [placements, setPlacements] = useState<OrbitPlacement[]>([])
+  /** "Word wrap" in settings: score labels follow the ring */
+  const [ownCurveLabels, setOwnCurveLabels] = useState(curveLabels)
+  const labelsCurved = onCurveLabelsChange ? curveLabels : ownCurveLabels
+  // Curved labels need less band, so the well grows and the words get the room
+  const well = labelsCurved ? CURVED_WELL : WELL
+  useEffect(() => {
+    if (wellRef.current === well) return
+    wellRef.current = well
+    remeasureRef.current()
+  }, [well])
+  useEffect(() => {
+    const stage = stageRef.current
+    if (!stage) return
+    const fit = () => fitScoreLabels(stage)
+    fit()
+    const observer = new ResizeObserver(fit)
+    observer.observe(stage)
+    document.fonts.addEventListener("loadingdone", fit)
+    return () => {
+      observer.disconnect()
+      document.fonts.removeEventListener("loadingdone", fit)
+    }
+  }, [placements, scoresKey, actionsKey, keyboardShortcuts, labelsCurved])
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [hotScoreId, setHotScoreId] = useState<string | null>(null)
   const [dragId, setDragId] = useState<string | null>(null)
@@ -952,10 +1220,40 @@ export function OrbitRing({
   /** Volume before muting, so unmuting puts it back */
   const lastVolumeRef = useRef(volume)
   const settingsRef = useRef<HTMLDivElement>(null)
+  /** Select a floating word as soon as one lands; the taker can turn it off in settings */
+  // Follows the prop when the parent handles changes; otherwise the ring keeps its own
+  const [ownAutoSelect, setOwnAutoSelect] = useState(autoSelectNext)
+  const autoSelect = onAutoSelectNextChange ? autoSelectNext : ownAutoSelect
+  /** Slice counts, likewise from the prop when the parent handles changes */
+  const [ownShowCounts, setOwnShowCounts] = useState(showCounts)
+  const countsShown = onShowCountsChange ? showCounts : ownShowCounts
+  /** Text size, likewise from the prop when the parent handles changes */
+  const [ownTextSize, setOwnTextSize] = useState(textSize)
+  const textScale = TEXT_SCALES[onTextSizeChange ? textSize : ownTextSize] ?? 1
+  wrapStyle["--orbit-text-scale"] = String(textScale)
+  // A new text size re-fits the floating words
+  useEffect(() => {
+    if (textScaleRef.current === textScale) return
+    textScaleRef.current = textScale
+    remeasureRef.current()
+  }, [textScale])
+  /** A word just landed (or the ring just opened) and the next one should be selected once one is free */
+  const autoSelectPendingRef = useRef(true)
 
   useEffect(() => {
     volumeRef.current = volume
   }, [volume])
+
+  // Mounting reports the resting state too, which a listener can ignore
+  useEffect(() => {
+    onInteractionRef.current?.({ type: "aim", scoreId: hotScoreId })
+  }, [hotScoreId])
+  useEffect(() => {
+    onInteractionRef.current?.({ type: "open", scoreId: openScoreId })
+  }, [openScoreId])
+  useEffect(() => {
+    onInteractionRef.current?.({ type: "settings", open: settingsOpen })
+  }, [settingsOpen])
 
   // Close the popover on Escape or a click anywhere else.
   useEffect(() => {
@@ -985,27 +1283,29 @@ export function OrbitRing({
     onPlaceRef.current = onPlace
     onCompleteRef.current = onComplete
     itemsRef.current = items
+    initialPlacementsRef.current = initialPlacements
     scoresRef.current = ring
     actionsRef.current = actions
     soundRef.current = soundOptions
     onReturnRef.current = onReturn
+    onInteractionRef.current = onInteraction
     deadZoneRef.current = deadZoneSize
+    settleRef.current = settleRing
     tooltipDelayRef.current = tooltipDelay
   })
 
   useEffect(() => {
     selectedRef.current = selectedId
-    if (!selectedId) return
+    if (!selectedId || keyboardShortcuts) return
     // A picked-up word lets go on its own after a moment with no slice picked and no pointer
     // movement; moving over the ring restarts the countdown
     let timer = 0
     const arm = () => {
       window.clearTimeout(timer)
-      timer = window.setTimeout(
-        () =>
-          setSelectedId((current) => (current === selectedId ? null : current)),
-        SELECT_TIMEOUT_MS
-      )
+      timer = window.setTimeout(() => {
+        if (dragRef.current?.id === selectedId) return arm()
+        setSelectedId((current) => (current === selectedId ? null : current))
+      }, SELECT_TIMEOUT_MS)
     }
     arm()
     const stage = stageRef.current
@@ -1014,7 +1314,37 @@ export function OrbitRing({
       window.clearTimeout(timer)
       stage?.removeEventListener("pointermove", arm)
     }
-  }, [selectedId])
+  }, [selectedId, keyboardShortcuts])
+
+  // Auto-select: once a word lands, select the longest-floating free word. Waits for one to
+  // float in, and gives way to anything the taker picked or is dragging meanwhile.
+  useEffect(() => {
+    if (!autoSelectPendingRef.current) return
+    if (!autoSelect || selectedId || openScoreId) {
+      autoSelectPendingRef.current = false
+      return
+    }
+    if (dragRef.current) return
+    const next = present.find(
+      (id) =>
+        bodiesRef.current.has(id) &&
+        !flightsRef.current.has(id) &&
+        !leaving.has(id)
+    )
+    if (!next) return
+    autoSelectPendingRef.current = false
+    selectedRef.current = next
+    setSelectedId(next)
+    // Keep keyboard takers on the selected card; pointer takers keep their focus where it was
+    const stage = stageRef.current
+    if (
+      stage &&
+      document.activeElement instanceof Node &&
+      stage.contains(document.activeElement)
+    ) {
+      nodesRef.current.get(next)?.focus({ preventScroll: true })
+    }
+  }, [present, placements, leaving, autoSelect, selectedId, openScoreId])
 
   useEffect(() => {
     const stage = stageRef.current
@@ -1022,19 +1352,32 @@ export function OrbitRing({
     reduceMotionRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches
-    queueRef.current = itemsRef.current.map((item) => item.id)
+    // Restored placements start on their slices; only the rest queue up to float in
+    const known = new Set(
+      [...scoresRef.current, ...actionsRef.current].map((score) => score.id)
+    )
+    const itemIds = new Set(itemsRef.current.map((item) => item.id))
+    const restored = (initialPlacementsRef.current ?? []).filter(
+      (placement) =>
+        itemIds.has(placement.itemId) && known.has(placement.scoreId)
+    )
+    const placedIds = new Set(restored.map((placement) => placement.itemId))
+    queueRef.current = itemsRef.current
+      .map((item) => item.id)
+      .filter((id) => !placedIds.has(id))
     bodiesRef.current = new Map()
     flightsRef.current.clear()
     poolRef.current = null
     openRef.current = null
     openQueueRef.current = []
-    finishedRef.current = false
-    placementsRef.current = []
+    finishedRef.current =
+      restored.length > 0 && restored.length === itemsRef.current.length
+    placementsRef.current = restored
     fitsRef.current = new Map()
     setFits(new Map())
     setLeaving(new Set())
     setPresent([])
-    setPlacements([])
+    setPlacements(restored)
     setSelectedId(null)
     setHotScoreId(null)
     setOpenScoreId(null)
@@ -1044,8 +1387,14 @@ export function OrbitRing({
       // A stage that isn't laid out yet (hidden, mid-load) reads 0; spawning and fitting with
       // that poisons every position, so keep the last real size and let the observer re-measure
       if (stage.clientWidth === 0) return
-      const resized = sizeRef.current !== stage.clientWidth
+      const resized =
+        sizeRef.current !== stage.clientWidth ||
+        measuredWell !== wellRef.current ||
+        measuredScale !== textScaleRef.current
       sizeRef.current = stage.clientWidth
+      measuredWell = wellRef.current
+      measuredScale = textScaleRef.current
+      if (resized) measuredItems.clear()
       // Auto: a ring that changed size (rotation, window resize, a scrollbar appearing)
       // re-fits every word on screen, so text size and width match the room it has now
       if (auto && resized && bodiesRef.current.size > 0) {
@@ -1067,9 +1416,33 @@ export function OrbitRing({
         body.h = node.offsetHeight
       }
     }
+    // Text fitting is stable until the ring resizes, the well changes, or its fonts finish loading.
+    let measuredWell = wellRef.current
+    let measuredScale = textScaleRef.current
+    const measuredItems = new Map<
+      string,
+      { w: number; h: number; fit: ItemFit }
+    >()
     measure()
+    remeasureRef.current = measure
     const observer = new ResizeObserver(measure)
     observer.observe(stage)
+    const nodeObserver = new ResizeObserver((entries) => {
+      for (const { target } of entries) {
+        const node = target as HTMLButtonElement
+        const body = bodiesRef.current.get(node.dataset.orbitItem ?? "")
+        if (body) {
+          body.w = node.offsetWidth
+          body.h = node.offsetHeight
+        }
+      }
+    })
+    nodeObserverRef.current = nodeObserver
+    const onFontsLoaded = () => {
+      measuredItems.clear()
+      measure()
+    }
+    document.fonts.addEventListener("loadingdone", onFontsLoaded)
 
     let frame = 0
     let last = performance.now()
@@ -1095,7 +1468,8 @@ export function OrbitRing({
         -Math.PI / 2 +
         (scoreAt !== -1 ? scoreOffset(list.length) : 0) +
         index * ((Math.PI * 2) / Math.max(1, list.length))
-      const reach = (CLOSE_REACH / 100) * sizeRef.current
+      const reach =
+        ((wellRef.current * 100 - CLOSE_INSET) / 100) * sizeRef.current
       return {
         id: "\u0000close",
         x: Math.cos(angle) * reach,
@@ -1107,18 +1481,45 @@ export function OrbitRing({
         h: CLOSE_CLEARANCE,
       }
     }
+    /**
+     * The prompt label as a pinned body, so words spread around it instead of covering it.
+     * Gone while a slice is open, when the label is hidden.
+     */
+    const promptObstacle = (): Body | null => {
+      const label = promptRef.current
+      const stage = stageRef.current
+      if (!label || !stage || openRef.current) return null
+      const box = label.getBoundingClientRect()
+      const area = stage.getBoundingClientRect()
+      if (!box.width || !area.width) return null
+      return {
+        id: "\u0000prompt",
+        x: box.left + box.width / 2 - (area.left + area.width / 2),
+        y: box.top + box.height / 2 - (area.top + area.height / 2),
+        vx: 0,
+        vy: 0,
+        pin: true,
+        w: box.width + PROMPT_CLEARANCE * 2,
+        h: box.height + PROMPT_CLEARANCE * 2,
+      }
+    }
+    /** Fixed things words steer around and don't spawn on */
+    const obstacles = () =>
+      [closeObstacle(), promptObstacle()].filter(
+        (body): body is Body => body !== null
+      )
     /** When the ring last started being crowded (words overlapping), or null when it's clear */
     let crowdedSince: number | null = null
     /** The crowd check stays off until this time, set when a word is dropped */
     let crowdPausedUntil = 0
 
     /**
-     * Auto mode: words that overlap each other, the center, or the rim for longer than
+     * Auto mode: words that overlap each other or the rim for longer than
      * CROWD_GRACE_MS can't settle, so the newest of them goes back to the front of the queue.
      * It comes back once the fit check finds room. Repeats until the ring is clear; one
      * word always stays.
      */
-    const thinCrowd = (now: number, radius: number, deadRadius: number) => {
+    const thinCrowd = (now: number, radius: number) => {
       // Paused while a word is held, and for a moment after it's dropped so the ring can settle:
       // moving words around shouldn't make others disappear
       if (dragRef.current || now < crowdPausedUntil) {
@@ -1131,11 +1532,7 @@ export function OrbitRing({
       const offenders = new Set<string>()
       for (let i = 0; i < bodies.length; i++) {
         const a = bodies[i]
-        if (
-          farCorner(a.x, a.y, a.w, a.h) > radius + CROWD_SLACK ||
-          nearPoint(a.x, a.y, a.w, a.h) <
-            centerClearance(deadRadius) - CROWD_SLACK
-        ) {
+        if (farCorner(a.x, a.y, a.w, a.h) > radius + CROWD_SLACK) {
           offenders.add(a.id)
         }
         for (let j = i + 1; j < bodies.length; j++) {
@@ -1183,7 +1580,7 @@ export function OrbitRing({
 
     /** Well area words can sit in, between the dead zone and the rim */
     const usableArea = () => {
-      const radius = sizeRef.current * WELL
+      const radius = sizeRef.current * wellRef.current
       const deadRadius = sizeRef.current * deadZoneRef.current
       return Math.PI * (radius * radius - deadRadius * deadRadius)
     }
@@ -1205,10 +1602,9 @@ export function OrbitRing({
      */
     const openSpot = (size?: { w: number; h: number }, alone = false) => {
       // `alone` asks whether the box could fit at all, ignoring the words already there
-      const close = closeObstacle()
       const bodies = alone
         ? []
-        : [...bodiesRef.current.values(), ...(close ? [close] : [])]
+        : [...bodiesRef.current.values(), ...obstacles()]
       const scale = Math.min(1, sizeRef.current / FULL_SIZE)
       const w =
         size?.w ??
@@ -1220,7 +1616,7 @@ export function OrbitRing({
         (bodies.length
           ? bodies.reduce((sum, body) => sum + body.h, 0) / bodies.length
           : TYPICAL_H * scale)
-      const radius = sizeRef.current * WELL
+      const radius = sizeRef.current * wellRef.current
       const deadRadius = sizeRef.current * deadZoneRef.current
       let best = { x: 0, y: -radius / 2, clearance: -Infinity, fits: false }
       for (let step = 0; step < 24; step++) {
@@ -1266,6 +1662,13 @@ export function OrbitRing({
      * tries a wider box, then smaller text, and as a last resort caps the height and scrolls.
      */
     const measureItem = (id: string) => {
+      const cached = measuredItems.get(id)
+      if (cached) return cached
+      const measured = measureUncachedItem(id)
+      if (measured) measuredItems.set(id, measured)
+      return measured
+    }
+    const measureUncachedItem = (id: string) => {
       const probe = measureRef.current
       const item = itemsRef.current.find((entry) => entry.id === id)
       if (!probe || !item) return null
@@ -1284,7 +1687,7 @@ export function OrbitRing({
         return { ...natural, fit: {} as ItemFit }
 
       // Room between the center and the rim bounds how wide and tall a word may be
-      const radius = sizeRef.current * WELL
+      const radius = sizeRef.current * wellRef.current
       const deadRadius = sizeRef.current * deadZoneRef.current
       const band = radius - centerClearance(deadRadius)
       const base = parseFloat(getComputedStyle(probe).fontSize) || 13
@@ -1326,6 +1729,8 @@ export function OrbitRing({
       // Nothing new appears while a word is held
       if (room <= 0 || queue.length === 0 || now < nextSpawn || dragRef.current)
         return
+      // A full well does not need an expensive fit search on every display frame.
+      nextSpawn = now + 150
 
       // Auto: add the next item only if its real size fits in open space; always show at least one
       if (auto) {
@@ -1395,7 +1800,7 @@ export function OrbitRing({
         return segmentCenter(
           scoreAt,
           count,
-          (size * (WELL + RIM)) / 2,
+          (size * (wellRef.current + RIM)) / 2,
           scoreOffset(count)
         )
       }
@@ -1495,7 +1900,7 @@ export function OrbitRing({
       const sourceDistance = Math.hypot(source.x, source.y) || 1
       const inX = -source.x / sourceDistance
       const inY = -source.y / sourceDistance
-      const edge = sizeRef.current * WELL * 0.7
+      const edge = sizeRef.current * wellRef.current * 0.7
       popDelayRef.current.clear()
       shown.forEach((id, index) => {
         const side = (index % 2 === 0 ? 1 : -1) * Math.ceil(index / 2) * 0.35
@@ -1528,6 +1933,7 @@ export function OrbitRing({
       flightsRef.current.delete(itemId)
       setPresent((ids) => ids.filter((id) => id !== itemId))
       setSelectedId((current) => (current === itemId ? null : current))
+      autoSelectPendingRef.current = true
       commit(itemId, scoreId)
       const tune = soundRef.current
       const scoreList = scoresRef.current
@@ -1655,12 +2061,14 @@ export function OrbitRing({
     /** One frame: spawn, move, thin out crowding, land flights, and paint */
     const step = (now: number) => {
       reconcile(now)
+      // Read stage geometry once, before any animation writes.
+      const bounds = stage.getBoundingClientRect()
       const dt = Math.min(2, (now - last) / 16)
       last = now
       spawn(now)
       const bodies = [...bodiesRef.current.values()]
       const size = sizeRef.current
-      const radius = size * WELL
+      const radius = size * wellRef.current
       for (const body of bodies) {
         // A body that picked up a non-finite coordinate can never paint a valid translate
         // again (its word sits frozen in the stage's corner), so re-seat it in the well
@@ -1671,10 +2079,6 @@ export function OrbitRing({
           body.vx = 0
           body.vy = 0
         }
-        const node = nodesRef.current.get(body.id)
-        if (!node) continue
-        body.w = node.offsetWidth || body.w
-        body.h = node.offsetHeight || body.h
       }
 
       if (reduceMotionRef.current) {
@@ -1689,35 +2093,38 @@ export function OrbitRing({
           body.vy = 0
         })
       } else {
-        // The open slice's close button is a fixed obstacle: words slide around it
-        const close = closeObstacle()
+        // The open slice's close button and the prompt label are fixed obstacles: words slide
+        // around them. Held and flying cards float above the layout without pushing other cards.
+        const floating = bodies.filter((body) => !body.pin)
         stepBodies(
-          close ? [...bodies, close] : bodies,
+          [...floating, ...obstacles()],
           radius,
           size * deadZoneRef.current,
-          dt
+          dt,
+          settleRef.current
         )
       }
-      if (auto) thinCrowd(now, radius, size * deadZoneRef.current)
+      if (auto) thinCrowd(now, radius)
 
       for (const [id, flight] of flightsRef.current) {
         const body = bodiesRef.current.get(id)
         if (!body) continue
         const elapsed = now - flight.start
-        const eased = easeOut(Math.min(1, elapsed / FLIGHT_MS))
+        const progress = Math.min(1, elapsed / FLIGHT_MS)
+        const eased = easeOut(progress)
         body.x = flight.fromX + (flight.toX - flight.fromX) * eased
         body.y = flight.fromY + (flight.toY - flight.fromY) * eased
-        // Glide to a stop on the slice first, then shrink and fade out in place.
-        const fade = Math.min(1, Math.max(0, (elapsed - FLIGHT_MS) / FADE_MS))
+        // Shrink and fade with the distance covered, so the word is gone by the time it slows
+        // onto the slice instead of hovering there.
         const node = nodesRef.current.get(id)
-        if (node && fade > 0) {
+        if (node) {
           // The pop-in animation and the hover transition would override or lag these frames.
           node.style.animation = "none"
           node.style.transition = "none"
-          node.style.opacity = String(1 - easeOut(fade))
-          node.style.scale = String(1 - 0.5 * easeOut(fade))
+          node.style.opacity = String(1 - eased)
+          node.style.scale = String(1 - 0.6 * eased)
         }
-        if (fade < 1) continue
+        if (progress < 1) continue
         place(id, flight.scoreId)
         if (hotRef.current === flight.scoreId && !dragRef.current) {
           hotRef.current = null
@@ -1727,7 +2134,8 @@ export function OrbitRing({
 
       for (const body of bodies) {
         const node = nodesRef.current.get(body.id)
-        if (node && dragRef.current?.id !== body.id) paintNode(node, body)
+        if (node && dragRef.current?.id !== body.id)
+          paintNode(node, body, bounds)
       }
     }
 
@@ -1736,7 +2144,12 @@ export function OrbitRing({
      * throws is logged and skipped, so one bad frame can't freeze the ring with words left
      * unpositioned.
      */
+    let inView = true
     const tick = (now: number) => {
+      if (document.hidden || !inView) {
+        frame = 0
+        return
+      }
       frame = requestAnimationFrame(tick)
       try {
         step(now)
@@ -1744,6 +2157,17 @@ export function OrbitRing({
         console.error("Orbit ring: a frame failed and was skipped", error)
       }
     }
+    const resume = () => {
+      if (document.hidden || !inView || frame) return
+      last = performance.now()
+      frame = requestAnimationFrame(tick)
+    }
+    const intersection = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+      resume()
+    })
+    intersection.observe(stage)
+    document.addEventListener("visibilitychange", resume)
 
     let releaseTimer = 0
     let isOverCenter = false
@@ -1794,7 +2218,7 @@ export function OrbitRing({
           drag.y,
           size,
           scoreList.length,
-          WELL - 0.02,
+          wellRef.current - 0.02,
           RIM,
           scoreOffset(scoreList.length)
         ) ??
@@ -1804,7 +2228,8 @@ export function OrbitRing({
           drag.ax,
           drag.ay,
           size,
-          scoreList.length
+          scoreList.length,
+          wellRef.current
         )
       return score === null ? null : (scoreList[score]?.id ?? null)
     }
@@ -1842,6 +2267,7 @@ export function OrbitRing({
         Math.hypot(drag.x - drag.startX, drag.y - drag.startY) >= DROP_DISTANCE
       ) {
         drag.moved = true
+        window.clearTimeout(selectHoldTimerRef.current)
       }
       // Real movement (not hand tremble) disarms a hold cancel and restarts the countdown
       if (
@@ -1875,6 +2301,8 @@ export function OrbitRing({
     const releaseHold = () => {
       const drag = dragRef.current
       if (!drag) return
+      // A word pressed in place and never dragged is being selected, not cancelled
+      if (!drag.moved) return
       drag.held = true
       setHoldCancel(true)
       setHot(null)
@@ -1884,6 +2312,7 @@ export function OrbitRing({
 
     const onPointerUp = () => {
       window.clearTimeout(holdTimerRef.current)
+      window.clearTimeout(selectHoldTimerRef.current)
       const drag = dragRef.current
       if (!drag) return
       dragRef.current = null
@@ -1901,6 +2330,7 @@ export function OrbitRing({
         setHot(null)
         body.pin = false
         setSelectedId((current) => (current === drag.id ? null : current))
+        onInteractionRef.current?.({ type: "cancel", itemId: drag.id })
         return
       }
       const targetId = intent(drag)
@@ -1914,8 +2344,13 @@ export function OrbitRing({
       }
       setHot(null)
       body.pin = false
-      if (!drag.moved)
+      // Dragged and let go on the center (or nowhere): nothing was placed
+      if (drag.moved)
+        onInteractionRef.current?.({ type: "cancel", itemId: drag.id })
+      // A tap toggles the selection; a press held long enough already selected it and keeps it
+      if (!drag.moved && !drag.holdSelected) {
         setSelectedId((current) => (current === drag.id ? null : drag.id))
+      }
     }
 
     stage.addEventListener("pointermove", onPointerMove)
@@ -1943,11 +2378,17 @@ export function OrbitRing({
       cancelAnimationFrame(frame)
       window.clearTimeout(releaseTimer)
       observer.disconnect()
+      nodeObserver.disconnect()
+      nodeObserverRef.current = null
+      intersection.disconnect()
+      document.removeEventListener("visibilitychange", resume)
+      document.fonts.removeEventListener("loadingdone", onFontsLoaded)
       stage.removeEventListener("pointermove", onPointerMove)
       stage.removeEventListener("pointerup", onPointerUp)
       stage.removeEventListener("pointercancel", onPointerUp)
       stage.removeEventListener("click", clickScore)
       window.clearTimeout(holdTimerRef.current)
+      window.clearTimeout(selectHoldTimerRef.current)
     }
     // Keyed on ids, not array identity: a parent that rebuilds the same items or scales on every
     // render must not reset the round.
@@ -1966,7 +2407,7 @@ export function OrbitRing({
     -Math.PI / 2 +
     (openIsScore ? scoreOffset(scores.length) : 0) +
     openRing.findIndex((score) => score.id === openScoreId) * openSweep
-  const closeReach = CLOSE_REACH
+  const closeReach = well * 100 - CLOSE_INSET
 
   /**
    * `along` turns labels to follow the ring, for bands too thin for upright text.
@@ -1985,22 +2426,24 @@ export function OrbitRing({
       -Math.PI / 2 - sweep / 2 + (scale ? scoreOffset(list.length) : 0)
     const neutral = scale ? neutralIndex(list.length) : -1
     const labelRadius = ((inner + outer) / 2) * 100
-    return list.map((score, index) => {
+    const slices = list.map((score, index) => {
       const start = firstAngle + index * sweep
       const mid = start + sweep / 2
       const x = fix(50 + labelRadius * Math.cos(mid))
       const y = fix(50 + labelRadius * Math.sin(mid))
       const arcId = `${labelId}-arc-${score.id}`
-      const count = showCounts
+      const count = countsShown
         ? placements.filter((placement) => placement.scoreId === score.id)
             .length
         : 0
+      // Score labels read in Title Case ("Strongly Agree"); flags are uppercased in CSS
+      const label = along ? score.label : titleCase(score.label)
       // Long upright labels wrap at the first space so they stay inside their slice.
-      const space = score.label.indexOf(" ")
+      const space = label.indexOf(" ")
       const lines =
-        score.label.length > WRAP_AT && space !== -1
-          ? [score.label.slice(0, space), score.label.slice(space + 1)]
-          : [score.label]
+        label.length > WRAP_AT && space !== -1
+          ? [label.slice(0, space), label.slice(space + 1)]
+          : [label]
       const labelTop =
         y - ((lines.length - 1) * LINE_GAP) / 2 - (count > 0 ? 0.9 : 0)
       const colored = Boolean(score.color)
@@ -2013,6 +2456,23 @@ export function OrbitRing({
             ...(hover ? { "--slice-hover": hover } : {}),
           } as CSSProperties)
         : undefined
+      // Count circles take the slice's stronger color, so they read on a grey resting slice
+      const badgeFill = score.hoverColor ?? score.color
+      const shortcut =
+        keyboardShortcuts && !along
+          ? scores.findIndex((entry) => entry.id === score.id) + 1
+          : 0
+      const placedHere = placements.filter(
+        (placement) => placement.scoreId === score.id
+      ).length
+      // Native tooltip: name (and key), what dropping here does, and what's already here
+      const tip = [
+        shortcut > 0 && shortcut <= 9 ? `${label} (key ${shortcut})` : label,
+        score.hint ?? `Drop a statement here to answer "${label}".`,
+        placedHere > 0 ? `${placedHere} placed here. Click to see them.` : "",
+      ]
+        .filter(Boolean)
+        .join("\n")
       return (
         <g key={score.id}>
           <path
@@ -2027,10 +2487,15 @@ export function OrbitRing({
             d={wedge(inner * 100, outer * 100, start, start + sweep)}
             filter={colored && grain > 0 ? `url(#${grainId})` : undefined}
             data-score-id={score.id}
+            // Outer-ring actions (skip, confusing, typo), for guides that point at them
+            data-orbit-action={!scale || undefined}
             data-neutral={index === neutral || undefined}
             tabIndex={0}
             role="button"
             aria-label={score.label}
+            aria-keyshortcuts={
+              shortcut > 0 && shortcut <= 9 ? String(shortcut) : undefined
+            }
             aria-expanded={openScoreId === score.id}
             onMouseDown={(event) => event.preventDefault()}
             onKeyDown={(event) => {
@@ -2040,7 +2505,9 @@ export function OrbitRing({
               if (itemId) sendRef.current(itemId, score.id)
               else toggleOpenRef.current(score.id)
             }}
-          />
+          >
+            <title>{tip}</title>
+          </path>
           {along ? (
             <>
               <path
@@ -2048,51 +2515,90 @@ export function OrbitRing({
                 d={labelArc(labelRadius, start, start + sweep)}
                 fill="none"
               />
-              <text
-                key={count}
-                className={
-                  count > 0 ? `${labelClass} ${styles.bump}` : labelClass
-                }
-              >
+              <text className={labelClass}>
                 <textPath href={`#${arcId}`} startOffset="50%">
                   {count > 0 ? `${score.label} ${count}` : score.label}
                 </textPath>
               </text>
             </>
+          ) : labelsCurved ? (
+            // "Word wrap": the score label bends along its slice on one line, like the action labels
+            <>
+              <path
+                id={arcId}
+                d={labelArc(labelRadius, start, start + sweep)}
+                fill="none"
+              />
+              {/* Filled circle in the slice's color behind the count; placed on the digits after layout */}
+              {count > 0 ? (
+                <circle
+                  className={styles.countBadge}
+                  data-orbit-count-badge={String(count).length}
+                  visibility="hidden"
+                  style={badgeFill ? { fill: badgeFill } : undefined}
+                />
+              ) : null}
+              <text className={`${labelClass}${ink}`}>
+                <textPath href={`#${arcId}`} startOffset="50%">
+                  {label}
+                  {/* Inline after the label ("Strongly disagree 1"); short enough to keep on small screens */}
+                  {count > 0 ? (
+                    <tspan
+                      className={styles.scoreCountInline}
+                      dx="2.5"
+                      style={
+                        badgeFill ? { fill: readableOn(badgeFill) } : undefined
+                      }
+                    >
+                      {count}
+                    </tspan>
+                  ) : null}
+                </textPath>
+              </text>
+            </>
           ) : (
-            <text className={`${labelClass}${ink}`} x={x} y={labelTop}>
-              {lines.map((line, lineIndex) => (
-                <tspan
-                  key={lineIndex}
+            <g data-orbit-score-label="">
+              <text className={`${labelClass}${ink}`} x={x} y={labelTop}>
+                {lines.map((line, lineIndex) => (
+                  <tspan
+                    key={lineIndex}
+                    x={x}
+                    dy={lineIndex === 0 ? 0 : LINE_GAP}
+                  >
+                    {line}
+                  </tspan>
+                ))}
+              </text>
+              {count > 0 ? (
+                <text
+                  className={`${styles.scoreCount}${ink}`}
                   x={x}
-                  dy={lineIndex === 0 ? 0 : LINE_GAP}
+                  y={labelTop + (lines.length - 1) * LINE_GAP + 2.7}
                 >
-                  {line}
-                </tspan>
-              ))}
-            </text>
+                  {count}
+                </text>
+              ) : null}
+            </g>
           )}
-          {count > 0 && !along ? (
-            <text
-              key={count}
-              className={`${styles.scoreCount} ${styles.bump}${ink}`}
-              x={x}
-              y={labelTop + (lines.length - 1) * LINE_GAP + 2.7}
-            >
-              {count}
-            </text>
-          ) : null}
         </g>
       )
     })
+    // Paint the open slice last so its border sits on top of its neighbours'
+    const open = list.findIndex((score) => score.id === openScoreId)
+    return open === -1
+      ? slices
+      : [...slices.slice(0, open), ...slices.slice(open + 1), slices[open]]
   }
 
   function bindNode(id: string, node: HTMLButtonElement | null) {
     if (!node) {
+      const previous = nodesRef.current.get(id)
+      if (previous) nodeObserverRef.current?.unobserve(previous)
       nodesRef.current.delete(id)
       return
     }
     nodesRef.current.set(id, node)
+    nodeObserverRef.current?.observe(node)
     const body = bodiesRef.current.get(id)
     if (!body) return
     body.w = node.offsetWidth
@@ -2135,10 +2641,20 @@ export function OrbitRing({
       holdX: x,
       holdY: y,
       held: false,
+      holdSelected: false,
     }
     setDragId(id)
     setHoldCancel(false)
     armHold()
+    // Holding a word in place selects it, without waiting for the pointer to lift
+    window.clearTimeout(selectHoldTimerRef.current)
+    selectHoldTimerRef.current = window.setTimeout(() => {
+      const drag = dragRef.current
+      if (!drag || drag.id !== id || drag.moved) return
+      drag.holdSelected = true
+      selectedRef.current = id
+      setSelectedId(id)
+    }, SELECT_HOLD_MS)
   }
 
   /** (Re)starts the countdown that lets go of a word held without moving */
@@ -2150,6 +2666,10 @@ export function OrbitRing({
     )
   }
 
+  // Drawn past the rim and clipped to the disc, so each stroke ends on the circle
+  const centerXReach = (deadZoneSize * 100 * 1.5) / Math.SQRT2
+  const swirl = swirlPath(50, 50, deadZoneSize * 100)
+
   return (
     <div
       className={[
@@ -2159,23 +2679,134 @@ export function OrbitRing({
       ].join(" ")}
       style={wrapStyle as CSSProperties}
     >
-      <style href="orbit-ring" precedence="default">
+      <style href={ORBIT_CSS_HREF} precedence="default">
         {ORBIT_CSS}
       </style>
-      {/* Items left to place, counting down above the ring; digits roll to each new value */}
-      {showCounter ? (
-        <p className={styles.counter} aria-label={labels.remaining(remaining)}>
-          <RollingNumber value={remaining} />
+      {keyboardShortcuts ? (
+        <p
+          ref={keyboardHelpRef}
+          tabIndex={-1}
+          id={`${labelId}-keyboard-help`}
+          className={styles.live}
+        >
+          Tab cycles cards; Shift+Tab cycles backward. Press 1–
+          {Math.min(scores.length, 9)} to answer. 1 = {scores[0]?.label};{" "}
+          {Math.min(scores.length, 9)} ={" "}
+          {scores[Math.min(scores.length, 9) - 1]?.label}. Escape releases
+          selection to reach other controls.
         </p>
       ) : null}
-      <div ref={stageRef} className={styles.stage}>
+      <div
+        ref={stageRef}
+        tabIndex={keyboardShortcuts ? -1 : undefined}
+        className={styles.stage}
+        onKeyDown={(event) => {
+          // Holding Tab keeps cycling cards; other keys answer once per press
+          if (
+            !keyboardShortcuts ||
+            settingsOpen ||
+            event.defaultPrevented ||
+            (event.repeat && event.key !== "Tab") ||
+            event.nativeEvent.isComposing ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            dragRef.current
+          )
+            return
+          const target = event.target
+          if (
+            target instanceof Element &&
+            target.closest(
+              'input, textarea, select, [contenteditable]:not([contenteditable="false"])'
+            )
+          )
+            return
+          const itemId = selectedRef.current
+          if (
+            event.key === "Tab" &&
+            (itemId || target === event.currentTarget)
+          ) {
+            const available = present.filter(
+              (id) =>
+                bodiesRef.current.has(id) &&
+                !flightsRef.current.has(id) &&
+                !leaving.has(id)
+            )
+            if (!available.length) return
+            const current = itemId ? available.indexOf(itemId) : -1
+            const next =
+              current < 0
+                ? event.shiftKey
+                  ? available.length - 1
+                  : 0
+                : (current + (event.shiftKey ? -1 : 1) + available.length) %
+                  available.length
+            event.preventDefault()
+            selectedRef.current = available[next]
+            setSelectedId(available[next])
+            nodesRef.current
+              .get(available[next])
+              ?.focus({ preventScroll: true })
+            return
+          }
+          if (event.shiftKey) return
+          if (!itemId || flightsRef.current.has(itemId)) return
+          if (event.key === "Escape") {
+            event.preventDefault()
+            selectedRef.current = null
+            setSelectedId(null)
+            keyboardHelpRef.current?.focus({ preventScroll: true })
+            return
+          }
+          if (!/^[1-9]$/.test(event.key)) return
+          const score = scores[Number(event.key) - 1]
+          if (!score || !bodiesRef.current.has(itemId)) return
+          event.preventDefault()
+          selectedRef.current = null
+          setSelectedId(null)
+          sendRef.current(itemId, score.id)
+          stageRef.current?.focus({ preventScroll: true })
+        }}
+      >
+        {wellLayer ? (
+          <div
+            aria-hidden
+            className={styles.wellLayer}
+            style={{ "--orbit-well-size": `${well * 200}%` } as CSSProperties}
+          >
+            {wellLayer}
+          </div>
+        ) : null}
+        {/* Leave the center clear for drag feedback, settings, and the completion mark. */}
+        {showCounter ? (
+          <p
+            className={styles.counter}
+            data-hidden={
+              Boolean(overCenter || settingsOpen || openScoreId || finished) ||
+              undefined
+            }
+            aria-label={labels.remaining(remaining)}
+          >
+            <RollingNumber value={remaining} />
+          </p>
+        ) : null}
+        {prompt ? (
+          <div
+            ref={promptRef}
+            className={styles.prompt}
+            data-hidden={Boolean(openScoreId) || undefined}
+          >
+            {prompt}
+          </div>
+        ) : null}
+        {/* aria-label, not <title>: a <title> here would be the tooltip for every slice */}
         <svg
           className={styles.ring}
           viewBox="0 0 100 100"
           role="group"
-          aria-labelledby={labelId}
+          aria-label="Answer ring"
         >
-          <title id={labelId}>Score ring</title>
           <defs>
             {/* Mono grain clipped to the slice and overlaid on its fill */}
             <filter id={grainId} colorInterpolationFilters="sRGB">
@@ -2192,8 +2823,32 @@ export function OrbitRing({
               <feComposite in2="SourceGraphic" operator="in" />
               <feBlend in2="SourceGraphic" mode="overlay" />
             </filter>
+            {/* Diagonal crosshatching for the well while a slice is open */}
+            <pattern
+              id={hatchId}
+              width="1.8"
+              height="1.8"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
+            >
+              <rect width="1.8" height="1.8" />
+              <line x1="0" y1="0" x2="0" y2="1.8" />
+              <line x1="0" y1="0" x2="1.8" y2="0" />
+            </pattern>
+            <clipPath id={centerClipId}>
+              <circle cx="50" cy="50" r={deadZoneSize * 100} />
+            </clipPath>
           </defs>
-          <circle className={styles.well} cx="50" cy="50" r={WELL * 100} />
+          <circle className={styles.well} cx="50" cy="50" r={well * 100} />
+          {/* Hatching marks the well as "inside a slice" while one is open */}
+          <circle
+            className={styles.wellHatch}
+            cx="50"
+            cy="50"
+            r={well * 100}
+            fill={`url(#${hatchId})`}
+            data-shown={Boolean(openScoreId) || undefined}
+          />
           <circle
             className={[
               hotScoreId === POOL_TARGET
@@ -2209,6 +2864,8 @@ export function OrbitRing({
             cy="50"
             r={deadZoneSize * 100}
             data-orbit-center=""
+            // Inside an open slice the disc hides behind the swirl but still takes the drop
+            data-open={Boolean(openScoreId) || undefined}
             // Not clickable once the checkmark shows; the round is over
             data-done={(finished && !openScore) || undefined}
             onClick={
@@ -2216,11 +2873,46 @@ export function OrbitRing({
                 ? () => setSettingsOpen((open) => !open)
                 : undefined
             }
-          />
+          >
+            {soundOptions && !openScore && !finished ? (
+              <title>{`${labels.settings}: sound and display options`}</title>
+            ) : null}
+          </circle>
+          {/* Inside an open slice the center is a swirl ("back to the pool"); it spins slowly on
+              hover or while a word is over it */}
+          {openScoreId ? (
+            <path
+              className={styles.swirl}
+              d={swirl}
+              data-hot={hotScoreId === POOL_TARGET || undefined}
+              aria-hidden="true"
+            />
+          ) : null}
+          {/* Thin X across the disc while a dragged word is over the dead zone (not inside a
+              slice, where the swirl shows instead) */}
+          <g
+            className={styles.centerX}
+            clipPath={`url(#${centerClipId})`}
+            data-shown={(overCenter && !openScoreId) || undefined}
+            aria-hidden="true"
+          >
+            <line
+              x1={50 - centerXReach}
+              y1={50 - centerXReach}
+              x2={50 + centerXReach}
+              y2={50 + centerXReach}
+            />
+            <line
+              x1={50 + centerXReach}
+              y1={50 - centerXReach}
+              x2={50 - centerXReach}
+              y2={50 + centerXReach}
+            />
+          </g>
           <g className={styles.actionRing}>
             {renderSlices(actions, RIM, OUTER, styles.actionLabel, true)}
           </g>
-          {renderSlices(ring, WELL, RIM, styles.scoreLabel, false, true)}
+          {renderSlices(ring, well, RIM, styles.scoreLabel, false, true)}
         </svg>
         {settingsOpen && soundOptions && !(finished && !openScore) ? (
           <div
@@ -2277,6 +2969,90 @@ export function OrbitRing({
                 </>
               ) : null}
             </div>
+            {/* Label on the left, checkbox on the right edge */}
+            <div className={styles.settingsToggles}>
+              <label
+                className={`${styles.settingsRow} ${styles.settingsToggle}`}
+              >
+                <span>{labels.autoSelectNext}</span>
+                <input
+                  type="checkbox"
+                  className={styles.check}
+                  checked={autoSelect}
+                  onChange={(event) => {
+                    // Turning it on selects a word right away, not only after the next placement
+                    if (event.target.checked)
+                      autoSelectPendingRef.current = true
+                    setOwnAutoSelect(event.target.checked)
+                    onAutoSelectNextChange?.(event.target.checked)
+                  }}
+                />
+              </label>
+              <label
+                className={`${styles.settingsRow} ${styles.settingsToggle}`}
+              >
+                <span>{labels.showCounts}</span>
+                <input
+                  type="checkbox"
+                  className={styles.check}
+                  checked={countsShown}
+                  onChange={(event) => {
+                    setOwnShowCounts(event.target.checked)
+                    onShowCountsChange?.(event.target.checked)
+                  }}
+                />
+              </label>
+              <label
+                className={`${styles.settingsRow} ${styles.settingsToggle}`}
+              >
+                <span>{labels.curveLabels}</span>
+                <input
+                  type="checkbox"
+                  className={styles.check}
+                  checked={labelsCurved}
+                  onChange={(event) => {
+                    setOwnCurveLabels(event.target.checked)
+                    onCurveLabelsChange?.(event.target.checked)
+                  }}
+                />
+              </label>
+            </div>
+            {/* The picked size is filled black; the rest are white */}
+            <div
+              className={styles.settingsSizes}
+              role="group"
+              aria-label={labels.textSize}
+            >
+              <span className={styles.settingsRow}>{labels.textSize}</span>
+              <div className={styles.sizeButtons}>
+                {TEXT_SIZES.map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    className={styles.sizeButton}
+                    aria-pressed={TEXT_SCALES[size] === textScale}
+                    onClick={() => {
+                      setOwnTextSize(size)
+                      onTextSizeChange?.(size)
+                    }}
+                  >
+                    {size.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {onShowTutorial ? (
+              <button
+                type="button"
+                className={styles.settingsTutorial}
+                onClick={() => {
+                  setSettingsOpen(false)
+                  onShowTutorial()
+                }}
+              >
+                {labels.tutorial}
+              </button>
+            ) : null}
           </div>
         ) : null}
         {/* Stays mounted so it can fade out as well as in */}
@@ -2329,6 +3105,7 @@ export function OrbitRing({
               ].join(" ")}
               style={fitStyle(fits.get(id))}
               data-scroll={fits.get(id)?.maxHeight ? "" : undefined}
+              data-orbit-item={id}
               // Lift the bottom fade once the last line is in view
               onScroll={(event) => {
                 const node = event.currentTarget
@@ -2339,6 +3116,20 @@ export function OrbitRing({
               }}
               aria-pressed={selected}
               aria-label={item.label}
+              aria-describedby={
+                keyboardShortcuts ? `${labelId}-keyboard-help` : undefined
+              }
+              onFocus={(event) => {
+                if (
+                  !keyboardShortcuts ||
+                  !event.currentTarget.matches(":focus-visible") ||
+                  flightsRef.current.has(id) ||
+                  leaving.has(id)
+                )
+                  return
+                selectedRef.current = id
+                setSelectedId(id)
+              }}
               onPointerDown={(event) => onPointerDown(event, id)}
               onClick={(event) => {
                 if (event.detail === 0)
@@ -2373,8 +3164,9 @@ export function OrbitRing({
             {dragId && hotScoreId === openScoreId ? <BanIcon /> : <XIcon />}
           </button>
         ) : null}
-        {/* "More" dots on the center while it's hovered, hinting that it opens settings */}
-        {soundOptions && !finished && !dragId ? (
+        {/* "More" dots on the center while it's hovered, hinting that it opens settings; inside an
+            open slice the swirl shows instead */}
+        {soundOptions && !finished && !dragId && !openScore ? (
           <span
             className={styles.more}
             style={
@@ -2440,6 +3232,38 @@ export function OrbitRing({
   )
 }
 
+/**
+ * Five curved blades spiralling out from an open middle, centered on (cx, cy) and reaching
+ * radius r. Each blade starts thin near the middle, swells, and tapers to a point at the rim.
+ */
+function swirlPath(cx: number, cy: number, r: number) {
+  const blades = 5
+  const steps = 32
+  // How far round each blade wraps, and the radii it spirals between
+  const sweep = Math.PI * 1.3
+  const from = 0.36
+  const to = 1
+  let d = ""
+  for (let blade = 0; blade < blades; blade++) {
+    const start = (blade / blades) * Math.PI * 2
+    const outer: string[] = []
+    const inner: string[] = []
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps
+      const angle = start + sweep * t
+      const mid = r * (from + (to - from) * t)
+      // Fullest a little past halfway, pointed at both ends
+      const half = r * 0.095 * Math.sin(Math.PI * Math.pow(t, 0.8))
+      const point = (radius: number) =>
+        `${fix(cx + radius * Math.cos(angle))} ${fix(cy + radius * Math.sin(angle))}`
+      outer.push(point(mid + half))
+      inner.unshift(point(mid - half))
+    }
+    d += `M${outer.join("L")}L${inner.join("L")}Z`
+  }
+  return d
+}
+
 /** Inline icons, so the component needs no icon library */
 function XIcon() {
   return (
@@ -2501,15 +3325,15 @@ function BanIcon() {
 function MoreIcon() {
   return (
     <svg
-      width="20"
-      height="20"
+      width="36"
+      height="36"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
     >
-      <circle cx="5" cy="12" r="1.8" />
-      <circle cx="12" cy="12" r="1.8" />
-      <circle cx="19" cy="12" r="1.8" />
+      <circle cx="5" cy="12" r="2.2" />
+      <circle cx="12" cy="12" r="2.2" />
+      <circle cx="19" cy="12" r="2.2" />
     </svg>
   )
 }
@@ -2540,14 +3364,14 @@ function SpeakerIcon({ muted }: { muted: boolean }) {
 function CheckIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="40"
+      height="40"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="3.5"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
       aria-hidden="true"
     >
       <path d="M20 6 9 17l-5-5" />
@@ -2557,7 +3381,7 @@ function CheckIcon() {
 
 /**
  * Odometer-style number: each digit is a 0–9 strip that slides to its value,
- * so 9 → 7 rolls past 8. Digits are keyed by place so they keep their position.
+ * so 9 â†’ 7 rolls past 8. Digits are keyed by place so they keep their position.
  */
 function RollingNumber({ value }: { value: number }) {
   const digits = String(Math.max(0, Math.round(value))).split("")
@@ -2605,11 +3429,56 @@ const ORBIT_CSS = `.orbit-wrap {
 }
 
 .orbit-counter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
   display: grid;
   justify-items: center;
-  margin: 0 0 -8px;
-  font: 800 clamp(40px, 9vw, 64px) / 1 var(--font-geist-sans), sans-serif;
+  margin: 0;
+  color: #fff;
+  font: 800 clamp(16px, 4.5cqi, 32px) / 1 var(--font-geist-sans), sans-serif;
   letter-spacing: -0.03em;
+}
+
+.orbit-counter[data-hidden],
+.orbit-stage:has([data-orbit-center]:hover) .orbit-counter {
+  opacity: 0;
+}
+
+/* The count fades in when a ring appears; no fill mode, so the hidden states still apply after */
+.orbit-counter {
+  animation: orbit-kf-counter-in 500ms ease-out;
+}
+
+@keyframes orbit-kf-counter-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.orbit-prompt {
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  max-width: 58%;
+  padding: 0.3em 0.7em;
+  background: rgb(0 0 0 / 0.06);
+  color: #1d1b18;
+  font: 600 calc(clamp(15px, 3.2cqi, 22px) * var(--orbit-text-scale, 1)) / 1.3
+    var(--font-geist-sans), sans-serif;
+  text-align: center;
+  text-wrap: balance;
+  transition: opacity 150ms ease;
+}
+
+.orbit-prompt[data-hidden] {
+  opacity: 0;
 }
 
 .orbit-stage {
@@ -2643,6 +3512,44 @@ const ORBIT_CSS = `.orbit-wrap {
   fill: var(--orbit-center-dark);
 }
 
+/* 'wellLayer': a caller's texture clipped to the well, over its fill and under the words */
+.orbit-well-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Over the ring's SVG (1), under the prompt and words, which come later or sit higher */
+  z-index: 2;
+  width: var(--orbit-well-size);
+  aspect-ratio: 1;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 50%;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.orbit-well-hatch {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--orbit-ease);
+}
+
+.orbit-well-hatch[data-shown] {
+  opacity: 1;
+}
+
+/* A dark tint plus dark lines: the open well reads about two shades darker */
+.orbit-ring pattern rect {
+  fill: #000;
+  fill-opacity: 0.1;
+}
+
+.orbit-ring pattern line {
+  stroke: #000;
+  stroke-opacity: 0.2;
+  stroke-width: 0.5;
+}
+
 /* Always-visible dark disc; its dashed border appears on hover or while a drag is over it */
 .orbit-dead-zone {
   fill: var(--orbit-dead-zone);
@@ -2663,19 +3570,68 @@ const ORBIT_CSS = `.orbit-wrap {
   stroke-opacity: 1;
 }
 
-.orbit-dead-zone:hover {
-  stroke-opacity: 1;
-}
-
-.orbit-dead-zone-hot {
-  fill: color-mix(in oklch, var(--accent) 42%, var(--orbit-dead-zone));
-  stroke-opacity: 1;
-}
-
 /* While a score is open the dead zone means "return", so it goes solid */
 .orbit-dead-zone-open {
   fill: var(--orbit-dead-zone-open);
   fill-opacity: 1;
+}
+
+/* Keep center hover and drag feedback at full black/white contrast. */
+.orbit-dead-zone:hover,
+.orbit-dead-zone-hot,
+.orbit-dead-zone-shown {
+  fill: #000;
+  fill-opacity: 1;
+  stroke-opacity: 1;
+}
+
+/* Thin X across the black center while a dragged word is over the dead zone */
+.orbit-center-x {
+  stroke: #ff2d2d;
+  stroke-width: 0.22;
+  stroke-linecap: butt;
+  fill: none;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms var(--orbit-ease);
+}
+
+.orbit-center-x[data-shown] {
+  opacity: 1;
+}
+
+/* Inside an open slice the swirl stands in for the disc, which stays as the (invisible) target */
+[data-orbit-center][data-open],
+[data-orbit-center][data-open]:hover {
+  fill-opacity: 0;
+  stroke-opacity: 0;
+}
+
+.orbit-swirl {
+  fill: var(--orbit-dead-zone-open);
+  pointer-events: none;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: orbit-swirl-spin 5s linear infinite paused;
+  transition: fill 240ms var(--orbit-ease);
+}
+
+.orbit-stage:has([data-orbit-center]:hover) .orbit-swirl,
+.orbit-swirl[data-hot] {
+  fill: #000;
+  animation-play-state: running;
+}
+
+@keyframes orbit-swirl-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.orbit-stage:has(.orbit-center-x[data-shown]) [data-orbit-center] {
+  fill: #000;
+  fill-opacity: 1;
+  stroke-opacity: 0;
 }
 
 .orbit-segment,
@@ -2701,9 +3657,12 @@ const ORBIT_CSS = `.orbit-wrap {
   outline: none;
 }
 
+/* The open slice's border flips to the opposite of the others (white borders â†’ black, and back) */
 .orbit-segment-open {
   fill: color-mix(in oklch, var(--foreground) 16%, transparent);
-  stroke: var(--foreground);
+  stroke: var(--background);
+  /* Pure black against light borders, pure white against dark ones */
+  stroke: oklch(from var(--foreground) round(1 - l) 0 0);
   stroke-width: 0.9;
   cursor: pointer;
   outline: none;
@@ -2729,14 +3688,11 @@ const ORBIT_CSS = `.orbit-wrap {
   position: absolute;
   left: 50%;
   z-index: 6;
-  padding: 2px 4px;
+  padding: 4px 8px;
   border: 0;
-  /* Dark text with a pale outline that feathers off; same in both themes, since it sits on the light well */
-  text-shadow:
-    0 0 1px rgb(255 255 255 / 0.9),
-    0 0 3px rgb(255 255 255 / 0.7),
-    0 0 8px rgb(255 255 255 / 0.5);
-  color: rgb(0 0 0 / 0.85);
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -2753,6 +3709,11 @@ const ORBIT_CSS = `.orbit-wrap {
 .orbit-release-tip[data-shown] {
   opacity: 1;
   translate: -50% calc(-100% - 6px);
+}
+
+.dark .orbit-release-tip {
+  background: #fff;
+  color: #000;
 }
 
 .orbit-close-open {
@@ -2846,7 +3807,7 @@ const ORBIT_CSS = `.orbit-wrap {
 
 .orbit-action-label {
   fill: var(--orbit-ink);
-  font-size: 1.9px;
+  font-size: 2.2px;
   font-weight: 700;
   letter-spacing: 0.08px;
   text-transform: uppercase;
@@ -2866,31 +3827,30 @@ const ORBIT_CSS = `.orbit-wrap {
 }
 
 .orbit-score-label {
-  font-size: 2.1px;
+  font-size: 2.5px;
   font-weight: 650;
 }
 
 .orbit-score-count {
-  font-size: 1.9px;
+  font-size: 2.2px;
   font-weight: 700;
+}
+
+.orbit-score-count-inline {
+  font-size: 1.6px;
+  font-weight: 800;
+}
+
+/* Filled circle behind a curved count: slice color, dark rim */
+.orbit-count-badge {
+  fill: var(--orbit-ink);
+  stroke: var(--orbit-ink);
+  stroke-width: 0.25;
+  pointer-events: none;
 }
 
 .orbit-ink-label {
   fill: var(--orbit-ink);
-}
-
-/* A count that changes pops so the landing reads as "added here" */
-.orbit-bump {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: orbit-kf-bump 420ms var(--orbit-spring);
-}
-
-@keyframes orbit-kf-bump {
-  from {
-    scale: 0.4;
-    opacity: 0;
-  }
 }
 
 .orbit-node {
@@ -2911,14 +3871,15 @@ const ORBIT_CSS = `.orbit-wrap {
   border-radius: 2px;
   background: var(--card);
   color: var(--foreground);
-  font: 700 clamp(9px, 1.9cqi, 13px) / 1.2 var(--font-geist-sans), sans-serif;
+  font: 700 calc(clamp(10px, 2.3cqi, 16px) * var(--orbit-text-scale, 1)) / 1.2
+    var(--font-geist-sans), sans-serif;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
   cursor: grab;
   touch-action: none;
   scale: 1;
-  /* No will-change: a promoted layer caches the text as a bitmap and blurs it when moved */
+  /* Desktop keeps crisp text; touch devices opt into compositing below. */
   animation: orbit-kf-pop 650ms var(--orbit-spring) backwards;
   transition:
     scale 220ms var(--orbit-ease),
@@ -2990,8 +3951,8 @@ const ORBIT_CSS = `.orbit-wrap {
   display: grid;
   place-items: center;
   margin: 0;
-  /* Light check on the dark dead zone */
-  color: var(--orbit-center);
+  /* Green check on the dark dead zone */
+  color: #22c55e;
   pointer-events: none;
 }
 
@@ -3045,9 +4006,9 @@ const ORBIT_CSS = `.orbit-wrap {
 
 @media (prefers-reduced-motion: reduce) {
   .orbit-node,
+  .orbit-counter,
   .orbit-close-open,
   .orbit-release-tip,
-  .orbit-bump,
   .orbit-results section,
   .orbit-results li {
     animation: none;
@@ -3061,15 +4022,23 @@ const ORBIT_CSS = `.orbit-wrap {
   .orbit-action-ring :is(.orbit-segment, .orbit-segment-hot, .orbit-segment-open) {
     transition: none;
   }
+
+  .orbit-swirl {
+    animation: none;
+  }
 }
 
 @media (max-width: 640px) {
+  .orbit-score-count {
+    display: none;
+  }
+
   .orbit-score-label {
-    font-size: 2.5px;
+    font-size: 2.8px;
   }
 
   .orbit-action-label {
-    font-size: 2.2px;
+    font-size: 2.5px;
   }
 }
 
@@ -3114,6 +4083,97 @@ const ORBIT_CSS = `.orbit-wrap {
   font-weight: 600;
 }
 
+.orbit-settings-toggles {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.orbit-settings-toggle {
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.orbit-settings-sizes {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.orbit-size-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+/* Picked: black with white text; the rest white with black text */
+.orbit-size-button {
+  min-width: 34px;
+  padding: 4px 0;
+  border: 1.5px solid #000;
+  border-radius: 4px;
+  background: #fff;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.orbit-size-button[aria-pressed="true"] {
+  background: #000;
+  color: #fff;
+}
+
+.orbit-size-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Full-width white button under the sizes, styled like an unpicked size */
+.orbit-settings-tutorial {
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px 0;
+  border: 1.5px solid #000;
+  border-radius: 4px;
+  background: #fff;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.orbit-settings-tutorial:hover {
+  background: #000;
+  color: #fff;
+}
+
+.orbit-settings-tutorial:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.orbit-check {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--orbit-ink);
+  /* The popover is light even on a dark page; a dark-scheme box would look filled while off */
+  color-scheme: light;
+  cursor: pointer;
+}
+
+.orbit-check:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
 .orbit-mute-button {
   display: inline-grid;
   place-items: center;
@@ -3140,8 +4200,8 @@ const ORBIT_CSS = `.orbit-wrap {
 /* 'wrapLabels': sentences wrap onto a few left-aligned lines in normal case */
 .orbit-node.orbit-node-wrap {
   width: max-content;
-  max-width: min(23%, 147px);
-  font-size: clamp(11px, 2.2cqi, 15px);
+  max-width: calc(min(max(28%, 120px), 210px) * var(--orbit-text-scale, 1));
+  font-size: calc(clamp(13px, 2.8cqi, 19px) * var(--orbit-text-scale, 1));
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: 0;
@@ -3269,18 +4329,33 @@ const ORBIT_CSS = `.orbit-wrap {
   z-index: 2;
   display: grid;
   place-items: center;
-  color: var(--orbit-center);
+  color: #fff;
   translate: -50% -50%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms var(--orbit-ease);
 }
 
-/* Shows after resting on the center for 300ms, hides right away */
+/* Shows after resting on the center for 100ms, hides right away */
 .orbit-stage:has([data-orbit-center]:hover) .orbit-more {
-  opacity: 0.85;
+  opacity: 1;
   /* Starts slow and builds, so the dots surface gently */
-  transition: opacity 320ms ease-in 300ms;
+  transition: opacity 180ms ease-in 100ms;
+}
+
+.orbit-stage:has(.orbit-more):has([data-orbit-center]:hover) .orbit-counter {
+  opacity: 0;
+}
+
+/* Touch devices use flat fills and only promote the small set of moving cards. */
+@media (hover: none) and (pointer: coarse) {
+  .orbit-ring [data-score-id] {
+    filter: none;
+  }
+
+  .orbit-node:not([aria-hidden="true"]) {
+    will-change: translate;
+  }
 }
 
 .orbit-settings-value {
@@ -3355,12 +4430,21 @@ const ORBIT_CSS = `.orbit-wrap {
 
 /* Rolling counter */
 .orbit-roll {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Keep every digit centered on its track, without trailing negative spacing. */
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
+  /* Center the visible capitals rather than the font's ascender space. */
+  translate: 0 0.025em;
 }
 
 .orbit-roll-digit {
   display: inline-block;
+  flex: 0 0 1ch;
+  width: 1ch;
+  text-align: center;
   /* Taller than 1em so heavy glyphs aren't clipped top or bottom */
   height: 1.2em;
   overflow: hidden;
@@ -3376,6 +4460,9 @@ const ORBIT_CSS = `.orbit-wrap {
 }
 
 .orbit-roll-strip > span {
+  display: grid;
+  place-items: center;
+  flex: none;
   height: 1.2em;
   line-height: 1.2;
 }
@@ -3386,3 +4473,11 @@ const ORBIT_CSS = `.orbit-wrap {
   }
 }
 `
+
+/** React keeps one copy per style href, so the href changes with the CSS and edits are never stuck stale */
+const ORBIT_CSS_HREF = `orbit-ring-${[...ORBIT_CSS]
+  .reduce(
+    (hash, char) => Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0,
+    2166136261
+  )
+  .toString(36)}`
