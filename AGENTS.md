@@ -8,6 +8,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+# Adding or changing a piece
+
+Follow `docs/adding-a-piece.md` for every new Standard piece and every change to a piece's props: component, registry entry, gallery entry and demos, generated `public/r` files, and checks. A piece isn't done until the gallery, the registry JSON, the docs JSON and the MCP server all have it. When you add a new surface that pieces feed (docs pages, evals), add its step to that playbook in the same change.
+
 # Design system lint
 
 After UI changes, run `npm run lint` and fix every `shadcn/*` error. The rules come from `@shadcn/lint`, configured in `eslint.config.mjs` and `lib/standard-lint.mjs`: use component props and theme tokens (see `docs/component-conventions.md`) instead of restyling components or using palette colors. Don't add `eslint-disable` for these rules without a reason after `--`.
