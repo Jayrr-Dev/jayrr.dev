@@ -253,12 +253,16 @@ function buildsArcArrow(r: number, from: number, to: number) {
   const b = point(to)
   const sweep = to > from ? 1 : 0
   const large = Math.abs(to - from) > 180 ? 1 : 0
-  // Tangent at the end, along the direction of travel
-  const radians = (to * Math.PI) / 180
+  // A head sized for a straight line overhangs a small circle, so it shrinks
+  // with the radius
+  const size = Math.min(6, r * 0.5)
+  // Aimed along the chord from half a head back, not the tangent at the tip,
+  // so the wings follow the curve instead of one flaring off it
   const direction = sweep ? 1 : -1
+  const radians = (to * Math.PI) / 180 - (direction * size) / (2 * r)
   const ux = -Math.sin(radians) * direction
   const uy = Math.cos(radians) * direction
-  return `M${a.x} ${a.y}A${r} ${r} 0 ${large} ${sweep} ${b.x} ${b.y}${buildsHead(b, ux, uy, 6)}`
+  return `M${a.x} ${a.y}A${r} ${r} 0 ${large} ${sweep} ${b.x} ${b.y}${buildsHead(b, ux, uy, size)}`
 }
 
 /** Point and direction (degrees) `t` of the way along the curve a -> q -> b. */
@@ -1015,8 +1019,15 @@ function TutorialActions({
     case "pull":
       body = (
         <>
+          <RendersSlide
+            from={{ x: -travel.x * half, y: -travel.y * half }}
+            to={{ x: travel.x * half, y: travel.y * half }}
+            flick={gesture === "swipe"}
+          />
           {/* The refresh spinner comes down with the pull, just ahead of the
-              finger, then stays and spins once the finger lets go */}
+              finger, then stays and spins once the finger lets go. It sits on
+              its own disc after the track, so the track runs under it rather
+              than through the arrow. */}
           {gesture === "pull" ? (
             <g transform="translate(0 -26)">
               <g
@@ -1029,16 +1040,12 @@ function TutorialActions({
                 }
               >
                 <g data-slot="tutorial-actions-spinner">
-                  <path d={buildsArcArrow(9, -60, 210)} />
+                  <circle data-slot="tutorial-actions-spinner-disc" r={14} />
+                  <path d={buildsArcArrow(8, -50, 230)} />
                 </g>
               </g>
             </g>
           ) : null}
-          <RendersSlide
-            from={{ x: -travel.x * half, y: -travel.y * half }}
-            to={{ x: travel.x * half, y: travel.y * half }}
-            flick={gesture === "swipe"}
-          />
         </>
       )
       break
@@ -1254,6 +1261,7 @@ const guideStyles = `
 [data-slot=tutorial-actions-track]{animation-name:tutorial-actions-track}
 [data-slot=tutorial-actions-track][data-flick]{animation-name:tutorial-actions-track-flick}
 [data-slot=tutorial-actions-spinner]{animation-name:tutorial-actions-spin}
+[data-slot=tutorial-actions-spinner-disc]{fill:var(--actions-paper);stroke:color-mix(in oklab,var(--actions-ink) 45%,transparent);stroke-width:1.2}
 [data-slot=tutorial-actions-spinner-ride]{translate:0 var(--from-y);animation-name:tutorial-actions-ride}
 
 [data-slot=tutorial-actions-wheel-mouse] > rect{fill:var(--actions-paper);stroke:var(--actions-ink);stroke-width:1.4}
