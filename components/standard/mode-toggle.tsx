@@ -3,7 +3,7 @@
 import * as React from "react"
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 import { DropdownMenu, type MenuEntry } from "@/components/standard/menu"

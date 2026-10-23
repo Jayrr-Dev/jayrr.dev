@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { OTPInput, type SlotProps } from "input-otp"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 function OtpSlot({
   char,

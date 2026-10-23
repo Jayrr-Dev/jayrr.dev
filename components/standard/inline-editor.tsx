@@ -5,7 +5,7 @@ import { defineBasicExtension, type BasicExtension } from "prosekit/basic"
 import { createEditor, union, type NodeJSON } from "prosekit/core"
 import { definePlaceholder } from "prosekit/extensions/placeholder"
 import { ProseKit, useEditor } from "prosekit/react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   EDITOR_FRAME_CLASS,

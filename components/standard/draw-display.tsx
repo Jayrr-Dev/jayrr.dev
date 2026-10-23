@@ -11,7 +11,7 @@ import {
   Trash2Icon,
   Undo2Icon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   DisplayAction,

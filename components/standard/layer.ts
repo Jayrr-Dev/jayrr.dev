@@ -1,5 +1,5 @@
 import type * as React from "react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 /**
  * Shared props for the layer primitives (Gradient, Noise, Pattern, Color

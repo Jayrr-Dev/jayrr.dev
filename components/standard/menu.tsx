@@ -7,7 +7,7 @@ import {
   Dialog as DialogPrimitive,
   DropdownMenu as DropdownMenuPrimitive,
 } from "radix-ui"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 

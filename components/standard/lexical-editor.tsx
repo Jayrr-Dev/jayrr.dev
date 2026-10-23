@@ -86,7 +86,7 @@ import {
   UnderlineIcon,
   Undo2Icon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Select, type SelectOption } from "@/components/standard/select"
 import {

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ChevronLeftIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 /**
  * A launcher grid of folders, after the Windows 11 Start menu category view.

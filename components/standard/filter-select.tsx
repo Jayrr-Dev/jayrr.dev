@@ -7,7 +7,7 @@ import {
   ChevronRightIcon,
   SearchIcon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/standard/badge"

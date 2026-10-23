@@ -6,7 +6,7 @@ import {
   RotateCwIcon,
   type LucideIcon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 

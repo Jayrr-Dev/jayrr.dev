@@ -6,7 +6,7 @@ import { createEditor, union, type Editor } from "prosekit/core"
 import { definePlaceholder } from "prosekit/extensions/placeholder"
 import { ProseKit, useDocChange } from "prosekit/react"
 import { Columns2Icon, FileCodeIcon, TypeIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
 import {

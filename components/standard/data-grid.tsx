@@ -6,7 +6,7 @@ import {
   ContextMenu as ContextMenuPrimitive,
   AlertDialog as AlertDialogPrimitive,
 } from "radix-ui"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 import {

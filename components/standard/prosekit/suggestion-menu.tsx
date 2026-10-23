@@ -9,7 +9,7 @@ import {
   AutocompletePositioner,
   AutocompleteRoot,
 } from "prosekit/react/autocomplete"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   POPUP_CLASS,

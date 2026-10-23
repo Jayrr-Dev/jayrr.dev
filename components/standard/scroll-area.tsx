@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 const arrowClassName =
   "absolute inset-x-0 z-10 flex h-6 items-center justify-center from-background to-transparent text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { GripVertical } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
 

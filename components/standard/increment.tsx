@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { MinusIcon, PlusIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 import { useControllableState } from "@/hooks/use-controllable-state"

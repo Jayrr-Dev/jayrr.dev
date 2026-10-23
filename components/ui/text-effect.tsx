@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 function usePrefersReducedMotion() {
   const [reduce, setReduce] = React.useState(false)

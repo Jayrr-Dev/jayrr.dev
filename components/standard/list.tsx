@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { ChevronRightIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
 import { Bar, type BarProps } from "@/components/standard/bar"

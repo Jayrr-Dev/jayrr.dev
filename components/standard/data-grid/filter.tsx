@@ -3,7 +3,7 @@
 import * as React from "react"
 import { ListFilterIcon } from "lucide-react"
 import { Popover as PopoverPrimitive } from "radix-ui"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   ColumnFilter,

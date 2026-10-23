@@ -50,7 +50,7 @@ import {
   PinOffIcon,
   Settings2Icon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
 import { Button } from "@/components/standard/button"

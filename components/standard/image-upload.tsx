@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ImageIcon, UploadIcon, XIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 type ImageUploadVariant = "dropzone" | "avatar"
 

@@ -13,9 +13,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -30,10 +32,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -49,8 +51,10 @@
         }
       ],
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -81,10 +85,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -100,8 +104,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -117,8 +123,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -133,9 +141,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -151,8 +161,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -168,10 +180,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/separator"
       ]
     },
@@ -188,8 +200,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -204,11 +218,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "react-day-picker"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -223,8 +237,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -239,11 +253,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "embla-carousel-react",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -259,8 +273,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "recharts"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -275,9 +291,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -308,10 +326,10 @@
       ],
       "dependencies": [
         "@base-ui/react",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button",
         "@jayrr/input-group"
       ]
@@ -329,10 +347,10 @@
       ],
       "dependencies": [
         "cmdk",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/dialog",
         "@jayrr/input-group"
       ]
@@ -349,9 +367,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -366,11 +386,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -401,8 +421,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "vaul"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -417,9 +439,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -434,8 +458,10 @@
         }
       ],
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -450,10 +476,10 @@
         }
       ],
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/label",
         "@jayrr/separator"
       ]
@@ -470,8 +496,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -486,10 +514,10 @@
         }
       ],
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button",
         "@jayrr/input",
         "@jayrr/textarea"
@@ -507,9 +535,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "input-otp",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -523,8 +553,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -540,10 +570,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/separator"
       ]
     },
@@ -558,8 +588,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -574,8 +604,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -591,8 +623,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -606,8 +640,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -622,8 +656,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "katex"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -638,9 +674,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -656,10 +694,10 @@
       ],
       "dependencies": [
         "@shadcn/react",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -674,8 +712,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -690,8 +728,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -707,9 +747,11 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -723,8 +765,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -739,10 +781,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -758,8 +800,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -774,8 +818,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -790,8 +836,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -807,10 +855,10 @@
       ],
       "dependencies": [
         "@shadcn/react",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -826,8 +874,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -842,8 +892,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "react-resizable-panels"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -858,8 +910,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -874,9 +928,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -891,8 +947,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -907,11 +965,11 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ]
     },
@@ -928,11 +986,11 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button",
         "@jayrr/collapsible",
         "@jayrr/input",
@@ -954,8 +1012,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -970,8 +1028,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1003,8 +1063,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1020,8 +1082,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1036,8 +1100,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1051,8 +1117,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1068,8 +1134,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1153,8 +1221,8 @@
           }
         }
       },
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1168,8 +1236,8 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1185,10 +1253,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/toggle"
       ]
     },
@@ -1205,8 +1273,10 @@
       ],
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     },
     {
@@ -1221,8 +1291,10 @@
         }
       ],
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ]
     }
   ]

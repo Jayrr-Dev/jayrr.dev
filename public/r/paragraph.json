@@ -4,13 +4,15 @@
   "title": "Paragraph",
   "description": "Body text with default, small, lead, and muted sizes, a muted tone, and line-clamp or single-line truncation.",
   "dependencies": [
-    "class-variance-authority",
-    "cn"
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
   ],
   "files": [
     {
       "path": "components/standard/paragraph.tsx",
-      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst paragraphVariants = cva(\"text-pretty\", {\r\n  variants: {\r\n    size: {\r\n      default: \"leading-7\",\r\n      // Compact body text for dense UI (dates, totals, helper lines).\r\n      sm: \"text-sm leading-relaxed\",\r\n      lead: \"text-xl text-muted-foreground\",\r\n      muted: \"text-sm text-muted-foreground\",\r\n    },\r\n    tone: {\r\n      default: \"\",\r\n      muted: \"text-muted-foreground\",\r\n    },\r\n    // Cap the paragraph at N lines with an ellipsis.\r\n    lineClamp: {\r\n      1: \"line-clamp-1\",\r\n      2: \"line-clamp-2\",\r\n      3: \"line-clamp-3\",\r\n      4: \"line-clamp-4\",\r\n    },\r\n    // One line, cut off with an ellipsis.\r\n    truncate: {\r\n      true: \"truncate\",\r\n      false: \"\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: \"default\",\r\n    tone: \"default\",\r\n  },\r\n})\r\n\r\nfunction Paragraph({\r\n  className,\r\n  size = \"default\",\r\n  tone = \"default\",\r\n  lineClamp,\r\n  truncate = false,\r\n  ...props\r\n}: React.ComponentProps<\"p\"> & VariantProps<typeof paragraphVariants>) {\r\n  return (\r\n    <p\r\n      data-slot=\"paragraph\"\r\n      data-size={size}\r\n      data-tone={tone}\r\n      className={cn(\r\n        paragraphVariants({ size, tone, lineClamp, truncate }),\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Paragraph, paragraphVariants }\r\n",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst paragraphVariants = cva(\"text-pretty\", {\n  variants: {\n    size: {\n      default: \"leading-7\",\n      // Compact body text for dense UI (dates, totals, helper lines).\n      sm: \"text-sm leading-relaxed\",\n      lead: \"text-xl text-muted-foreground\",\n      muted: \"text-sm text-muted-foreground\",\n    },\n    tone: {\n      default: \"\",\n      muted: \"text-muted-foreground\",\n    },\n    // Cap the paragraph at N lines with an ellipsis.\n    lineClamp: {\n      1: \"line-clamp-1\",\n      2: \"line-clamp-2\",\n      3: \"line-clamp-3\",\n      4: \"line-clamp-4\",\n    },\n    // One line, cut off with an ellipsis.\n    truncate: {\n      true: \"truncate\",\n      false: \"\",\n    },\n  },\n  defaultVariants: {\n    size: \"default\",\n    tone: \"default\",\n  },\n})\n\nfunction Paragraph({\n  className,\n  size = \"default\",\n  tone = \"default\",\n  lineClamp,\n  truncate = false,\n  ...props\n}: React.ComponentProps<\"p\"> & VariantProps<typeof paragraphVariants>) {\n  return (\n    <p\n      data-slot=\"paragraph\"\n      data-size={size}\n      data-tone={tone}\n      className={cn(\n        paragraphVariants({ size, tone, lineClamp, truncate }),\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Paragraph, paragraphVariants }\n",
       "type": "registry:ui",
       "target": "components/standard/paragraph.tsx"
     }

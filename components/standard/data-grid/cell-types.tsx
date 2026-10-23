@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { CheckIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Badge } from "@/components/standard/badge"
 import { Checkbox } from "@/components/standard/checkbox"

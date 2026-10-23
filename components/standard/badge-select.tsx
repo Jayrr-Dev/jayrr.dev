@@ -10,7 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { Dialog as DialogPrimitive, Tooltip as TooltipPrimitive } from "radix-ui"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/standard/badge"

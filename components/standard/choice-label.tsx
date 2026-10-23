@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 const choiceLabelVariants = cva(
   "flex cursor-pointer items-start gap-2 has-disabled:cursor-not-allowed has-disabled:opacity-50",

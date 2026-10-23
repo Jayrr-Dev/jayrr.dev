@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Progress as ProgressPrimitive } from "radix-ui"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Progress as ProgressBar } from "@/components/ui/progress"
 

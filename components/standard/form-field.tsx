@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { CircleCheckIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { FieldLabel } from "@/components/standard/field-label"
 import { FieldMessageContext } from "@/hooks/use-field-validation"

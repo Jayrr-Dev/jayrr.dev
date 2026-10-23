@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { cva } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { badgeVariants } from "@/components/standard/badge"
 import { useControllableState } from "@/hooks/use-controllable-state"

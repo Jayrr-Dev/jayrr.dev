@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 type NotificationBadgeTone = "danger" | "default" | "quiet"
 type NotificationBadgeSize = "inline" | "sm" | "default"

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cva } from "class-variance-authority"
 import { XIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { ToolbarCountBadge } from "@/components/standard/toolbar-count"
 import { Tooltip } from "@/components/standard/tooltip"

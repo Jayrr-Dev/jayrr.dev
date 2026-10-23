@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 type AccordionItem = {
   id: string

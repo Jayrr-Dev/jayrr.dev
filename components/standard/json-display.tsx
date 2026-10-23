@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { BracesIcon, ChevronRightIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   DisplayCopyAction,
