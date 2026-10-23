@@ -3879,6 +3879,39 @@
       "type": "registry:ui"
     },
     {
+      "name": "tutorial-float",
+      "title": "Tutorial Float",
+      "description": "Floating card for hands-on tutorials. Follows an anchor every frame: beside it when there's room, otherwise over the top of what it covers, kept inside an optional boundary, and slid aside from a point it shouldn't hide. Step counter and dots, Skip, a done card with its own button that fades out and closes itself, a slow bob, and reduced motion respected. Pair it with Tutorial Icon Guide.",
+      "registryDependencies": [
+        "utils",
+        "@jayrr/standard-button"
+      ],
+      "files": [
+        {
+          "path": "components/standard/tutorial-float.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/tutorial-float.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "name": "tutorial-icon-guide",
+      "title": "Tutorial Icon Guide",
+      "description": "Coach-mark gestures drawn over the page, never in the way of input. tap: a mouse pointer or pointing finger (picked by the device, or forced) presses a target on repeat with a press ripple. drag: an arrowhead glides along a curved path from one target to another, trailing a fading smear, with optional marching dashes. Targets are refs, elements, points or functions, tracked every frame. Reduced motion holds the tap still and draws a plain arrow.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "components/standard/tutorial-icon-guide.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/tutorial-icon-guide.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "standard-popover",
       "title": "Popover",
       "description": "Floating panel anchored to a trigger, with default, arrow, and tooltip-style content variants.",

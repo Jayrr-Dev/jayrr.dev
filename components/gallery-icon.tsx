@@ -2315,6 +2315,48 @@ const icons = {
       <circle cx="45.5" cy="45.5" r="1.8" fill="currentColor" stroke="none" />
     </>
   ),
+  "Tutorial Float": (
+    <>
+      <rect
+        x="10"
+        y="9"
+        width="44"
+        height="30"
+        rx="4"
+        fill="currentColor"
+        fillOpacity=".12"
+      />
+      <path d="M16 16h10" opacity=".5" />
+      <path d="M16 23h28" />
+      <path d="M16 29h20" opacity=".5" />
+      <circle cx="18" cy="34" r="1.2" fill="currentColor" stroke="none" />
+      <circle
+        cx="23"
+        cy="34"
+        r="1.2"
+        fill="currentColor"
+        stroke="none"
+        opacity=".4"
+      />
+      <rect x="20" y="47" width="24" height="9" rx="3" opacity=".45" />
+      <path d="M32 39v8" strokeDasharray="2 2" opacity=".6" />
+    </>
+  ),
+  "Tutorial Icon Guide": (
+    <>
+      <path d="M10 46Q20 22 40 22" strokeDasharray="2 2.5" opacity=".55" />
+      <path d="M33 17l7 5-7 5" />
+      <circle
+        cx="44"
+        cy="42"
+        r="9"
+        fill="currentColor"
+        fillOpacity=".12"
+        strokeOpacity=".4"
+      />
+      <path d="M44 42v15l4-3.6 2.7 6 2.5-1-2.6-5.9H56Z" fill="var(--card)" />
+    </>
+  ),
   "Popover Wizard": (
     <>
       <rect x="8" y="6" width="48" height="36" rx="4" />

@@ -194,7 +194,9 @@
     "Infinite Canvas": "A pan-and-zoom surface with draggable items, a grid and a minimap.",
     "Wheel of Fortune": "A prize wheel you spin, easing to a stop on a random or weighted slice.",
     "Dice": "3D dice that tumble and land on the rolled face, one or many, with a total and holding.",
-    "Orbit Ring": "A drag-to-answer test maker: statements float in a ring and you drop each onto a score on the rim."
+    "Orbit Ring": "A drag-to-answer test maker: statements float in a ring and you drop each onto a score on the rim.",
+    "Tutorial Float": "A floating tutorial card that follows what it explains: steps, dots, Skip and a done card that closes itself.",
+    "Tutorial Icon Guide": "Coach-mark gestures over the page: a pointer or finger tapping a target, or an arrow gliding along a drag path."
   },
   "block": {
     "Table List": "A searchable, filterable, paged list that switches between table and card grid views.",

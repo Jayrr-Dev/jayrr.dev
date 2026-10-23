@@ -2091,6 +2091,40 @@
     "mock_data_key": null
   },
   {
+    "name": "Tutorial Float",
+    "type": "structure/overlay",
+    "canonical": "popovers",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "tutorial-float",
+    "family_key": "tutorial-float",
+    "file_path": "components/standard/tutorial-float.tsx",
+    "import_path": "@/components/standard/tutorial-float",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
+    "name": "Tutorial Icon Guide",
+    "type": "structure/overlay",
+    "canonical": "popovers",
+    "tier": "component",
+    "demos": [
+      "standard"
+    ],
+    "installed": true,
+    "key": "tutorial-icon-guide",
+    "family_key": "tutorial-float",
+    "file_path": "components/standard/tutorial-icon-guide.tsx",
+    "import_path": "@/components/standard/tutorial-icon-guide",
+    "preview_mode": "inline",
+    "needs_mock_data": false,
+    "mock_data_key": null
+  },
+  {
     "name": "Separator",
     "type": "structure/layout",
     "canonical": "layout",
