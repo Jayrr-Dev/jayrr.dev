@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 /**
  * Concentric rings of arcs, like a sci-fi readout. Each ring is an arc whose

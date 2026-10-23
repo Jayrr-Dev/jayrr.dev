@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { TextField } from "@/components/standard/text-field"
 import { useControllableState } from "@/hooks/use-controllable-state"

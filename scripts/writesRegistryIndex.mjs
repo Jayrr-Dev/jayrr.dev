@@ -115,6 +115,7 @@ function analyze(filePath, seen = new Set([filePath])) {
   const text = fs.readFileSync(filePath, "utf8")
   const deps = new Set()
   const registry = new Set()
+  const upstream = new Set()
   const helpers = new Set()
   const importRe = /from\s+["']([^"']+)["']/g
   let match = importRe.exec(text)
@@ -130,7 +131,13 @@ function analyze(filePath, seen = new Set([filePath])) {
   while (match) {
     const spec = match[1]
 
-    if (spec.startsWith("@/components/ui/") || spec.startsWith("@/hooks/")) {
+    // cn comes from shadcn's own utils item; the CLI rewrites @/lib/utils to the
+    // installer's alias. Importing the npm "cn" package instead would install it.
+    if (spec === "@/lib/utils") {
+      upstream.add("utils")
+    } else if (spec === "cn") {
+      throw new Error(`${filePath}: import cn from "@/lib/utils", not "cn"`)
+    } else if (spec.startsWith("@/components/ui/") || spec.startsWith("@/hooks/")) {
       registry.add(path.basename(spec).replace(/\.(tsx|ts)$/, ""))
     } else if (spec.startsWith("@/components/standard/")) {
       const helper = standardHelperFor(spec)
@@ -142,6 +149,7 @@ function analyze(filePath, seen = new Set([filePath])) {
         const nested = analyze(helper, seen)
         nested.dependencies.forEach((dep) => deps.add(dep))
         nested.registryNames.forEach((name) => registry.add(name))
+        nested.upstreamNames.forEach((name) => upstream.add(name))
         nested.helpers.forEach((file) => helpers.add(file))
       } else if (!helper) {
         registry.add(
@@ -168,8 +176,13 @@ function analyze(filePath, seen = new Set([filePath])) {
   return {
     dependencies: [...deps].sort(),
     registryNames: [...registry],
+    upstreamNames: [...upstream],
     // Bare names resolve against ui.shadcn.com, so point at this registry explicitly.
-    registryDependencies: [...registry].sort().map((name) => `@jayrr/${name}`),
+    // Upstream names (utils) stay bare on purpose.
+    registryDependencies: [
+      ...[...upstream].sort(),
+      ...[...registry].sort().map((name) => `@jayrr/${name}`),
+    ],
     helpers: [...helpers].sort(),
   }
 }

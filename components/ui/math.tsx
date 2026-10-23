@@ -1,7 +1,7 @@
 import katex from "katex"
 import "katex/dist/katex.min.css"
 
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 type MathProps = Omit<React.ComponentProps<"span">, "children"> & {
   /** LaTeX source, e.g. `\frac{a}{b}`. */

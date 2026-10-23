@@ -8,9 +8,11 @@
       "title": "Accordion",
       "description": "Vertically stacked sections that expand and collapse, built on Radix Accordion with chevron indicators.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -25,10 +27,10 @@
       "title": "Alert Dialog",
       "description": "Modal confirmation dialog that interrupts the user, with media slot and action and cancel buttons.",
       "dependencies": [
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -44,8 +46,10 @@
       "title": "Alert",
       "description": "Inline callout for important messages with title, description, action slot and a destructive variant.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -76,10 +80,10 @@
       "description": "File attachment tile with media, title and actions, plus upload states, sizes and vertical layout.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -95,8 +99,10 @@
       "title": "Avatar",
       "description": "User image with fallback initials, status badge and stacked groups with an overflow count.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -112,8 +118,10 @@
       "description": "Small pill label for tags and counts, with default, secondary, destructive, outline and ghost variants.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -128,9 +136,11 @@
       "title": "Breadcrumb",
       "description": "Navigation trail showing the current page's location, with separators and a collapsed ellipsis item.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -146,8 +156,10 @@
       "description": "Chat message bubble with primary, muted, tinted, outline, ghost and speech variants plus reactions.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -163,10 +175,10 @@
       "description": "Joins related buttons into one horizontal or vertical control, including a split pill style.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/separator"
       ],
       "files": [
@@ -183,8 +195,10 @@
       "description": "Clickable button with default, outline, secondary, ghost, destructive and link variants in several sizes.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -199,11 +213,11 @@
       "title": "Calendar",
       "description": "Date grid for picking single days or ranges, with month navigation and dropdown captions.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "react-day-picker"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -218,8 +232,8 @@
       "name": "card",
       "title": "Card",
       "description": "Bordered container with header, content and footer slots, a compact size and side-by-side layout.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -234,11 +248,11 @@
       "title": "Carousel",
       "description": "Swipeable Embla-powered slider with previous and next controls, dot indicators and vertical orientation.",
       "dependencies": [
-        "cn",
         "embla-carousel-react",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -254,8 +268,10 @@
       "title": "Chart",
       "description": "Recharts wrapper with theme-aware color config, styled tooltip and legend content.",
       "dependencies": [
-        "cn",
         "recharts"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -270,9 +286,11 @@
       "title": "Checkbox",
       "description": "Accessible checkbox with a check indicator, built on Radix Checkbox.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -303,10 +321,10 @@
       "description": "Searchable select with filtering, clearable input and multi-select chips, built on Base UI.",
       "dependencies": [
         "@base-ui/react",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button",
         "@jayrr/input-group"
       ],
@@ -324,10 +342,10 @@
       "description": "Keyboard-driven command palette with search, grouped items and shortcuts, built on cmdk.",
       "dependencies": [
         "cmdk",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/dialog",
         "@jayrr/input-group"
       ],
@@ -344,9 +362,11 @@
       "title": "Context Menu",
       "description": "Right-click menu with submenus, checkbox and radio items, labels and shortcuts, built on Radix.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -361,11 +381,11 @@
       "title": "Dialog",
       "description": "Modal window over an overlay with header, footer and optional close button, built on Radix Dialog.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -396,8 +416,10 @@
       "title": "Drawer",
       "description": "Panel that slides in from any screen edge with drag-to-dismiss, built on Vaul.",
       "dependencies": [
-        "cn",
         "vaul"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -412,9 +434,11 @@
       "title": "Dropdown Menu",
       "description": "Menu opened from a trigger with submenus, checkbox and radio items and shortcuts, built on Radix.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -429,8 +453,10 @@
       "title": "Empty",
       "description": "Placeholder layout for empty states with icon or media, title, description and actions.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -445,10 +471,10 @@
       "title": "Field",
       "description": "Form field layout with labels, descriptions, errors, fieldsets and vertical or horizontal orientation.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/label",
         "@jayrr/separator"
       ],
@@ -465,8 +491,10 @@
       "title": "Hover Card",
       "description": "Floating preview card shown when hovering a link or trigger, built on Radix Hover Card.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -481,10 +509,10 @@
       "title": "Input Group",
       "description": "Wraps an input or textarea with inline addons such as icons, text and buttons.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button",
         "@jayrr/input",
         "@jayrr/textarea"
@@ -502,9 +530,11 @@
       "title": "Input Otp",
       "description": "One-time passcode input split into individual character slots with optional separators.",
       "dependencies": [
-        "cn",
         "input-otp",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -518,8 +548,8 @@
       "name": "input",
       "title": "Input",
       "description": "Styled single-line text input with focus, disabled and invalid states.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -535,10 +565,10 @@
       "description": "Flexible list row with media, title, description and actions, in outline and muted variants.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/separator"
       ],
       "files": [
@@ -553,8 +583,8 @@
       "name": "kbd",
       "title": "Kbd",
       "description": "Displays keyboard keys and key combinations as styled inline caps.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -569,8 +599,10 @@
       "title": "Label",
       "description": "Accessible form label that pairs with inputs, built on Radix Label.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -586,8 +618,10 @@
       "description": "Small inline annotation with an icon, optionally drawn as a centered divider or bordered heading.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -601,8 +635,8 @@
       "name": "masonry",
       "title": "Masonry",
       "description": "Round-robin masonry grid with fixed column count or responsive columns from a minimum width.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -617,8 +651,10 @@
       "title": "Math",
       "description": "Renders LaTeX formulas with KaTeX, inline or as a display block.",
       "dependencies": [
-        "cn",
         "katex"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -633,9 +669,11 @@
       "title": "Menubar",
       "description": "Desktop-style horizontal menu bar with nested submenus, checkbox and radio items, built on Radix.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -651,10 +689,10 @@
       "description": "Chat scroll container that auto-follows new messages and shows a scroll-to-bottom button.",
       "dependencies": [
         "@shadcn/react",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -669,8 +707,8 @@
       "name": "message",
       "title": "Message",
       "description": "Chat message layout with avatar, header, content and footer, aligned to either side.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -685,8 +723,10 @@
       "title": "Native Select",
       "description": "Styled native HTML select with option groups and a chevron indicator.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -702,9 +742,11 @@
       "description": "Site navigation with dropdown content panels, animated viewport and active indicator, built on Radix.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -718,8 +760,8 @@
       "name": "number-effect",
       "title": "Number Effect",
       "description": "Numbers that count up, race to a value with a speed smear, or roll on split-flap cards.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -734,10 +776,10 @@
       "title": "Pagination",
       "description": "Page navigation with previous and next links, numbered pages and ellipsis gaps.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -753,8 +795,10 @@
       "title": "Popover",
       "description": "Floating content panel anchored to a trigger, with header, title and description slots.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -769,8 +813,10 @@
       "title": "Progress Ring",
       "description": "Circular progress indicator with centered content, labels above or below and an indeterminate spin.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -785,8 +831,10 @@
       "title": "Progress",
       "description": "Horizontal bar showing task completion percentage, built on Radix Progress.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -802,10 +850,10 @@
       "description": "Step-by-step question flow with progress, choices, text input, validation and navigation buttons.",
       "dependencies": [
         "@shadcn/react",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -821,8 +869,10 @@
       "title": "Radio Group",
       "description": "Set of mutually exclusive radio options, built on Radix Radio Group.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -837,8 +887,10 @@
       "title": "Resizable",
       "description": "Panel groups separated by draggable handles for resizing, built on react-resizable-panels.",
       "dependencies": [
-        "cn",
         "react-resizable-panels"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -853,8 +905,10 @@
       "title": "Scroll Area",
       "description": "Scrollable region with custom styled scrollbars, built on Radix Scroll Area.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -869,9 +923,11 @@
       "title": "Select",
       "description": "Dropdown for choosing one option with groups, labels and scroll buttons, built on Radix Select.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -886,8 +942,10 @@
       "title": "Separator",
       "description": "Thin horizontal or vertical line that divides content, built on Radix Separator.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -902,11 +960,11 @@
       "title": "Sheet",
       "description": "Dialog panel that slides in from the top, right, bottom or left edge of the screen.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -923,11 +981,11 @@
       "description": "Collapsible app sidebar with menus, groups, search and icon, floating or inset modes, mobile-aware.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button",
         "@jayrr/collapsible",
         "@jayrr/input",
@@ -949,8 +1007,8 @@
       "name": "skeleton",
       "title": "Skeleton",
       "description": "Pulsing placeholder block shown while content is loading.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -965,8 +1023,10 @@
       "title": "Slider",
       "description": "Draggable range input supporting single or multiple thumbs, built on Radix Slider.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -998,8 +1058,10 @@
       "title": "Spinner",
       "description": "Loading indicator with ring, orbit, dots, bars, pulse, burst, grid and triangle animations.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1015,8 +1077,10 @@
       "description": "Pill with a state icon and tint for loading, success, error and custom states.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1031,8 +1095,10 @@
       "title": "Switch",
       "description": "Toggle switch for on and off settings, built on Radix Switch.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1046,8 +1112,8 @@
       "name": "table",
       "title": "Table",
       "description": "Semantic data table with header, body, footer, rows, cells and caption styling.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1063,8 +1129,10 @@
       "description": "Tabbed panels with default, line and full-width primary and secondary styles, built on Radix Tabs.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1078,8 +1146,8 @@
       "name": "text-effect",
       "title": "Text Effect",
       "description": "Animated text helpers including typewriter, streamed reveal with caret, pop, wiggle and loading dots.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1163,8 +1231,8 @@
       "name": "textarea",
       "title": "Textarea",
       "description": "Styled multi-line text input that grows with its content.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1180,10 +1248,10 @@
       "description": "Set of toggle buttons allowing single or multiple selection, built on Radix Toggle Group.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/toggle"
       ],
       "files": [
@@ -1200,8 +1268,10 @@
       "description": "Two-state pressable button with default and outline variants in three sizes.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1216,8 +1286,10 @@
       "title": "Tooltip",
       "description": "Small hint shown on hover or focus of an element, built on Radix Tooltip.",
       "dependencies": [
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1232,8 +1304,10 @@
       "title": "Accordion",
       "description": "Collapsible sections with the chevron at the end, start, inline after the title, swapped in for the icon on hover, or hidden. Divided or plain (sidebar) tone, optional single-open.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1249,10 +1323,10 @@
       "title": "Action Wheel",
       "description": "Radial action menu modeled on the Logi Options+ Actions Ring: a small gray close button in the center, a ring of solid circular actions, and a label card pushed outward from each one. Opens at the cursor on right-click via ActionWheelContextMenu. Actions with nested items open a submenu on an outer arc, and variant=\"arc\" drops the ring for a launcher that fans actions toward a direction. Labels always, on hover, or off (tooltips), full ring or arc via startAngle and sweep, solid, violet, primary, secondary, and surface tones, compact, default, medium, and large sizes, and arrow-key navigation.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tooltip"
       ],
       "files": [
@@ -1268,10 +1342,8 @@
       "name": "activity-overview",
       "title": "Activity Overview",
       "description": "A year of activity: headline total, streak stats, a contribution graph and a panel for the picked day.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/calendar-heatmap",
         "@jayrr/cell-grid",
         "@jayrr/use-controllable-state"
@@ -1291,10 +1363,10 @@
       "description": "Status message with icon, title, trailing actions and optional close, in soft, solid or outline tones.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/alert",
         "@jayrr/standard-tokens"
       ],
@@ -1311,8 +1383,8 @@
       "name": "app-bar",
       "title": "App Bar",
       "description": "Material 3 top app bar: Small, Medium and Large flexible (big title that collapses on scroll), and Search, with leading nav, trailing actions and a fill on scroll.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1328,8 +1400,10 @@
       "title": "App Grid",
       "description": "Launcher grid of folders after the Windows 11 Start menu: each tile shows a 2x2 of items, and a mini cluster in the fourth slot opens the full folder.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1344,10 +1418,8 @@
       "name": "arrangeable-grid",
       "title": "Arrangeable Grid",
       "description": "Inventory-style grid of fixed slots, any size from 1 × 10 to 5 × 5: drag to move or swap, stack with a merge rule, per-slot accept rules, linked grids in one root, drop targets such as a trash button, sources that drag new items in, files dropped from the desktop, drag out or Delete to remove, full keyboard support, and a headless useArrangeableGrid hook for adding, removing, counting and sorting items from code.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -1363,8 +1435,8 @@
       "name": "array",
       "title": "Array",
       "description": "Lays any elements out along a line, arc, circle, SVG path or hand-drawn points. Justify spreads them like justify-content (between, around, evenly) or packs them gap apart (start, center, end); offset shifts items along the path; orient turns them to follow it.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1379,8 +1451,8 @@
       "name": "art",
       "title": "Art",
       "description": "Layer of positioned art pieces (images, SVGs or any element). Each piece has x/y, width, rotate and depth, an `enter` animation (rise, pop, spin, blur...) staggered in order, and an `idle` loop. `parallax` drifts pieces with the pointer by depth. Honours reduced motion.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1401,10 +1473,10 @@
       "title": "Article",
       "description": "Flexible article layout: single column or sidebar/sidebar-start page layouts, a breakout content grid with wide/full-bleed figures, split sections, header, aside and footer parts, and automatic prose styles for plain markup.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/heading",
         "@jayrr/paragraph",
         "@jayrr/typeset"
@@ -1422,8 +1494,8 @@
       "name": "atom-grid",
       "title": "Atom Grid",
       "description": "Dot-matrix loading indicator: a small grid of dots lit in a moving pattern, pure CSS with no JavaScript once rendered. Orbit, orbit-duo, diamond, vortex, spiral, ripple, pulse, snake, scan, wave, diagonal, rain, cross, saltire, corners, checker, sparkle and heart patterns; any grid size, dot size, gap and speed; circle, rounded, square or diamond dots with an optional glow.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1439,10 +1511,10 @@
       "title": "Audio Display",
       "description": "An audio player with cover art, title and artist, a seek bar that can draw a decoded or given waveform, speed, mute and download.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/display-frame"
       ],
       "files": [
@@ -1458,10 +1530,8 @@
       "name": "autocomplete-input",
       "title": "Autocomplete Input",
       "description": "Text field that suggests matching options in a portaled dropdown as you type, with keyboard selection.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/text-field",
         "@jayrr/use-inline-completion"
       ],
@@ -1479,10 +1549,10 @@
       "title": "Avatar",
       "description": "Profile picture with initials fallback, presence dot and an overlapping group that collapses extras into +N.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/avatar",
         "@jayrr/indicator"
       ],
@@ -1500,11 +1570,11 @@
       "title": "Badge Select",
       "description": "Single or multi select that shows options as badges in a searchable popover grid, with grouping and several trigger styles.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/divider",
         "@jayrr/standard-badge",
         "@jayrr/standard-button",
@@ -1526,10 +1596,10 @@
       "title": "Badge",
       "description": "Short label or count in solid, soft or outline tones, with leading or trailing content, status dot and circle shape.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tokens"
       ],
       "files": [
@@ -1547,10 +1617,10 @@
       "description": "Announcement bar, inline or floating on any edge, static or scrolling like a stock ticker.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tokens",
         "@jayrr/use-controllable-state"
       ],
@@ -1569,8 +1639,10 @@
       "description": "One row with optional leading, label and trailing slots, like a Card cut to a single line. A button by default; a link or static row with asChild.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1586,8 +1658,10 @@
       "title": "Bento Grid",
       "description": "Responsive bento layout with preset variants (uniform, featured, hero, sidebar, split, mosaic), per-tile col/row spans, and tile surface variants.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1602,8 +1676,8 @@
       "name": "blob",
       "title": "Blob",
       "description": "Flat organic SVG blobs that wobble and change shape as they move, melting into one shape through a goo filter where they meet. Lava lamp motion (heat at the bottom, rise, cool, sink) or a free drift; optional merging that joins blobs for good and splits big ones apart; circle, capsule or rect vessels; heat or per-blob tints with ready-made palettes; a liquid fill and a pointer blob that stirs and fuses with the rest.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1619,11 +1693,11 @@
       "title": "Block Editor",
       "description": "Notion-style document editor built on ProseKit: the Standard Toolbar (block type, history, text formats, list indent, insert table and divider), a / command menu, a format menu with a link field over selections, drag handles to reorder blocks, task and toggle lists, tables with row and column menus, code blocks, and Markdown shortcuts. onChange gives JSON, HTML and plain text.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "prosekit"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-select",
         "@jayrr/text-field",
@@ -1664,10 +1738,10 @@
       "title": "Button Array",
       "description": "Row of single- or multi-select buttons styled as badges, segments, underlined tabs or a slider.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-badge",
         "@jayrr/use-controllable-state"
       ],
@@ -1686,10 +1760,10 @@
       "description": "Button with tones, sizes, icon slots, inline count badge, loading spinner and an anchor mode for links.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/notification-badge",
         "@jayrr/standard-tokens"
       ],
@@ -1724,8 +1798,10 @@
       "title": "Caption",
       "description": "Small muted paragraph for supporting text, with danger and uppercase tones.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1740,8 +1816,8 @@
       "name": "card-bar",
       "title": "Card Bar",
       "description": "Full-width pressable row with title, description and leading or trailing slots, plus a selected state.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1756,8 +1832,8 @@
       "name": "card-corridor",
       "title": "Card Corridor",
       "description": "Two walls of cards that meet and overlap in the middle, fan out and run toward you, growing until they pass the edges while new ones keep arriving. Items cycle on every lap, children sit over the gap, and it sizes from its own width. Directions out or in, pause on hover, pauses off screen and holds still for reduced motion.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1773,8 +1849,10 @@
       "title": "Card Grid",
       "description": "A card holding a fixed-column grid of icon tiles, after the Windows tray overflow flyout. Takes an items array or CardGridItem children; arrow keys move between tiles.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1790,8 +1868,10 @@
       "title": "Card",
       "description": "Content card with outline, muted and elevated looks, lift or gradient-glow effects, media slots and interactive link mode.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1807,10 +1887,10 @@
       "title": "Carousel",
       "description": "Image or label carousel with a single-slide mode and a Material-style multi-browse layout that morphs items as they scroll.",
       "dependencies": [
-        "cn",
         "embla-carousel-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button"
       ],
       "files": [
@@ -1826,10 +1906,8 @@
       "name": "cell-grid",
       "title": "Cell Grid",
       "description": "Grid of equal cells on a color ramp, filled by row or by column, with per-cell colors, marks and keyboard selection. The base of heatmaps, timelines and seat maps.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -1845,10 +1923,8 @@
       "name": "character-chat",
       "title": "Character Chat",
       "description": "Visual-novel dialogue box with no input: the speaker's name, the line typed out a letter at a time with pauses after punctuation, and a portrait standing beside the box on either side. Click or press Enter/Space to finish the line, then again for the next; *asterisks* for italics. Default, classic, soft, tab, frame and minimal looks, arrow, chevron, dots or next marks, per-speaker accent colours, thinking dots, auto-advance, a controlled or uncontrolled line index, and a trailing slot for save or replay buttons. Respects reduced motion.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -1881,10 +1957,10 @@
       "title": "Chat Card",
       "description": "Chat window block built on Message Scroller, Message, Bubble, Attachment and Marker with Standard pieces: an optional header bar, a thread that anchors each new turn and follows streamed replies, a jump-to-latest button, system separators, avatars and author names for group threads, file attachments, a shimmering pending line, copy and regenerate actions on replies, prompt suggestions in the empty state, follow-up chips, bubble-less plain replies for agent transcripts, and a composer that sends on Enter (Shift+Enter for a new line) with a slot for tools such as a model picker or mic. SideChat docks it to a corner as a support widget: a launcher button with an unread count that opens a floating panel with a close button.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/attachment",
         "@jayrr/bubble",
         "@jayrr/caption",
@@ -1912,12 +1988,13 @@
       "title": "Chatroom",
       "description": "Group chat room: member header, grouped messages, day dividers, typing indicator, jump-to-latest and a composer, in bubbles, channel or terminal layouts. Controlled or uncontrolled.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-avatar",
-        "@jayrr/standard-button"
+        "@jayrr/standard-button",
+        "@jayrr/standard-tokens"
       ],
       "files": [
         {
@@ -1932,10 +2009,8 @@
       "name": "standard-checkbox",
       "title": "Checkbox",
       "description": "Checkbox with optional label and description, indeterminate and error states, and a bordered card appearance.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/choice-label"
       ],
       "files": [
@@ -1953,8 +2028,10 @@
       "description": "Pressable tag: filter/selection chips with a check when on, action chips with an icon, and removable filter chips. Looks interactive so it is never mistaken for a Badge.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1970,8 +2047,10 @@
       "title": "Choice Label",
       "description": "Internal clickable label and description wrapper shared by Checkbox and Radio, with a bordered card appearance.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -1986,8 +2065,8 @@
       "name": "circle-wave",
       "title": "Circle Wave",
       "description": "A waveform wrapped around a ring on canvas, seamless all the way round. Radial bars, stacked meter segments, layered echo lines or a solid fill, growing out, in or both ways. Bloom, interference, spectrum, voice, blob and pulse patterns, a custom wave(angle, t) or a controlled value; sweep, tip or level gradients with ready-made palettes; glow, spin, a hover bump and centered children.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2004,10 +2083,10 @@
       "description": "Inline code span or scrollable multi-line block with an optional copy button.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -2023,8 +2102,8 @@
       "name": "color-grade",
       "title": "Color Grade",
       "description": "Color treatment: sepia, black and white, noir, vivid, muted, vintage, warm, cool, duotone. Wraps content or grades the backdrop.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2046,10 +2125,10 @@
       "description": "A color field on the browser color picker: a swatch that opens the native picker, a hex field that accepts #rgb or #rrggbb, preset swatches, and an eyedropper where the browser supports it. Controlled or uncontrolled.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -2066,10 +2145,10 @@
       "title": "Column Filter",
       "description": "A column menu with Sort A → Z / Z → A buttons, a condition picker (contains, between, greater than, is empty and more) and a searchable checklist of the column's values. Each section shows only when you give it something to work with, and edits stay a draft until Apply hands the filter to onValueChange. Drop it in a popover for table or grid headers.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-checkbox",
         "@jayrr/standard-select",
@@ -2088,10 +2167,8 @@
       "name": "comments",
       "title": "Comments",
       "description": "Comment section block built from Standard pieces: a heading with a Newest/Oldest sort select, a reply textarea with its submit button inside, a Login or Subscribe prompt for signed-out visitors, and a list of comments with avatars and relative times. Controlled or uncontrolled sort, async onSubmit that clears the box when it resolves, Ctrl/Cmd+Enter to post, and an empty state.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/caption",
         "@jayrr/heading",
         "@jayrr/link",
@@ -2115,10 +2192,10 @@
       "title": "Comparison Slider",
       "description": "Before/after comparison: two layers (image srcs or any content) split by a divider you drag, scrub on hover, or move with the arrow keys. Horizontal or vertical, optional corner labels, controlled or uncontrolled.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -2153,8 +2230,8 @@
       "name": "control-bar",
       "title": "Control Bar",
       "description": "Muted, bordered toolbar row that wraps its controls with even spacing.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2212,8 +2289,8 @@
       "name": "cursor-label",
       "title": "Cursor Label",
       "description": "A label that follows the pointer on one of 8 sides and flips near edges. Holds text, any element, or a function of the pointer position.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2228,8 +2305,8 @@
       "name": "cursor",
       "title": "Cursor",
       "description": "Custom cursor replacement with dot, ring, dot-ring, crosshair, spotlight, blend, arrow and trail variants.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2245,11 +2322,11 @@
       "title": "Data Grid",
       "description": "Excel-style spreadsheet grid with A1 coordinates and a Name Box, letter and number headers with optional labels, range selection, and keyboard navigation. Drag the fill handle down, right, or diagonally to continue number, date, weekday, and Item 1 series, or press Ctrl+D to copy the cell above. Insert, delete, duplicate, hide, and freeze rows and columns from the right-click menu or the + between headers. Opt-in sorting by header click, per-column filter buttons with value lists and conditions, and declarative JSON formatting rules that style cells, rows, or columns (background, text color, weight, decoration, alignment, borders, any CSS) when values match. Cells render components by type (text, number, checkbox, select, date, or your own), rows and columns are virtualized for 10,000+ rows, and every edit is a change list with undo and redo that onChanges or an adapter can sync to a database.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/column-filter",
         "@jayrr/standard-badge",
         "@jayrr/standard-button",
@@ -2316,10 +2393,10 @@
       "description": "TanStack Table v9 data table. Sort by header click, search every column, filter by text or by a column's distinct values, and page through rows. Select rows with a checkbox column and run bulk actions on the selection. Resize, drag to reorder, pin to either edge, and hide columns; switch between compact, default and comfortable density. Show nested rows as an expandable tree with getSubRows, edit cells in place, and export the filtered rows as CSV or JSON.",
       "dependencies": [
         "@tanstack/react-table",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/menu",
         "@jayrr/search",
         "@jayrr/standard-button",
@@ -2341,8 +2418,8 @@
       "name": "date-picker",
       "title": "Date Picker",
       "description": "Native date input styled to match the other form fields, with an error state.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2358,11 +2435,11 @@
       "title": "Dialog",
       "description": "Modal dialog in several widths with optional minimize, maximize and close controls and a shared dock for minimized windows.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-tokens"
       ],
@@ -2380,10 +2457,10 @@
       "title": "Dialslide",
       "description": "Horizontal slider for any row, with a calendar variant: scroll buttons, drag, keyboard and edge fades.",
       "dependencies": [
-        "cn",
         "date-fns"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/scroll-horizontal-button",
         "@jayrr/standard-popover",
         "@jayrr/standard-tokens"
@@ -2402,10 +2479,10 @@
       "title": "Dice",
       "description": "Real polyhedral dice. variant=\"tray\" is a felt dice tray: grab a die, drag it and throw it; dice slide with friction, bounce off the walls and each other, and settle on whichever face ends up on top (a Throw button tosses them all). The default row variant hops, tumbles in 3D and settles with the rolled face up. Solids: d4 tetrahedron, d6 cube with pips, d8 octahedron, d10 pentagonal trapezohedron (0 to 9), d12 dodecahedron and d20 icosahedron, lit from the top left, with opposite faces adding up like real dice. d100 is a percentile pair (tens and ones). Mix kinds and colours per die (dice={[20, { sides: 6, color }]}), add a modifier to the total, hold dice between rolls, control values and held dice, roll from a button or by clicking a die, three sizes, two tones and a screen-reader announcement. Values are picked before the roll, so onRoll always matches what lands. Honours reduced motion.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button"
       ],
       "files": [
@@ -2418,24 +2495,11 @@
       "type": "registry:ui"
     },
     {
-      "name": "orbit-ring",
-      "title": "Orbit Ring",
-      "description": "Drag-to-answer test maker. Words, statements or images float in a circle and repel each other; drag one onto a score on the rim to answer it. Any number of scores, low on the left and high on the right, with the neutral middle at the bottom. An outer ring of flags (Skip, Confusing, Typo by default, or your own, or none) takes direct drops only. Click a slice to open it and move words between scores or back to the pool. maxVisible=\"auto\" measures each item and floats as many as fit; wrapLabels lets whole sentences wrap. A prompt can sit in the well, earlier answers can be restored, and a texture layer can fill the well. Keyboard shortcuts (1–9), auto-select of the next word, and hold-to-select. Countdown, per-slice counts, results lists, confetti, grain, custom colours and labels, and a settings popover with volume, text size, word wrap, counts, auto-select and an optional tutorial button. Synthesized sounds. One file, no dependencies beyond React.",
-      "files": [
-        {
-          "path": "components/standard/orbit-ring.tsx",
-          "type": "registry:ui",
-          "target": "components/standard/orbit-ring.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
       "name": "digital-clock",
       "title": "Digital Clock",
       "description": "Seven-segment LED clock: slanted bevelled digits, a blinking colon and faint unlit segments. 12 or 24-hour, seconds, AM/PM, time zones, a fixed time, and an optional housing with a glass face.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2451,10 +2515,10 @@
       "title": "Display Frame",
       "description": "The shared chrome for the Display pieces: a header with icon, title, meta and actions, an optional toolbar row, and copy, open, download and view-switch actions.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button"
       ],
       "files": [
@@ -2470,8 +2534,8 @@
       "name": "distort",
       "title": "Distort",
       "description": "Spatial effect: waves, ripple, warp or blur, optionally animated. Wraps content or distorts the backdrop.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2492,10 +2556,10 @@
       "title": "Divider",
       "description": "Horizontal or vertical separator in default, strong or dashed tones, with an optional centered label.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/separator"
       ],
       "files": [
@@ -2536,8 +2600,10 @@
       "title": "Draggable",
       "description": "Sortable list: drag rows, grid chips or a horizontal strip by pointer or keyboard, whole item or grip, and move items between lists.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2553,10 +2619,10 @@
       "title": "Draw Display",
       "description": "A touch-friendly sketch pad: pen, highlighter and eraser, colors and sizes, undo and redo, two-finger tap to undo, palm rejection with a stylus, and SVG or PNG export.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/display-frame"
       ],
       "files": [
@@ -2573,10 +2639,10 @@
       "title": "Dynamic Tabs",
       "description": "Browser-style tab strip: add, close and rename tabs (double-click, press and hold, or F2), overflow scroll arrows, arrow-key navigation, pinned tabs, plus a useDynamicTabs hook for local state.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-tooltip",
         "@jayrr/use-controllable-state"
@@ -2639,10 +2705,10 @@
       "description": "Material 3 FAB in FAB, medium, and large sizes with primary, secondary, and surface tones, extended labels, and the expressive FAB menu, plus utilitek's 32px compact chrome that grows into a pill on hover, a FabStack pinned to any of eight edge slots that can be dragged and snapped between them, and scroll collapse/hide.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tooltip",
         "@jayrr/toolbar-count"
       ],
@@ -2659,8 +2725,8 @@
       "name": "field-label",
       "title": "Field Label",
       "description": "Form label with an optional required asterisk that screen readers announce as required.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2676,10 +2742,10 @@
       "title": "Filter Select",
       "description": "Two-step filter popover: pick a category, then toggle its badge options, with active count and clear all.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/badge-select",
         "@jayrr/standard-badge",
         "@jayrr/standard-popover",
@@ -2698,8 +2764,8 @@
       "name": "flip-dots",
       "title": "Flip Dots",
       "description": "Electromechanical flip-dot board: two-sided discs flip edge-on in a column sweep. Built-in marquee, text, clock, wave, ripple, rain, Life, checker, wipe, sparkle, bounce, pong and snake patterns, a controlled value, and press-and-drag painting. Shaded disc or flat faces, in circle, square, rounded, diamond, hexagon, triangle, star or plus shapes.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2714,10 +2780,8 @@
       "name": "floating-window",
       "title": "Floating Window",
       "description": "Floats any element at one of nine spots on the viewport or its positioned parent. Optionally draggable: drop it anywhere and it snaps to the nearest spot, with a preview outline while dragging and arrow-key moves when focused.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -2734,10 +2798,10 @@
       "title": "Form Field",
       "description": "Wraps a control with label, helper, error and success text, wiring its id and aria attributes automatically.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/field-label",
         "@jayrr/standard-tokens",
         "@jayrr/use-field-validation"
@@ -2756,11 +2820,11 @@
       "title": "Gantt",
       "description": "Project schedule: a WBS task table frozen beside a day, week, month or quarter timeline. Plan bars fill with progress, actual bars shade from green to red as they slip, forecasts overshoot in violet, and milestones sit as diamonds. Phases roll up their children; unfinished dependencies grey a task out and a child outside its phase turns red.",
       "dependencies": [
-        "cn",
         "date-fns",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/button-array",
         "@jayrr/standard-button",
         "@jayrr/standard-tokens",
@@ -2779,8 +2843,8 @@
       "name": "gradient",
       "title": "Gradient",
       "description": "Color transition layer: linear, radial, conic or mesh. Behind or over any relative isolate box.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2801,8 +2865,10 @@
       "title": "Heading",
       "description": "Heading from the Standard library. `display` applies landing-page headline rules (60/48px, extrabold, -0.4px tracking, line height 1, 1000px max width); HeadingHighlight colours a number in it.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2818,10 +2884,10 @@
       "title": "Headline",
       "description": "A landing-page section: a display Heading, one paragraph, one call to action and one image. `align` stacks it centred or puts the media beside the copy.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/heading",
         "@jayrr/paragraph"
       ],
@@ -2840,10 +2906,10 @@
       "description": "Like toggle whose heart fills with a burst, pop, heartbeat, floating hearts or liquid fill effect, and can break, deflate, drop or drain the heart on unlike. Optional count and sizes; honours reduced motion.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -2859,10 +2925,8 @@
       "name": "heatmap",
       "title": "Heatmap",
       "description": "Matrix of values shaded on a ramp, with row and column labels, a Less-More legend and a readout of the hovered cell.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/cell-grid"
       ],
       "files": [
@@ -2879,10 +2943,10 @@
       "title": "Hero Card",
       "description": "A hero on a card. Title, subtitle, actions and trailing art each take one of nine positions, over Surface `layers` data or layer components (Gradient, Noise, Shader, Art) passed as children.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/heading",
         "@jayrr/paragraph",
         "@jayrr/surface"
@@ -2901,8 +2965,10 @@
       "title": "Image Shader",
       "description": "WebGL image effect layer from Paper Shaders. Filter: paper texture, fluted glass, water, dithering, halftone dots, halftone CMYK, lens distortion. Logo: heatmap, liquid metal, gem smoke. Takes a same-origin or CORS image src, with Paper's presets.",
       "dependencies": [
-        "@paper-design/shaders-react",
-        "cn"
+        "@paper-design/shaders-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2923,8 +2989,10 @@
       "title": "Image Upload",
       "description": "Image picker as a dropzone or avatar, with preview, size limit and an upload progress bar.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -2941,10 +3009,10 @@
       "description": "Aspect-ratio image with ratio presets, an alt-text placeholder and hover shine or grayscale effects.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/aspect-ratio"
       ],
       "files": [
@@ -2961,10 +3029,10 @@
       "title": "Increment",
       "description": "A value nudged with minus and plus buttons, like gap 32. Hold to repeat; arrow keys, Page Up/Down, Home and End step it from the keyboard.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/use-controllable-state"
       ],
@@ -2982,10 +3050,10 @@
       "title": "Indicator",
       "description": "Presence dot for avatars and people lists: online, away, busy, offline. Its own colour set, so busy red never reads as unread.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tokens"
       ],
       "files": [
@@ -3002,10 +3070,10 @@
       "title": "Infinite Canvas",
       "description": "Pannable, zoomable surface that goes on forever. Drag, scroll or hold space to pan; pinch or ctrl + scroll to zoom at the pointer. Draggable items with snapping and keyboard moves, dots, grid or ruled backgrounds, zoom controls, a minimap, and a controlled view, item list and selection.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -3021,10 +3089,8 @@
       "name": "infinite-scroll",
       "title": "Infinite Scroll",
       "description": "Lays out any components as a list, responsive grid or masonry and calls onLoadMore as the end scrolls into view. Takes items with renderItem or composed children; scrolls the page or its own container, loads upward for chat history, or waits for a Load more button. useInfiniteList turns a page fetcher into its props, with loading, error and retry.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/loading-state",
         "@jayrr/masonry",
         "@jayrr/standard-button"
@@ -3043,10 +3109,10 @@
       "title": "Info Icon",
       "description": "Small info, help or alert icon that reveals a note in a popover or tooltip.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-popover",
         "@jayrr/standard-tooltip"
       ],
@@ -3064,11 +3130,11 @@
       "title": "Inline Editor",
       "description": "Rich text editor built on ProseKit with no fixed toolbar: select text and a format menu with a link field floats over it. Markdown shortcuts still work. tone=\"ghost\" edits in place without a border.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "prosekit"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-select",
         "@jayrr/text-field",
@@ -3119,10 +3185,8 @@
       "name": "input-fill",
       "title": "Input Fill",
       "description": "Masked text field that inserts literals as you type and shows the rest of the template as a faint fill.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/text-field",
         "@jayrr/use-controllable-state"
       ],
@@ -3140,8 +3204,10 @@
       "title": "Input Otp",
       "description": "One-time code input with a slot per character and an error state.",
       "dependencies": [
-        "cn",
         "input-otp"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3157,10 +3223,10 @@
       "title": "Json Display",
       "description": "JSON as a collapsible, color-coded tree with item counts, expand and collapse all, a Raw view, copy, and parse errors shown over the text.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/display-frame"
       ],
       "files": [
@@ -3177,10 +3243,10 @@
       "title": "Json Viewer",
       "description": "An interactive JSON explorer on CSS grid: label and value cells, boxed objects and arrays under type headers, click any key to collapse, parse JSON strings in place, hovered path in the footer, and an optional Input view.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/display-frame"
       ],
       "files": [
@@ -3197,10 +3263,10 @@
       "title": "Kanban",
       "description": "Board of columns with cards that drag between them, column counts and limits, and an Add card button.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/draggable",
         "@jayrr/standard-badge",
         "@jayrr/standard-button"
@@ -3241,11 +3307,11 @@
         "@lexical/rich-text",
         "@lexical/selection",
         "@lexical/utils",
-        "cn",
         "lexical",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-select",
         "@jayrr/toolbar",
         "@jayrr/typeset"
@@ -3263,8 +3329,8 @@
       "name": "link",
       "title": "Link",
       "description": "Inline text link in the primary color with an underline on hover.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3281,10 +3347,10 @@
       "description": "A card of Bars. Rows as data or composed: links, selectable options (value / onValueChange), expandable tree branches, collapsible sections and separators. Title, trailing and footer slots; default, quiet, outline or ghost tone.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/bar",
         "@jayrr/use-controllable-state"
       ],
@@ -3303,10 +3369,10 @@
       "description": "Spinner with a label that sits inline, centers in a block, or covers its parent with a blurred overlay, then shows a done check.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/spinner",
         "@jayrr/standard-tokens"
       ],
@@ -3324,10 +3390,10 @@
       "title": "Markdown Display",
       "description": "Markdown rendered with no dependencies and no raw HTML: headings, nested and task lists, tables, quotes, code blocks and safe links, with an optional Preview / Source switch.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/code",
         "@jayrr/display-frame",
         "@jayrr/typeset"
@@ -3346,7 +3412,6 @@
       "title": "Markdown Editor",
       "description": "Rich text editor built on ProseKit that reads and writes Markdown (GFM: tables, task lists, strikethrough). Format with the Standard Toolbar or Markdown shortcuts, or switch to the source or a side-by-side view and edit the Markdown directly. Controlled with value, defaultValue and onValueChange.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "prosekit",
         "rehype-parse",
@@ -3359,6 +3424,7 @@
         "unified"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-select",
         "@jayrr/text-field",
@@ -3394,8 +3460,8 @@
       "name": "mask",
       "title": "Mask",
       "description": "Soft alpha cutout: fade, edges, vignette or spotlight. Wraps content or groups other layers.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3416,11 +3482,11 @@
       "title": "Mention Composer",
       "description": "Chat-style message box built on ProseKit: type @ to mention a person (with avatars) and # to add a tag, Enter to send, Shift+Enter for a new line. onSubmit returns the text, HTML, JSON and every mention as data. leading and trailing slots hold extra buttons.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "prosekit"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-avatar",
         "@jayrr/standard-button",
         "@jayrr/typeset"
@@ -3450,10 +3516,10 @@
       "description": "Dropdown menu of items, separators, and labelled groups, with icons, shortcut hints, danger items, and a custom trigger.",
       "dependencies": [
         "cmdk",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button"
       ],
       "files": [
@@ -3494,11 +3560,11 @@
       "title": "Miller Select",
       "description": "Miller-column picker from the utilitek timesheet Work Performed field: sections as tabs, then group, header, and checkbox columns side by side, with a search that lists matches from every group. Popover on desktop, stacked bottom sheet on mobile.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-checkbox",
         "@jayrr/standard-popover",
         "@jayrr/standard-tokens",
@@ -3518,11 +3584,11 @@
       "title": "Mode Toggle",
       "description": "Light, dark and system theme switch as a menu, a one-click toggle or a segmented control. Uncontrolled it sets the app theme through next-themes, so wrap the app in a next-themes ThemeProvider with attribute=\"class\"; pass value and onValueChange to drive a scoped preview instead.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "next-themes"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/menu",
         "@jayrr/standard-button"
       ],
@@ -3539,8 +3605,8 @@
       "name": "mood-text",
       "title": "Mood Text",
       "description": "Text that carries a mood. Each word is a span with a stack of effects, one per slot: motion, pose, size, tracking, case, font, weight, draw, ink, glow and fade. A mood sets the whole line; highlights pick out phrases with presets such as goldWave, wrath or phantom.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3555,10 +3621,8 @@
       "name": "navigation",
       "title": "Navigation",
       "description": "Material 3 navigation bar, rail, and drawer sharing one item shape, with active icons, badges, and grouped sections.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/notification-badge"
       ],
       "files": [
@@ -3574,8 +3638,8 @@
       "name": "noise",
       "title": "Noise",
       "description": "Random texture layer: grain, paper fibers or clouds, from SVG turbulence. Optional film jitter.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3596,8 +3660,10 @@
       "title": "Notification Badge",
       "description": "Unread marker pinned to an icon: dot, count, or capped count (999+). Red alert tone by default, with brand and neutral tones for non-urgent counts.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3612,10 +3678,8 @@
       "name": "number-input",
       "title": "Number Input",
       "description": "Text box for numbers: digits only, clamps to min/max and rounds on blur, Enter jumps to the next field.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/field-label",
         "@jayrr/text-field"
       ],
@@ -3629,13 +3693,24 @@
       "type": "registry:ui"
     },
     {
+      "name": "orbit-ring",
+      "title": "Orbit Ring",
+      "description": "Drag-to-answer test maker. Words, statements or images float in a circle and repel each other; drag one onto a score on the rim to answer it. Any number of scores, low on the left and high on the right, with the neutral middle at the bottom. An outer ring of flags (Skip, Confusing, Typo by default, or your own, or none) takes direct drops only. Click a slice to open it and move words between scores or back to the pool. maxVisible=\"auto\" measures each item and floats as many as fit; wrapLabels lets whole sentences wrap. A prompt can sit in the well, earlier answers can be restored, and a texture layer can fill the well. Keyboard shortcuts (1–9), auto-select of the next word, and hold-to-select. Countdown, per-slice counts, results lists, confetti, grain, custom colours and labels, and a settings popover with volume, text size, word wrap, counts, auto-select and an optional tutorial button. Synthesized sounds. One file, no dependencies beyond React.",
+      "files": [
+        {
+          "path": "components/standard/orbit-ring.tsx",
+          "type": "registry:ui",
+          "target": "components/standard/orbit-ring.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
       "name": "page-header",
       "title": "Page Header",
       "description": "Page title row with an optional back button, info tooltip, and trailing actions.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/info-icon",
         "@jayrr/standard-button"
       ],
@@ -3653,8 +3728,10 @@
       "title": "Paragraph",
       "description": "Body text with default, small, lead, and muted sizes, a muted tone, and line-clamp or single-line truncation.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3669,8 +3746,8 @@
       "name": "parallax",
       "title": "Parallax",
       "description": "Parallax from the Standard library.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3685,8 +3762,8 @@
       "name": "pattern",
       "title": "Pattern",
       "description": "Repeating shape layer. Basic: dots, grid, lines, diagonal, checker. Graphic: waves, pinstripe, barcode, polka, triangles, diamonds, dotted, double and dashed diagonals, band. Decorative: speed lines, motion lines, sunburst, seigaiha, asanoha, kikko, shippo, sparkles, sakura. Material: paper, newsprint, linen, woodgrain, pegboard, blueprint, fold.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3726,11 +3803,11 @@
       "title": "Phone Input",
       "description": "Phone number field with a searchable country picker: formats as you type and reports E.164.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "react-phone-number-input"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/command",
         "@jayrr/field-label",
         "@jayrr/standard-popover",
@@ -3750,8 +3827,10 @@
       "title": "Pill",
       "description": "Split badge with a muted label on the left and a contrasting value on the right, in four corner radii.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3766,8 +3845,8 @@
       "name": "planetary",
       "title": "Planetary",
       "description": "Rings of items orbiting a centre. Rings alternate direction (inner clockwise, next counter-clockwise) unless a ring sets its own; each ring takes its own radius, duration and starting offset. Items stay upright while their ring turns. Pauses on demand or on hover; honours reduced motion. PlanetaryItem is a round body for rings and the centre.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -3783,11 +3862,11 @@
       "title": "Popover Wizard",
       "description": "Small multi-step panel anchored to its trigger: header dots, Back and Next, for tours and quick setup.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button"
       ],
       "files": [
@@ -3845,10 +3924,10 @@
       "description": "Progress bar with sizes and tones, stacked colored segments, an indeterminate sweep, and an animated percentage label.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/progress",
         "@jayrr/standard-tokens"
       ],
@@ -3865,10 +3944,8 @@
       "name": "radio",
       "title": "Radio",
       "description": "Radio group with a legend, per-option labels and descriptions, error styling, and a bordered card appearance.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/choice-label"
       ],
       "files": [
@@ -3886,10 +3963,10 @@
       "description": "Star rating input with half steps, tones, sizes, custom icons and optional click effects: pop, bounce, wiggle, spin, jelly, flip, drop, heartbeat, tada, glow, burst, ripple, sparkle, cascade and wave.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/field-label",
         "@jayrr/standard-tokens",
         "@jayrr/use-controllable-state"
@@ -3907,10 +3984,8 @@
       "name": "reel",
       "title": "Reel",
       "description": "An endless reel of items. Straight, it loops them left, right, up or down like a logo ticker, with edge fades and a hover speed that eases to a stop. Given an SVG path, the items ride along it, round a closed loop or in one end and out the other, turned to face along it or kept upright; with drawable, press and drag to draw the path. Flow sends items as a stream, a number at a time or at random gaps; cycles, rest and loop set how many passes run before it pauses or stops, and playOnView starts it when it scrolls into view.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -3927,10 +4002,10 @@
       "title": "Refresh Button",
       "description": "Outline refresh button whose icon spins while refreshing, with an icon-only option.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button"
       ],
       "files": [
@@ -3962,10 +4037,8 @@
       "name": "responsive-tooltip",
       "title": "Responsive Tooltip",
       "description": "Hover tooltip on desktop, tap popover on touch devices.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-popover",
         "@jayrr/standard-tooltip"
       ],
@@ -3995,8 +4068,8 @@
       "name": "ring-wave",
       "title": "Ring Wave",
       "description": "Concentric rings of arcs on canvas, like a sci-fi readout. Each arc's sweep rises and falls and each ring turns at its own speed; rings mix solid, segmented and tick kinds at different thicknesses, picked by a seed or set with a layout. Grow, cascade, spectrum and orbit patterns or a controlled value; per-ring or sweep gradients with palettes, glow, faint tracks, an intro where arcs grow from a point, and centered children.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4011,8 +4084,8 @@
       "name": "screentone",
       "title": "Screentone",
       "description": "Manga halftone tone: dots, lines, crosshatch, diamonds, rings or noise that grow with a graded tone (top, bottom, center, edges, corner) or an organic one (clouds, folds, marble, streaks). Optional rough printed edges.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4033,8 +4106,10 @@
       "title": "Scroll Area",
       "description": "Scroll container with thin or hidden scrollbars, edge fades, optional arrow buttons, and a grow-to max height.",
       "dependencies": [
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4050,10 +4125,10 @@
       "title": "Scroll Horizontal Button",
       "description": "Floating arrow button that scrolls a container sideways by step, press-and-hold, or double-click jump to edge.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tooltip"
       ],
       "files": [
@@ -4069,8 +4144,8 @@
       "name": "scroll-mask",
       "title": "Scroll Mask",
       "description": "Scroll Mask from the Standard library.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4085,10 +4160,8 @@
       "name": "scroll-track",
       "title": "Scroll Track",
       "description": "Scroll progress line that fills as the reader scrolls: a straight bar pinned under a header, a vertical line, or any SVG path, with a marker node that rides the tip and can turn to face along the path. Tracks the whole scroller, one element, or a pixel range from start to end, and writes progress to --scroll-track-progress with no React renders.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-tokens"
       ],
       "files": [
@@ -4123,10 +4196,10 @@
       "description": "Select dropdown with icons, grouped options, optional search, loading and error states, and filled or outlined variants.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-popover",
         "@jayrr/use-controllable-state"
       ],
@@ -4144,8 +4217,10 @@
       "title": "Shader",
       "description": "WebGL shader layer from Paper Shaders. Color: mesh, static mesh, static radial, grain, color panels. Noise: perlin, simplex, neuro, voronoi, warp, swirl, spiral, waves. Dots: dot orbit, dot grid, dithering, metaballs. Light: spotlight, stage beams, shine sweep, bokeh, god rays, smoke ring, pulsing border, aurora. Fractal: mandelbrot dive, julia, burning ship, newton, sierpinski carpet, apollonian gasket. Retro: hypno, plasma, tunnel, kaleidoscope, starfield. Code: matrix rain, hacker terminal, synthwave. Each with presets.",
       "dependencies": [
-        "@paper-design/shaders-react",
-        "cn"
+        "@paper-design/shaders-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4189,10 +4264,8 @@
       "name": "standard-sheet",
       "title": "Sheet",
       "description": "Slide-in panel from any side with sizes, title and description, a trigger, and a pinned footer.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/sheet",
         "@jayrr/standard-button"
       ],
@@ -4209,8 +4282,8 @@
       "name": "sine-wave",
       "title": "Sine Wave",
       "description": "An oscilloscope trace on canvas that drifts across the field and swells from a flat line on start. Sine, triangle, square or sawtooth shapes; amplitude, frequency, speed and phase; stacked echo lines with a phase spread; optional glow, graph-paper grid and dashed center axis.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4226,10 +4299,10 @@
       "title": "Skeleton",
       "description": "Loading placeholder shaped as text lines, a circle, or a block, with multi-line paragraph mode.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/skeleton"
       ],
       "files": [
@@ -4247,8 +4320,10 @@
       "description": "Brand-coloured buttons linking to social profiles (Facebook, X, Instagram, LinkedIn, YouTube, TikTok, GitHub, email, RSS) in brand, outline or ghost tones and square, rounded or circle shapes.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4263,10 +4338,8 @@
       "name": "spreadsheet",
       "title": "Spreadsheet",
       "description": "Data Grid with formulas: cells take =SUM(B2:B9), =B2 * $C$1 and named values, recalculate as you edit, and shift references when filled.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/data-grid"
       ],
       "files": [
@@ -4288,10 +4361,10 @@
       "title": "Stack",
       "description": "Flex layout wrapper with direction, gap, alignment, justification, wrapping, and optional dividers between children.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/divider"
       ],
       "files": [
@@ -4307,10 +4380,8 @@
       "name": "standard-grid",
       "title": "Standard Grid",
       "description": "Responsive card grid with per-breakpoint columns, gap sizes, and an empty state, sharing the list search and filter chrome.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-list-chrome"
       ],
       "files": [
@@ -4348,10 +4419,10 @@
       "description": "Data table with sortable and filterable columns, density options, row action menus, sticky header and first column, and paging.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/menu",
         "@jayrr/standard-list-chrome"
       ],
@@ -4370,10 +4441,10 @@
       "description": "An ordered sequence with a current position. Each step exposes complete, active or upcoming for its optional trigger, indicator, title, description and separator to style.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -4389,10 +4460,8 @@
       "name": "stepper",
       "title": "Stepper",
       "description": "Preset of Steps for multi-step flows: numbers, icons or dots, labels beside or under, horizontal, vertical or responsive.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/step",
         "@jayrr/use-controllable-state"
       ],
@@ -4410,10 +4479,10 @@
       "title": "Surface",
       "description": "Stacks layers from a props array: gradients, patterns, images, inline SVG, noise and screentone, with optional drift animation. Neighbouring plain backgrounds merge into one element's multiple backgrounds. Use asChild to paint onto a Card or any other element.",
       "dependencies": [
-        "cn",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/gradient",
         "@jayrr/noise",
         "@jayrr/pattern",
@@ -4438,10 +4507,10 @@
       "title": "Svg Display",
       "description": "An SVG on a transparency checkerboard with zoom, a Preview / Code switch, dimensions and size, and copy and download. Drawn through an img so scripts never run.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/display-frame"
       ],
       "files": [
@@ -4458,10 +4527,10 @@
       "title": "Switch",
       "description": "Toggle switch in two sizes with a clickable label, description, label placement, and error styling.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/field-label",
         "@jayrr/use-controllable-state"
       ],
@@ -4479,8 +4548,10 @@
       "title": "Symbol",
       "description": "Fixed-size icon wrapper in small, default, and large sizes.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4513,10 +4584,10 @@
       "title": "Table List",
       "description": "A list block with a title bar, search, column filters and paging that switches between a table view and a card grid view.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-grid",
         "@jayrr/standard-list-chrome",
         "@jayrr/standard-table",
@@ -4535,8 +4606,8 @@
       "name": "standard-simple-table",
       "title": "Table",
       "description": "Plain table rendered from an array of header strings and rows of string cells.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4553,10 +4624,10 @@
       "description": "Text input with default, Material filled, and outlined variants, floating label, leading/trailing content, and prefixes.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/kbd",
         "@jayrr/spinner",
         "@jayrr/use-field-validation",
@@ -4575,8 +4646,8 @@
       "name": "text-highlight",
       "title": "Text Highlight",
       "description": "A paragraph with marker-pen highlights on chosen phrases. Static by default; with animate it blurs in when scrolled into view and sweeps each highlight across its phrase in turn, from any side. Honours reduced motion.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4591,10 +4662,8 @@
       "name": "standard-textarea",
       "title": "Textarea",
       "description": "Multi-line text input with focus ring and an invalid error state.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/text-field",
         "@jayrr/use-field-validation",
         "@jayrr/use-inline-completion"
@@ -4614,10 +4683,10 @@
       "description": "Thumbs up / thumbs down feedback toggle with optional tilt, pop, burst or floating-thumbs effects, optional counts and sizes; honours reduced motion.",
       "dependencies": [
         "class-variance-authority",
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -4634,10 +4703,10 @@
       "title": "Time Picker",
       "description": "Material 3 time picker: drag the clock dial or type the time, AM/PM or 24-hour, Cancel/OK in a popover.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-popover"
       ],
@@ -4654,8 +4723,8 @@
       "name": "timeline",
       "title": "Timeline",
       "description": "Events along a line. Each entry takes elements for its badge, date, title, description, extra content and marker. Vertical or horizontal, content on one side or alternating, the date beside the content or across the line; ring, number or dot markers, solid, dashed or pin connectors, and per-entry colors. Give entries dates to space them by time, draw gaps solid, dashed or dotted by length with labels, group by day, month or year, and mark the current entry; plus reversed order, loading placeholders and an empty state.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4671,9 +4740,11 @@
       "title": "Toast",
       "description": "Short messages that appear and leave on their own: toasts with a danger tone, or Material snackbars with an action. Built on Sonner; call toast() anywhere under a Toaster.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "sonner"
+      ],
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4689,10 +4760,10 @@
       "title": "Toggle",
       "description": "Two-state pressable button in outline or ghost tones, several sizes and shapes, with an icon-only mode.",
       "dependencies": [
-        "class-variance-authority",
-        "cn"
+        "class-variance-authority"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/use-controllable-state"
       ],
       "files": [
@@ -4709,10 +4780,10 @@
       "title": "Toolbar Count",
       "description": "Toolbar counts: result text, filtered-of-total, pill, corner badge on a button, and a selection chip with clear.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/notification-badge",
         "@jayrr/standard-badge",
         "@jayrr/standard-button"
@@ -4730,10 +4801,8 @@
       "name": "toolbar",
       "title": "Toolbar",
       "description": "Toolbar row with groups, separators, icon buttons, pressed toggles, and a compact select, plus a Material 3 docked variant (standard or vibrant) for the bottom edge of a screen.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/divider",
         "@jayrr/standard-button",
         "@jayrr/standard-toggle",
@@ -4752,10 +4821,8 @@
       "name": "standard-tooltip",
       "title": "Tooltip",
       "description": "Tooltip with hover or click-to-toggle triggers, keyboard shortcut display, danger tone, and placement options.",
-      "dependencies": [
-        "cn"
-      ],
       "registryDependencies": [
+        "utils",
         "@jayrr/kbd",
         "@jayrr/popover",
         "@jayrr/tooltip"
@@ -4798,10 +4865,10 @@
       "title": "Video Display",
       "description": "A video player with custom controls: buffered seek bar, volume, speed, captions, picture-in-picture, fullscreen and keyboard shortcuts, fading while it plays.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/display-frame"
       ],
       "files": [
@@ -4818,10 +4885,10 @@
       "title": "Volume Button",
       "description": "A mute button with a volume slider that slides out on hover and focus, stays open or opens in a popover, horizontal or vertical. Controlled or uncontrolled, and can drive an audio or video element directly.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/standard-popover",
         "@jayrr/use-controllable-state"
@@ -4839,8 +4906,8 @@
       "name": "waveform",
       "title": "Waveform",
       "description": "A canvas of bars packed edge to edge (or spaced with gap) whose lengths trace a moving wave, horizontal or vertical. Built-in sine, interference, ripple, packet, terrain, spectrum, voice, heartbeat and breathe patterns, a custom wave(x, t) function, or a controlled value. Bottom, top or mirrored center anchors; sunset, aurora, ocean, ember, candy and neon palettes or custom colors, with tip, span or level gradients and tip or edge fades; a hover bump.",
-      "dependencies": [
-        "cn"
+      "registryDependencies": [
+        "utils"
       ],
       "files": [
         {
@@ -4880,10 +4947,10 @@
       "title": "Wheel of Fortune",
       "description": "Prize wheel that spins and eases to a stop under a pin pointer. The winner is chosen before the spin (weighted random, or your own pick), so it always lands on the slice it reports. variant=\"drag\" lets people grab and fling the wheel: a faster fling spins longer, in the direction it was thrown. The spin button sits in the centre, under the wheel or nowhere (drag only). A prize window opens over the wheel on landing, with the slice description and Spin again. Marquee rim lights chase while spinning, theme-token fills by default, custom slice and label colours, labels that never read upside down, and a screen-reader announcement. Honours reduced motion.",
       "dependencies": [
-        "cn",
         "lucide-react"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button"
       ],
       "files": [
@@ -4900,11 +4967,11 @@
       "title": "Wizard",
       "description": "Multi-step form in a dialog, a bottom sheet on phones: progress strip, per-step checks and async Continue.",
       "dependencies": [
-        "cn",
         "lucide-react",
         "radix-ui"
       ],
       "registryDependencies": [
+        "utils",
         "@jayrr/standard-button",
         "@jayrr/stepper",
         "@jayrr/use-mobile"

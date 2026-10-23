@@ -26,7 +26,7 @@ import {
   TableHandleRowPositioner,
 } from "prosekit/react/table-handle"
 import { GripHorizontalIcon, GripVerticalIcon, PlusIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   POPUP_CLASS,

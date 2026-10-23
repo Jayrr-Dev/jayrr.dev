@@ -4,13 +4,15 @@
   "title": "Symbol",
   "description": "Fixed-size icon wrapper in small, default, and large sizes.",
   "dependencies": [
-    "class-variance-authority",
-    "cn"
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
   ],
   "files": [
     {
       "path": "components/standard/symbol.tsx",
-      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"cn\"\r\n\r\nconst symbolVariants = cva(\"inline-flex items-center justify-center\", {\r\n  variants: {\r\n    size: {\r\n      default: \"size-6 [&_svg]:size-6\",\r\n      sm: \"size-4 [&_svg]:size-4\",\r\n      lg: \"size-8 [&_svg]:size-8\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: \"default\",\r\n  },\r\n})\r\n\r\nfunction Symbol({\r\n  className,\r\n  size = \"default\",\r\n  ...props\r\n}: React.ComponentProps<\"span\"> & VariantProps<typeof symbolVariants>) {\r\n  return (\r\n    <span\r\n      data-slot=\"symbol\"\r\n      data-size={size}\r\n      className={cn(symbolVariants({ size }), className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Symbol, symbolVariants }\r\n",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst symbolVariants = cva(\"inline-flex items-center justify-center\", {\n  variants: {\n    size: {\n      default: \"size-6 [&_svg]:size-6\",\n      sm: \"size-4 [&_svg]:size-4\",\n      lg: \"size-8 [&_svg]:size-8\",\n    },\n  },\n  defaultVariants: {\n    size: \"default\",\n  },\n})\n\nfunction Symbol({\n  className,\n  size = \"default\",\n  ...props\n}: React.ComponentProps<\"span\"> & VariantProps<typeof symbolVariants>) {\n  return (\n    <span\n      data-slot=\"symbol\"\n      data-size={size}\n      className={cn(symbolVariants({ size }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Symbol, symbolVariants }\n",
       "type": "registry:ui",
       "target": "components/standard/symbol.tsx"
     }

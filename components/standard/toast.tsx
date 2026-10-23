@@ -3,7 +3,7 @@
 import * as React from "react"
 import { XIcon } from "lucide-react"
 import { toast as sonner, Toaster as SonnerToaster, type ToasterProps } from "sonner"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 type ToastAction = {
   label: string

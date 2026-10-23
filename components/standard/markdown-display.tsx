@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { FileTypeIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Code } from "@/components/standard/code"
 import {

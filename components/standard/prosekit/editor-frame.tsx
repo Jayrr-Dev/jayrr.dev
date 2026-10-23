@@ -7,7 +7,7 @@ import type { Node as ProseMirrorNode } from "prosekit/pm/model"
 import type { Editor, NodeJSON } from "prosekit/core"
 import { defineReadonly } from "prosekit/extensions/readonly"
 import { useDocChange, useExtension } from "prosekit/react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 export type ProseKitValue = {
   json: NodeJSON

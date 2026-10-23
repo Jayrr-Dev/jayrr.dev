@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Material 3 (Expressive) top app bar: Small keeps the title in a single 64px
 // row; Medium and Large flexible put a bigger title in a second row that

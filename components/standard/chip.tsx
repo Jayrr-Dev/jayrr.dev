@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { CheckIcon, XIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Chips are the interactive tag: they always look pressable (border, hover),
 // so they never read as a static Badge. On touch screens the hit area grows

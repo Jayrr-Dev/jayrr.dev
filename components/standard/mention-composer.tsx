@@ -22,7 +22,7 @@ import {
   useKeymap,
 } from "prosekit/react"
 import { HashIcon, SendHorizontalIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Avatar } from "@/components/standard/avatar"
 import { Button } from "@/components/standard/button"

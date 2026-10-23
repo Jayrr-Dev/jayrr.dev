@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 const headingVariants = cva("scroll-m-20 text-balance tracking-tight", {
   variants: {

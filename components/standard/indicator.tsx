@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Presence colours are their own set so red "busy" never reads as a
 // NotificationBadge. Offline is hollow, so the state is not colour-only.

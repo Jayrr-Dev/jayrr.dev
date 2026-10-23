@@ -7,7 +7,7 @@ import {
   PlusIcon,
   XIcon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 import { Tooltip } from "@/components/standard/tooltip"

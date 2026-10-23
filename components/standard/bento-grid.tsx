@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Spans live in CSS variables so a preset can set them per child and a
 // tile's own colSpan/rowSpan (inline style) always wins. Column spans clamp

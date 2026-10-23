@@ -8,7 +8,7 @@ import {
   MenuIcon,
   MousePointerClickIcon,
 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { DropdownMenu } from "@/components/standard/menu"
 import {

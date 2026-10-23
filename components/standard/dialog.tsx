@@ -4,7 +4,7 @@ import * as React from "react"
 import { createPortal } from "react-dom"
 import { Dialog as DialogPrimitive } from "radix-ui"
 import { CircleMinus, CircleStop, CircleX, Maximize2 } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/standard/button"
 

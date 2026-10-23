@@ -3,7 +3,7 @@
 import * as React from "react"
 import { CheckIcon, LoaderCircleIcon, XIcon } from "lucide-react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { useControllableState } from "@/hooks/use-controllable-state"
 

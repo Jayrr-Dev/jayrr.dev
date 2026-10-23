@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { createPortal } from "react-dom"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { TextField } from "@/components/standard/text-field"
 import { useInlineCompletion } from "@/hooks/use-inline-completion"

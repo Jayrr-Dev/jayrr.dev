@@ -4,7 +4,7 @@ import * as React from "react"
 import { ChevronDownIcon, GlobeIcon } from "lucide-react"
 import * as RPNInput from "react-phone-number-input"
 import flags from "react-phone-number-input/flags"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   Command,

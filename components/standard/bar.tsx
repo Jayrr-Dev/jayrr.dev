@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Hover and pressed states apply only to interactive bars (`data-interactive`);
 // a static row keeps its surface but does not react to the pointer.

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ImageIcon, MinusIcon, PlusIcon } from "lucide-react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import {
   DisplayAction,
