@@ -1,0 +1,73 @@
+{
+  "name": "message",
+  "components": [
+    {
+      "name": "MessageGroup",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "Message",
+      "props": [
+        {
+          "name": "align",
+          "type": "\"start\" | \"end\"",
+          "default": "\"start\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "MessageAvatar",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "MessageContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "MessageFooter",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "MessageHeader",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Message",
+      "imports": [
+        "import { Avatar, AvatarFallback } from \"@/components/ui/avatar\"",
+        "import { Bubble, BubbleContent } from \"@/components/ui/bubble\"",
+        "import { Message, MessageAvatar, MessageContent, MessageFooter, MessageGroup, MessageHeader } from \"@/components/ui/message\""
+      ],
+      "code": "<MessageGroup className=\"w-full\">\n  <Message>\n    <MessageAvatar>\n      <Avatar size=\"sm\">\n        <AvatarFallback>JR</AvatarFallback>\n      </Avatar>\n    </MessageAvatar>\n    <MessageContent>\n      <MessageHeader>Jayrr</MessageHeader>\n      <Bubble variant=\"muted\">\n        <BubbleContent>\n          The gallery is ready. Want the notes too?\n        </BubbleContent>\n      </Bubble>\n      <MessageFooter>2:14 PM</MessageFooter>\n    </MessageContent>\n  </Message>\n  <Message align=\"end\">\n    <MessageAvatar>\n      <Avatar size=\"sm\">\n        <AvatarFallback>AL</AvatarFallback>\n      </Avatar>\n    </MessageAvatar>\n    <MessageContent>\n      <MessageHeader>Alex</MessageHeader>\n      <Bubble>\n        <BubbleContent>Yes, attach the file.</BubbleContent>\n      </Bubble>\n      <MessageFooter>2:15 PM</MessageFooter>\n    </MessageContent>\n  </Message>\n</MessageGroup>"
+    },
+    {
+      "title": "Message",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Message, MessageContent } from \"@/components/ui/message\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"align start\" wide>\n    <Message align=\"start\">\n      <MessageContent>Incoming note.</MessageContent>\n    </Message>\n  </TypeCard>\n  <TypeCard label=\"align end\" wide>\n    <Message align=\"end\">\n      <MessageContent>Outgoing note.</MessageContent>\n    </Message>\n  </TypeCard>\n</>"
+    }
+  ]
+}

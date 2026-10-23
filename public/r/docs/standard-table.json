@@ -1,0 +1,206 @@
+{
+  "name": "standard-table",
+  "components": [
+    {
+      "name": "RendersStandardTableBody",
+      "description": "The scrolling table itself: header with sort buttons, rows and the actions column. State lives in the caller (see useStandardList).",
+      "props": [
+        {
+          "name": "columns",
+          "type": "StandardTableColumn<T>[]",
+          "required": true
+        },
+        {
+          "name": "getRowKey",
+          "type": "(item: T, index: number) => string | number",
+          "required": true
+        },
+        {
+          "name": "sorting",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "density",
+          "type": "StandardTableDensity",
+          "default": "\"default\"",
+          "description": "Row height and padding."
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shades every other row."
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds lines between columns."
+        },
+        {
+          "name": "stickyFirstColumn",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "rowActions",
+          "type": "((item: T, index: number) => StandardTableAction[])",
+          "description": "Per-row menu in a trailing actions column."
+        },
+        {
+          "name": "bulkActions",
+          "type": "((visibleRows: T[]) => StandardTableAction[])",
+          "description": "Header menu for the actions column; receives the currently visible (filtered + paged) rows."
+        },
+        {
+          "name": "getRowLabel",
+          "type": "((item: T, index: number) => string)"
+        },
+        {
+          "name": "rows",
+          "type": "T[]",
+          "required": true
+        },
+        {
+          "name": "sortKey",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "sortDir",
+          "type": "StandardListSortDirection",
+          "required": true
+        },
+        {
+          "name": "onSort",
+          "type": "(key: string) => void",
+          "required": true
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "default": "\"No Data\""
+        }
+      ]
+    },
+    {
+      "name": "StandardTable",
+      "props": [
+        {
+          "name": "data",
+          "type": "T[]",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "default": "\"No Data\""
+        },
+        {
+          "name": "showSearch",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string"
+        },
+        {
+          "name": "filterBadge",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "filterSelect",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showRefresh",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "onRefresh",
+          "type": "(() => void)"
+        },
+        {
+          "name": "titleBar",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/standard-list-chrome\").StandardListTitleBar"
+        },
+        {
+          "name": "errorBar",
+          "type": "string"
+        },
+        {
+          "name": "pagination",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "initialPageSize",
+          "type": "number",
+          "default": "10"
+        },
+        {
+          "name": "columns",
+          "type": "StandardTableColumn<T>[]",
+          "required": true
+        },
+        {
+          "name": "getRowKey",
+          "type": "(item: T, index: number) => string | number",
+          "required": true
+        },
+        {
+          "name": "sorting",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "density",
+          "type": "StandardTableDensity",
+          "default": "\"default\"",
+          "description": "Row height and padding."
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shades every other row."
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds lines between columns."
+        },
+        {
+          "name": "stickyFirstColumn",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "rowActions",
+          "type": "((item: T, index: number) => StandardTableAction[])",
+          "description": "Per-row menu in a trailing actions column."
+        },
+        {
+          "name": "bulkActions",
+          "type": "((visibleRows: T[]) => StandardTableAction[])",
+          "description": "Header menu for the actions column; receives the currently visible (filtered + paged) rows."
+        },
+        {
+          "name": "getRowLabel",
+          "type": "((item: T, index: number) => string)"
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

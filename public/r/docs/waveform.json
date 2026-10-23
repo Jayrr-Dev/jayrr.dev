@@ -1,0 +1,154 @@
+{
+  "name": "waveform",
+  "components": [
+    {
+      "name": "Waveform",
+      "props": [
+        {
+          "name": "bars",
+          "type": "number",
+          "default": "128",
+          "description": "How many bars span the field. Ignored with `value`, which sets one bar per entry."
+        },
+        {
+          "name": "pattern",
+          "type": "\"ripple\" | \"interference\" | \"spectrum\" | \"voice\" | \"breathe\" | \"heartbeat\" | \"sine\" | \"packet\" | \"terrain\"",
+          "default": "\"interference\"",
+          "description": "The wave to run. Ignored with `wave` or `value`."
+        },
+        {
+          "name": "wave",
+          "type": "WaveformFunction",
+          "description": "Your own wave: the length of the bar at `x` (0 to 1) at `t` seconds, from 0 to 1."
+        },
+        {
+          "name": "value",
+          "type": "number[]",
+          "description": "Controls the lengths directly, one entry per bar, each from 0 to 1."
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "default": "\"horizontal\"",
+          "description": "`vertical` turns the field a quarter turn clockwise, so bars lie flat and stack top to bottom."
+        },
+        {
+          "name": "anchor",
+          "type": "\"center\" | \"top\" | \"bottom\"",
+          "default": "\"bottom\""
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "default": "0",
+          "description": "Space between bars, as a fraction of each bar's slot; 0 packs them edge to edge."
+        },
+        {
+          "name": "amplitude",
+          "type": "number",
+          "default": "1",
+          "description": "Scales every length; 1 lets bars fill the field."
+        },
+        {
+          "name": "frequency",
+          "type": "number",
+          "default": "1",
+          "description": "Scales how many crests a built-in pattern fits across the field."
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "default": "1",
+          "description": "Scales how fast time runs."
+        },
+        {
+          "name": "smoothing",
+          "type": "number",
+          "default": "0.25",
+          "description": "From 0 (bars jump to each new length) to 1 (bars glide slowly toward it)."
+        },
+        {
+          "name": "paused",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "default": "false",
+          "description": "Hovering raises a bump in the wave under the pointer."
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "description": "Bar color; any CSS color, including `var(--token)`. Defaults to the text color."
+        },
+        {
+          "name": "tipColor",
+          "type": "string",
+          "description": "A second color to blend to, for a two-color gradient from `color`."
+        },
+        {
+          "name": "colors",
+          "type": "string[]",
+          "description": "Gradient stops, base first; any CSS colors. Wins over `palette` and `tipColor`."
+        },
+        {
+          "name": "palette",
+          "type": "\"ocean\" | \"aurora\" | \"candy\" | \"sunset\" | \"ember\" | \"neon\"",
+          "description": "A ready-made gradient. Wins over `tipColor`."
+        },
+        {
+          "name": "gradient",
+          "type": "\"span\" | \"tip\" | \"level\"",
+          "default": "\"tip\"",
+          "description": "Which way a gradient runs."
+        },
+        {
+          "name": "fade",
+          "type": "\"none\" | \"both\" | \"tip\" | \"edges\"",
+          "default": "\"none\""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Accessible description; defaults to the pattern name."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "gradients · tip, span and level",
+      "imports": [
+        "import { Waveform } from \"@/components/standard/waveform\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <Waveform\n    pattern=\"voice\"\n    anchor=\"center\"\n    bars={480}\n    palette=\"sunset\"\n    gradient=\"span\"\n    fade=\"edges\"\n    className=\"h-28\"\n  />\n  <div className=\"grid w-full grid-cols-2 gap-3\">\n    <Waveform\n      pattern=\"terrain\"\n      bars={320}\n      palette=\"ocean\"\n      fade=\"tip\"\n    />\n    <Waveform\n      pattern=\"spectrum\"\n      bars={64}\n      gap={0.2}\n      palette=\"ember\"\n      gradient=\"level\"\n    />\n    <Waveform\n      pattern=\"ripple\"\n      anchor=\"center\"\n      bars={240}\n      palette=\"neon\"\n      gradient=\"span\"\n    />\n    <Waveform\n      pattern=\"breathe\"\n      anchor=\"center\"\n      bars={320}\n      colors={[\"var(--muted-foreground)\", \"var(--foreground)\"]}\n      fade=\"both\"\n    />\n  </div>\n</div>"
+    },
+    {
+      "title": "dense · hundreds of packed bars",
+      "imports": [
+        "import { Waveform } from \"@/components/standard/waveform\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <Waveform\n    pattern=\"voice\"\n    anchor=\"center\"\n    bars={480}\n    className=\"h-28\"\n  />\n  <div className=\"grid w-full grid-cols-2 gap-3\">\n    <Waveform\n      pattern=\"terrain\"\n      bars={320}\n      color=\"oklch(0.55 0.15 255)\"\n      tipColor=\"oklch(0.95 0.05 210)\"\n    />\n    <Waveform\n      pattern=\"heartbeat\"\n      bars={320}\n      color=\"oklch(0.65 0.23 27)\"\n    />\n    <Waveform\n      pattern=\"ripple\"\n      anchor=\"center\"\n      bars={240}\n      frequency={1.5}\n    />\n    <Waveform\n      pattern=\"packet\"\n      bars={400}\n      color=\"oklch(0.8 0.17 70)\"\n    />\n  </div>\n</div>"
+    },
+    {
+      "title": "your own wave · and controlled values",
+      "imports": [
+        "import { Waveform } from \"@/components/standard/waveform\""
+      ],
+      "setup": "const beats: WaveformFunction = (x, t) =>\n  0.5 +\n  0.3 * Math.sin(x * 40 - t * 4) * Math.sin(x * 3 + t * 0.7) +\n  0.12 * Math.sin(x * 6 - t)",
+      "code": "<div className=\"grid w-full grid-cols-2 gap-3\">\n  <Waveform wave={beats} anchor=\"center\" bars={300} interactive />\n  <RendersMeter />\n</div>"
+    },
+    {
+      "title": "vertical · bars stacked top to bottom",
+      "imports": [
+        "import { Waveform } from \"@/components/standard/waveform\""
+      ],
+      "code": "<div className=\"grid w-full grid-cols-4 gap-3\">\n  <Waveform\n    orientation=\"vertical\"\n    pattern=\"sine\"\n    bars={160}\n    palette=\"aurora\"\n  />\n  <Waveform\n    orientation=\"vertical\"\n    pattern=\"voice\"\n    anchor=\"center\"\n    bars={200}\n    palette=\"candy\"\n    gradient=\"span\"\n  />\n  <Waveform\n    orientation=\"vertical\"\n    pattern=\"spectrum\"\n    bars={40}\n    gap={0.25}\n    palette=\"ember\"\n    gradient=\"level\"\n  />\n  <Waveform\n    orientation=\"vertical\"\n    pattern=\"heartbeat\"\n    anchor=\"top\"\n    bars={200}\n    palette=\"ocean\"\n    fade=\"tip\"\n  />\n</div>"
+    }
+  ]
+}

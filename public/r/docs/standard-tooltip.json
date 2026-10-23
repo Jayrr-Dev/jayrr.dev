@@ -1,0 +1,98 @@
+{
+  "name": "standard-tooltip",
+  "components": [
+    {
+      "name": "Tooltip",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Visible text of the default trigger button. Older callers also pass it next to `children`; there it is ignored, as it always was."
+        },
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "description": "What the tooltip says."
+        },
+        {
+          "name": "shortcut",
+          "type": "React.ReactNode",
+          "description": "Keyboard shortcut after the text. A string renders in a Kbd."
+        },
+        {
+          "name": "tone",
+          "type": "TooltipTone",
+          "default": "\"default\""
+        },
+        {
+          "name": "trigger",
+          "type": "\"hover\" | \"click\"",
+          "default": "\"hover\"",
+          "description": "`hover` opens on hover and focus after a delay. `click` toggles on press and stays until Escape, an outside click or a second press."
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"bottom\" | \"right\" | \"left\"",
+          "default": "\"top\""
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\"",
+          "default": "\"center\""
+        },
+        {
+          "name": "delayDuration",
+          "type": "number",
+          "description": "Open delay in ms while the page is cold. Defaults to the provider's (200)."
+        },
+        {
+          "name": "skipDelayDuration",
+          "type": "number",
+          "description": "Warm window in ms, only used when no TooltipProvider is mounted (300)."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The trigger. Must accept a ref and props, e.g. a button."
+        }
+      ]
+    },
+    {
+      "name": "TooltipProvider",
+      "props": [],
+      "inherits": [
+        "TooltipProviderProps"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Tooltip · danger",
+      "imports": [
+        "import { Tooltip } from \"@/components/standard/tooltip\""
+      ],
+      "code": "<Tooltip\n  label=\"Job number\"\n  content=\"Job number is required.\"\n  tone=\"danger\"\n/>"
+    },
+    {
+      "title": "trigger click",
+      "imports": [
+        "import { Tooltip } from \"@/components/standard/tooltip\""
+      ],
+      "code": "<Tooltip\n  trigger=\"click\"\n  label=\"Click me\"\n  content=\"Stays open until Escape or an outside click.\"\n/>"
+    },
+    {
+      "title": "Tooltip",
+      "imports": [
+        "import { Tooltip } from \"@/components/standard/tooltip\""
+      ],
+      "code": "<Tooltip label=\"Hover me\" content=\"This shows on hover, not on click.\" />"
+    },
+    {
+      "title": "content",
+      "imports": [
+        "import { Tooltip } from \"@/components/standard/tooltip\""
+      ],
+      "code": "<Tooltip label=\"Save\" content=\"Saves the draft to this device.\" />"
+    }
+  ]
+}

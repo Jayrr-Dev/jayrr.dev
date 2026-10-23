@@ -1,0 +1,107 @@
+{
+  "name": "download-button",
+  "components": [
+    {
+      "name": "DownloadButton",
+      "props": [
+        {
+          "name": "rel",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "loading",
+          "type": "boolean | \"spin-icon\"",
+          "description": "Blocks clicks while an action runs. `true` shows a spinner before the label (in place of `leading`); `\"spin-icon\"` spins the `leading` icon."
+        },
+        {
+          "name": "target",
+          "type": "React.HTMLAttributeAnchorTarget"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Renders an `<a>` with the same look instead of a `<button>`."
+        },
+        {
+          "name": "tone",
+          "type": "\"link\" | \"default\" | \"outline\" | \"ghost\" | \"success\" | \"danger\" | \"quiet\" | \"inverse\" | \"inverse-outline\"",
+          "default": "\"outline\""
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the label (and after `count`), usually an icon."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\" | \"pill\" | \"square\""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches to the full width of its container."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number shown inline after the label as a notification badge."
+        },
+        {
+          "name": "display",
+          "type": "FileActionDisplay",
+          "default": "\"icon-text\""
+        },
+        {
+          "name": "fileName",
+          "type": "string",
+          "description": "Name to save as; with `href` it defaults to the URL's own name."
+        },
+        {
+          "name": "file",
+          "type": "(() => Blob | Promise<Blob>)",
+          "description": "Builds the file on click, instead of linking to `href`."
+        },
+        {
+          "name": "onDownload",
+          "type": "((fileName: string) => void)"
+        },
+        {
+          "name": "onDownloadError",
+          "type": "((error: unknown) => void)"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "icon",
+      "imports": [
+        "import { DownloadButton } from \"@/components/standard/download-button\""
+      ],
+      "code": "<DownloadButton\n  display=\"icon\"\n  href=\"/fx/sample-logo.svg\"\n  fileName=\"logo.svg\"\n/>"
+    },
+    {
+      "title": "text · built on click",
+      "imports": [
+        "import { DownloadButton } from \"@/components/standard/download-button\""
+      ],
+      "setup": "function buildsNotes() {\n  return new Blob([\"Notes from the Standard library demo.\\n\"], {\n    type: \"text/plain\",\n  })\n}",
+      "code": "<DownloadButton display=\"text\" file={buildsNotes} fileName=\"notes.txt\">\n  Download notes\n</DownloadButton>"
+    },
+    {
+      "title": "iconed text",
+      "imports": [
+        "import { DownloadButton } from \"@/components/standard/download-button\""
+      ],
+      "code": "<DownloadButton href=\"/fx/sample-logo.svg\" fileName=\"logo.svg\" />"
+    }
+  ]
+}

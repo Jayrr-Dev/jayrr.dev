@@ -1,0 +1,146 @@
+{
+  "name": "inline-editor",
+  "components": [
+    {
+      "name": "InlineEditor",
+      "description": "Rich text with no fixed toolbar: select text and a format menu with a link field floats over it. Markdown shortcuts (#, -, >, **bold**) still work.",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "contentClassName",
+          "type": "string"
+        },
+        {
+          "name": "placeholder",
+          "type": "string"
+        },
+        {
+          "name": "defaultContent",
+          "type": "string | NodeJSON",
+          "description": "Initial document as HTML or ProseKit JSON. Read once on mount."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: InlineEditorValue) => void)"
+        },
+        {
+          "name": "editable",
+          "type": "boolean"
+        },
+        {
+          "name": "tone",
+          "type": "\"default\" | \"ghost\"",
+          "description": "`default` draws the field border; `ghost` edits in place with none."
+        },
+        {
+          "name": "aria-label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "EditorShell",
+      "description": "What SSR renders in an editor's place: the same frame, toolbar row and height.",
+      "props": [
+        {
+          "name": "slot",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "contentClassName",
+          "type": "string"
+        },
+        {
+          "name": "toolbar",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "EditorContent",
+      "description": "The element ProseKit mounts into. ProseMirror adds its own classes to it, so keep `className` steady: a new value makes React overwrite them.",
+      "props": [
+        {
+          "name": "editor",
+          "type": "Editor<any>",
+          "required": true
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "FormatToolbar",
+      "description": "Block type, history and text formats on the Standard Toolbar. `children` adds groups after them (insert buttons, list indent).",
+      "props": [
+        {
+          "name": "blockTypes",
+          "type": "BlockType[]",
+          "description": "Which block types the Select offers. Defaults to all of them."
+        },
+        {
+          "name": "marks",
+          "type": "MarkKey[]",
+          "description": "Which text formats get a toggle. Defaults to all of them."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Pushed to the end of the bar, e.g. a view toggle."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "InlineFormatMenu",
+      "description": "Text formats and a link field that float over the selection. Clicks on the bar don't take focus, so the selection stays put.",
+      "props": [
+        {
+          "name": "marks",
+          "type": "MarkKey[]"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Ghost",
+      "imports": [
+        "import { InlineEditor } from \"@/components/standard/inline-editor\""
+      ],
+      "code": "<InlineEditor\n  tone=\"ghost\"\n  defaultContent=\"<h3>Untitled note</h3><p>Click to edit in place.</p>\"\n/>"
+    },
+    {
+      "title": "Empty",
+      "imports": [
+        "import { InlineEditor } from \"@/components/standard/inline-editor\""
+      ],
+      "code": "<InlineEditor />"
+    },
+    {
+      "title": "Default",
+      "imports": [
+        "import { InlineEditor } from \"@/components/standard/inline-editor\""
+      ],
+      "setup": "const SAMPLE_NOTE = `<p>Select any of this text and a <strong>format menu</strong> appears above it. Use the link button to add a <a href=\"https://prosekit.dev\">link</a>.</p>`",
+      "code": "<InlineEditor defaultContent={SAMPLE_NOTE} />"
+    }
+  ]
+}

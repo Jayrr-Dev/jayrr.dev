@@ -1,0 +1,146 @@
+{
+  "name": "tutorial-float",
+  "components": [
+    {
+      "name": "TutorialFloat",
+      "description": "A small floating card that says what to do next in a hands-on tutorial. It follows its anchor every frame: beside it when there's room, otherwise over the top of what it covers, always inside its boundary, and slid aside from the point it should not hide. Pair it with Tutorial Actions to point at the thing to press or drag.",
+      "props": [
+        {
+          "name": "anchor",
+          "type": "React.RefObject<Element | null>",
+          "required": true,
+          "description": "What the card floats beside."
+        },
+        {
+          "name": "side",
+          "type": "\"auto\" | \"top\" | \"bottom\" | \"right\" | \"left\" | \"over\"",
+          "default": "\"auto\"",
+          "description": "auto sits beside the anchor when there's room on either side, otherwise over the top of `cover`. The others always use that side; over sits inside the top of `cover`."
+        },
+        {
+          "name": "cover",
+          "type": "React.RefObject<Element | null>",
+          "description": "What the card covers when it sits over. Default the anchor."
+        },
+        {
+          "name": "boundary",
+          "type": "React.RefObject<Element | null>",
+          "description": "Keeps the card inside this element instead of the window."
+        },
+        {
+          "name": "avoid",
+          "type": "TutorialFloatTarget",
+          "description": "A point the card slides aside to keep clear, e.g. what Tutorial Actions presses."
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The instruction under the title."
+        },
+        {
+          "name": "eyebrow",
+          "type": "React.ReactNode",
+          "description": "Small line above the title. Default \"Try it · 2 of 5\" when `step` and `steps` are set."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "description": "The current step, from 1."
+        },
+        {
+          "name": "steps",
+          "type": "number",
+          "description": "How many steps, one dot each."
+        },
+        {
+          "name": "done",
+          "type": "boolean",
+          "default": "false",
+          "description": "The last card: every dot fills, Skip gives way to the done button, and it fades out and calls `onDone` after `autoClose` ms."
+        },
+        {
+          "name": "onSkip",
+          "type": "(() => void)"
+        },
+        {
+          "name": "onDone",
+          "type": "(() => void)"
+        },
+        {
+          "name": "skipLabel",
+          "type": "string",
+          "default": "\"Skip\""
+        },
+        {
+          "name": "doneLabel",
+          "type": "string",
+          "default": "\"Got it\""
+        },
+        {
+          "name": "autoClose",
+          "type": "number | false",
+          "default": "5000",
+          "description": "How long the done card stays, in ms. false keeps it until the button."
+        },
+        {
+          "name": "float",
+          "type": "boolean",
+          "default": "true",
+          "description": "A slow bob while it waits."
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "default": "300",
+          "description": "Card width in px. Beside the anchor it narrows to fit, down to `minWidth`."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "default": "200",
+          "description": "The narrowest the card gets beside the anchor before auto moves it over."
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "default": "24",
+          "description": "Space between the card and the anchor, in px."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "single tip · below its anchor",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { TutorialFloat } from \"@/components/standard/tutorial-float\""
+      ],
+      "code": "<div\n  ref={stageRef}\n  className=\"flex h-64 w-full flex-col items-center rounded-lg border border-border bg-background pt-8\"\n>\n  <Button ref={buttonRef} tone=\"outline\" onClick={() => setOpen(true)}>\n    Auto-select\n  </Button>\n</div>\n<TutorialFloat\n  anchor={buttonRef}\n  boundary={stageRef}\n  side=\"bottom\"\n  width={260}\n  open={open}\n  eyebrow=\"Tip\"\n  title=\"Auto-select is on\"\n  skipLabel=\"Got it\"\n  onSkip={() => setOpen(false)}\n  float={false}\n>\n  The next item is picked for you. Tap the button to bring this tip back.\n</TutorialFloat>"
+    },
+    {
+      "title": "hands-on tour · with Tutorial Actions",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { TutorialActions } from \"@/components/standard/tutorial-actions\"",
+        "import { TutorialFloat } from \"@/components/standard/tutorial-float\"",
+        "import { ArchiveIcon, FileTextIcon, HeartIcon } from \"lucide-react\""
+      ],
+      "setup": "const TOUR_STEPS = 2",
+      "code": "<div className=\"flex w-full flex-col items-center gap-3\">\n  <div\n    ref={stageRef}\n    className=\"relative h-80 w-full overflow-hidden rounded-lg border border-border bg-background\"\n  >\n    <Button\n      ref={heartRef}\n      tone=\"ghost\"\n      iconOnly\n      aria-label={liked ? \"Unlike\" : \"Like\"}\n      aria-pressed={liked}\n      className=\"absolute top-3 right-3\"\n      onClick={() => {\n        setLiked((on) => !on)\n        if (step === \"like\") setStep(\"file\")\n      }}\n    >\n      <HeartIcon\n        className={liked ? \"fill-destructive text-destructive\" : \"\"}\n      />\n    </Button>\n    {filed ? null : (\n      <div\n        ref={fileRef}\n        onPointerDown={startsDrag}\n        onPointerMove={movesDrag}\n        onPointerUp={endsDrag}\n        onPointerCancel={() => {\n          grab.current = null\n          setOffset(null)\n        }}\n        style={\n          {\n            \"--drag-x\": `${offset?.x ?? 0}px`,\n            \"--drag-y\": `${offset?.y ?? 0}px`,\n          } as CSSProperties\n        }\n        className=\"absolute bottom-6 left-6 z-10 flex translate-x-(--drag-x) translate-y-(--drag-y) cursor-grab touch-none items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm shadow-sm select-none active:cursor-grabbing\"\n      >\n        <FileTextIcon className=\"size-4\" />\n        Report.pdf\n      </div>\n    )}\n    <div\n      ref={trayRef}\n      className=\"absolute right-6 bottom-6 flex size-24 flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border text-xs text-muted-foreground\"\n    >\n      <ArchiveIcon className=\"size-5\" />\n      {filed ? \"Report.pdf\" : \"Archive\"}\n    </div>\n  </div>\n  <Button tone=\"outline\" size=\"sm\" onClick={restart}>\n    {step === \"closed\" ? \"Take the tour again\" : \"Start over\"}\n  </Button>\n</div>\n<TutorialFloat\n  anchor={stageRef}\n  boundary={stageRef}\n  avoid={step === \"like\" ? heartRef : null}\n  open={step !== \"closed\"}\n  title={copy.title}\n  step={step === \"like\" ? 1 : 2}\n  steps={TOUR_STEPS}\n  done={step === \"done\"}\n  onSkip={() => setStep(\"closed\")}\n  onDone={() => setStep(\"closed\")}\n>\n  {copy.body}\n</TutorialFloat>\n<TutorialActions\n  gesture={step === \"file\" ? \"drag\" : \"tap\"}\n  target={heartRef}\n  from={fileRef}\n  to={trayRef}\n  hidden={(step !== \"like\" && step !== \"file\") || offset !== null}\n/>"
+    }
+  ]
+}

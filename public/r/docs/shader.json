@@ -1,0 +1,53 @@
+{
+  "name": "shader",
+  "components": [
+    {
+      "name": "Shader",
+      "description": "WebGL shader layer: mesh gradients, noise fields, dot fields and light effects from Paper Shaders. Each one is its own GPU context, so keep a handful per page and prefer `speed={0}` for many.",
+      "props": [
+        {
+          "name": "placement",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerPlacement"
+        },
+        {
+          "name": "blend",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerBlend"
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "description": "0–1."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "kind",
+          "type": "\"spiral\" | \"plasma\" | \"aurora\" | \"terminal\" | \"spotlight\" | \"waves\" | \"warp\" | \"mesh-gradient\" | \"static-mesh-gradient\" | \"static-radial-gradient\" | \"grain-gradient\" | \"color-panels\" | \"dithering\" | \"dot-orbit\" | \"dot-grid\" | \"metaballs\" |…",
+          "default": "\"mesh-gradient\""
+        },
+        {
+          "name": "preset",
+          "type": "string",
+          "description": "A preset name from `shaderPresetNames(kind)`. Defaults to the first."
+        },
+        {
+          "name": "params",
+          "type": "ShaderParams",
+          "description": "Overrides on top of the preset, e.g. `{ colors: [...], distortion: 0.5 }`."
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "description": "Animation speed. 0 renders a still frame. Always 0 under reduced motion."
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

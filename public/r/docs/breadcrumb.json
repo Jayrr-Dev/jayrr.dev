@@ -1,0 +1,72 @@
+{
+  "name": "breadcrumb",
+  "components": [
+    {
+      "name": "Breadcrumb",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BreadcrumbList",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "OlHTMLAttributes"
+      ]
+    },
+    {
+      "name": "BreadcrumbItem",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "LiHTMLAttributes"
+      ]
+    },
+    {
+      "name": "BreadcrumbLink",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "AnchorHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BreadcrumbPage",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BreadcrumbSeparator",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "LiHTMLAttributes"
+      ]
+    },
+    {
+      "name": "BreadcrumbEllipsis",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Breadcrumb",
+      "imports": [
+        "import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from \"@/components/ui/breadcrumb\""
+      ],
+      "code": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"/gallery\">Gallery</BreadcrumbLink>\n    </BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem>\n      <BreadcrumbPage>Breadcrumb</BreadcrumbPage>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
+    }
+  ]
+}

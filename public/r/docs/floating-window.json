@@ -1,0 +1,61 @@
+{
+  "name": "floating-window",
+  "components": [
+    {
+      "name": "FloatingWindow",
+      "props": [
+        {
+          "name": "position",
+          "type": "\"center\" | \"top\" | \"bottom\" | \"right\" | \"left\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\""
+        },
+        {
+          "name": "defaultPosition",
+          "type": "\"center\" | \"top\" | \"bottom\" | \"right\" | \"left\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\"",
+          "default": "\"bottom-right\""
+        },
+        {
+          "name": "onPositionChange",
+          "type": "((position: FloatingWindowPosition) => void)"
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "default": "16",
+          "description": "Gap in pixels between the window and the edges it sits against."
+        },
+        {
+          "name": "strategy",
+          "type": "\"fixed\" | \"absolute\"",
+          "default": "\"fixed\"",
+          "description": "`fixed` floats over the viewport; `absolute` over the nearest positioned parent."
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Lets the user drag the window and snap it to another spot."
+        },
+        {
+          "name": "snapPreview",
+          "type": "boolean",
+          "default": "true",
+          "description": "Outline the spot the window will snap to while dragging."
+        },
+        {
+          "name": "previewClassName",
+          "type": "string"
+        },
+        {
+          "name": "radius",
+          "type": "FloatingWindowRadius",
+          "default": "\"none\"",
+          "description": "Corner rounding. Match the window's content so the focus ring follows its corners."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

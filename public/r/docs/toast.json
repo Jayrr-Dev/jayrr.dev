@@ -1,0 +1,14 @@
+{
+  "name": "toast",
+  "components": [
+    {
+      "name": "Toaster",
+      "description": "Where toasts appear. Mount once near the root of the app; any Sonner Toaster works too, since standard toasts bring their own surface.",
+      "props": [],
+      "inherits": [
+        "ToasterProps"
+      ]
+    }
+  ],
+  "examples": []
+}

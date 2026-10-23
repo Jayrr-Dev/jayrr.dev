@@ -1,0 +1,69 @@
+{
+  "name": "radio",
+  "components": [
+    {
+      "name": "Radio",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Renders a clickable label next to the circle."
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "appearance",
+          "type": "\"default\" | \"card\"",
+          "default": "\"default\"",
+          "description": "card: a bordered tile around circle and label, highlighted while checked. Needs a label."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "props": [
+        {
+          "name": "legend",
+          "type": "React.ReactNode",
+          "description": "Visible group label, rendered as a native legend."
+        }
+      ],
+      "inherits": [
+        "FieldsetHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "appearance card",
+      "imports": [
+        "import { Radio, RadioGroup } from \"@/components/standard/radio\""
+      ],
+      "code": "<RadioGroup legend=\"Plan\" className=\"w-full\">\n  <Radio\n    appearance=\"card\"\n    name=\"plan\"\n    label=\"Crew\"\n    description=\"Up to 10 people.\"\n    defaultChecked\n  />\n  <Radio\n    appearance=\"card\"\n    name=\"plan\"\n    label=\"Company\"\n    description=\"Unlimited people and sites.\"\n  />\n</RadioGroup>"
+    },
+    {
+      "title": "size sm",
+      "imports": [
+        "import { Radio, RadioGroup } from \"@/components/standard/radio\""
+      ],
+      "code": "<RadioGroup legend=\"Density\">\n  <Radio size=\"sm\" name=\"density\" label=\"Comfortable\" defaultChecked />\n  <Radio size=\"sm\" name=\"density\" label=\"Compact\" />\n</RadioGroup>"
+    }
+  ]
+}

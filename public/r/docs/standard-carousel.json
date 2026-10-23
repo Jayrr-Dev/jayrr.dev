@@ -1,0 +1,40 @@
+{
+  "name": "standard-carousel",
+  "components": [
+    {
+      "name": "Carousel",
+      "props": [
+        {
+          "name": "slides",
+          "type": "CarouselSlide[]",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type": "CarouselVariant",
+          "default": "\"single\""
+        },
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "variant \"multi-browse\"",
+      "imports": [
+        "import { Carousel } from \"@/components/standard/carousel\""
+      ],
+      "code": "<Carousel\n  variant=\"multi-browse\"\n  slides={[\"Family\", \"Festivals\", \"Plants\", \"Travel\", \"Food\", \"Pets\"]}\n/>"
+    },
+    {
+      "title": "Carousel",
+      "imports": [
+        "import { Carousel } from \"@/components/standard/carousel\""
+      ],
+      "code": "<Carousel slides={[\"Hours\", \"Cost\", \"Crew\"]} />"
+    }
+  ]
+}

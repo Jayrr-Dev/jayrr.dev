@@ -1,0 +1,264 @@
+{
+  "name": "chat",
+  "components": [
+    {
+      "name": "Chat",
+      "description": "A chat window: an optional header bar, a conversation that keeps each new turn in view while replies stream in, a shimmering status line, and a composer with file attachments. Built on Message Scroller, Message, Bubble, Attachment and Marker; the app owns the messages and the sending.",
+      "props": [
+        {
+          "name": "messages",
+          "type": "ChatMessage[]",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Title in the header bar. Leave it out to hide the bar."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content at the end of the header bar, e.g. a New chat button."
+        },
+        {
+          "name": "background",
+          "type": "React.ReactNode",
+          "description": "Layers painted behind the conversation, e.g. a Gradient or Noise."
+        },
+        {
+          "name": "empty",
+          "type": "React.ReactNode",
+          "default": "\"How can I help you today?\"",
+          "description": "Shown in the middle while there are no messages."
+        },
+        {
+          "name": "pending",
+          "type": "React.ReactNode",
+          "default": "false",
+          "description": "Shows a shimmering status line under the last message."
+        },
+        {
+          "name": "onSend",
+          "type": "((text: string, files: File[]) => void | Promise<void>)",
+          "description": "Called with the trimmed text and picked files. The box clears after."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "\"Send a message...\""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "attachments",
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds a paperclip button that picks files to send with the message."
+        },
+        {
+          "name": "accept",
+          "type": "string"
+        },
+        {
+          "name": "hint",
+          "type": "React.ReactNode",
+          "description": "Note under the composer."
+        },
+        {
+          "name": "showAvatars",
+          "type": "boolean",
+          "default": "false",
+          "description": "Avatars beside other people's messages."
+        },
+        {
+          "name": "suggestions",
+          "type": "string[]",
+          "description": "Prompts shown as chips while there are no messages; a click sends one."
+        },
+        {
+          "name": "followUps",
+          "type": "string[]",
+          "description": "Chips above the composer once the conversation has started; a click sends one."
+        },
+        {
+          "name": "tools",
+          "type": "React.ReactNode",
+          "description": "Controls in the composer bar before the Send button, e.g. a model picker or mic."
+        },
+        {
+          "name": "copyable",
+          "type": "boolean",
+          "default": "true",
+          "description": "Copy button under assistant replies. On by default."
+        },
+        {
+          "name": "onRegenerate",
+          "type": "((message: ChatMessage) => void)",
+          "description": "Adds a Regenerate button under the last assistant reply."
+        },
+        {
+          "name": "replyBubble",
+          "type": "\"outline\" | \"muted\" | \"tinted\" | \"speech\"",
+          "default": "\"muted\"",
+          "description": "Bubble style for replies from others. `speech` draws a tailed speech bubble."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SideChat",
+      "description": "A support-style chat docked to a corner: a round launcher that opens a floating Chat panel above it, with a close button in the header bar. Escape closes it. Takes every Chat prop.",
+      "props": [
+        {
+          "name": "messages",
+          "type": "ChatMessage[]",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "default": "\"Chat\"",
+          "description": "Title in the header bar. Leave it out to hide the bar."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content at the end of the header bar, e.g. a New chat button."
+        },
+        {
+          "name": "background",
+          "type": "React.ReactNode",
+          "description": "Layers painted behind the conversation, e.g. a Gradient or Noise."
+        },
+        {
+          "name": "empty",
+          "type": "React.ReactNode",
+          "description": "Shown in the middle while there are no messages."
+        },
+        {
+          "name": "pending",
+          "type": "React.ReactNode",
+          "description": "Shows a shimmering status line under the last message."
+        },
+        {
+          "name": "onSend",
+          "type": "((text: string, files: File[]) => void | Promise<void>)",
+          "description": "Called with the trimmed text and picked files. The box clears after."
+        },
+        {
+          "name": "placeholder",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "attachments",
+          "type": "boolean",
+          "description": "Adds a paperclip button that picks files to send with the message."
+        },
+        {
+          "name": "accept",
+          "type": "string"
+        },
+        {
+          "name": "hint",
+          "type": "React.ReactNode",
+          "description": "Note under the composer."
+        },
+        {
+          "name": "showAvatars",
+          "type": "boolean",
+          "description": "Avatars beside other people's messages."
+        },
+        {
+          "name": "suggestions",
+          "type": "string[]",
+          "description": "Prompts shown as chips while there are no messages; a click sends one."
+        },
+        {
+          "name": "followUps",
+          "type": "string[]",
+          "description": "Chips above the composer once the conversation has started; a click sends one."
+        },
+        {
+          "name": "tools",
+          "type": "React.ReactNode",
+          "description": "Controls in the composer bar before the Send button, e.g. a model picker or mic."
+        },
+        {
+          "name": "copyable",
+          "type": "boolean",
+          "description": "Copy button under assistant replies. On by default."
+        },
+        {
+          "name": "onRegenerate",
+          "type": "((message: ChatMessage) => void)",
+          "description": "Adds a Regenerate button under the last assistant reply."
+        },
+        {
+          "name": "replyBubble",
+          "type": "\"outline\" | \"muted\" | \"tinted\" | \"speech\"",
+          "description": "Bubble style for replies from others. `speech` draws a tailed speech bubble."
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "launcherLabel",
+          "type": "string",
+          "default": "\"Chat with us\"",
+          "description": "Accessible name for the launcher button."
+        },
+        {
+          "name": "launcherIcon",
+          "type": "React.ReactNode",
+          "default": "<MessageCircleIcon />",
+          "description": "Launcher icon while closed. Defaults to a speech bubble."
+        },
+        {
+          "name": "unread",
+          "type": "number",
+          "description": "Count on the launcher while closed, e.g. unread replies."
+        },
+        {
+          "name": "side",
+          "type": "\"start\" | \"end\"",
+          "default": "\"end\"",
+          "description": "Corner the launcher and panel sit in."
+        },
+        {
+          "name": "position",
+          "type": "\"fixed\" | \"absolute\"",
+          "default": "\"fixed\"",
+          "description": "`fixed` pins to the viewport, like a support widget. `absolute` pins to the nearest positioned parent, for previews inside a page."
+        },
+        {
+          "name": "panelClassName",
+          "type": "string",
+          "description": "Classes for the panel that holds the chat."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

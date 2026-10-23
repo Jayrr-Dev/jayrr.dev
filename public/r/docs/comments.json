@@ -1,0 +1,90 @@
+{
+  "name": "comments",
+  "components": [
+    {
+      "name": "Comments",
+      "description": "A comment section: a heading with a sort select, a reply box with its submit button inside, a login prompt for signed-out visitors, and the list.",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "default": "\"Reply\"",
+          "description": "Heading above the box."
+        },
+        {
+          "name": "comments",
+          "type": "CommentEntry[]",
+          "default": "[]"
+        },
+        {
+          "name": "sort",
+          "type": "CommentsSort"
+        },
+        {
+          "name": "defaultSort",
+          "type": "CommentsSort",
+          "default": "\"newest\""
+        },
+        {
+          "name": "onSortChange",
+          "type": "((sort: CommentsSort) => void)"
+        },
+        {
+          "name": "signedIn",
+          "type": "boolean",
+          "default": "false",
+          "description": "Signed-in visitors can write and post; others see Login and Subscribe."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "\"Add your comment...\""
+        },
+        {
+          "name": "onSubmit",
+          "type": "((body: string) => void | Promise<void>)",
+          "description": "Called with the trimmed text. The box clears once it resolves."
+        },
+        {
+          "name": "onLogin",
+          "type": "(() => void)"
+        },
+        {
+          "name": "loginHref",
+          "type": "string",
+          "default": "\"#\""
+        },
+        {
+          "name": "subscribeHref",
+          "type": "string",
+          "default": "\"#\""
+        },
+        {
+          "name": "empty",
+          "type": "React.ReactNode",
+          "description": "Shown instead of the list when there are no comments."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Signed in, with comments",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Comments } from \"@/components/standard/comments\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <Button\n    size=\"xs\"\n    tone=\"outline\"\n    className=\"self-end\"\n    onClick={() => setSignedIn((on) => !on)}\n  >\n    {signedIn ? \"Sign out\" : \"Sign in\"}\n  </Button>\n  <Comments\n    label=\"Comments\"\n    signedIn={signedIn}\n    comments={comments}\n    onLogin={() => setSignedIn(true)}\n    onSubmit={(body) =>\n      setComments((list) => [\n        ...list,\n        {\n          id: crypto.randomUUID(),\n          author: \"You\",\n          body,\n          date: Date.now(),\n        },\n      ])\n    }\n    empty=\"No comments yet.\"\n  />\n</div>"
+    },
+    {
+      "title": "Signed out",
+      "imports": [
+        "import { Comments } from \"@/components/standard/comments\""
+      ],
+      "code": "<Comments onLogin={() => setSignedIn(true)} />"
+    }
+  ]
+}

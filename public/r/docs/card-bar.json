@@ -1,0 +1,74 @@
+{
+  "name": "card-bar",
+  "components": [
+    {
+      "name": "CardBar",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Content before the text, e.g. an icon, avatar or thumbnail."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the text, e.g. a chevron, badge or count."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the bar as the chosen one in a list; sets aria-pressed."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "size sm",
+      "imports": [
+        "import { CardBar } from \"@/components/standard/card-bar\"",
+        "import { ChevronRightIcon, ClockIcon } from \"lucide-react\""
+      ],
+      "code": "<CardBar\n  size=\"sm\"\n  title=\"Timesheets\"\n  description=\"Hours for this week\"\n  leading={<ClockIcon className=\"size-3.5\" />}\n  trailing={<ChevronRightIcon className=\"size-3.5\" />}\n/>"
+    },
+    {
+      "imports": [
+        "import { CardBar } from \"@/components/standard/card-bar\""
+      ],
+      "code": "<CardBar title=\"Timesheets\" description=\"Hours for this week\" />"
+    },
+    {
+      "title": "leading image",
+      "imports": [
+        "import { CardBar } from \"@/components/standard/card-bar\""
+      ],
+      "code": "<CardBar\n  title=\"Site photos\"\n  description=\"12 uploads from today\"\n  leading={<RendersThumbnail />}\n/>"
+    },
+    {
+      "title": "leading",
+      "imports": [
+        "import { CardBar } from \"@/components/standard/card-bar\"",
+        "import { ClockIcon } from \"lucide-react\""
+      ],
+      "code": "<CardBar\n  title=\"Timesheets\"\n  description=\"Hours for this week\"\n  leading={<ClockIcon className=\"size-4\" />}\n/>"
+    }
+  ]
+}

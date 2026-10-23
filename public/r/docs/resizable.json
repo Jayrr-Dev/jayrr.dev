@@ -1,0 +1,43 @@
+{
+  "name": "resizable",
+  "components": [
+    {
+      "name": "ResizableHandle",
+      "props": [
+        {
+          "name": "withHandle",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "SeparatorProps"
+      ]
+    },
+    {
+      "name": "ResizablePanel",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PanelProps"
+      ]
+    },
+    {
+      "name": "ResizablePanelGroup",
+      "props": [],
+      "inherits": [
+        "GroupProps",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Resizable",
+      "imports": [
+        "import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from \"@/components/ui/resizable\""
+      ],
+      "code": "<div className=\"h-48 w-full overflow-hidden rounded-lg border\">\n  <ResizablePanelGroup>\n    <ResizablePanel defaultSize=\"30%\" minSize=\"20%\">\n      <div className=\"flex h-full flex-col gap-1.5 p-2 text-xs\">\n        <span className=\"px-1.5 pb-1 font-medium tracking-wide text-muted-foreground uppercase\">\n          Collections\n        </span>\n        {[\"Components\", \"Hooks\", \"Templates\", \"Icons\"].map((name, i) => (\n          <div\n            key={name}\n            className={\n              i === 0\n                ? \"rounded-md bg-accent px-2 py-1.5 font-medium text-accent-foreground\"\n                : \"rounded-md px-2 py-1.5 text-muted-foreground\"\n            }\n          >\n            {name}\n          </div>\n        ))}\n      </div>\n    </ResizablePanel>\n    <ResizableHandle withHandle />\n    <ResizablePanel defaultSize=\"70%\" minSize=\"30%\">\n      <ResizablePanelGroup orientation=\"vertical\">\n        <ResizablePanel defaultSize=\"60%\" minSize=\"25%\">\n          <div className=\"flex h-full flex-col justify-center gap-1 p-3\">\n            <span className=\"text-sm font-medium\">Components</span>\n            <span className=\"text-xs text-muted-foreground\">\n              Drag the handles to resize panes.\n            </span>\n          </div>\n        </ResizablePanel>\n        <ResizableHandle withHandle />\n        <ResizablePanel defaultSize=\"40%\" minSize=\"20%\">\n          <div className=\"flex h-full items-center p-3 font-mono text-xs text-muted-foreground\">\n            {\"> preview ready\"}\n          </div>\n        </ResizablePanel>\n      </ResizablePanelGroup>\n    </ResizablePanel>\n  </ResizablePanelGroup>\n</div>"
+    }
+  ]
+}

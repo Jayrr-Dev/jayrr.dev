@@ -1,0 +1,96 @@
+{
+  "name": "activity-overview",
+  "components": [
+    {
+      "name": "ActivityOverview",
+      "props": [
+        {
+          "name": "color",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "CalendarHeatmapData",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "default": "\"Activity\""
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "default": "\"contribution\"",
+          "description": "Singular noun: \"commit\", \"workout\", \"session\"."
+        },
+        {
+          "name": "end",
+          "type": "string | Date",
+          "description": "Last day shown. Defaults to today."
+        },
+        {
+          "name": "weeks",
+          "type": "number",
+          "default": "53"
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1",
+          "default": "0"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "shape",
+          "type": "\"square\" | \"round\"",
+          "default": "\"square\""
+        },
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Trailing header slot, e.g. a range picker or a link."
+        },
+        {
+          "name": "renderDay",
+          "type": "((day: ActivityDay) => React.ReactNode)",
+          "description": "Body of the picked day's panel."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Picked day key, `YYYY-MM-DD`."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "default": "null"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string | null) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "contributions · pick a day",
+      "imports": [
+        "import { ActivityOverview } from \"@/components/standard/activity-overview\""
+      ],
+      "setup": "const COMMITS = definesActivityDays({ seed: 3 })\n\nconst REPOS = [\"jayrr.dev\", \"JayrrBudget\", \"JayrrVideos\", \"starterkit\"]",
+      "code": "<ActivityOverview\n  title=\"Contributions\"\n  unit=\"commit\"\n  data={COMMITS}\n  end={DEMO_ACTIVITY_END}\n  color=\"oklch(0.66 0.17 150)\"\n  defaultValue={DEMO_ACTIVITY_END}\n  actions={\n    <span className=\"rounded-md border border-border px-2 py-1 text-xs text-muted-foreground\">\n      Last 12 months\n    </span>\n  }\n  renderDay={(day) =>\n    day.value === 0 ? (\n      <span className=\"text-muted-foreground\">A day off.</span>\n    ) : (\n      <ul className=\"flex flex-col gap-1\">\n        {REPOS.slice(\n          0,\n          Math.min(REPOS.length, Math.ceil(day.value / 3))\n        ).map((repo, index) => (\n          <li key={repo} className=\"flex justify-between gap-3\">\n            <span className=\"font-mono text-xs\">{repo}</span>\n            <span className=\"text-xs text-muted-foreground tabular-nums\">\n              {Math.max(1, Math.round(day.value / (index + 2)))} commits\n            </span>\n          </li>\n        ))}\n      </ul>\n    )\n  }\n/>"
+    }
+  ]
+}

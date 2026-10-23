@@ -1,0 +1,74 @@
+{
+  "name": "card-grid",
+  "components": [
+    {
+      "name": "CardGrid",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "appearance",
+          "type": "\"default\" | \"outline\" | \"muted\" | \"elevated\""
+        },
+        {
+          "name": "items",
+          "type": "CardGridEntry[]"
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "default": "5"
+        },
+        {
+          "name": "onItemSelect",
+          "type": "((item: CardGridEntry) => void)",
+          "description": "Called for every tile selected, after the item's own `onSelect`."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "CardGridItem",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Tooltip and accessible name."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Renders the tile as a link instead of a button."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the tile as the current choice, for pickers."
+        },
+        {
+          "name": "onSelect",
+          "type": "(() => void)"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

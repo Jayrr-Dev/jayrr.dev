@@ -1,0 +1,113 @@
+{
+  "name": "upload-button",
+  "components": [
+    {
+      "name": "UploadButton",
+      "props": [
+        {
+          "name": "rel",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "loading",
+          "type": "boolean | \"spin-icon\"",
+          "description": "Blocks clicks while an action runs. `true` shows a spinner before the label (in place of `leading`); `\"spin-icon\"` spins the `leading` icon."
+        },
+        {
+          "name": "target",
+          "type": "React.HTMLAttributeAnchorTarget"
+        },
+        {
+          "name": "download",
+          "type": "any"
+        },
+        {
+          "name": "tone",
+          "type": "\"link\" | \"default\" | \"outline\" | \"ghost\" | \"success\" | \"danger\" | \"quiet\" | \"inverse\" | \"inverse-outline\"",
+          "default": "\"outline\""
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the label (and after `count`), usually an icon."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\" | \"pill\" | \"square\""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches to the full width of its container."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number shown inline after the label as a notification badge."
+        },
+        {
+          "name": "display",
+          "type": "FileActionDisplay",
+          "default": "\"icon-text\""
+        },
+        {
+          "name": "accept",
+          "type": "string",
+          "description": "File types to offer, as in `<input accept>`: \".pdf\", \"image/*\", ..."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "capture",
+          "type": "boolean | \"user\" | \"environment\"",
+          "description": "Opens the camera on phones: \"user\" or \"environment\"."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Form field name for the hidden file input."
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "description": "Files larger than this many bytes go to `onReject` instead."
+        },
+        {
+          "name": "onFiles",
+          "type": "((files: File[]) => void)"
+        },
+        {
+          "name": "onReject",
+          "type": "((files: File[]) => void)"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "imports": [
+        "import { UploadButton } from \"@/components/standard/upload-button\""
+      ],
+      "code": "<div className=\"flex flex-wrap items-center gap-3\">\n  <UploadButton\n    display={display}\n    multiple={multiple}\n    accept={accept}\n    onFiles={(files) =>\n      setPicked(\n        files.length === 1 ? files[0].name : `${files.length} files`\n      )\n    }\n  />\n  <span className=\"font-mono text-xs text-muted-foreground\">\n    {picked ?? \"No file chosen\"}\n  </span>\n</div>"
+    },
+    {
+      "title": "dropzone · drag files or browse",
+      "imports": [
+        "import { UploadButton } from \"@/components/standard/upload-button\"",
+        "import { UploadIcon } from \"lucide-react\""
+      ],
+      "code": "<div\n  data-over={over || undefined}\n  onDragOver={(event) => {\n    event.preventDefault()\n    setOver(true)\n  }}\n  onDragLeave={() => setOver(false)}\n  onDrop={handleDrop}\n  className=\"flex w-full flex-col items-center gap-3 rounded-lg border border-dashed border-border bg-background/50 px-4 py-6 text-center transition-colors data-over:border-foreground/40 data-over:bg-muted/60\"\n>\n  <UploadIcon aria-hidden className=\"size-5 text-muted-foreground\" />\n  <div className=\"text-sm\">\n    Drop files here\n    <span className=\"block text-xs text-muted-foreground\">\n      or choose them from your device\n    </span>\n  </div>\n  <UploadButton size=\"sm\" multiple onFiles={setFiles}>\n    Browse files\n  </UploadButton>\n  {files.length > 0 ? (\n    <ul className=\"w-full max-w-xs space-y-1 font-mono text-xs text-muted-foreground\">\n      {files.map((file) => (\n        <li\n          key={`${file.name}-${file.lastModified}`}\n          className=\"flex justify-between gap-3\"\n        >\n          <span className=\"truncate\">{file.name}</span>\n          <span className=\"shrink-0\">\n            {Math.max(1, Math.round(file.size / 1024))} KB\n          </span>\n        </li>\n      ))}\n    </ul>\n  ) : null}\n</div>"
+    }
+  ]
+}

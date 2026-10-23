@@ -1,0 +1,44 @@
+{
+  "name": "native-select",
+  "components": [
+    {
+      "name": "NativeSelect",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "SelectHTMLAttributes"
+      ]
+    },
+    {
+      "name": "NativeSelectOptGroup",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "OptgroupHTMLAttributes"
+      ]
+    },
+    {
+      "name": "NativeSelectOption",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "OptionHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Native Select",
+      "imports": [
+        "import { NativeSelect, NativeSelectOption } from \"@/components/ui/native-select\""
+      ],
+      "code": "<NativeSelect>\n  <NativeSelectOption value=\"classic\">Classic</NativeSelectOption>\n  <NativeSelectOption value=\"standard\">Standard</NativeSelectOption>\n</NativeSelect>"
+    }
+  ]
+}

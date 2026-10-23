@@ -1,0 +1,110 @@
+{
+  "name": "input-calculator",
+  "components": [
+    {
+      "name": "InputCalculator",
+      "description": "Headless formula field: type `=price * qty * (1 + tax)` and get the value, like a spreadsheet cell. It renders no styles. Compose InputCalculatorInput, InputCalculatorResult and InputCalculatorHighlight inside it, or pass a function child to render from the state yourself.",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "description": "The formula text. Pass it to control the field."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((formula: string) => void)"
+        },
+        {
+          "name": "variables",
+          "type": "CalcVariables",
+          "description": "Names the formula can use, e.g. `{ price: 20, total: \"=price * qty\" }`."
+        },
+        {
+          "name": "functions",
+          "type": "CalcFunctions",
+          "description": "Extra functions, or replacements for built-ins. Names ignore case."
+        },
+        {
+          "name": "requireEquals",
+          "type": "boolean",
+          "description": "Only evaluate text that starts with \"=\", like a spreadsheet cell."
+        },
+        {
+          "name": "format",
+          "type": "((value: CalcValue) => string)",
+          "description": "Turns a value into display text. Defaults to 15 significant digits."
+        },
+        {
+          "name": "onResult",
+          "type": "((result: CalcResult) => void)",
+          "description": "Fires whenever the result changes, as you type."
+        },
+        {
+          "name": "onCommit",
+          "type": "((result: CalcResult) => void)",
+          "description": "Fires on Enter, and on blur after an edit."
+        },
+        {
+          "name": "resolveOnCommit",
+          "type": "boolean",
+          "description": "On commit, replace the formula with its value: `=6*7` becomes `42`."
+        },
+        {
+          "name": "locked",
+          "type": "boolean",
+          "description": "Stops the formula being edited: the field turns read-only and Enter, Escape and blur do nothing. The result still follows `variables`, and `value` or `setFormula` can still change the formula from code."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode | ((state: InputCalculatorState) => React.ReactNode)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "InputCalculatorInput",
+      "description": "The formula field: a plain input wired to the calculator.",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    },
+    {
+      "name": "InputCalculatorResult",
+      "description": "Live result, announced politely to screen readers.",
+      "props": [
+        {
+          "name": "children",
+          "type": "((state: InputCalculatorState) => React.ReactNode)",
+          "description": "Render the result yourself. Defaults to the value or the error code."
+        },
+        {
+          "name": "placeholder",
+          "type": "React.ReactNode",
+          "default": "null",
+          "description": "Shown while the formula is empty."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "OutputHTMLAttributes"
+      ]
+    },
+    {
+      "name": "InputCalculatorHighlight",
+      "description": "The formula as token spans (`data-token=\"number\" | \"name\" | \"function\"…`), with `data-error=\"invalid\" | \"incomplete\"` on the part an error points at. Lay it under a transparent input to colour the formula as it is typed.",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

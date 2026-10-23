@@ -1,0 +1,396 @@
+{
+  "name": "spreadsheet",
+  "components": [
+    {
+      "name": "Spreadsheet",
+      "description": "A Data Grid whose cells take formulas: type `=SUM(B2:B9)` or `=B2 * $C$1` and the cell shows the result, recalculated as other cells change. Cells are named by position (A1, B2…), dragging the fill handle moves relative references, and the value bar shows the formula behind the active cell. Everything else (undo, copy and paste, sort, adapters) is the Data Grid.",
+      "props": [
+        {
+          "name": "value",
+          "type": "GridData"
+        },
+        {
+          "name": "defaultValue",
+          "type": "GridData"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((data: GridData, changes: GridChange[]) => void)",
+          "description": "Every local change with the data after it. Pair with `value` to control the grid."
+        },
+        {
+          "name": "onChanges",
+          "type": "((changes: GridChange[], data: GridData, source: import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridChangeSource) => void)",
+          "description": "Change batches for syncing: user edits, undo, and redo. Remote changes are not echoed."
+        },
+        {
+          "name": "onSelectionChange",
+          "type": "((range: GridRange) => void)",
+          "description": "The selected range, whenever it changes (rows and columns selections span the grid)."
+        },
+        {
+          "name": "adapter",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid-model\").DataGridAdapter",
+          "description": "Load, save, and live-update hooks for a backend. Keep the object stable (module scope or useMemo)."
+        },
+        {
+          "name": "cellTypes",
+          "type": "Record<string, DataGridCellType>",
+          "description": "Extra or replacement cell types, keyed by `column.type`."
+        },
+        {
+          "name": "headerMode",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid/header\").HeaderMode",
+          "description": "What column headers show: letters, labels, or both."
+        },
+        {
+          "name": "rowHeaderMode",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid/header\").HeaderMode",
+          "description": "What row headers show: numbers, labels, or both."
+        },
+        {
+          "name": "rowHeight",
+          "type": "number"
+        },
+        {
+          "name": "columnWidth",
+          "type": "number"
+        },
+        {
+          "name": "headerHeight",
+          "type": "number"
+        },
+        {
+          "name": "rowHeaderWidth",
+          "type": "number"
+        },
+        {
+          "name": "showColumnHeaders",
+          "type": "boolean",
+          "description": "Shows the column header strip (letters or labels) above the cells. Defaults to true."
+        },
+        {
+          "name": "showRowHeaders",
+          "type": "boolean",
+          "description": "Shows the row header strip (numbers or labels) left of the cells. Defaults to true."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "description": "Height of the scrolling area."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "description": "Locks the whole grid. Lock a row or column with its own `readOnly`."
+        },
+        {
+          "name": "cellReadOnly",
+          "type": "((cell: import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridCellInfo) => boolean)",
+          "description": "Locks single cells: return true and the cell won't edit, toggle, or take pasted, filled, or cleared values. Runs on top of row and column `readOnly`."
+        },
+        {
+          "name": "showNameBox",
+          "type": "boolean",
+          "description": "Shows the Name Box and value bar above the grid."
+        },
+        {
+          "name": "autoFitButton",
+          "type": "boolean",
+          "description": "Shows a round button at the top right of the Name Box bar that sizes columns to their content: the selected columns, or all of them."
+        },
+        {
+          "name": "confirmDelete",
+          "type": "boolean",
+          "description": "Asks before deleting rows or columns that hold data. Empty ones are deleted right away. Defaults to true."
+        },
+        {
+          "name": "maxFitWidth",
+          "type": "number",
+          "description": "Widest a column gets from auto-fit."
+        },
+        {
+          "name": "toolbar",
+          "type": "React.ReactNode",
+          "description": "Extra controls at the right of the Name Box bar."
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode",
+          "description": "A status bar under the grid, such as a selection summary. The bar under the grid that holds sheet tabs and the selection summary. Pass content to show it at the start of the bar, or `false` to hide the bar."
+        },
+        {
+          "name": "sortable",
+          "type": "boolean",
+          "description": "Clicking a column header sorts by it (A → Z, then Z → A). Columns can override with `sortable`."
+        },
+        {
+          "name": "sortIndicator",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridSortIndicator",
+          "description": "How a sorted header shows its direction: `arrow` beside the label, or `chevron` in the header's top (ascending) or bottom (descending) gutter. Unsorted headers show nothing either way."
+        },
+        {
+          "name": "formatRules",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid-model\").GridFormatRule[]",
+          "description": "Conditional formatting from your app, applied after `data.rules`. Plain JSON: load it from a backend and pass it straight through."
+        },
+        {
+          "name": "filterMenu",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid-model\").GridFilterMenu",
+          "description": "Default sections for every filter menu: `sort`, `conditions` (or a list of operators), and `values`. A column's `filterable: { ... }` overrides these."
+        },
+        {
+          "name": "createId",
+          "type": "((kind: \"row\" | \"col\") => string)",
+          "description": "Makes ids for new rows and columns, e.g. to match database keys."
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "description": "Rows and columns rendered beyond the viewport on each side."
+        },
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "ref",
+          "type": "React.Ref<import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridHandle>"
+        },
+        {
+          "name": "variables",
+          "type": "CalcVariables",
+          "description": "Named values formulas can use next to cell references, e.g. `{ taxRate: 0.08 }`."
+        },
+        {
+          "name": "functions",
+          "type": "CalcFunctions",
+          "description": "Extra functions, or replacements for built-ins. Names ignore case."
+        },
+        {
+          "name": "formatResult",
+          "type": "((value: CalcValue) => string)",
+          "description": "Display text for formula results. Numbers default to en-US grouping."
+        },
+        {
+          "name": "onResults",
+          "type": "((results: SpreadsheetResults) => void)",
+          "description": "Every formula's result, after each change."
+        },
+        {
+          "name": "selectionSummary",
+          "type": "boolean | ((stats: SpreadsheetSelectionStats) => React.ReactNode)",
+          "description": "Adds up the selection in the footer once it holds two or more numbers. Pass a function to write your own text, or `false` to hide it."
+        },
+        {
+          "name": "sheets",
+          "type": "SpreadsheetSheet[]",
+          "description": "Sheets shown as tabs in the footer, like workbook tabs. Each sheet is its own grid."
+        },
+        {
+          "name": "defaultSheets",
+          "type": "SpreadsheetSheet[]",
+          "description": "Starting sheets when `sheets` is not controlled."
+        },
+        {
+          "name": "onSheetsChange",
+          "type": "((sheets: SpreadsheetSheet[]) => void)"
+        },
+        {
+          "name": "activeSheet",
+          "type": "string",
+          "description": "Id of the sheet on screen."
+        },
+        {
+          "name": "defaultActiveSheet",
+          "type": "string"
+        },
+        {
+          "name": "onActiveSheetChange",
+          "type": "((id: string) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "DataGrid",
+      "props": [
+        {
+          "name": "value",
+          "type": "GridData"
+        },
+        {
+          "name": "defaultValue",
+          "type": "GridData"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((data: GridData, changes: GridChange[]) => void)",
+          "description": "Every local change with the data after it. Pair with `value` to control the grid."
+        },
+        {
+          "name": "onChanges",
+          "type": "((changes: GridChange[], data: GridData, source: import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridChangeSource) => void)",
+          "description": "Change batches for syncing: user edits, undo, and redo. Remote changes are not echoed."
+        },
+        {
+          "name": "onSelectionChange",
+          "type": "((range: GridRange) => void)",
+          "description": "The selected range, whenever it changes (rows and columns selections span the grid)."
+        },
+        {
+          "name": "adapter",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid-model\").DataGridAdapter",
+          "description": "Load, save, and live-update hooks for a backend. Keep the object stable (module scope or useMemo)."
+        },
+        {
+          "name": "cellTypes",
+          "type": "Record<string, DataGridCellType>",
+          "description": "Extra or replacement cell types, keyed by `column.type`."
+        },
+        {
+          "name": "headerMode",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid/header\").HeaderMode",
+          "default": "\"coordinates\"",
+          "description": "What column headers show: letters, labels, or both."
+        },
+        {
+          "name": "rowHeaderMode",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid/header\").HeaderMode",
+          "default": "\"coordinates\"",
+          "description": "What row headers show: numbers, labels, or both."
+        },
+        {
+          "name": "rowHeight",
+          "type": "number",
+          "default": "32"
+        },
+        {
+          "name": "columnWidth",
+          "type": "number",
+          "default": "120"
+        },
+        {
+          "name": "headerHeight",
+          "type": "number",
+          "default": "32"
+        },
+        {
+          "name": "rowHeaderWidth",
+          "type": "number"
+        },
+        {
+          "name": "showColumnHeaders",
+          "type": "boolean",
+          "default": "true",
+          "description": "Shows the column header strip (letters or labels) above the cells. Defaults to true."
+        },
+        {
+          "name": "showRowHeaders",
+          "type": "boolean",
+          "default": "true",
+          "description": "Shows the row header strip (numbers or labels) left of the cells. Defaults to true."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "default": "420",
+          "description": "Height of the scrolling area."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Locks the whole grid. Lock a row or column with its own `readOnly`."
+        },
+        {
+          "name": "cellReadOnly",
+          "type": "((cell: import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridCellInfo) => boolean)",
+          "description": "Locks single cells: return true and the cell won't edit, toggle, or take pasted, filled, or cleared values. Runs on top of row and column `readOnly`."
+        },
+        {
+          "name": "showNameBox",
+          "type": "boolean",
+          "default": "true",
+          "description": "Shows the Name Box and value bar above the grid."
+        },
+        {
+          "name": "autoFitButton",
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows a round button at the top right of the Name Box bar that sizes columns to their content: the selected columns, or all of them."
+        },
+        {
+          "name": "confirmDelete",
+          "type": "boolean",
+          "default": "true",
+          "description": "Asks before deleting rows or columns that hold data. Empty ones are deleted right away. Defaults to true."
+        },
+        {
+          "name": "maxFitWidth",
+          "type": "number",
+          "default": "480",
+          "description": "Widest a column gets from auto-fit."
+        },
+        {
+          "name": "toolbar",
+          "type": "React.ReactNode",
+          "description": "Extra controls at the right of the Name Box bar."
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode",
+          "description": "A status bar under the grid, such as a selection summary."
+        },
+        {
+          "name": "sortable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Clicking a column header sorts by it (A → Z, then Z → A). Columns can override with `sortable`."
+        },
+        {
+          "name": "sortIndicator",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridSortIndicator",
+          "default": "\"arrow\"",
+          "description": "How a sorted header shows its direction: `arrow` beside the label, or `chevron` in the header's top (ascending) or bottom (descending) gutter. Unsorted headers show nothing either way."
+        },
+        {
+          "name": "formatRules",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid-model\").GridFormatRule[]",
+          "description": "Conditional formatting from your app, applied after `data.rules`. Plain JSON: load it from a backend and pass it straight through."
+        },
+        {
+          "name": "filterMenu",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid-model\").GridFilterMenu",
+          "description": "Default sections for every filter menu: `sort`, `conditions` (or a list of operators), and `values`. A column's `filterable: { ... }` overrides these."
+        },
+        {
+          "name": "createId",
+          "type": "((kind: \"row\" | \"col\") => string)",
+          "description": "Makes ids for new rows and columns, e.g. to match database keys."
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "default": "3",
+          "description": "Rows and columns rendered beyond the viewport on each side."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "\"Data grid\""
+        },
+        {
+          "name": "ref",
+          "type": "React.Ref<import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/data-grid\").DataGridHandle>"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}

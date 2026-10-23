@@ -1,0 +1,100 @@
+{
+  "name": "cell-grid",
+  "components": [
+    {
+      "name": "CellGrid",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "default": "\"var(--primary)\"",
+          "description": "The full-level fill; any CSS color."
+        },
+        {
+          "name": "cells",
+          "type": "CellGridCell[]",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "description": "Fill column by column, this many cells tall. Wins over `columns`."
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "description": "Fill row by row, this many cells wide. Defaults to 10 when `rows` is unset."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "shape",
+          "type": "\"square\" | \"round\"",
+          "default": "\"square\""
+        },
+        {
+          "name": "levels",
+          "type": "number",
+          "default": "5",
+          "description": "Steps on the color ramp, counting the empty level 0."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Id of the selected cell."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "default": "null"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string | null) => void)"
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "description": "Makes cells selectable without controlling the value."
+        },
+        {
+          "name": "onActiveChange",
+          "type": "((cell: CellGridCell | null) => void)",
+          "description": "The cell under the pointer or focus, or null when it leaves."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "round · placeholders + disabled · seat picker",
+      "imports": [
+        "import { CellGrid } from \"@/components/standard/cell-grid\""
+      ],
+      "setup": "const SEAT_ROWS = 6\n\nconst SEAT_COLUMNS = 12\n\nconst TAKEN = new Set([3, 4, 15, 16, 17, 28, 40, 41, 52, 53, 54, 66, 67])\n\nconst SEAT_CELLS: CellGridCell[] = Array.from(\n  { length: SEAT_ROWS * SEAT_COLUMNS },\n  (_, i) => {\n    const row = String.fromCharCode(65 + Math.floor(i / SEAT_COLUMNS))\n    const seat = (i % SEAT_COLUMNS) + 1\n    // An aisle down the middle.\n    if (seat === 7) {\n      return { id: `aisle-${i}`, placeholder: true }\n    }\n    return {\n      id: `${row}${seat}`,\n      label: `Seat ${row}${seat}${TAKEN.has(i) ? \" (taken)\" : \"\"}`,\n      level: TAKEN.has(i) ? 4 : 0,\n      disabled: TAKEN.has(i),\n    }\n  }\n)",
+      "code": "<CellGrid\n  columns={SEAT_COLUMNS}\n  size=\"xl\"\n  shape=\"round\"\n  cells={SEAT_CELLS}\n  value={seat}\n  onValueChange={setSeat}\n  aria-label=\"Seats\"\n/>\n<span className=\"text-xs text-muted-foreground\">\n  {seat ? `Seat ${seat}` : \"Pick a seat\"}\n</span>"
+    },
+    {
+      "title": "levels · column flow, 7 rows · arrows to move, enter to pick",
+      "imports": [
+        "import { CellGrid } from \"@/components/standard/cell-grid\""
+      ],
+      "setup": "const LEVEL_CELLS: CellGridCell[] = Array.from({ length: 7 * 20 }, (_, i) => {\n  const level = (i * 7 + ((i * i) % 11)) % 5\n  return { id: `day-${i}`, label: `Day ${i + 1} · level ${level}`, level }\n})",
+      "code": "<CellGrid\n  rows={7}\n  cells={LEVEL_CELLS}\n  color=\"oklch(0.66 0.17 150)\"\n  value={picked}\n  onValueChange={setPicked}\n  aria-label=\"Levels by day\"\n/>\n<span className=\"text-xs text-muted-foreground\">\n  {picked ?? \"Nothing picked\"}\n</span>"
+    },
+    {
+      "title": "own colors + marks · a loan payment timeline",
+      "imports": [
+        "import { CellGrid } from \"@/components/standard/cell-grid\""
+      ],
+      "setup": "const PAID = \"oklch(0.68 0.1 165)\"\n\nconst MISSED = \"oklch(0.8 0.08 25)\"\n\nconst DUE = \"oklch(0.58 0.2 0)\"\n\nconst TIMELINE_CELLS: CellGridCell[] = Array.from(\n  { length: 7 * 16 },\n  (_, i) => {\n    const today = 61\n    const payday = i % 14 === 13\n    const missed = payday && i === 41\n    if (i < today) {\n      return {\n        id: `t-${i}`,\n        label: payday ? (missed ? \"Missed payment\" : \"Paid\") : undefined,\n        color: payday ? (missed ? MISSED : PAID) : undefined,\n        mark: payday,\n      }\n    }\n    return {\n      id: `t-${i}`,\n      label: i === today ? \"Today\" : payday ? \"Pay date\" : undefined,\n      color: payday ? DUE : undefined,\n      mark: i === today,\n      faded: i > today && !(payday && i < today + 14),\n    }\n  }\n)",
+      "code": "<CellGrid\n  rows={7}\n  size=\"lg\"\n  cells={TIMELINE_CELLS}\n  aria-label=\"Loan payments: 4 of 8 paid\"\n/>"
+    }
+  ]
+}

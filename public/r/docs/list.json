@@ -1,0 +1,222 @@
+{
+  "name": "list",
+  "components": [
+    {
+      "name": "List",
+      "description": "A card of Bars. Rows can be links, buttons, selectable options or expandable branches, grouped under sections and split by separators. Pass `items` or compose `ListItem`, `ListSection` and `ListSeparator`.",
+      "props": [
+        {
+          "name": "tone",
+          "type": "\"default\" | \"outline\" | \"ghost\" | \"quiet\""
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "description": "Heading at the top of the card, e.g. \"Recent\"."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Before the title: an icon or avatar."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "End of the title row: a \"See all\" link, a count, a button."
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode",
+          "description": "Pinned under the rows, e.g. an \"Add\" bar."
+        },
+        {
+          "name": "size",
+          "type": "ListSize",
+          "default": "\"default\""
+        },
+        {
+          "name": "items",
+          "type": "ListEntry[]",
+          "description": "Rows as data. Composed `<ListItem>` children work too."
+        },
+        {
+          "name": "tree",
+          "type": "boolean",
+          "default": "false",
+          "description": "Folder-tree layout: a chevron column on every row."
+        },
+        {
+          "name": "divided",
+          "type": "boolean",
+          "default": "false",
+          "description": "Hairline between rows, for settings-style lists."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Rows with a `value` become selectable; the selected one is active. Controlled with `value`, or kept internally from `defaultValue`."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "default": "null"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string | null) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ListItem",
+      "description": "One Bar in a List. Nest ListItems inside to make an expandable branch.",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "description": "Main slot. Grows and truncates."
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "description": "Leading slot: an icon, avatar, status dot."
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "description": "Marks the bar as the current one, e.g. the selected nav row."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Replaces the shortcut slot with anything, such as a badge or chevron."
+        },
+        {
+          "name": "shortcut",
+          "type": "string",
+          "description": "Keyboard hint shown at the end, e.g. \"Ctrl+N\". Display only."
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Second line under the label. Makes the row two lines tall."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Renders the row as a link."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Makes the row selectable within a List that tracks `value`."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Nested rows. The row becomes an expandable branch."
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ListSection",
+      "description": "A small heading over a group of rows, optionally collapsible.",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "End of the section heading: a count or an add button."
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "default": "false",
+          "description": "The heading toggles the section open and closed."
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "ListSeparator",
+      "description": "A hairline between groups of rows.",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "sections · collapsible",
+      "imports": [
+        "import { List, ListItem, ListSection } from \"@/components/standard/list\"",
+        "import { BellIcon, HashIcon, StarIcon } from \"lucide-react\""
+      ],
+      "setup": "const count = (n: number) => (\n  <span className=\"text-xs text-muted-foreground tabular-nums\">{n}</span>\n)",
+      "code": "<List className=\"max-w-72\" defaultValue=\"design\">\n  <ListSection label=\"Favorites\" trailing={count(2)}>\n    <ListItem value=\"inbox\" icon={<StarIcon />} label=\"Starred\" />\n    <ListItem\n      value=\"mentions\"\n      icon={<BellIcon />}\n      label=\"Mentions\"\n      trailing={count(4)}\n    />\n  </ListSection>\n  <ListSection label=\"Channels\" collapsible>\n    <ListItem value=\"general\" icon={<HashIcon />} label=\"general\" />\n    <ListItem value=\"design\" icon={<HashIcon />} label=\"design\" />\n    <ListItem\n      value=\"launch\"\n      icon={<HashIcon />}\n      label=\"launch\"\n      trailing={count(12)}\n    />\n  </ListSection>\n  <ListSection label=\"Archived\" collapsible defaultOpen={false}>\n    <ListItem value=\"old\" icon={<HashIcon />} label=\"q2-planning\" />\n  </ListSection>\n</List>"
+    },
+    {
+      "title": "composed · separator · disabled",
+      "imports": [
+        "import { List, ListItem, ListSeparator } from \"@/components/standard/list\"",
+        "import { FileTextIcon, FolderIcon, LockIcon } from \"lucide-react\""
+      ],
+      "code": "<List className=\"max-w-64\" tone=\"quiet\">\n  <ListItem icon={<FileTextIcon />} label=\"Rename\" shortcut=\"F2\" />\n  <ListItem icon={<FolderIcon />} label=\"Move to…\" />\n  <ListSeparator />\n  <ListItem icon={<LockIcon />} label=\"Lock (admins only)\" disabled />\n</List>"
+    },
+    {
+      "title": "description · divided · links",
+      "imports": [
+        "import { List, ListItem } from \"@/components/standard/list\"",
+        "import { BellIcon, ChevronRightIcon, LockIcon, PaletteIcon, UserIcon } from \"lucide-react\""
+      ],
+      "code": "<List divided title=\"Settings\" className=\"max-w-80\">\n  {[\n    {\n      icon: <UserIcon />,\n      label: \"Account\",\n      description: \"Name, email and photo\",\n    },\n    {\n      icon: <LockIcon />,\n      label: \"Privacy\",\n      description: \"Who can see your activity\",\n    },\n    {\n      icon: <PaletteIcon />,\n      label: \"Appearance\",\n      description: \"Theme, density and font\",\n    },\n    {\n      icon: <BellIcon />,\n      label: \"Notifications\",\n      description: \"Email and push\",\n    },\n  ].map((row) => (\n    <ListItem\n      key={row.label}\n      href=\"#list\"\n      {...row}\n      trailing={<ChevronRightIcon className=\"text-muted-foreground\" />}\n    />\n  ))}\n</List>"
+    },
+    {
+      "title": "tone",
+      "imports": [
+        "import { List, ListItem } from \"@/components/standard/list\"",
+        "import { CompassIcon, HouseIcon } from \"lucide-react\""
+      ],
+      "code": "<div className=\"grid w-full grid-cols-2 gap-3\">\n  {([\"default\", \"quiet\", \"outline\", \"ghost\"] as const).map((tone) => (\n    <List key={tone} tone={tone} title={tone} size=\"sm\">\n      <ListItem icon={<HouseIcon />} label=\"Home\" active />\n      <ListItem icon={<CompassIcon />} label=\"Explore\" />\n    </List>\n  ))}\n</div>"
+    }
+  ]
+}

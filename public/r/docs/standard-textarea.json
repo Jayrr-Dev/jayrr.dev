@@ -1,0 +1,75 @@
+{
+  "name": "standard-textarea",
+  "components": [
+    {
+      "name": "Textarea",
+      "props": [
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "description": "Error to show under the field, e.g. from the server. Marks the field invalid and overrides the built-in checks while set."
+        },
+        {
+          "name": "validate",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").FieldValidator"
+        },
+        {
+          "name": "validateOn",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidateOn"
+        },
+        {
+          "name": "messages",
+          "type": "Partial<Record<import(\"C:/Users/Work/Projects/jayrr.dev/hooks/use-field-validation\").ValidationRule, string>>"
+        },
+        {
+          "name": "onValidityChange",
+          "type": "((error: string | null) => void)",
+          "description": "Fires when the field's validity changes, whether or not the error is showing yet."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "description": "Shows the error style. Same as passing aria-invalid."
+        },
+        {
+          "name": "completion",
+          "type": "CompletionSource",
+          "description": "Suggests the rest of the text as ghost text once the caret is at the end, accepted with Tab or ArrowRight. Memoize async sources. Adding or removing it remounts the textarea, so keep it steady."
+        },
+        {
+          "name": "completionKeys",
+          "type": "InlineCompletionKey[]",
+          "description": "Keys that accept the suggestion. Defaults to Tab and ArrowRight."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "TextareaHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "invalid",
+      "imports": [
+        "import { Textarea } from \"@/components/standard/textarea\""
+      ],
+      "code": "<Textarea aria-label=\"Notes\" placeholder=\"Notes\" invalid />"
+    },
+    {
+      "title": "Textarea",
+      "imports": [
+        "import { Textarea } from \"@/components/standard/textarea\""
+      ],
+      "code": "<Textarea aria-label=\"Notes\" placeholder=\"Notes\" />"
+    },
+    {
+      "title": "completion (Tab to accept)",
+      "imports": [
+        "import { Textarea } from \"@/components/standard/textarea\""
+      ],
+      "setup": "const PHRASES = [\n  \"Thanks for reaching out, I'll get back to you by end of day.\",\n  \"Thanks for the update, looks good to me.\",\n  \"Let me know if you have any questions.\",\n  \"Looking forward to hearing from you.\",\n]\n\nconst completePhrase: CompletionSource = (value) => {\n  const lineStart = value.lastIndexOf(\"\\n\") + 1\n  const line = value.slice(lineStart).toLowerCase()\n  if (line.length < 3) {\n    return null\n  }\n  const phrase = PHRASES.find(\n    (option) =>\n      option.toLowerCase().startsWith(line) && option.length > line.length\n  )\n  return phrase ? value.slice(0, lineStart) + phrase : null\n}",
+      "code": "<Textarea\n  aria-label=\"Reply\"\n  placeholder=\"Try typing Thanks…\"\n  completion={completePhrase}\n/>"
+    }
+  ]
+}

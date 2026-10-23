@@ -1,0 +1,57 @@
+{
+  "name": "mood-text",
+  "components": [
+    {
+      "name": "MoodText",
+      "description": "Text whose words move, colour and reshape to match a mood.",
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "mood",
+          "type": "\"normal\" | \"hurt\" | \"joy\" | \"happy\" | \"excited\" | \"surprise\" | \"fear\" | \"anxious\" | \"timid\" | \"sadness\" | \"anger\" | \"annoyed\" | \"disgust\" | \"confusion\"",
+          "default": "\"normal\"",
+          "description": "Baseline stack for the whole line."
+        },
+        {
+          "name": "effects",
+          "type": "MoodTextEffect | readonly MoodTextEffect[]",
+          "description": "Extra tokens or presets layered over the mood on every word."
+        },
+        {
+          "name": "highlights",
+          "type": "readonly MoodTextHighlight[]",
+          "description": "Phrases to pick out. A bare string uses the mood's signature preset; an object names its own effect."
+        },
+        {
+          "name": "stagger",
+          "type": "boolean",
+          "default": "true",
+          "description": "Offset each word's animation so motion travels along the line."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "highlights · presets and raw tokens",
+      "imports": [
+        "import { MoodText } from \"@/components/standard/mood-text\""
+      ],
+      "code": "<p className=\"text-lg leading-relaxed\">\n  <MoodText\n    highlights={[\n      { phrase: \"Moon\", effect: \"goldWave\" },\n      { phrase: \"tremble\", effect: \"chill\" },\n      { phrase: \"sink\", effect: [\"cascade\", \"sea\", \"italic\"] },\n      { phrase: \"secret\", effect: \"phantom\" },\n    ]}\n  >\n    Under the Moon the tables tremble, the candles sink, and one\n    secret waits for a hover.\n  </MoodText>\n</p>"
+    },
+    {
+      "imports": [
+        "import { MoodText, moodTextPresets } from \"@/components/standard/mood-text\""
+      ],
+      "setup": "const presets = Object.keys(moodTextPresets) as MoodTextPreset[]",
+      "code": "<div className=\"grid w-full grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 md:grid-cols-4\">\n  {presets.map((preset) => (\n    <div key={preset} className=\"flex flex-col gap-0.5\">\n      <span className=\"text-base\">\n        <MoodText effects={preset}>{preset}</MoodText>\n      </span>\n      <span className=\"font-mono text-2xs text-muted-foreground\">\n        {moodTextPresets[preset].join(\" + \")}\n      </span>\n    </div>\n  ))}\n</div>"
+    }
+  ]
+}

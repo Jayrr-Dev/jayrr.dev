@@ -1,0 +1,114 @@
+{
+  "name": "app-bar",
+  "components": [
+    {
+      "name": "AppBar",
+      "description": "Top of a screen: an optional leading nav button, a title (and subtitle), and up to three trailing actions. Pass `scrollRef` to fill on scroll and, for Medium/Large, collapse to the Small layout.",
+      "props": [
+        {
+          "name": "scrollRef",
+          "type": "React.RefObject<HTMLElement | null>",
+          "description": "Element whose scroll drives the bar. Omit and use `scrolled`/`collapsed` to drive it yourself."
+        },
+        {
+          "name": "scrolled",
+          "type": "boolean",
+          "description": "Content has scrolled under the bar: fills the container."
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "description": "Medium/Large only: fold the big title into the top row."
+        },
+        {
+          "name": "variant",
+          "type": "AppBarVariant",
+          "default": "\"small\""
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "subtitle",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\"",
+          "default": "\"start\"",
+          "description": "Small only: center the title between leading and trailing."
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Navigation icon button (menu, back)."
+        },
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Trailing icon buttons; keep to three and move the rest into a menu."
+        },
+        {
+          "name": "search",
+          "type": "React.ReactNode",
+          "description": "Search variant: the field that fills the bar, e.g. `<AppBarSearch />`."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "AppBarSearch",
+      "description": "Pill-shaped search field for the Search app bar.",
+      "props": [
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Icon or button at the start of the pill; defaults to nothing."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Icon, button or avatar at the end of the pill."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "search",
+      "imports": [
+        "import { AppBar, AppBarSearch } from \"@/components/standard/app-bar\"",
+        "import { Button } from \"@/components/standard/button\"",
+        "import { MenuIcon, MicIcon } from \"lucide-react\""
+      ],
+      "code": "<div className=\"w-full overflow-hidden rounded-xl border border-border\">\n  <AppBar\n    variant=\"search\"\n    leading={\n      <Button iconOnly aria-label=\"Menu\" tone=\"ghost\">\n        <MenuIcon className=\"size-4\" />\n      </Button>\n    }\n    search={\n      <AppBarSearch\n        placeholder=\"Search jobs\"\n        trailing={\n          <Button\n            iconOnly\n            shape=\"circle\"\n            aria-label=\"Voice search\"\n            tone=\"ghost\"\n          >\n            <MicIcon className=\"size-4\" />\n          </Button>\n        }\n      />\n    }\n  />\n</div>"
+    },
+    {
+      "title": "small",
+      "imports": [
+        "import { AppBar } from \"@/components/standard/app-bar\"",
+        "import { Button } from \"@/components/standard/button\"",
+        "import { ArrowLeftIcon, MenuIcon } from \"lucide-react\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-2\">\n  <div className=\"overflow-hidden rounded-xl border border-border\">\n    <AppBar\n      title=\"Schedule\"\n      leading={\n        <Button iconOnly aria-label=\"Menu\" tone=\"ghost\">\n          <MenuIcon className=\"size-4\" />\n        </Button>\n      }\n      actions={<RendersAppBarActions />}\n    />\n  </div>\n  <div className=\"overflow-hidden rounded-xl border border-border\">\n    <AppBar\n      align=\"center\"\n      title=\"Schedule\"\n      subtitle=\"Week 40\"\n      scrolled\n      leading={\n        <Button iconOnly aria-label=\"Back\" tone=\"ghost\">\n          <ArrowLeftIcon className=\"size-4\" />\n        </Button>\n      }\n      actions={<RendersAppBarActions />}\n    />\n  </div>\n</div>"
+    },
+    {
+      "title": "flexible — scroll to collapse",
+      "imports": [
+        "import { AppBar } from \"@/components/standard/app-bar\"",
+        "import { Button } from \"@/components/standard/button\"",
+        "import { Select } from \"@/components/standard/select\"",
+        "import { Skeleton } from \"@/components/standard/skeleton\"",
+        "import { ArrowLeftIcon } from \"lucide-react\""
+      ],
+      "code": "<Select\n  value={variant}\n  onValueChange={(next) => setVariant(next as \"medium\" | \"large\")}\n  options={[\n    { value: \"medium\", label: \"Medium\" },\n    { value: \"large\", label: \"Large\" },\n  ]}\n/>\n<div className=\"flex h-80 w-full flex-col overflow-hidden rounded-xl border border-border\">\n  <AppBar\n    variant={variant}\n    title=\"Jobs\"\n    subtitle=\"12 open this week\"\n    scrollRef={scrollRef}\n    leading={\n      <Button iconOnly aria-label=\"Back\" tone=\"ghost\">\n        <ArrowLeftIcon className=\"size-4\" />\n      </Button>\n    }\n    actions={<RendersAppBarActions />}\n  />\n  <div ref={scrollRef} className=\"flex-1 overflow-y-auto\">\n    <div className=\"flex flex-col gap-2 p-4\">\n      {Array.from({ length: 16 }, (_, index) => (\n        <Skeleton key={index} className=\"h-10 w-full\" />\n      ))}\n    </div>\n  </div>\n</div>"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "status",
+  "components": [
+    {
+      "name": "Status",
+      "description": "A pill with a leading state icon and background. `state` picks the icon and tint (success green, error red, ...); the text color never changes.\n\nAdd your own states with `states` (or spread `statusStates` into a shared map), or replace one icon with `icon` (`icon={null}` hides it).\n\n<Status state=\"review\" states={{ review: { icon: <EyeIcon /> } }}>Review</Status>",
+      "props": [
+        {
+          "name": "variant",
+          "type": "StatusVariant"
+        },
+        {
+          "name": "state",
+          "type": "\"none\" | \"error\" | \"loading\" | K | \"success\" | \"unknown\" | \"neutral\"",
+          "default": "\"none\" as K"
+        },
+        {
+          "name": "states",
+          "type": "Partial<Record<K, StatusStateConfig>>"
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "live — same badge, changing state",
+      "imports": [
+        "import { Status } from \"@/components/ui/status\""
+      ],
+      "setup": "const STATUS_STATES: {\n  state: StatusStateName\n  label: string\n}[] = [\n  { state: \"none\", label: \"Ready\" },\n  { state: \"loading\", label: \"Working\" },\n  { state: \"success\", label: \"Done\" },\n  { state: \"error\", label: \"Failed\" },\n  { state: \"unknown\", label: \"Unknown\" },\n  { state: \"neutral\", label: \"Skipped\" },\n]",
+      "code": "<div className=\"flex flex-col gap-4\">\n  <div className=\"flex min-h-10 items-center justify-between gap-3\">\n    <Status state={state.state}>{state.label}</Status>\n    <button\n      type=\"button\"\n      onClick={() => setPlaying((p) => !p)}\n      className=\"rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:bg-muted\"\n    >\n      {playing ? \"Pause\" : \"Auto-play\"}\n    </button>\n  </div>\n  <div className=\"flex flex-wrap gap-1.5\">\n    {STATUS_STATES.map((s, i) => (\n      <button\n        key={s.state}\n        type=\"button\"\n        aria-pressed={i === index}\n        onClick={() => {\n          setPlaying(false)\n          setIndex(i)\n        }}\n        className={`rounded-md border px-2 py-1 text-xs transition-colors ${\n          i === index\n            ? \"border-foreground/40 bg-muted text-foreground\"\n            : \"border-border text-muted-foreground hover:bg-muted\"\n        }`}\n      >\n        {s.state}\n      </button>\n    ))}\n  </div>\n  <pre className=\"max-w-full overflow-x-auto rounded-md bg-background/60 p-2 text-xs whitespace-pre-wrap text-muted-foreground\">\n    {code}\n  </pre>\n</div>"
+    }
+  ]
+}

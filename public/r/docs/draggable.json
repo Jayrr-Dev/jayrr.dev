@@ -1,0 +1,102 @@
+{
+  "name": "draggable",
+  "components": [
+    {
+      "name": "Draggable",
+      "description": "A list people can reorder by dragging, with the keyboard (Space to lift, arrows to move, Space to drop) or by pointer. Put several inside a `DraggableRoot` with `listId`s to move items between them.",
+      "props": [
+        {
+          "name": "items",
+          "type": "T[]",
+          "required": true
+        },
+        {
+          "name": "getId",
+          "type": "(item: T) => string",
+          "required": true
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: T, state: DraggableItemState) => React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "onItemsChange",
+          "type": "((items: T[]) => void)",
+          "description": "Called with the reordered list when a move lands in (or leaves) this list."
+        },
+        {
+          "name": "listId",
+          "type": "string",
+          "description": "Needed to drag between lists inside one `DraggableRoot`."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Screen reader name for the list, e.g. \"To do\"."
+        },
+        {
+          "name": "getItemLabel",
+          "type": "((item: T) => string)",
+          "description": "Screen reader name for an item. Defaults to \"item n\"."
+        },
+        {
+          "name": "orientation",
+          "type": "DraggableOrientation"
+        },
+        {
+          "name": "handle",
+          "type": "boolean",
+          "description": "Only a `DraggableHandle` inside the item starts a drag."
+        },
+        {
+          "name": "accept",
+          "type": "((item: T, fromListId: string) => boolean)",
+          "description": "Whether this list takes an item dragged in from another list."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "empty",
+          "type": "React.ReactNode",
+          "description": "Shown when the list has no items. It still takes drops."
+        },
+        {
+          "name": "itemClassName",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "DraggableHandle",
+      "description": "Grip that starts a drag. Use it inside `renderItem` with `handle` set.",
+      "props": [],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "DraggableRoot",
+      "description": "Lets items move between several `Draggable` lists, e.g. kanban columns. A lone `Draggable` makes its own root, so this is only needed for that.",
+      "props": [
+        {
+          "name": "onMove",
+          "type": "((move: DraggableMove) => void)",
+          "description": "Fires once per drop that changes something."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

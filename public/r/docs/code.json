@@ -1,0 +1,36 @@
+{
+  "name": "code",
+  "components": [
+    {
+      "name": "Code",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"inline\" | \"block\"",
+          "default": "\"inline\""
+        },
+        {
+          "name": "copyable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show a copy button. Block variant only."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Code",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { Code } from \"@/components/standard/code\"",
+        "import { Kbd, KbdGroup } from \"@/components/ui/kbd\""
+      ],
+      "setup": "const blockSnippet = `import { Code } from \"@/components/standard/code\"\n\nexport function Example() {\n  return <Code variant=\"block\" copyable>npx shadcn@latest add https://example.com/r/code.json --overwrite</Code>\n}`",
+      "code": "<>\n  <RendersDemoCard>\n    <Code>npx shadcn add button</Code>\n  </RendersDemoCard>\n  <RendersDemoCard>\n    <KbdGroup>\n      <Kbd>Ctrl</Kbd>\n      <Kbd>K</Kbd>\n    </KbdGroup>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"Code block\">\n    <Code variant=\"block\">{blockSnippet}</Code>\n  </RendersDemoCard>\n  <RendersDemoCard label=\"Code block copyable\">\n    <Code variant=\"block\" copyable>\n      {blockSnippet}\n    </Code>\n  </RendersDemoCard>\n</>"
+    }
+  ]
+}

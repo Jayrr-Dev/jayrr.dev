@@ -183,6 +183,60 @@ export async function readsItemSource(entry: RegistryEntry) {
   return item.files.map(({ path, content }) => ({ path, content }))
 }
 
+export type ItemProp = {
+  name: string
+  type: string
+  required?: boolean
+  default?: string
+  description?: string
+}
+
+/** One exported component and the props it declares itself. */
+export type ItemComponent = {
+  name: string
+  description?: string
+  props: ItemProp[]
+  /** Prop groups passed through from React or a primitive, e.g. HTMLAttributes. */
+  inherits?: string[]
+}
+
+export type ItemExample = {
+  title?: string
+  imports: string[]
+  /** Data or helpers the code uses, declared beside it in the demo. */
+  setup?: string
+  code: string
+}
+
+export type ItemDocs = {
+  components: ItemComponent[]
+  examples: ItemExample[]
+}
+
+/**
+ * Props and gallery examples written by scripts/writesItemDocs.mjs, or null
+ * for items with neither (utilities, theme files).
+ */
+export async function readsItemDocs(
+  entry: RegistryEntry
+): Promise<ItemDocs | null> {
+  const file = path.join(
+    process.cwd(),
+    "public",
+    "r",
+    "docs",
+    `${entry.name}.json`
+  )
+
+  try {
+    const { components, examples } = JSON.parse(await readFile(file, "utf8"))
+
+    return { components, examples }
+  } catch {
+    return null
+  }
+}
+
 export async function readsConventions() {
   return readFile(
     path.join(process.cwd(), "docs", "component-conventions.md"),

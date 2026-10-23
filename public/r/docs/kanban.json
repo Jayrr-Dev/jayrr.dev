@@ -1,0 +1,62 @@
+{
+  "name": "kanban",
+  "components": [
+    {
+      "name": "Kanban",
+      "description": "Board of columns whose cards drag between them, by pointer or keyboard (Space to lift, arrows to move within and across columns, Space to drop).",
+      "props": [
+        {
+          "name": "columns",
+          "type": "KanbanColumn<T>[]",
+          "required": true
+        },
+        {
+          "name": "onColumnsChange",
+          "type": "((columns: KanbanColumn<T>[]) => void)",
+          "description": "Gets the columns with the move applied."
+        },
+        {
+          "name": "onMove",
+          "type": "((move: DraggableMove) => void)",
+          "description": "Raw move, e.g. to save a card's new column."
+        },
+        {
+          "name": "renderCard",
+          "type": "((card: T, column: KanbanColumn<T>) => React.ReactNode)",
+          "description": "Replaces the default card body."
+        },
+        {
+          "name": "onAddCard",
+          "type": "((columnId: string) => void)",
+          "description": "Shows an \"Add card\" button at the foot of each column."
+        },
+        {
+          "name": "columnClassName",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "KanbanCardView",
+      "props": [
+        {
+          "name": "card",
+          "type": "KanbanCard",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Kanban · limit 3 on In progress",
+      "imports": [
+        "import { Kanban } from \"@/components/standard/kanban\""
+      ],
+      "code": "<Kanban\n  columns={columns}\n  onColumnsChange={setColumns}\n  onAddCard={(columnId) => {\n    setColumns((current) =>\n      current.map((column) =>\n        column.id === columnId\n          ? {\n              ...column,\n              cards: [...column.cards, { id: `c${count}`, title: `New card ${count}` }],\n            }\n          : column\n      )\n    )\n    setCount(count + 1)\n  }}\n/>"
+    }
+  ]
+}

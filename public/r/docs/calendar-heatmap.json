@@ -1,0 +1,129 @@
+{
+  "name": "calendar-heatmap",
+  "components": [
+    {
+      "name": "CalendarHeatmap",
+      "props": [
+        {
+          "name": "caption",
+          "type": "React.ReactNode",
+          "description": "Shown in the footer when no cell is active."
+        },
+        {
+          "name": "legend",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Id of the selected cell, `${row}:${column}`. Selected day key."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "onValueChange",
+          "type": "(((value: string | null) => void) & ((value: string | null) => void))"
+        },
+        {
+          "name": "shape",
+          "type": "\"square\" | \"round\"",
+          "default": "\"square\""
+        },
+        {
+          "name": "levels",
+          "type": "number",
+          "default": "5",
+          "description": "Steps on the ramp, counting the empty level 0."
+        },
+        {
+          "name": "selectable",
+          "type": "boolean"
+        },
+        {
+          "name": "data",
+          "type": "CalendarHeatmapData",
+          "required": true,
+          "description": "Totals per day, as a key map or a list; repeated days add up."
+        },
+        {
+          "name": "end",
+          "type": "string | Date",
+          "description": "Last day shown. Defaults to today."
+        },
+        {
+          "name": "start",
+          "type": "string | Date",
+          "description": "First day shown. Defaults to `weeks` back from `end`."
+        },
+        {
+          "name": "weeks",
+          "type": "number",
+          "default": "53"
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1",
+          "default": "0",
+          "description": "0 for Sunday, 1 for Monday."
+        },
+        {
+          "name": "today",
+          "type": "string | Date",
+          "description": "Day that gets the mark. Defaults to today; null for none."
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "default": "\"contribution\"",
+          "description": "Singular noun for the readout: \"3 commits on Sep 29, 2026\"."
+        },
+        {
+          "name": "formatDay",
+          "type": "((day: { date: string; value: number; }) => string)",
+          "description": "Replaces the readout text."
+        },
+        {
+          "name": "onActiveChange",
+          "type": "((day: { date: string; value: number; } | null) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "26 weeks · monday start · round",
+      "imports": [
+        "import { CalendarHeatmap } from \"@/components/standard/calendar-heatmap\""
+      ],
+      "setup": "const RUNS = definesActivityDays({ seed: 21, days: 26 * 7, busy: 0.5 })",
+      "code": "<CalendarHeatmap\n  data={RUNS}\n  end={DEMO_ACTIVITY_END}\n  today={DEMO_ACTIVITY_END}\n  weeks={26}\n  weekStartsOn={1}\n  shape=\"round\"\n  size=\"lg\"\n  unit=\"run\"\n  color=\"oklch(0.65 0.2 25)\"\n  legend={false}\n  aria-label=\"Runs by day\"\n/>"
+    },
+    {
+      "title": "a year of commits · today is marked",
+      "imports": [
+        "import { CalendarHeatmap } from \"@/components/standard/calendar-heatmap\""
+      ],
+      "setup": "const COMMITS = definesActivityDays()",
+      "code": "<CalendarHeatmap\n  data={COMMITS}\n  end={DEMO_ACTIVITY_END}\n  today={DEMO_ACTIVITY_END}\n  unit=\"commit\"\n  color=\"oklch(0.66 0.17 150)\"\n  value={day}\n  onValueChange={setDay}\n  caption={day ? `Picked ${day}` : \"Hover a day, or click to pick\"}\n  aria-label=\"Commits by day\"\n/>"
+    }
+  ]
+}

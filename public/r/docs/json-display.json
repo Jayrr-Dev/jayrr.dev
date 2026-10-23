@@ -1,0 +1,67 @@
+{
+  "name": "json-display",
+  "components": [
+    {
+      "name": "JsonDisplay",
+      "props": [
+        {
+          "name": "data",
+          "type": "unknown",
+          "description": "Any JSON-safe value."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "JSON text; used when `data` is not given."
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "expandDepth",
+          "type": "number",
+          "default": "1",
+          "description": "Levels open at first. 0 starts fully collapsed."
+        },
+        {
+          "name": "maxHeight",
+          "type": "string | number",
+          "default": "360",
+          "description": "Scroll the body past this height."
+        },
+        {
+          "name": "bare",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "value (text) · expandDepth 0",
+      "imports": [
+        "import { JsonDisplay } from \"@/components/standard/json-display\""
+      ],
+      "code": "<JsonDisplay\n  value={'{\"ok\":true,\"items\":[1,2,3],\"next\":null}'}\n  expandDepth={0}\n/>"
+    },
+    {
+      "title": "invalid JSON",
+      "imports": [
+        "import { JsonDisplay } from \"@/components/standard/json-display\""
+      ],
+      "code": "<JsonDisplay\n  value={'{\"ok\": true, \"items\": [1, 2,]}'}\n  title=\"response.json\"\n/>"
+    },
+    {
+      "imports": [
+        "import { JsonDisplay } from \"@/components/standard/json-display\""
+      ],
+      "setup": "const user = {\n  id: \"usr_01J9Z\",\n  name: \"Ada Lovelace\",\n  email: \"ada@example.com\",\n  verified: true,\n  score: 98.6,\n  manager: null,\n  roles: [\"admin\", \"editor\"],\n  address: { city: \"London\", postcode: \"W1\", geo: { lat: 51.51, lng: -0.13 } },\n  sessions: [\n    { device: \"MacBook\", lastSeen: \"2026-09-29T18:04:00Z\" },\n    { device: \"iPhone\", lastSeen: \"2026-09-30T07:12:00Z\" },\n  ],\n  tags: [],\n}",
+      "code": "<JsonDisplay data={user} title=\"GET /api/users/usr_01J9Z\" />"
+    }
+  ]
+}

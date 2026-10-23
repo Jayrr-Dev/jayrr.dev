@@ -1,0 +1,69 @@
+{
+  "name": "noise",
+  "components": [
+    {
+      "name": "Noise",
+      "description": "Random surface texture: grain, paper fibers or clouds.",
+      "props": [
+        {
+          "name": "placement",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerPlacement"
+        },
+        {
+          "name": "blend",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerBlend"
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "description": "0–1."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "kind",
+          "type": "\"paper\" | \"grain\" | \"clouds\"",
+          "default": "\"grain\""
+        },
+        {
+          "name": "frequency",
+          "type": "string | number",
+          "description": "feTurbulence baseFrequency. One number, or \"x y\" to stretch."
+        },
+        {
+          "name": "octaves",
+          "type": "number"
+        },
+        {
+          "name": "seed",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "tile",
+          "type": "number",
+          "description": "Tile size in px. Clouds draw one canvas of this size and cover the box."
+        },
+        {
+          "name": "monochrome",
+          "type": "boolean",
+          "default": "true",
+          "description": "Gray noise. Off keeps the colored channels."
+        },
+        {
+          "name": "animate",
+          "type": "boolean",
+          "default": "false",
+          "description": "Jitters grain and paper like film, drifts clouds. Stops under reduced motion."
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

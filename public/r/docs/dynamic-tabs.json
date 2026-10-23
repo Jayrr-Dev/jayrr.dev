@@ -1,0 +1,115 @@
+{
+  "name": "dynamic-tabs",
+  "components": [
+    {
+      "name": "DynamicTabs",
+      "description": "Browser-style tab strip the user can grow, shrink and rename. The parent owns `items`; the strip handles selection, overflow scrolling, inline rename and picking a neighbour when the active tab closes.",
+      "props": [
+        {
+          "name": "items",
+          "type": "DynamicTabItem[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Id of the active tab."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((id: string) => void)"
+        },
+        {
+          "name": "onAdd",
+          "type": "(() => void)",
+          "description": "Shows the add button. The parent appends the new item (and may select it)."
+        },
+        {
+          "name": "onClose",
+          "type": "((id: string) => void)",
+          "description": "Enables close buttons. The parent removes the item."
+        },
+        {
+          "name": "onRename",
+          "type": "((id: string, label: string) => void)",
+          "description": "Enables double-click / press-and-hold / F2 rename."
+        },
+        {
+          "name": "minTabs",
+          "type": "number",
+          "default": "1",
+          "description": "Close buttons hide once the strip is down to this many tabs."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\"",
+          "default": "\"sm\""
+        },
+        {
+          "name": "scrollButtons",
+          "type": "DynamicTabsScrollButtons",
+          "default": "\"inline\"",
+          "description": "`overlay` floats the overflow arrows over the tabs with a fade."
+        },
+        {
+          "name": "addLabel",
+          "type": "string",
+          "default": "\"Add tab\"",
+          "description": "Tooltip and accessible name of the add button."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Controls after the add button, e.g. a menu."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Panel for the active tab."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "aria-label",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Pinned tab, no rename",
+      "imports": [
+        "import { DynamicTabs } from \"@/components/standard/dynamic-tabs\""
+      ],
+      "code": "<div className=\"min-w-0 overflow-hidden rounded-lg border border-border\">\n  <DynamicTabs\n    items={items}\n    defaultValue=\"a\"\n    minTabs={0}\n    aria-label=\"Reports\"\n    onClose={(id) =>\n      setItems((previous) => previous.filter((item) => item.id !== id))\n    }\n  />\n</div>"
+    },
+    {
+      "title": "Overflow scroll, size default",
+      "imports": [
+        "import { DynamicTabs } from \"@/components/standard/dynamic-tabs\""
+      ],
+      "code": "<div className=\"min-w-0 overflow-hidden rounded-lg border border-border\">\n  <DynamicTabs {...tabs} size=\"default\" aria-label=\"Documents\" />\n</div>"
+    },
+    {
+      "title": "Overlay arrows with fade",
+      "imports": [
+        "import { DynamicTabs } from \"@/components/standard/dynamic-tabs\""
+      ],
+      "code": "<div className=\"min-w-0 overflow-hidden rounded-lg border border-border\">\n  <DynamicTabs {...tabs} scrollButtons=\"overlay\" aria-label=\"Documents\" />\n</div>"
+    },
+    {
+      "title": "Add, close, rename",
+      "imports": [
+        "import { DynamicTabs } from \"@/components/standard/dynamic-tabs\""
+      ],
+      "code": "<div className=\"min-w-0 overflow-hidden rounded-lg border border-border\">\n  <DynamicTabs {...tabs} aria-label=\"Sheets\" addLabel=\"Add sheet\">\n    <p className=\"px-3 py-6 text-center text-sm text-muted-foreground\">\n      {active?.label} panel\n    </p>\n  </DynamicTabs>\n</div>"
+    }
+  ]
+}

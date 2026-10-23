@@ -1,0 +1,91 @@
+{
+  "name": "standard-sheet",
+  "components": [
+    {
+      "name": "Sheet",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Shown under the title. Screen readers get the title when it is left out."
+        },
+        {
+          "name": "trigger",
+          "type": "React.ReactNode",
+          "default": "\"Open sheet\"",
+          "description": "A string renders an outline button; pass an element to use your own."
+        },
+        {
+          "name": "side",
+          "type": "SheetSide",
+          "default": "\"right\""
+        },
+        {
+          "name": "size",
+          "type": "SheetSize",
+          "default": "\"sm\""
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode",
+          "description": "Pinned under the body, e.g. Save and Cancel buttons. Leave it out for the default Close button, or pass null for no footer."
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "side top",
+      "imports": [
+        "import { Sheet } from \"@/components/standard/sheet\""
+      ],
+      "code": "<Sheet title=\"Notice\" side=\"top\" trigger=\"Open top\" footer={null}>\n  <p className=\"pb-4 text-sm text-muted-foreground\">\n    Drops from the top, with no footer.\n  </p>\n</Sheet>"
+    },
+    {
+      "title": "size md",
+      "imports": [
+        "import { Sheet } from \"@/components/standard/sheet\""
+      ],
+      "code": "<Sheet title=\"Medium sheet\" size=\"md\" trigger=\"Open md\">\n  <p className=\"text-sm text-muted-foreground\">24rem wide.</p>\n</Sheet>"
+    },
+    {
+      "title": "size lg",
+      "imports": [
+        "import { Sheet } from \"@/components/standard/sheet\""
+      ],
+      "code": "<Sheet title=\"Large sheet\" size=\"lg\" trigger=\"Open lg\">\n  <p className=\"text-sm text-muted-foreground\">36rem wide.</p>\n</Sheet>"
+    },
+    {
+      "title": "size full",
+      "imports": [
+        "import { Sheet } from \"@/components/standard/sheet\""
+      ],
+      "code": "<Sheet title=\"Full sheet\" size=\"full\" trigger=\"Open full\">\n  <p className=\"text-sm text-muted-foreground\">Covers the screen.</p>\n</Sheet>"
+    }
+  ]
+}

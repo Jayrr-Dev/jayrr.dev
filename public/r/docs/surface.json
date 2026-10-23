@@ -1,0 +1,38 @@
+{
+  "name": "surface",
+  "components": [
+    {
+      "name": "Surface",
+      "description": "Stacks layers from data: gradients, patterns, images, inline SVG, noise and screentone. Plain background layers next to each other merge into one element's multiple backgrounds; the rest render as their own layer.",
+      "props": [
+        {
+          "name": "layers",
+          "type": "SurfaceLayer[]",
+          "default": "[]",
+          "description": "Painted bottom to top, under the children unless a layer is `over`."
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false",
+          "description": "Paints the layers onto the child element (a Card, Banner, link...) instead of a div."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "scene · depth · parallax (move the pointer)",
+      "imports": [
+        "import { Art, ArtPiece } from \"@/components/standard/art\"",
+        "import { Gradient } from \"@/components/standard/gradient\"",
+        "import { Noise } from \"@/components/standard/noise\"",
+        "import { Surface } from \"@/components/standard/surface\""
+      ],
+      "code": "<Surface className=\"h-96 w-full overflow-hidden rounded-xl text-white\">\n  <Gradient preset=\"midnight\" />\n  <Gradient preset=\"primary\" blend=\"screen\" />\n  <Noise opacity={0.2} blend=\"overlay\" />\n  <Art parallax={24}>\n    <ArtPiece src=\"/hero/blob.svg\" x={78} y={60} width={260} depth={0.4} enter=\"blur\" idle=\"float\" idleDuration={6} />\n    <ArtPiece src=\"/hero/ring.svg\" x={20} y={70} width={160} depth={0.8} enter=\"zoom\" idle=\"spin\" idleDuration={30} />\n    <ArtPiece src=\"/hero/stat-card.svg\" x={62} y={42} width={300} depth={1.4} enter=\"rise\" />\n    <ArtPiece src=\"/hero/toast.svg\" x={30} y={24} width={240} depth={2} enter=\"slide-start\" idle=\"float\" idleDuration={3.5} />\n    <ArtPiece src=\"/hero/cursor.svg\" x={46} y={78} width={100} depth={3} enter=\"pop\" idle=\"float\" idleDuration={2.4} />\n    <ArtPiece src=\"/hero/sparkle.svg\" x={88} y={16} width={34} depth={3.5} enter=\"pop\" idle=\"pulse\" />\n    <ArtPiece src=\"/hero/sparkle.svg\" x={10} y={30} width={22} depth={3.5} enter=\"pop\" idle=\"pulse\" idleDuration={1.4} />\n  </Art>\n</Surface>"
+    }
+  ]
+}

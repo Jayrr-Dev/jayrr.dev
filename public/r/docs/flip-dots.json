@@ -1,0 +1,114 @@
+{
+  "name": "flip-dots",
+  "components": [
+    {
+      "name": "FlipDots",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "default": "\"oklch(0.93 0.21 118)\"",
+          "description": "Color of the lit face; any CSS color, including `var(--token)`."
+        },
+        {
+          "name": "cols",
+          "type": "number",
+          "default": "28"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "default": "14"
+        },
+        {
+          "name": "pattern",
+          "type": "\"text\" | \"marquee\" | \"ripple\" | \"snake\" | \"wave\" | \"rain\" | \"checker\" | \"sparkle\" | \"clock\" | \"life\" | \"wipe\" | \"bounce\" | \"pong\"",
+          "default": "\"marquee\"",
+          "description": "The animation to run; `null` leaves the board still (for drawing). Ignored with `value`."
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "default": "\"FLIP DOTS\"",
+          "description": "Text for the `marquee` and `text` patterns."
+        },
+        {
+          "name": "value",
+          "type": "boolean[][]",
+          "description": "Controls the dots directly, as rows of columns."
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: boolean[][]) => void)"
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Press and drag to paint dots."
+        },
+        {
+          "name": "paused",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "interval",
+          "type": "number",
+          "description": "Milliseconds between frames; each pattern has its own default."
+        },
+        {
+          "name": "flipDuration",
+          "type": "number",
+          "description": "Milliseconds for one disc to flip; defaults to a quick flip that fits the interval."
+        },
+        {
+          "name": "sweep",
+          "type": "\"none\" | \"row\" | \"diagonal\" | \"column\" | \"random\"",
+          "default": "\"column\""
+        },
+        {
+          "name": "variant",
+          "type": "\"flat\" | \"disc\"",
+          "default": "\"disc\"",
+          "description": "`disc` for shaded discs, `flat` for solid faces with no gradient."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"square\" | \"diamond\" | \"triangle\" | \"rounded\" | \"hexagon\" | \"star\" | \"plus\"",
+          "default": "\"circle\""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Accessible description; defaults to the text or the pattern name."
+        },
+        {
+          "name": "bare",
+          "type": "boolean",
+          "default": "false",
+          "description": "Drops the bezel (rounding, padding and inset shadow) so the dots run to the edges, for a board that fills a background or is framed by its parent."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "micro · thousands of tiny dots",
+      "imports": [
+        "import { FlipDots } from \"@/components/standard/flip-dots\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <FlipDots\n    cols={128}\n    rows={48}\n    pattern=\"life\"\n    sweep=\"random\"\n    editable\n  />\n  <RendersArcadeBoard />\n  <FlipDots\n    cols={160}\n    rows={11}\n    pattern=\"marquee\"\n    text=\"TINY DOTS, SAME FLIP ♥ 5000 DISCS AND COUNTING\"\n    interval={70}\n    color=\"oklch(0.8 0.17 70)\"\n  />\n  <div className=\"grid w-full grid-cols-2 gap-3\">\n    <FlipDots\n      cols={80}\n      rows={40}\n      pattern=\"ripple\"\n      sweep=\"none\"\n      variant=\"flat\"\n    />\n    <FlipDots\n      cols={80}\n      rows={40}\n      pattern=\"rain\"\n      sweep=\"none\"\n      shape=\"square\"\n      variant=\"flat\"\n      color=\"oklch(0.97 0 0)\"\n    />\n  </div>\n</div>"
+    },
+    {
+      "title": "signs",
+      "imports": [
+        "import { FlipDots } from \"@/components/standard/flip-dots\""
+      ],
+      "code": "<div className=\"flex w-full flex-col gap-3\">\n  <FlipDots\n    cols={60}\n    rows={9}\n    pattern=\"marquee\"\n    text=\"42  DOWNTOWN VIA MAIN ST\"\n    color=\"oklch(0.8 0.17 70)\"\n  />\n  <div className=\"grid w-full grid-cols-2 gap-3\">\n    <FlipDots cols={28} rows={9} pattern=\"clock\" sweep=\"random\" />\n    <FlipDots\n      cols={28}\n      rows={9}\n      pattern=\"wave\"\n      sweep=\"none\"\n      variant=\"flat\"\n      shape=\"rounded\"\n      color=\"oklch(0.97 0 0)\"\n    />\n  </div>\n</div>"
+    }
+  ]
+}

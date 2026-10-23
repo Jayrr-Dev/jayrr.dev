@@ -1,0 +1,165 @@
+{
+  "name": "bento-grid",
+  "components": [
+    {
+      "name": "BentoGrid",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"sidebar\" | \"split\" | \"uniform\" | \"featured\" | \"hero\" | \"mosaic\"",
+          "default": "\"uniform\""
+        },
+        {
+          "name": "gap",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "rowHeight",
+          "type": "\"auto\" | \"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "columns",
+          "type": "BentoColumns",
+          "description": "Column count at full width. Defaults to what the variant is built for."
+        },
+        {
+          "name": "responsive",
+          "type": "boolean",
+          "default": "true",
+          "description": "Collapse to fewer columns in narrow containers."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTile",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"outline\" | \"ghost\" | \"muted\" | \"primary\" | \"inverse\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "colSpan",
+          "type": "BentoSpan",
+          "description": "Columns to cover. Overrides the grid variant for this tile."
+        },
+        {
+          "name": "rowSpan",
+          "type": "1 | 2 | 4 | 3",
+          "description": "Rows to cover. Overrides the grid variant for this tile."
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTileDescription",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTileFooter",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTileHeader",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTileIcon",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTileMedia",
+      "props": [
+        {
+          "name": "position",
+          "type": "\"fill\" | \"background\"",
+          "default": "\"fill\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "BentoTileTitle",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\" | \"xl\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "variant \"hero\"",
+      "imports": [
+        "import { BentoGrid, BentoTile, BentoTileDescription, BentoTileMedia, BentoTileTitle } from \"@/components/standard/bento-grid\"",
+        "import { CalendarIcon } from \"lucide-react\""
+      ],
+      "code": "<BentoGrid variant=\"hero\">\n  <BentoTile variant=\"inverse\" className=\"min-h-40 justify-end\">\n    <BentoTileMedia position=\"background\">\n      <RendersSwatch className=\"bg-linear-to-br from-pink-400 via-fuchsia-500 to-indigo-600\" />\n    </BentoTileMedia>\n    <BentoTileTitle size=\"xl\">Spring schedule</BentoTileTitle>\n    <BentoTileDescription>\n      Background media sits behind the tile content.\n    </BentoTileDescription>\n  </BentoTile>\n  <BentoTile icon={<CalendarIcon />} title=\"Mar\" description=\"6 jobs\" />\n  <BentoTile icon={<CalendarIcon />} title=\"Apr\" description=\"9 jobs\" />\n  <BentoTile icon={<CalendarIcon />} title=\"May\" description=\"11 jobs\" />\n</BentoGrid>"
+    },
+    {
+      "title": "custom spans on uniform",
+      "imports": [
+        "import { BentoGrid, BentoTile } from \"@/components/standard/bento-grid\"",
+        "import { BarChart3Icon } from \"lucide-react\""
+      ],
+      "code": "<BentoGrid columns={4} rowHeight=\"sm\" gap=\"sm\">\n  <BentoTile colSpan={3} variant=\"muted\" icon={<BarChart3Icon />} title=\"colSpan 3\" />\n  <BentoTile rowSpan={2} variant=\"primary\" title=\"rowSpan 2\" />\n  <BentoTile title=\"1×1\" />\n  <BentoTile colSpan={2} variant=\"outline\" title=\"colSpan 2\" />\n  <BentoTile colSpan=\"full\" variant=\"ghost\" title='colSpan \"full\", variant \"ghost\"' />\n</BentoGrid>"
+    },
+    {
+      "title": "variant \"split\"",
+      "imports": [
+        "import { BentoGrid, BentoTile } from \"@/components/standard/bento-grid\""
+      ],
+      "code": "<BentoGrid variant=\"split\" rowHeight=\"sm\">\n  <BentoTile interactive title=\"Wide\" description=\"Two columns.\" />\n  <BentoTile interactive title=\"Small\" />\n  <BentoTile interactive title=\"Small\" />\n  <BentoTile interactive title=\"Wide\" description=\"Two columns.\" />\n</BentoGrid>"
+    },
+    {
+      "title": "tile variants",
+      "imports": [
+        "import { BentoGrid, BentoTile } from \"@/components/standard/bento-grid\""
+      ],
+      "code": "<BentoGrid columns={5} rowHeight=\"auto\" gap=\"sm\">\n  <BentoTile title=\"default\" />\n  <BentoTile variant=\"muted\" title=\"muted\" />\n  <BentoTile variant=\"outline\" title=\"outline\" />\n  <BentoTile variant=\"ghost\" title=\"ghost\" />\n  <BentoTile variant=\"primary\" title=\"primary\" />\n</BentoGrid>"
+    }
+  ]
+}

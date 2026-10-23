@@ -1,0 +1,140 @@
+{
+  "name": "mention-composer",
+  "components": [
+    {
+      "name": "MentionComposer",
+      "description": "A chat-style message box: type @ to mention a person and # to add a tag, Enter to send, Shift+Enter for a new line. Mentions come back as data in `onSubmit`, so they can notify people or link tags.",
+      "props": [
+        {
+          "name": "users",
+          "type": "MentionUser[]"
+        },
+        {
+          "name": "tags",
+          "type": "MentionTag[]"
+        },
+        {
+          "name": "placeholder",
+          "type": "string"
+        },
+        {
+          "name": "onSubmit",
+          "type": "((value: MentionComposerValue) => void)",
+          "description": "Called on Enter or the send button. Shift+Enter adds a line break."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: MentionComposerValue) => void)"
+        },
+        {
+          "name": "clearOnSubmit",
+          "type": "boolean",
+          "description": "Empty the composer after a submit."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Before the text, e.g. an attach button."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Beside the send button, e.g. an emoji picker."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "aria-label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "EditorShell",
+      "description": "What SSR renders in an editor's place: the same frame, toolbar row and height.",
+      "props": [
+        {
+          "name": "slot",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "contentClassName",
+          "type": "string"
+        },
+        {
+          "name": "toolbar",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "EditorContent",
+      "description": "The element ProseKit mounts into. ProseMirror adds its own classes to it, so keep `className` steady: a new value makes React overwrite them.",
+      "props": [
+        {
+          "name": "editor",
+          "type": "Editor<any>",
+          "required": true
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SuggestionMenu",
+      "props": [
+        {
+          "name": "trigger",
+          "type": "RegExp",
+          "required": true
+        },
+        {
+          "name": "items",
+          "type": "SuggestionItem[]",
+          "required": true
+        },
+        {
+          "name": "emptyLabel",
+          "type": "React.ReactNode",
+          "default": "\"No results\""
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "onQueryChange",
+          "type": "((query: string) => void)"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Disabled",
+      "imports": [
+        "import { Button } from \"@/components/standard/button\"",
+        "import { MentionComposer } from \"@/components/standard/mention-composer\"",
+        "import { PaperclipIcon } from \"lucide-react\""
+      ],
+      "setup": "const USERS: MentionUser[] = [\n  { id: \"1\", name: \"Ana Lopez\" },\n  { id: \"2\", name: \"Ben Carter\" },\n  { id: \"3\", name: \"Chloe Nguyen\" },\n  { id: \"4\", name: \"Dev Patel\" },\n]",
+      "code": "<MentionComposer\n  users={USERS}\n  placeholder=\"You can't post in this channel\"\n  disabled\n  leading={\n    <Button iconOnly size=\"sm\" tone=\"ghost\" aria-label=\"Attach file\">\n      <PaperclipIcon />\n    </Button>\n  }\n/>"
+    }
+  ]
+}

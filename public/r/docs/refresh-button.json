@@ -1,0 +1,110 @@
+{
+  "name": "refresh-button",
+  "components": [
+    {
+      "name": "RefreshButton",
+      "description": "Outline refresh action whose icon spins while `refreshing`.",
+      "props": [
+        {
+          "name": "rel",
+          "type": "string"
+        },
+        {
+          "name": "loading",
+          "type": "boolean | \"spin-icon\"",
+          "description": "Blocks clicks while an action runs. `true` shows a spinner before the label (in place of `leading`); `\"spin-icon\"` spins the `leading` icon."
+        },
+        {
+          "name": "target",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/@types/react/index\").HTMLAttributeAnchorTarget"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Renders an `<a>` with the same look instead of a `<button>`."
+        },
+        {
+          "name": "download",
+          "type": "any"
+        },
+        {
+          "name": "tone",
+          "type": "\"link\" | \"default\" | \"outline\" | \"ghost\" | \"success\" | \"danger\" | \"quiet\" | \"inverse\" | \"inverse-outline\""
+        },
+        {
+          "name": "leading",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/@types/react/index\").ReactNode",
+          "description": "Content before the label, usually an icon."
+        },
+        {
+          "name": "trailing",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/@types/react/index\").ReactNode",
+          "description": "Content after the label (and after `count`), usually an icon."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\" | \"pill\" | \"square\""
+        },
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Square button that holds only an icon (the children). Give it an `aria-label` for its accessible name."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches to the full width of its container."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number shown inline after the label as a notification badge."
+        },
+        {
+          "name": "icon",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/@types/react/index\").ReactNode",
+          "default": "\"refresh-cw\"",
+          "description": "A named arrow, or any icon node."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\"",
+          "default": "\"sm\""
+        },
+        {
+          "name": "speed",
+          "type": "\"default\" | \"slow\" | \"fast\"",
+          "default": "\"default\"",
+          "description": "How fast the icon turns while `refreshing`."
+        },
+        {
+          "name": "refreshing",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "speeds",
+      "imports": [
+        "import { RefreshButton } from \"@/components/standard/refresh-button\""
+      ],
+      "setup": "const SPEEDS = [\"slow\", \"default\", \"fast\"] as const",
+      "code": "<div className=\"flex flex-wrap gap-2\">\n  {SPEEDS.map((speed) => (\n    <RefreshButton key={speed} refreshing speed={speed}>\n      {speed[0].toUpperCase() + speed.slice(1)}\n    </RefreshButton>\n  ))}\n</div>"
+    },
+    {
+      "title": "refreshing",
+      "imports": [
+        "import { RefreshButton } from \"@/components/standard/refresh-button\""
+      ],
+      "code": "<RefreshButton refreshing />"
+    }
+  ]
+}

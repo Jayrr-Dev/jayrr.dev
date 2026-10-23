@@ -1,0 +1,59 @@
+{
+  "name": "image-shader",
+  "components": [
+    {
+      "name": "ImageShader",
+      "description": "WebGL image effect layer from Paper Shaders: photo filters (paper, fluted glass, water, dithering, halftone, lens) and logo animations (heatmap, liquid metal, gem smoke). Fills its `relative isolate` parent.",
+      "props": [
+        {
+          "name": "placement",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerPlacement"
+        },
+        {
+          "name": "blend",
+          "type": "import(\"C:/Users/Work/Projects/jayrr.dev/components/standard/layer\").LayerBlend"
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "description": "0–1."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "kind",
+          "type": "\"water\" | \"paper-texture\" | \"fluted-glass\" | \"image-dithering\" | \"halftone-dots\" | \"halftone-cmyk\" | \"lens-distortion\" | \"heatmap\" | \"liquid-metal\" | \"gem-smoke\"",
+          "default": "\"halftone-dots\""
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "description": "Source image URL. Must be same-origin or served with CORS, since WebGL reads its pixels. Logo kinds want a mark on a transparent background."
+        },
+        {
+          "name": "preset",
+          "type": "string",
+          "description": "A preset name from `imageShaderPresetNames(kind)`. Defaults to the first."
+        },
+        {
+          "name": "params",
+          "type": "ImageShaderParams",
+          "description": "Overrides on top of the preset, e.g. `{ colorBack: \"#000\" }`."
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "description": "Animation speed. 0 renders a still frame. Always 0 under reduced motion."
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

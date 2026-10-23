@@ -1,0 +1,106 @@
+{
+  "name": "mic-button",
+  "components": [
+    {
+      "name": "MicButton",
+      "props": [
+        {
+          "name": "rel",
+          "type": "string"
+        },
+        {
+          "name": "onError",
+          "type": "(React.ReactEventHandler<HTMLButtonElement> & ((error: unknown) => void))"
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\""
+        },
+        {
+          "name": "loading",
+          "type": "boolean | \"spin-icon\"",
+          "description": "Blocks clicks while an action runs. `true` shows a spinner before the label (in place of `leading`); `\"spin-icon\"` spins the `leading` icon."
+        },
+        {
+          "name": "target",
+          "type": "React.HTMLAttributeAnchorTarget"
+        },
+        {
+          "name": "download",
+          "type": "any"
+        },
+        {
+          "name": "tone",
+          "type": "\"link\" | \"default\" | \"outline\" | \"ghost\" | \"success\" | \"danger\" | \"quiet\" | \"inverse\" | \"inverse-outline\"",
+          "default": "\"outline\""
+        },
+        {
+          "name": "leading",
+          "type": "React.ReactNode",
+          "description": "Content before the label, usually an icon."
+        },
+        {
+          "name": "trailing",
+          "type": "React.ReactNode",
+          "description": "Content after the label (and after `count`), usually an icon."
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"default\" | \"pill\" | \"square\""
+        },
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Square button that holds only an icon (the children). Give it an `aria-label` for its accessible name."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches to the full width of its container."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number shown inline after the label as a notification badge."
+        },
+        {
+          "name": "audio",
+          "type": "true | MediaTrackConstraints",
+          "default": "true",
+          "description": "Full audio constraints, e.g. `{ echoCancellation: true }`."
+        },
+        {
+          "name": "meter",
+          "type": "boolean",
+          "default": "true",
+          "description": "Shows the live input level while on."
+        },
+        {
+          "name": "onStreamChange",
+          "type": "((stream: MediaStream | null) => void)"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "icon only",
+      "imports": [
+        "import { MicButton } from \"@/components/standard/mic-button\""
+      ],
+      "code": "<div className=\"flex gap-2\">\n  <MicButton iconOnly />\n  <MicButton iconOnly shape=\"circle\" tone=\"quiet\" />\n</div>"
+    },
+    {
+      "title": "no meter",
+      "imports": [
+        "import { MicButton } from \"@/components/standard/mic-button\""
+      ],
+      "code": "<MicButton meter={false} />"
+    }
+  ]
+}

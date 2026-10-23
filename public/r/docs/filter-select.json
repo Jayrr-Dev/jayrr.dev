@@ -1,0 +1,102 @@
+{
+  "name": "filter-select",
+  "components": [
+    {
+      "name": "FilterSelect",
+      "description": "Filters in two steps: pick a category, then toggle its badges.",
+      "props": [
+        {
+          "name": "groups",
+          "type": "readonly FilterSelectGroup[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "FilterSelectValue",
+          "required": true
+        },
+        {
+          "name": "onChange",
+          "type": "(groupId: string, selectedId: string | string[] | null) => void",
+          "required": true
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "\"Filters\"",
+          "description": "Trigger label. The active count is added in brackets (default `Filters`)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"xl\"",
+          "description": "Popover width preset: xs 160px, sm 320px, md 480px, lg 590px, xl 800px. Default `md`."
+        },
+        {
+          "name": "variant",
+          "type": "\"select\" | \"default\" | \"badge\"",
+          "default": "\"default\"",
+          "description": "Trigger chrome: bordered field, select-style, or badge chip."
+        },
+        {
+          "name": "maxHeight",
+          "type": "string",
+          "default": "\"max-h-64\"",
+          "description": "Max height of the scrolling body (default `max-h-64`)."
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "Smaller trigger for `variant=\"default\"`."
+        },
+        {
+          "name": "showClearAll",
+          "type": "boolean",
+          "default": "true",
+          "description": "Shows Clear all when any group has a selection."
+        },
+        {
+          "name": "onClearAll",
+          "type": "(() => void)",
+          "description": "Clears everything in one call instead of one onChange per group."
+        },
+        {
+          "name": "triggerId",
+          "type": "string"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        },
+        {
+          "name": "popoverModal",
+          "type": "boolean",
+          "default": "true",
+          "description": "Radix Popover modal mode. Use false inside a Dialog."
+        },
+        {
+          "name": "contentClassName",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "imports": [
+        "import { FilterSelect } from \"@/components/standard/filter-select\""
+      ],
+      "setup": "const STATUS_OPTIONS: BadgeSelectOption[] = [\n  { id: \"open\", label: \"Open\" },\n  { id: \"hold\", label: \"On hold\" },\n  { id: \"review\", label: \"In review\" },\n  { id: \"closed\", label: \"Closed\" },\n]\n\nconst DEPARTMENT_OPTIONS: BadgeSelectOption[] = [\n  { id: \"eng\", label: \"Engineering\", description: \"Engineering\\nDesign and drafting.\" },\n  { id: \"ops\", label: \"Operations\" },\n  { id: \"field\", label: \"Field\" },\n  { id: \"survey\", label: \"Survey\" },\n  { id: \"admin\", label: \"Admin\" },\n  { id: \"finance\", label: \"Finance\" },\n  { id: \"safety\", label: \"Safety\" },\n  { id: \"hr\", label: \"People\" },\n]\n\nconst PROJECT_OPTIONS: BadgeSelectOption[] = Array.from({ length: 18 }, (_, index) => ({\n  id: `p${1040 + index}`,\n  label: `${1040 + index}`,\n  subtitle: index % 3 === 0 ? \"WO\" : \"WR\",\n}))\n\nconst FILTER_GROUPS: FilterSelectGroup[] = [\n  {\n    id: \"status\",\n    label: \"Status\",\n    description: \"Where the job is\",\n    options: STATUS_OPTIONS,\n    sortAlphabetically: false,\n  },\n  {\n    id: \"department\",\n    label: \"Department\",\n    options: DEPARTMENT_OPTIONS,\n    columns: 4,\n  },\n  {\n    id: \"project\",\n    label: \"Project #\",\n    options: PROJECT_OPTIONS,\n    search: true,\n    searchPlaceholder: \"Search projects...\",\n  },\n  {\n    id: \"owner\",\n    label: \"Owner\",\n    description: \"Pick one\",\n    selectType: \"single\",\n    options: [\n      { id: \"me\", label: \"Me\" },\n      { id: \"team\", label: \"My team\" },\n      { id: \"anyone\", label: \"Anyone\" },\n    ],\n  },\n]",
+      "code": "<FilterSelect\n  groups={FILTER_GROUPS}\n  value={filters}\n  variant={variant}\n  compact={compact}\n  onChange={(groupId, selected) =>\n    setFilters((previous) => ({ ...previous, [groupId]: selected }))\n  }\n/>"
+    }
+  ]
+}

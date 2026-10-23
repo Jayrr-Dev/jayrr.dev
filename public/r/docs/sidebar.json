@@ -1,0 +1,368 @@
+{
+  "name": "sidebar",
+  "components": [
+    {
+      "name": "Sidebar",
+      "props": [
+        {
+          "name": "side",
+          "type": "\"right\" | \"left\"",
+          "default": "\"left\""
+        },
+        {
+          "name": "variant",
+          "type": "\"sidebar\" | \"floating\" | \"inset\"",
+          "default": "\"sidebar\""
+        },
+        {
+          "name": "collapsible",
+          "type": "\"none\" | \"icon\" | \"offcanvas\"",
+          "default": "\"offcanvas\""
+        },
+        {
+          "name": "expandOnHover",
+          "type": "boolean",
+          "default": "false",
+          "description": "Icon-collapsed sidebars expand over the content while hovered."
+        },
+        {
+          "name": "collapseThumb",
+          "type": "boolean",
+          "default": "false",
+          "description": "Round toggle button with an arrow, centered on the sidebar edge."
+        },
+        {
+          "name": "collapseThumbSize",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\"",
+          "description": "Diameter of the collapse thumb: sm 20px, default 24px, lg 32px."
+        },
+        {
+          "name": "collapseThumbClassName",
+          "type": "string",
+          "description": "Extra classes for the collapse thumb, e.g. to restyle it."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarFooter",
+      "props": [
+        {
+          "name": "separator",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarGroup",
+      "props": [
+        {
+          "name": "separator",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "default": "false",
+          "description": "Turns the label into a toggle that folds the group's content."
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "true",
+          "description": "Initial open state when `collapsible` is set."
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarGroupAction",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarGroupContent",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarGroupLabel",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarHeader",
+      "props": [
+        {
+          "name": "separator",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "search",
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds a search field that filters menu items by their text."
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarInput",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "InputHTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarInset",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenu",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuAction",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showOnHover",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuBadge",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuButton",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "tooltip",
+          "type": "string | (import(\"C:/Users/Work/Projects/jayrr.dev/node_modules/@radix-ui/react-tooltip/dist/index\").TooltipContentProps & React.RefAttributes<HTMLDivElement>)"
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"outline\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuItem",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "LiHTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuSkeleton",
+      "props": [
+        {
+          "name": "showIcon",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuSub",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuSubButton",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "default": "\"md\""
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "inherits": [
+        "AnchorHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarMenuSubItem",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "LiHTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarProvider",
+      "props": [
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarRail",
+      "props": [],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "SidebarSeparator",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes",
+        "PrimitivePropsWithRef",
+        "SeparatorProps"
+      ]
+    },
+    {
+      "name": "SidebarTrigger",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"link\" | \"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\""
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean"
+        }
+      ],
+      "inherits": [
+        "ButtonHTMLAttributes",
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Sidebar",
+      "imports": [
+        "import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from \"@/components/ui/breadcrumb\"",
+        "import { Collapsible, CollapsibleContent, CollapsibleTrigger } from \"@/components/ui/collapsible\"",
+        "import { Separator } from \"@/components/ui/separator\"",
+        "import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarRail, SidebarTrigger } from \"@/components/ui/sidebar\"",
+        "import { BookOpenIcon, ChevronRightIcon, FolderIcon, HomeIcon, InboxIcon, LayersIcon, SettingsIcon } from \"lucide-react\"",
+        "import { useState } from \"react\""
+      ],
+      "setup": "const sidebarAccordionSections = [\n  {\n    id: \"projects\",\n    label: \"Projects\",\n    icon: FolderIcon,\n    items: [\"Gallery\", \"Registry\"],\n  },\n  { id: \"docs\", label: \"Docs\", icon: BookOpenIcon, items: [\"Guides\", \"API\"] },\n]\n\nfunction SidebarAccordion() {\n  const [openId, setOpenId] = useState<string | null>(\"projects\")\n\n  return (\n    <>\n      {sidebarAccordionSections.map(({ id, label, icon: Icon, items }) => (\n        <Collapsible\n          key={id}\n          asChild\n          open={openId === id}\n          onOpenChange={(open) => setOpenId(open ? id : null)}\n          className=\"group/collapsible\"\n        >\n          <SidebarMenuItem>\n            <CollapsibleTrigger asChild>\n              <SidebarMenuButton tooltip={label}>\n                <Icon />\n                <span>{label}</span>\n                <ChevronRightIcon className=\"ms-auto transition-transform group-data-[state=open]/collapsible:rotate-90\" />\n              </SidebarMenuButton>\n            </CollapsibleTrigger>\n            <CollapsibleContent>\n              <SidebarMenuSub>\n                {items.map((item, index) => (\n                  <SidebarMenuSubItem key={item}>\n                    <SidebarMenuSubButton\n                      isActive={id === \"projects\" && index === 0}\n                    >\n                      <span>{item}</span>\n                    </SidebarMenuSubButton>\n                  </SidebarMenuSubItem>\n                ))}\n              </SidebarMenuSub>\n            </CollapsibleContent>\n          </SidebarMenuItem>\n        </Collapsible>\n      ))}\n    </>\n  )\n}",
+      "code": "<div className=\"relative h-120 w-full overflow-hidden rounded-xl border bg-sidebar\">\n  <SidebarProvider\n    className=\"h-full min-h-0\"\n    style={{ \"--sidebar-width-icon\": \"2.5rem\" } as React.CSSProperties}\n  >\n    <Sidebar\n      collapsible=\"icon\"\n      variant=\"inset\"\n      collapseThumb\n      className=\"absolute h-full\"\n    >\n      <SidebarHeader\n        separator\n        search\n        className=\"group-data-[collapsible=icon]:px-1\"\n      >\n        <SidebarMenu>\n          <SidebarMenuItem>\n            <SidebarMenuButton tooltip=\"jayrr.dev\">\n              <LayersIcon />\n              <span className=\"font-semibold\">jayrr.dev</span>\n            </SidebarMenuButton>\n          </SidebarMenuItem>\n        </SidebarMenu>\n      </SidebarHeader>\n      <SidebarContent>\n        <SidebarGroup\n          collapsible\n          className=\"group-data-[collapsible=icon]:px-1\"\n        >\n          <SidebarGroupLabel>Library</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu className=\"group-data-[collapsible=icon]:gap-2\">\n              <SidebarMenuItem>\n                <SidebarMenuButton isActive tooltip=\"Home\">\n                  <HomeIcon />\n                  <span>Home</span>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              <SidebarMenuItem>\n                <SidebarMenuButton tooltip=\"Inbox\">\n                  <InboxIcon />\n                  <span>Inbox</span>\n                </SidebarMenuButton>\n                <SidebarMenuBadge>12</SidebarMenuBadge>\n              </SidebarMenuItem>\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n        <SidebarGroup\n          collapsible\n          separator\n          className=\"group-data-[collapsible=icon]:px-1\"\n        >\n          <SidebarGroupLabel>Workspace</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu className=\"group-data-[collapsible=icon]:gap-2\">\n              <SidebarAccordion />\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n      <SidebarFooter\n        separator\n        className=\"group-data-[collapsible=icon]:px-1\"\n      >\n        <SidebarMenu>\n          <SidebarMenuItem>\n            <SidebarMenuButton tooltip=\"Settings\">\n              <SettingsIcon />\n              <span>Settings</span>\n            </SidebarMenuButton>\n          </SidebarMenuItem>\n        </SidebarMenu>\n      </SidebarFooter>\n      <SidebarRail />\n    </Sidebar>\n    <SidebarInset className=\"min-w-0 overflow-hidden md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0\">\n      <header className=\"flex h-12 shrink-0 items-center gap-2 border-b px-3\">\n        <SidebarTrigger />\n        <Separator orientation=\"vertical\" className=\"h-4\" />\n        <Breadcrumb>\n          <BreadcrumbList>\n            <BreadcrumbItem>Projects</BreadcrumbItem>\n            <BreadcrumbSeparator />\n            <BreadcrumbItem>\n              <BreadcrumbPage>Gallery</BreadcrumbPage>\n            </BreadcrumbItem>\n          </BreadcrumbList>\n        </Breadcrumb>\n      </header>\n      <div className=\"flex flex-col gap-3 p-4\">\n        <div className=\"grid grid-cols-3 gap-2\">\n          {[\"Pieces\", \"Styles\", \"Icons\"].map((label, index) => (\n            <div key={label} className=\"rounded-lg border p-2.5\">\n              <div className=\"text-xs text-muted-foreground\">{label}</div>\n              <div className=\"text-lg font-semibold\">\n                {[64, 3, 120][index]}\n              </div>\n            </div>\n          ))}\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <div className=\"h-2.5 w-2/3 rounded bg-muted\" />\n          <div className=\"h-2.5 w-full rounded bg-muted\" />\n          <div className=\"h-2.5 w-5/6 rounded bg-muted\" />\n        </div>\n        <p className=\"text-xs text-muted-foreground\">\n          Use the toggle, the edge button, or Ctrl+B to collapse it.\n        </p>\n      </div>\n    </SidebarInset>\n  </SidebarProvider>\n</div>"
+    }
+  ]
+}

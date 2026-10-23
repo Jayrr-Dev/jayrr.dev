@@ -1,0 +1,13 @@
+{
+  "name": "sonner",
+  "components": [
+    {
+      "name": "Toaster",
+      "props": [],
+      "inherits": [
+        "ToasterProps"
+      ]
+    }
+  ],
+  "examples": []
+}

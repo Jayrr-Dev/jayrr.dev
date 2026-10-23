@@ -1,0 +1,96 @@
+{
+  "name": "planetary",
+  "components": [
+    {
+      "name": "Planetary",
+      "props": [
+        {
+          "name": "rings",
+          "type": "PlanetaryRing[]",
+          "required": true
+        },
+        {
+          "name": "center",
+          "type": "React.ReactNode",
+          "description": "Sits still in the middle."
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "default": "400",
+          "description": "Coordinate box the radii are written in."
+        },
+        {
+          "name": "inset",
+          "type": "number",
+          "default": "24",
+          "description": "Room kept between the outer ring and the box edge."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "40",
+          "description": "Seconds per full turn for every ring without its own `duration`."
+        },
+        {
+          "name": "showOrbits",
+          "type": "boolean",
+          "default": "true",
+          "description": "Draws each ring's orbit line."
+        },
+        {
+          "name": "upright",
+          "type": "boolean",
+          "default": "true",
+          "description": "Keeps items upright while their ring turns."
+        },
+        {
+          "name": "paused",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "pauseOnHover",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "itemClassName",
+          "type": "string"
+        },
+        {
+          "name": "orbitClassName",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "PlanetaryItem",
+      "description": "A round body for a Planetary ring or its centre.",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"default\" | \"sm\" | \"lg\"",
+          "default": "\"default\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "pause on hover · no orbits",
+      "imports": [
+        "import { Planetary, PlanetaryItem } from \"@/components/standard/planetary\"",
+        "import { Circle, Code, Heart, Image, Layers, LayoutGrid, Star, Type } from \"lucide-react\""
+      ],
+      "setup": "const INNER = [Code, Layers, LayoutGrid, Type]\n\nconst OUTER = [Heart, Image, Star, Circle]\n\nfunction bodies(icons: typeof INNER, size?: \"sm\") {\n  return icons.map((Icon, index) => (\n    <PlanetaryItem key={index} size={size}>\n      <Icon />\n    </PlanetaryItem>\n  ))\n}",
+      "code": "<Planetary\n  className=\"mx-auto max-w-56\"\n  pauseOnHover\n  showOrbits={false}\n  rings={[\n    { items: bodies(INNER) },\n    { items: bodies(OUTER), offset: 0.125 },\n  ]}\n/>"
+    }
+  ]
+}

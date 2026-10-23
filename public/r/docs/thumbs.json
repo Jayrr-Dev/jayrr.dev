@@ -1,0 +1,89 @@
+{
+  "name": "thumbs",
+  "components": [
+    {
+      "name": "Thumbs",
+      "description": "Thumbs up / thumbs down feedback. Each thumb is a pressed-state toggle; picking one clears the other and can play an optional effect: a tilt, a pop, a burst of dots or floating thumbs. Up moves upward, down moves downward. Effects only play on a click, never on mount, and honour reduced motion.",
+      "props": [
+        {
+          "name": "value",
+          "type": "ThumbsValue"
+        },
+        {
+          "name": "defaultValue",
+          "type": "ThumbsValue"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: ThumbsValue) => void)",
+          "description": "Clicking the chosen thumb again clears it to `null`."
+        },
+        {
+          "name": "effect",
+          "type": "ThumbsEffect",
+          "default": "\"none\"",
+          "description": "Optional animation played when a thumb is picked. Defaults to `none`."
+        },
+        {
+          "name": "size",
+          "type": "ThumbsSize",
+          "default": "\"default\""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "counts",
+          "type": "{ up?: number; down?: number; }",
+          "description": "Counts shown beside each icon."
+        },
+        {
+          "name": "upLabel",
+          "type": "string",
+          "default": "\"Thumbs up\"",
+          "description": "Accessible names for the two buttons."
+        },
+        {
+          "name": "downLabel",
+          "type": "string",
+          "default": "\"Thumbs down\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "counts · controlled",
+      "imports": [
+        "import { Thumbs } from \"@/components/standard/thumbs\""
+      ],
+      "setup": "const BASE_COUNTS = { up: 128, down: 7 }",
+      "code": "<Thumbs\n  value={vote}\n  onValueChange={setVote}\n  counts={{\n    up: BASE_COUNTS.up + (vote === \"up\" ? 1 : 0),\n    down: BASE_COUNTS.down + (vote === \"down\" ? 1 : 0),\n  }}\n/>"
+    },
+    {
+      "imports": [
+        "import { Thumbs } from \"@/components/standard/thumbs\""
+      ],
+      "code": "<Thumbs effect={effect} size=\"lg\" />"
+    },
+    {
+      "title": "disabled",
+      "imports": [
+        "import { Thumbs } from \"@/components/standard/thumbs\""
+      ],
+      "code": "<Thumbs disabled defaultValue=\"up\" />"
+    },
+    {
+      "title": "defaultValue up",
+      "imports": [
+        "import { Thumbs } from \"@/components/standard/thumbs\""
+      ],
+      "code": "<Thumbs defaultValue=\"up\" />"
+    }
+  ]
+}

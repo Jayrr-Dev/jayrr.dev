@@ -1,0 +1,140 @@
+{
+  "name": "heatmap",
+  "components": [
+    {
+      "name": "Heatmap",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "default": "\"var(--primary)\""
+        },
+        {
+          "name": "values",
+          "type": "(number | HeatmapDatum | null)[][]",
+          "required": true,
+          "description": "Rows of values."
+        },
+        {
+          "name": "rowLabels",
+          "type": "string[]",
+          "description": "One per row; empty strings skip a row, e.g. [\"\", \"Mon\", \"\", \"Wed\"]."
+        },
+        {
+          "name": "columnLabels",
+          "type": "string[]",
+          "description": "One per column; empty strings skip a column. Long labels overflow right."
+        },
+        {
+          "name": "levels",
+          "type": "number",
+          "default": "5",
+          "description": "Steps on the ramp, counting the empty level 0."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "Value of the fullest step. Defaults to the largest value."
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "shape",
+          "type": "\"square\" | \"round\"",
+          "default": "\"square\""
+        },
+        {
+          "name": "formatCell",
+          "type": "((cell: HeatmapCell) => string)",
+          "default": "(cell) =>\r\n    cell.value === null\r\n      ? \"\"\r\n      : `${cell.value} at row ${cell.row + 1}, column ${cell.column + 1}`",
+          "description": "Readout text and tooltip for a cell."
+        },
+        {
+          "name": "caption",
+          "type": "React.ReactNode",
+          "description": "Shown in the footer when no cell is active."
+        },
+        {
+          "name": "legend",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "scrollTo",
+          "type": "\"start\" | \"end\"",
+          "default": "\"start\"",
+          "description": "Where a wide map starts scrolled: the first or last column."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Id of the selected cell, `${row}:${column}`."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string | null) => void)"
+        },
+        {
+          "name": "selectable",
+          "type": "boolean"
+        },
+        {
+          "name": "onActiveChange",
+          "type": "((cell: HeatmapCell | null) => void)"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "HeatmapLegend",
+      "description": "\"Less ▢▢▢▢▢ More\": the ramp as a key.",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "default": "\"var(--primary)\""
+        },
+        {
+          "name": "levels",
+          "type": "number",
+          "default": "5"
+        },
+        {
+          "name": "shape",
+          "type": "\"square\" | \"round\"",
+          "default": "\"square\""
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "visits by weekday and hour · hover or pick a cell",
+      "imports": [
+        "import { Heatmap } from \"@/components/standard/heatmap\""
+      ],
+      "setup": "const DAYS = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\"]\n\nconst HOURS = Array.from({ length: 24 }, (_, hour) => hour)\n\nconst VISITS = DAYS.map((_, day) =>\n  HOURS.map((hour) => {\n    const weekend = day >= 5\n    const lunch = Math.exp(-((hour - 12.5) ** 2) / 3)\n    const evening = Math.exp(-((hour - 20) ** 2) / 5)\n    const night = hour < 6 ? 0.05 : 1\n    const base = (weekend ? 0.6 : 1) * (lunch * 40 + evening * 70) * night\n    return Math.round(base + ((day * 31 + hour * 17) % 9))\n  })\n)\n\nconst hourLabel = (hour: number) =>\n  hour === 0\n    ? \"12a\"\n    : hour < 12\n      ? `${hour}a`\n      : hour === 12\n        ? \"12p\"\n        : `${hour - 12}p`",
+      "code": "<Heatmap\n  values={VISITS}\n  rowLabels={DAYS}\n  columnLabels={HOURS.map((hour) =>\n    hour % 3 === 0 ? hourLabel(hour) : \"\"\n  )}\n  size=\"lg\"\n  color=\"oklch(0.62 0.19 260)\"\n  selectable\n  formatCell={(cell) =>\n    `${cell.value} visits · ${DAYS[cell.row]} ${hourLabel(cell.column)}`\n  }\n  caption=\"Last 30 days\"\n  aria-label=\"Visits by weekday and hour\"\n/>"
+    },
+    {
+      "title": "round · 3 levels · no labels",
+      "imports": [
+        "import { Heatmap } from \"@/components/standard/heatmap\""
+      ],
+      "setup": "const DAYS = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\"]\n\nconst HOURS = Array.from({ length: 24 }, (_, hour) => hour)\n\nconst VISITS = DAYS.map((_, day) =>\n  HOURS.map((hour) => {\n    const weekend = day >= 5\n    const lunch = Math.exp(-((hour - 12.5) ** 2) / 3)\n    const evening = Math.exp(-((hour - 20) ** 2) / 5)\n    const night = hour < 6 ? 0.05 : 1\n    const base = (weekend ? 0.6 : 1) * (lunch * 40 + evening * 70) * night\n    return Math.round(base + ((day * 31 + hour * 17) % 9))\n  })\n)",
+      "code": "<Heatmap\n  values={VISITS.slice(0, 3).map((row) => row.slice(8, 20))}\n  shape=\"round\"\n  size=\"xl\"\n  levels={3}\n  color=\"oklch(0.7 0.16 45)\"\n/>"
+    }
+  ]
+}

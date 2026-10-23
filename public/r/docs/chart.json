@@ -1,0 +1,115 @@
+{
+  "name": "chart",
+  "components": [
+    {
+      "name": "ChartContainer",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "config",
+          "type": "ChartConfig",
+          "required": true
+        },
+        {
+          "name": "initialDimension",
+          "type": "{ width: number; height: number; }",
+          "default": "INITIAL_DIMENSION"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "ChartTooltip",
+      "props": [],
+      "inherits": [
+        "Props",
+        "TooltipProps"
+      ]
+    },
+    {
+      "name": "ChartTooltipContent",
+      "props": [
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "hideIndicator",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "indicator",
+          "type": "\"line\" | \"dot\" | \"dashed\"",
+          "default": "\"dot\""
+        },
+        {
+          "name": "nameKey",
+          "type": "string"
+        },
+        {
+          "name": "labelKey",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "HTMLAttributes",
+        "Props",
+        "TooltipProps"
+      ]
+    },
+    {
+      "name": "ChartLegend",
+      "props": [],
+      "inherits": [
+        "DOMAttributesAdaptChildEvent",
+        "DefaultLegendContentProps",
+        "Props",
+        "SVGAttributes"
+      ]
+    },
+    {
+      "name": "ChartLegendContent",
+      "props": [
+        {
+          "name": "hideIcon",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "nameKey",
+          "type": "string"
+        }
+      ],
+      "inherits": [
+        "DOMAttributesAdaptChildEvent",
+        "DefaultLegendContentProps",
+        "HTMLAttributes",
+        "SVGAttributes"
+      ]
+    },
+    {
+      "name": "ChartStyle",
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "config",
+          "type": "ChartConfig",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "examples": []
+}

@@ -1,0 +1,32 @@
+{
+  "name": "aspect-ratio",
+  "components": [
+    {
+      "name": "AspectRatio",
+      "props": [],
+      "inherits": [
+        "AspectRatioProps",
+        "HTMLAttributes",
+        "PrimitivePropsWithRef"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Aspect Ratio",
+      "imports": [
+        "import { AspectRatio } from \"@/components/ui/aspect-ratio\""
+      ],
+      "code": "<div className=\"w-full\">\n  <AspectRatio ratio={16 / 9} className=\"rounded-lg bg-muted\" />\n</div>"
+    },
+    {
+      "title": "Aspect Ratio",
+      "imports": [
+        "import { RendersDemoCard } from \"./rendersDemoCard\"",
+        "import { AspectRatio } from \"@/components/ui/aspect-ratio\""
+      ],
+      "setup": "function TypeCard({\n  label,\n  children,\n  wide,\n}: {\n  label: string\n  children: ReactNode\n  wide?: boolean\n}) {\n  let className: string | undefined\n\n  if (wide) {\n    className = \"w-full max-w-xl\"\n  }\n\n  return (\n    <RendersDemoCard className={className} label={label}>\n      {children}\n    </RendersDemoCard>\n  )\n}",
+      "code": "<>\n  <TypeCard label=\"ratio 1\">\n    <div className=\"w-full\">\n      <AspectRatio ratio={1} className=\"rounded-lg bg-muted\" />\n    </div>\n  </TypeCard>\n  <TypeCard label=\"ratio 4 / 3\">\n    <div className=\"w-full\">\n      <AspectRatio ratio={4 / 3} className=\"rounded-lg bg-muted\" />\n    </div>\n  </TypeCard>\n</>"
+    }
+  ]
+}

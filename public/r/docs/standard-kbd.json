@@ -1,0 +1,20 @@
+{
+  "name": "standard-kbd",
+  "components": [
+    {
+      "name": "Kbd",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    },
+    {
+      "name": "KbdGroup",
+      "props": [],
+      "inherits": [
+        "HTMLAttributes"
+      ]
+    }
+  ],
+  "examples": []
+}
