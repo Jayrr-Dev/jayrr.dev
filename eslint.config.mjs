@@ -5,9 +5,8 @@ import nextTs from "eslint-config-next/typescript";
 
 import { standardLint } from "./lib/standard-lint.mjs";
 
-// @shadcn/lint (docs/lint-rollout.md). lib/standard-lint.mjs holds the rules
-// consumers get, and ships in the registry as @jayrr/standard-lint; the blocks
-// after it are this repo's own layers and exceptions.
+// @shadcn/lint. lib/standard-lint.mjs holds the rules for code that uses the
+// design system; the blocks after it are this repo's own layers and exceptions.
 const ui = ["@/components/ui", "@/components/standard"];
 const note = "See docs/component-conventions.md.";
 const shadcnSettings = { shadcn: { ui, note } };
@@ -26,9 +25,9 @@ const eslintConfig = defineConfig([
   ...standardLint({
     ui,
     note,
-    files: ["app/**/*.{ts,tsx}", "features/**/*.{ts,tsx}", "components/*.{ts,tsx}"],
+    files: ["app/**/*.{ts,tsx}", "components/*.{ts,tsx}"],
   }),
-  // Standard: the design system, published to the registry. Components style
+  // Standard: the design system, kept in sync with standardsui.com. Components style
   // themselves, so no-restyle, require-static-classes and no-inline-styles stay
   // off (dynamic geometry and user-picked colors are their job). What matters
   // for installers is that colors follow their theme and every class resolves.
@@ -55,35 +54,9 @@ const eslintConfig = defineConfig([
       "components/standard/json-display.tsx",
       "components/standard/json-viewer.tsx",
       "components/standard/spreadsheet.tsx",
-      "features/standard-library/components/demos/pieces/input-calculator.tsx",
     ],
     rules: {
       "shadcn/no-raw-colors": "off",
-    },
-  },
-  // Demo imagery: placeholder photos, illustrations, brand tiles and art whose
-  // hues are the content, so they don't follow the theme.
-  {
-    files: [
-      "features/standard-library/components/demos/pieces/card.tsx",
-      "features/standard-library/components/demos/pieces/hero-card.tsx",
-      "features/standard-library/components/demos/pieces/parallax.tsx",
-      "features/standard-library/components/demos/pieces/list.tsx",
-      "features/standard-library/components/demos/pieces/infinite-canvas.tsx",
-      "features/standard-library/components/demos/rendersStandardArticleDemo.tsx",
-      "features/standard-library/components/demos/rendersStandardBentoGridDemo.tsx",
-      "features/standard-library/components/demos/rendersStandardCharacterChatDemo.tsx",
-      "features/standard-library/components/demos/rendersStandardFloatingWindowDemo.tsx",
-    ],
-    rules: {
-      "shadcn/no-raw-colors": "off",
-    },
-  },
-  // The character art's backdrops are hex gradients.
-  {
-    files: ["features/standard-library/components/demos/rendersStandardCharacterChatDemo.tsx"],
-    rules: {
-      "shadcn/no-arbitrary-values": "off",
     },
   },
   // Vendored shadcn source: overwritten on re-add, so only catch dead classes.
